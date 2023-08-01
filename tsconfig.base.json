@@ -2,23 +2,24 @@
   "compileOnSave": false,
   "compilerOptions": {
     "rootDir": ".",
+    "baseUrl": ".",
     "sourceMap": true,
-    "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "declaration": false,
     "skipLibCheck": true,
+    "importHelpers": true,
+    "lib": ["es2020", "dom"],
+    "moduleResolution": "node",
     "skipDefaultLibCheck": true,
-    "baseUrl": ".",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "paths": {
+      "@scs/ui": ["libs/ui/src/index.ts"],
+      "@tradePro/*": ["apps/trade-pro/src/*"],
+      "@scs/pages": ["libs/pages/src/index.ts"],
       "@revisionary/*": ["apps/revisionary/src/*"],
       "@scs/configs": ["libs/configs/src/index.ts"],
-      "@scs/pages": ["libs/pages/src/index.ts"],
-      "@scs/ui": ["libs/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

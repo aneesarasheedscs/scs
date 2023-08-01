@@ -1,4 +1,5 @@
 export * from './header/Header';
+export * from './input/AntInput';
 export * from './table/AntTable';
 export * from './theme/AppTheme';
 export * from './sidebar/Sidebar';
