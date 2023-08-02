@@ -1,15 +1,27 @@
 import './style.scss';
 import { TUser } from './types';
 import useLogin from './queries';
+import { useEffect } from 'react';
 import { Card, Col, Form, Row } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { route } from '@tradePro/routes/constant';
 import { AntButton, AntInput } from '@tradePro/components';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { isTokenExpired } from '@tradePro/utils/isTokenExpired';
 
 function LoginPage() {
+  const navigate = useNavigate();
   const { mutate } = useLogin();
 
   const onFinish = (values: TUser) => mutate(values);
+
+  useEffect(() => {
+    const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
+
+    if (userDetail?.access_token && !isTokenExpired()) {
+      navigate(route.PURCHASE_ORDER);
+    }
+  }, []);
 
   return (
     <Row justify="center" align="middle" className="login-container">

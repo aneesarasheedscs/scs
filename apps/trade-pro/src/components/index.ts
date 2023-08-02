@@ -1,4 +1,13 @@
 import AppLayout from './layout';
 
 export { AppLayout };
-export { PageLoader, AntButton, AntTable, AppHeader, Sidebar, AppTheme, AntInput } from '@scs/ui';
+export {
+  Sidebar,
+  AntTable,
+  AppTheme,
+  AntInput,
+  AntButton,
+  AppHeader,
+  PageLoader,
+  TableLoader,
+} from '@scs/ui';
