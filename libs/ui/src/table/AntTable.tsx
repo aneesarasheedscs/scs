@@ -1,11 +1,29 @@
+import {
+  Col,
+  Row,
+  Card,
+  Input,
+  Space,
+  Table,
+  Button,
+  Result,
+  Tooltip,
+  InputRef,
+  TableProps,
+} from 'antd';
 import './style.scss';
 import { map } from 'lodash';
+import DownloadPdf from './DownloadPdf';
+import RefreshData from './RefreshData';
+import ColumnChooser from './ColumnChooser';
+import DownloadExcel from './DownloadExcel';
 import Highlighter from 'react-highlight-words';
+import { AntButton } from '../button/AntButton';
+import { GroupOutlined } from '@ant-design/icons';
 import { SearchOutlined } from '@ant-design/icons';
 import { ReactNode, useRef, useState } from 'react';
 import { TableLoader } from '../loaders/TableLoader';
 import { ColumnType, FilterConfirmProps } from 'antd/es/table/interface';
-import { Button, Card, Input, InputRef, Result, Space, Table, TableProps } from 'antd';
 
 export function AntTable({
   data,
@@ -15,6 +33,11 @@ export function AntTable({
   isLoading,
   tableTitle,
   numberOfSkeletons,
+  isDownloadPdfEnabled = true,
+  isRefreshDataEnabled = true,
+  isColumnChooserEnabled = true,
+  isDownloadExcelEnabled = true,
+  isGroupByColumnEnabled = true,
   ...restProps
 }: TAntTable) {
   const [searchText, setSearchText] = useState('');
@@ -129,7 +152,28 @@ export function AntTable({
           size="small"
           dataSource={data}
           columns={modifiedColumns}
-          title={() => tableTitle}
+          title={() => (
+            <Row align="middle" justify="space-between">
+              <Col>
+                <h3>{tableTitle}</h3>
+              </Col>
+              <Col>
+                <Row gutter={10}>
+                  <RefreshData isRefreshDataEnabled={isRefreshDataEnabled} />
+                  <DownloadPdf isDownloadPdfEnabled={isDownloadPdfEnabled} />
+                  <DownloadExcel isDownloadExcelEnabled={isDownloadExcelEnabled} />
+                  {isGroupByColumnEnabled ? (
+                    <Col>
+                      <Tooltip arrow title="Group data by Columns">
+                        <AntButton type="default" icon={<GroupOutlined />} />
+                      </Tooltip>
+                    </Col>
+                  ) : null}
+                  <ColumnChooser isColumnChooserEnabled={isColumnChooserEnabled} />
+                </Row>
+              </Col>
+            </Row>
+          )}
           {...restProps}
         />
       )}
@@ -143,6 +187,11 @@ type TAntTable = {
   isLoading?: boolean;
   tableTitle?: ReactNode;
   numberOfSkeletons?: number;
+  isRefreshDataEnabled?: boolean;
+  isDownloadPdfEnabled?: boolean;
+  isDownloadExcelEnabled?: boolean;
+  isColumnChooserEnabled?: boolean;
+  isGroupByColumnEnabled?: boolean;
 } & TableProps<any>;
 
 type AntColumnType<T> = { searchableInput?: boolean } & ColumnType<T>;
