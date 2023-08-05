@@ -7,6 +7,7 @@ function PrivateRoute() {
 
   if (userDetail?.access_token && !isTokenExpired()) {
     return (
+      
       <AppLayout>
         <Outlet />
       </AppLayout>

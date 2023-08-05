@@ -98,13 +98,14 @@ const Tablefile: React.FC =(  ) => {
 
     useEffect (()=>{
         setLoading(true);
+        
 
-          fetch('https://dummyjson.com/products/search?q=phone')
-            .then(res => res.json())
-            .then((result) =>{
-                setDataSource(result.products);
-                console.log(result.products);
-            });
+        //   fetch('https://dummyjson.com/products/search?q=phone')
+        //     .then(res => res.json())
+        //     .then((result) =>{
+        //         setDataSource(result.products);
+        //         console.log(result.products);
+        //     });
            setLoading(false)
 
     } ,[])

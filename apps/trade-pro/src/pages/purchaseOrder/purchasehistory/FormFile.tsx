@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import Tablefile from "./Tablefile";
 import { TSideMenu } from '../types';
 import { useGetSupplier } from "../queries";
+import { useGetApproved, useGetItem, useGetStatus } from "../queries/index2";
 import { AntButton, TableLoader } from "@scs/ui";
-import { groupBy, map, size } from 'lodash';
+import {  map,  } from 'lodash';
 
 const onFinish = (values: any) => {
     console.log('Success:', values);
@@ -19,13 +20,46 @@ const onChange: DatePickerProps['onChange'] = (date, dateString) => {
 };
 
 function Formfile ()  {
+    const { data: supplierData, isError, refetch, isSuccess, isLoading } = useGetSupplier();
+    const { data: itemData, isFetched   }  = useGetItem();
+    const { data : statusData , isSuccess: statusSucess} = useGetStatus();
+    const { data: approvedData, isSuccess: approvedSuccess} = useGetApproved();
 
-    
-   
-  
-    const { data, isError, refetch, isSuccess, isLoading } = useGetSupplier();
+
     const [list, setList] = useState<any[]>([]);
-    if (isError) {
+    const [list2, setList2] = useState<any[]>([]);
+    const [list3, setList3] = useState<any[]>([]);
+    const [list4, setList4] = useState<any[]>([]);
+
+
+    const [select, setSelect] = useState<any>('');
+
+      useEffect(() => {
+        if ( isSuccess) {
+          setList(supplierData?.data?.Data?.Result);
+        //   console.log(data?.data?.Data?.Result)
+        }
+      }, [ supplierData]);
+      
+      useEffect(() => {
+            if(isFetched) {
+                setList2(itemData?.data?.Data?.Result);
+                // console.log(itemData?.data?.Data?.Result)
+            }
+        }, [ isFetched])
+
+        useEffect(() => {
+            if(statusSucess) {
+                setList3(statusData?.data?.Data?.Result);
+                // console.log(itemData?.data?.Data?.Result)
+            }
+            if(approvedSuccess){
+                setList4(approvedData?.data?.Data?.Result);
+            }
+        }, [approvedSuccess, statusSucess])
+        
+       
+      if (isError) {
         return (
             <Result
               title=""
@@ -44,23 +78,10 @@ function Formfile ()  {
           </div>
         );
       }
-
-    //   useEffect(() => {
-    //     if (isSuccess) {
-    //       setList(supplierList(data?.data?.Data?.Result));
-    //     }
-    //   }, [data, isSuccess]);
-
-    //   const supplierList = (data: TSideMenu[]) => {
-    //     if (size(data) > 0) {
-    //       return map(data, (item) => {
-    //             `${item.Id}-${item.CompanyName}`
-    //         console.log(item.CompanyName)
-    //       });
-    //     }
-    //     return [];
-    //   };
-
+      const handleChange = () => {
+        // setSelect(event.target.value)
+        console.log(list)
+      }
     return(
 
         <>
@@ -95,23 +116,15 @@ function Formfile ()  {
                                         name="supplier"
                                         
                              >
-                                {/* {map(
-                                list,
-                                ({ CompanyName, children }: TSideMenu & { children: TSideMenu[] }, index: number) => 
-                                (
-                                  {CompanyName}
-                                //   <Menu.SubMenu key={index} title={CompanyName}>
-                                    
-                                //   </Menu.SubMenu>
-                                )
-                            )} */}
+                               
                                  <Select
                                      placeholder="" className='rr33'
                                      style={{width: "100%", marginLeft: 20}}
-                                     options={[
-                                        // supplierList
-                                        //   {label: "Debit", value: "Debit"}
-                                     ]}
+                                     onChange={handleChange}
+                                     options={map(list, (item) => ({
+                                        value: item.Id,
+                                        label: item.CompanyName
+                                     }))}
                                  />
                              </Form.Item>
                          </Col>
@@ -133,9 +146,10 @@ function Formfile ()  {
                                  <Select
                                      placeholder=""
                                      style={{width: "135%", marginLeft: 65}} className='rr'
-                                     options={[
-                                           {label: 'Open', value: 'Open'},
-                                     ]}
+                                     options={map(list3, (item) => ({
+                                        value: item.Id,
+                                        label: item.Status
+                                     }))}
                                  />
                              </Form.Item>
                          </Col>
@@ -153,15 +167,16 @@ function Formfile ()  {
                          <Col xs={{span: 10}} sm={{span: 16}} md={{span: 12, offset: 1}} lg={{span: 6, offset: 2}} xl={{span: 6, offset: 1}} className='form-col'>
                              <Form.Item className=''
                                         label="Item Name"
-                                        name="text2"
+                                        name="text3"
                                         
                              >
                                  <Select
                                      placeholder=""
                                      style={{width: "100%", marginLeft: 40}} className='rr2'
-                                     options={[
-                                         {label: "Load", value: "Load" }, {label: "Cash", value: "Cash"}
-                                     ]}
+                                     options={map(list2, (item) => ({
+                                        value: item.Id,
+                                        label: item.ItemName
+                                     }))}
                                  />
                              </Form.Item>
                          </Col>
@@ -186,13 +201,14 @@ function Formfile ()  {
                                     allowClear
                                      placeholder=""
                                      style={{width: "100%", marginLeft: 0}} className=''
-                                     options={[
-                                        {label: "NotApproved", value: "NotApproved"}
-                                     ]}
+                                     options={map(list4, (item) => ({
+                                        value: item.Id,
+                                        label: item.Status
+                                     }))}
                                  />
                                     </Col>
                                     <Col span={2}>
-                                         {/* <Button  type="primary">Show</Button> */}
+                                         
                                          <AntButton label="Show" />
                                     </Col>
                                 </Row>
