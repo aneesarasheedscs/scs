@@ -8,7 +8,7 @@ export function AntInput({ name, label, required, formItemProps, inputProps }: T
       }
     : {};
   return (
-    <Form.Item {...requiredProps} {...formItemProps}>
+    <Form.Item label={label} {...requiredProps} {...formItemProps}>
       <Input {...inputProps} />
     </Form.Item>
   );

@@ -19,10 +19,11 @@ import ColumnChooser from './ColumnChooser';
 import DownloadExcel from './DownloadExcel';
 import Highlighter from 'react-highlight-words';
 import { AntButton } from '../button/AntButton';
-import { GroupOutlined } from '@ant-design/icons';
-import { SearchOutlined } from '@ant-design/icons';
-import { ReactNode, useRef, useState } from 'react';
 import { TableLoader } from '../loaders/TableLoader';
+import { AntTableVirtualized } from './AntTableVirtualized';
+import SearchCriteriaWrapper from './SearchCriteriaWrapper';
+import { ReactNode, useMemo, useRef, useState } from 'react';
+import { GroupOutlined, SearchOutlined } from '@ant-design/icons';
 import { ColumnType, FilterConfirmProps } from 'antd/es/table/interface';
 
 export function AntTable({
@@ -31,8 +32,9 @@ export function AntTable({
   columns,
   isError,
   isLoading,
-  tableTitle,
+  isVirtualized,
   numberOfSkeletons,
+  searchCriteriaForm,
   isDownloadPdfEnabled = true,
   isRefreshDataEnabled = true,
   isColumnChooserEnabled = true,
@@ -60,8 +62,9 @@ export function AntTable({
   };
 
   const getColumnSearchProps = (column: AntColumnType<any>): ColumnType<any> => {
+    const dataIndex = column?.dataIndex as string;
+
     if (column.searchableInput) {
-      const dataIndex = column?.dataIndex as string;
       return {
         ...column,
         filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
@@ -109,7 +112,9 @@ export function AntTable({
           </div>
         ),
         filterIcon: (filtered: boolean) => (
-          <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined, marginLeft: 10 }} />
+          <SearchOutlined
+            style={{ color: filtered ? '#1890ff' : undefined, marginLeft: 4, marginRight: 4 }}
+          />
         ),
         onFilter: (value, record: any) => {
           return record[dataIndex]
@@ -136,10 +141,40 @@ export function AntTable({
       };
     }
 
+    // if (column.searchableDate) {
+    //   return {};
+    // }
+
     return column;
   };
 
   const modifiedColumns = map(columns, (column) => getColumnSearchProps(column));
+
+  const titleComponent = useMemo(
+    () => (
+      <Row align="middle" justify="space-between">
+        <Col>
+          <SearchCriteriaWrapper>{searchCriteriaForm}</SearchCriteriaWrapper>
+        </Col>
+        <Col>
+          <Row gutter={10}>
+            <RefreshData isRefreshDataEnabled={isRefreshDataEnabled} />
+            <DownloadPdf isDownloadPdfEnabled={isDownloadPdfEnabled} />
+            <DownloadExcel isDownloadExcelEnabled={isDownloadExcelEnabled} />
+            {isGroupByColumnEnabled ? (
+              <Col>
+                <Tooltip arrow title="Group data by Columns">
+                  <AntButton type="default" icon={<GroupOutlined />} />
+                </Tooltip>
+              </Col>
+            ) : null}
+            <ColumnChooser isColumnChooserEnabled={isColumnChooserEnabled} />
+          </Row>
+        </Col>
+      </Row>
+    ),
+    []
+  );
 
   return (
     <Card className="table-card">
@@ -147,33 +182,19 @@ export function AntTable({
         <Result title="" status="500" subTitle="Sorry, something went wrong" />
       ) : isLoading ? (
         <TableLoader numberOfSkeletons={numberOfSkeletons} />
+      ) : isVirtualized ? (
+        <AntTableVirtualized
+          dataSource={data}
+          columns={modifiedColumns}
+          title={() => <>{titleComponent}</>}
+          {...restProps}
+        />
       ) : (
         <Table
           size="small"
           dataSource={data}
           columns={modifiedColumns}
-          title={() => (
-            <Row align="middle" justify="space-between">
-              <Col>
-                <h3>{tableTitle}</h3>
-              </Col>
-              <Col>
-                <Row gutter={10}>
-                  <RefreshData isRefreshDataEnabled={isRefreshDataEnabled} />
-                  <DownloadPdf isDownloadPdfEnabled={isDownloadPdfEnabled} />
-                  <DownloadExcel isDownloadExcelEnabled={isDownloadExcelEnabled} />
-                  {isGroupByColumnEnabled ? (
-                    <Col>
-                      <Tooltip arrow title="Group data by Columns">
-                        <AntButton type="default" icon={<GroupOutlined />} />
-                      </Tooltip>
-                    </Col>
-                  ) : null}
-                  <ColumnChooser isColumnChooserEnabled={isColumnChooserEnabled} />
-                </Row>
-              </Col>
-            </Row>
-          )}
+          title={() => <>{titleComponent}</>}
           {...restProps}
         />
       )}
@@ -185,13 +206,14 @@ type TAntTable = {
   data?: Array<any>;
   isError?: boolean;
   isLoading?: boolean;
-  tableTitle?: ReactNode;
+  isVirtualized?: boolean;
   numberOfSkeletons?: number;
   isRefreshDataEnabled?: boolean;
   isDownloadPdfEnabled?: boolean;
+  searchCriteriaForm?: ReactNode;
   isDownloadExcelEnabled?: boolean;
   isColumnChooserEnabled?: boolean;
   isGroupByColumnEnabled?: boolean;
 } & TableProps<any>;
 
-type AntColumnType<T> = { searchableInput?: boolean } & ColumnType<T>;
+type AntColumnType<T> = { searchableDate?: boolean; searchableInput?: boolean } & ColumnType<T>;

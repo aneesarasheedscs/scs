@@ -10,4 +10,5 @@ export {
   AppHeader,
   PageLoader,
   TableLoader,
+  AntSelectDynamic,
 } from '@scs/ui';

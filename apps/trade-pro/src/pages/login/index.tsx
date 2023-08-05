@@ -11,7 +11,7 @@ import { isTokenExpired } from '@tradePro/utils/isTokenExpired';
 
 function LoginPage() {
   const navigate = useNavigate();
-  const { mutate } = useLogin();
+  const { mutate, isError, isLoading } = useLogin();
 
   const onFinish = (values: TUser) => mutate(values);
 
@@ -32,12 +32,16 @@ function LoginPage() {
               <h1>TradePro</h1>
             </div>
 
-            <Form onFinish={onFinish} initialValues={{ remember: true }}>
+            <Form layout="vertical" onFinish={onFinish} initialValues={{ remember: true }}>
               <AntInput
                 required
                 name="username"
                 label="Username"
-                inputProps={{ prefix: <UserOutlined />, placeholder: 'Username', size: 'large' }}
+                inputProps={{
+                  size: 'large',
+                  prefix: <UserOutlined />,
+                  placeholder: 'Enter username',
+                }}
               />
 
               <AntInput
@@ -47,8 +51,8 @@ function LoginPage() {
                 inputProps={{
                   size: 'large',
                   type: 'password',
-                  placeholder: 'Password',
                   prefix: <LockOutlined />,
+                  placeholder: 'Enter password',
                 }}
               />
 
@@ -57,7 +61,9 @@ function LoginPage() {
                   size="large"
                   label="Log In"
                   htmlType="submit"
-                  style={{ width: '100%' }}
+                  isError={isError}
+                  isLoading={isLoading}
+                  className="fullWidth"
                 />
               </Form.Item>
             </Form>
