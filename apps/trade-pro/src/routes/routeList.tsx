@@ -14,5 +14,4 @@ export const protectedRoutes: RouteObject[] = [
   { path: route.PURCHASE_ORDER, element: <PurchaseOrder /> },
   { path: route.PURCHASE_ORDER2, element: <PurchaseOrder2 /> },
   { path: route.PURCHASE_HISTORY, element: <PurchaseHistory /> },
-   
 ];
