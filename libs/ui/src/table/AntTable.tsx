@@ -21,7 +21,6 @@ import Highlighter from 'react-highlight-words';
 import { AntButton } from '../button/AntButton';
 import { TableLoader } from '../loaders/TableLoader';
 import { AntTableVirtualized } from './AntTableVirtualized';
-import SearchCriteriaWrapper from './SearchCriteriaWrapper';
 import { ReactNode, useMemo, useRef, useState } from 'react';
 import { GroupOutlined, SearchOutlined } from '@ant-design/icons';
 import { ColumnType, FilterConfirmProps } from 'antd/es/table/interface';
@@ -32,9 +31,9 @@ export function AntTable({
   columns,
   isError,
   isLoading,
-  isVirtualized,
   numberOfSkeletons,
   searchCriteriaForm,
+  isVirtualized = true,
   isDownloadPdfEnabled = true,
   isRefreshDataEnabled = true,
   isColumnChooserEnabled = true,
@@ -153,9 +152,7 @@ export function AntTable({
   const titleComponent = useMemo(
     () => (
       <Row align="middle" justify="space-between">
-        <Col>
-          <SearchCriteriaWrapper>{searchCriteriaForm}</SearchCriteriaWrapper>
-        </Col>
+        <Col>{searchCriteriaForm}</Col>
         <Col>
           <Row gutter={10}>
             <RefreshData isRefreshDataEnabled={isRefreshDataEnabled} />
@@ -168,7 +165,10 @@ export function AntTable({
                 </Tooltip>
               </Col>
             ) : null}
-            <ColumnChooser isColumnChooserEnabled={isColumnChooserEnabled} />
+            <ColumnChooser
+              columns={modifiedColumns}
+              isColumnChooserEnabled={isColumnChooserEnabled}
+            />
           </Row>
         </Col>
       </Row>

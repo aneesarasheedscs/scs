@@ -1,14 +1,14 @@
 import { Modal } from 'antd';
-import { ReactNode, useState } from 'react';
+import { ReactNode } from 'react';
 import { AntButton } from '../button/AntButton';
 import { FilterFilled } from '@ant-design/icons';
 
-function SearchCriteriaWrapper({ children }: { children?: ReactNode }) {
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
+export function SearchCriteriaWrapper({
+  open,
+  children,
+  handleOpen,
+  handleClose,
+}: TSearchCriteriaWrapper) {
   return (
     <>
       <AntButton ghost icon={<FilterFilled />} label="Search Criteria" onClick={handleOpen} />
@@ -19,4 +19,9 @@ function SearchCriteriaWrapper({ children }: { children?: ReactNode }) {
   );
 }
 
-export default SearchCriteriaWrapper;
+type TSearchCriteriaWrapper = {
+  open?: boolean;
+  children?: ReactNode;
+  handleOpen?: VoidFunction;
+  handleClose?: VoidFunction;
+};

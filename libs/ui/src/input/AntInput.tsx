@@ -6,7 +6,7 @@ export function AntInput({ name, label, required, formItemProps, inputProps }: T
         name,
         rules: [{ required: true, message: `Please input your ${label}` }],
       }
-    : {};
+    : { name, rules: [] };
   return (
     <Form.Item label={label} {...requiredProps} {...formItemProps}>
       <Input {...inputProps} />

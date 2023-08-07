@@ -96,3 +96,14 @@ export type TPurchaseOrderHistory = {
   OrderCategoryDescription: string;
   SupplierCustomerIdStockParty: number;
 };
+
+export type TPurchaseOrderSearchCriteria = {
+  ItemId?: number;
+  ToDocNo?: number;
+  FromDocNo?: number;
+  ToDate?: Date | string;
+  FromDate?: Date | string;
+  Status?: number | string;
+  SupplierCustomerId?: number;
+  IsApproved?: number | string;
+};

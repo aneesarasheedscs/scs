@@ -11,6 +11,7 @@ export function AntSelectDynamic({
   fieldValue,
   fieldLabel,
   formItemProps,
+  allowClear = true,
   showSearch = true,
   ...restProps
 }: TAntSelectDynamic) {
@@ -19,7 +20,7 @@ export function AntSelectDynamic({
         name,
         rules: [{ required: true, message: `Please select ${label}` }],
       }
-    : {};
+    : { name, rules: [] };
 
   const loading = isError ? false : isLoading;
 
@@ -27,6 +28,7 @@ export function AntSelectDynamic({
     <Form.Item label={label} {...requiredProps} {...formItemProps}>
       <Select
         loading={loading}
+        allowClear={allowClear}
         showSearch={showSearch}
         filterOption={(input, option: any) => {
           return (option?.label ?? '')?.toLowerCase()?.includes(input?.toLowerCase());

@@ -11,4 +11,5 @@ export {
   PageLoader,
   TableLoader,
   AntSelectDynamic,
+  SearchCriteriaWrapper,
 } from '@scs/ui';
