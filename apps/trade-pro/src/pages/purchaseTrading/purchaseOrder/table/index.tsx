@@ -1,5 +1,5 @@
 import { columns } from './columns';
-import { AntTable } from '@tradePro/components';
+import { AntTable } from '../../../../components';
 import { useGetPurchaseOrder } from '../queries';
 import { TableProps } from 'antd';
 import { useState, useEffect } from 'react';
