@@ -2,9 +2,9 @@ import { AxiosError } from 'axios';
 import { requestManager as reqManager } from '@scs/configs';
 
 const logoutRedirect = (error: AxiosError) => {
-  localStorage.clear();
+  // localStorage.clear();
 
-  window.location.href = window.location.origin + '/';
+  // window.location.href = window.location.origin + '/';
   return Promise.reject(error);
 };
 

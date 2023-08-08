@@ -7,3 +7,5 @@ export * from './button/AntButton';
 export * from './loaders/PageLoader';
 export * from './loaders/TableLoader';
 export * from './sideDrawer/SideDrawer';
+export * from './select/AntSelectDynamic';
+export * from './table/SearchCriteriaWrapper';

@@ -9,7 +9,7 @@ const { Content } = Layout;
 function AppLayout({ children }: TAppLayout) {
   return (
     <Layout>
-      <AppHeader appLogo={<h1>TradePro</h1>} />
+      <AppHeader appLogo={<h1>TradePro</h1>} sideMenu={<SideMenu />} />
       <Layout style={{ marginTop: 65 }}>
         <Sidebar>
           <SideMenu />

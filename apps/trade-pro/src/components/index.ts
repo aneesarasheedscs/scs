@@ -10,4 +10,6 @@ export {
   AppHeader,
   PageLoader,
   TableLoader,
+  AntSelectDynamic,
+  SearchCriteriaWrapper,
 } from '@scs/ui';

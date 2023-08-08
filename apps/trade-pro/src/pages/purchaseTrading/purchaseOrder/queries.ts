@@ -1,18 +1,64 @@
-import { requestManager } from '@tradePro/configs/requestManager';
 import { useQuery } from 'react-query';
+import { requestManager } from '@tradePro/configs/requestManager';
+import { TPurchaseOrderSearchCriteria } from './type';
 
-export const useGetPurchaseOrder = () => {
-  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
-  return useQuery('purchase-order', 
-  () => {
-    return requestManager.post("api/InventoryReports/PurchaseOrderHistory",  {
-        OrganizationId : userDetail?.OrganizationId, 
-        CompanyId: userDetail?.CompanyId, 
+const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
+
+export const useGetPurchaseOrder = (enabled = true, params?: TPurchaseOrderSearchCriteria) => {
+  return useQuery(
+    'purchase-order',
+    () => {
+      return requestManager.post('/api/InventoryReports/PurchaseOrderHistory', {
         DocumentTypeId: 41,
-       
-    });
-    
-  },
-  { cacheTime: userDetail?.expires_in }
+        CompanyId: userDetail?.CompanyId,
+        OrganizationId: userDetail?.OrganizationId,
+        ...params,
+      });
+    },
+    { enabled }
   );
+};
+
+export const useGetSuppliers = () => {
+  return useQuery('suppliers', () => {
+    return requestManager.get('/api/SupplierCustomer/SupplierCustomerAgainstPurchaseOrder', {
+      params: {
+        CompanyId: userDetail?.CompanyId,
+        OrganizationId: userDetail?.OrganizationId,
+      },
+    });
+  });
+};
+
+export const useGetItems = () => {
+  return useQuery('items', () => {
+    return requestManager.get('/api/Item/ItemsAgainstPurchaseOrder', {
+      params: {
+        CompanyId: userDetail?.CompanyId,
+        OrganizationId: userDetail?.OrganizationId,
+      },
+    });
+  });
+};
+
+export const useGetOrderStatus = () => {
+  return useQuery('order-status', () => {
+    return requestManager.get('/api/CommonServices/OrderStatus', {
+      params: {
+        CompanyId: userDetail?.CompanyId,
+        OrganizationId: userDetail?.OrganizationId,
+      },
+    });
+  });
+};
+
+export const useGetApprovedStatus = () => {
+  return useQuery('approved-status', () => {
+    return requestManager.get('/api/CommonServices/ApprovedStatus', {
+      params: {
+        CompanyId: userDetail?.CompanyId,
+        OrganizationId: userDetail?.OrganizationId,
+      },
+    });
+  });
 };

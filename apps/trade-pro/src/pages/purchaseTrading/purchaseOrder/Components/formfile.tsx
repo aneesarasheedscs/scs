@@ -1,8 +1,12 @@
-import { Checkbox, Col, DatePicker, DatePickerProps, Form, Input, Row, Select } from 'antd';
-import React, { useState } from 'react';
+import './style.scss';
 import Formfile2 from './formfile2';
-import { useGetPayment } from '../queries';
+import React, { useState } from 'react';
+import { useGetDeliveryTerm, useGetPaymentTerm, useGetSupplierCombo } from './queries';
+import { AntButton, AntInput, AntSelectDynamic, SearchCriteriaWrapper } from '@tradePro/components';
+import { Checkbox, Col, DatePicker, DatePickerProps, Form, Input, Row, Select } from 'antd';
+import { TPurchaseOrderSearchCriteria } from '../type';
 
+const { useForm, useWatch } = Form;
 const onFinish = (values: any) => {
   console.log('Success:', values);
 };
@@ -14,22 +18,35 @@ const onFinishFailed = (errorInfo: any) => {
 const onChange: DatePickerProps['onChange'] = (date, dateString) => {
   console.log(date, dateString);
 };
+
 function Formfile() {
-  const [list, setList] = useState([]);
+  const [form] = useForm<TPurchaseOrderSearchCriteria>();
+  const { data, isSuccess, isError, isLoading } = useGetPaymentTerm();
+  const {
+    data: payment,
+    isSuccess: isSuccessPayment,
+    isError: isPaymentError,
+    isLoading: isPaymentLoading,
+  } = useGetDeliveryTerm();
 
-  const { data } = useGetPayment();
-
+  const {
+    data: supplier,
+    isSuccess: suppSuccess,
+    isError: suppError,
+    isLoading: suppLoading,
+  } = useGetSupplierCombo();
+  const formValues = useWatch<TPurchaseOrderSearchCriteria>([], form);
   return (
     <>
       <div>
         <div className="main">
           <h4 className="form-label"></h4>
           <Form
-            name=""
+            form={form}
             labelCol={{ span: 0 }}
             wrapperCol={{ span: 12 }}
             style={{ maxWidth: 400 }}
-            initialValues={{ remember: true }}
+            initialValues={formValues}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             autoComplete="off"
@@ -69,14 +86,15 @@ function Formfile() {
                   name="text1"
                   rules={[{ required: true, message: 'Please Select Term' }]}
                 >
-                  <Select
-                    placeholder="Payment Terms"
+                  <AntSelectDynamic
+                    fieldValue="Id"
+                    isError={isPaymentError}
+                    isLoading={isPaymentLoading}
+                    fieldLabel="TermsDescription"
+                    name="TermsDescriptionId"
                     className="rr33"
                     style={{ width: '100%', marginLeft: 20 }}
-                    options={[
-                      { label: 'Credit', value: 'Credit' },
-                      { label: 'Debit', value: 'Debit' },
-                    ]}
+                    data={payment?.data?.Data?.Result}
                   />
                 </Form.Item>
               </Col>
@@ -92,14 +110,15 @@ function Formfile() {
                   name="text2"
                   rules={[{ required: true, message: 'Please Select Term' }]}
                 >
-                  <Select
-                    placeholder="Delivery Terms"
-                    style={{ width: '100%', marginLeft: 35 }}
+                  <AntSelectDynamic
+                    fieldValue="Id"
+                    isError={isError}
+                    isLoading={isLoading}
+                    fieldLabel="DeliveryTerm"
+                    name="DeliveryTermId"
                     className="rr34"
-                    options={[
-                      { label: 'Load', value: 'Load' },
-                      { label: 'Cash', value: 'Cash' },
-                    ]}
+                    style={{ width: '100%', marginLeft: 35 }}
+                    data={data?.data?.Data?.Result}
                   />
                 </Form.Item>
               </Col>
@@ -115,11 +134,16 @@ function Formfile() {
                   name="supplier"
                   rules={[{ required: true, message: 'Please Select Supplier' }]}
                 >
-                  <Select
-                    placeholder="Select Supplier"
+                  <AntSelectDynamic
+                    fieldValue="Id"
+                    isError={suppError}
+                    isLoading={suppLoading}
+                    label=""
+                    fieldLabel="CompanyName"
+                    name="CompanyNameId"
+                    className="rr34"
                     style={{ width: '140%', marginLeft: 5 }}
-                    className="rr2"
-                    options={[]}
+                    data={supplier?.data?.Data?.Result}
                   />
                 </Form.Item>
               </Col>
@@ -135,10 +159,12 @@ function Formfile() {
                   name="number"
                   rules={[{ required: true, message: 'Please Enter Number' }]}
                 >
-                  <Input
-                    type="number"
-                    className="days"
-                    style={{ marginLeft: 50, padding: 5, width: '100%' }}
+                  <AntInput
+                    name="dayss"
+                    label=""
+                    inputProps={{ type: 'number' }}
+                    className="rr"
+                    style={{ marginLeft: 50, padding: 5, border: '', width: '100%' }}
                   />
                 </Form.Item>
               </Col>
@@ -164,9 +190,11 @@ function Formfile() {
                 className="form-col"
               >
                 <Form.Item className="RR" label=" Remarks" name="text">
-                  <Input
-                    type="text"
+                  <AntInput
+                    name="text"
+                    label=""
                     className="rr"
+                    inputProps={{ type: 'text' }}
                     style={{ marginLeft: 45, padding: 10, width: '144%' }}
                   />
                 </Form.Item>
@@ -193,7 +221,13 @@ function Formfile() {
                 className="form-col"
               >
                 <Form.Item className="RR" label="Delivery Days" name="days">
-                  <Input type="number" className="rr4" style={{ marginLeft: 40, padding: 5 }} />
+                  <AntInput
+                    name="deliverydays"
+                    label=""
+                    className="rr4"
+                    inputProps={{ type: 'number' }}
+                    style={{ marginLeft: 40, padding: 5 }}
+                  />
                 </Form.Item>
               </Col>
               <Col
@@ -203,9 +237,11 @@ function Formfile() {
                 className="form-col"
               >
                 <Form.Item className="RR" label="Supplier Ref No" name="Ref No">
-                  <Input
-                    type="number"
+                  <AntInput
+                    name="SupplierRef"
+                    label=""
                     className="rr2"
+                    inputProps={{ type: 'number' }}
                     style={{ marginLeft: 15, padding: 5, width: '100%' }}
                   />
                 </Form.Item>
