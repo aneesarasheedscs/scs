@@ -1,34 +1,45 @@
 import './style.scss';
-import { Form, FormItemProps, Input, InputProps } from 'antd';
+import dayjs from 'dayjs';
+import { DatePicker, Form, FormItemProps, DatePickerProps } from 'antd';
 
-export function AntInput({
+export function AntDatePicker({
   name,
   label,
   required,
   formItemProps,
   fullWidth = true,
+  disabledAfterCurrentDate = true,
   ...restProps
-}: TAntInput) {
+}: TAntDatePicker) {
   const requiredProps = required
     ? {
         name,
         rules: [{ required: true, message: `Please input your ${label}` }],
       }
     : { name, rules: [] };
+
+  const disabledDate = (current: dayjs.Dayjs) => {
+    if (!disabledAfterCurrentDate) return false;
+    return current && current.isAfter(dayjs(), 'day');
+  };
+
   return (
     <Form.Item label={label} {...requiredProps} {...formItemProps}>
-      <Input
+      <DatePicker
         {...restProps}
+        format={restProps?.format || 'DD-MMM-YYYY'}
+        disabledDate={restProps?.disabledDate || disabledDate}
         className={fullWidth ? `fullWidth ${restProps?.className}` : restProps?.className}
       />
     </Form.Item>
   );
 }
 
-type TAntInput = {
+type TAntDatePicker = {
   name?: string;
   label?: string;
   required?: boolean;
   fullWidth?: boolean;
+  disabledAfterCurrentDate?: boolean;
   formItemProps?: FormItemProps;
-} & InputProps;
+} & DatePickerProps;

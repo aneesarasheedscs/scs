@@ -6,6 +6,8 @@ export * from './sidebar/Sidebar';
 export * from './button/AntButton';
 export * from './loaders/PageLoader';
 export * from './loaders/TableLoader';
+export * from './input/AntDatePicker';
+export * from './input/AntInputNumber';
 export * from './sideDrawer/SideDrawer';
 export * from './select/AntSelectDynamic';
 export * from './rangePicker/AntRangePicker';

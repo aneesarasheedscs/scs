@@ -1,20 +1,31 @@
-import { map } from 'lodash';
+import './style.scss';
+import { find, map } from 'lodash';
+import { AxiosResponse } from 'axios';
+import { UseQueryResult } from 'react-query';
 import { Form, FormItemProps, Select, SelectProps } from 'antd';
 
 export function AntSelectDynamic({
   name,
-  data,
   label,
-  isError,
+  query,
   required,
-  isLoading,
   fieldValue,
   fieldLabel,
   formItemProps,
+  onSelectChange,
+  fullWidth = true,
   allowClear = true,
   showSearch = true,
   ...restProps
 }: TAntSelectDynamic) {
+  const queryResult = query
+    ? query()
+    : { data: null, isError: false, isLoading: false, isFetching: false };
+
+  const { data, isError, isLoading, isFetching } = queryResult;
+  const loading = isLoading || isFetching ? true : isError;
+  const selectData = data?.data?.Data?.Result;
+
   const requiredProps = required
     ? {
         name,
@@ -22,34 +33,44 @@ export function AntSelectDynamic({
       }
     : { name, rules: [] };
 
-  const loading = isError ? false : isLoading;
-
   return (
     <Form.Item label={label} {...requiredProps} {...formItemProps}>
       <Select
         loading={loading}
         allowClear={allowClear}
         showSearch={showSearch}
+        className={fullWidth ? `fullWidth ${restProps?.className}` : restProps?.className}
         filterOption={(input, option: any) => {
           return (option?.label ?? '')?.toLowerCase()?.includes(input?.toLowerCase());
         }}
         options={
-          map(data, (item) => ({ value: item?.[fieldValue], label: item?.[fieldLabel] })) || []
+          map(selectData, (item) => ({ value: item?.[fieldValue], label: item?.[fieldLabel] })) ||
+          []
         }
         {...restProps}
+        onChange={(value, option) => {
+          if (onSelectChange) {
+            const selectedObject = find(selectData, (item) => item?.Id === value);
+            onSelectChange(selectedObject);
+          }
+
+          if (restProps?.onChange) {
+            restProps?.onChange(value, option);
+          }
+        }}
       />
     </Form.Item>
   );
 }
 
 type TAntSelectDynamic = {
-  data: any[];
   name?: string;
   label?: string;
-  isError?: boolean;
   required?: boolean;
   fieldValue: string;
   fieldLabel: string;
-  isLoading?: boolean;
+  fullWidth?: boolean;
+  onSelectChange?: (selectedObject: any) => void;
+  query?: () => UseQueryResult<AxiosResponse<any, any>, unknown>;
   formItemProps?: FormItemProps;
 } & SelectProps;

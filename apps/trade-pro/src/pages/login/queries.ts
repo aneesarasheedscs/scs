@@ -40,7 +40,7 @@ export const useGetCompany = () => {
   });
 };
 
-export const useGetFinancialYear = (CompanyId: number | null) => {
+export const useGetFinancialYear = (CompanyId: number | null) => () => {
   return useQuery(
     ['financial-year', CompanyId],
     () => {
@@ -52,7 +52,7 @@ export const useGetFinancialYear = (CompanyId: number | null) => {
   );
 };
 
-export const useGetBranch = (CompanyId: number | null) => {
+export const useGetBranch = (CompanyId: number | null) => () => {
   return useQuery(
     ['branch', CompanyId],
     () => {

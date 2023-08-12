@@ -1,5 +1,6 @@
 import { Form } from 'antd';
-import { find, merge } from 'lodash';
+import { merge } from 'lodash';
+import { useState } from 'react';
 import { TCompanyBranchDetail } from './types';
 import { useNavigate } from 'react-router-dom';
 import { route } from '@tradePro/routes/constant';
@@ -12,32 +13,12 @@ function CompanyBranchDetails() {
   const navigate = useNavigate();
   const [form] = useForm<TCompanyBranchDetail>();
   const formValues = useWatch<TCompanyBranchDetail>([], form);
-
-  const {
-    data: companyData,
-    isError: isCompanyError,
-    isLoading: isCompanyLoading,
-  } = useGetCompany();
-
-  const {
-    data: financialYearData,
-    isError: isFinancialYearError,
-    isLoading: isFinancialYearLoading,
-  } = useGetFinancialYear(formValues?.CompanyId);
-
-  const {
-    data: branchData,
-    isError: isBranchError,
-    isLoading: isBranchLoading,
-  } = useGetBranch(formValues?.CompanyId);
+  const [financialYearObj, setFinancialYearObj] = useState();
+  const onSelectChange = (selectedObject: any) => setFinancialYearObj(selectedObject);
 
   const handleSubmit = () => {
     const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
     merge({}, userDetail, { CompanyId: formValues?.CompanyId, BranchId: formValues?.BranchId });
-
-    const financialYearObj = find(financialYearData?.data?.Data?.Result, (item) => {
-      return item?.Id === formValues?.FinancialYearId;
-    });
 
     localStorage.setItem('financialYear', JSON.stringify(financialYearObj));
 
@@ -52,22 +33,20 @@ function CompanyBranchDetails() {
         label="Company"
         name="CompanyId"
         fieldLabel="CompName"
+        query={useGetCompany}
         fieldValue="CompanyId"
-        isError={isCompanyError}
-        isLoading={isCompanyLoading}
-        data={companyData?.data?.Data?.Result}
       />
+
       <AntSelectDynamic
         required
         size="large"
         label="Branch"
         name="BranchId"
         fieldValue="BranchId"
-        isError={isBranchError}
         fieldLabel="BranchName"
-        isLoading={isBranchLoading}
-        data={branchData?.data?.Data?.Result}
+        query={useGetBranch(formValues?.CompanyId)}
       />
+
       <AntSelectDynamic
         required
         size="large"
@@ -75,10 +54,10 @@ function CompanyBranchDetails() {
         name="FinancialYearId"
         label="Financial Year"
         fieldLabel="FinancialYearCode"
-        isError={isFinancialYearError}
-        isLoading={isFinancialYearLoading}
-        data={financialYearData?.data?.Data?.Result}
+        onSelectChange={onSelectChange}
+        query={useGetFinancialYear(formValues?.CompanyId)}
       />
+
       <Form.Item>
         <AntButton
           size="large"

@@ -47,25 +47,21 @@ function LoginPage() {
               <Form layout="vertical" onFinish={onFinish} initialValues={{ remember: true }}>
                 <AntInput
                   required
+                  size="large"
                   name="username"
                   label="Username"
-                  inputProps={{
-                    size: 'large',
-                    prefix: <UserOutlined />,
-                    placeholder: 'Enter username',
-                  }}
+                  prefix={<UserOutlined />}
+                  placeholder="Enter username"
                 />
 
                 <AntInput
                   required
+                  size="large"
                   name="password"
+                  type="password"
                   label="Password"
-                  inputProps={{
-                    size: 'large',
-                    type: 'password',
-                    prefix: <LockOutlined />,
-                    placeholder: 'Enter password',
-                  }}
+                  prefix={<LockOutlined />}
+                  placeholder="Enter password"
                 />
 
                 <Form.Item>
