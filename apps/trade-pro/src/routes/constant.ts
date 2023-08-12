@@ -1,6 +1,5 @@
 export const route = {
   LOGIN: '/',
   PURCHASE_ORDER: '/purchsae-order',
-  PURCHASE_ORDER2: '/purchase-order2',
-  PURCHASE_HISTORY: '/purchase-order-retail-register',
+  DEFINE_ITEM_HISTORY: '/pos-define-item',
 };

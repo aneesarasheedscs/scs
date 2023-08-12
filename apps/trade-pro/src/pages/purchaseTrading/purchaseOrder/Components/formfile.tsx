@@ -1,6 +1,5 @@
 import './style.scss';
-import Formfile2 from './formfile2';
-import React, { useState } from 'react';
+import FormFile4 from './formfile4';
 import { useGetDeliveryTerm, useGetPaymentTerm, useGetSupplierCombo } from './queries';
 import { AntButton, AntInput, AntSelectDynamic, SearchCriteriaWrapper } from '@tradePro/components';
 import { Checkbox, Col, DatePicker, DatePickerProps, Form, Input, Row, Select } from 'antd';
@@ -21,7 +20,7 @@ const onChange: DatePickerProps['onChange'] = (date, dateString) => {
 
 function Formfile() {
   const [form] = useForm<TPurchaseOrderSearchCriteria>();
-  const { data, isSuccess, isError, isLoading } = useGetPaymentTerm();
+  const { data: devilery, isSuccess, isError, isLoading } = useGetPaymentTerm();
   const {
     data: payment,
     isSuccess: isSuccessPayment,
@@ -39,10 +38,11 @@ function Formfile() {
   return (
     <>
       <div>
-        <div className="main">
+        <div className="">
           <h4 className="form-label"></h4>
           <Form
             form={form}
+            name="dynamic_form_nest_item"
             labelCol={{ span: 0 }}
             wrapperCol={{ span: 12 }}
             style={{ maxWidth: 400 }}
@@ -83,18 +83,18 @@ function Formfile() {
                 <Form.Item
                   className=""
                   label="Payment Terms"
-                  name="text1"
+                  name="TermsDescriptionId"
                   rules={[{ required: true, message: 'Please Select Term' }]}
                 >
                   <AntSelectDynamic
                     fieldValue="Id"
+                    fieldLabel="TermsDescription"
                     isError={isPaymentError}
                     isLoading={isPaymentLoading}
-                    fieldLabel="TermsDescription"
-                    name="TermsDescriptionId"
+                    name="TermsDescription"
                     className="rr33"
                     style={{ width: '100%', marginLeft: 20 }}
-                    data={payment?.data?.Data?.Result}
+                    data={devilery?.data?.Data?.Result}
                   />
                 </Form.Item>
               </Col>
@@ -107,18 +107,18 @@ function Formfile() {
                 <Form.Item
                   className=""
                   label="Delivery Terms"
-                  name="text2"
+                  name="DeliveryTermId"
                   rules={[{ required: true, message: 'Please Select Term' }]}
                 >
                   <AntSelectDynamic
                     fieldValue="Id"
+                    fieldLabel="DeliveryTerm"
                     isError={isError}
                     isLoading={isLoading}
-                    fieldLabel="DeliveryTerm"
                     name="DeliveryTermId"
                     className="rr34"
                     style={{ width: '100%', marginLeft: 35 }}
-                    data={data?.data?.Data?.Result}
+                    data={payment?.data?.Data?.Result}
                   />
                 </Form.Item>
               </Col>
@@ -258,8 +258,10 @@ function Formfile() {
               </Col>
             </Row>
           </Form>
-          <Formfile2 />
+
+          <FormFile4 />
         </div>
+        {/* {map(devilery?.data?.Data?.Result, (item) => item.TermsDescription)} */}
       </div>
     </>
   );

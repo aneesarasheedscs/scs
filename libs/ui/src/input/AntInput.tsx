@@ -2,6 +2,7 @@ import { Form, FormItemProps, Input, InputProps } from 'antd';
 import { ReactElement, ReactNode } from 'react';
 
 export function AntInput({
+  data,
   name,
   label,
   required,
@@ -28,4 +29,6 @@ type TAntInput = {
   required?: boolean;
   inputProps?: InputProps;
   formItemProps?: FormItemProps;
+
+  data?: any[];
 } & InputProps;
