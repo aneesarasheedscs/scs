@@ -5,16 +5,11 @@ import {
   AntSelectDynamic,
   SearchCriteriaWrapper,
 } from '@tradePro/components';
-import {
-  useGetItems,
-  useGetSuppliers,
-  useGetOrderStatus,
-  useGetApprovedStatus,
-} from '../queryOptions';
 import { useState } from 'react';
 import { Col, Form, Row } from 'antd';
 import { useGetPurchaseOrder } from '../queries';
 import { TPurchaseOrderSearchCriteria } from '../type';
+import { useGetItems, useGetSuppliers, useGetOrderStatus, useGetApprovedStatus } from '../queryOptions';
 
 const { useForm, useWatch } = Form;
 
@@ -82,7 +77,7 @@ function SearchCriteria() {
             <AntSelectDynamic
               name="Status"
               label="Status"
-              fieldValue="Id"
+              fieldValue="Status"
               fieldLabel="Status"
               query={useGetOrderStatus}
             />
@@ -102,7 +97,6 @@ function SearchCriteria() {
             <AntButton
               label="Show"
               htmlType="submit"
-              className="fullWidth"
               style={{ marginTop: 2 }}
               isError={isPurchaseOrderError}
               isLoading={isPurchaseOrderLoading || isFetching}

@@ -18,9 +18,7 @@ export function AntSelectDynamic({
   showSearch = true,
   ...restProps
 }: TAntSelectDynamic) {
-  const queryResult = query
-    ? query()
-    : { data: null, isError: false, isLoading: false, isFetching: false };
+  const queryResult = query ? query() : { data: null, isError: false, isLoading: false, isFetching: false };
 
   const { data, isError, isLoading, isFetching } = queryResult;
   const loading = isLoading || isFetching ? true : isError;
@@ -43,10 +41,7 @@ export function AntSelectDynamic({
         filterOption={(input, option: any) => {
           return (option?.label ?? '')?.toLowerCase()?.includes(input?.toLowerCase());
         }}
-        options={
-          map(selectData, (item) => ({ value: item?.[fieldValue], label: item?.[fieldLabel] })) ||
-          []
-        }
+        options={map(selectData, (item) => ({ value: item?.[fieldValue], label: item?.[fieldLabel] })) || []}
         {...restProps}
         onChange={(value, option) => {
           if (onSelectChange) {

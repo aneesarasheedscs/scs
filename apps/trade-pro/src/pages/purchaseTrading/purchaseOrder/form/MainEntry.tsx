@@ -1,4 +1,5 @@
 import { Col, Row } from 'antd';
+import { useGetDeliveryTerms, useGetPaymentTerms } from '../queryOptions';
 import { AntDatePicker, AntInput, AntInputNumber, AntSelectDynamic } from '@tradePro/components';
 
 function MainEntry({}: TMainEntry) {
@@ -24,31 +25,45 @@ function MainEntry({}: TMainEntry) {
       </Col>
 
       <Col xs={4}>
-        <AntSelectDynamic required fieldValue="" fieldLabel="" name="" label="Payment Term" />
+        <AntSelectDynamic
+          required
+          fieldValue="Id"
+          label="Payment Term"
+          name="PaymentTermsId"
+          query={useGetPaymentTerms}
+          fieldLabel="TermsDescription"
+        />
       </Col>
 
       <Col xs={4}>
-        <AntInputNumber name="" label="Due Days" />
+        <AntInputNumber name="OrderDueDays" label="Due Days" />
       </Col>
 
       <Col xs={4}>
-        <AntDatePicker required name="" label="Due Date" />
+        <AntDatePicker required name="OrderDueDate" label="Due Date" />
       </Col>
 
       <Col xs={4}>
-        <AntInputNumber name="" label="Supplier Ref No." />
+        <AntInputNumber name="SupplierRefNo" label="Supplier Ref No." />
       </Col>
 
       <Col xs={4}>
-        <AntSelectDynamic required fieldValue="" fieldLabel="" name="" label="Delivery Term" />
+        <AntSelectDynamic
+          required
+          name="DeliveryTerm"
+          label="Delivery Term"
+          fieldValue="DeliveryTerm"
+          fieldLabel="DeliveryTerm"
+          query={useGetDeliveryTerms}
+        />
       </Col>
 
       <Col xs={4}>
-        <AntDatePicker required name="" label="Deliver Start Date" />
+        <AntDatePicker name="DeliveryStartDate" label="Deliver Start Date" />
       </Col>
 
       <Col xs={4}>
-        <AntInputNumber name="" label="Delivery Days" />
+        <AntInputNumber name="DeliveryDays" label="Delivery Days" />
       </Col>
     </Row>
   );

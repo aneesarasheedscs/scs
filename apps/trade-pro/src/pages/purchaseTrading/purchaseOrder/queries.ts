@@ -1,8 +1,9 @@
-import { QueryOptions, useQuery } from 'react-query';
-import { requestManager } from '@tradePro/configs/requestManager';
+import { useQuery } from 'react-query';
 import { TPurchaseOrderSearchCriteria } from './type';
+import { requestManager } from '@tradePro/configs/requestManager';
+import { storedUserDetail } from '@tradePro/utils/storageService';
 
-const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
+const userDetail = storedUserDetail();
 
 export const useGetPurchaseOrder = (enabled = true, params?: TPurchaseOrderSearchCriteria) => {
   return useQuery(

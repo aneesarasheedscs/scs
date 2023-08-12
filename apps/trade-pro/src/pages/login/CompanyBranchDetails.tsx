@@ -59,13 +59,7 @@ function CompanyBranchDetails() {
       />
 
       <Form.Item>
-        <AntButton
-          size="large"
-          label="Submit"
-          htmlType="submit"
-          className="fullWidth"
-          onClick={handleSubmit}
-        />
+        <AntButton size="large" label="Submit" htmlType="submit" onClick={handleSubmit} />
       </Form.Item>
     </Form>
   );

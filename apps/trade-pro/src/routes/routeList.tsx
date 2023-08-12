@@ -7,6 +7,4 @@ const PurchaseOrder = lazy(() => import('@tradePro/pages/purchaseTrading/purchas
 
 export const publicRoutes: RouteObject[] = [{ path: route.LOGIN, element: <Login /> }];
 
-export const protectedRoutes: RouteObject[] = [
-  { path: route.PURCHASE_ORDER, element: <PurchaseOrder /> },
-];
+export const protectedRoutes: RouteObject[] = [{ path: route.PURCHASE_ORDER, element: <PurchaseOrder /> }];

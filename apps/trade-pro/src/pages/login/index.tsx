@@ -71,7 +71,6 @@ function LoginPage() {
                     htmlType="submit"
                     isError={isError}
                     isLoading={isLoading}
-                    className="fullWidth"
                   />
                 </Form.Item>
               </Form>

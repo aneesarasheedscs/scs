@@ -1,16 +1,3 @@
-import {
-  Col,
-  Row,
-  Card,
-  Input,
-  Space,
-  Table,
-  Button,
-  Result,
-  Tooltip,
-  InputRef,
-  TableProps,
-} from 'antd';
 import './style.scss';
 import { map } from 'lodash';
 import DownloadPdf from './DownloadPdf';
@@ -24,6 +11,7 @@ import { AntTableVirtualized } from './AntTableVirtualized';
 import { ReactNode, useMemo, useRef, useState } from 'react';
 import { GroupOutlined, SearchOutlined } from '@ant-design/icons';
 import { ColumnType, FilterConfirmProps } from 'antd/es/table/interface';
+import { Col, Row, Card, Input, Space, Table, Button, Result, Tooltip, InputRef, TableProps } from 'antd';
 
 export function AntTable({
   data,
@@ -165,10 +153,7 @@ export function AntTable({
                 </Tooltip>
               </Col>
             ) : null}
-            <ColumnChooser
-              columns={modifiedColumns}
-              isColumnChooserEnabled={isColumnChooserEnabled}
-            />
+            <ColumnChooser columns={modifiedColumns} isColumnChooserEnabled={isColumnChooserEnabled} />
           </Row>
         </Col>
       </Row>

@@ -108,7 +108,7 @@ export type TPurchaseOrderSearchCriteria = {
   IsApproved?: number | string;
 };
 
-export type TPurchaseOrderMainEntry = {
+export type TPurchaseOrderEntry = {
   Id: number;
   DocNo: number;
   CityId: number;

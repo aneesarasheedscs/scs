@@ -3,6 +3,7 @@ import { notification } from 'antd';
 import { useMutation, useQuery } from 'react-query';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { requestManager } from '@tradePro/configs/requestManager';
+import { storedUserDetail } from '@tradePro/utils/storageService';
 
 export const useLogin = () => {
   return useMutation('token', (data: TUser) => getAccessToken(data), {
@@ -30,7 +31,7 @@ const getAccessToken = (values: TUser) => {
   return axios.post(`${apiURL}/token`, data, { headers });
 };
 
-const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
+const userDetail = storedUserDetail();
 
 export const useGetCompany = () => {
   return useQuery('company', () => {
