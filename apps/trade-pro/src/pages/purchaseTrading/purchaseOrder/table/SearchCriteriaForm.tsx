@@ -1,22 +1,30 @@
 import {
+  AntButton,
+  AntInput,
+  AntRangePicker,
+  AntSelectDynamic,
+  SearchCriteriaWrapper,
+} from '@tradePro/components';
+import {
   useGetItems,
   useGetSuppliers,
   useGetOrderStatus,
   useGetPurchaseOrder,
   useGetApprovedStatus,
 } from '../queries';
+
+import dayjs from 'dayjs';
 import { useState } from 'react';
-import { Col, DatePicker, Form, Row } from 'antd';
+import { Col, Form, Row } from 'antd';
 import { TPurchaseOrderSearchCriteria } from '../type';
-import { AntButton, AntInput, AntSelectDynamic, SearchCriteriaWrapper } from '@tradePro/components';
 
 const { useForm, useWatch } = Form;
-const { RangePicker } = DatePicker;
 
 function SearchCriteria() {
   const [open, setOpen] = useState(false);
   const [form] = useForm<TPurchaseOrderSearchCriteria>();
   const { data, isError, isLoading } = useGetSuppliers();
+  const formValues = useWatch<TPurchaseOrderSearchCriteria>([], form);
   const { data: itemsData, isError: isItemsError, isLoading: isItemsLoading } = useGetItems();
 
   const {
@@ -38,21 +46,33 @@ function SearchCriteria() {
     isLoading: isPurchaseOrderLoading,
   } = useGetPurchaseOrder(false, form.getFieldsValue());
 
-  const formValues = useWatch<TPurchaseOrderSearchCriteria>([], form);
-
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const handleClick = () => {
+  const onFinish = (_: TPurchaseOrderSearchCriteria) => {
     refetch().then(() => handleClose());
+  };
+
+  const disabledDate = (current: dayjs.Dayjs) => {
+    return current && current.isAfter(dayjs(), 'day');
+  };
+
+  const handleDateChange = (dates: any) => {
+    form.setFieldsValue({
+      ToDate: dayjs(dates[1]?.['$d']).toDate(),
+      FromDate: dayjs(dates[0]?.['$d']).toDate(),
+    });
   };
 
   return (
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
-      <Form form={form} layout="vertical" initialValues={formValues}>
-        <Form.Item name="date" label="From Date - To Date">
-          <RangePicker className="fullWidth" />
-        </Form.Item>
+      <Form form={form} onFinish={onFinish} layout="vertical" initialValues={formValues}>
+        <br />
+        <AntRangePicker
+          name2="ToDate"
+          name1="FromDate"
+          rangePickerProps={{ disabledDate, className: 'fullWidth', onChange: handleDateChange }}
+        />
         <Row gutter={[10, 10]}>
           <Col xs={24} sm={24} md={12}>
             <AntInput name="FromDocNo" label="PO From" inputProps={{ type: 'number' }} />
@@ -109,7 +129,7 @@ function SearchCriteria() {
           <Col xs={24} sm={24} md={8}>
             <AntButton
               label="Show"
-              onClick={handleClick}
+              htmlType="submit"
               className="fullWidth"
               style={{ marginTop: 2 }}
               isError={isPurchaseOrderError}

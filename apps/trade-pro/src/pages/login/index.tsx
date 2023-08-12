@@ -1,7 +1,7 @@
 import './style.scss';
 import { size } from 'lodash';
 import { TUser } from './types';
-import useLogin from './queries';
+import { useLogin } from './queries';
 import { useEffect, useState } from 'react';
 import { Card, Col, Form, Row } from 'antd';
 import { useNavigate } from 'react-router-dom';

@@ -4,7 +4,7 @@ import { useMutation, useQuery } from 'react-query';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { requestManager } from '@tradePro/configs/requestManager';
 
-export default function useLogin() {
+export const useLogin = () => {
   return useMutation('token', (data: TUser) => getAccessToken(data), {
     onSuccess: (response: AxiosResponse) => {
       const userData = JSON.stringify(response?.data);
@@ -14,7 +14,7 @@ export default function useLogin() {
       notification.error({ message: error?.response?.data?.error_description });
     },
   });
-}
+};
 
 const apiURL = import.meta.env.VITE_API_URL;
 
@@ -51,6 +51,7 @@ export const useGetFinancialYear = (CompanyId: number | null) => {
     { enabled: !!CompanyId }
   );
 };
+
 export const useGetBranch = (CompanyId: number | null) => {
   return useQuery(
     ['branch', CompanyId],
