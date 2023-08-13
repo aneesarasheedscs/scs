@@ -11,6 +11,7 @@ export function AntSelectDynamic({
   required,
   fieldValue,
   fieldLabel,
+  optionsData,
   formItemProps,
   onSelectChange,
   fullWidth = true,
@@ -23,7 +24,7 @@ export function AntSelectDynamic({
 
   const { data, isError, isLoading, isFetching } = queryResult;
   const loading = isLoading || isFetching ? true : isError;
-  const selectData = data?.data?.Data?.Result;
+  const selectData = optionsData || data?.data?.Data?.Result;
 
   const requiredProps = required
     ? {
@@ -67,6 +68,7 @@ type TAntSelectDynamic = {
   fieldLabel: string;
   showLabel?: boolean;
   fullWidth?: boolean;
+  optionsData?: any[];
   onSelectChange?: (selectedObject: any) => void;
   query?: () => UseQueryResult<AxiosResponse<any, any>, unknown>;
   formItemProps?: FormItemProps;

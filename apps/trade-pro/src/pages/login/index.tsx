@@ -10,6 +10,7 @@ import CompanyBranchDetails from './CompanyBranchDetails';
 import { AntButton, AntInput } from '@tradePro/components';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { isTokenExpired } from '@tradePro/utils/isTokenExpired';
+import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -20,8 +21,8 @@ function LoginPage() {
   const onFinish = (values: TUser) => mutate(values);
 
   useEffect(() => {
-    const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
-    const financialYearDetail: any = JSON.parse(localStorage.getItem('financialYear') || '{}');
+    const userDetail = storedUserDetail();
+    const financialYearDetail = storedFinancialYear();
 
     if (userDetail?.access_token && !isTokenExpired()) {
       if (size(financialYearDetail) < 1) {

@@ -6,7 +6,7 @@ import { Checkbox, Col, Popover, Row, Tooltip } from 'antd';
 
 const CheckboxGroup = Checkbox.Group;
 
-function ColumnChooser({ columns, isColumnChooserEnabled }: TColumnChooser) {
+function ColumnChooser({ columns, disabled, isColumnChooserEnabled }: TColumnChooser) {
   if (!isColumnChooserEnabled) return null;
 
   const content = (
@@ -29,13 +29,13 @@ function ColumnChooser({ columns, isColumnChooserEnabled }: TColumnChooser) {
     <Col>
       <Tooltip arrow title="Column chooser">
         <Popover arrow content={content} trigger="click" placement="bottomLeft">
-          <AntButton type="default" icon={<MenuOutlined />} />
+          <AntButton type="default" icon={<MenuOutlined />} disabled={disabled} />
         </Popover>
       </Tooltip>
     </Col>
   );
 }
 
-type TColumnChooser = { columns?: ColumnsType<any>; isColumnChooserEnabled: boolean };
+type TColumnChooser = { disabled?: boolean; columns?: ColumnsType<any>; isColumnChooserEnabled: boolean };
 
 export default ColumnChooser;
