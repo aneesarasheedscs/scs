@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Input, Select, Button, Row, Col, Card } from 'antd';
-
-const { Option } = Select;
+import { Card, Col, Form, Row } from 'antd';
+import { useEffect, useState } from 'react';
+import { TPurchaseOrderDetailEntry } from '../type';
+import { AntSelectDynamic } from '@tradePro/components';
+import { useGetItemsWithBaseUom, useGetJobLot } from '../queryOptions';
 
 const DynamicForm = () => {
   const [form] = Form.useForm();
-  const [initialValues, setInitialValues] = useState([
-    { item: 'item1', weight: '', unitPrice: '', totalPrice: '' },
-  ]);
+  const [initialValues] = useState<TPurchaseOrderDetailEntry[]>([{ Amount: null }]);
 
   useEffect(() => {
     form.setFieldsValue({ items: initialValues });
@@ -18,46 +17,34 @@ const DynamicForm = () => {
       <Form.List name="items" initialValue={initialValues}>
         {(fields, { add, remove }) => (
           <>
-            {fields.map((field, index) => (
+            <Row gutter={16}>
+              <Col span={8}>Item Name</Col>
+              <Col span={3}>Job Lot</Col>
+            </Row>
+            {fields.map((field) => (
               <Row key={field.key} gutter={16}>
-                <Col span={6}>
-                  <Form.Item
-                    {...field}
-                    name={[field.name, 'item']}
-                    rules={[{ required: true, message: 'Item is required' }]}
-                  >
-                    <Select placeholder="Select item">
-                      <Option value="item1">Item 1</Option>
-                      <Option value="item2">Item 2</Option>
-                      {/* Add more options as needed */}
-                    </Select>
-                  </Form.Item>
+                <Col xs={8}>
+                  <AntSelectDynamic
+                    required
+                    fieldValue="Id"
+                    label="Item Name"
+                    showLabel={false}
+                    fieldLabel="ItemName"
+                    query={useGetItemsWithBaseUom}
+                    formItemProps={{ ...field, name: [field.name, 'OrderItemId'] }}
+                  />
                 </Col>
-                <Col span={5}>
-                  <Form.Item
-                    {...field}
-                    name={[field.name, 'weight']}
-                    rules={[{ required: true, message: 'Weight is required' }]}
-                  >
-                    <Input type="number" placeholder="Weight" />
-                  </Form.Item>
-                </Col>
-                <Col span={5}>
-                  <Form.Item
-                    {...field}
-                    name={[field.name, 'unitPrice']}
-                    rules={[{ required: true, message: 'Unit price is required' }]}
-                  >
-                    <Input type="number" placeholder="Unit Price" />
-                  </Form.Item>
-                </Col>
-                <Col span={5}>
-                  <Form.Item {...field} name={[field.name, 'totalPrice']}>
-                    <Input type="number" placeholder="Total Price" disabled />
-                  </Form.Item>
-                </Col>
-                <Col span={3}>
-                  <Button onClick={() => remove(field.name)}>Remove</Button>
+
+                <Col xs={3}>
+                  <AntSelectDynamic
+                    required
+                    fieldValue="Id"
+                    label="Job Lot"
+                    showLabel={false}
+                    query={useGetJobLot}
+                    fieldLabel="JobLotDescription"
+                    formItemProps={{ ...field, name: [field.name, 'JobLotId'] }}
+                  />
                 </Col>
               </Row>
             ))}

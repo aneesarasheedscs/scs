@@ -14,6 +14,7 @@ export function AntSelectDynamic({
   formItemProps,
   onSelectChange,
   fullWidth = true,
+  showLabel = true,
   allowClear = true,
   showSearch = true,
   ...restProps
@@ -32,7 +33,7 @@ export function AntSelectDynamic({
     : { name, rules: [] };
 
   return (
-    <Form.Item label={label} {...requiredProps} {...formItemProps}>
+    <Form.Item label={showLabel ? label : ''} {...requiredProps} {...formItemProps}>
       <Select
         loading={loading}
         allowClear={allowClear}
@@ -60,10 +61,11 @@ export function AntSelectDynamic({
 
 type TAntSelectDynamic = {
   name?: string;
-  label?: string;
+  label: string;
   required?: boolean;
   fieldValue: string;
   fieldLabel: string;
+  showLabel?: boolean;
   fullWidth?: boolean;
   onSelectChange?: (selectedObject: any) => void;
   query?: () => UseQueryResult<AxiosResponse<any, any>, unknown>;

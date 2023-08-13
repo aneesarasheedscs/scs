@@ -1,8 +1,8 @@
 import { Col, Row } from 'antd';
-import { useGetDeliveryTerms, useGetPaymentTerms } from '../queryOptions';
 import { AntDatePicker, AntInput, AntInputNumber, AntSelectDynamic } from '@tradePro/components';
+import { useGetDeliveryTerms, useGetPaymentTerms, useGetSupplierCustomer } from '../queryOptions';
 
-function MainEntry({}: TMainEntry) {
+function MainEntry() {
   return (
     <Row gutter={10}>
       <Col xs={4}>
@@ -14,9 +14,9 @@ function MainEntry({}: TMainEntry) {
           required
           fieldValue="Id"
           label="Supplier Name"
-          // queryOptions={getSuppliers}/
+          name="OrderSupCustId"
           fieldLabel="CompanyName"
-          name="SupplierCustomerId"
+          query={useGetSupplierCustomer}
         />
       </Col>
 
@@ -68,7 +68,5 @@ function MainEntry({}: TMainEntry) {
     </Row>
   );
 }
-
-type TMainEntry = {};
 
 export default MainEntry;

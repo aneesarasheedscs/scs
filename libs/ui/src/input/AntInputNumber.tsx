@@ -7,6 +7,7 @@ export function AntInputNumber({
   required,
   formItemProps,
   fullWidth = true,
+  showLabel = true,
   ...restProps
 }: TAntInputNumber) {
   const requiredProps = required
@@ -16,7 +17,7 @@ export function AntInputNumber({
       }
     : { name, rules: [] };
   return (
-    <Form.Item label={label} {...requiredProps} {...formItemProps}>
+    <Form.Item label={showLabel ? label : ''} {...requiredProps} {...formItemProps}>
       <InputNumber
         {...restProps}
         className={fullWidth ? `fullWidth ${restProps?.className}` : restProps?.className}
@@ -27,8 +28,9 @@ export function AntInputNumber({
 
 type TAntInputNumber = {
   name?: string;
-  label?: string;
+  label: string;
   required?: boolean;
   fullWidth?: boolean;
+  showLabel?: boolean;
   formItemProps?: FormItemProps;
 } & InputNumberProps;

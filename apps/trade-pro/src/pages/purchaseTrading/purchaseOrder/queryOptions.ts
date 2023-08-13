@@ -62,3 +62,27 @@ export const useGetDeliveryTerms = () => {
     return requestManager.get('/api/CommonServices/DeliveryTerm', { params });
   });
 };
+
+export const useGetSupplierCustomer = () => {
+  return useQuery('supplier-customer', () => {
+    return requestManager.get('/api/SupplierCustomer/GetforComboBinding', { params });
+  });
+};
+
+export const useGetItemsWithBaseUom = () => {
+  return useQuery('items-base-uom', () => {
+    return requestManager.get('/api/Item/ItemsWithBaseUOM', { params });
+  });
+};
+
+export const useGetJobLot = () => {
+  return useQuery('job-lot', () => {
+    return requestManager.get('/api/JobLot/GetByOrganizationCompanyId', { params });
+  });
+};
+
+export const useGetUomByItemId = (ItemId: number) => {
+  return useQuery(['uom', ItemId], () => {
+    return requestManager.get('/api/UOMSchedule/SearchByObject', { params });
+  });
+};

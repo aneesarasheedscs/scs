@@ -1,10 +1,10 @@
-import { Card, Col, Form, Input, Row, Switch, theme } from 'antd';
-
-import MainEntry from './MainEntry';
-import { useGetDocumentNumber } from '../queryOptions';
-import { TPurchaseOrderEntry } from '../type';
 import { useEffect } from 'react';
+import MainEntry from './MainEntry';
+import DynamicForm from './DetailEntry';
+import { TPurchaseOrderEntry } from '../type';
 import { AntButton } from '@tradePro/components';
+import { useGetDocumentNumber } from '../queryOptions';
+import { Card, Col, Form, Input, Row, theme } from 'antd';
 import { SaveOutlined, SyncOutlined } from '@ant-design/icons';
 
 const { useToken } = theme;
@@ -60,6 +60,7 @@ function PurchaseOrderForm() {
         </Row>
 
         <MainEntry />
+        <DynamicForm />
       </Form>
     </Card>
   );

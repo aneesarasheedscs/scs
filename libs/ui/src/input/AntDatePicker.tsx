@@ -8,6 +8,7 @@ export function AntDatePicker({
   required,
   formItemProps,
   fullWidth = true,
+  showLabel = true,
   disabledAfterCurrentDate = true,
   ...restProps
 }: TAntDatePicker) {
@@ -24,7 +25,7 @@ export function AntDatePicker({
   };
 
   return (
-    <Form.Item label={label} {...requiredProps} {...formItemProps}>
+    <Form.Item label={showLabel ? label : ''} {...requiredProps} {...formItemProps}>
       <DatePicker
         {...restProps}
         format={restProps?.format || 'DD-MMM-YYYY'}
@@ -37,9 +38,10 @@ export function AntDatePicker({
 
 type TAntDatePicker = {
   name?: string;
-  label?: string;
+  label: string;
   required?: boolean;
   fullWidth?: boolean;
+  showLabel?: boolean;
   disabledAfterCurrentDate?: boolean;
   formItemProps?: FormItemProps;
 } & DatePickerProps;
