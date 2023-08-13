@@ -1,12 +1,12 @@
 import './style.scss';
+import { Form } from 'antd';
 import { size } from 'lodash';
 import { TUser } from './types';
+import { useEffect } from 'react';
 import { useLogin } from './queries';
-import { useEffect, useState } from 'react';
-import { Card, Col, Form, Row } from 'antd';
+import CardWrapper from './CardWrapper';
 import { useNavigate } from 'react-router-dom';
 import { route } from '@tradePro/routes/constant';
-import CompanyBranchDetails from './CompanyBranchDetails';
 import { AntButton, AntInput } from '@tradePro/components';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { isTokenExpired } from '@tradePro/utils/isTokenExpired';
@@ -14,7 +14,6 @@ import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageSe
 
 function LoginPage() {
   const navigate = useNavigate();
-  const [isCompanyBranchVisible, setCompanyBranchVisible] = useState(false);
 
   const { mutate, isError, isLoading, isSuccess } = useLogin();
 
@@ -26,7 +25,7 @@ function LoginPage() {
 
     if (userDetail?.access_token && !isTokenExpired()) {
       if (size(financialYearDetail) < 1) {
-        setCompanyBranchVisible(true);
+        window.location.href = window.location.origin + route.COMPANY_BRANCH_DETAIL;
       } else {
         navigate(route.PURCHASE_ORDER);
       }
@@ -34,52 +33,32 @@ function LoginPage() {
   }, [isSuccess]);
 
   return (
-    <Row justify="center" align="middle" className="login-container">
-      <Row justify="center" style={{ width: '100%', padding: '0px 15px 0px 15px' }}>
-        <Col xs={24} sm={24} md={16} lg={12} xl={8} xxl={8}>
-          <Card className="login-card">
-            <div style={{ textAlign: 'center', marginBottom: 30 }}>
-              <h1>TradePro</h1>
-            </div>
+    <CardWrapper>
+      <Form layout="vertical" onFinish={onFinish} initialValues={{ remember: true }}>
+        <AntInput
+          required
+          size="large"
+          name="username"
+          label="Username"
+          prefix={<UserOutlined />}
+          placeholder="Enter username"
+        />
 
-            {isCompanyBranchVisible ? (
-              <CompanyBranchDetails />
-            ) : (
-              <Form layout="vertical" onFinish={onFinish} initialValues={{ remember: true }}>
-                <AntInput
-                  required
-                  size="large"
-                  name="username"
-                  label="Username"
-                  prefix={<UserOutlined />}
-                  placeholder="Enter username"
-                />
+        <AntInput
+          required
+          size="large"
+          name="password"
+          type="password"
+          label="Password"
+          prefix={<LockOutlined />}
+          placeholder="Enter password"
+        />
 
-                <AntInput
-                  required
-                  size="large"
-                  name="password"
-                  type="password"
-                  label="Password"
-                  prefix={<LockOutlined />}
-                  placeholder="Enter password"
-                />
-
-                <Form.Item>
-                  <AntButton
-                    size="large"
-                    label="Log In"
-                    htmlType="submit"
-                    isError={isError}
-                    isLoading={isLoading}
-                  />
-                </Form.Item>
-              </Form>
-            )}
-          </Card>
-        </Col>
-      </Row>
-    </Row>
+        <Form.Item>
+          <AntButton size="large" label="Log In" htmlType="submit" isError={isError} isLoading={isLoading} />
+        </Form.Item>
+      </Form>
+    </CardWrapper>
   );
 }
 
