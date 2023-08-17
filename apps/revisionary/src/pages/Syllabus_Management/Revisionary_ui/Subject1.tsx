@@ -90,7 +90,7 @@ function Subject1() {
   return (
     <div className="assessment" style={{ height: '100hv', padding: 20 }}>
       <Divider orientation='center' style={{ marginTop: '30px' }}>
-        <h1>Syllabus Status</h1>
+        <h1>Add Subject</h1>
       </Divider>
       <Row gutter={[16, 16]} style={{ marginTop: '-4rem' }}>
        

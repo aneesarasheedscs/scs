@@ -4,8 +4,8 @@ import pic from "../Images/picto.jpg";
 import { Typography } from "antd";
 import { Link } from "react-router-dom";
 import SignupForm from "./SignupForm";
-import './style2.scss'
-import { AntButton } from "@scs/ui";
+import './style2.scss';
+
 const SignForm: React.FC = () => {
   return (
     <div className="loginform">
@@ -17,7 +17,7 @@ const SignForm: React.FC = () => {
           <h1 style={{ marginTop: "3%" }}>We're a Digital Agency.</h1>
           <p
             style={{
-              marginTop: "3%",
+              marginTop: "8%",
               fontSize: "13px",
               fontFamily: "cursive",
               fontWeight: "bold",
@@ -58,22 +58,20 @@ const SignForm: React.FC = () => {
           </Typography.Title>
           <p style={{ fontSize: "16px", fontWeight: "bold", color: "gray" }}>
             Already have an account?
-            {/* <Link
-              to="#"
+            <Link
+              to="/loginform"
               style={{ textDecoration: "none", color: "blue" }}
             >
-              &nbsp;Sign up
-            </Link> */}
-            <a href="#" style={{ textDecoration: "none", color: "blue" }}>
               &nbsp;Sign in
-            </a>
+            </Link>
+            {/* <a href="#" style={{ textDecoration: "none", color: "blue" }}>
+              &nbsp;Sign in
+            </a> */}
           </p>
 
           <SignupForm />
-          <Link to="/profile"><AntButton label={'Next Page'} style={{position:'relative', top:'4rem'}}></AntButton></Link>
         </div>
       </div>
-     
     </div>
   );
 };

@@ -159,7 +159,7 @@ function Tab2() {
                   <Card
                     style={{ height: '100%', width: '90%', alignSelf: 'normal' }}
                     key={card.key}
-                    className="card1"
+                    className="cardS"
                     // title="Code :  &nbsp;  &nbsp; &nbsp;&nbsp; &nbsp; Name:&nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;  &nbsp;  &nbsp;   Action"
                     bordered={false}
                     // style={{ lineHeight:'8px'}}
@@ -197,7 +197,7 @@ function Tab2() {
                 <Col span={8}>
                   <Card
                     key={card.id}
-                    className="card1"
+                    className="cardS"
                     bordered={false}
                   >
                     <div>

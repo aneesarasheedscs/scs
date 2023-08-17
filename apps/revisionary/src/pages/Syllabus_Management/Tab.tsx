@@ -4,6 +4,7 @@ import DTab from "./Tab1";
 import Tab2 from "./Tab2";
 import Table2 from "./Table";
 import StudentProfile from "./Table";
+import SubjectTopics1 from "./SubjectTopics";
 
 
 
@@ -23,13 +24,16 @@ const Tab: React.FC = () => (
           <DTab />
         </Tabs.TabPane>
 
-        <Tabs.TabPane tab="Subject Catagory card" key="tab3">
+        <Tabs.TabPane tab="Subject Catagory card" key="tab2">
         <Tab2 />
         </Tabs.TabPane>
-        <Tabs.TabPane tab="Subject List card" key="tab5">
+        <Tabs.TabPane tab="Subject List card" key="tab3">
           <StudentProfile />
           {/* <Table2 /> */}
           {/* <Tab3 /> */}
+        </Tabs.TabPane>
+        <Tabs.TabPane tab="Subject Topic" key="tab4">
+         <SubjectTopics1 />
         </Tabs.TabPane>
       </Tabs>
      </Col>

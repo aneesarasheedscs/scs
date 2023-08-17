@@ -1,75 +1,45 @@
+import { Card, Col, Row, Tabs, Pagination, Divider, Form, message } from 'antd';
+
 import React, { useState } from 'react';
-import { Card, Input, Form, message, Row, Col, Divider } from 'antd';
-// import { AntButton } from "./Button";
-// import { AntButton2 } from "./Button2";
-// import { AntButton3 } from "./Button3";
-// import { AntButton4 } from "./Button4";
-// import "./DTable.css";
-import './Style.css';
-import { AntButton,  } from '@scs/ui';
-import map from 'lodash/map';
-import { useSyllabus } from './queries';
-import { AntCard } from './queries/AntCard';
-
-
-
-
-
+import { Input } from 'antd';
+import { AntButton } from '@scs/ui';
 
 interface CardData {
   id: number;
   code: string;
   name: string;
 }
-
-function DTab() {
-  const { data, isError, isLoading } = useSyllabus();
-  const cards1 = [
+function Tab2() {
+  const cards2 = [
     {
-      key: 1,
-      code: 'GCSE AQA ',
-      name: 'Assessment and Qualifications Alliance',
+      key: '1',
+      code: 'ENG',
+      description: 'English',
     },
     {
-      key: 2,
-      code: 'EDEXCEL  ',
-      name: 'Pearson Edexcel',
+      key: '2',
+      code: 'MAT',
+      description: 'Math',
     },
     {
-      key: 3,
-      code: 'GCSE OCR',
-      name: ' Oxford, Cambridge, and RSA Exams',
+      key: '3',
+      code: 'BIO',
+      description: 'Biology',
     },
     {
-      key: 4,
-      code: 'GCSE CCEA  ',
-      name: 'Council for Curriculum and Examinations Assessment',
-    },
-
-    {
-      key: 5,
-      code: 'GCSE CCEA  ',
-      name: 'Council for Curriculum and Examinations Assessment',
+      key: '4',
+      code: 'CHEM',
+      description: 'Chemistry',
     },
     {
-      key: 6,
-      code: 'GCSE CCEA  ',
-      name: 'Council for Curriculum and Examinations Assessment',
+      key: '4',
+      code: 'PHY',
+      description: 'Physics',
     },
     {
-      key: 7,
-      code: 'GCSE CCEA  ',
-      name: 'Council for Curriculum and Examinations Assessment',
-    },
-    {
-      key: 8,
-      code: 'GCSE CCEA  ',
-      name: 'Council for Curriculum and Examinations Assessment',
-    },
-    {
-      key: 9,
-      code: 'GCSE CCEA  ',
-      name: 'Council for Curriculum and Examinations Assessment',
+      key: '5',
+      code: 'COMP',
+      description: 'Computer',
     },
   ];
   const [cards, setCards] = useState<CardData[]>([]);
@@ -88,7 +58,6 @@ function DTab() {
     } else {
       message.success('Success');
     }
-
     setCards((prevCards) => [...prevCards, { ...newCard, id: Date.now() }]);
     setNewCard({
       id: Date.now() + 1,
@@ -101,6 +70,7 @@ function DTab() {
     const { value } = e.target;
     setNewCard((prevCard) => ({ ...prevCard, [field]: value }));
   };
+
   const [form] = Form.useForm();
   const handleCancel = () => {
     setNewCard({
@@ -110,28 +80,24 @@ function DTab() {
     });
     form.resetFields();
   };
+
   return (
-    <div
-      className="cards1"
-      style={{
-        width: '100%',
-        marginLeft: '420px',
-        marginTop: '40px',
-        background: 'rgb(250, 250, 250)',
-        boxShadow:
-          'rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px',
-        padding: '25px',
-        borderRadius: '10px',
-      }}
-    >
-      <h1 className="h1">Syllabus Authority / Publisher</h1>
-      <Divider />
-      <div>
+    <div style={{ width: '100%' }}>
+      <Card
+        style={{
+          width: '100%',
+          marginLeft: '390px',
+          marginTop: '40px',
+          background: 'rgb(250, 250, 250)',
+          boxShadow:
+            'rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px',
+        }}
+      >
+        <h1 className="h1">Subject Catagory</h1>
+        <Divider />
         <Form style={{ marginLeft: '63px' }}>
           <Input
             placeholder="Code"
-            value={newCard.code}
-            onChange={(e) => handleChange(e, 'code')}
             style={{
               width: '31.6%',
               position: 'relative',
@@ -140,12 +106,12 @@ function DTab() {
               height: '40px',
               marginBottom: '30px',
             }}
+            value={newCard.code}
+            onChange={(e) => handleChange(e, 'code')}
             className="success"
           />
           <Input
             placeholder="Name"
-            value={newCard.name}
-            onChange={(e) => handleChange(e, 'name')}
             style={{
               width: '31.6%',
               position: 'relative',
@@ -154,10 +120,12 @@ function DTab() {
               height: '40px',
               marginBottom: '30px',
             }}
+            value={newCard.name}
+            onChange={(e) => handleChange(e, 'name')}
             className="success"
           />
-
           <AntButton
+            size="large"
             style={{
               width: '12%',
               position: 'relative',
@@ -167,11 +135,11 @@ function DTab() {
               border: '1px solid rgb(204, 202, 202)',
               color: '#00a148',
             }}
-            size="large"
             onClick={handleCancel}
             label="Cancel"
           />
           <AntButton
+            size="large"
             style={{
               width: '12%',
               position: 'relative',
@@ -179,42 +147,22 @@ function DTab() {
               left: '93px',
               background: '#00a148',
             }}
-            size="large"
-            label="Save"
             onClick={handleAddCard}
+            label="Save"
           />
-
-
-
-          
         </Form>
-         <div className="card-container">
+        <div className="card-container">
           <Row gutter={[16, 16]}>
-          {/* {data.data.apiData.map((item:any) => (
-        <div key={item.syllabusAuthorityId} className="card">
-          <h2>{item.syllabusAuthorityCode}</h2>
-          <p>{item.syllabusAuthorityName}</p>
-   
-        </div>
-      ))}     */}
-
- 
-
-     <AntCard data={data?.data?.apiData} isLoading={isLoading} isError={isError}  > 
-      </AntCard>   
-
-
-            {cards1.map((card) => {
+            {cards2.map((card) => {
               return (
                 <Col span={8} xs={{ span: 18 }} sm={{ span: 12 }} lg={{ span: 8 }}>
                   <Card
-                // data={data?.data?.apiData || []} isLoading={isLoading} isError={isError}
-                    style={{ height: '100%', width: '90%', alignSelf:'normal' }}
+                    style={{ height: '100%', width: '90%', alignSelf: 'normal' }}
                     key={card.key}
-                    className="card1 card"
-                 
-                    bordered={false} 
-                    
+                    className="cardS"
+                    // title="Code :  &nbsp;  &nbsp; &nbsp;&nbsp; &nbsp; Name:&nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;  &nbsp;  &nbsp;   Action"
+                    bordered={false}
+                    // style={{ lineHeight:'8px'}}
                   >
                     <div>
                       <p
@@ -223,86 +171,59 @@ function DTab() {
                           fontSize: '16px',
                           lineHeight: '12px',
                           textAlign: 'center',
-                          
                         }}
                       >
                         {card.code}
                       </p>
-                      <p style={{ textAlign: 'center' }}>{card.name}</p>
-                    </div>
-                    
-                      <AntButton 
+                      <p style={{ textAlign: 'center' }}>{card.description}</p>
+                      <AntButton
                         style={{
                           background: '#00a148',
                           position: 'relative',
                           top: '10px',
                           left: '80px',
                           marginTop: 'auto',
-                          alignSelf:'flex-start'
+                          alignSelf: 'flex-start',
                         }}
                         label="Edit"
                       />
-                    
-                  </Card>
-                </Col>
-              );
-            })} 
-
-             {cards.map((card) => {
-              return (
-                <Col span={8} xs={{ span: 18 }} sm={{ span: 12 }} lg={{ span: 8 }}>
-                  <Card  style={{ height: '100%', width: '90%', alignSelf:'normal' }}
-                    key={card.id}
-                    className="card1"
-                    // code="Code :  &nbsp;  &nbsp; &nbsp;&nbsp; &nbsp; Name:&nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;  &nbsp;  &nbsp;   Action"
-                    bordered={false}
-                  >
-                    <div>
-                      {/* <img
-                      src={card.img}
-                      style={{ height: "63px", width: "80px" }}
-              /> */}
-                     <p
-                         style={{
-                            fontWeight: 'bold',
-                            fontSize: '16px',
-                            lineHeight: '12px',
-                            textAlign: 'center',
-                            
-                          }}
-                      >
-                        {card.code}
-                      </p>
-                      <p style={{ textAlign: 'center', }}>{card.name}</p>
-                    </div>
-                    <div>
-                      <AntButton style={{ background: '#00a148',textAlign: 'center',
-                          
-                          position: 'relative',
-                          top: '10px',
-                          left: '85px',
-                          marginTop: 'auto',
-                          alignSelf:'flex-start'
-                        }} label="Edit" />
                     </div>
                   </Card>
                 </Col>
               );
             })}
-           
-            
-          </Row> 
-        </div>
-        </div>
-        </div>
-        
-      
-     
-    
-    
-    
-    
-  );
-};
+            {/* {cards.map((card) => {
+              return (
+                <Col span={8}>
+                  <Card
+                    key={card.id}
+                    className="cardS"
+                    bordered={false}
+                  >
+                    <div>
+                     
+                      <p
+                        style={{
+                          fontWeight: 'bold',
+                          fontSize: '16px',
+                          lineHeight: '12px',
+                        }}
+                      >
+                        {card.code}
+                      </p>
+                      <p>{card.name}</p>
 
-export default DTab;
+                      <AntButton style={{ background: '#00a148' }} label="Edit" />
+                    </div>
+                  </Card>
+                </Col>
+              );
+            })} */}
+          </Row>
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+export default Tab2;

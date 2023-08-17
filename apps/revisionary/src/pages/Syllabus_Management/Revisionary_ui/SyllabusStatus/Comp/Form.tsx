@@ -6,6 +6,7 @@ import {
   AppleOutlined,
   FacebookOutlined,
 } from "@ant-design/icons";
+import './style2.scss';
 
 const Form1: React.FC = () => {
   const [form] = Form.useForm();

@@ -1,24 +1,25 @@
 import './style.scss';
 import ToggleButton from './ToggleButton';
 import { ReactNode, useState } from 'react';
-import { Col, Grid, Layout, Row } from 'antd';
+import { Col, Grid, Layout, Menu, Row } from 'antd';
 import { AntButton } from '../button/AntButton';
 import SideDrawer from '../sideDrawer/SideDrawer';
 import { Anchor } from "antd";
-
+import { Link, useLocation } from 'react-router-dom';
 import './Style.css'
+import { headerList } from './constant';
 const { Header } = Layout;
-const { Link } = Anchor;
+// const { Link } = Anchor;
 export function AppHeader({ appLogo, sideMenu }: TAppHeader) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  const { pathname } = useLocation();
   const handleLogout = () => {
     localStorage.clear();
     window.location.href = window.location.origin + '/';
   };
-  const targetOffset:number=65
+  const targetOffset:number=100
   return (
     <>
       <Header className="app-header">
@@ -28,34 +29,54 @@ export function AppHeader({ appLogo, sideMenu }: TAppHeader) {
               <div style={{ marginRight: 10, marginLeft: -30 }}>
                 <ToggleButton handleOpen={handleOpen} />
               </div>
-              {/* {appLogo ? appLogo : <h1>Logo</h1>} */}
+              {appLogo ? appLogo : <h1>Logo</h1>}
               <div className="container-fluid" >
       <div className="header">
         {/* <div className="logo">
           <i className="fas fa-bolt"></i>
           <a href="http://google.com">Tech</a>
         </div> */}
-        <div className="mobileHidden">
+        {/* <div className="mobileHidden">
           <Anchor targetOffset={targetOffset}>
-            <Link className="links" href="#hero" title="Home" />
-            <Link className="links" href="#about" title="About" />
-            <Link className="links" href="#feature" title="Features" />
-            <Link className="links" href="#works" title="Works" />
-            <Link className="links" href="#faq" title="FAQ" />
-            <Link className="links" href="#pricing" title="Pricing" />
-            <Link className="links" href="#contact" title="Contact" />
-          </Anchor>
-        </div></div></div>
+            <Link className="links" href="#hero" title="SignIn" />
+            <Link className="links" href="#about" title="Student Profile" />
+            <Link className="links" href="#feature" title="Student Syllabus" />
+            <Link className="links" href="#works" title="Syllabus Status" />
+            <Link className="links" href="#faq" title=" Assesment" />
+            <Link className="links" href="#pricing" title=" Dashboard" />
+           </Anchor>
+        </div> */}
+        
+        </div>
+        </div>
+            </Row>
+            
+          </Col>
+
+          <Col xl={12} style={{ display: "flex", justifyContent: "space-between"}} >
+            <Row gutter={[10, 10]} style={{width: "100%"}}  >
+              <Col xl={18}>
+          <Menu mode="horizontal" style={{ paddingTop: 0,marginTop: 0, width: "100%" , height: "90%"}}>
+      {headerList.map(({ path, label  }, index) => (
+        <Menu.Item style={{border: "none"}}
+          key={index}
+          
+          className={path === pathname ? 'ant-menu-item-active ant-menu-item-selected' : ''}
+        >
+          <Link to={path}>{label}</Link>
+        </Menu.Item>
+      ))}
+    </Menu></Col>
+    <Col>
+            <AntButton size="large" label="Logout" onClick={handleLogout} /></Col>
             </Row>
           </Col>
-          <Col>
-            <AntButton size="large" label="Logout" onClick={handleLogout} />
-          </Col>
         </Row>
+        
       </Header>
 
       <SideDrawer open={open} handleClose={handleClose}>
-      <Anchor targetOffset={targetOffset}>
+      {/* <Anchor targetOffset={targetOffset}>
             <Link className="links" href="#hero" title="Home" />
             <Link className="links" href="#about" title="About" />
             <Link className="links" href="#feature" title="Features" />
@@ -63,7 +84,7 @@ export function AppHeader({ appLogo, sideMenu }: TAppHeader) {
             <Link className="links" href="#faq" title="FAQ" />
             <Link className="links" href="#pricing" title="Pricing" />
             <Link className="links" href="#contact" title="Contact" />
-          </Anchor>
+          </Anchor> */}
       </SideDrawer>
     </>
   );

@@ -1,0 +1,235 @@
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+body{
+  background-color: rgb(245,242,242);
+}
+.App {
+  text-align: center;
+  .ant-table-thead .ant-table-cell
+   {
+    background-color: #00a148;
+    color: white;
+  }
+  .ant-table-thead:hover .ant-table-cell:hover
+  {
+    background-color: #00a148;
+   color: white;
+ }
+ .anticon{
+color: #fff;
+font-size: 1rem;
+ }
+.anticon-left,
+.anticon-right{
+  color: black;
+  font-size: 0.7rem;
+ }
+ .ant-pagination .ant-pagination-item-active{
+  border-color: #00a148;
+ }
+ .ant-pagination .ant-pagination-item-active a{
+  color: #00a148;
+ }
+ /* .ant-pagination-options{
+  border-color: #00a148;
+ } */
+ 
+ /* .ant-table-column-has-sorters{
+  color: #00a148;
+  background-color: white;
+} */
+}
+.h1{
+  text-align: center;
+  text-transform: uppercase;
+  font-family: Arial, Helvetica, sans-serif;
+  font-style: normal;
+  color: rgb(187, 86, 86);
+}
+.h2{
+  text-align: right;
+  text-transform: uppercase;
+  font-family: Arial, Helvetica, sans-serif;
+  font-style: normal;
+  color: black;
+}
+.h3{
+  text-align: center;
+  margin-left: 45%;
+  text-transform: uppercase;
+  font-family: Arial, Helvetica, sans-serif;
+  font-style: normal;
+  color: black;
+}
+.card1{
+  border: 1px solid #73AD21;
+  margin-top: 7px;
+  margin-left: -10%;
+  width: 70%;
+  height: 20vh;
+  margin-right: 18px;
+}
+.card1:hover{
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+.p{
+  text-align: right;
+}
+.card2{
+  border: 1px solid #73AD21;
+  margin-top: 7px;
+  margin-right: 10px;
+}
+.card2:hover{
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+.card3{
+  border: 1px solid #73AD21;
+  margin-top: 6px;
+  margin-right: 10px;
+}
+.card3:hover{
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+.n{
+  text-align: right;
+}
+.wrapper{
+  border: 1px solid blue;
+  margin-left: 14.5%;
+  margin-top: 3%;
+  background-color: rgb(250,250,250);
+  width: 110%;
+}
+.tablecard1{
+  margin-left: 22%;
+  width: 95%;
+}
+.tablecard{
+  /* background-color: #00a148; */
+  width: 74%;
+  height: auto;
+  margin-bottom: 80vh;
+  margin-left: 24%;
+  margin-top: -106.5%;
+  border: 1px solid #00a148;
+  box-shadow:  0px 3px 6px #00000029;
+}
+.tablecard:hover{
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  transition: 0.4s all ease-in-out;
+}
+.head{
+  background-color: #00a148;
+  /* margin-bottom: 20%;
+  max-height: 40%; */
+}
+.search{
+  color: white;
+}
+.topic{
+  font-size: 1.5rem;
+  font-weight: bold;
+  position: absolute;
+  top: 3%;
+  left: 46%;
+}
+.topic1{
+  font-size: 1.5rem;
+  font-weight: bold;
+  position: absolute;
+  top: 3%;
+  left: 45%;
+}
+.success:hover,
+.success:focus{
+  border: 1px solid #00a148;
+}
+
+/*     Flip Cards Css     */
+
+.cardBox {
+  font-size: 1.1em;
+  perspective: 800px;
+  margin-left: -13%;
+  transition: all 0.3s ease 0s;
+  width: 90%;
+  height: auto;
+}
+.cardBox:hover{
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+.card {
+  background: #fff;
+  cursor: pointer;
+  height: 170px;
+  transform-style: preserve-3d;
+  transition: transform 0.4s ease 0s;
+  width: 100%;
+  -webkit-animation: giro 1s 1;
+  animation: giro 1s 1;
+  box-shadow:  0px 3px 6px #00000029;
+}
+.card .front{
+  backface-visibility: hidden;
+  box-sizing: border-box;
+  color: #00a148;
+  border: 1px solid #00a148;
+  display: block;
+  font-size: 2em;
+  height: 100%;
+  padding: 0.8em;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+@-webkit-keyframes giro {
+  from {
+    transform: rotateY( 180deg);
+  }
+  to {
+    transform: rotateY( 0deg);
+  }
+}
+@keyframes giro {
+  from {
+    transform: rotateY( 180deg);
+  }
+  to {
+    transform: rotateY( 0deg);
+  }
+}
+@media screen and (max-width: 767px) {
+  .cardBox {
+    margin-left: 2.8%;
+    margin-top: 3%;
+    width: 46%;
+  }
+  .card {
+    height: 285px;
+  }
+  .cardBox:last-child {
+    margin-bottom: 3%;
+  }
+}
+@media screen and (max-width: 480px) {
+  .cardBox {
+    width: 94.5%;
+  }
+  .card {
+    height: 260px;
+  }
+}
+
+         /*         Responsiveness               */
+      
+@media only screen and (max-width:1000px){
+  .maincard{
+    border: 1px solid red;
+  }
+}
+

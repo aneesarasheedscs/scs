@@ -1,5 +1,5 @@
 import { Card, Col, Row, Tabs, Pagination, Divider, Form, message, Checkbox } from 'antd';
-// import '../Style.css'
+import '../Style.css'
 
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 // interface CardData {
@@ -63,7 +63,7 @@ function StudentCard2() {
                   <Card
                     style={{ height: '100%', width: '90%', alignSelf: 'normal' }}
                     key={card.key}
-                    className="card1"
+                    className="cardS"
                     bordered={false}
                   >
                     <div>

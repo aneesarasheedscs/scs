@@ -92,9 +92,9 @@ body {
 .content1 {
   width: 23.5%;
   position: absolute;
-  top: 125px;
+  top: 200px;
   height: 60%;
-  left: 243px;
+  left: 460px;
   color: white;
   border-radius: 12px;
   /* display: flex; */
@@ -118,7 +118,7 @@ body {
 }
 .login-inner,
 .login-inner1 {
-  margin-top: 8%;
+  margin-top: -3% !important;
   margin-left: 65px;
 }
 .field {
@@ -453,7 +453,7 @@ h2 {
   }
   .content1 .link{
     position: relative;
-    top: 16rem;
+    top: 18rem;
     left: -5rem;
   }
   .login-inner{
@@ -516,7 +516,7 @@ h2 {
      }
      .content1 .link{
        position: relative;
-       top: 16rem;
+       top: 18rem;
        left: -5rem;
      }
      .login-inner{
@@ -575,11 +575,11 @@ h2 {
      }
      .content1 .p1{
        position: absolute;
-       top: 12rem !important;
+       top: 11.5rem !important;
      }
      .content1 .link{
        position: relative;
-       top: 17rem !important;
+       top: 19rem !important;
        left: -5rem !important;
      }
      .login-inner{
@@ -640,11 +640,11 @@ h2 {
      }
      .content1 .p1{
        position: absolute;
-       top: 12rem !important;
+       top: 12.5rem !important;
      }
      .content1 .link{
        position: relative;
-       top: 17rem !important;
+       top: 19rem !important;
        left: -5rem !important;
      }
      .login-inner{
@@ -658,7 +658,7 @@ h2 {
        position: absolute;
        top: 380px !important;
        width: 100%;
-       left: 20px !important;
+       left: -15px !important;
        width: 35rem;
      }
      .logo{
@@ -682,7 +682,7 @@ h2 {
   .cardmain{
     width: 85vw;
     height: auto;
-    margin-left: 3% !important;
+    margin-left: -2% !important;
     margin-top: 3% !important;
     display: flex;
     flex-direction: column;
@@ -690,7 +690,7 @@ h2 {
      margin:0;
   }
   .mainn{
-       margin-top: 2%;
+       margin-top: 1%;
        margin-left: 7%;
        width: 85vw;
        height: 100vh;
@@ -713,7 +713,7 @@ h2 {
   }
   .progress{
     margin-top: 6% !important;
-    margin-left: 30.5% !important;
+    margin-left: 40% !important;
   }
   .tablee{
     margin-top: 5%;
@@ -721,9 +721,17 @@ h2 {
     width: 80vw;
   }
   .subject{
-    margin-left: 15%;
-    margin-top: 0%;
+    margin-left: 23%;
+    margin-top: -36.5%;
     width: 60vw;
+  }
+  .paragraph{
+    font-weight: 'bold';
+    padding-top: '10%';
+    font-family: 'Arial';
+    line-height: '12px';
+    letter-spacing: 0.02rem;
+    text-align: 'left';
   }
   .card-container{
     margin-bottom: 0%;
@@ -742,467 +750,467 @@ h2 {
 
   /*           student syllabus            */
 
-  @media screen and (min-width: 500px) and (max-width: 576px){
-     .mainn{
-      margin-top: 5%;
-     } 
-     .progress{
-      margin-top: 30% !important;
-      width: 10rem !important;
-     }   
-     .cardmain{
-      margin-top: 4rem !important;
-     }
-     .col{
-      margin-bottom: -20% !important;
-      max-width: 14rem;
-      margin-left: -1%;
-     }
-     .subject{
-      margin-top: 50%;
-      margin-left: 2%;
-     }
-     .addsubject{
-      margin-top: 35%;
-      margin-left: 190%;
-     }
-     .addsubject:hover{
-      margin-top: 35%;
-      margin-left: 190%;
-     }
-     .card-container{
-      width: 20rem;
-      margin-left: -21%;
-      margin-top: 10%;
-     }
-     .col1{
-      margin-bottom: -32% !important;
-     }
-  }
-  @media screen and (min-width: 576px) and (max-width: 650px){
-    .mainn{
-     margin-top: 5%;
-     padding-right: 40%;
-     margin-right: -10%;
-    }
-     .progress{
-      margin-top: 30% !important;
-      width: 10rem !important;
-     }   
-     .cardmain{
-      margin-top: 4rem !important;
-     }
-     .col{
-      margin-bottom: -15% !important;
-      max-width: 13.7rem;
-      margin-right: -2%;
-      margin-left: -3%;
-     }
-     .subject{
-      margin-top: 67%;
-      margin-left: -4%;
-     }
-     .addsubject{
-      margin-top: 30%;
-      margin-left: 270%;
-     }
-     .addsubject:hover{
-      margin-top: 30%;
-      margin-left: 270%;
-     }
-     .card-container{
-      width: 26rem;
-      margin-left: -13%;
-      margin-top: 10%;
-     }
-     .col1{
-      margin-bottom: -25% !important;
-     }
-  }
+  // @media screen and (min-width: 500px) and (max-width: 576px){
+  //    .mainn{
+  //     margin-top: 5%;
+  //    } 
+  //    .progress{
+  //     margin-top: 30% !important;
+  //     width: 10rem !important;
+  //    }   
+  //    .cardmain{
+  //     margin-top: 4rem !important;
+  //    }
+  //    .col{
+  //     margin-bottom: -20% !important;
+  //     max-width: 14rem;
+  //     margin-left: -1%;
+  //    }
+  //    .subject{
+  //     margin-top: 50%;
+  //     margin-left: 2%;
+  //    }
+  //    .addsubject{
+  //     margin-top: 35%;
+  //     margin-left: 190%;
+  //    }
+  //    .addsubject:hover{
+  //     margin-top: 35%;
+  //     margin-left: 190%;
+  //    }
+  //    .card-container{
+  //     width: 20rem;
+  //     margin-left: -21%;
+  //     margin-top: 10%;
+  //    }
+  //    .col1{
+  //     margin-bottom: -32% !important;
+  //    }
+  // }
+  // @media screen and (min-width: 576px) and (max-width: 650px){
+  //   .mainn{
+  //    margin-top: 5%;
+  //    padding-right: 40%;
+  //    margin-right: -10%;
+  //   }
+  //    .progress{
+  //     margin-top: 30% !important;
+  //     width: 10rem !important;
+  //    }   
+  //    .cardmain{
+  //     margin-top: 4rem !important;
+  //    }
+  //    .col{
+  //     margin-bottom: -15% !important;
+  //     max-width: 13.7rem;
+  //     margin-right: -2%;
+  //     margin-left: -3%;
+  //    }
+  //    .subject{
+  //     margin-top: 67%;
+  //     margin-left: -4%;
+  //    }
+  //    .addsubject{
+  //     margin-top: 30%;
+  //     margin-left: 270%;
+  //    }
+  //    .addsubject:hover{
+  //     margin-top: 30%;
+  //     margin-left: 270%;
+  //    }
+  //    .card-container{
+  //     width: 26rem;
+  //     margin-left: -13%;
+  //     margin-top: 10%;
+  //    }
+  //    .col1{
+  //     margin-bottom: -25% !important;
+  //    }
+  // }
 
-  @media screen and (min-width: 650px) and (max-width: 768px){
-    .mainn{
-     margin-top: 5%;
-     padding-right: 40%;
-    }
-     .progress{
-      margin-top: 30% !important;
-      width: 10rem !important;
-     }   
-     .cardmain{
-      margin-top: 4rem !important;
-     }
-     .col{
-      margin-bottom: -10% !important;
-      max-width: 14rem;
-      margin-right: -0%;
-      margin-left: -2%;
-     }
-     .subject{
-      margin-top: 67%;
-      margin-left: -4%;
-     }
-     .addsubject{
-      margin-top: 19%;
-      margin-left: 290%;
-     }
-     .addsubject:hover{
-      margin-top: 19%;
-      margin-left: 290%;
-     }
-     .card-container{
-      width: 27rem;
-      margin-left: -7%;
-      margin-top: 9%;
-     }
-     .col1{
-      margin-bottom: -25% !important;
-     }
-  }
-  @media screen and (min-width: 768px) and (max-width: 850px){
-    .mainn{
-     margin-top: 5%;
-     padding-right: 40%;
-    }
-     .progress{
-      margin-top: 15% !important;
-      margin-left: 10.5rem !important;
-      width: 10rem !important;
-     }   
-     .pp{
-      margin-left: 10rem !important;
-     }
-     .cardmain{
-      margin-top: 4rem !important;
-     }
-     .col{
-      margin-bottom: -10% !important;
-      max-width: 13.4rem;
-      margin-right: -0%;
-      margin-left: -3%;
-     }
-     .subject{
-      margin-top: 50%;
-      margin-left: -4%;
-     }
-     .addsubject{
-      margin-top: 17%;
-      margin-left: 300%;
-     }
-     .addsubject:hover{
-      margin-top: 17%;
-      margin-left: 300%;
-     }
-     .card-container{
-      width: 37rem;
-      margin-left: -7%;
-      margin-top: 13%;
-     }
-     .col1{
-      margin-bottom: -15% !important;
-     }
-  }
-  @media screen and (min-width: 850px) and (max-width: 992px){
-    .mainn{
-     margin-top: 5%;
-     padding-right: 40%;
-    }
-     .progress{
-      margin-top: 15% !important;
-      margin-left: 14.5rem !important;
-      width: 10rem !important;
-     }   
-     .pp{
-      margin-left: 14rem !important;
-     }
-     .cardmain{
-      margin-top: 4rem !important;
-     }
-     .col{
-      margin-bottom: -9% !important;
-      max-width: 14rem;
-      margin-right: -0%;
-      margin-left: -2%;
-     }
-     .subject{
-      margin-top: 50%;
-      margin-left: -4%;
-     }
-     .addsubject{
-      margin-top: 21%;
-      margin-left: 320%;
-     }
-     .addsubject:hover{
-      margin-top: 21%;
-      margin-left: 320%;
-     }
-     .card-container{
-      width: 42rem;
-      margin-left: -12%;
-      margin-top: 12%;
-     }
-     .col1{
-      margin-bottom: -15% !important;
-     }
-  }
-  @media screen and (min-width: 992px) and (max-width: 1070px){
-    .mainn{
-     margin-top: 5%;
-     padding-right: 40%;
-    }
-     .progress{
-      margin-top: 15% !important;
-      margin-left: 17.5rem !important;
-      width: 10rem !important;
-     }   
-     .pp{
-      margin-left: 17rem !important;
-     }
-     .cardmain{
-      margin-top: 4rem !important;
-     }
-     .col{
-      margin-bottom: -9% !important;
-      max-width: 14.2rem;
-      margin-right: 3%;
-      margin-left: -2%;
-     }
-     .subject{
-      margin-top: 50%;
-      margin-left: -4%;
-     }
-     .addsubject{
-      margin-top: 21%;
-      margin-left: 325%;
-     }
-     .addsubject:hover{
-      margin-top: 21%;
-      margin-left: 325%;
-     }
-     .card-container{
-      width: 42rem;
-      margin-left: 0%;
-      margin-top: 8%;
-     }
-     .col1{
-      margin-bottom: -15% !important;
-     } 
-  }
-  @media screen and (min-width: 1070px) and (max-width: 1200px){
-    .mainn{
-     margin-top: 5%;
-     padding-right: 40%;
-    }
-     .progress{
-      margin-top: 15% !important;
-      margin-left: 21.5rem !important;
-      width: 10rem !important;
-     }   
-     .pp{
-      margin-left: 21rem !important;
-     }
-     .cardmain{
-      margin-top: 4rem !important;
-     }
-     .col{
-      margin-bottom: -9% !important;
-      max-width: 14.8rem;
-      margin-right: 3%;
-      margin-left: -2%;
-     }
-     .subject{
-      margin-top: 50%;
-      margin-left: -4%;
-     }
-     .addsubject{
-      margin-top: 13%;
-      margin-left: 325%;
-     }
-     .addsubject:hover{
-      margin-top: 13%;
-      margin-left: 325%;
-     }
-     .card-container{
-      width: 42rem;
-      margin-left: 5%;
-      margin-top: 5%;
-     }
-     .col1{
-      margin-bottom: -15% !important;
-     }
-  }
-  @media screen and (min-width: 1200px) and (max-width: 1300px){
-    .mainn{
-     margin-top: 5%;
-     padding-right: 40%;
-    }
-     .progress{
-      margin-top: 12% !important;
-      margin-left: 24.5rem !important;
-      width: 10rem !important;
-     }   
-     .pp{
-      margin-left: 24rem !important;
-     }
-     .cardmain{
-      margin-top: 4rem !important;
-     }
-     .col{
-      margin-bottom: -7% !important;
-      max-width: 14rem;
-      margin-right: 2%;
-      margin-left: -2%;
-     }
-     .subject{
-      margin-top: 30%;
-      margin-left: -4%;
-     }
-     .addsubject{
-      margin-top: 13%;
-      margin-left: 340%;
-     }
-     .addsubject:hover{
-      margin-top: 13%;
-      margin-left: 340%;
-     }
-     .card-container{
-      width: 65rem;
-      margin-left: 2%;
-      margin-top: 5%;
-     }
-     .col1{
-      margin-bottom: -9% !important;
-     }
-  }
-  @media screen and (min-width: 1300px) and (max-width: 1450px){
-    .mainn{
-     margin-top: 5%;
-     padding-right: 40%;
-    }
-     .progress{
-      margin-top: 12% !important;
-      margin-left: 29.5rem !important;
-      width: 10rem !important;
-     }   
-     .pp{
-      margin-left: 29rem !important;
-     }
-     .cardmain{
-      margin-top: 4rem !important;
-     }
-     .col{
-      margin-bottom: -7% !important;
-      max-width: 14.1rem;
-      margin-right: 1%;
-      margin-left: -2%;
-     }
-     .subject{
-      margin-top: 30%;
-      margin-left: 17%;
-     }
-     .addsubject{
-      margin-top: 13%;
-      margin-left: 223%;
-     }
-     .addsubject:hover{
-      margin-top: 13%;
-      margin-left: 223%;
-     }
-     .card-container{
-      width: 65rem;
-      margin-left: -2%;
-      margin-top: 5%;
-     }
-     .col1{
-      margin-bottom: -9% !important;
-     }
-  }
-  @media screen and (min-width: 1450px) and (max-width: 1600px){
-    .mainn{
-     margin-top: 5%;
-     padding-right: 40%;
-    }
-     .progress{
-      margin-top: 12% !important;
-      margin-left: 33.5rem !important;
-      width: 10rem !important;
-     }   
-     .pp{
-      margin-left: 33rem !important;
-     }
-     .cardmain{
-      margin-top: 4rem !important;
-     }
-     .col{
-      margin-bottom: -7% !important;
-      max-width: 14.5rem;
-      margin-right: 2.2%;
-      margin-left: -2%;
-     }
-     .subject{
-      margin-top: 28%;
-      margin-left: 25%;
-     }
-     .addsubject{
-      margin-top: 13%;
-      margin-left: 187%;
-     }
-     .addsubject:hover{
-      margin-top: 13%;
-      margin-left: 187%;
-     }
-     .card-container{
-      width: 65rem;
-      margin-left: -2%;
-      margin-top: 5%;
-     }
-     .col1{
-      margin-bottom: -9% !important;
-     }
-  }
-  @media screen and (min-width: 1600px) and (max-width: 1830px){
-    .mainn{
-     margin-top: 5%;
-     padding-right: 40%;
-    }
-     .progress{
-      margin-top: 12% !important;
-      margin-left: 39.5rem !important;
-      width: 10rem !important;
-     }   
-     .pp{
-      margin-left: 39rem !important;
-     }
-     .cardmain{
-      margin-top: 4rem !important;
-     }
-     .col{
-      margin-bottom: -7% !important;
-      max-width: 14.1rem;
-      margin-right: 2%;
-      margin-left: -2%;
-     }
-     .subject{
-      margin-top: 28%;
-      margin-left: 26%;
-     }
-     .addsubject{
-      margin-top: 13%;
-      margin-left: 170%;
-     }
-     .addsubject:hover{
-      margin-top: 13%;
-      margin-left: 170%;
-     }
-     .card-container{
-      width: 65rem;
-      margin-left: -2%;
-      margin-top: 5%;
-     }
-     .col1{
-      margin-bottom: -9% !important;
-     }
-  }
+  // @media screen and (min-width: 650px) and (max-width: 768px){
+  //   .mainn{
+  //    margin-top: 5%;
+  //    padding-right: 40%;
+  //   }
+  //    .progress{
+  //     margin-top: 30% !important;
+  //     width: 10rem !important;
+  //    }   
+  //    .cardmain{
+  //     margin-top: 4rem !important;
+  //    }
+  //    .col{
+  //     margin-bottom: -10% !important;
+  //     max-width: 14rem;
+  //     margin-right: -0%;
+  //     margin-left: -2%;
+  //    }
+  //    .subject{
+  //     margin-top: 67%;
+  //     margin-left: -4%;
+  //    }
+  //    .addsubject{
+  //     margin-top: 19%;
+  //     margin-left: 290%;
+  //    }
+  //    .addsubject:hover{
+  //     margin-top: 19%;
+  //     margin-left: 290%;
+  //    }
+  //    .card-container{
+  //     width: 27rem;
+  //     margin-left: -7%;
+  //     margin-top: 9%;
+  //    }
+  //    .col1{
+  //     margin-bottom: -25% !important;
+  //    }
+  // }
+  // @media screen and (min-width: 768px) and (max-width: 850px){
+  //   .mainn{
+  //    margin-top: 5%;
+  //    padding-right: 40%;
+  //   }
+  //    .progress{
+  //     margin-top: 15% !important;
+  //     margin-left: 10.5rem !important;
+  //     width: 10rem !important;
+  //    }   
+  //    .pp{
+  //     margin-left: 10rem !important;
+  //    }
+  //    .cardmain{
+  //     margin-top: 4rem !important;
+  //    }
+  //    .col{
+  //     margin-bottom: -10% !important;
+  //     max-width: 13.4rem;
+  //     margin-right: -0%;
+  //     margin-left: -3%;
+  //    }
+  //    .subject{
+  //     margin-top: 50%;
+  //     margin-left: -4%;
+  //    }
+  //    .addsubject{
+  //     margin-top: 17%;
+  //     margin-left: 300%;
+  //    }
+  //    .addsubject:hover{
+  //     margin-top: 17%;
+  //     margin-left: 300%;
+  //    }
+  //    .card-container{
+  //     width: 37rem;
+  //     margin-left: -7%;
+  //     margin-top: 13%;
+  //    }
+  //    .col1{
+  //     margin-bottom: -15% !important;
+  //    }
+  // }
+  // @media screen and (min-width: 850px) and (max-width: 992px){
+  //   .mainn{
+  //    margin-top: 5%;
+  //    padding-right: 40%;
+  //   }
+  //    .progress{
+  //     margin-top: 15% !important;
+  //     margin-left: 14.5rem !important;
+  //     width: 10rem !important;
+  //    }   
+  //    .pp{
+  //     margin-left: 14rem !important;
+  //    }
+  //    .cardmain{
+  //     margin-top: 4rem !important;
+  //    }
+  //    .col{
+  //     margin-bottom: -9% !important;
+  //     max-width: 14rem;
+  //     margin-right: -0%;
+  //     margin-left: -2%;
+  //    }
+  //    .subject{
+  //     margin-top: 50%;
+  //     margin-left: -4%;
+  //    }
+  //    .addsubject{
+  //     margin-top: 21%;
+  //     margin-left: 320%;
+  //    }
+  //    .addsubject:hover{
+  //     margin-top: 21%;
+  //     margin-left: 320%;
+  //    }
+  //    .card-container{
+  //     width: 42rem;
+  //     margin-left: -12%;
+  //     margin-top: 12%;
+  //    }
+  //    .col1{
+  //     margin-bottom: -15% !important;
+  //    }
+  // }
+  // @media screen and (min-width: 992px) and (max-width: 1070px){
+  //   .mainn{
+  //    margin-top: 5%;
+  //    padding-right: 40%;
+  //   }
+  //    .progress{
+  //     margin-top: 15% !important;
+  //     margin-left: 17.5rem !important;
+  //     width: 10rem !important;
+  //    }   
+  //    .pp{
+  //     margin-left: 17rem !important;
+  //    }
+  //    .cardmain{
+  //     margin-top: 4rem !important;
+  //    }
+  //    .col{
+  //     margin-bottom: -9% !important;
+  //     max-width: 14.2rem;
+  //     margin-right: 3%;
+  //     margin-left: -2%;
+  //    }
+  //    .subject{
+  //     margin-top: 50%;
+  //     margin-left: -4%;
+  //    }
+  //    .addsubject{
+  //     margin-top: 21%;
+  //     margin-left: 325%;
+  //    }
+  //    .addsubject:hover{
+  //     margin-top: 21%;
+  //     margin-left: 325%;
+  //    }
+  //    .card-container{
+  //     width: 42rem;
+  //     margin-left: 0%;
+  //     margin-top: 8%;
+  //    }
+  //    .col1{
+  //     margin-bottom: -15% !important;
+  //    } 
+  // }
+  // @media screen and (min-width: 1070px) and (max-width: 1200px){
+  //   .mainn{
+  //    margin-top: 5%;
+  //    padding-right: 40%;
+  //   }
+  //    .progress{
+  //     margin-top: 15% !important;
+  //     margin-left: 21.5rem !important;
+  //     width: 10rem !important;
+  //    }   
+  //    .pp{
+  //     margin-left: 21rem !important;
+  //    }
+  //    .cardmain{
+  //     margin-top: 4rem !important;
+  //    }
+  //    .col{
+  //     margin-bottom: -9% !important;
+  //     max-width: 14.8rem;
+  //     margin-right: 3%;
+  //     margin-left: -2%;
+  //    }
+  //    .subject{
+  //     margin-top: 50%;
+  //     margin-left: -4%;
+  //    }
+  //    .addsubject{
+  //     margin-top: 13%;
+  //     margin-left: 325%;
+  //    }
+  //    .addsubject:hover{
+  //     margin-top: 13%;
+  //     margin-left: 325%;
+  //    }
+  //    .card-container{
+  //     width: 42rem;
+  //     margin-left: 5%;
+  //     margin-top: 5%;
+  //    }
+  //    .col1{
+  //     margin-bottom: -15% !important;
+  //    }
+  // }
+  // @media screen and (min-width: 1200px) and (max-width: 1300px){
+  //   .mainn{
+  //    margin-top: 5%;
+  //    padding-right: 40%;
+  //   }
+  //    .progress{
+  //     margin-top: 12% !important;
+  //     margin-left: 24.5rem !important;
+  //     width: 10rem !important;
+  //    }   
+  //    .pp{
+  //     margin-left: 24rem !important;
+  //    }
+  //    .cardmain{
+  //     margin-top: 4rem !important;
+  //    }
+  //    .col{
+  //     margin-bottom: -7% !important;
+  //     max-width: 14rem;
+  //     margin-right: 2%;
+  //     margin-left: -2%;
+  //    }
+  //    .subject{
+  //     margin-top: 30%;
+  //     margin-left: -4%;
+  //    }
+  //    .addsubject{
+  //     margin-top: 13%;
+  //     margin-left: 340%;
+  //    }
+  //    .addsubject:hover{
+  //     margin-top: 13%;
+  //     margin-left: 340%;
+  //    }
+  //    .card-container{
+  //     width: 65rem;
+  //     margin-left: 2%;
+  //     margin-top: 5%;
+  //    }
+  //    .col1{
+  //     margin-bottom: -9% !important;
+  //    }
+  // }
+  // @media screen and (min-width: 1300px) and (max-width: 1450px){
+  //   .mainn{
+  //    margin-top: 5%;
+  //    padding-right: 40%;
+  //   }
+  //    .progress{
+  //     margin-top: 12% !important;
+  //     margin-left: 29.5rem !important;
+  //     width: 10rem !important;
+  //    }   
+  //    .pp{
+  //     margin-left: 29rem !important;
+  //    }
+  //    .cardmain{
+  //     margin-top: 4rem !important;
+  //    }
+  //    .col{
+  //     margin-bottom: -7% !important;
+  //     max-width: 14.1rem;
+  //     margin-right: 1%;
+  //     margin-left: -2%;
+  //    }
+  //    .subject{
+  //     margin-top: 30%;
+  //     margin-left: 17%;
+  //    }
+  //    .addsubject{
+  //     margin-top: 13%;
+  //     margin-left: 223%;
+  //    }
+  //    .addsubject:hover{
+  //     margin-top: 13%;
+  //     margin-left: 223%;
+  //    }
+  //    .card-container{
+  //     width: 65rem;
+  //     margin-left: -2%;
+  //     margin-top: 5%;
+  //    }
+  //    .col1{
+  //     margin-bottom: -9% !important;
+  //    }
+  // }
+  // @media screen and (min-width: 1450px) and (max-width: 1600px){
+  //   .mainn{
+  //    margin-top: 5%;
+  //    padding-right: 40%;
+  //   }
+  //    .progress{
+  //     margin-top: 12% !important;
+  //     margin-left: 33.5rem !important;
+  //     width: 10rem !important;
+  //    }   
+  //    .pp{
+  //     margin-left: 33rem !important;
+  //    }
+  //    .cardmain{
+  //     margin-top: 4rem !important;
+  //    }
+  //    .col{
+  //     margin-bottom: -7% !important;
+  //     max-width: 14.5rem;
+  //     margin-right: 2.2%;
+  //     margin-left: -2%;
+  //    }
+  //    .subject{
+  //     margin-top: 28%;
+  //     margin-left: 25%;
+  //    }
+  //    .addsubject{
+  //     margin-top: 13%;
+  //     margin-left: 187%;
+  //    }
+  //    .addsubject:hover{
+  //     margin-top: 13%;
+  //     margin-left: 187%;
+  //    }
+  //    .card-container{
+  //     width: 65rem;
+  //     margin-left: -2%;
+  //     margin-top: 5%;
+  //    }
+  //    .col1{
+  //     margin-bottom: -9% !important;
+  //    }
+  // }
+  // @media screen and (min-width: 1600px) and (max-width: 1830px){
+  //   .mainn{
+  //    margin-top: 5%;
+  //    padding-right: 40%;
+  //   }
+  //    .progress{
+  //     margin-top: 12% !important;
+  //     margin-left: 39.5rem !important;
+  //     width: 10rem !important;
+  //    }   
+  //    .pp{
+  //     margin-left: 39rem !important;
+  //    }
+  //    .cardmain{
+  //     margin-top: 4rem !important;
+  //    }
+  //    .col{
+  //     margin-bottom: -7% !important;
+  //     max-width: 14.1rem;
+  //     margin-right: 2%;
+  //     margin-left: -2%;
+  //    }
+  //    .subject{
+  //     margin-top: 28%;
+  //     margin-left: 26%;
+  //    }
+  //    .addsubject{
+  //     margin-top: 13%;
+  //     margin-left: 170%;
+  //    }
+  //    .addsubject:hover{
+  //     margin-top: 13%;
+  //     margin-left: 170%;
+  //    }
+  //    .card-container{
+  //     width: 65rem;
+  //     margin-left: -2%;
+  //     margin-top: 5%;
+  //    }
+  //    .col1{
+  //     margin-bottom: -9% !important;
+  //    }
+  // }
 
 
  

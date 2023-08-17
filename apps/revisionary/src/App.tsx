@@ -18,6 +18,7 @@ import MainSyllabusFile from './pages/Syllabus_Management/Revisionary_ui/Syllabu
 import StudentProfile from './pages/Syllabus_Management/Revisionary_ui/StudentProfile';
 import SignForm from './pages/Syllabus_Management/Revisionary_ui/SyllabusStatus/Comp/SignForm';
 import ComponentsRouting from './pages/Syllabus_Management/Revisionary_ui/SyllabusStatus/ComponentsRouting';
+import Tabs1 from './pages/Syllabus_Management/RT/Tab';
 
 function App() {
   const [colorPrimary] = useAtom(colorPrimaryAtom);
@@ -28,13 +29,13 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <Suspense fallback={<PageLoader />}>
             {/* <AppRoutes /> */}
-{/* <SignForm /> */}
+            {/* <SignForm /> */}
             {/* <Subject1 /> */}
             {/* <StudentProfile /> */}
-            <ComponentsRouting />
+            {/* <ComponentsRouting /> */}
             {/* <MainSyllabusFile /> */}
-{/* <Subject1 /> */}
-
+            {/* <Subject1 /> */}
+<Tabs1 />
             {/* <Tab /> */}
           </Suspense>
           <ReactQueryDevtools position="bottom-right" initialIsOpen={false} />

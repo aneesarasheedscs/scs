@@ -1,0 +1,37 @@
+#singleCard:hover {
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+    rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+#singleCard {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  perspective: 1000px;
+}
+
+.Topic {
+  width: 20%;
+
+  /* border: 1px solid #e6e6e6; */
+}
+
+.topicMark:hover {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+.related-topic {
+  border: 1px solid #e6e6e6;
+  padding: 10px;
+  box-shadow: 0px 3px 6px #00000029;
+}
+.related-topic:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.ant-card {
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+
+.ant-card:hover {
+  transform: rotateY(10deg); /* Apply a rotation effect on hover */
+}

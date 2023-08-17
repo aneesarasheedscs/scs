@@ -8,6 +8,7 @@ import {
   UserOutlined,
   PhoneOutlined,
 } from "@ant-design/icons";
+import './style2.scss';
 
 const SignupForm: React.FC = () => {
   const [form] = Form.useForm();

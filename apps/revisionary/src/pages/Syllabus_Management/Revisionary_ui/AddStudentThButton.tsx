@@ -33,8 +33,8 @@ export function AddStudentThButton1() {
                 boxShadow: 'none',
                 // height: '2rem',
                 position: 'relative',
-                top: '-2143px',
-                left: '1060px',
+                top: '-1980px',
+                left: '1140px',
                 marginBottom: '5%',
               }}
             />
@@ -45,7 +45,7 @@ export function AddStudentThButton1() {
                 flex: 1,
                 position: 'relative',
                 left: '25rem',
-                marginTop:'-2280px'
+                marginTop:'-2080px'
               }}
             >
               {showStudentCard1 && <StudentCard1/>}
@@ -62,8 +62,8 @@ export function AddStudentThButton1() {
                 // height: '2rem',
                 marginLeft: '10%',
                 position: 'absolute',
-                top: '155px',
-                left: '880px',
+                top: '265px',
+                left: '810px',
               }}
             />
             <div

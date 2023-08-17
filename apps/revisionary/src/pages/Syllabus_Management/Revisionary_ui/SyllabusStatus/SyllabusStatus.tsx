@@ -27,28 +27,28 @@ function SyllabusStatus() {
   const cardChunks = chunkArray(cardArray, 3);
 
   return (
-    <div className="syllabus-status">
+    <div className="syllabus-status" >
     <center>
-      <div className="flip" style={{ width: '70%' }}>
+      <div className="flip" style={{ width: '70%',maxHeight:'15rem' }}>
         <Divider orientation="center" className="divider-title">
           <h1>Content</h1>
         </Divider>
-        <div className="card-container">
+        <div className="card-container" >
           <Row gutter={[16, 16]}>
-            {cardChunks.map((column, columnIndex) => (
-              <React.Fragment key={columnIndex}>
-                <Col xs={24} sm={12} md={8} lg={6}>
-                  {column.map((card:any) => (
-                    <CardWithProgress key={card.id} cardData={card} />
+          {cardChunks.map((column, columnIndex) => (
+                    <React.Fragment key={columnIndex}>
+                      <Col xs={24} sm={12} md={8} lg={6}>
+                        {column.map((card: any) => (
+                          <CardWithProgress key={card.id} cardData={card} />
+                        ))}
+                      </Col>
+                      {columnIndex !== cardChunks.length - 1 && (
+                        <Col>
+                          <Divider type="vertical" style={{ height: '100%', marginLeft: '60px' }} />
+                        </Col>
+                      )}
+                    </React.Fragment>
                   ))}
-                </Col>
-                {columnIndex !== cardChunks.length - 1 && (
-                  <Col key={`divider-${columnIndex}`}>
-                    <Divider type="vertical" className="vertical-divider" />
-                  </Col>
-                )}
-              </React.Fragment>
-            ))}
           </Row>
         </div>
       </div>

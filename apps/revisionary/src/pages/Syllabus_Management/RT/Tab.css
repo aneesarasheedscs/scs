@@ -1,0 +1,20 @@
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: black !important; 
+    font-weight: 500;
+    
+ }
+ .ant-tabs-ink-bar {
+    position: absolute;
+    background: #00a148;
+    pointer-events: none;
+    border-bottom: 2px solid #00a148  !important;
+ }
+.ant-tabs-nav .ant-tabs-tab{
+    text-align: center;
+    &:hover{
+        color: #00a148;
+    }
+}
+
+  
+

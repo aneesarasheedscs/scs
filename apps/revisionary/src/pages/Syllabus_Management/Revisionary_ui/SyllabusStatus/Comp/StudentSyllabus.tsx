@@ -3,43 +3,24 @@ import React, { useState } from 'react';
 import './style2.scss';
 import { AntButton } from '@scs/ui';
 import { Link } from 'react-router-dom';
+
 const cards1 = [
   {
     key: '1',
-    description: 'Registration Code',
-    entry: '10',
+    code: '10',
+    date: '23',
+    name: 'Sana',
+    father: 'Akbar',
+    class: '12',
+    classyear: '2023',
+    board: 'Lahore Board',
   },
-  {
-    key: '2',
-    description: 'Registration Date',
-    entry: '23',
-  },
-  {
-    key: '3',
-    description: 'Name',
-    entry: 'Sana',
-  },
-  {
-    key: '4',
-    description: 'Father Name',
-    entry: 'Akbar',
-  },
-  {
-    key: '4',
-    description: 'Class',
-    entry: '12',
-  },
-  {
-    key: '5',
-    description: 'Class Year',
-    entry: '2023',
-  },
-  {
-    key: '6',
-    description: 'Exam Board',
-    entry: 'Lahore Board',
-  },
+  // {
+  //   key:'1',
+  //   entry:'222',
+  // }
 ];
+
 const cards2 = [
   {
     key: '1',
@@ -82,30 +63,23 @@ const cards2 = [
     description: 'Chemistry',
   },
 ];
+
 const StudentSyllabus: React.FC = () => {
   return (
     <div className="mainn">
       <Row gutter={16}>
         <Col xs={24} md={18}>
-          <h1 style={{ marginLeft: '3%' }}>Select Syllabus</h1>
+          <Divider>
+            {' '}
+            <h1 style={{ marginLeft: '100%', textAlign: 'center' }}>Select Syllabus</h1>
+          </Divider>
         </Col>
-        <Col span={4}>
-          <h4 className="progress">Overall Status</h4>
-          <Col span={18}>
-            <Progress
-              className="pp"
-              size={[240, 17]}
-              strokeLinecap="butt"
-              showInfo={false}
-              strokeColor="#52C41A"
-              percent={60}
-              style={{ marginLeft: '40.5%' }}
-            />
-          </Col>
-        </Col>
+        <Row />
+
         <Col>
           <div className="cardmain">
-            <Row gutter={[165, 165]}>
+            <h1 style={{ marginLeft: '4.5%', fontSize: '2rem' }}>Student Info</h1>
+            <Row gutter={[90, 90]}>
               {cards1.map((card) => {
                 return (
                   <Col
@@ -121,33 +95,61 @@ const StudentSyllabus: React.FC = () => {
                     <Card
                       className="cardd"
                       style={{
-                        padding: '0%',
-                        margin: '2% 0 ',
-                        height: '115%',
-                        width: '320%',
-                        border: '2px solid #52C41A',
+                        paddingLeft: '55%',
+                        paddingTop: '15%',
+                        margin: '2% 0',
+                        marginLeft: '15%',
+                        height: '110%',
+                        width: '280%',
+                        // fontWeight:'bold',
+                        border: '2px solid #52c41a',
                         boxShadow: '0px 3px 6px #00000029',
                         borderTopLeftRadius: '2.7rem',
                         borderBottomRightRadius: '2.7rem',
+                        textAlign: 'left',
                       }}
                       key={card.key}
                       bordered={false}
                     >
                       <div>
-                        <p
-                          style={{
-                            fontWeight: 'bold',
-                            paddingTop: '10%',
-                            fontFamily: 'Poppins',
-                            fontSize: '16px',
-                            lineHeight: '12px',
-                            textAlign: 'center',
-                          }}
-                        >
-                          <u>{card.description}</u>
+                        <p className="paragraph">
+                          <u style={{ fontWeight: 'bold' }}>Registration Code:</u> &nbsp; &nbsp;
+                          &nbsp;{card.code}
                         </p>
-                        <p style={{ textAlign: 'center', paddingTop: '25%', fontSize: '1em' }}>
-                          {card.entry}
+                        <br />
+                        <p className="paragraph">
+                          <u style={{ fontWeight: 'bold' }}>Registration Date:</u> &nbsp; &nbsp;
+                          &nbsp;{card.date}
+                        </p>
+                        <br />
+
+                        <p className="paragraph">
+                          <u style={{ fontWeight: 'bold' }}>Name:</u> &nbsp; &nbsp; &nbsp;
+                          {card.name}
+                        </p>
+                        <br />
+
+                        <p className="paragraph">
+                          <u style={{ fontWeight: 'bold' }}>Father Name:</u> &nbsp; &nbsp; &nbsp;
+                          {card.father}
+                        </p>
+                        <br />
+
+                        <p className="paragraph">
+                          <u style={{ fontWeight: 'bold' }}>Class:</u> &nbsp; &nbsp; &nbsp;
+                          {card.class}
+                        </p>
+                        <br />
+
+                        <p className="paragraph">
+                          <u style={{ fontWeight: 'bold' }}>Class Year:</u> &nbsp; &nbsp; &nbsp;
+                          {card.classyear}
+                        </p>
+                        <br />
+
+                        <p className="paragraph">
+                          <u style={{ fontWeight: 'bold' }}>Exam Board:</u> &nbsp; &nbsp; &nbsp;
+                          {card.board}
                         </p>
                       </div>
                     </Card>
@@ -155,9 +157,26 @@ const StudentSyllabus: React.FC = () => {
                 );
               })}
             </Row>
+            <Row>
+              <Col span={5}>
+                <h4 className="progress">Overall Status</h4>
+                <Col span={18}>
+                  <Progress
+                    className="pp"
+                    size={[240, 17]}
+                    strokeLinecap="butt"
+                    showInfo={false}
+                    strokeColor="#52c41a"
+                    percent={60}
+                    style={{ marginLeft: '26.5%' }}
+                  />
+                </Col>
+              </Col>
+            </Row>
           </div>
         </Col>
       </Row>
+
       <div className="subject">
         <Row>
           <Col span={10}>
@@ -173,12 +192,15 @@ const StudentSyllabus: React.FC = () => {
               Choose Your Subject
             </h5>
           </Col>
+
           <Col span={6}>
-            <AntButton label="+ Add Subject" className="addsubject">
-              <Link to=""></Link>
-            </AntButton>
+          <Link to="/syllabusfile">
+            <AntButton label="+ Add Subject" className="addsubject" />
+             </Link>
+            
           </Col>
         </Row>
+
         <div
           style={{
             width: '95%',
@@ -186,7 +208,7 @@ const StudentSyllabus: React.FC = () => {
             marginBottom: '5%',
             // height:'auto',
             marginTop: '1%',
-            // border:'1px solid #52C41A',
+            // border:'1px solid #52c41a',
             // background: 'rgb(250, 250, 250)',
             // boxShadow:
             //   'rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px',
@@ -213,7 +235,7 @@ const StudentSyllabus: React.FC = () => {
                         marginTop: '23%',
                         height: '75%',
                         width: '150%',
-                        border: '2px solid #52C41A',
+                        border: '2px solid #52c41a',
                         marginLeft: '45%',
                       }}
                       key={card.key}
@@ -222,9 +244,9 @@ const StudentSyllabus: React.FC = () => {
                       <div>
                         <div
                           style={{
-                            background: '#52C41A',
-                            padding:'3%',
-                            paddingTop:"3%",
+                            background: '#52c41a',
+                            padding: '3%',
+                            paddingTop: '3%',
                             fontWeight: 'bold',
                             fontSize: '16px',
                             lineHeight: '14px',
@@ -236,28 +258,17 @@ const StudentSyllabus: React.FC = () => {
                             position: 'relative',
                             top: '-1.2rem',
                             left: '0%',
-                            color:"white",
+                            color: 'white',
                             borderBottomLeftRadius: '16px',
                             borderBottomRightRadius: '16px',
                           }}
                         >
                           {card.code}
                         </div>
-                        {/* <div
-                          style={{
-                            background: 'gray',
-                            height: '2rem',
-                            width: '50%',
-                            position: 'relative',
-                            top: '-1.4rem',
-                            left: '-5%',
-                            borderBottomLeftRadius: '16px',
-                            borderBottomRightRadius: '16px',
-                          }}
-                        >
-                          <p style={{ paddingTop: '6%', fontSize: '13px' }}>Pearson Edexel</p>
-                        </div> */}
-                        <p style={{ textAlign: 'left', marginTop: '45%', marginBottom:'5%' }}>{card.description}</p>
+
+                        <p style={{ textAlign: 'left', marginTop: '45%', marginBottom: '5%' }}>
+                          {card.description}
+                        </p>
                       </div>
                     </Card>
                   </Col>
