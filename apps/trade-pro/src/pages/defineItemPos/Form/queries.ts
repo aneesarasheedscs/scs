@@ -1,89 +1,140 @@
 import { useQuery } from 'react-query';
 import { requestManager } from '@tradePro/configs/requestManager';
 
-export const useGetSupplierCombo = () => {
+//Parent  Category
+// export const getParentCategory = () => {
+//   const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
+
+//   return useQuery(
+//     'ItemCategory',
+//     () => {
+//       return requestManager.get('', {
+//         params: {
+//           OrganizationId: userDetail?.OrganizationId,
+//           CompanyId: userDetail?.CompanyId,
+//         },
+//       });
+//     },
+//     { cacheTime: userDetail?.expires_in }
+//   );
+// };
+//Item Category
+export const getItemCategory = () => {
   const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
 
   return useQuery(
-    'supplier-combo',
+    'ItemCategory',
     () => {
-      return requestManager.get('api/SupplierCustomer/GetforComboBinding', {
-        params: { OrganizationId: userDetail?.OrganizationId, CompanyId: userDetail?.CompanyId },
-      });
-    },
-    { cacheTime: userDetail?.expires_in }
-  );
-};
-// Delivery Term
-export const useGetDeliveryTerm = () => {
-  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
-
-  return useQuery(
-    'delivery-terms',
-    () => {
-      return requestManager.get('api/CommonServices/DeliveryTerm', {
-        params: { OrganizationId: userDetail?.OrganizationId, CompanyId: userDetail?.CompanyId },
-      });
-    },
-    { cacheTime: userDetail?.expires_in }
-  );
-};
-//Payment Term
-export const useGetPaymentTerm = () => {
-  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
-
-  return useQuery(
-    'payment-terms',
-    () => {
-      return requestManager.get('/api/InvDueTerms/GetByOrganizationCompanyId', {
-        params: { OrganizationId: userDetail?.OrganizationId, CompanyId: userDetail?.CompanyId },
-      });
-    },
-    { cacheTime: userDetail?.expires_in }
-  );
-};
-//Items
-export const useGetItem = () => {
-  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
-
-  return useQuery(
-    'Items',
-    () => {
-      return requestManager.get('/api/Item/ItemsWithBaseUOM', {
-        params: { OrganizationId: userDetail?.OrganizationId, CompanyId: userDetail?.CompanyId },
-      });
-    },
-    { cacheTime: userDetail?.expires_in }
-  );
-};
-//Job lot
-
-export const useJobLot = () => {
-  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
-
-  return useQuery(
-    'Job/Lot',
-    () => {
-      return requestManager.get('/api/JobLot/GetByOrganizationCompanyId', {
-        params: { OrganizationId: userDetail?.OrganizationId, CompanyId: userDetail?.CompanyId },
-      });
-    },
-    { cacheTime: userDetail?.expires_in }
-  );
-};
-
-//Base Uom
-export const useGetUom = () => {
-  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
-
-  return useQuery(
-    'Uom-Against-ItemId',
-    () => {
-      return requestManager.get('/api/UOMSchedule/SearchByObject', {
+      return requestManager.get('/api/ItemCategory/GetByOrganizationCompanyId', {
         params: {
           OrganizationId: userDetail?.OrganizationId,
           CompanyId: userDetail?.CompanyId,
-          ItemId: 4,
+        },
+      });
+    },
+    { cacheTime: userDetail?.expires_in }
+  );
+};
+//Item Code
+export const getItemCode = () => {
+  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
+
+  return useQuery(
+    'ItemCode',
+    () => {
+      return requestManager.get('/api/Item/GenerateCodeByCategoryId', {
+        params: {
+          OrganizationId: userDetail?.OrganizationId,
+          CompanyId: userDetail?.CompanyId,
+          ItemCategoryId: 2,
+        },
+      });
+    },
+    { cacheTime: userDetail?.expires_in }
+  );
+};
+
+// Item Type
+export const getItemType = () => {
+  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
+
+  return useQuery(
+    'ItemType',
+    () => {
+      return requestManager.get('/api/ItemType/GetByOrganizationCompanyId', {
+        params: {
+          OrganizationId: userDetail?.OrganizationId,
+          CompanyId: userDetail?.CompanyId,
+          Type: 16,
+        },
+      });
+    },
+    { cacheTime: userDetail?.expires_in }
+  );
+};
+// Item Class
+export const getItemClass = () => {
+  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
+
+  return useQuery(
+    'ItemClass',
+    () => {
+      return requestManager.get('/api/ItemClass/GetAll', {
+        params: {
+          OrganizationId: userDetail?.OrganizationId,
+          CompanyId: userDetail?.CompanyId,
+        },
+      });
+    },
+    { cacheTime: userDetail?.expires_in }
+  );
+};
+// Item UOM
+export const getItemUOM = () => {
+  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
+
+  return useQuery(
+    'ItemUOM',
+    () => {
+      return requestManager.get('/api/UOM/GetByOrganizationCompanyId', {
+        params: {
+          OrganizationId: userDetail?.OrganizationId,
+          CompanyId: userDetail?.CompanyId,
+        },
+      });
+    },
+    { cacheTime: userDetail?.expires_in }
+  );
+};
+//Get GeneralLedger accounts By Item Category Id
+export const getItemLedger = () => {
+  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
+
+  return useQuery(
+    'get-GeneralLedger-accounts ',
+    () => {
+      return requestManager.get('/api/Item/GetGLAccountbyItemCategoryId', {
+        params: {
+          OrganizationId: userDetail?.OrganizationId,
+          CompanyId: userDetail?.CompanyId,
+          ItemCategoryId: 2,
+        },
+      });
+    },
+    { cacheTime: userDetail?.expires_in }
+  );
+};
+//Get Companies
+export const getCompaniesNames = () => {
+  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
+
+  return useQuery(
+    'CompaniesName',
+    () => {
+      return requestManager.get('/api/Company/GetCompaniesAndBranches', {
+        params: {
+          OrganizationId: userDetail?.OrganizationId,
+          CompanyId: userDetail?.CompanyId,
         },
       });
     },
