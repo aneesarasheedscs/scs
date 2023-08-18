@@ -192,7 +192,7 @@ function Tab2() {
                 </Col>
               );
             })}
-            {/* {cards.map((card) => {
+            {cards.map((card) => {
               return (
                 <Col span={8}>
                   <Card
@@ -218,7 +218,7 @@ function Tab2() {
                   </Card>
                 </Col>
               );
-            })} */}
+            })}
           </Row>
         </div>
       </Card>

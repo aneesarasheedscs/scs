@@ -194,7 +194,7 @@ const StudentSyllabus: React.FC = () => {
           </Col>
 
           <Col span={6}>
-          <Link to="/syllabusfile">
+          <Link to="/subject">
             <AntButton label="+ Add Subject" className="addsubject" />
              </Link>
             

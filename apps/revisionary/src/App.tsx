@@ -19,6 +19,7 @@ import StudentProfile from './pages/Syllabus_Management/Revisionary_ui/StudentPr
 import SignForm from './pages/Syllabus_Management/Revisionary_ui/SyllabusStatus/Comp/SignForm';
 import ComponentsRouting from './pages/Syllabus_Management/Revisionary_ui/SyllabusStatus/ComponentsRouting';
 import Tabs1 from './pages/Syllabus_Management/RT/Tab';
+import { I18nextProvider } from 'react-i18next';
 
 function App() {
   const [colorPrimary] = useAtom(colorPrimaryAtom);
@@ -28,15 +29,18 @@ function App() {
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
           <Suspense fallback={<PageLoader />}>
-            {/* <AppRoutes /> */}
+          
+            <AppRoutes />
             {/* <SignForm /> */}
             {/* <Subject1 /> */}
             {/* <StudentProfile /> */}
             {/* <ComponentsRouting /> */}
             {/* <MainSyllabusFile /> */}
             {/* <Subject1 /> */}
-<Tabs1 />
+{/* <Tabs1 /> */}
             {/* <Tab /> */}
+            
+         
           </Suspense>
           <ReactQueryDevtools position="bottom-right" initialIsOpen={false} />
         </QueryClientProvider>

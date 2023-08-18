@@ -88,7 +88,7 @@ function Subject1() {
   };
 
   return (
-    <div className="assessment" style={{ height: '100hv', padding: 20 }}>
+    <div  style={{ height: '100hv', padding: 20 }}>
       <Divider orientation='center' style={{ marginTop: '30px' }}>
         <h1>Add Subject</h1>
       </Divider>
