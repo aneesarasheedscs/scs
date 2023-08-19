@@ -32,20 +32,7 @@ export function AppHeader({ appLogo, sideMenu }: TAppHeader) {
               {appLogo ? appLogo : <h1>Logo</h1>}
               <div className="container-fluid" >
       <div className="header">
-        {/* <div className="logo">
-          <i className="fas fa-bolt"></i>
-          <a href="http://google.com">Tech</a>
-        </div> */}
-        {/* <div className="mobileHidden">
-          <Anchor targetOffset={targetOffset}>
-            <Link className="links" href="#hero" title="SignIn" />
-            <Link className="links" href="#about" title="Student Profile" />
-            <Link className="links" href="#feature" title="Student Syllabus" />
-            <Link className="links" href="#works" title="Syllabus Status" />
-            <Link className="links" href="#faq" title=" Assesment" />
-            <Link className="links" href="#pricing" title=" Dashboard" />
-           </Anchor>
-        </div> */}
+      
         
         </div>
         </div>
@@ -76,15 +63,7 @@ export function AppHeader({ appLogo, sideMenu }: TAppHeader) {
       </Header>
 
       <SideDrawer open={open} handleClose={handleClose}>
-      {/* <Anchor targetOffset={targetOffset}>
-            <Link className="links" href="#hero" title="Home" />
-            <Link className="links" href="#about" title="About" />
-            <Link className="links" href="#feature" title="Features" />
-            <Link className="links" href="#works" title="Works" />
-            <Link className="links" href="#faq" title="FAQ" />
-            <Link className="links" href="#pricing" title="Pricing" />
-            <Link className="links" href="#contact" title="Contact" />
-          </Anchor> */}
+    
       </SideDrawer>
     </>
   );

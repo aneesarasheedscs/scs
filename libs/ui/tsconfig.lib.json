@@ -18,5 +18,5 @@
     "**/*.spec.jsx",
     "**/*.test.jsx"
   ],
-  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "../../apps/revisionary/src/pages/Syllabus_Management/queries/AntCard.tsx"]
+  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "../../apps/revisionary/src/pages/Syllabus_Management/Component/AntCard.tsx"]
 }

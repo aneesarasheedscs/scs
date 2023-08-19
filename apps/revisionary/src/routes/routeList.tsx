@@ -4,6 +4,8 @@ import { RouteObject } from 'react-router-dom';
 
 const Login = lazy(() => import('@revisionary/pages/login'));
 const SyllabusManagement = lazy(() => import('@revisionary/pages/Syllabus_Management/Tab'));
+const ClassManagement = lazy(() => import('@revisionary/pages/Class_Management/Tab'));
+
 const SignForm = lazy(() => import('@revisionary/pages/Syllabus_Management/Revisionary_ui/SyllabusStatus/Comp/SignForm'))
 const StudentProfile = lazy(()=> import('@revisionary/pages/Syllabus_Management/Revisionary_ui/StudentProfile'))
 const StudentSyllabus = lazy(()=> import('@revisionary/pages/Syllabus_Management/Revisionary_ui/SyllabusStatus/Comp/StudentSyllabus'))
@@ -16,6 +18,7 @@ export const publicRoutes: RouteObject[] = [{ path: route.LOGIN, element: <Login
 
 export const protectedRoutes: RouteObject[] = [
   { path: route.SYLLABUS_MANAGEMENT, element: <SyllabusManagement /> },
+  { path: route.CLASS_MANAGEMENT, element: <ClassManagement /> },
    {path: route.SIGN_fORM, element: <SignForm />},
    {path: route.STUDENT_PROFILE, element: <StudentProfile />},
    {path: route.STUDENT_SYLLABUS, element: <StudentSyllabus />},

@@ -8,6 +8,7 @@ import SignForm from './Comp/SignForm'
 import StudentSyllabus from './Comp/StudentSyllabus'
 import Assessment from './SyllabusBooks'
 import Tab from '../../Tab'
+import Tab2 from '../../Tab2'
 
 export default function ComponentsRouting() {
   return (
@@ -21,6 +22,8 @@ export default function ComponentsRouting() {
         <Route path='/subject' element={<Subject1/>}></Route>
         <Route path='/assessment' element={<Assessment/>}></Route>
         <Route path='/syllabus-management' element={<Tab />}></Route>
+        <Route path='/class-management' element={<Tab2 />}></Route>
+
     </Routes>
     </div>
   )

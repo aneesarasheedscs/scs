@@ -18,7 +18,7 @@ import MainSyllabusFile from './pages/Syllabus_Management/Revisionary_ui/Syllabu
 import StudentProfile from './pages/Syllabus_Management/Revisionary_ui/StudentProfile';
 import SignForm from './pages/Syllabus_Management/Revisionary_ui/SyllabusStatus/Comp/SignForm';
 import ComponentsRouting from './pages/Syllabus_Management/Revisionary_ui/SyllabusStatus/ComponentsRouting';
-import Tabs1 from './pages/Syllabus_Management/RT/Tab';
+import Tabs1 from './pages/Class_Management/Tab';
 import { I18nextProvider } from 'react-i18next';
 
 function App() {
@@ -29,18 +29,7 @@ function App() {
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
           <Suspense fallback={<PageLoader />}>
-          
             <AppRoutes />
-            {/* <SignForm /> */}
-            {/* <Subject1 /> */}
-            {/* <StudentProfile /> */}
-            {/* <ComponentsRouting /> */}
-            {/* <MainSyllabusFile /> */}
-            {/* <Subject1 /> */}
-{/* <Tabs1 /> */}
-            {/* <Tab /> */}
-            
-         
           </Suspense>
           <ReactQueryDevtools position="bottom-right" initialIsOpen={false} />
         </QueryClientProvider>

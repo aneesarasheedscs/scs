@@ -11,9 +11,9 @@ export const sidebarList = [
     path: '/class-management',
     label: 'Class Management',
   },
-  {
-    Icon: FileTextOutlined,
-    path: '/subject-topics',
-    label: 'Subject Topics',
-  },
+  // {
+  //   Icon: FileTextOutlined,
+  //   path: '/subject-topics',
+  //   label: 'Subject Topics',
+  // },
 ];

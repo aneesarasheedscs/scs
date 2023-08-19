@@ -1,0 +1,17 @@
+.content-container {
+    padding: 15px;
+    padding-left: 45px;
+    padding-bottom: 50px;
+}
+
+@media (min-width: 992px) {
+    .content-container {
+      margin-left: 220px;
+    }
+  }
+  
+  @media (max-width: 991px) {
+    .content-container {
+      margin-left: 0;
+    }
+  }
