@@ -1,4 +1,5 @@
 import { Tabs } from 'antd';
+import PurchaseOrderForm from './form';
 import PurchaseOrderTable from './table';
 import FormFile from './Components/formfile';
 import { theme } from 'antd';
@@ -20,7 +21,7 @@ function PurchaseOrder() {
         className="tabs-margin-bottom-0"
         items={[
           { key: '1', label: 'History', children: <PurchaseOrderTable /> },
-          { key: '2', label: 'Form', children: <FormFile /> },
+          { key: '2', label: 'Form', children: <PurchaseOrderForm /> },
         ]}
       />
     </>

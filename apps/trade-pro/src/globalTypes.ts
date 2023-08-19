@@ -13,6 +13,7 @@ export type TUserDetail = {
   UserName: string;
   CompanyId: number;
   TokenData: string;
+  BranchesId: number;
   PictureURL: string;
   expires_in: number;
   token_type: string;
@@ -27,4 +28,21 @@ export type TUserDetail = {
   '.expires': Date | string;
   IsActive: string | boolean;
   AuthenticationEnabledForUser: number | string;
+};
+
+export type TFinancialYear = {
+  Id: number;
+  Status: boolean;
+  PostUser: number;
+  CompanyId: number;
+  EntryUser: number;
+  ModifyUser: number;
+  PostState: boolean;
+  OrganizationId: number;
+  PostDate: Date | string;
+  EntryDate: Date | string;
+  End_Period: Date | string;
+  FinancialYearCode: string;
+  ModifyDate: Date | string;
+  Start_Period: Date | string;
 };

@@ -2,18 +2,18 @@ import { Col, Tooltip } from 'antd';
 import { AntButton } from '../button/AntButton';
 import { SyncOutlined } from '@ant-design/icons';
 
-function RefreshData({ isRefreshDataEnabled }: TRefreshData) {
+function RefreshData({ disabled, handleRefresh, isRefreshDataEnabled }: TRefreshData) {
   if (!isRefreshDataEnabled) return null;
 
   return (
     <Col>
       <Tooltip arrow title="Refresh data">
-        <AntButton type="default" icon={<SyncOutlined />} />
+        <AntButton disabled={disabled} type="default" icon={<SyncOutlined />} onClick={handleRefresh} />
       </Tooltip>
     </Col>
   );
 }
 
-type TRefreshData = { isRefreshDataEnabled: boolean };
+type TRefreshData = { disabled?: boolean; handleRefresh?: VoidFunction; isRefreshDataEnabled: boolean };
 
 export default RefreshData;

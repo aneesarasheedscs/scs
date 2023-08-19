@@ -10,6 +10,9 @@ export {
   AppHeader,
   PageLoader,
   TableLoader,
+  AntDatePicker,
+  AntRangePicker,
+  AntInputNumber,
   AntSelectDynamic,
   SearchCriteriaWrapper,
 } from '@scs/ui';

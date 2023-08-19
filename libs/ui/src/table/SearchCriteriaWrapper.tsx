@@ -3,12 +3,7 @@ import { ReactNode } from 'react';
 import { AntButton } from '../button/AntButton';
 import { FilterFilled } from '@ant-design/icons';
 
-export function SearchCriteriaWrapper({
-  open,
-  children,
-  handleOpen,
-  handleClose,
-}: TSearchCriteriaWrapper) {
+export function SearchCriteriaWrapper({ open, children, handleOpen, handleClose }: TSearchCriteriaWrapper) {
   return (
     <>
       <AntButton ghost icon={<FilterFilled />} label="Search Criteria" onClick={handleOpen} />
