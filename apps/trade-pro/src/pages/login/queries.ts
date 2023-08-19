@@ -3,8 +3,9 @@ import { notification } from 'antd';
 import { useMutation, useQuery } from 'react-query';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { requestManager } from '@tradePro/configs/requestManager';
+import { storedUserDetail } from '@tradePro/utils/storageService';
 
-export default function useLogin() {
+export const useLogin = () => {
   return useMutation('token', (data: TUser) => getAccessToken(data), {
     onSuccess: (response: AxiosResponse) => {
       const userData = JSON.stringify(response?.data);
@@ -14,7 +15,7 @@ export default function useLogin() {
       notification.error({ message: error?.response?.data?.error_description });
     },
   });
-}
+};
 
 const apiURL = import.meta.env.VITE_API_URL;
 
@@ -30,7 +31,7 @@ const getAccessToken = (values: TUser) => {
   return axios.post(`${apiURL}/token`, data, { headers });
 };
 
-const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
+const userDetail = storedUserDetail();
 
 export const useGetCompany = () => {
   return useQuery('company', () => {
@@ -40,7 +41,7 @@ export const useGetCompany = () => {
   });
 };
 
-export const useGetFinancialYear = (CompanyId: number | null) => {
+export const useGetFinancialYear = (CompanyId: number | null) => () => {
   return useQuery(
     ['financial-year', CompanyId],
     () => {
@@ -51,7 +52,8 @@ export const useGetFinancialYear = (CompanyId: number | null) => {
     { enabled: !!CompanyId }
   );
 };
-export const useGetBranch = (CompanyId: number | null) => {
+
+export const useGetBranch = (CompanyId: number | null) => () => {
   return useQuery(
     ['branch', CompanyId],
     () => {

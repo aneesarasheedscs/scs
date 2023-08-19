@@ -1,8 +1,12 @@
+import './style.scss';
 import { Form } from 'antd';
-import { find, merge } from 'lodash';
+import { merge } from 'lodash';
+import CardWrapper from './CardWrapper';
+import { useEffect, useState } from 'react';
 import { TCompanyBranchDetail } from './types';
 import { useNavigate } from 'react-router-dom';
 import { route } from '@tradePro/routes/constant';
+import { storedUserDetail } from '@tradePro/utils/storageService';
 import { AntButton, AntSelectDynamic } from '@tradePro/components';
 import { useGetBranch, useGetCompany, useGetFinancialYear } from './queries';
 
@@ -12,32 +16,17 @@ function CompanyBranchDetails() {
   const navigate = useNavigate();
   const [form] = useForm<TCompanyBranchDetail>();
   const formValues = useWatch<TCompanyBranchDetail>([], form);
+  const [financialYearObj, setFinancialYearObj] = useState();
+  const onSelectChange = (selectedObject: any) => setFinancialYearObj(selectedObject);
 
-  const {
-    data: companyData,
-    isError: isCompanyError,
-    isLoading: isCompanyLoading,
-  } = useGetCompany();
-
-  const {
-    data: financialYearData,
-    isError: isFinancialYearError,
-    isLoading: isFinancialYearLoading,
-  } = useGetFinancialYear(formValues?.CompanyId);
-
-  const {
-    data: branchData,
-    isError: isBranchError,
-    isLoading: isBranchLoading,
-  } = useGetBranch(formValues?.CompanyId);
+  useEffect(() => {
+    const userDetail = storedUserDetail();
+    if (!userDetail?.access_token) navigate(route.LOGIN);
+  }, []);
 
   const handleSubmit = () => {
     const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
     merge({}, userDetail, { CompanyId: formValues?.CompanyId, BranchId: formValues?.BranchId });
-
-    const financialYearObj = find(financialYearData?.data?.Data?.Result, (item) => {
-      return item?.Id === formValues?.FinancialYearId;
-    });
 
     localStorage.setItem('financialYear', JSON.stringify(financialYearObj));
 
@@ -45,50 +34,44 @@ function CompanyBranchDetails() {
   };
 
   return (
-    <Form form={form} layout="vertical">
-      <AntSelectDynamic
-        required
-        size="large"
-        label="Company"
-        name="CompanyId"
-        fieldLabel="CompName"
-        fieldValue="CompanyId"
-        isError={isCompanyError}
-        isLoading={isCompanyLoading}
-        data={companyData?.data?.Data?.Result}
-      />
-      <AntSelectDynamic
-        required
-        size="large"
-        label="Branch"
-        name="BranchId"
-        fieldValue="BranchId"
-        isError={isBranchError}
-        fieldLabel="BranchName"
-        isLoading={isBranchLoading}
-        data={branchData?.data?.Data?.Result}
-      />
-      <AntSelectDynamic
-        required
-        size="large"
-        fieldValue="Id"
-        name="FinancialYearId"
-        label="Financial Year"
-        fieldLabel="FinancialYearCode"
-        isError={isFinancialYearError}
-        isLoading={isFinancialYearLoading}
-        data={financialYearData?.data?.Data?.Result}
-      />
-      <Form.Item>
-        <AntButton
+    <CardWrapper>
+      <Form form={form} layout="vertical">
+        <AntSelectDynamic
+          required
           size="large"
-          label="Submit"
-          htmlType="submit"
-          className="fullWidth"
-          onClick={handleSubmit}
+          label="Company"
+          name="CompanyId"
+          fieldLabel="CompName"
+          query={useGetCompany}
+          fieldValue="CompanyId"
         />
-      </Form.Item>
-    </Form>
+
+        <AntSelectDynamic
+          required
+          size="large"
+          label="Branch"
+          name="BranchId"
+          fieldValue="BranchId"
+          fieldLabel="BranchName"
+          query={useGetBranch(formValues?.CompanyId)}
+        />
+
+        <AntSelectDynamic
+          required
+          size="large"
+          fieldValue="Id"
+          name="FinancialYearId"
+          label="Financial Year"
+          fieldLabel="FinancialYearCode"
+          onSelectChange={onSelectChange}
+          query={useGetFinancialYear(formValues?.CompanyId)}
+        />
+
+        <Form.Item>
+          <AntButton size="large" label="Submit" htmlType="submit" onClick={handleSubmit} />
+        </Form.Item>
+      </Form>
+    </CardWrapper>
   );
 }
 

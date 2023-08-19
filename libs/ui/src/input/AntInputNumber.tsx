@@ -1,7 +1,7 @@
 import './style.scss';
-import { Form, FormItemProps, Input, InputProps } from 'antd';
+import { Form, FormItemProps, InputNumber, InputNumberProps } from 'antd';
 
-export function AntInput({
+export function AntInputNumber({
   name,
   label,
   required,
@@ -9,7 +9,7 @@ export function AntInput({
   fullWidth = true,
   showLabel = true,
   ...restProps
-}: TAntInput) {
+}: TAntInputNumber) {
   const requiredProps = required
     ? {
         name,
@@ -18,7 +18,7 @@ export function AntInput({
     : { name, rules: [] };
   return (
     <Form.Item label={showLabel ? label : ''} {...requiredProps} {...formItemProps}>
-      <Input
+      <InputNumber
         {...restProps}
         className={fullWidth ? `fullWidth ${restProps?.className}` : restProps?.className}
       />
@@ -26,11 +26,11 @@ export function AntInput({
   );
 }
 
-type TAntInput = {
+type TAntInputNumber = {
   name?: string;
   label: string;
   required?: boolean;
   fullWidth?: boolean;
   showLabel?: boolean;
   formItemProps?: FormItemProps;
-} & InputProps;
+} & InputNumberProps;

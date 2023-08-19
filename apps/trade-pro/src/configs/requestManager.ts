@@ -1,5 +1,6 @@
 import { AxiosError } from 'axios';
 import { requestManager as reqManager } from '@scs/configs';
+import { storedUserDetail } from '@tradePro/utils/storageService';
 
 const logoutRedirect = (error: AxiosError) => {
   // localStorage.clear();
@@ -9,6 +10,6 @@ const logoutRedirect = (error: AxiosError) => {
 };
 
 const baseUrl = import.meta.env.VITE_API_URL;
-const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
+const userDetail = storedUserDetail();
 
-export const requestManager = reqManager(baseUrl, userDetail?.access_token, logoutRedirect);
+export const requestManager = reqManager(baseUrl, userDetail?.access_token as string, logoutRedirect);
