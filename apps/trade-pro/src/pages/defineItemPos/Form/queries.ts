@@ -2,22 +2,22 @@ import { useQuery } from 'react-query';
 import { requestManager } from '@tradePro/configs/requestManager';
 
 //Parent  Category
-// export const getParentCategory = () => {
-//   const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
+export const getParentCategory = () => {
+  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
 
-//   return useQuery(
-//     'ItemCategory',
-//     () => {
-//       return requestManager.get('', {
-//         params: {
-//           OrganizationId: userDetail?.OrganizationId,
-//           CompanyId: userDetail?.CompanyId,
-//         },
-//       });
-//     },
-//     { cacheTime: userDetail?.expires_in }
-//   );
-// };
+  return useQuery(
+    'ParentCategory',
+    () => {
+      return requestManager.get('/api/ItemCategory/InventoryParentCategories', {
+        params: {
+          OrganizationId: userDetail?.OrganizationId,
+          CompanyId: userDetail?.CompanyId,
+        },
+      });
+    },
+    { cacheTime: userDetail?.expires_in }
+  );
+};
 //Item Category
 export const getItemCategory = () => {
   const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
@@ -80,6 +80,23 @@ export const getItemClass = () => {
     'ItemClass',
     () => {
       return requestManager.get('/api/ItemClass/GetAll', {
+        params: {
+          OrganizationId: userDetail?.OrganizationId,
+          CompanyId: userDetail?.CompanyId,
+        },
+      });
+    },
+    { cacheTime: userDetail?.expires_in }
+  );
+};
+// Item Class Group
+export const getItemClassGroup = () => {
+  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
+
+  return useQuery(
+    'ItemClassGroup',
+    () => {
+      return requestManager.get('/api/ItemCategory/GetItemClassGroup', {
         params: {
           OrganizationId: userDetail?.OrganizationId,
           CompanyId: userDetail?.CompanyId,

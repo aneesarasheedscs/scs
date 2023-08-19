@@ -5,7 +5,8 @@ import { TPurchaseOrderSearchCriteria } from '../../type';
 import { AntButton, AntInput, AntSelectDynamic, SearchCriteriaWrapper } from '@tradePro/components';
 import { AddButtonforItems } from './AddButtonforItems';
 import Title from 'antd/es/skeleton/Title';
-import { getItemCategory, getItemClass } from '../queries';
+import { getItemCategory, getItemClass, getItemClassGroup, getParentCategory } from '../queries';
+import ItemCategoryTable from './table';
 
 const { useForm, useWatch } = Form;
 const { RangePicker } = DatePicker;
@@ -22,11 +23,23 @@ function ItemCategory() {
     isLoading,
   } = getItemCategory();
   const {
+    data: parentCategory,
+    isSuccess: isSuccessParent,
+    isError: isErrorParent,
+    isLoading: isLoadingParent,
+  } = getParentCategory();
+  const {
     data: itemClass,
     isSuccess: isSuccessClass,
     isLoading: isLoadingClass,
     isError: isErrorClass,
   } = getItemClass();
+  const {
+    data: classGroup,
+    isSuccess: isSuccessGroup,
+    isLoading: isLoadingGroup,
+    isError: isErrorGroup,
+  } = getItemClassGroup();
 
   const formValues = useWatch<TPurchaseOrderSearchCriteria>([], form);
 
@@ -62,18 +75,29 @@ function ItemCategory() {
           </Col>
         </Row>
         <Row align="middle" gutter={[10, 10]}>
-          <Col xs={24} sm={24} md={12}>
+          <Col xs={24} sm={24} md={8}>
             <AntSelectDynamic
               name="Category"
               label="Parent Category"
               fieldValue="Id"
-              fieldLabel="CategoryDescription"
+              fieldLabel="InvParentCateDescription"
               isError={isError}
               isLoading={isLoading}
-              data={itemCategory?.data?.Data?.Result}
+              data={parentCategory?.data?.Data?.Result}
             />
           </Col>
-          <Col xs={24} sm={24} md={12}>
+          <Col xs={24} sm={24} md={8}>
+            <AntSelectDynamic
+              name="Group"
+              label="Class Group"
+              fieldValue="Id"
+              fieldLabel="ClassGroupName"
+              isError={isError}
+              isLoading={isLoading}
+              data={classGroup?.data?.Data?.Result}
+            />
+          </Col>
+          <Col xs={24} sm={24} md={8}>
             <AntSelectDynamic
               name="Class"
               label="Item Class"
@@ -84,7 +108,7 @@ function ItemCategory() {
               data={itemClass?.data?.Data?.Result}
             />
           </Col>
-          <Col xs={24} sm={24} md={12}>
+          <Col xs={24} sm={24} md={8}>
             <AntSelectDynamic
               fieldValue="Id"
               name="InventoryAccountTitle"
@@ -95,7 +119,7 @@ function ItemCategory() {
               data={itemCategory?.data?.Data?.Result}
             />
           </Col>
-          <Col xs={24} sm={24} md={12}>
+          <Col xs={24} sm={24} md={8}>
             <AntSelectDynamic
               fieldValue="Id"
               name="RevenueAccountTitle"
@@ -106,7 +130,7 @@ function ItemCategory() {
               data={itemCategory?.data?.Data?.Result}
             />
           </Col>
-          <Col xs={24} sm={24} md={12}>
+          <Col xs={24} sm={24} md={8}>
             <AntSelectDynamic
               fieldValue="Id"
               name="CGSAccountTitle"
@@ -117,16 +141,11 @@ function ItemCategory() {
               data={itemCategory?.data?.Data?.Result}
             />
           </Col>
-          <Col xs={24} sm={24} md={6}>
+          <Col xs={24} sm={24} md={2}>
             Status
-            <Checkbox style={{ marginLeft: 5 }} />
+            <Checkbox style={{ marginLeft: 5, padding: 5 }} />
           </Col>
-          <Col
-            xs={24}
-            sm={24}
-            md={6}
-            style={{ display: 'flex', flexDirection: 'row', marginLeft: 'auto' }}
-          >
+          <Col xs={24} sm={24} md={4} style={{ display: 'flex', flexDirection: 'row' }}>
             <AntButton
               label="Save"
               icon={<FileAddOutlined />}
@@ -149,6 +168,7 @@ function ItemCategory() {
           </Col>
         </Row>
       </Form>
+      <ItemCategoryTable />
     </AddButtonforItems>
   );
 }

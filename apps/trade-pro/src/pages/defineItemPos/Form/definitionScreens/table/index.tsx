@@ -1,10 +1,10 @@
 import { AntTable } from '@tradePro/components';
 import { columns } from './column';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
-import { useGetItemTypeHistory } from './querie';
+import { useGetItemCategoryHistory } from './queries';
 
-function ItemDefinitionTable() {
-  const { data, isError, isLoading } = useGetItemTypeHistory();
+function ItemCategoryTable() {
+  const { data, isError, isLoading } = useGetItemCategoryHistory();
   return (
     <>
       <AntTable
@@ -13,10 +13,10 @@ function ItemDefinitionTable() {
         numberOfSkeletons={12}
         isLoading={isLoading}
         data={data?.data?.Data?.Result || []}
-        scroll={{ x: '', y: convertVhToPixels('42vh') }}
+        scroll={{ x: '', y: convertVhToPixels('30vh') }}
       />
     </>
   );
 }
 
-export default ItemDefinitionTable;
+export default ItemCategoryTable;

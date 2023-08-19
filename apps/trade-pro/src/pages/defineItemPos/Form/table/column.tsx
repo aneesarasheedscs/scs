@@ -4,27 +4,27 @@ import { EditFilled } from '@ant-design/icons';
 import { AntButton } from '@scs/ui';
 import { TItemHistoryTable } from '../../type';
 
-export const columns = (): AntColumnType<TItemHistoryTable>[] => [
-  { title: 'Item Code', dataIndex: 'ItemCode', width: 100 },
+export const columns = (): AntColumnType<TItemTypeHistory>[] => [
+  { title: 'Sr#', dataIndex: 'Id', width: 100 },
+  {
+    title: 'Item Code',
+    dataIndex: 'TypeCode',
+    width: 300,
+    searchableInput: true,
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.TypeCode.localeCompare(b.TypeCode),
+  },
 
   {
-    width: 250,
+    width: 300,
     searchableInput: true,
-    title: 'Item Name',
-    dataIndex: 'ItemName',
+    title: 'Item Description',
+    dataIndex: 'TypeDescription',
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.ItemName.localeCompare(b.ItemName),
+    sorter: (a, b) => a.TypeDescription.localeCompare(b.TypeDescription),
   },
   {
-    width: 200,
-    searchableInput: true,
-    title: 'Item Category',
-    dataIndex: 'CategoryDescription',
-    sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.CategoryDescription.localeCompare(b.CategoryDescription),
-  },
-  {
-    width: 200,
+    width: 300,
     searchableInput: true,
     title: 'Item Type',
     dataIndex: 'TypeDescription',
@@ -45,3 +45,20 @@ export const columns = (): AntColumnType<TItemHistoryTable>[] => [
     ),
   },
 ];
+export type TItemTypeHistory = {
+  Id: number;
+  TypeCode: string;
+  TypeDescription: string;
+  Type: number;
+  EntryDate: Date;
+  EntryUser: number;
+  ModifyDate: Date;
+  ModifyUser: number;
+  PostDate: number | boolean;
+  PostUser: number;
+  PostState: boolean | string;
+  OrganizationId: number;
+  CompanyId: number;
+  ItemCategoryId: number;
+  LookupName: string;
+};

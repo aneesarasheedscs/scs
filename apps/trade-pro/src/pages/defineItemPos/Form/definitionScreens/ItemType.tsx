@@ -70,6 +70,7 @@ function ItemType() {
           </Col>
         </Row>
       </Form>
+
       <ItemDefinitionTable />
     </AddButtonforItems>
   );

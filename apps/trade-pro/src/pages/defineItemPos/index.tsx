@@ -13,7 +13,7 @@ function ItemHistory() {
 
   return (
     <>
-      <h2 className="form-heading" style={{ marginBottom: 10 }}>
+      <h2 className="form-heading" style={{ marginBottom: 5, marginTop: -15 }}>
         Define Item
       </h2>
       <Tabs

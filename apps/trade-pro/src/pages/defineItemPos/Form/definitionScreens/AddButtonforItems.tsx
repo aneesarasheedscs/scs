@@ -7,7 +7,7 @@ export function AddButtonforItems({ open, children, handleOpen, handleClose }: T
   return (
     <>
       <AntButton icon={<PlusOutlined />} label="" onClick={handleOpen} />
-      <Modal open={open} onCancel={handleClose} footer={null} width={1000}>
+      <Modal open={open} onCancel={handleClose} footer={null} width={1200}>
         {children}
       </Modal>
     </>

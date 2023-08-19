@@ -18,6 +18,7 @@ import { AntButton, AntInput, AntSelectDynamic } from '@scs/ui';
 import { Button, Card, Checkbox, Col, Form, Input, Row, Space, Tooltip } from 'antd';
 import { CloseOutlined, PlusOutlined, FileAddOutlined, DeleteFilled } from '@ant-design/icons';
 import ItemType from './definitionScreens/ItemType';
+import { AntSelectDynamicMultiple } from './AntSelectDynamicMultiple';
 
 //convert image
 const getBase64 = (file: any) => {
@@ -420,9 +421,9 @@ function FormFile() {
                     <Form.Item
                       name={'CompName'}
                       label={<h3>Select Companies</h3>}
-                      style={{ marginRight: 10, marginTop: -30 }}
+                      style={{ marginRight: 10, marginTop: -50 }}
                     >
-                      <AntSelectDynamic
+                      <AntSelectDynamicMultiple
                         fieldValue="Id"
                         optionFilterProp="children"
                         showSearch
@@ -431,16 +432,28 @@ function FormFile() {
                         allowClear
                         fieldLabel="CompName"
                         name="CompName"
-                        style={{ width: '100%', marginLeft: 0, background: '#ffff' }}
+                        style={{ width: '100%' }}
                         data={getCompanies?.data?.Data?.Result}
                       />
+                      {/* <AntSelectDynamic
+                        fieldValue="Id"
+                        optionFilterProp="children"
+                        showSearch
+                        className="select"
+                        placeholder="Select Companies"
+                        allowClear
+                        fieldLabel="CompName"
+                        name="CompName"
+                        style={{ width: '100%' }}
+                        data={getCompanies?.data?.Data?.Result}
+                      /> */}
                     </Form.Item>
                     <Row>
                       <Form.Item
                         name={'amount'}
                         label={<h3>Product Image</h3>}
                         //   rules={[{ required: true, message: 'Missing last name' }]}
-                        style={{ marginRight: 10 }}
+                        style={{ marginRight: 10, marginTop: -30 }}
                       >
                         <img
                           src={localStorage.getItem('img') ? localStorage.getItem('img') : image}
