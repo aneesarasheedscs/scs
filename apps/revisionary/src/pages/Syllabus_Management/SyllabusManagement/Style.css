@@ -44,8 +44,7 @@ body {
 }
 .cardS:hover {
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px,
-    rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px,
-    rgba(0, 0, 0, 0.09) 0px -3px 5px !important;
+    rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px !important;
 }
 .p {
   text-align: right;
@@ -83,4 +82,17 @@ body {
   height: 1.5rem !important;
   width: 1.5rem !important;
   /* padding-right:1.5rem !important; */
+}
+/* syllabus Athority button */
+.buttonstyle {
+  width: 12%;
+  background: white;
+  color: #00a148;
+  border: 1px solid #00a148;
+}
+.buttonstyle2 {
+  width: 12%;
+  /* background: white; */
+  color: white;
+  border: 1px solid #00a148;
 }

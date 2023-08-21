@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useGetClasses } from '../Queries';
 import { AntCard } from '../../Component/AntCard';
 import AddUpdateRecord from './UpdateClassRecord';
+import InputForm from '@revisionary/pages/Component/InputForm';
 
 interface CardData {
   id: number;
@@ -65,94 +66,38 @@ function Class() {
   };
 
   return (
-    <div className="cardcontainer">
-      <Card className="tabcard">
+    <div className="card-container">
+      <Card className="cardContainer">
         <h1 className="h1">Syllabus Authority / Publisher</h1>
         <Divider />
-        <Form style={{ marginLeft: '63px' }}>
-          <Input
-            placeholder="Code"
-            style={{
-              width: '31.6%',
-              position: 'relative',
-              top: '5px',
-              right: '50px',
-              height: '40px',
-              marginBottom: '30px',
-            }}
-            value={newCard.code}
-            onChange={(e) => handleChange(e, 'code')}
-            className="success"
-          />
-          <Input
-            placeholder="Name"
-            style={{
-              width: '31.6%',
-              position: 'relative',
-              top: '5px',
-              right: '10px',
-              height: '40px',
-              marginBottom: '30px',
-            }}
-            value={newCard.name}
-            onChange={(e) => handleChange(e, 'name')}
-            className="success"
-          />
-          <AntButton
-            size="large"
-            style={{
-              width: '12%',
-              position: 'relative',
-              top: '5px',
-              left: '37px',
-              background: 'white',
-              border: '1px solid rgb(204, 202, 202)',
-              color: '#00a148',
-            }}
-            onClick={handleCancel}
-            label="Cancel"
-          />
-          <AntButton
-            size="large"
-            style={{
-              width: '12%',
-              position: 'relative',
-              top: '5px',
-              left: '93px',
-              background: '#00a148',
-            }}
-            onClick={handleAddCard}
-            label="Save"
-          />
+
+        <Form>
+          <Row>
+            <Col>
+              <Row gutter={100}>
+                <Col>
+                  <InputForm />
+                </Col>
+                <Col>
+                  <AntButton size="large" label="Cancel" htmlType="submit" />
+                </Col>
+                <Col>
+                  <AntButton ghost label="Save" htmlType="submit" size="large" />
+                </Col>
+              </Row>
+            </Col>
+          </Row>
         </Form>
 
         <div className="card-container">
-          <AntCard
-            data={apiResponse?.data?.apiData}
-            isLoading={isLoading}
-            isError={isError}
-            style={{ width: '100%' }}
-          >
+          <AntCard data={apiResponse?.data?.apiData} isLoading={isLoading} isError={isError}>
             <Row gutter={[10, 10]} style={{ width: '100%' }}>
               {apiResponse?.data?.apiData.map((item: any) => (
                 <Col span={8} key={item.classId}>
-                  <AntCard
-                    style={{ height: '100%', width: '100%', alignSelf: 'normal' }}
-                    className="cardS card"
-                    bordered={false}
-                  >
+                  <AntCard className="cardS card" bordered={false}>
                     <div>
-                      <p
-                        style={{
-                          fontWeight: 'bold',
-                          fontSize: '16px',
-                          lineHeight: '12px',
-                          textAlign: 'center',
-                        }}
-                      >
-                        {item.classCode}
-                      </p>
-                      <p style={{ textAlign: 'center' }}>{item.className}</p>
+                      <p className="paragraph">{item.classCode}</p>
+                      <p className="paragraph2">{item.className}</p>
                     </div>
 
                     <div className="edit-button-container">

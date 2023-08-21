@@ -103,8 +103,9 @@ body {
     rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset !important;
 }
 /* TabS */
-.cardcontainer {
-  width: 120%;
+.card-container {
+  width: 100%;
+  margin-top: 2%;
 }
 .tabcard {
   width: 100%;

@@ -1,8 +1,8 @@
-import { isNumber } from "lodash";
-import { ReactNode } from "react";
+import { isNumber } from 'lodash';
+import { ReactNode } from 'react';
 // import { AntButton, TableLoader } from "@/components";
-import { Col, Form, FormInstance, Modal, Row } from "antd";
-import { AntButton, TableLoader } from "@scs/ui";
+import { Col, Form, FormInstance, Modal, Row } from 'antd';
+import { AntButton, TableLoader } from '@revisionary/components';
 
 function LookupFormModal({
   open,

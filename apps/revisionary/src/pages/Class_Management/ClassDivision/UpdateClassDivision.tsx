@@ -1,11 +1,11 @@
 import { isNumber, map } from 'lodash';
 import { useEffect, useState } from 'react';
 import { Col, DatePicker, Form, FormInstance, Input, Row, Select } from 'antd';
-import { useAddUpdateClassDivision, useGetClassDivisionById } from './Queries';
-import { TClassData, TClassDivisionFormDataOnAdd, TClassDivisionFormDataOnUpdate } from './Queries/Types';
-import LookupFormModal from '../Component/LookupFormModal';
+import { useAddUpdateClassDivision, useGetClassDivisionById } from '../Queries';
+import { TClassData, TClassDivisionFormDataOnAdd, TClassDivisionFormDataOnUpdate } from '../Queries/Types';
+import LookupFormModal from '../../Component/LookupFormModal';
 
-function addUpdateClassDivision({
+function AddUpdateClassDivision({
   open,
   form,
   handleClose,
@@ -127,7 +127,7 @@ type TAddUpdateRecord = {
   classData: Array<TClassData>;
 };
 
-export default addUpdateClassDivision;
+export default AddUpdateClassDivision;
 function moment(date: Date) {
   throw new Error('Function not implemented.');
 }
