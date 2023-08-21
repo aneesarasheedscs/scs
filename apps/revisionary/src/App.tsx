@@ -16,9 +16,9 @@ import Subject1 from './pages/Syllabus_Management/Revisionary_ui/Subject1';
 import Assessment from './pages/Syllabus_Management/Revisionary_ui/SyllabusStatus/SyllabusBooks';
 import MainSyllabusFile from './pages/Syllabus_Management/Revisionary_ui/SyllabusStatus/MainSyllabusFile';
 import StudentProfile from './pages/Syllabus_Management/Revisionary_ui/StudentProfile';
-import SignForm from './pages/Syllabus_Management/Revisionary_ui/SyllabusStatus/Comp/SignForm';
+import SignForm from './pages/revisionaryUser/Comp/SignForm';
 import ComponentsRouting from './pages/Syllabus_Management/Revisionary_ui/SyllabusStatus/ComponentsRouting';
-import Tabs1 from './pages/Class_Management/Tab';
+import Tabs1 from './pages/Class_Management/Index';
 import { I18nextProvider } from 'react-i18next';
 
 function App() {

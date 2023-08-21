@@ -1,9 +1,9 @@
-import { Card } from "antd";
-import { useState } from "react";
-import { columns } from "./columns";
-import SubjectListForm from "./Form";
-import { AntTable } from "@scs/ui";
-import { useGetSubjectLists, useGetSubjectLists2 } from "../queries";
+import { Card } from 'antd';
+import { useState } from 'react';
+import { columns } from './columns';
+import SubjectListForm from './Form';
+import { AntTable } from '@revisionary/components';
+import { useGetSubjectLists, useGetSubjectLists2 } from '../queries';
 
 function SubjectList({
   classList,
@@ -14,32 +14,32 @@ function SubjectList({
   isSyllabusAuthorityListLoading,
 }: TSubjectList) {
   const { data, isError, isLoading } = useGetSubjectLists();
-  // const { data:subjectlist } = useGetSubjectLists2();
+  const { data: subjectlist } = useGetSubjectLists2();
   const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
 
   return (
-    <div style={{marginLeft:'40%', width:'100%', marginTop:'10%'}}>
-    <Card title={<h1 style={{ fontWeight: "bold", fontSize: 24, textAlign: "center" }}>Subject List</h1>}>
-      <SubjectListForm
-        classList={classList}
-        selectedRecordId={selectedRecordId}
-        isClassListLoading={isClassListLoading}
-        setSelectedRecordId={setSelectedRecordId}
-        subjectCategoryList={subjectCategoryList}
-        syllabusAuthorityList={syllabusAuthorityList}
-        isSubjectCategoryListLoading={isSubjectCategoryListLoading}
-        isSyllabusAuthorityListLoading={isSyllabusAuthorityListLoading}
-      />
+    <div style={{ marginLeft: '30%', width: '120%', marginTop: '10%' }}>
+      <Card title={<h1 style={{ fontWeight: 'bold', fontSize: 24, textAlign: 'center' }}>Subject List</h1>}>
+        <SubjectListForm
+          classList={classList}
+          selectedRecordId={selectedRecordId}
+          isClassListLoading={isClassListLoading}
+          setSelectedRecordId={setSelectedRecordId}
+          subjectCategoryList={subjectCategoryList}
+          syllabusAuthorityList={syllabusAuthorityList}
+          isSubjectCategoryListLoading={isSubjectCategoryListLoading}
+          isSyllabusAuthorityListLoading={isSyllabusAuthorityListLoading}
+        />
 
-      <AntTable
-        isError={isError}
-        isLoading={isLoading}
-        numberOfSkeletons={8}
-        data={data?.data?.apiData || []}
-        columns={columns(setSelectedRecordId)}
-        pagination={{ showSizeChanger: true, pageSizeOptions: [10, 20, 50, 100] }}
-      />
-    </Card>
+        <AntTable
+          isError={isError}
+          isLoading={isLoading}
+          numberOfSkeletons={8}
+          data={data?.data?.apiData || []}
+          columns={columns(setSelectedRecordId)}
+          pagination={{ showSizeChanger: true, pageSizeOptions: [10, 20, 50, 100] }}
+        />
+      </Card>
     </div>
   );
 }

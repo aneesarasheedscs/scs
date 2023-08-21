@@ -14,7 +14,7 @@ import {
 import { queryClient } from '@scs/configs';
 import { isNumber } from 'lodash';
 
-export const useSyllabusAuthority = () => useQuery('cards', getSyllabusAuthority);
+export const useSyllabusAuthorityForList = () => () => useQuery('list', getSyllabusAuthority);
 
 const getSyllabusAuthority = () => requestManager.get('/SyllabusAuthority/GetBySearch');
 
@@ -162,9 +162,9 @@ const addUpdateSyllabusAuthority = (
 };
 
 // Table(Student List)
-export const useGetSubjectLists = () => useQuery('subject-list', getSubjectList);
+export const useGetSubjectLists = () => () => useQuery('subject-lists', getSubjectList);
 
-export const useGetSubjectListById = (SubjectListId?: number | null) => {
+export const useGetSubjectListById = (SubjectListId?: number | null) => () => {
   return useQuery(
     ['subject2', SubjectListId],
     () => {
