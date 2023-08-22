@@ -6,11 +6,19 @@ const { Sider } = Layout;
 export function Sidebar({ children }: TSidebar) {
   return (
     <Sider
-      width={220}
+      width={250}
       trigger={null}
       breakpoint="lg"
       collapsedWidth="0"
-      style={{ position: 'fixed', left: 0, top: 65, bottom: 0, backgroundColor: '#fff' }}
+      style={{
+        left: 0,
+        top: 65,
+        bottom: 0,
+        position: 'fixed',
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        backgroundColor: '#fff',
+      }}
     >
       {children}
     </Sider>

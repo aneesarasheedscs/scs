@@ -11,7 +11,7 @@ export function NotFoundPage() {
       status="404"
       title="404"
       subTitle="Sorry, the page you visited does not exist."
-      extra={<AntButton label="Back Home" onClick={handleClick} />}
+      extra={<AntButton fullWidth={false} label="Back Home" onClick={handleClick} />}
     />
   );
 }
