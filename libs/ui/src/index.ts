@@ -1,5 +1,6 @@
 export * from './header/Header';
 export * from './input/AntInput';
+export * from './input/AntCheckbox';
 export * from './table/AntTable';
 export * from './theme/AppTheme';
 export * from './sidebar/Sidebar';
@@ -10,5 +11,6 @@ export * from './input/AntDatePicker';
 export * from './input/AntInputNumber';
 export * from './sideDrawer/SideDrawer';
 export * from './select/AntSelectDynamic';
+export * from './select/AntSelectDynamicMultiple';
 export * from './rangePicker/AntRangePicker';
 export * from './table/SearchCriteriaWrapper';

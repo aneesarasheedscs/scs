@@ -6,6 +6,7 @@ export {
   AntTable,
   AppTheme,
   AntInput,
+  AntCheckbox,
   AntButton,
   AppHeader,
   PageLoader,
@@ -14,5 +15,6 @@ export {
   AntRangePicker,
   AntInputNumber,
   AntSelectDynamic,
+  AntSelectDynamicMultiple,
   SearchCriteriaWrapper,
 } from '@scs/ui';
