@@ -21,7 +21,7 @@ function MainEntry() {
       </Col>
 
       <Col xs={9}>
-        <AntInput name="" label="Remarks" />
+        <AntInput name="RemarksHeader" label="Remarks" />
       </Col>
 
       <Col xs={4}>
