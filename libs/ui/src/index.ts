@@ -14,3 +14,4 @@ export * from './select/AntSelectDynamic';
 export * from './select/AntSelectDynamicMultiple';
 export * from './rangePicker/AntRangePicker';
 export * from './table/SearchCriteriaWrapper';
+export * from './languageSwitcher/LanguageSwitcher';
