@@ -14,7 +14,7 @@ import { AddButtonforItems } from './AddButtonforItems';
 import Title from 'antd/es/skeleton/Title';
 import { getItemCategory, getItemClass, getItemClassGroup, getParentCategory } from '../queries';
 import ItemCategoryTable from './table';
-// import use translation hook from react i18next and destructure {t} from it then
+import { useTranslation } from 'react-i18next';
 
 const { useForm, useWatch } = Form;
 const { RangePicker } = DatePicker;
@@ -32,11 +32,15 @@ function ItemCategory() {
   const onFinish = (values: any) => {
     console.log(values);
   };
+
+  const { t } = useTranslation();
   return (
     <AddButtonforItems open={open} handleOpen={handleOpen} handleClose={handleClose}>
       <h4> Definitions</h4>
       <Divider></Divider>
-      <h2 style={{ marginBottom: 20 }}> Item Category</h2>
+
+      <h2 style={{ marginBottom: 20 }}> {t('welcomeMessage')}</h2>
+      {/* <h2 style={{ marginBottom: 20 }}> Item Category</h2> */}
       <Form form={form} layout="vertical" initialValues={formValues} onFinish={onFinish}>
         <Row gutter={[10, 10]}>
           <Col xs={24} sm={24} md={6}>

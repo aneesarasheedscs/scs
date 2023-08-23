@@ -62,28 +62,23 @@ function FormFile() {
         <Card style={{ display: 'flex', marginBottom: 10, marginTop: 0 }} className="antCard card-shadow">
           <Row style={{ width: '100%' }}>
             <Row style={{ width: '100%', height: 70 }} className="row">
-              <Col xl={{ span: 6 }} xs={{ span: 20 }} className="column">
-                <Col xl={21} xs={24} sm={20}>
-                  <AntSelectDynamic
-                    required
-                    fieldValue="ClassId"
-                    label={'Item Class'}
-                    className="select"
-                    placeholder="Select item Class"
-                    fieldLabel="ClassDescription"
-                    name="ItemClass"
-                    style={{
-                      width: '100%',
-                      background: '#ffff',
-                    }}
-                    query={getItemClass}
-                  />
-                </Col>
-                <Form.Item style={{ marginTop: 25, marginRight: 10 }}>
-                  <AntButton label={''} icon={<PlusOutlined />} />
-                </Form.Item>
+              <Col xl={{ span: 5 }} xs={{ span: 20 }} style={{ marginRight: 15 }}>
+                <AntSelectDynamic
+                  required
+                  fieldValue="ClassId"
+                  label={'Item Class'}
+                  className="select"
+                  placeholder="Select item Class"
+                  fieldLabel="ClassDescription"
+                  name="ItemClass"
+                  style={{
+                    width: '100%',
+                    background: '#ffff',
+                  }}
+                  query={getItemClass}
+                />
               </Col>
-              <Col xl={{ span: 4 }} sm={{ span: 10 }} style={{ marginRight: 10 }}>
+              <Col xl={{ span: 4 }} sm={{ span: 10 }} style={{ marginRight: 15 }}>
                 <AntInput
                   required
                   label={'Item Name'}
@@ -92,7 +87,7 @@ function FormFile() {
                   style={{ width: '100%' }}
                 />
               </Col>{' '}
-              <Col xl={{ span: 5 }} sm={{ span: 10 }} style={{ marginRight: 10 }}>
+              <Col xl={{ span: 5 }} sm={{ span: 10 }} style={{ marginRight: 35 }}>
                 <AntInput
                   label={'Item Other Name'}
                   name="ItemOtherName"
@@ -174,68 +169,53 @@ function FormFile() {
               </Col>
             </Row>
             <Row style={{ width: '100%', height: 60, marginTop: 10 }} className="row">
-              <Col xl={{ span: 8 }} xs={{ span: 10 }} className="column">
-                <Col xl={21} xs={24} sm={20}>
-                  <AntSelectDynamic
-                    required
-                    fieldValue="Id"
-                    label={'Purchase GL A/C'}
-                    className="select"
-                    placeholder="Select Purchase Account"
-                    fieldLabel="InventoryAccountTitle"
-                    name="InventoryAccountTitle"
-                    style={{
-                      width: '100%',
-                      background: '#ffff',
-                    }}
-                    query={getItemCategory}
-                  />
-                </Col>
-                <Form.Item style={{ marginTop: 25, marginRight: 10 }}>
-                  <AntButton label={''} icon={<PlusOutlined />} />
-                </Form.Item>
+              <Col xl={{ span: 8 }} xs={{ span: 10 }}>
+                <AntSelectDynamic
+                  required
+                  fieldValue="Id"
+                  label={'Purchase GL A/C'}
+                  className="select"
+                  placeholder="Select Purchase Account"
+                  fieldLabel="InventoryAccountTitle"
+                  name="InventoryAccountTitle"
+                  style={{
+                    width: '100%',
+                    background: '#ffff',
+                  }}
+                  query={getItemCategory}
+                />
               </Col>
-              <Col xl={{ span: 8 }} xs={{ span: 10 }} className="column">
-                <Col xl={21} xs={24} sm={20}>
-                  <AntSelectDynamic
-                    required
-                    fieldValue="Id"
-                    label={'Sale GL A/C'}
-                    className="select"
-                    placeholder="Select Sale Account"
-                    fieldLabel="RevenueAccountTitle"
-                    name="RevenueAccountTitle"
-                    style={{
-                      width: '100%',
-                      background: '#ffff',
-                    }}
-                    query={getItemCategory}
-                  />
-                </Col>
-                <Form.Item style={{ marginTop: 25, marginRight: 10 }}>
-                  <AntButton label={''} icon={<PlusOutlined />} />
-                </Form.Item>
+              <Col xl={{ span: 7 }} xs={{ span: 10 }}>
+                <AntSelectDynamic
+                  required
+                  fieldValue="Id"
+                  label={'Sale GL A/C'}
+                  className="select"
+                  placeholder="Select Sale Account"
+                  fieldLabel="RevenueAccountTitle"
+                  name="RevenueAccountTitle"
+                  style={{
+                    width: '100%',
+                    background: '#ffff',
+                  }}
+                  query={getItemCategory}
+                />
               </Col>
-              <Col xl={{ span: 8 }} xs={{ span: 10 }} className="column">
-                <Col xl={21} xs={24} sm={20}>
-                  <AntSelectDynamic
-                    required
-                    fieldValue="Id"
-                    label={'CGS GL A/C'}
-                    className="select"
-                    placeholder="Select CGS Account "
-                    fieldLabel="CGSAccountTitle"
-                    name="CGSAccountTitle"
-                    style={{
-                      width: '100%',
-                      background: '#ffff',
-                    }}
-                    query={getItemCategory}
-                  />
-                </Col>
-                <Form.Item style={{ marginTop: 25, marginRight: 10 }}>
-                  <AntButton label={''} icon={<PlusOutlined />} />
-                </Form.Item>
+              <Col xl={{ span: 8 }} xs={{ span: 10 }}>
+                <AntSelectDynamic
+                  required
+                  fieldValue="Id"
+                  label={'CGS GL A/C'}
+                  className="select"
+                  placeholder="Select CGS Account "
+                  fieldLabel="CGSAccountTitle"
+                  name="CGSAccountTitle"
+                  style={{
+                    width: '100%',
+                    background: '#ffff',
+                  }}
+                  query={getItemCategory}
+                />
               </Col>
             </Row>
             <Col span={22}>
