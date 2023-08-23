@@ -1,8 +1,9 @@
 import { useQuery } from 'react-query';
-import { requestManager } from '@tradePro/configs/requestManager';
 import { TPurchaseOrderSearchCriteria } from './type';
+import { requestManager } from '@tradePro/configs/requestManager';
+import { storedUserDetail } from '@tradePro/utils/storageService';
 
-const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
+const userDetail = storedUserDetail();
 
 export const useGetPurchaseOrder = (enabled = true, params?: TPurchaseOrderSearchCriteria) => {
   return useQuery(
@@ -17,48 +18,4 @@ export const useGetPurchaseOrder = (enabled = true, params?: TPurchaseOrderSearc
     },
     { enabled }
   );
-};
-
-export const useGetSuppliers = () => {
-  return useQuery('suppliers', () => {
-    return requestManager.get('/api/SupplierCustomer/SupplierCustomerAgainstPurchaseOrder', {
-      params: {
-        CompanyId: userDetail?.CompanyId,
-        OrganizationId: userDetail?.OrganizationId,
-      },
-    });
-  });
-};
-
-export const useGetItems = () => {
-  return useQuery('items', () => {
-    return requestManager.get('/api/Item/ItemsAgainstPurchaseOrder', {
-      params: {
-        CompanyId: userDetail?.CompanyId,
-        OrganizationId: userDetail?.OrganizationId,
-      },
-    });
-  });
-};
-
-export const useGetOrderStatus = () => {
-  return useQuery('order-status', () => {
-    return requestManager.get('/api/CommonServices/OrderStatus', {
-      params: {
-        CompanyId: userDetail?.CompanyId,
-        OrganizationId: userDetail?.OrganizationId,
-      },
-    });
-  });
-};
-
-export const useGetApprovedStatus = () => {
-  return useQuery('approved-status', () => {
-    return requestManager.get('/api/CommonServices/ApprovedStatus', {
-      params: {
-        CompanyId: userDetail?.CompanyId,
-        OrganizationId: userDetail?.OrganizationId,
-      },
-    });
-  });
 };

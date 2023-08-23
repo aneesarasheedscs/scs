@@ -1,6 +1,15 @@
+import './style.scss';
 import { Form, FormItemProps, Input, InputProps } from 'antd';
 
-export function AntInput({ name, label, required, formItemProps, inputProps }: TAntInput) {
+export function AntInput({
+  name,
+  label,
+  required,
+  formItemProps,
+  fullWidth = true,
+  showLabel = true,
+  ...restProps
+}: TAntInput) {
   const requiredProps = required
     ? {
         name,
@@ -8,16 +17,20 @@ export function AntInput({ name, label, required, formItemProps, inputProps }: T
       }
     : { name, rules: [] };
   return (
-    <Form.Item label={label} {...requiredProps} {...formItemProps}>
-      <Input {...inputProps} />
+    <Form.Item label={showLabel ? label : ''} {...requiredProps} {...formItemProps}>
+      <Input
+        {...restProps}
+        className={fullWidth ? `fullWidth ${restProps?.className}` : restProps?.className}
+      />
     </Form.Item>
   );
 }
 
 type TAntInput = {
   name?: string;
-  label?: string;
+  label: string;
   required?: boolean;
-  inputProps?: InputProps;
+  fullWidth?: boolean;
+  showLabel?: boolean;
   formItemProps?: FormItemProps;
-};
+} & InputProps;

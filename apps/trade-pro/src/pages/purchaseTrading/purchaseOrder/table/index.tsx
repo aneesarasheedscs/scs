@@ -5,14 +5,15 @@ import SearchCriteriaFrom from './SearchCriteriaForm';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 
 function PurchaseOrderTable() {
-  const { data, isError, isLoading } = useGetPurchaseOrder();
+  const { data, refetch, isError, isLoading, isFetching } = useGetPurchaseOrder();
 
   return (
     <AntTable
+      refetch={refetch}
       isError={isError}
       columns={columns()}
       numberOfSkeletons={12}
-      isLoading={isLoading}
+      isLoading={isLoading || isFetching}
       data={data?.data?.Data?.Result || []}
       searchCriteriaForm={<SearchCriteriaFrom />}
       scroll={{ x: '', y: convertVhToPixels('62vh') }}

@@ -1,13 +1,13 @@
 import './style.scss';
+import { Col, Layout, Row } from 'antd';
 import ToggleButton from './ToggleButton';
 import { ReactNode, useState } from 'react';
-import { Col, Grid, Layout, Row } from 'antd';
 import { AntButton } from '../button/AntButton';
 import SideDrawer from '../sideDrawer/SideDrawer';
 
 const { Header } = Layout;
 
-export function AppHeader({ appLogo, sideMenu }: TAppHeader) {
+export function AppHeader({ appLogo, sideMenu, languageSwitcher }: TAppHeader) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -30,7 +30,12 @@ export function AppHeader({ appLogo, sideMenu }: TAppHeader) {
             </Row>
           </Col>
           <Col>
-            <AntButton size="large" label="Logout" onClick={handleLogout} />
+            <Row gutter={40}>
+              <Col>{languageSwitcher}</Col>
+              <Col>
+                <AntButton size="large" label="Logout" onClick={handleLogout} />
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Header>
@@ -42,4 +47,4 @@ export function AppHeader({ appLogo, sideMenu }: TAppHeader) {
   );
 }
 
-type TAppHeader = { appLogo?: ReactNode; sideMenu?: ReactNode };
+type TAppHeader = { appLogo?: ReactNode; sideMenu?: ReactNode; languageSwitcher?: ReactNode };

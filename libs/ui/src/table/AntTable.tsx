@@ -1,16 +1,3 @@
-import {
-  Col,
-  Row,
-  Card,
-  Input,
-  Space,
-  Table,
-  Button,
-  Result,
-  Tooltip,
-  InputRef,
-  TableProps,
-} from 'antd';
 import './style.scss';
 import { map } from 'lodash';
 import DownloadPdf from './DownloadPdf';
@@ -24,12 +11,14 @@ import { AntTableVirtualized } from './AntTableVirtualized';
 import { ReactNode, useMemo, useRef, useState } from 'react';
 import { GroupOutlined, SearchOutlined } from '@ant-design/icons';
 import { ColumnType, FilterConfirmProps } from 'antd/es/table/interface';
+import { Col, Row, Card, Input, Space, Table, Button, Result, Tooltip, InputRef, TableProps } from 'antd';
 
 export function AntTable({
   data,
   title,
   columns,
   isError,
+  refetch,
   isLoading,
   numberOfSkeletons,
   searchCriteriaForm,
@@ -155,48 +144,50 @@ export function AntTable({
         <Col>{searchCriteriaForm}</Col>
         <Col>
           <Row gutter={10}>
-            <RefreshData isRefreshDataEnabled={isRefreshDataEnabled} />
-            <DownloadPdf isDownloadPdfEnabled={isDownloadPdfEnabled} />
-            <DownloadExcel isDownloadExcelEnabled={isDownloadExcelEnabled} />
+            <RefreshData
+              handleRefresh={refetch}
+              disabled={isError || isLoading}
+              isRefreshDataEnabled={isRefreshDataEnabled}
+            />
+            <DownloadPdf disabled={isError || isLoading} isDownloadPdfEnabled={isDownloadPdfEnabled} />
+            <DownloadExcel disabled={isError || isLoading} isDownloadExcelEnabled={isDownloadExcelEnabled} />
             {isGroupByColumnEnabled ? (
               <Col>
                 <Tooltip arrow title="Group data by Columns">
-                  <AntButton type="default" icon={<GroupOutlined />} />
+                  <AntButton disabled={isError || isLoading} type="default" icon={<GroupOutlined />} />
                 </Tooltip>
               </Col>
             ) : null}
             <ColumnChooser
               columns={modifiedColumns}
+              disabled={isError || isLoading}
               isColumnChooserEnabled={isColumnChooserEnabled}
             />
           </Row>
         </Col>
       </Row>
     ),
-    []
+    [isError, isLoading]
   );
 
   return (
     <Card className="table-card">
+      {titleComponent}
+      <div style={{ marginBottom: 5 }} />
+
       {isError ? (
-        <Result title="" status="500" subTitle="Sorry, something went wrong" />
+        <>
+          <Result title="" status="500" subTitle="Sorry, something went wrong" />
+          <Row justify="center">
+            <AntButton label="Retry" fullWidth={false} onClick={refetch} />
+          </Row>
+        </>
       ) : isLoading ? (
         <TableLoader numberOfSkeletons={numberOfSkeletons} />
       ) : isVirtualized ? (
-        <AntTableVirtualized
-          dataSource={data}
-          columns={modifiedColumns}
-          title={() => <>{titleComponent}</>}
-          {...restProps}
-        />
+        <AntTableVirtualized dataSource={data} columns={modifiedColumns} {...restProps} />
       ) : (
-        <Table
-          size="small"
-          dataSource={data}
-          columns={modifiedColumns}
-          title={() => <>{titleComponent}</>}
-          {...restProps}
-        />
+        <Table size="small" dataSource={data} columns={modifiedColumns} {...restProps} />
       )}
     </Card>
   );
@@ -206,6 +197,7 @@ type TAntTable = {
   data?: Array<any>;
   isError?: boolean;
   isLoading?: boolean;
+  refetch?: VoidFunction;
   isVirtualized?: boolean;
   numberOfSkeletons?: number;
   isRefreshDataEnabled?: boolean;
