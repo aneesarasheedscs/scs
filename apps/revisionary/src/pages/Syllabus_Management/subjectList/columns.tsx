@@ -24,7 +24,7 @@ export const columns = (setSelectedRecordId?: any): AntColumnType<TSubjectListDa
   },
   {
     title: 'Action',
-    align: 'right',
+
     render: (_, record) => (
       <AntButton
         type="text"

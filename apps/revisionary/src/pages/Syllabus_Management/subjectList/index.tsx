@@ -32,6 +32,7 @@ function SubjectList({
         />
 
         <AntTable
+          scroll={{ y: 400 }}
           isError={isError}
           isLoading={isLoading}
           numberOfSkeletons={8}

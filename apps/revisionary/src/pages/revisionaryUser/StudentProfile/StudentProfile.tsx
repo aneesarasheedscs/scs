@@ -128,33 +128,7 @@ const StudentProfile: React.FC = () => {
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item
-              label="Class Year"
-              name="classyear"
-              rules={[{ required: true, message: 'Please enter your Class Year' }]}
-            >
-              <Select
-                placeholder="Class Year"
-                style={{ textAlign: 'left' }}
-                onChange={handleChange}
-                size="large"
-                options={[
-                  { value: 'jack', label: 'Jack' },
-                  { value: 'lucy', label: 'Lucy' },
-                  { value: 'Yiminghe', label: 'yiminghe' },
-                  { value: 'disabled', label: 'Disabled', disabled: true },
-                ]}
-              />
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row gutter={20}>
-          <Col span={24}>
-            <Form.Item
-              label="Board"
-              name="classyear"
-              rules={[{ required: true, message: 'Please enter your Board' }]}
-            >
+            <Form.Item label="Board" name="Board" rules={[{ required: true, message: 'Please enter Board' }]}>
               <Select
                 placeholder="Board"
                 style={{ textAlign: 'left' }}
@@ -170,6 +144,7 @@ const StudentProfile: React.FC = () => {
             </Form.Item>
           </Col>
         </Row>
+
         <Row>
           <Col span={24} style={{ display: 'flex', justifyContent: 'center' }}>
             <Form.Item>
