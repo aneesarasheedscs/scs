@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { Col, Row, Select, Space } from 'antd';
 import { ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Us, Sa, Cn, Fr, Jp, Kr, Es } from 'react-flags-select';
+import { Us, Sa, Cn, Fr, Jp, Kr, Es, Pk } from 'react-flags-select';
 
 const { Option } = Select;
 
@@ -14,6 +14,7 @@ export function LanguageSwitcher() {
     { value: 'en', label: 'English', flag: <Us /> },
     { value: 'es', label: 'Español', flag: <Es /> },
     { value: 'ar', label: 'العربية', flag: <Sa /> },
+    { value: 'ur', label: 'اردو', flag: <Pk /> },
     { value: 'zh', label: '中国人', flag: <Cn /> },
     { value: 'fr', label: 'Français', flag: <Fr /> },
     { value: 'ja', label: '日本語', flag: <Jp /> },

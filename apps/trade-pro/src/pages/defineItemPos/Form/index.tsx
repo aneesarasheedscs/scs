@@ -1,13 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import FormFile from './ItemForm';
 import { Card, Col, Form, Input, Row, theme } from 'antd';
 import { AntButton, AntInputNumber, AntSelectDynamic } from '@tradePro/components';
 import { getItemCategory, getItemClass, getItemCode, getItemType } from './queries';
 import { SyncOutlined, SaveOutlined, PlusOutlined } from '@ant-design/icons';
 import { TPurchaseOrderEntry } from '@tradePro/pages/purchaseTrading/purchaseOrder/type';
-import { map } from 'lodash';
+import { isNumber, map } from 'lodash';
 import ItemCategory from './definitionScreens/ItemCategory';
 import ItemType from './definitionScreens/ItemType';
+import { useTranslation } from 'react-i18next';
+import { useGetItemById, useSaveItemCategory } from './querieSave';
 
 const { useToken } = theme;
 const { useForm, useWatch } = Form;
@@ -15,18 +17,28 @@ const { useForm, useWatch } = Form;
 function ItemFormtoSave() {
   const [form] = useForm<any[]>();
   const formValues = useWatch<any[]>([], form);
-  const { data, isError, isLoading, isSuccess } = getItemCode();
+  const { data, isError, isLoading } = getItemCode();
   const { token } = useToken();
+  const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
+
+  const { mutate, isSuccess } = useSaveItemCategory(selectedRecordId);
+  const { data: ItemgetbyId, refetch, isSuccess: isSuccessById } = useGetItemById();
 
   const onFinish = (values: any) => {
-    console.log(values);
+    // console.log(values);
+    if (isNumber(selectedRecordId)) {
+      mutate({ ...values, rowVersion: ItemgetbyId?.data?.Data?.Result?.rowVersion });
+    } else {
+      mutate(values);
+    }
   };
-  // useEffect(() => {
-  //   form.setFieldValue(
-  //     'ItemCode',
-  //     map(data?.data?.Data?.Result, (item) => item.ItemCode)
-  //   );
-  // });
+  useEffect(() => {
+    if (isNumber(selectedRecordId)) {
+      refetch();
+    }
+  }, [selectedRecordId]);
+
+  const { t } = useTranslation();
   return (
     <>
       <Card>
@@ -40,13 +52,13 @@ function ItemFormtoSave() {
               <Form.Item>
                 <Row align="middle" gutter={10}>
                   <Col>
-                    <AntButton danger ghost htmlType="reset" label="Reset" icon={<SyncOutlined />} />
+                    <AntButton danger ghost htmlType="reset" label={t('reset')} icon={<SyncOutlined />} />
                   </Col>
                   <Col>
-                    <AntButton label="Save and add more" htmlType="submit" />
+                    <AntButton label={t('save_and_add_more')} htmlType="submit" />
                   </Col>
                   <Col>
-                    <AntButton ghost label="Save" htmlType="submit" icon={<SaveOutlined />} />
+                    <AntButton ghost label={t('save')} htmlType="submit" icon={<SaveOutlined />} />
                   </Col>
                 </Row>
               </Form.Item>
@@ -60,7 +72,7 @@ function ItemFormtoSave() {
                     <AntSelectDynamic
                       required
                       fieldValue="Id"
-                      label={'Item Category'}
+                      label={t('item_category')}
                       className="select"
                       placeholder="Select item Category"
                       fieldLabel="CategoryDescription"
@@ -84,19 +96,19 @@ function ItemFormtoSave() {
                 </Col>
                 <Col xl={{ span: 4 }} xs={{ span: 10 }} style={{ marginRight: 10 }}>
                   <AntInputNumber
-                    label={'Code'}
+                    label={t('code')}
                     name="ItemCode"
                     className="input"
                     style={{ width: '100%', border: '1px dashed blue' }}
                     readOnly
                   />
                 </Col>
-                <Col xl={{ span: 9 }} xs={{ span: 10 }} className="column">
+                <Col xl={{ span: 9 }} xs={{ span: 23 }} className="column">
                   <Col xl={23} xs={24} sm={20}>
                     <AntSelectDynamic
                       required
                       fieldValue="Id"
-                      label={'Item Type'}
+                      label={t('item_type')}
                       className="select"
                       placeholder="Select item Type"
                       fieldLabel="TypeDescription"

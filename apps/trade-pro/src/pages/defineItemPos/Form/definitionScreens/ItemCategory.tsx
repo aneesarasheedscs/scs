@@ -39,8 +39,7 @@ function ItemCategory() {
       <h4> Definitions</h4>
       <Divider></Divider>
 
-      <h2 style={{ marginBottom: 20 }}> {t('welcomeMessage')}</h2>
-      {/* <h2 style={{ marginBottom: 20 }}> Item Category</h2> */}
+      <h2 style={{ marginBottom: 20 }}> Item Category</h2>
       <Form form={form} layout="vertical" initialValues={formValues} onFinish={onFinish}>
         <Row gutter={[10, 10]}>
           <Col xs={24} sm={24} md={6}>

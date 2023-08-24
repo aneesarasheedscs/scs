@@ -25,9 +25,11 @@ import {
 import { Button, Card, Checkbox, Col, Form, Input, Row, Space, Tooltip, theme } from 'antd';
 import { CloseOutlined, PlusOutlined, FileAddOutlined, DeleteFilled } from '@ant-design/icons';
 import ItemType from './definitionScreens/ItemType';
+import { useTranslation } from 'react-i18next';
 
 const { useToken } = theme;
 const { useForm, useWatch } = Form;
+
 //convert image
 const getBase64 = (file: any) => {
   return new Promise((resolve, reject) => {
@@ -55,18 +57,18 @@ function FormFile() {
   const onFinish = (values: any) => {
     console.log('Received values of form:', values);
   };
-
+  const { t } = useTranslation();
   return (
     <>
       <>
         <Card style={{ display: 'flex', marginBottom: 10, marginTop: 0 }} className="antCard card-shadow">
           <Row style={{ width: '100%' }}>
             <Row style={{ width: '100%', height: 70 }} className="row">
-              <Col xl={{ span: 5 }} xs={{ span: 20 }} style={{ marginRight: 15 }}>
+              <Col xl={{ span: 5 }} xs={{ span: 9 }} style={{ marginRight: 15 }}>
                 <AntSelectDynamic
                   required
                   fieldValue="ClassId"
-                  label={'Item Class'}
+                  label={t('item_class')}
                   className="select"
                   placeholder="Select item Class"
                   fieldLabel="ClassDescription"
@@ -78,10 +80,10 @@ function FormFile() {
                   query={getItemClass}
                 />
               </Col>
-              <Col xl={{ span: 4 }} sm={{ span: 10 }} style={{ marginRight: 15 }}>
+              <Col xl={{ span: 4 }} sm={{ span: 12 }} style={{ marginRight: 15 }}>
                 <AntInput
                   required
-                  label={'Item Name'}
+                  label={t('item_name')}
                   name="ItemName"
                   className="input"
                   style={{ width: '100%' }}
@@ -89,7 +91,7 @@ function FormFile() {
               </Col>{' '}
               <Col xl={{ span: 5 }} sm={{ span: 10 }} style={{ marginRight: 35 }}>
                 <AntInput
-                  label={'Item Other Name'}
+                  label={t('item_other_name')}
                   name="ItemOtherName"
                   className="input"
                   style={{ width: '100%' }}
@@ -98,7 +100,7 @@ function FormFile() {
               <Col xl={{ span: 8 }} sm={{ span: 10 }}>
                 <AntInput
                   required
-                  label={'Item Specification'}
+                  label={t('item_specification')}
                   name="ItemSpecification"
                   className="input"
                   style={{ width: '100%' }}
@@ -106,12 +108,12 @@ function FormFile() {
               </Col>
             </Row>
             <Row style={{ width: '100%', height: 70, marginTop: 0 }} className="row">
-              <Col xl={{ span: 7 }} xs={{ span: 10 }} className="column">
+              <Col xl={{ span: 7 }} xs={{ span: 12 }} className="column">
                 <Col xl={21} xs={24} sm={20}>
                   <AntSelectDynamic
                     required
                     fieldValue="Id"
-                    label={'Base Pack Unit'}
+                    label={t('base_pack_unit')}
                     className="select"
                     placeholder="Select Pack Unit"
                     fieldLabel="UOMDescription"
@@ -132,7 +134,7 @@ function FormFile() {
                   <AntSelectDynamic
                     required
                     fieldValue="Id"
-                    label={'Base Pack UOM'}
+                    label={t('base_pack_uom')}
                     className="select"
                     placeholder="Select Pack Uom"
                     fieldLabel="UOMDescription"
@@ -149,10 +151,10 @@ function FormFile() {
                 </Form.Item>
               </Col>
 
-              <Col xl={{ span: 4 }} xs={{ span: 10 }} style={{ marginRight: 10 }}>
+              <Col xl={{ span: 4 }} xs={{ span: 11 }} style={{ marginRight: 10 }}>
                 <AntInputNumber
                   required
-                  label={'Whole Sale Rate'}
+                  label={t('wholesale_rate')}
                   name="WholeSaleRate"
                   className="input"
                   style={{ width: '100%' }}
@@ -162,18 +164,18 @@ function FormFile() {
                 <AntInputNumber
                   required
                   name="Barcode"
-                  label={'Barcode No'}
+                  label={t('barcode_no')}
                   className="input"
                   style={{ width: '100%' }}
                 />
               </Col>
             </Row>
             <Row style={{ width: '100%', height: 60, marginTop: 10 }} className="row">
-              <Col xl={{ span: 8 }} xs={{ span: 10 }}>
+              <Col xl={{ span: 8 }} xs={{ span: 11 }} style={{ marginRight: 10 }}>
                 <AntSelectDynamic
                   required
                   fieldValue="Id"
-                  label={'Purchase GL A/C'}
+                  label={t('purchase_account_GL')}
                   className="select"
                   placeholder="Select Purchase Account"
                   fieldLabel="InventoryAccountTitle"
@@ -185,11 +187,11 @@ function FormFile() {
                   query={getItemCategory}
                 />
               </Col>
-              <Col xl={{ span: 7 }} xs={{ span: 10 }}>
+              <Col xl={{ span: 7 }} xs={{ span: 10 }} style={{ marginRight: 10 }}>
                 <AntSelectDynamic
                   required
                   fieldValue="Id"
-                  label={'Sale GL A/C'}
+                  label={t('sale_account_GL')}
                   className="select"
                   placeholder="Select Sale Account"
                   fieldLabel="RevenueAccountTitle"
@@ -205,7 +207,7 @@ function FormFile() {
                 <AntSelectDynamic
                   required
                   fieldValue="Id"
-                  label={'CGS GL A/C'}
+                  label={t('cgs_account_GL')}
                   className="select"
                   placeholder="Select CGS Account "
                   fieldLabel="CGSAccountTitle"
@@ -218,31 +220,31 @@ function FormFile() {
                 />
               </Col>
             </Row>
-            <Col span={22}>
-              <Col style={{ display: 'flex', marginTop: 10, justifyContent: 'space-around' }} span={2}>
+            <Col span={23} style={{ marginRight: 0 }}>
+              <Col style={{ display: 'flex', marginTop: 10, marginBottom: -20 }} xl={2}>
                 <Row>
                   {' '}
-                  <p style={{ marginTop: 3 }}>Is Active</p>
+                  <p style={{ marginTop: 3 }}>{t('is_active')}</p>
                   <AntCheckbox label={''} name="Active" />
                 </Row>
               </Col>
               <AntSelectDynamicMultiple
                 required
                 fieldValue="Id"
-                label={'Select Companies'}
+                label={t('select_companies')}
                 className="select"
                 placeholder="Select Companies"
                 fieldLabel="CompName"
                 name="Companies"
                 style={{
-                  width: '100%',
+                  width: '101%',
                   background: '#ffff',
                 }}
                 query={getCompaniesNames}
               />
               <Row>
-                <Col span={5}>
-                  <p>Product Image</p>
+                <Col xl={6} md={7} lg={10} sm={12}>
+                  <p>{t('product_image')}</p>
                   <img
                     src={localStorage.getItem('img') ? localStorage.getItem('img') : image}
                     alt=""
@@ -258,8 +260,8 @@ function FormFile() {
                     style={{ width: 200 }}
                   />
                 </Col>{' '}
-                <Col span={4}>
-                  <p>Barcode Image</p>
+                <Col xl={4}>
+                  <p>{t('barcode_image')}</p>
                   <AntInput
                     label={''}
                     type="image"

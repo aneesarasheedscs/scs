@@ -8,7 +8,7 @@ function PurchaseOrder() {
 
   return (
     <>
-      <h2 className="form-heading">Purchase Order</h2>
+      <h2 className="form-heading"> {t('purchase_order')}</h2>
       <Tabs
         type="card"
         size="large"

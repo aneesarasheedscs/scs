@@ -7,13 +7,13 @@ import { EditFilled } from '@ant-design/icons';
 import { AntButton } from '@scs/ui';
 import { TItemHistoryTable } from '../type';
 
-export const columns = (): AntColumnType<TItemHistoryTable>[] => [
-  { title: 'Item Code', dataIndex: 'ItemCode', width: 100 },
+export const columns = (t: any): AntColumnType<TItemHistoryTable>[] => [
+  { title: <>{t('code')}</>, dataIndex: 'ItemCode', width: 100 },
 
   {
     width: 250,
     searchableInput: true,
-    title: 'Item Name',
+    title: <>{t('item_name')}</>,
     dataIndex: 'ItemName',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.ItemName.localeCompare(b.ItemName),
@@ -21,7 +21,7 @@ export const columns = (): AntColumnType<TItemHistoryTable>[] => [
   {
     width: 200,
     searchableInput: true,
-    title: 'Item Category',
+    title: <>{t('item_category')}</>,
     dataIndex: 'CategoryDescription',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.CategoryDescription.localeCompare(b.CategoryDescription),
@@ -29,20 +29,20 @@ export const columns = (): AntColumnType<TItemHistoryTable>[] => [
   {
     width: 200,
     searchableInput: true,
-    title: 'Item Type',
+    title: <>{t('item_type')}</>,
     dataIndex: 'TypeDescription',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.TypeDescription.localeCompare(b.TypeDescription),
   },
   {
-    title: 'UOM',
+    title: <>{t('base_pack_uom')}</>,
     dataIndex: 'UOMCode',
     width: 200,
   },
   {
     width: 300,
     searchableInput: true,
-    title: 'Stock Account',
+    title: <>{t('purchase_account_GL')}</>,
     dataIndex: 'GlStockAccountTitle',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.GlStockAccountTitle.localeCompare(b.GlStockAccountTitle),
@@ -50,7 +50,7 @@ export const columns = (): AntColumnType<TItemHistoryTable>[] => [
   {
     width: 300,
     searchableInput: true,
-    title: 'Sale Account',
+    title: <>{t('sale_account_GL')}</>,
     dataIndex: 'GlSaleAccountTitle',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.GlSaleAccountTitle.localeCompare(b.GlSaleAccountTitle),
@@ -58,26 +58,26 @@ export const columns = (): AntColumnType<TItemHistoryTable>[] => [
   {
     width: 300,
     searchableInput: true,
-    title: 'CGS Account',
+    title: <>{t('cgs_account_GL')}</>,
     dataIndex: 'GlCgsAccountTitle',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.GlCgsAccountTitle.localeCompare(b.GlCgsAccountTitle),
   },
   {
     width: 200,
-    title: 'User Name',
+    title: <>{t('user_name')}</>,
     dataIndex: 'EntryUserName',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.EntryUserName.localeCompare(b.EntryUserName),
   },
   {
-    width: 120,
-    title: 'No of Attach',
+    width: 160,
+    title: <>{t('number_of_attach')}</>,
     dataIndex: 'NoOfAttachments',
   },
   {
     width: 100,
-    title: 'Action',
+    title: <>{t('action')}</>,
     dataIndex: '',
     render: (_, record) => (
       <Space size="middle" style={{ marginTop: -15, position: 'absolute', top: 20 }}>
