@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, Divider } from 'antd';
-import CardWithProgress from '../../../revisionaryUser/Progress/Progress';
+import CardWithProgress from '../Progress/Progress';
 
 function SyllabusSTopic() {
   const cardArray = [

@@ -1,25 +1,14 @@
 import { Card, Input, Form, message, Row, Col, Divider } from 'antd';
-import '../Style.css';
+import '../../Syllabus_Management/SyllabusManagement/Style.css';
 import { AntButton } from '@revisionary/components';
 import { useState } from 'react';
 import { useGetClasses } from '../Queries';
 import { AntCard } from '../../Component/AntCard';
 import AddUpdateRecord from './UpdateClassRecord';
-import InputForm from '@revisionary/pages/Component/InputForm';
 
-interface CardData {
-  id: number;
-  code: string;
-  name: string;
-}
 function Class() {
   const { data: apiResponse, isError, isLoading } = useGetClasses();
-  const [cards, setCards] = useState<CardData[]>([]);
-  const [newCard, setNewCard] = useState<CardData>({
-    id: 1,
-    code: '',
-    name: '',
-  });
+
   const [open, setOpen] = useState(false);
   const [selectedRecordId, setSelectedRecordId] = useState<number>();
 
@@ -33,67 +22,34 @@ function Class() {
     form.resetFields();
     setSelectedRecordId(undefined);
   };
-  const handleAddCard = () => {
-    if (newCard.code.trim() === '') {
-      return message.error('Please Enter Code');
-    }
-    if (newCard.name.trim() === '') {
-      return message.error('Please Enter Name');
-    } else {
-      message.success('Success');
-    }
-    setCards((prevCards) => [...prevCards, { ...newCard, id: Date.now() }]);
-    setNewCard({
-      id: Date.now() + 1,
-      code: '',
-      name: '',
-    });
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, field: keyof CardData) => {
-    const { value } = e.target;
-    setNewCard((prevCard) => ({ ...prevCard, [field]: value }));
-  };
 
   const [form] = Form.useForm();
-  const handleCancel = () => {
-    setNewCard({
-      id: Date.now() + 1,
-      code: '',
-      name: '',
-    });
-    form.resetFields();
-  };
 
   return (
     <div className="card-container">
-      <Card className="cardContainer">
+      <Card className="cardContainer responsive-card">
         <h1 className="h1">Syllabus Authority / Publisher</h1>
         <Divider />
-
-        <Form>
-          <Row>
-            <Col>
-              <Row gutter={100}>
-                <Col>
-                  <InputForm />
-                </Col>
-                <Col>
-                  <AntButton size="large" label="Cancel" htmlType="submit" />
-                </Col>
-                <Col>
-                  <AntButton ghost label="Save" htmlType="submit" size="large" />
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-        </Form>
-
-        <div className="card-container">
+        <Row
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+          }}
+        >
+          <AntButton
+            ghost
+            label="ADD"
+            htmlType="submit"
+            size="large"
+            onClick={(item: any) => handleOpen(item.classId)}
+            className="addbutton"
+          />
+        </Row>
+        <div className="card-container2">
           <AntCard data={apiResponse?.data?.apiData} isLoading={isLoading} isError={isError}>
-            <Row gutter={[10, 10]} style={{ width: '100%' }}>
+            <Row gutter={[10, 10]}>
               {apiResponse?.data?.apiData.map((item: any) => (
-                <Col span={8} key={item.classId}>
+                <Col xs={24} sm={12} md={8} lg={6} key={item.classId}>
                   <AntCard className="cardS card" bordered={false}>
                     <div>
                       <p className="paragraph">{item.classCode}</p>

@@ -1,0 +1,162 @@
+/* StudentProfileForm.css */
+.form-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px 40px;
+  /* border: 1px solid red; */
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 55rem !important;
+}
+.ant-select-selection-placeholder {
+  font-weight: normal !important;
+}
+
+.ant-form-item-label {
+  label {
+    font-weight: bold;
+  }
+}
+.ant-form-item-required::before {
+  display: none !important;
+}
+.custom-input {
+  font-weight: bold !important;
+  position: relative;
+  top: -160px;
+  width: 50%;
+}
+
+.custom:hover {
+  border: 1px black solid !important;
+}
+
+.custom:focus {
+  border: 1px solid black !important;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.7) !important;
+}
+
+/* .ant-select-focused {
+    border:1px solid black!important;
+    box-shadow: 0px 0px 6px  rgba(0, 0, 0, 0.7) !important;
+    border-radius: 11px;
+  } */
+
+.btn1:hover {
+  border: none !important;
+  box-shadow: 0 0 6px black !important;
+  /* background: black; */
+}
+.btn1:focus {
+  border: none !important;
+  box-shadow: 0 0 6px black !important;
+  /* background: black !important; */
+}
+.wrapper {
+  height: 160px;
+  width: 160px;
+  position: relative;
+  border: 5px solid #fff;
+  border-radius: 50%;
+  background: url('../revisionaryUser/') center/cover no-repeat;
+  margin: 100px auto;
+  overflow: hidden;
+  top: -75px !important;
+  right: 10px !important;
+}
+.profile-picture {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.my_file {
+  position: absolute;
+  bottom: 0;
+  outline: none;
+  color: transparent;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 4px 90px;
+
+  cursor: pointer;
+  transition: 0.5s;
+}
+.my_file::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.my_file::after {
+  content: 'U+F03D'; /* Unicode for CameraOutlined */
+  font-family: 'anticon'; /* The Ant Design icon font */
+  color: #fff;
+  display: inline-block;
+  --webkit-user-select: none;
+
+  font-size: 50px;
+}
+.my_file:hover {
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+}
+.heading {
+  font-weight: bold;
+  font-size: 30px;
+  text-align: center;
+}
+@media (max-width: 768px) {
+  .form-container {
+    max-width: 90%;
+  }
+}
+
+.form-container {
+  margin: 0 auto !important;
+  max-width: 800px !important;
+}
+
+@media (max-width: 768px) {
+  .form-container {
+    max-width: 600px !important;
+  }
+}
+@media (max-width: 746px) {
+  .btn1 {
+    margin-left: -60px !important;
+  }
+}
+@media (max-width: 612px) {
+  .btn1 {
+    margin-left: -65px !important;
+  }
+}
+@media (max-width: 552px) {
+  .btn1 {
+    margin-left: -74px !important;
+  }
+}
+@media (max-width: 534px) {
+  .btn1 {
+    margin-left: -78px !important;
+  }
+}
+@media (max-width: 502px) {
+  .btn1 {
+    margin-left: -94px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-container {
+    max-width: 100% !important;
+    padding: 0 10px !important;
+  }
+}
+@media (max-width: 408px) {
+  .btn1 {
+    margin-left: -110px !important;
+  }
+}
+@media (max-width: 364px) {
+  .btn1 {
+    margin-left: -120px !important;
+  }
+}

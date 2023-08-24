@@ -18,7 +18,7 @@ function SubjectList({
   const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
 
   return (
-    <div style={{ marginLeft: '30%', width: '120%', marginTop: '10%' }}>
+    <div style={{ marginLeft: '37%', width: '120%', marginTop: '10%' }}>
       <Card title={<h1 style={{ fontWeight: 'bold', fontSize: 24, textAlign: 'center' }}>Subject List</h1>}>
         <SubjectListForm
           classList={classList}

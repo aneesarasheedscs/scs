@@ -2,33 +2,12 @@ import { Card, Input, Form, message, Row, Col, Divider } from 'antd';
 import '../SyllabusManagement/Style.css';
 import { AntButton } from '@revisionary/components';
 import { AntCard } from '../../Component/AntCard';
-import { useEffect, useState } from 'react';
-import {
-  useAddUpdateSubjectList,
-  useGetSubjectCategories,
-  useGetSubjectCategoryById,
-  useGetSubjectListById,
-} from '../queries';
+import { useState } from 'react';
+import { useGetSubjectCategories } from '../queries';
 import UpdateSubjectCategoryRecord from './UpdateSubjectCategoryRecord';
-import InputForm from '@revisionary/pages/Component/InputForm';
-import { TSubjectListFormDataOnAdd, TSubjectListFormDataOnUpdate } from '../queries/types';
-import { isNumber } from 'lodash';
-import { queryClient } from '@scs/configs';
-
-interface CardData {
-  id: number;
-  code: string;
-  name: string;
-}
 
 function SubjectCatagory() {
   const { data: cards2, isError, isLoading } = useGetSubjectCategories();
-  const [cards, setCards] = useState<CardData[]>([]);
-  const [newCard, setNewCard] = useState<CardData>({
-    id: 1,
-    code: '',
-    name: '',
-  });
 
   const [open, setOpen] = useState(false);
   const [selectedRecordId, setSelectedRecordId] = useState<number>();
@@ -43,86 +22,35 @@ function SubjectCatagory() {
     form.resetFields();
     setSelectedRecordId(undefined);
   };
-  const handleAddCard = () => {
-    if (newCard.code.trim() === '') {
-      return message.error('Please Enter Code');
-    }
-    if (newCard.name.trim() === '') {
-      return message.error('Please Enter Name');
-    } else {
-      message.success('Success');
-    }
-    setCards((prevCards) => [...prevCards, { ...newCard, id: Date.now() }]);
-    setNewCard({
-      id: Date.now() + 1,
-      code: '',
-      name: '',
-    });
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, field: keyof CardData) => {
-    const { value } = e.target;
-    setNewCard((prevCard) => ({ ...prevCard, [field]: value }));
-  };
 
   const [form] = Form.useForm();
-  const handleCancel = () => {
-    setNewCard({
-      id: Date.now() + 1,
-      code: '',
-      name: '',
-    });
-    form.resetFields();
-  };
-  const { mutate, isSuccess } = useAddUpdateSubjectList(selectedRecordId);
-  const { data, refetch, isSuccess: isDataByIdSuccess } = useGetSubjectCategoryById(selectedRecordId);
-  const onFinish = (values: TSubjectListFormDataOnAdd | TSubjectListFormDataOnUpdate) => {
-    if (isNumber(selectedRecordId)) {
-      mutate({ ...values, rowVersion: cards2?.data?.apiData?.rowVersion });
-    } else {
-      mutate(values);
-    }
-  };
-  useEffect(() => {
-    if (isNumber(selectedRecordId)) {
-      refetch();
-    }
-  }, [selectedRecordId]);
-
-  useEffect(() => {
-    if (isDataByIdSuccess) {
-      form.setFieldsValue(cards2?.data?.apiData);
-    }
-  }, [isDataByIdSuccess]);
 
   return (
-    <div style={{ width: '120%' }}>
-      <Card className="cardContainer">
+    <div className="card-containertab">
+      <Card className="cardContainer responsive-card ">
         <h1 className="h1">Subject Catagory</h1>
         <Divider />
-        <Form onFinish={onFinish}>
-          <Row>
-            <Col>
-              <Row gutter={100}>
-                <Col>
-                  <InputForm />
-                </Col>
-                <Col>
-                  <AntButton size="large" label="Cancel" htmlType="submit" />
-                </Col>
-                <Col>
-                  <AntButton ghost label="Save" htmlType="submit" size="large" />
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-        </Form>
+        <Row
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+          }}
+        >
+          <AntButton
+            ghost
+            label="ADD"
+            htmlType="submit"
+            size="large"
+            className="addbutton"
+            onClick={(item: any) => handleOpen(item.subjectCategoryId)}
+          />
+        </Row>
 
-        <div className="card-container">
+        <div className="card-container2">
           <AntCard data={cards2?.data?.apiData} isLoading={isLoading} isError={isError}>
             <Row gutter={[10, 10]}>
               {cards2?.data?.apiData.map((item: any) => (
-                <Col span={8} key={item.subjectCategoryId}>
+                <Col xs={24} sm={12} md={8} lg={6} key={item.subjectCategoryId}>
                   <AntCard className="cardS card" bordered={false}>
                     <div>
                       <p className="paragraph">{item.subjectCategoryCode}</p>

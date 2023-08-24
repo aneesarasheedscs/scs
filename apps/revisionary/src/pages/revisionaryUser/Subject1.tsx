@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Card, Col, Row, List, Progress, Divider, Input } from 'antd';
 import { green } from '@ant-design/colors';
-import '../Style.css';
+// import './Style.css';
+import '../Syllabus_Management/SyllabusManagement/Style.css';
 import { AddStudentThButton1 } from './AddStudentThButton';
 
 import StudentCard1 from './StudentCard1';

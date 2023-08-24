@@ -1,5 +1,5 @@
 import { Col, Row, Tabs } from 'antd';
-import './Style.css';
+import '../Syllabus_Management/SyllabusManagement/Style.css';
 import Class from './Class/Class';
 import ClassDivision from './ClassDivision/ClassDivision';
 import ClassSyllabus from './ClassSyllabus/ClassSyllabus';

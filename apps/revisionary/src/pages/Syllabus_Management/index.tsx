@@ -1,19 +1,18 @@
 import { Col, Row, Tabs } from 'antd';
 import SubjectList from './subjectList';
-
-import SubjectTopics1 from './SyllabusManagement/SubjectTopics';
+import '../Syllabus_Management/SyllabusManagement/Style.css';
+import SubjectTopics1 from '../subjectTopics';
 import SubjectCatagory from './SubjectCategory/index';
 import { useGetSubjectCategories, useSyllabusAuthority } from './queries';
 import { useGetClasses } from '../Class_Management/Queries';
 import SyllabusAuthority from './syllabusAuthority';
-import SyllabusAuthority1 from './syllabusAuthority';
 
 function SyllabusManagement() {
   const { data, isError, isLoading } = useSyllabusAuthority();
   const { data: classData, isLoading: classLoading } = useGetClasses();
   const { data: subjData, isError: subjError, isLoading: subjLoading } = useGetSubjectCategories();
   return (
-    <div className="full-page-tabs-container" style={{ marginLeft: '3%' }}>
+    <div className="tabs-container">
       <Row gutter={12}>
         <Col span={12}>
           <Tabs defaultActiveKey="tab1">

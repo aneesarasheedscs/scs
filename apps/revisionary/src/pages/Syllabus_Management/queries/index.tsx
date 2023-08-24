@@ -13,15 +13,79 @@ import {
 } from './types';
 import { queryClient } from '@scs/configs';
 import { isNumber } from 'lodash';
-
+// Syllabus Athority API
 export const useSyllabusAuthority = () => useQuery('cards', getSyllabusAuthority);
 
 const getSyllabusAuthority = () => requestManager.get('/SyllabusAuthority/GetBySearch');
+export const useGetSyllabusAuthorityById = (SyllabusAuthorityId?: number) => {
+  return useQuery(
+    ['syllabus-authority', SyllabusAuthorityId],
+    () => {
+      return getSyllabusAuthorityById(SyllabusAuthorityId);
+    },
+    {
+      cacheTime: 0,
+      staleTime: 0,
+      enabled: false,
+      onError: (error: AxiosError) => {
+        const msg = error.response?.data || 'Something went wrong';
+        notification.error({ description: '', message: msg as string });
+      },
+    }
+  );
+};
+// Update Syllabus Athority
+export const useAddUpdateSyllabusAuthority = (syllabusAuthorityId?: number) => {
+  return useMutation(
+    (data: TSyllabusAuthorityFormDataOnAdd | TSyllabusAuthorityFormDataOnUpdate) => {
+      return addUpdateSyllabusAuthority(data, syllabusAuthorityId);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('syllabus-authorities');
+        const msg = syllabusAuthorityId ? 'Record updated successfully!' : 'Record added successfully!';
+        notification.success({ description: '', message: msg });
+      },
+      onError: (error: AxiosError) => {
+        const msg = error.response?.data || 'Something went wrong';
+        notification.error({ description: '', message: msg as string });
+      },
+    }
+  );
+};
 
-// export const useSubjectCategory = () => useQuery('cards2', getSubjectCategory);
+const getSyllabusAuthorityById = (SyllabusAuthorityId?: number) => {
+  return requestManager.get('/SyllabusAuthority/GetById', { params: { SyllabusAuthorityId } });
+};
 
-// const getSubjectCategory = () => requestManager.get('/SubjectCategory/GetBySearch');
+const addUpdateSyllabusAuthority = (
+  data: TSyllabusAuthorityFormDataOnAdd | TSyllabusAuthorityFormDataOnUpdate,
+  syllabusAuthorityId?: number
+) => {
+  const appUser: TAppUserData = JSON.parse(localStorage.getItem('app-user') || '{}');
 
+  let dataToSubmit = {};
+
+  if (isNumber(syllabusAuthorityId)) {
+    dataToSubmit = {
+      appUserLogId: appUser?.appUserLogId,
+      syllabusAuthorityId: syllabusAuthorityId,
+      lastModifiedUserId: appUser?.lastModifiedUserId,
+      ...data,
+    };
+  } else {
+    dataToSubmit = {
+      syllabusAuthorityId: 0,
+      appUserLogId: appUser?.appUserLogId,
+      createdUserId: appUser?.createdUserId,
+      ...data,
+    };
+  }
+
+  return requestManager.post('/SyllabusAuthority/Save', dataToSubmit);
+};
+
+// Subject Category API
 export const useGetSubjectCategories = () => useQuery('cards2', getSubjectCategory);
 const getSubjectCategory = () => requestManager.get('/SubjectCategory/GetBySearch');
 
@@ -46,7 +110,7 @@ export const useGetSubjectCategoryById = (SubjectCategoryId?: number) => {
 const getSubjectCategoryById = (SubjectCategoryId?: number) => {
   return requestManager.get('/SubjectCategory/GetById', { params: { SubjectCategoryId } });
 };
-
+// Update Subject Category
 export const useAddUpdateSubjectCategory = (subjectCategoryId?: number) => {
   return useMutation(
     (data: TSubjectCategoryFormDataOnAdd | TSubjectCategoryFormDataOnUpdate) => {
@@ -93,74 +157,6 @@ const addUpdateSubjectCategory = (
   return requestManager.post('/SubjectCategory/Save', dataToSubmit);
 };
 
-export const useGetSyllabusAuthorityById = (SyllabusAuthorityId?: number) => {
-  return useQuery(
-    ['syllabus-authority', SyllabusAuthorityId],
-    () => {
-      return getSyllabusAuthorityById(SyllabusAuthorityId);
-    },
-    {
-      cacheTime: 0,
-      staleTime: 0,
-      enabled: false,
-      onError: (error: AxiosError) => {
-        const msg = error.response?.data || 'Something went wrong';
-        notification.error({ description: '', message: msg as string });
-      },
-    }
-  );
-};
-export const useAddUpdateSyllabusAuthority = (syllabusAuthorityId?: number) => {
-  return useMutation(
-    (data: TSyllabusAuthorityFormDataOnAdd | TSyllabusAuthorityFormDataOnUpdate) => {
-      return addUpdateSyllabusAuthority(data, syllabusAuthorityId);
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries('syllabus-authorities');
-        const msg = syllabusAuthorityId ? 'Record updated successfully!' : 'Record added successfully!';
-        notification.success({ description: '', message: msg });
-      },
-      onError: (error: AxiosError) => {
-        const msg = error.response?.data || 'Something went wrong';
-        notification.error({ description: '', message: msg as string });
-      },
-    }
-  );
-};
-// const getSyllabusAuthority = () => requestManager.get("/SyllabusAuthority/GetBySearch");
-
-const getSyllabusAuthorityById = (SyllabusAuthorityId?: number) => {
-  return requestManager.get('/SyllabusAuthority/GetById', { params: { SyllabusAuthorityId } });
-};
-
-const addUpdateSyllabusAuthority = (
-  data: TSyllabusAuthorityFormDataOnAdd | TSyllabusAuthorityFormDataOnUpdate,
-  syllabusAuthorityId?: number
-) => {
-  const appUser: TAppUserData = JSON.parse(localStorage.getItem('app-user') || '{}');
-
-  let dataToSubmit = {};
-
-  if (isNumber(syllabusAuthorityId)) {
-    dataToSubmit = {
-      appUserLogId: appUser?.appUserLogId,
-      syllabusAuthorityId: syllabusAuthorityId,
-      lastModifiedUserId: appUser?.lastModifiedUserId,
-      ...data,
-    };
-  } else {
-    dataToSubmit = {
-      syllabusAuthorityId: 0,
-      appUserLogId: appUser?.appUserLogId,
-      createdUserId: appUser?.createdUserId,
-      ...data,
-    };
-  }
-
-  return requestManager.post('/SyllabusAuthority/Save', dataToSubmit);
-};
-
 // Table(Student List)
 export const useGetSubjectLists = () => useQuery('subject-list', getSubjectList);
 
@@ -174,25 +170,6 @@ export const useGetSubjectListById = (SubjectListId?: number | null) => {
       cacheTime: 0,
       staleTime: 0,
       enabled: false,
-      onError: (error: AxiosError) => {
-        const msg = error.response?.data || 'Something went wrong';
-        notification.error({ description: '', message: msg as string });
-      },
-    }
-  );
-};
-
-export const useAddUpdateSubjectList = (subjectListId?: number | null) => {
-  return useMutation(
-    (data: TSubjectListFormDataOnAdd | TSubjectListFormDataOnUpdate) => {
-      return addUpdateSubjectList(data, subjectListId);
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries('subject-list');
-        const msg = subjectListId ? 'Record updated successfully!' : 'Record added successfully!';
-        notification.success({ description: '', message: msg });
-      },
       onError: (error: AxiosError) => {
         const msg = error.response?.data || 'Something went wrong';
         notification.error({ description: '', message: msg as string });
@@ -217,7 +194,25 @@ const getSubjectList = () => {
 const getSubjectListById = (SubjectListId?: number | null) => {
   return requestManager.get('/SubjectList/GetById', { params: { SubjectListId } });
 };
-
+// Update Subject List
+export const useAddUpdateSubjectList = (subjectListId?: number | null) => {
+  return useMutation(
+    (data: TSubjectListFormDataOnAdd | TSubjectListFormDataOnUpdate) => {
+      return addUpdateSubjectList(data, subjectListId);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('subject-list');
+        const msg = subjectListId ? 'Record updated successfully!' : 'Record added successfully!';
+        notification.success({ description: '', message: msg });
+      },
+      onError: (error: AxiosError) => {
+        const msg = error.response?.data || 'Something went wrong';
+        notification.error({ description: '', message: msg as string });
+      },
+    }
+  );
+};
 const addUpdateSubjectList = (
   data: TSubjectListFormDataOnAdd | TSubjectListFormDataOnUpdate,
   subjectListId?: number | null

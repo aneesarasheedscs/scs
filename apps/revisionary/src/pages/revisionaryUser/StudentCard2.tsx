@@ -1,5 +1,5 @@
 import { Card, Col, Row, Tabs, Pagination, Divider, Form, message, Checkbox } from 'antd';
-import './Style.css';
+import '../Syllabus_Management/SyllabusManagement/Style.css';
 
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 // interface CardData {
