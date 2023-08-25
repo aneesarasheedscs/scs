@@ -3,6 +3,7 @@ import { Form, Input, Divider, Select, Row, Col } from 'antd';
 import './StudentProfile.css';
 import { AntButton } from '@revisionary/components';
 import { CameraOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 const StudentProfile: React.FC = () => {
   const onFinish = (values: any) => {
     console.log('Form values:', values);
@@ -28,10 +29,11 @@ const StudentProfile: React.FC = () => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
   };
+  const { t } = useTranslation();
   return (
     <div className="form1" style={{ marginTop: '2%' }}>
       <Form layout="vertical" onFinish={onFinish} className="form-container">
-        <h2 className="heading">Student Profile Form</h2>
+        <h2 className="heading">{t('student_profile_form')}</h2>
         <Divider orientation="center" style={{ marginTop: '10px' }}></Divider>
         <Row gutter={20} style={{ marginBottom: '-20%' }}>
           <div className="wrapper">
@@ -44,77 +46,77 @@ const StudentProfile: React.FC = () => {
         <Row gutter={20}>
           <Col span={12}>
             <Form.Item
-              label="Registration Code"
+              label={t('registration_code')}
               name="Registration Code"
-              rules={[{ required: true, message: 'Please enter your first name' }]}
+              rules={[{ required: true, message: <>{t('enter_registration_code')}</> }]}
             >
-              <Input size="large" className="custom" placeholder="Registration Code" />
+              <Input size="large" className="custom" placeholder={t('registration_code')} />
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item
-              label="Registration Date"
+              label={t('registration_date')}
               name="Registration Date"
-              rules={[{ required: true, message: 'Please enter your last name' }]}
+              rules={[{ required: true, message: <>{t('enter_registration_date')}</> }]}
             >
-              <Input size="large" className="custom" placeholder="Registration Date" />
+              <Input size="large" className="custom" placeholder={t('registration_date')} />
             </Form.Item>
           </Col>
         </Row>
         <Row gutter={20}>
           <Col span={12}>
             <Form.Item
-              label="Name"
+              label={t('name')}
               name="Name"
               rules={[
                 {
                   required: true,
-                  message: 'Please enter Your Name',
+                  message: <>{t('add_updata_name')}</>,
                 },
               ]}
             >
-              <Input size="large" className="custom" placeholder="Name" />
+              <Input size="large" className="custom" placeholder={t('name')} />
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item
-              label="Father Name"
-              name="phone"
-              rules={[{ required: true, message: 'Please enter Father Name' }]}
+              label={t('father_name')}
+              name="Father Name"
+              rules={[{ required: true, message: <>{t('enter_father_name')}</> }]}
             >
-              <Input size="large" className="custom" placeholder="Father Name" />
+              <Input size="large" className="custom" placeholder={t('father_name')} />
             </Form.Item>
           </Col>
         </Row>
         <Row gutter={20}>
           <Col span={12}>
             <Form.Item
-              label="Gardian Name"
-              name="gardian Name"
-              rules={[{ required: true, message: 'Please enter your gardian Name' }]}
+              label={t('guardian_name')}
+              name="Gardian Name"
+              rules={[{ required: true, message: <>{t('enter_guardian_name')}</> }]}
             >
-              <Input size="large" className="custom" placeholder="Gardian Name" />
+              <Input size="large" className="custom" placeholder={t('guardian_name')} />
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item
-              label="Address"
-              name="dob"
-              rules={[{ required: true, message: 'Please select your address' }]}
+              label={t('address')}
+              name="Address"
+              rules={[{ required: true, message: <>{t('enter_address')}</> }]}
             >
-              <Input size="large" className="custom" placeholder="Address" />
+              <Input size="large" className="custom" placeholder={t('address')} />
             </Form.Item>
           </Col>
         </Row>
         <Row gutter={20}>
           <Col span={12}>
             <Form.Item
-              label="Class"
+              label={t('class')}
               name="Class"
-              rules={[{ required: true, message: 'Please select your Class' }]}
+              rules={[{ required: true, message: <>{t('add_updata_class')}</> }]}
             >
               <Select
-                placeholder="Class Year"
+                placeholder={t('class')}
                 style={{ textAlign: 'left', width: '100%' }}
                 onChange={handleChange}
                 size="large"
@@ -128,9 +130,13 @@ const StudentProfile: React.FC = () => {
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item label="Board" name="Board" rules={[{ required: true, message: 'Please enter Board' }]}>
+            <Form.Item
+              label={t('board')}
+              name="Board"
+              rules={[{ required: true, message: <>{t('enter_board')}</> }]}
+            >
               <Select
-                placeholder="Board"
+                placeholder={t('board')}
                 style={{ textAlign: 'left' }}
                 onChange={handleChange}
                 size="large"
@@ -148,7 +154,7 @@ const StudentProfile: React.FC = () => {
         <Row>
           <Col span={24} style={{ display: 'flex', justifyContent: 'center' }}>
             <Form.Item>
-              <AntButton size="large" htmlType="submit" className="btn1" label="Submit"></AntButton>
+              <AntButton size="large" htmlType="submit" className="btn1" label={t('submit')}></AntButton>
             </Form.Item>
           </Col>
         </Row>

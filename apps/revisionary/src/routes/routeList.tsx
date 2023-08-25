@@ -9,7 +9,9 @@ const ClassManagement = lazy(() => import('@revisionary/pages/Class_Management/I
 const SignForm = lazy(() => import('@revisionary/pages/revisionaryUser/Comp/SignForm'));
 const StudentProfile = lazy(() => import('@revisionary/pages/revisionaryUser/StudentProfile/StudentProfile'));
 const StudentSyllabus = lazy(() => import('@revisionary/pages/revisionaryUser/Comp/StudentSyllabus'));
-const SyllabusStatus = lazy(() => import('@revisionary/pages/revisionaryUser/SyllabusStatus/SyllabusStatus'));
+const SyllabusStatus = lazy(
+  () => import('@revisionary/pages/revisionaryUser/SyllabusStatus/MainSyllabusFile')
+);
 const Assessment = lazy(() => import('@revisionary/pages/revisionaryUser/SyllabusStatus/Assessment'));
 const Subject1 = lazy(() => import('@revisionary/pages/revisionaryUser/Subject1'));
 const LoginForm = lazy(() => import('@revisionary/pages/revisionaryUser/Comp/LoginForm'));

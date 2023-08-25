@@ -6,6 +6,7 @@ import { AntCard } from '../../Component/AntCard';
 import { useState } from 'react';
 import { useSyllabusAuthority } from '../queries';
 import UpdateSyllabusAuthority from './UpdateSyllabusAthority';
+import { useTranslation } from 'react-i18next';
 
 function SyllabusAuthority() {
   const { data: apiResponse, isError, isLoading } = useSyllabusAuthority();
@@ -25,11 +26,11 @@ function SyllabusAuthority() {
   };
 
   const [form] = Form.useForm();
-
+  const { t } = useTranslation();
   return (
     <div className="card-containertab">
       <Card className="cardContainer responsive-card">
-        <h1 className="h1">Syllabus Authority / Publisher</h1>
+        <h1 className="h1"> {t('syllabus_authority_puslisher')}</h1>
         <Divider />
         <Row
           style={{
@@ -39,7 +40,7 @@ function SyllabusAuthority() {
         >
           <AntButton
             ghost
-            label="ADD"
+            label={t('add')}
             htmlType="submit"
             size="large"
             onClick={(item: any) => handleOpen(item.syllabusAuthorityId)}
@@ -61,7 +62,7 @@ function SyllabusAuthority() {
                     <div className="edit-button-container">
                       <AntButton
                         style={{ background: '#00a148' }}
-                        label="Edit"
+                        label={t('edit')}
                         onClick={() => handleOpen(item.syllabusAuthorityId)}
                       />
                     </div>

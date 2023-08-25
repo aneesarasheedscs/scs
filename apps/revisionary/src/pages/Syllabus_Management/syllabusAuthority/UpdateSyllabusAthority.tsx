@@ -4,9 +4,7 @@ import { Col, Form, FormInstance, Input, Row } from 'antd';
 import LookupFormModal from '../../Component/LookupFormModal';
 import { useAddUpdateSyllabusAuthority, useGetSyllabusAuthorityById } from '../queries';
 import { TSyllabusAuthorityFormDataOnAdd, TSyllabusAuthorityFormDataOnUpdate } from '../queries/types';
-// import LookupFormModal from "@/pages/components/LookupFormModal";
-// import { useGetSyllabusAuthorityById, useAddUpdateSyllabusAuthority } from "@/hooks/apis/useSyllabusAuthority";
-// import { TSyllabusAuthorityFormDataOnAdd, TSyllabusAuthorityFormDataOnUpdate } from "@/types/syllabusAuthority";
+import { useTranslation } from 'react-i18next';
 
 function UpdateSyllabusAuthority({ open, form, handleClose, selectedRecordId }: TAddUpdateRecord) {
   const [btnClicked, setBtnClicked] = useState(false);
@@ -45,7 +43,7 @@ function UpdateSyllabusAuthority({ open, form, handleClose, selectedRecordId }: 
       form.setFieldsValue(data?.data?.apiData);
     }
   }, [isDataSuccess]);
-
+  const { t } = useTranslation();
   return (
     <LookupFormModal
       open={open}
@@ -56,25 +54,25 @@ function UpdateSyllabusAuthority({ open, form, handleClose, selectedRecordId }: 
       handleClose={handleClose}
       isDataLoading={isDataLoading}
       selectedRecordId={selectedRecordId}
-      title="Syllabus Authority / Publisher"
+      title={t('syllabus_authority_puslisher')}
       handleSaveMoreClick={() => setBtnClicked(true)}
     >
       <Row gutter={10} style={{ marginTop: 20 }}>
         <Col xs={8}>
           <Form.Item
             name="syllabusAuthorityCode"
-            rules={[{ required: true, message: 'Please input your Code!' }]}
+            rules={[{ required: true, message: <>{t('add_updata_code')}</> }]}
           >
-            <Input size="large" placeholder="Code" />
+            <Input size="large" placeholder={t('code')} />
           </Form.Item>
         </Col>
 
         <Col xs={16}>
           <Form.Item
             name="syllabusAuthorityName"
-            rules={[{ required: true, message: 'Please input your Name!' }]}
+            rules={[{ required: true, message: <>{t('add_updata_name')}</> }]}
           >
-            <Input size="large" placeholder="Name" />
+            <Input size="large" placeholder={t('updata_name')} />
           </Form.Item>
         </Col>
       </Row>

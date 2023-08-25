@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 // import { AntButton, TableLoader } from "@/components";
 import { Col, Form, FormInstance, Modal, Row } from 'antd';
 import { AntButton, TableLoader } from '@revisionary/components';
+import { useTranslation } from 'react-i18next';
 
 function LookupFormModal({
   open,
@@ -18,6 +19,7 @@ function LookupFormModal({
   selectedRecordId,
   handleSaveMoreClick,
 }: TLookupFormModal) {
+  const { t } = useTranslation();
   return (
     <Modal
       open={open}
@@ -37,24 +39,24 @@ function LookupFormModal({
           <Form.Item>
             <Row gutter={6} justify="end">
               <Col>
-                <AntButton label="Cancel" type="default" htmlType="reset" onClick={handleClose} />
+                <AntButton label={t('cancel')} type="default" htmlType="reset" onClick={handleClose} />
               </Col>
 
               {isNumber(selectedRecordId) ? (
                 <Col>
-                  <AntButton label="Update" htmlType="submit" disabled={isLoading} />
+                  <AntButton label={t('update')} htmlType="submit" disabled={isLoading} />
                 </Col>
               ) : (
                 <>
                   <Col>
-                    <AntButton label="Save" htmlType="submit" disabled={isLoading} />
+                    <AntButton label={t('save')} htmlType="submit" disabled={isLoading} />
                   </Col>
 
                   <Col>
                     <AntButton
                       htmlType="submit"
                       disabled={isLoading}
-                      label="Save and Add more"
+                      label={t('save_and_add')}
                       onClick={handleSaveMoreClick}
                     />
                   </Col>

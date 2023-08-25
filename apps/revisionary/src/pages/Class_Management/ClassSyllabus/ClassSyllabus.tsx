@@ -1,10 +1,12 @@
 import React from 'react';
 import { Collapse, Divider } from 'antd';
 import '../../Syllabus_Management/SyllabusManagement/Style.css';
+import { useTranslation } from 'react-i18next';
 const ClassSyllabus = () => {
+  const { t } = useTranslation();
   return (
     <div className="collapse">
-      <h1 style={{ textAlign: 'center' }}>Class Syllabus</h1>
+      <h1 style={{ textAlign: 'center' }}>{t('class_syllabus')}</h1>
       <Divider />
       <div className="custom-collapse">
         <Collapse accordion>

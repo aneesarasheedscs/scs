@@ -8,6 +8,7 @@ import { AddStudentThButton1 } from './AddStudentThButton';
 import StudentCard1 from './StudentCard1';
 import StudentCard2 from './StudentCard2';
 import { AddStudentThButton } from './Progress/Card';
+import { useTranslation } from 'react-i18next';
 // import { AddStudentThButton } from './SyllabusStatus/Progress/Card';
 interface CardItem {
   key: string;
@@ -86,11 +87,11 @@ function Subject1() {
   const handleSubjectClick = (subject: string) => {
     setSelectedSubject(subject);
   };
-
+  const { t } = useTranslation();
   return (
     <div style={{ height: '100hv', padding: 20 }}>
       <Divider orientation="center" style={{ marginTop: '30px' }}>
-        <h1>Add Subject</h1>
+        <h1>{t('add_subject')}</h1>
       </Divider>
       <Row gutter={[16, 16]} style={{ marginTop: '-4rem' }}>
         <AddStudentThButton cards={cards} onSubjectClick={handleSubjectClick} />

@@ -2,13 +2,14 @@ import { Card, Form, Row, Col, Divider } from 'antd';
 import '../../Syllabus_Management/SyllabusManagement/Style.css';
 import { AntButton } from '@revisionary/components';
 import { useState } from 'react';
-import { useGetClassDivisions } from '../Queries';
+import { useGetClassDivisions, useGetClasses } from '../Queries';
 import { AntCard } from '../../Component/AntCard';
 import AddUpdateClassDivision from './UpdateClassDivision';
+import { useTranslation } from 'react-i18next';
 
 function ClassDivision() {
   const { data: apiResponse, isError, isLoading } = useGetClassDivisions();
-
+  const { data } = useGetClasses();
   const [open, setOpen] = useState(false);
   const [selectedRecordId, setSelectedRecordId] = useState<number>();
 
@@ -24,11 +25,11 @@ function ClassDivision() {
   };
 
   const [form] = Form.useForm();
-
+  const { t } = useTranslation();
   return (
     <div className="card-container">
       <Card className="cardContainer responsive-card">
-        <h1 className="h1">ClassDivision</h1>
+        <h1 className="h1">{t('class_division')}</h1>
         <Divider />
         <Row
           style={{
@@ -38,7 +39,7 @@ function ClassDivision() {
         >
           <AntButton
             ghost
-            label="ADD"
+            label={t('add')}
             size="large"
             onClick={(item: any) => handleOpen(item.classSubDivisionId)}
             className="addbutton"
@@ -58,7 +59,7 @@ function ClassDivision() {
                     <div className="edit-button-container">
                       <AntButton
                         style={{ background: '#00a148' }}
-                        label="Edit"
+                        label={t('edit')}
                         onClick={() => handleOpen(item.classSubDivisionId)}
                       />
                     </div>
@@ -72,7 +73,7 @@ function ClassDivision() {
               handleClose={handleClose}
               selectedRecordId={selectedRecordId}
               isClassLoading={false}
-              classData={apiResponse?.data?.apiData || []}
+              classData={data?.data?.apiData || []}
             />
           </AntCard>
         </div>

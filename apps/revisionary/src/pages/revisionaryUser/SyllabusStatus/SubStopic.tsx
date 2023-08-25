@@ -1,7 +1,8 @@
 import './SyllabusStatus.css';
 import React from 'react';
 import { Row, Col, Divider } from 'antd';
-import CardWithProgress from '../../../revisionaryUser/Progress/Progress';
+// import CardWithProgress from '../../../revisionaryUser/Progress/Progress';
+import CardWithProgress from '../Progress/Progress';
 
 function SubStopic() {
   const cardArray = [
@@ -45,7 +46,7 @@ function SubStopic() {
                       paddingBottom: '0.9%',
                     }}
                   >
-                    <h3>Topic1: Cell Biology</h3>
+                    <h3>Topic2: Cell Biology</h3>
                   </Divider>
                 </center>
                 <Row gutter={[16, 16]}>

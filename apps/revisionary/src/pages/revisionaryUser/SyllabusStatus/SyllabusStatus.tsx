@@ -2,6 +2,7 @@ import './SyllabusStatus.css';
 import React from 'react';
 import { Row, Col, Divider } from 'antd';
 import CardWithProgress from '../Progress/Progress';
+import { useTranslation } from 'react-i18next';
 
 function SyllabusStatus() {
   const cardArray = [
@@ -24,13 +25,13 @@ function SyllabusStatus() {
   };
 
   const cardChunks = chunkArray(cardArray, 3);
-
+  const { t } = useTranslation();
   return (
     <div className="syllabus-status">
       <center>
         <div className="flip" style={{ width: '70%', maxHeight: '15rem' }}>
           <Divider orientation="center" className="divider-title">
-            <h1>Content</h1>
+            <h1>{t('content')}</h1>
           </Divider>
           <div className="card-container">
             <Row gutter={[16, 16]}>

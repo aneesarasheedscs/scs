@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Col, Form, FormInstance, Input, Row } from 'antd';
 import { useAddUpdateSubjectCategory, useGetSubjectCategoryById } from '../queries';
 import LookupFormModal from '../../Component/LookupFormModal';
+import { useTranslation } from 'react-i18next';
 
 function UpdateSubjectCategoryRecord({ open, form, handleClose, selectedRecordId }: TAddUpdateRecord) {
   const [btnClicked, setBtnClicked] = useState(false);
@@ -41,7 +42,7 @@ function UpdateSubjectCategoryRecord({ open, form, handleClose, selectedRecordId
       form.setFieldsValue(data?.data?.apiData);
     }
   }, [isDataSuccess]);
-
+  const { t } = useTranslation();
   return (
     <LookupFormModal
       open={open}
@@ -59,18 +60,18 @@ function UpdateSubjectCategoryRecord({ open, form, handleClose, selectedRecordId
         <Col xs={8}>
           <Form.Item
             name="subjectCategoryCode"
-            rules={[{ required: true, message: 'Please input your Code!' }]}
+            rules={[{ required: true, message: <>{t('add_updata_code')}</> }]}
           >
-            <Input size="large" placeholder="Code" />
+            <Input size="large" placeholder={t('code')} />
           </Form.Item>
         </Col>
 
         <Col xs={16}>
           <Form.Item
             name="subjectCategoryDescription"
-            rules={[{ required: true, message: 'Please input your Description!' }]}
+            rules={[{ required: true, message: <>{t('subject_description')}</> }]}
           >
-            <Input size="large" placeholder="Description" />
+            <Input size="large" placeholder={t('description')} />
           </Form.Item>
         </Col>
       </Row>

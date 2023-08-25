@@ -12,3 +12,4 @@ export * from './sideDrawer/SideDrawer';
 export * from './select/AntSelectDynamic';
 export * from './rangePicker/AntRangePicker';
 export * from './table/SearchCriteriaWrapper';
+export * from './languageSwitcher/LanguageSwitcher';

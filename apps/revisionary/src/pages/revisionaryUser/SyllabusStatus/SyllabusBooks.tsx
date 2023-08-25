@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { Card, Col, Row, List, Progress, Divider, Input,Button } from 'antd';
+import { Card, Col, Row, List, Progress, Divider, Input, Button } from 'antd';
 import { green } from '@ant-design/colors';
 import './SyllabusBooks.css';
 import { Link, useNavigate } from 'react-router-dom';
-
+import { useTranslation } from 'react-i18next';
 
 function Assessment() {
-  const handleClick=()=>{
-    navigate('./SyllabusTopic')
+  const handleClick = () => {
+    navigate('./SyllabusTopic');
     console.log('dfs');
-  }
-  const navigate = useNavigate()
+  };
+  const navigate = useNavigate();
 
   const cards = [
     {
@@ -78,10 +78,12 @@ function Assessment() {
       Subject: 'Drawing',
     },
   ];
-  
+  const { t } = useTranslation();
   return (
     <div className="assessment" style={{ height: '100hv', padding: 20 }}>
-           <Divider orientation='center' style={{marginTop:'40px'}}><h1>Syllabus Status</h1></Divider>
+      <Divider orientation="center" style={{ marginTop: '40px' }}>
+        <h1>{t('syllabus_status')}</h1>
+      </Divider>
       <Row gutter={[16, 16]} style={{ marginTop: '  2rem' }}>
         {cards.map((card) => {
           return (
@@ -89,7 +91,6 @@ function Assessment() {
               <Card
                 style={{ width: '100%', textAlign: 'center', border: '1px solid #00A148' }}
                 className="singleCard"
-                
               >
                 <h3>{card.Subject}</h3>
               </Card>
@@ -98,9 +99,8 @@ function Assessment() {
         })}
       </Row>
       <Divider />
-      
-    {/* <A */}
-      
+
+      {/* <A */}
     </div>
   );
 }

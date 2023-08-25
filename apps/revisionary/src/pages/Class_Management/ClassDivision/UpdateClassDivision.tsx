@@ -1,9 +1,11 @@
 import { isNumber, map } from 'lodash';
 import { useEffect, useState } from 'react';
 import { Col, DatePicker, Form, FormInstance, Input, Row, Select } from 'antd';
-import { useAddUpdateClassDivision, useGetClassDivisionById } from '../Queries';
+import { useAddUpdateClassDivision, useGetClassDivisionById, useGetClassDivisions } from '../Queries';
 import { TClassData, TClassDivisionFormDataOnAdd, TClassDivisionFormDataOnUpdate } from '../Queries/Types';
 import LookupFormModal from '../../Component/LookupFormModal';
+import { useTranslation } from 'react-i18next';
+import { AntSelectDynamic } from '@scs/ui';
 
 function AddUpdateClassDivision({
   open,
@@ -44,13 +46,13 @@ function AddUpdateClassDivision({
     }
   }, [selectedRecordId]);
 
-  useEffect(() => {
-    if (isDataSuccess) {
-      const date = new Date(data?.data?.apiData?.effectiveFrom);
-      form.setFieldsValue({ ...data?.data?.apiData, effectiveFrom: moment(date) });
-    }
-  }, [isDataSuccess]);
-
+  // useEffect(() => {
+  //   if (isDataSuccess) {
+  //     const date = new Date(data?.data?.apiData?.effectiveFrom);
+  //     form.setFieldsValue({ ...data?.data?.apiData, effectiveFrom: moment(date) });
+  //   }
+  // }, [isDataSuccess]);
+  const { t } = useTranslation();
   return (
     <LookupFormModal
       open={open}
@@ -67,12 +69,12 @@ function AddUpdateClassDivision({
     >
       <Row gutter={10} style={{ marginTop: 20 }}>
         <Col xs={12}>
-          <Form.Item name="classId" rules={[{ required: true, message: 'Please input your Class!' }]}>
+          <Form.Item name="classId" rules={[{ required: true, message: <>{t('add_updata_class')}</> }]}>
             <Select
               showSearch
               size="large"
               style={{ width: '100%' }}
-              placeholder="Class"
+              placeholder={t('class')}
               loading={isClassLoading}
               options={map(classData, (item) => ({
                 value: item?.classId,
@@ -86,11 +88,11 @@ function AddUpdateClassDivision({
         </Col>
 
         <Col xs={12}>
-          <Form.Item name="effectiveFrom" rules={[{ required: true, message: 'Please input Date!' }]}>
+          <Form.Item name="effectiveFrom" rules={[{ required: true, message: <>{t('add_updata_date')}</> }]}>
             <DatePicker
               size="large"
               format="DD-MMM-YYYY"
-              placeholder="Effective From"
+              placeholder={t('efective_form')}
               style={{ width: '100%' }}
             />
           </Form.Item>
@@ -99,18 +101,18 @@ function AddUpdateClassDivision({
         <Col xs={8}>
           <Form.Item
             name="classSubDivisionCode"
-            rules={[{ required: true, message: 'Please input your Code!' }]}
+            rules={[{ required: true, message: <>{t('add_updata_code')}</> }]}
           >
-            <Input size="large" placeholder="Code" />
+            <Input size="large" placeholder={t('code')} />
           </Form.Item>
         </Col>
 
         <Col xs={16}>
           <Form.Item
             name="classSubDivisionDescription"
-            rules={[{ required: true, message: 'Please input your Description!' }]}
+            rules={[{ required: true, message: <>{t('subject_description')}</> }]}
           >
-            <Input size="large" placeholder="Name" />
+            <Input size="large" placeholder={t('name')} />
           </Form.Item>
         </Col>
       </Row>
@@ -128,6 +130,6 @@ type TAddUpdateRecord = {
 };
 
 export default AddUpdateClassDivision;
-function moment(date: Date) {
-  throw new Error('Function not implemented.');
-}
+// function moment(date: Date) {
+//   throw new Error('Function not implemented.');
+// }

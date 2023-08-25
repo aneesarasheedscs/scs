@@ -6,6 +6,7 @@ import { Col, Input, Row, Select, Form, Tooltip } from 'antd';
 import { useAddUpdateSubjectList, useGetSubjectListById } from '../queries';
 import { TSubjectListFormDataOnAdd, TSubjectListFormDataOnUpdate } from '../queries/types';
 import { AntButton, TableLoader } from '@revisionary/components';
+import { useTranslation } from 'react-i18next';
 // import { TSubjectListFormDataOnAdd, TSubjectListFormDataOnUpdate } from "@/types/subjectList";
 // import { useAddUpdateSubjectList, useGetSubjectListById } from "@/hooks/apis/useSubjectList";
 
@@ -22,7 +23,7 @@ function SubjectListForm({
   const [form] = Form.useForm();
   const { mutate, isSuccess } = useAddUpdateSubjectList(selectedRecordId);
   const { data, refetch, isSuccess: isDataByIdSuccess, isLoading } = useGetSubjectListById(selectedRecordId);
-
+  const { t } = useTranslation();
   const onFinish = (values: TSubjectListFormDataOnAdd | TSubjectListFormDataOnUpdate) => {
     if (isNumber(selectedRecordId)) {
       mutate({ ...values, rowVersion: data?.data?.apiData?.rowVersion });
@@ -60,13 +61,13 @@ function SubjectListForm({
     <Form form={form} onFinish={onFinish} initialValues={{ remember: true }}>
       <Form.Item
         name="syllabusAuthorityId"
-        rules={[{ required: true, message: 'Please input your Syllabus Authority / Publisher!' }]}
+        rules={[{ required: true, message: <>{t('placeholder_for_subject_authority')}</> }]}
       >
         <Select
           showSearch
           size="large"
           style={{ width: '100%' }}
-          placeholder="Syllabus Authority / Publisher"
+          placeholder={t('syllabus_authority_puslisher')}
           loading={isSyllabusAuthorityListLoading}
           options={map(syllabusAuthorityList, (item) => ({
             value: item?.syllabusAuthorityId,
@@ -80,13 +81,13 @@ function SubjectListForm({
         <Col xs={24} sm={24} md={12} lg={12}>
           <Form.Item
             name="subjectCategoryId"
-            rules={[{ required: true, message: 'Please input your Subject Category!' }]}
+            rules={[{ required: true, message: <>{t('placeholder_for_subject_category')}</> }]}
           >
             <Select
               showSearch
               size="large"
               style={{ width: '100%' }}
-              placeholder="Subject Category"
+              placeholder={t('subject_catagory')}
               loading={isSubjectCategoryListLoading}
               options={map(subjectCategoryList, (item) => ({
                 value: item?.subjectCategoryId,
@@ -100,12 +101,12 @@ function SubjectListForm({
         </Col>
 
         <Col xs={24} sm={24} md={12} lg={12}>
-          <Form.Item name="classId" rules={[{ required: true, message: 'Please input your Class!' }]}>
+          <Form.Item name="classId" rules={[{ required: true, message: <>{t('placeholder_for_class')}</> }]}>
             <Select
               showSearch
               size="large"
               style={{ width: '100%' }}
-              placeholder="Class"
+              placeholder={t('class')}
               loading={isClassListLoading}
               options={map(classList, (item) => ({
                 value: item?.classId,
@@ -121,17 +122,20 @@ function SubjectListForm({
         <Col xs={24}>
           <Row gutter={10}>
             <Col xs={24} md={8} lg={6} xl={7}>
-              <Form.Item name="subjectCode" rules={[{ required: true, message: 'Please input your Code!' }]}>
-                <Input size="large" placeholder="Subject Code" />
+              <Form.Item
+                name="subjectCode"
+                rules={[{ required: true, message: <>{t('placeholder_for_subjectcode')}</> }]}
+              >
+                <Input size="large" placeholder={t('subject_code')} />
               </Form.Item>
             </Col>
 
             <Col xs={24} md={10} lg={9} xl={10}>
               <Form.Item
                 name="subjectName"
-                rules={[{ required: true, message: 'Please input your Subject Name!' }]}
+                rules={[{ required: true, message: <>{t('placeholder_for_subjectname')}</> }]}
               >
-                <Input size="large" placeholder="Subject Name" />
+                <Input size="large" placeholder={t('subject_name')} />
               </Form.Item>
             </Col>
 
@@ -141,7 +145,7 @@ function SubjectListForm({
                   size="large"
                   htmlType="submit"
                   style={{ width: '100%' }}
-                  label={isNumber(selectedRecordId) ? 'Update' : 'Add'}
+                  label={isNumber(selectedRecordId) ? <>{t('update')}</> : <>{t('add')}</>}
                 />
               </Form.Item>
             </Col>

@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useGetClasses } from '../Queries';
 import { AntCard } from '../../Component/AntCard';
 import AddUpdateRecord from './UpdateClassRecord';
+import { useTranslation } from 'react-i18next';
 
 function Class() {
   const { data: apiResponse, isError, isLoading } = useGetClasses();
@@ -24,11 +25,11 @@ function Class() {
   };
 
   const [form] = Form.useForm();
-
+  const { t } = useTranslation();
   return (
     <div className="card-container">
       <Card className="cardContainer responsive-card">
-        <h1 className="h1">Syllabus Authority / Publisher</h1>
+        <h1 className="h1">{t('class')}</h1>
         <Divider />
         <Row
           style={{
@@ -38,7 +39,7 @@ function Class() {
         >
           <AntButton
             ghost
-            label="ADD"
+            label={t('add')}
             htmlType="submit"
             size="large"
             onClick={(item: any) => handleOpen(item.classId)}
@@ -59,7 +60,7 @@ function Class() {
                     <div className="edit-button-container">
                       <AntButton
                         style={{ background: '#00a148' }}
-                        label="Edit"
+                        label={t('edit')}
                         onClick={() => handleOpen(item.classId)}
                       />
                     </div>

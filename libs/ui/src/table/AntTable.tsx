@@ -12,6 +12,7 @@ import { ReactNode, useMemo, useRef, useState } from 'react';
 import { GroupOutlined, SearchOutlined } from '@ant-design/icons';
 import { ColumnType, FilterConfirmProps } from 'antd/es/table/interface';
 import { Col, Row, Card, Input, Space, Table, Button, Result, Tooltip, InputRef, TableProps } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 export function AntTable({
   data,
@@ -33,7 +34,7 @@ export function AntTable({
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef<InputRef>(null);
-
+  const { t } = useTranslation();
   const handleSearch = (
     selectedKeys: string[],
     confirm: (param?: FilterConfirmProps) => void,
@@ -73,14 +74,14 @@ export function AntTable({
                 icon={<SearchOutlined />}
                 onClick={() => handleSearch(selectedKeys as string[], confirm, dataIndex)}
               >
-                Search
+                {t('search')}
               </Button>
               <Button
                 onClick={() => clearFilters && handleReset(clearFilters)}
                 size="small"
                 style={{ width: 90 }}
               >
-                Reset
+                {t('reset')}
               </Button>
               <Button
                 type="link"
@@ -91,10 +92,10 @@ export function AntTable({
                   setSearchedColumn(dataIndex);
                 }}
               >
-                Filter
+                {t('filter')}
               </Button>
               <Button type="link" size="small" onClick={() => close()}>
-                close
+                {t('close')}
               </Button>
             </Space>
           </div>
@@ -179,7 +180,7 @@ export function AntTable({
         <>
           <Result title="" status="500" subTitle="Sorry, something went wrong" />
           <Row justify="center">
-            <AntButton label="Retry" fullWidth={false} onClick={refetch} />
+            <AntButton label={t('retry')} fullWidth={false} onClick={refetch} />
           </Row>
         </>
       ) : isLoading ? (

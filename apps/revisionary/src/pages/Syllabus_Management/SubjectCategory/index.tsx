@@ -5,6 +5,7 @@ import { AntCard } from '../../Component/AntCard';
 import { useState } from 'react';
 import { useGetSubjectCategories } from '../queries';
 import UpdateSubjectCategoryRecord from './UpdateSubjectCategoryRecord';
+import { useTranslation } from 'react-i18next';
 
 function SubjectCatagory() {
   const { data: cards2, isError, isLoading } = useGetSubjectCategories();
@@ -24,11 +25,11 @@ function SubjectCatagory() {
   };
 
   const [form] = Form.useForm();
-
+  const { t } = useTranslation();
   return (
     <div className="card-containertab">
       <Card className="cardContainer responsive-card ">
-        <h1 className="h1">Subject Catagory</h1>
+        <h1 className="h1">{t('subject_catagory')}</h1>
         <Divider />
         <Row
           style={{
@@ -38,7 +39,7 @@ function SubjectCatagory() {
         >
           <AntButton
             ghost
-            label="ADD"
+            label={t('add')}
             htmlType="submit"
             size="large"
             className="addbutton"
@@ -59,7 +60,7 @@ function SubjectCatagory() {
                     <div className="edit-button-container">
                       <AntButton
                         style={{ background: '#00a148' }}
-                        label="Edit"
+                        label={t('edit')}
                         onClick={() => handleOpen(item.subjectCategoryId)}
                       />
                     </div>
