@@ -1,0 +1,26 @@
+h3 {
+  color: gray;
+}
+@media screen and (max-width: 1179px) and (min-width: 589px) {
+  .row {
+    height: 0px !important;
+    margin-bottom: 180px;
+  }
+}
+@media screen and (max-width: 589px) and (min-width: 400px) {
+  .row {
+    height: 0px !important;
+    margin-bottom: 170px;
+  }
+}
+.column {
+  // border: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+}
+h4 {
+  font-family: 'Times New Roman', Times, serif;
+}
+h2 {
+  font-family: 'Times New Roman', Times, serif;
+}

@@ -10,6 +10,7 @@ function PrivateRoute() {
 
   if (userDetail?.access_token && !isTokenExpired() && size(financialYearDetail) > 0) {
     return (
+      
       <AppLayout>
         <Outlet />
       </AppLayout>

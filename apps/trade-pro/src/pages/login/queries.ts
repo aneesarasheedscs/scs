@@ -10,6 +10,7 @@ export const useLogin = () => {
     onSuccess: (response: AxiosResponse) => {
       const userData = JSON.stringify(response?.data);
       localStorage.setItem('loggedInUserDetail', userData);
+      // queryClient.invalidateQueries
     },
     onError: (error: AxiosError<{ error_description: string }>) => {
       notification.error({ message: error?.response?.data?.error_description });

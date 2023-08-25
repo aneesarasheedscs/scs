@@ -1,0 +1,731 @@
+@media screen and (max-width: 15000px) and (min-width: 998px) {
+  .form-page {
+    /*border: 1px solid black;*/
+    width: 100%;
+    height: auto;
+  }
+
+  .form-heading {
+    // background: #747bff;
+    padding: 8px;
+    color: #fff;
+    font-size: 22px;
+    text-shadow: 2px 2px 5px red;
+    margin-bottom: 15px;
+    /*text-shadow: 2px 2px 8px 2px black;*/
+  }
+
+  .main {
+    /*border: 1px solid gray;*/
+    border-radius: 10px;
+    height: auto;
+    width: 97%;
+    padding: 15px;
+    position: relative;
+    margin: 5px;
+  }
+
+  .form-label {
+    position: absolute;
+    top: -30px;
+    z-index: 1;
+    background: #ffff;
+    left: 15px;
+  }
+
+  .row2 {
+    /*border: 1px solid pink;*/
+    margin-top: 5px;
+    width: 140%;
+  }
+
+  .row3 {
+    margin-top: -20px;
+    /*border: 1px solid black;*/
+    padding: 10px;
+  }
+
+  .row3P {
+    /*border: 1px solid black;*/
+    margin: 5px;
+  }
+
+  .row-col {
+    /*border: 1px solid red;*/
+    margin: 3px;
+    width: 90vw;
+  }
+
+  .row-col2 {
+    /*border: 1px solid red;*/
+    width: 90vw;
+  }
+
+  .col-style {
+    width: 100%;
+    margin-left: -20px;
+  }
+
+  .col-style2 {
+    width: 100%;
+    margin-left: -50px;
+  }
+
+  .col-style3 {
+    width: 100%;
+    margin-left: -38px;
+  }
+
+  .button {
+    background: #747bff;
+    color: #fff;
+    font-size: 18px;
+    margin-top: 20px;
+    padding: 5px;
+    width: 70px;
+    height: 35px;
+  }
+
+  .button2 {
+    background: #747bff;
+    color: #fff;
+    font-size: 16px;
+    /*margin-top: 20px;*/
+    border: 2px double #fff;
+    padding: 5px;
+    width: 60px;
+    height: 35px;
+    box-shadow: 2px 4px 12px 1px gray;
+  }
+  .button3 {
+    background: #fff;
+    color: #747bff;
+    font-size: 16px;
+    border: 2px double #747bff;
+    border-radius: 50px;
+    padding: 4px;
+    width: 42px;
+    height: 40px;
+    margin-top: -10px;
+    box-shadow: 2px 4px 12px 1px gray;
+  }
+  .table {
+    /*border: 1px solid gray;*/
+    margin: 10px 10px 5px 5px;
+    padding: 5px;
+  }
+
+  .select {
+    border: 1px solid lightgray;
+    margin-top: 0px;
+    /*padding: 15px;*/
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  .input {
+    border: 1px solid lightgray;
+    /*margin-top: -60px;*/
+    border-radius: 0px;
+    /*padding: 20px;*/
+    width: 100%;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  .input:hover {
+    border: 1px solid lightgray;
+  }
+
+  .space {
+    border: 1px solid #eee;
+    border-radius: 5px;
+    background: #eee;
+    display: flex;
+    width: 100%;
+    padding: 5px;
+    margin-left: auto;
+    margin-right: 25px;
+    box-shadow: 2px 4px 12px 2px lightgray;
+  }
+  .row0 {
+    /*border: 1px solid pink;*/
+    margin: 5px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .columnsfooter {
+    /*border: 1px solid green;*/
+    margin-left: 5px;
+  }
+  .columnsfooter2 {
+    /*border: 1px solid green;*/
+    margin-left: 5px;
+    text-align: end;
+  }
+  .form-row {
+    /*border: 1px solid blue;*/
+    width: 75vw;
+  }
+  .inputbox {
+    border: 1px solid gray;
+    margin-top: 10px;
+  }
+
+  .form-col {
+    /*border: 1px solid red;*/
+    height: 48px;
+  }
+
+  .RR {
+    margin-left: 10px;
+  }
+  .remarks {
+    margin: 90px 10px 5px 20px;
+    font-size: 18px;
+  }
+
+  .remarks2 {
+    width: 100%;
+    /*border: 1px solid red;*/
+    margin-right: 20px;
+  }
+
+  .select-style {
+    background: #fff;
+    border: 1px solid lightgray;
+    width: 40%;
+  }
+}
+@media screen and (max-width: 998px) and (min-width: 780px) {
+  .form-page {
+    /*border: 1px solid black;*/
+    width: 100%;
+    height: auto;
+  }
+
+  .form-heading {
+    background: #747bff;
+    padding: 8px;
+    color: #fff;
+    font-size: 22px;
+    text-shadow: 2px 2px 5px red;
+    /*text-shadow: 2px 2px 8px 2px black;*/
+  }
+
+  .main {
+    /*border: 1px solid gray;*/
+    border-radius: 10px;
+    height: auto;
+    width: 97%;
+    padding: 15px;
+    position: relative;
+    margin: 5px;
+  }
+
+  .form-label {
+    position: absolute;
+    top: -30px;
+    z-index: 1;
+    background: #ffff;
+    left: 15px;
+  }
+
+  .row1 {
+    /*border: 1px solid red;*/
+
+    width: 95vw;
+  }
+
+  .row2 {
+    /*border: 1px solid pink;*/
+    margin-top: 5px;
+    width: 140%;
+  }
+
+  .detail {
+    margin: 10px 5px 5px 5px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    height: 150px;
+    width: 97%;
+    padding: 15px;
+    position: relative;
+  }
+
+  .row3 {
+    margin-top: -20px;
+    /*border: 1px solid black;*/
+    padding: 10px;
+  }
+
+  .row3P {
+    /*border: 1px solid black;*/
+    margin: 5px;
+  }
+
+  .row-col {
+    /*border: 1px solid red;*/
+    margin: 3px;
+    width: 90vw;
+  }
+
+  .row-col2 {
+    /*border: 1px solid red;*/
+    width: 90vw;
+  }
+
+  .col-style {
+    width: 100%;
+    margin-left: -20px;
+  }
+
+  .col-style2 {
+    width: 100%;
+    margin-left: -50px;
+  }
+
+  .col-style3 {
+    width: 100%;
+    margin-left: -38px;
+  }
+
+  .button {
+    background: #747bff;
+    color: #fff;
+    font-size: 18px;
+    margin-top: 20px;
+    padding: 5px;
+    width: 70px;
+    height: 35px;
+  }
+
+  .button2 {
+    background: #747bff;
+    color: #fff;
+    font-size: 16px;
+    /*margin-top: 20px;*/
+    border: 2px double #fff;
+    padding: 5px;
+    width: 60px;
+    height: 35px;
+    box-shadow: 2px 4px 12px 1px gray;
+  }
+  .button3 {
+    background: #fff;
+    color: #747bff;
+    font-size: 16px;
+    border: 2px double #747bff;
+    border-radius: 50px;
+    padding: 4px;
+    width: 42px;
+    height: 40px;
+    margin-top: -10px;
+    box-shadow: 2px 4px 12px 1px gray;
+  }
+
+  .table {
+    /*border: 1px solid gray;*/
+    margin: 10px 10px 5px 5px;
+    padding: 5px;
+  }
+
+  .table2 {
+    /*border: 1px solid gray;*/
+    /*margin: 15px;*/
+  }
+
+  .select {
+    border: 1px solid lightgray;
+    margin-top: 0px;
+    /*padding: 15px;*/
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  .input {
+    border: 1px solid lightgray;
+    /*margin-top: -60px;*/
+    border-radius: 0px;
+    /*padding: 20px;*/
+    width: 100%;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  .input:hover {
+    border: 1px solid lightgray;
+  }
+
+  .space {
+    border: 1px solid #eee;
+    border-radius: 5px;
+    background: #eee;
+    display: flex;
+    width: 100%;
+    padding: 5px;
+    margin-left: auto;
+    margin-right: 25px;
+    box-shadow: 2px 4px 8px 2px lightgray;
+  }
+
+  .history {
+    border: 1px solid gray;
+    border-radius: 10px;
+    height: auto;
+    width: 97%;
+    padding: 15px;
+    position: relative;
+    margin: 5px;
+  }
+
+  .row0 {
+    /*border: 1px solid pink;*/
+    margin: 5px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .columnsfooter {
+    /*border: 1px solid green;*/
+    margin-left: 5px;
+  }
+
+  .columnsfooter2 {
+    /*border: 1px solid green;*/
+    margin-left: 5px;
+    text-align: end;
+  }
+
+  .form-row {
+    /*border: 1px solid blue;*/
+    width: 75vw;
+  }
+
+  .inputbox {
+    border: 1px solid gray;
+    margin-top: 10px;
+  }
+
+  .form-col {
+    /*border: 1px solid red;*/
+    height: 48px;
+  }
+
+  .RR {
+    margin-left: 10px;
+  }
+  .rr {
+    /*border: 1px solid green;*/
+    width: 100% !important;
+    margin-left: 70px !important;
+  }
+  .rr2 {
+    width: 100% !important;
+    margin-left: 20px !important;
+  }
+  .rr3 {
+    width: 85% !important;
+    margin-left: 28px !important;
+  }
+  .rr33 {
+    width: 95% !important;
+    margin-left: 22px !important;
+  }
+  .rr34 {
+    width: 95% !important;
+    margin-left: 30px !important;
+  }
+  .date {
+    margin-left: 0px !important;
+  }
+  .days {
+    margin-left: 60px !important;
+  }
+  .remarks {
+    margin: 90px 10px 5px 20px;
+    font-size: 18px;
+  }
+
+  .remarks2 {
+    width: 100%;
+    /*border: 1px solid red;*/
+    margin-right: 20px;
+  }
+
+  .select-style {
+    background: #fff;
+    border: 1px solid lightgray;
+    width: 40%;
+  }
+}
+@media screen and (max-width: 780px) and (min-width: 576px) {
+  .form-page {
+    /*border: 1px solid black;*/
+    width: 100%;
+    height: auto;
+  }
+
+  .form-heading {
+    background: #747bff;
+    padding: 8px;
+    color: #fff;
+    font-size: 22px;
+    text-shadow: 2px 2px 5px red;
+    /*text-shadow: 2px 2px 8px 2px black;*/
+  }
+
+  .main {
+    /*border: 1px solid gray;*/
+    border-radius: 10px;
+    height: auto;
+    width: 97%;
+    padding: 15px;
+    position: relative;
+    margin: 5px;
+  }
+
+  .form-label {
+    position: absolute;
+    top: -30px;
+    z-index: 1;
+    background: #ffff;
+    left: 15px;
+  }
+
+  .row1 {
+    /*border: 1px solid red;*/
+
+    width: 95vw;
+  }
+
+  .row2 {
+    /*border: 1px solid pink;*/
+    margin-top: 5px;
+    width: 140%;
+  }
+
+  .detail {
+    margin: 10px 5px 5px 5px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    height: 150px;
+    width: 97%;
+    padding: 15px;
+    position: relative;
+  }
+
+  .row3 {
+    margin-top: -20px;
+    /*border: 1px solid black;*/
+    padding: 10px;
+  }
+
+  .row3P {
+    /*border: 1px solid black;*/
+    margin: 5px;
+  }
+
+  .row-col {
+    /*border: 1px solid red;*/
+    margin: 3px;
+    width: 90vw;
+  }
+
+  .row-col2 {
+    /*border: 1px solid red;*/
+    width: 90vw;
+  }
+
+  .col-style {
+    width: 100%;
+    margin-left: -20px;
+  }
+
+  .col-style2 {
+    width: 100%;
+    margin-left: -50px;
+  }
+
+  .col-style3 {
+    width: 100%;
+    margin-left: -38px;
+  }
+
+  .button {
+    background: #747bff;
+    color: #fff;
+    font-size: 18px;
+    margin-top: 20px;
+    padding: 5px;
+    width: 70px;
+    height: 35px;
+  }
+
+  .button2 {
+    background: #747bff;
+    color: #fff;
+    font-size: 16px;
+    /*margin-top: 20px;*/
+    border: 2px double #fff;
+    padding: 5px;
+    width: 60px;
+    height: 35px;
+    box-shadow: 2px 4px 12px 1px gray;
+  }
+  .button3 {
+    background: #fff;
+    color: #747bff;
+    font-size: 16px;
+    border: 2px double #747bff;
+    border-radius: 50px;
+    padding: 4px;
+    width: 42px;
+    height: 40px;
+    margin-top: -10px;
+    box-shadow: 2px 4px 12px 1px gray;
+  }
+  .table {
+    /*border: 1px solid gray;*/
+    margin: 10px 10px 5px 5px;
+    padding: 5px;
+  }
+
+  .table2 {
+    /*border: 1px solid gray;*/
+    /*margin: 15px;*/
+  }
+
+  .select {
+    border: 1px solid lightgray;
+    margin-top: 0px;
+    /*padding: 15px;*/
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  .input {
+    border: 1px solid lightgray;
+    /*margin-top: -60px;*/
+    border-radius: 0px;
+    /*padding: 20px;*/
+    width: 100%;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  .input:hover {
+    border: 1px solid lightgray;
+  }
+
+  .space {
+    border: 1px solid #eee;
+    border-radius: 5px;
+    background: #eee;
+    display: flex;
+    width: 100%;
+    padding: 5px;
+    margin-left: auto;
+    margin-right: 25px;
+    box-shadow: 2px 4px 8px 2px lightgray;
+  }
+
+  .history {
+    border: 1px solid gray;
+    border-radius: 10px;
+    height: auto;
+    width: 97%;
+    padding: 15px;
+    position: relative;
+    margin: 5px;
+  }
+
+  .form-row {
+    /*border: 1px solid blue;*/
+    width: 90vw;
+  }
+
+  .inputbox {
+    border: 1px solid gray;
+    margin-top: 10px;
+  }
+
+  .form-col {
+    /*border: 1px solid red;*/
+    height: 48px;
+  }
+
+  .RR {
+    margin-left: 10px;
+  }
+  .rr {
+    /*border: 1px solid green;*/
+    width: 86% !important;
+    margin-left: 60px !important;
+  }
+  .rr2 {
+    width: 86% !important;
+    margin-left: 20px !important;
+  }
+  .rr3 {
+    width: 86% !important;
+    margin-left: 25px !important;
+  }
+  .rr33 {
+    width: 86% !important;
+    margin-left: 25px !important;
+  }
+  .rr34 {
+    width: 86% !important;
+    margin-left: 25px !important;
+  }
+  .rr4 {
+    width: 86% !important;
+    margin-left: 30px !important;
+  }
+  .rr5 {
+    /*border: 1px solid green;*/
+    width: 86% !important;
+    margin-left: 52px !important;
+  }
+  .date {
+    margin-left: 0px !important;
+    width: 86% !important;
+  }
+  .days {
+    width: 86% !important;
+  }
+  .remarks {
+    margin: 90px 10px 5px 20px;
+    font-size: 18px;
+  }
+  .remarks2 {
+    width: 100%;
+    /*border: 1px solid red;*/
+    margin-right: 20px;
+  }
+
+  .select-style {
+    background: #fff;
+    border: 1px solid lightgray;
+    width: 40%;
+  }
+}
+.row0 {
+  /*border: 1px solid pink;*/
+  margin: 5px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.columnsfooter {
+  /*border: 1px solid green;*/
+  margin-left: 5px;
+}
+.columnsfooter2 {
+  /*border: 1px solid green;*/
+  margin-left: 5px;
+  text-align: end;
+}

@@ -1,5 +1,6 @@
 import './style.scss';
 import { Form, FormItemProps, Input, InputProps } from 'antd';
+import { ReactElement, ReactNode } from 'react';
 
 export function AntInput({
   name,
