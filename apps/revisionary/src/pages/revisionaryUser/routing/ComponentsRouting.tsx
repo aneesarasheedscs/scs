@@ -1,17 +1,19 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import StudentProfile from '../StudentProfile/StudentProfile';
-import MainSyllabusFile from './MainSyllabusFile';
-import Subject1 from '../Subject1';
+import MainSyllabusFile from '../SyllabusStatu';
+import Subject1 from '../Student Syllabus/AddSubject/AddSubject';
 // import LoginForm from '../../../revisionaryUser/Comp/LoginForm';
 // import SignForm from '../../../revisionaryUser/Comp/SignForm';
 // import StudentSyllabus from '../../../revisionaryUser/Comp/StudentSyllabus';
-import Assessment from './SyllabusBooks';
-import LoginForm from '../Comp/LoginForm';
-import SignForm from '../Comp/SignForm';
-import StudentSyllabus from '../Comp/StudentSyllabus';
+import Assessment from '../SyllabusStatu/SyllabusTopic/SyllabusBooks';
+import LoginForm from '../Forms/LoginForm';
+import SignForm from '../Forms/SignForm';
+import StudentSyllabus from '../Student Syllabus';
 import SyllabusManagement from '@revisionary/pages/Syllabus_Management';
 import ClassManagement from '@revisionary/pages/classManagement';
+import Dashboard from '../Dashboard/Index';
+import DashboardSubTopic from '../Dashboard/DashboardSubTopic';
 // import Tab from '../../Tab';
 // import Tab2 from '../../SyllabusManagement/SubjectCatagory';
 
@@ -28,6 +30,8 @@ export default function ComponentsRouting() {
         <Route path="/assessment" element={<Assessment />}></Route>
         <Route path="/syllabus-management" element={<SyllabusManagement />}></Route>
         <Route path="/class-management" element={<ClassManagement />}></Route>
+        <Route path="/dashboard" element={<Dashboard />}></Route>
+        <Route path="/dashboardsubtopic" element={<DashboardSubTopic />}></Route>
       </Routes>
     </div>
   );

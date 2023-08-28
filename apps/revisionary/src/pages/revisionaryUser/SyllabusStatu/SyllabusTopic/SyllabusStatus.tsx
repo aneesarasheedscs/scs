@@ -1,7 +1,8 @@
-import './SyllabusStatus.css';
+// import './SyllabusStatus.css';
+import '../style/SyllabusStatus.css';
 import React from 'react';
 import { Row, Col, Divider } from 'antd';
-import CardWithProgress from '../Progress/Progress';
+import CardWithProgress from '../../Progress/Progress';
 import { useTranslation } from 'react-i18next';
 
 function SyllabusStatus() {

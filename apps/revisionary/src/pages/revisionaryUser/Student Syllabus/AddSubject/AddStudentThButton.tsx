@@ -2,8 +2,9 @@ import { Card, Col, Row } from 'antd';
 
 import React, { useState } from 'react';
 import { AntButton } from '@revisionary/components';
-import StudentCard1 from './StudentCard1';
-import StudentCard2 from './StudentCard2';
+// import StudentCard1 from './StudentCard1';
+import StudentCard2 from './AQA';
+import StudentCard1 from './PearsonEdexcel';
 export function AddStudentThButton1() {
   const [showStudentCard1, setShowStudentCard1] = useState(false);
   const [showStudentCard2, setShowStudentCard2] = useState(false);
@@ -28,7 +29,7 @@ export function AddStudentThButton1() {
           boxShadow: 'none',
           // height: '2rem',
           position: 'relative',
-          top: '-1980px',
+          top: '-1978.1px',
           left: '1140px',
           marginBottom: '5%',
         }}
@@ -56,7 +57,7 @@ export function AddStudentThButton1() {
           // height: '2rem',
           marginLeft: '10%',
           position: 'absolute',
-          top: '265px',
+          top: '276px',
           left: '810px',
         }}
       />

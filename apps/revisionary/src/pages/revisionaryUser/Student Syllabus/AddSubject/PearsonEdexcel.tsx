@@ -1,5 +1,6 @@
 import { Card, Col, Row, Tabs, Pagination, Divider, Form, message, Checkbox } from 'antd';
-import '../Syllabus_Management/SyllabusManagement/Style.css';
+// import '../Syllabus_Management/SyllabusManagement/Style.css';
+import '../../../Syllabus_Management/SyllabusManagement/Style.css';
 
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 // interface CardData {
@@ -58,8 +59,7 @@ function StudentCard1() {
       <Card
         style={{
           width: '150%',
-          //   marginLeft: '390px',
-          //   marginTop: '40px',
+
           background: 'rgb(250, 250, 250)',
           boxShadow: 'rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px',
         }}
@@ -70,7 +70,7 @@ function StudentCard1() {
               return (
                 <Col span={8} xs={{ span: 18 }} sm={{ span: 12 }} lg={{ span: 8 }}>
                   <Card
-                    style={{ height: '100%', width: '90%', alignSelf: 'normal' }}
+                    style={{ height: '100%', width: '90%', alignSelf: 'normal', marginLeft: '-30%' }}
                     key={card.key}
                     className="cardS"
                     bordered={false}

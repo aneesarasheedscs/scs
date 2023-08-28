@@ -24,7 +24,7 @@ export const getSidebarList = () => {
       label: t('Assesment'),
     },
     {
-      path: '/subject-topics',
+      path: '/dashboard',
       label: t('Dashboard'),
     },
   ];

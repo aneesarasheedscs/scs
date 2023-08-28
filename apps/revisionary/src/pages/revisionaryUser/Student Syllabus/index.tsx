@@ -1,6 +1,6 @@
 import { Card, Col, Row, Tabs, Pagination, Divider, Form, message, Progress, Table } from 'antd';
 import React, { useState } from 'react';
-import './style2.scss';
+import '../style2.scss';
 import { AntButton } from '@scs/ui';
 import { Link } from 'react-router-dom';
 
@@ -113,13 +113,13 @@ const StudentSyllabus: React.FC = () => {
                     >
                       <div>
                         <p className="paragraph">
-                          <u style={{ fontWeight: 'bold' }}>Registration Code:</u> &nbsp; &nbsp;
-                          &nbsp;{card.code}
+                          <u style={{ fontWeight: 'bold' }}>Registration Code:</u> &nbsp; &nbsp; &nbsp;
+                          {card.code}
                         </p>
                         <br />
                         <p className="paragraph">
-                          <u style={{ fontWeight: 'bold' }}>Registration Date:</u> &nbsp; &nbsp;
-                          &nbsp;{card.date}
+                          <u style={{ fontWeight: 'bold' }}>Registration Date:</u> &nbsp; &nbsp; &nbsp;
+                          {card.date}
                         </p>
                         <br />
 
@@ -194,10 +194,9 @@ const StudentSyllabus: React.FC = () => {
           </Col>
 
           <Col span={6}>
-          <Link to="/subject">
-            <AntButton label="+ Add Subject" className="addsubject" />
-             </Link>
-            
+            <Link to="/subject">
+              <AntButton label="+ Add Subject" className="addsubject" />
+            </Link>
           </Col>
         </Row>
 

@@ -1,19 +1,22 @@
-import './SyllabusStatus.css';
 import React from 'react';
 import { Row, Col, Divider } from 'antd';
-// import CardWithProgress from '../../../revisionaryUser/Progress/Progress';
-import CardWithProgress from '../Progress/Progress';
+import CardWithProgress from '../../Progress/Progress';
 
-function SubStopic() {
+function SyllabusSTopic() {
   const cardArray = [
-    { id: 1, title: 'Card 1', progress: 50 },
+    { id: 1, title: 'Topic1: Cell Biology', progress: 50 },
     { id: 2, title: 'Card 2', progress: 75 },
     { id: 3, title: 'Card 3', progress: 75 },
     { id: 4, title: 'Card 4', progress: 75 },
     { id: 5, title: 'Card 5', progress: 75 },
     { id: 6, title: 'Card 6', progress: 75 },
     { id: 7, title: 'Card 7', progress: 75 },
-    // ... more card data
+    { id: 7, title: 'Card 7', progress: 75 },
+    { id: 7, title: 'Card 7', progress: 75 },
+    { id: 7, title: 'Card 7', progress: 75 },
+    { id: 7, title: 'Card 7', progress: 75 },
+    { id: 7, title: 'Card 7', progress: 75 },
+    { id: 7, title: 'Card 7', progress: 75 },
   ];
 
   const chunkArray = (array: any, size: any) => {
@@ -24,13 +27,13 @@ function SubStopic() {
     return chunked;
   };
 
-  const cardChunks = chunkArray(cardArray, 4); // Split into chunks of 4 cards
+  const cardChunks = chunkArray(cardArray, 5); // Split into chunks of 5 cards
 
   return (
     <div>
       <center>
         <div>
-          <div>
+          <div style={{ height: '110%' }}>
             <div>
               <div style={{ marginLeft: '70px', width: '70%', marginTop: '5%', marginBottom: '25px' }}>
                 <center>
@@ -43,12 +46,15 @@ function SubStopic() {
                       background: '#52c41a',
                       color: 'white',
                       paddingTop: '0.4%',
-                      paddingBottom: '0.9%',
+                      paddingBottom: '0.4%',
                     }}
                   >
-                    <h3>Topic2: Cell Biology</h3>
+                    <h3>Topic1: Cell Biology</h3>
                   </Divider>
                 </center>
+                <br />
+                <br />
+                <br />
                 <Row gutter={[16, 16]}>
                   {cardChunks.map((column, columnIndex) => (
                     <React.Fragment key={columnIndex}>
@@ -74,4 +80,4 @@ function SubStopic() {
   );
 }
 
-export default SubStopic;
+export default SyllabusSTopic;

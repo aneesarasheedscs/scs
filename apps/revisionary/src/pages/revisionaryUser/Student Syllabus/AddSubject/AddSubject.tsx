@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Card, Col, Row, List, Progress, Divider, Input } from 'antd';
 import { green } from '@ant-design/colors';
-// import './Style.css';
-import '../Syllabus_Management/SyllabusManagement/Style.css';
+
+// import '../Syllabus_Management/SyllabusManagement/Style.css';
+import '../../Style.css';
 import { AddStudentThButton1 } from './AddStudentThButton';
 
-import StudentCard1 from './StudentCard1';
-import StudentCard2 from './StudentCard2';
-import { AddStudentThButton } from './Progress/Card';
+// import StudentCard1 from '../../StudentCard1';
+import StudentCard2 from './AQA';
+import { AddStudentThButton } from '../../Progress/Card';
 import { useTranslation } from 'react-i18next';
 // import { AddStudentThButton } from './SyllabusStatus/Progress/Card';
 interface CardItem {

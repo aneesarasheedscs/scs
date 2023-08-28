@@ -1,6 +1,10 @@
 export const sidebarList = [
   {
-    path: '/purchase-order',
+    path: '/purchsae-order',
     label: 'Purchase Order',
   },
+  {
+    path: "/purchase-history",
+    label: 'Purchase History',
+  }
 ];

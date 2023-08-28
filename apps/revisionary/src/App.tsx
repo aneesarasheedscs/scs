@@ -7,19 +7,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { colorPrimaryAtom } from './globalAtoms';
 import { QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import Tab from './pages/Syllabus_Management/Tab';
-// import ProfilePic from './pages/Syllabus_Management/Revisionary_ui/ProfilePic';
-// import AppHeader1 from './pages/Syllabus_Management/Revisionary_ui/ReHeader';
-// import ReHeader from './pages/Syllabus_Management/Revisionary_ui/ReHeader';
-import Subject1 from './pages/Syllabus_Management/Revisionary_ui/Subject1';
-
-import Assessment from './pages/Syllabus_Management/Revisionary_ui/SyllabusStatus/SyllabusBooks';
-import MainSyllabusFile from './pages/Syllabus_Management/Revisionary_ui/SyllabusStatus/MainSyllabusFile';
-import StudentProfile from './pages/Syllabus_Management/Revisionary_ui/StudentProfile';
-import SignForm from './pages/revisionaryUser/Comp/SignForm';
-import ComponentsRouting from './pages/Syllabus_Management/Revisionary_ui/SyllabusStatus/ComponentsRouting';
-import Tabs1 from './pages/Class_Management/Index';
-import { I18nextProvider } from 'react-i18next';
+import Dashboard from './pages/revisionaryUser/Dashboard/Index';
+import DashboardSubTopic from './pages/revisionaryUser/Dashboard/DashboardSubTopic';
 
 function App() {
   const [colorPrimary] = useAtom(colorPrimaryAtom);

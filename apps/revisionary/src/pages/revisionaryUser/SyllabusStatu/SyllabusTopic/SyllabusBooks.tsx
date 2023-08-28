@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Card, Col, Row, List, Progress, Divider, Input, Button } from 'antd';
 import { green } from '@ant-design/colors';
-import './SyllabusBooks.css';
+// import './SyllabusBooks.css';
+import '../style/SyllabusBooks.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-function Assessment() {
+function SyllabusBooks() {
   const handleClick = () => {
     navigate('./SyllabusTopic');
     console.log('dfs');
@@ -104,4 +105,4 @@ function Assessment() {
     </div>
   );
 }
-export default Assessment;
+export default SyllabusBooks;
