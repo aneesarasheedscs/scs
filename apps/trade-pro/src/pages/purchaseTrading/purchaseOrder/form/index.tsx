@@ -8,11 +8,10 @@ import { Card, Col, Form, Input, Row } from 'antd';
 import { useGetDocumentNumber } from '../queryOptions';
 import { SaveOutlined, SyncOutlined } from '@ant-design/icons';
 
-const { useForm, useWatch } = Form;
+const { useForm } = Form;
 
 function PurchaseOrderForm() {
   const [form] = useForm<TPurchaseOrderEntry>();
-  const formValues = useWatch<TPurchaseOrderEntry>([], form);
   const { data, isError, refetch, isLoading, isSuccess } = useGetDocumentNumber();
 
   useEffect(() => {
@@ -31,12 +30,7 @@ function PurchaseOrderForm() {
             <Row gutter={10} align="middle">
               <Col style={{ fontSize: 18 }}>Document No.</Col>
               <Col>
-                <DocNumber
-                  isError={isError}
-                  refetch={refetch}
-                  isLoading={isLoading}
-                  data={data?.data?.Data?.Result}
-                />
+                <DocNumber isError={isError} refetch={refetch} isLoading={isLoading} data={data?.data?.Data?.Result} />
                 <Form.Item name="DocNo" style={{ display: 'none' }}>
                   <Input />
                 </Form.Item>

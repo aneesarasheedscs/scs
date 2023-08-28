@@ -1,8 +1,15 @@
 import { Col, Row } from 'antd';
+import { useState } from 'react';
+import { TPaymentTerms } from '../type';
 import { AntDatePicker, AntInput, AntInputNumber, AntSelectDynamic } from '@tradePro/components';
 import { useGetDeliveryTerms, useGetPaymentTerms, useGetSupplierCustomer } from '../queryOptions';
 
 function MainEntry() {
+  const [paymentTerm, setPaymentTerm] = useState('');
+  const handlePaymentTermChange = (obj: TPaymentTerms) => setPaymentTerm(obj?.TermsDescription);
+
+  const isDueFieldsDisabled = paymentTerm === 'Cash' ? true : false;
+
   return (
     <Row gutter={10}>
       <Col xs={4}>
@@ -32,15 +39,26 @@ function MainEntry() {
           name="PaymentTermsId"
           query={useGetPaymentTerms}
           fieldLabel="TermsDescription"
+          onSelectChange={handlePaymentTermChange}
         />
       </Col>
 
       <Col xs={4}>
-        <AntInputNumber name="OrderDueDays" label="Due Days" />
+        <AntInputNumber
+          label="Due Days"
+          name="OrderDueDays"
+          disabled={isDueFieldsDisabled}
+          required={!isDueFieldsDisabled}
+        />
       </Col>
 
       <Col xs={4}>
-        <AntDatePicker required name="OrderDueDate" label="Due Date" />
+        <AntDatePicker
+          label="Due Date"
+          name="OrderDueDate"
+          disabled={isDueFieldsDisabled}
+          required={!isDueFieldsDisabled}
+        />
       </Col>
 
       <Col xs={4}>
