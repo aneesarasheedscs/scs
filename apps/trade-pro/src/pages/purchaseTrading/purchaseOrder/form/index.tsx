@@ -1,20 +1,18 @@
 import { useEffect } from 'react';
+import DocNumber from './DocNumber';
 import MainEntry from './MainEntry';
 import DynamicForm from './DetailEntry';
 import { TPurchaseOrderEntry } from '../type';
 import { AntButton } from '@tradePro/components';
+import { Card, Col, Form, Input, Row } from 'antd';
 import { useGetDocumentNumber } from '../queryOptions';
-import { Card, Col, Form, Input, Row, theme } from 'antd';
 import { SaveOutlined, SyncOutlined } from '@ant-design/icons';
 
-const { useToken } = theme;
-const { useForm, useWatch } = Form;
+const { useForm } = Form;
 
 function PurchaseOrderForm() {
-  const { token } = useToken();
   const [form] = useForm<TPurchaseOrderEntry>();
-  const formValues = useWatch<TPurchaseOrderEntry>([], form);
-  const { data, isError, isLoading, isSuccess } = useGetDocumentNumber();
+  const { data, isError, refetch, isLoading, isSuccess } = useGetDocumentNumber();
 
   useEffect(() => {
     if (isSuccess) form.setFieldValue('DocNo', data?.data?.Data?.Result);
@@ -32,9 +30,7 @@ function PurchaseOrderForm() {
             <Row gutter={10} align="middle">
               <Col style={{ fontSize: 18 }}>Document No.</Col>
               <Col>
-                <strong style={{ fontSize: 18, color: token.colorPrimary }}>
-                  {data?.data?.Data?.Result}
-                </strong>
+                <DocNumber isError={isError} refetch={refetch} isLoading={isLoading} data={data?.data?.Data?.Result} />
                 <Form.Item name="DocNo" style={{ display: 'none' }}>
                   <Input />
                 </Form.Item>
@@ -60,7 +56,7 @@ function PurchaseOrderForm() {
         </Row>
 
         <MainEntry />
-        <DynamicForm />
+        <DynamicForm form={form} />
       </Form>
     </Card>
   );

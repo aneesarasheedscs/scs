@@ -2,6 +2,7 @@ import './style.scss';
 import { find, map } from 'lodash';
 import { AxiosResponse } from 'axios';
 import { UseQueryResult } from 'react-query';
+import { NamePath } from 'antd/es/form/interface';
 import { Form, FormItemProps, Select, SelectProps } from 'antd';
 
 export function AntSelectDynamic({
@@ -61,8 +62,8 @@ export function AntSelectDynamic({
 }
 
 type TAntSelectDynamic = {
-  name?: string;
   label: string;
+  name?: NamePath;
   required?: boolean;
   fieldValue: string;
   fieldLabel: string;

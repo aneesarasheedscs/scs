@@ -167,37 +167,60 @@ export type TPurchaseOrderEntry = {
 
 export type TPurchaseOrderDetailEntry = {
   Id?: number;
-  Amount?: number | null;
   LineId?: number;
   UOMCode?: string;
   RateUom?: string;
   BagPrice?: number;
-  JobLotId?: number;
   ItemName?: string;
   BagWeight?: number;
-  NetWeight?: number;
   TaxAmount?: number;
   TaxNameId?: number;
   RetailRate?: number;
   TaxPercent?: number;
   TotalAmount?: number;
-  OrderItemId?: number;
   Crop?: string | null;
-  OrderItemQty?: number;
   ActionTypeId?: number;
+  Amount?: number | null;
   OrderItemRate?: number;
   OrderItemUOMId?: number;
   TaxName?: string | null;
   UOMDescription?: number;
-  EquivalentRate?: number;
+  JobLotId?: null | number;
   PurchaseOrderId?: number;
   CityArea?: string | null;
   Moisture?: string | null;
+  NetWeight?: number | null;
   JobLotDescription?: string;
+  OrderItemId?: null | number;
   OrderItemRateUOMId?: number;
   LabSampleNo?: number | null;
+  OrderItemQty?: number | null;
   OrderRemarks?: string | null;
   TaxableStatus?: string | null;
+  EquivalentRate?: number | null;
   AmountCalcType?: string | null;
   InvLabSampleAnalysisHeaderId?: number;
+};
+
+export type TDetailItem = {
+  Id: number;
+  UOMCode: string;
+  ItemName: string;
+  ItemUomId: number;
+  Equivalent: number;
+};
+
+export type TPaymentTerms = {
+  Id: number;
+  CompanyId: number;
+  TermsCode: string;
+  PostDate: Date | null;
+  EntryDate: Date | null;
+  OrganizationId: number;
+  ModifyDate: Date | null;
+  TermsDescription: string;
+  PostState: string | null;
+  PostUser: number | string | null;
+  EntryUser: number | string | null;
+  ModifyUser: number | string | null;
 };
