@@ -6,6 +6,7 @@ import { AntButton } from '@tradePro/components';
 import { useGetDocumentNumber } from '../queryOptions';
 import { Card, Col, Form, Input, Row, theme } from 'antd';
 import { SaveOutlined, SyncOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 const { useToken } = theme;
 const { useForm, useWatch } = Form;
@@ -16,6 +17,7 @@ function PurchaseOrderForm() {
   const formValues = useWatch<TPurchaseOrderEntry>([], form);
   const { data, isError, isLoading, isSuccess } = useGetDocumentNumber();
 
+  const { t } = useTranslation();
   useEffect(() => {
     if (isSuccess) form.setFieldValue('DocNo', data?.data?.Data?.Result);
   }, [data, isSuccess]);
@@ -30,7 +32,7 @@ function PurchaseOrderForm() {
         <Row align="middle" justify="space-between">
           <Col>
             <Row gutter={10} align="middle">
-              <Col style={{ fontSize: 18 }}>Document No.</Col>
+              <Col style={{ fontSize: 18 }}> {t('document_no')}</Col>
               <Col>
                 <strong style={{ fontSize: 18, color: token.colorPrimary }}>
                   {data?.data?.Data?.Result}
@@ -46,13 +48,13 @@ function PurchaseOrderForm() {
             <Form.Item>
               <Row align="middle" gutter={10}>
                 <Col>
-                  <AntButton danger ghost htmlType="reset" label="Reset" icon={<SyncOutlined />} />
+                  <AntButton danger ghost htmlType="reset" label={t('reset')} icon={<SyncOutlined />} />
                 </Col>
                 <Col>
-                  <AntButton label="Save and add more" htmlType="submit" />
+                  <AntButton label={t('save_and_add_more')} htmlType="submit" />
                 </Col>
                 <Col>
-                  <AntButton ghost label="Save" htmlType="submit" icon={<SaveOutlined />} />
+                  <AntButton ghost label={t('save')} htmlType="submit" icon={<SaveOutlined />} />
                 </Col>
               </Row>
             </Form.Item>

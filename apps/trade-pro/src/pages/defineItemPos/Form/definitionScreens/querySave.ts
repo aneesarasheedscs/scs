@@ -1,20 +1,19 @@
 import { useMutation, useQuery } from 'react-query';
 import { requestManager } from '@tradePro/configs/requestManager';
-import { TPurchaseOrderSearchCriteria } from '../type';
 import { queryClient } from '@tradePro/configs/index';
 import { notification } from 'antd';
 import { AxiosError } from 'axios';
 import { isNumber } from 'lodash';
-import { TDefineItemDataOnAdd, TDefineItemDataonUpdate } from './types';
+import { TItemTypeData, TItemTypeDataonUpdate } from './types';
 
 const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
 const financialYear: any = JSON.parse(localStorage.getItem('financialYear') || '{}');
 //Item getbyId
-export const useGetItemById = (Id?: number | null) => {
+export const useGetItemTypeById = (Id?: number | null) => {
   return useQuery(
-    ['Item', Id],
+    ['Item-Type-ById', Id],
     () => {
-      return getItemById(Id);
+      return getItemTypeById(Id);
     },
     {
       cacheTime: 0,
@@ -27,15 +26,15 @@ export const useGetItemById = (Id?: number | null) => {
     }
   );
 };
-const getItemById = (Id?: number | null) => {
-  return requestManager.get('/api/Item/GetByID', { params: { Id } });
+const getItemTypeById = (Id?: number | null) => {
+  return requestManager.get('/api/ItemType/GetByID', { params: { Id } });
 };
 //Form Save api
-export const useSaveItemCategory = (Id?: number | null) => {
+export const useSaveItemType = (Id?: number | null) => {
   return useMutation(
-    (data: TDefineItemDataOnAdd | TDefineItemDataOnAdd) => {
+    (data: TItemTypeData | TItemTypeDataonUpdate) => {
       console.log(data);
-      return saveItemCategory(data, Id);
+      return saveItemType(data, Id);
     },
     {
       onSuccess: () => {
@@ -51,7 +50,7 @@ export const useSaveItemCategory = (Id?: number | null) => {
   );
 };
 
-const saveItemCategory = (data: TDefineItemDataOnAdd | TDefineItemDataOnAdd, Id?: number | null) => {
+const saveItemType = (data: TItemTypeData | TItemTypeDataonUpdate, Id?: number | null) => {
   let dataToSubmit = {};
   if (isNumber(Id)) {
     dataToSubmit = {
@@ -69,5 +68,5 @@ const saveItemCategory = (data: TDefineItemDataOnAdd | TDefineItemDataOnAdd, Id?
       ...data,
     };
   }
-  return requestManager.post('/api/Item/Save', dataToSubmit);
+  return requestManager.post('/api/ItemType/GetByID', dataToSubmit);
 };

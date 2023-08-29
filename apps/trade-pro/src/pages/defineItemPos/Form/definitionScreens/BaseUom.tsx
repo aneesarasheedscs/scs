@@ -5,51 +5,37 @@ import { useEffect, useState } from 'react';
 import ItemTypeTable from './ItemType/index';
 import { useTranslation } from 'react-i18next';
 import { AddButtonforItems } from './AddButtonforItems';
-import { TItemTypeData, TItemTypeDataonAdd, TItemTypeDataonUpdate } from './types';
+import { TItemTypeData, TItemTypeDataonUpdate } from './types';
 import { useGetItemTypeById, useSaveItemType } from './querySave';
 import { SaveOutlined, FileAddOutlined } from '@ant-design/icons';
 import { Checkbox, Col, DatePicker, Divider, Form, Row, Table, Typography } from 'antd';
 import { AntButton, AntInput, AntSelectDynamic, SearchCriteriaWrapper } from '@tradePro/components';
+import ItemUOMTable from './ItemUOM';
 
 const { useForm, useWatch } = Form;
 
-function ItemType() {
+function ItemBaseUOM() {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [form] = useForm<TItemTypeData>();
-  const formValues = useWatch<TItemTypeData>([], form);
   const [selectedRecordId, setSelectedRecordId] = useState<number>();
-  const { mutate, isSuccess, isLoading } = useSaveItemType(selectedRecordId);
-  const { data: Itemtype, refetch, isSuccess: isSuccessById } = useGetItemTypeById(selectedRecordId);
+
+  const formValues = useWatch<TItemTypeData>([], form);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [btnClicked, setBtnClicked] = useState(false);
-  const handleFinish = (values: TItemTypeDataonAdd | TItemTypeDataonUpdate) => {
+
+  const handleFinish = (values: TItemTypeData | TItemTypeDataonUpdate) => {
     console.log(values);
-    mutate(values);
-    if (isNumber(selectedRecordId)) {
-      mutate({ ...values, rowVersion: Itemtype?.data?.Data?.Result?.rowVersion });
-    } else {
-    }
+
     // refetch().then(() => handleClose());
   };
-  useEffect(() => {
-    if (isSuccess) {
-      form.resetFields();
-      if (!btnClicked) handleClose();
-    }
-  }, [isSuccess]);
-  useEffect(() => {
-    if (isNumber(selectedRecordId)) {
-      refetch();
-    }
-  }, [selectedRecordId]);
+
   return (
     <AddButtonforItems open={open} handleOpen={handleOpen} handleClose={handleClose}>
       <h4> Definitions</h4>
       <Divider></Divider>
-      <h2 style={{ marginBottom: 20 }}> {t('item_type')}</h2>
+      <h2 style={{ marginBottom: 20 }}> {t('item_uom')} </h2>
       <Form
         form={form}
         layout="vertical"
@@ -61,21 +47,18 @@ function ItemType() {
           <Col xs={24} sm={24} md={6}>
             <AntInput name="Code" label={t('code')} />
           </Col>
-          <Col xs={24} sm={24} md={8}>
-            <AntInput name="Description" label={t('item_description')} />
+          <Col xs={24} sm={24} md={6}>
+            <AntInput name="Equivalent" label={t('equivalent')} />
           </Col>
 
-          <Col xs={24} sm={24} md={7}>
-            <AntSelectDynamic
-              fieldValue="Id"
-              name="TypeDescription"
-              label={t('item_type')}
-              fieldLabel="TypeDescription"
-              query={getItemType}
-            />
+          <Col xs={24} sm={24} md={2}>
+            <Row style={{ marginTop: 25 }} justify={'space-around'}>
+              <p>{t('status')}</p>
+              <Checkbox name="Active" />
+            </Row>
           </Col>
 
-          <Col xs={24} sm={24} md={3}>
+          <Col xs={24} sm={24} md={2}>
             <AntButton
               label={t('save')}
               icon={<SaveOutlined />}
@@ -87,9 +70,9 @@ function ItemType() {
         </Row>
       </Form>
 
-      <ItemTypeTable />
+      <ItemUOMTable />
     </AddButtonforItems>
   );
 }
 
-export default ItemType;
+export default ItemBaseUOM;

@@ -12,17 +12,15 @@ import {
 } from '@tradePro/components';
 import { AddButtonforItems } from './AddButtonforItems';
 import Title from 'antd/es/skeleton/Title';
-import { getItemCategory, getItemClass, getItemClassGroup, getParentCategory } from '../queries';
-import ItemCategoryTable from './table';
+import { getItemCategory, getItemClass, getItemClassGroup, getParentCategory } from '../queryOptions';
+import ItemCategoryTable from './ItemCategory/index';
 import { useTranslation } from 'react-i18next';
 
 const { useForm, useWatch } = Form;
-const { RangePicker } = DatePicker;
 
 function ItemCategory() {
   const [open, setOpen] = useState(false);
   const [form] = useForm<TPurchaseOrderSearchCriteria>();
-  const { data: itemCategory, isSuccess, isError, refetch, isFetched, isLoading } = getItemCategory();
 
   const formValues = useWatch<TPurchaseOrderSearchCriteria>([], form);
 
@@ -39,20 +37,20 @@ function ItemCategory() {
       <h4> Definitions</h4>
       <Divider></Divider>
 
-      <h2 style={{ marginBottom: 20 }}> Item Category</h2>
+      <h2 style={{ marginBottom: 20 }}> {t('item_category')}</h2>
       <Form form={form} layout="vertical" initialValues={formValues} onFinish={onFinish}>
         <Row gutter={[10, 10]}>
           <Col xs={24} sm={24} md={6}>
-            <AntInputNumber name="Code" label="Code" required />
+            <AntInputNumber name="Code" label={t('code')} required />
           </Col>
           <Col xs={24} sm={24} md={6}>
-            <AntInput name="Description" label="Name" />
+            <AntInput name="Description" label={t('item_name')} />
           </Col>
           <Col xs={24} sm={24} md={6}>
-            <AntInput name="SerialFrom" label="Serial From" />
+            <AntInput name="SerialFrom" label={t('serial_from')} />
           </Col>
           <Col xs={24} sm={24} md={6}>
-            <AntInput name="SerialTo" label="Serial To" />
+            <AntInput name="SerialTo" label={t('serial_to')} />
           </Col>
         </Row>
         <Row align="middle" gutter={[10, 10]}>
@@ -60,7 +58,7 @@ function ItemCategory() {
             <AntSelectDynamic
               required
               name="Category"
-              label="Parent Category"
+              label={t('parent_category')}
               fieldValue="Id"
               fieldLabel="InvParentCateDescription"
               query={getParentCategory}
@@ -70,7 +68,7 @@ function ItemCategory() {
             <AntSelectDynamic
               required
               name="ClassGroup"
-              label="Class Group"
+              label={t('item_class_group')}
               fieldValue="Id"
               fieldLabel="ClassGroupName"
               query={getItemClassGroup}
@@ -80,7 +78,7 @@ function ItemCategory() {
             <AntSelectDynamic
               required
               name="Class"
-              label="Item Class"
+              label={t('item_class')}
               fieldValue="ClassId"
               fieldLabel="ClassDescription"
               query={getItemClass}
@@ -91,7 +89,7 @@ function ItemCategory() {
               required
               fieldValue="Id"
               name="InventoryAccountTitle"
-              label="Purchase Account"
+              label={t('purchase_account_GL')}
               fieldLabel="InventoryAccountTitle"
               query={getItemCategory}
             />
@@ -101,7 +99,7 @@ function ItemCategory() {
               required
               fieldValue="Id"
               name="RevenueAccountTitle"
-              label="Purchase Sale"
+              label={t('sale_account_GL')}
               fieldLabel="RevenueAccountTitle"
               query={getItemCategory}
             />
@@ -111,28 +109,29 @@ function ItemCategory() {
               required
               fieldValue="Id"
               name="CGSAccountTitle"
-              label="CGS Account"
+              label={t('cgs_account_GL')}
               fieldLabel="CGSAccountTitle"
               query={getItemCategory}
             />
           </Col>
           <Col xs={4} sm={4} md={2} style={{ marginTop: -10 }}>
             <Row justify={'space-around'}>
-              <span style={{ marginTop: 5 }}>Status</span>
-              <AntCheckbox name="Status" label={''} />
+              <span style={{ marginTop: 5 }}> {t('status')} </span>
+
+              <Checkbox name="Status" />
             </Row>
           </Col>
-          <Col xs={24} sm={24} md={8} style={{ display: 'flex', flexDirection: 'row' }}>
+          <Col xs={24} sm={24} md={10} style={{ display: 'flex', flexDirection: 'row' }}>
             <Form.Item>
               <Row align="middle" gutter={10}>
                 <Col>
-                  <AntButton danger ghost htmlType="reset" label="Reset" icon={<SyncOutlined />} />
+                  <AntButton danger ghost htmlType="reset" label={t('reset')} icon={<SyncOutlined />} />
                 </Col>
                 <Col>
-                  <AntButton label="Save and add more" htmlType="submit" />
+                  <AntButton label={t('save_and_add_more')} htmlType="submit" />
                 </Col>
                 <Col>
-                  <AntButton ghost label="Save" htmlType="submit" icon={<SaveOutlined />} />
+                  <AntButton ghost label={t('save')} htmlType="submit" icon={<SaveOutlined />} />
                 </Col>
               </Row>
             </Form.Item>

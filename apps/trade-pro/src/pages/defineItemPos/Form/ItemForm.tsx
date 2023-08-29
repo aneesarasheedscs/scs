@@ -3,8 +3,10 @@ import image from './OIP.jpg';
 import { map, values } from 'lodash';
 import { TItemHistoryTable } from '../type';
 import React, { useEffect, useState } from 'react';
-import TextArea from 'antd/es/input/TextArea';
-import ItemCategory from './definitionScreens/ItemCategory';
+import { useTranslation } from 'react-i18next';
+import ItemBaseUOM from './definitionScreens/BaseUom';
+import { Card, Checkbox, Col, Form, Row, theme } from 'antd';
+import ItemBaseScheduleUOM from './definitionScreens/BaseScheduleUnit';
 import {
   getCompaniesNames,
   getItemCategory,
@@ -13,7 +15,7 @@ import {
   getItemLedger,
   getItemType,
   getItemUOM,
-} from './queries';
+} from './queryOptions';
 import {
   AntButton,
   AntInput,
@@ -22,10 +24,6 @@ import {
   AntCheckbox,
   AntSelectDynamicMultiple,
 } from '@tradePro/components';
-import { Button, Card, Checkbox, Col, Form, Input, Row, Space, Tooltip, theme } from 'antd';
-import { CloseOutlined, PlusOutlined, FileAddOutlined, DeleteFilled } from '@ant-design/icons';
-import ItemType from './definitionScreens/ItemType';
-import { useTranslation } from 'react-i18next';
 
 const { useToken } = theme;
 const { useForm, useWatch } = Form;
@@ -53,10 +51,8 @@ function FormFile() {
   const formValues = useWatch<any[]>([], form);
   const { data, isError, isLoading, isSuccess } = getItemCode();
   const { token } = useToken();
+  const [activeCheckbox, setActiveCheckbox] = useState(false);
 
-  const onFinish = (values: any) => {
-    console.log('Received values of form:', values);
-  };
   const { t } = useTranslation();
   return (
     <>
@@ -126,7 +122,7 @@ function FormFile() {
                   />
                 </Col>
                 <Form.Item style={{ marginTop: 25, marginRight: 15 }}>
-                  <AntButton label={''} icon={<PlusOutlined />} />
+                  <ItemBaseUOM />
                 </Form.Item>
               </Col>
               <Col xl={{ span: 7 }} xs={{ span: 10 }} className="column">
@@ -147,7 +143,7 @@ function FormFile() {
                   />
                 </Col>
                 <Form.Item style={{ marginTop: 25, marginRight: 15 }}>
-                  <AntButton label={''} icon={<PlusOutlined />} />
+                  <ItemBaseScheduleUOM />
                 </Form.Item>
               </Col>
 
@@ -221,11 +217,11 @@ function FormFile() {
               </Col>
             </Row>
             <Col span={23} style={{ marginRight: 0 }}>
-              <Col style={{ display: 'flex', marginTop: 10, marginBottom: -20 }} xl={2}>
+              <Col style={{ display: 'flex', marginTop: 5, marginBottom: 5 }} xl={2}>
                 <Row>
                   {' '}
                   <p style={{ marginTop: 3 }}>{t('is_active')}</p>
-                  <AntCheckbox label={''} name="Active" />
+                  <Checkbox name="Active" />
                 </Row>
               </Col>
               <AntSelectDynamicMultiple
@@ -255,7 +251,7 @@ function FormFile() {
                   <AntInput
                     label={''}
                     type="file"
-                    name="file"
+                    name="Product-Image"
                     onChange={handleImage}
                     style={{ width: 200 }}
                   />
@@ -266,7 +262,7 @@ function FormFile() {
                     label={''}
                     type="image"
                     accept="image/*"
-                    name="file"
+                    name="Barcode_Image"
                     style={{ display: '', width: 250, height: 50 }}
                   />
                 </Col>

@@ -366,6 +366,19 @@
   "approved_date": "Fecha de aprobación",
   "order_expiry_date": "Fecha de vencimiento del pedido",
 
+  "document_date": "Fecha del Documento",
+  "document_no": "Número de Documento",
+  "remarks": "Observaciones",
+  "payment_term": "Plazo de Pago",
+  "due_days": "Días de Vencimiento",
+  "due_date": "Fecha de Vencimiento",
+  "supplier_ref_no": "Proveedor ref no",
+  "delivery_start_date": "Fecha de Inicio de Entrega",
+  "delivery_days": "Días de Entrega",
+  "job_lot": "Lote de Trabajo",
+  "item_description": "Descripción del artículo",
+
   "save_and_add_more": "Guardar y añadir más",
-  "action": "acción"
+  "action": "acción",
+  "symbol": " símbolo"
 }

@@ -11,6 +11,9 @@ export function AntCheckbox({
   showLabel = true,
   ...restProps
 }: TAntCheckbox) {
+  const handleChange = (e: any) => {
+    console.log(`${label} checkbox is ${e.target.checked ? 'checked' : 'unchecked'}`);
+  };
   const requiredProps = required
     ? {
         name,
@@ -19,7 +22,7 @@ export function AntCheckbox({
     : { name, rules: [] };
   return (
     <Form.Item label={showLabel ? label : ''} {...requiredProps} {...formItemProps}>
-      <Checkbox {...restProps} />
+      <Checkbox {...restProps} onChange={handleChange} />
     </Form.Item>
   );
 }

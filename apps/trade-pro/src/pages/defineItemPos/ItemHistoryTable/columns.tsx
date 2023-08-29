@@ -2,12 +2,12 @@ import { TPurchaseOrderHistory } from '../../purchaseTrading/purchaseOrder/type'
 import { AntColumnType } from '@tradePro/globalTypes';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import { Button, Popconfirm, Space } from 'antd';
+import { Button, Popconfirm, Space, Tooltip } from 'antd';
 import { EditFilled } from '@ant-design/icons';
 import { AntButton } from '@scs/ui';
 import { TItemHistoryTable } from '../type';
 
-export const columns = (t: any): AntColumnType<TItemHistoryTable>[] => [
+export const columns = (handleOpen: (id: number) => void, t: any): AntColumnType<TItemHistoryTable>[] => [
   { title: <>{t('code')}</>, dataIndex: 'ItemCode', width: 100 },
 
   {
@@ -80,11 +80,13 @@ export const columns = (t: any): AntColumnType<TItemHistoryTable>[] => [
     title: <>{t('action')}</>,
     dataIndex: '',
     render: (_, record) => (
-      <Space size="middle" style={{ marginTop: -15, position: 'absolute', top: 20 }}>
-        <Popconfirm title="Sure to Edit?">
-          <AntButton icon={<EditFilled />} type="default"></AntButton>
-        </Popconfirm>
-      </Space>
+      <Tooltip title="Edit">
+        <AntButton
+          type="text"
+          icon={<EditFilled style={{ color: 'black' }} />}
+          onClick={() => handleOpen(record?.Id)}
+        />
+      </Tooltip>
     ),
   },
 ];

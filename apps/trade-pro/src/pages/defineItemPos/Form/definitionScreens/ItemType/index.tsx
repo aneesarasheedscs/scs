@@ -1,18 +1,18 @@
-import { AntButton, AntTable } from '@tradePro/components';
-import { columns } from './columns';
+import { AntTable } from '@tradePro/components';
+import { columns } from './column';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
-import { useGetItemHistory } from './queries';
-import { useTranslation } from 'react-i18next';
-import { Col, Row, Form } from 'antd';
+import { useGetItemTypeHistory } from './querie';
 import { useState } from 'react';
+import { Col, Row, Form } from 'antd';
+import { useTranslation } from 'react-i18next';
 import AddUpdateRecord from './AddUpdateRecord';
 
 const { useForm } = Form;
-function HistoryTable() {
+function ItemTypeTable() {
   const [form] = useForm();
   const { t } = useTranslation();
-  const { data, isError, isLoading } = useGetItemHistory();
   const [open, setOpen] = useState(false);
+  const { data, isError, isLoading } = useGetItemTypeHistory();
   const [selectedRecordId, setSelectedRecordId] = useState<number>();
 
   const handleOpen = (id?: number) => {
@@ -32,7 +32,7 @@ function HistoryTable() {
         numberOfSkeletons={12}
         isLoading={isLoading}
         data={data?.data?.Data?.Result || []}
-        scroll={{ x: '', y: convertVhToPixels('62vh') }}
+        scroll={{ x: '', y: convertVhToPixels('42vh') }}
       />
       <AddUpdateRecord
         open={open}
@@ -44,4 +44,4 @@ function HistoryTable() {
   );
 }
 
-export default HistoryTable;
+export default ItemTypeTable;

@@ -1,46 +1,20 @@
-import FormFile from './ItemForm';
-import { isNumber, map } from 'lodash';
-import { useTranslation } from 'react-i18next';
-import React, { useEffect, useState } from 'react';
-import ItemType from './definitionScreens/ItemType';
-import { Card, Col, Form, Input, Row, theme } from 'antd';
-import ItemCategory from './definitionScreens/ItemCategory';
-import { useGetItemById, useSaveItemCategory } from './querieSave';
-import { SyncOutlined, SaveOutlined, PlusOutlined } from '@ant-design/icons';
 import { AntButton, AntInputNumber, AntSelectDynamic } from '@tradePro/components';
-import { getItemCategory, getItemClass, getItemCode, getItemType } from './queryOptions';
-import { TPurchaseOrderEntry } from '@tradePro/pages/purchaseTrading/purchaseOrder/type';
-import { TDefineItemData, TDefineItemDataOnAdd, TDefineItemDataonUpdate } from './types';
+import { Card, Col, Form, Row, theme } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { SaveOutlined, SyncOutlined } from '@ant-design/icons';
+import { useGetParentAccount } from '../queryOptions';
+import { map } from 'lodash';
 
 const { useToken } = theme;
 const { useForm, useWatch } = Form;
 
-function ItemFormtoSave() {
-  const [form] = useForm<TDefineItemData>();
-  const formValues = useWatch<TDefineItemData>([], form);
-  const { data, isError, isLoading } = getItemCode();
-  const { token } = useToken();
-  const [selectedRecordId, setSelectedRecordId] = useState<number>();
-
-  const { mutate, isSuccess } = useSaveItemCategory(selectedRecordId);
-  const { data: ItemgetbyId, refetch, isSuccess: isSuccessById } = useGetItemById(selectedRecordId);
-
-  const onFinish = (values: TDefineItemDataOnAdd | TDefineItemDataonUpdate) => {
-    console.log(values);
-    mutate(values);
-    if (isNumber(selectedRecordId)) {
-      mutate({ ...values, rowVersion: ItemgetbyId?.data?.Data?.Result?.rowVersion });
-    } else {
-      mutate(values);
-    }
-  };
-  useEffect(() => {
-    if (isNumber(selectedRecordId)) {
-      refetch();
-    }
-  }, [selectedRecordId]);
-
+function ChartAccountForm() {
+  const [form] = useForm<any>();
   const { t } = useTranslation();
+  const { data } = useGetParentAccount();
+  const onFinish = (values: any) => {
+    console.log(values);
+  };
   return (
     <>
       <Card>
@@ -73,33 +47,27 @@ function ItemFormtoSave() {
                   <Col xl={22} xs={24} sm={20}>
                     <AntSelectDynamic
                       required
-                      fieldValue="Id"
-                      label={t('item_category')}
+                      label="Parent Account"
                       className="select"
-                      placeholder="Select item Category"
-                      fieldLabel="CategoryDescription"
-                      name="ItemCategory"
+                      placeholder="Parent Account"
+                      fieldValue="Id"
+                      fieldLabel="AccountTitle"
+                      name="AccountCode"
                       style={{
                         width: '100%',
                         background: '#ffff',
                       }}
-                      query={getItemCategory}
+                      query={useGetParentAccount}
                       onSelectChange={() =>
-                        form.setFieldValue(
-                          'ItemCode',
-                          map(data?.data?.Data?.Result, (item) => item.ItemCode)
-                        )
+                        form.setFieldValue('AccountClassName', data?.data?.Data?.Result?.AccountClassName)
                       }
                     />
                   </Col>
-                  <Form.Item style={{ marginTop: 25, marginRight: 0 }}>
-                    <ItemCategory />
-                  </Form.Item>
                 </Col>
                 <Col xl={{ span: 4 }} xs={{ span: 10 }} style={{ marginRight: 10 }}>
                   <AntInputNumber
-                    label={t('code')}
-                    name="ItemCode"
+                    label="Account Class"
+                    name="AccountClassName"
                     className="input"
                     style={{ width: '100%', border: '1px dashed blue' }}
                     readOnly
@@ -110,30 +78,27 @@ function ItemFormtoSave() {
                     <AntSelectDynamic
                       required
                       fieldValue="Id"
-                      label={t('item_type')}
+                      label="Account Level"
                       className="select"
                       placeholder="Select item Type"
-                      fieldLabel="TypeDescription"
-                      name="ItemType"
+                      fieldLabel="Account_Level"
+                      name="Account_Level"
                       style={{
                         width: '100%',
                         background: '#ffff',
                       }}
-                      query={getItemType}
+                      //   query={getItemType}
                     />
                   </Col>
-                  <Form.Item style={{ marginTop: 25, marginRight: 10 }}>
-                    <ItemType></ItemType>
-                  </Form.Item>
                 </Col>
               </Row>
             </Card>
           </Row>
-          <FormFile />
+          {/* <FormFile /> */}
         </Form>
       </Card>
     </>
   );
 }
 
-export default ItemFormtoSave;
+export default ChartAccountForm;

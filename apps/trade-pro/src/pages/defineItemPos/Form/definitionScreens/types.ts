@@ -1,0 +1,53 @@
+export type TItemTypeData = {
+  Id: number;
+  TypeCode: String;
+  TypeDescription: String;
+  Type: number;
+  EntryDate: String | Date;
+  EntryUser: number;
+  ModifyDate: null | String;
+  ModifyUser: null | number;
+  PostDate: null | String;
+  PostUser: number;
+  PostState: Boolean;
+  OrganizationId: number;
+  CompanyId: number;
+  ItemCategoryId: number;
+  LookupName: String;
+};
+export type TItemTypeDataonAdd = {
+  Id: number;
+  TypeCode: String;
+  TypeDescription: String;
+  Type: number;
+  EntryDate: String | Date;
+  EntryUser: number;
+  ModifyDate: null | String;
+  ModifyUser: null | number;
+  PostDate: null | String;
+  PostUser: number;
+  PostState: Boolean;
+  OrganizationId: number;
+  CompanyId: number;
+  ItemCategoryId: number;
+  LookupName: String;
+};
+
+export type TItemTypeDataonUpdate = {
+  rowVersion: number;
+  Id: number;
+  TypeCode: String;
+  TypeDescription: String;
+  Type: number;
+  EntryDate: String | Date;
+  EntryUser: number;
+  ModifyDate: null | String;
+  ModifyUser: null | number;
+  PostDate: null | String;
+  PostUser: number;
+  PostState: Boolean;
+  OrganizationId: number;
+  CompanyId: number;
+  ItemCategoryId: number;
+  LookupName: String;
+};

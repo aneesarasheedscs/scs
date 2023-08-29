@@ -1,7 +1,7 @@
 import { Modal } from 'antd';
 import { ReactNode } from 'react';
-import { AntButton } from '../../../../../../../libs/ui/src/button/AntButton';
 import { PlusOutlined } from '@ant-design/icons';
+import { AntButton } from '@tradePro/components';
 
 export function AddButtonforItems({ open, children, handleOpen, handleClose }: TButtonTypes) {
   return (

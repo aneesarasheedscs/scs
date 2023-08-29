@@ -1,13 +1,12 @@
 import { AntColumnType } from '@tradePro/globalTypes';
-import { Button, Popconfirm, Space } from 'antd';
+import { Button, Popconfirm, Space, Tooltip } from 'antd';
 import { EditFilled } from '@ant-design/icons';
-import { AntButton } from '@scs/ui';
-import { TItemHistoryTable } from '../../type';
+import { AntButton } from '@tradePro/components';
 
-export const columns = (): AntColumnType<TItemTypeHistory>[] => [
-  { title: 'Sr#', dataIndex: 'Id', width: 100 },
+export const columns = (handleOpen: (id: number) => void, t: any): AntColumnType<TItemTypeHistory>[] => [
+  { title: <>{t('serial_no')} </>, dataIndex: 'Id', width: 100 },
   {
-    title: 'Item Code',
+    title: <>{t('code')} </>,
     dataIndex: 'TypeCode',
     width: 300,
     searchableInput: true,
@@ -18,7 +17,7 @@ export const columns = (): AntColumnType<TItemTypeHistory>[] => [
   {
     width: 300,
     searchableInput: true,
-    title: 'Item Description',
+    title: <>{t('item_description')} </>,
     dataIndex: 'TypeDescription',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.TypeDescription.localeCompare(b.TypeDescription),
@@ -26,7 +25,7 @@ export const columns = (): AntColumnType<TItemTypeHistory>[] => [
   {
     width: 300,
     searchableInput: true,
-    title: 'Item Type',
+    title: <>{t('item_type')} </>,
     dataIndex: 'TypeDescription',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.TypeDescription.localeCompare(b.TypeDescription),
@@ -34,14 +33,16 @@ export const columns = (): AntColumnType<TItemTypeHistory>[] => [
 
   {
     width: 100,
-    title: 'Action',
+    title: <>{t('action')} </>,
     dataIndex: '',
     render: (_, record) => (
-      <Space size="middle" style={{ marginTop: -15, position: 'absolute', top: 20 }}>
-        <Popconfirm title="Sure to Edit?">
-          <AntButton icon={<EditFilled />} type="default"></AntButton>
-        </Popconfirm>
-      </Space>
+      <Tooltip title="Edit">
+        <AntButton
+          type="text"
+          icon={<EditFilled style={{ color: 'black' }} />}
+          onClick={() => handleOpen(record?.Id)}
+        />
+      </Tooltip>
     ),
   },
 ];

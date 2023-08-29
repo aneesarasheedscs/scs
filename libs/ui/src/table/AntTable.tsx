@@ -8,7 +8,7 @@ import Highlighter from 'react-highlight-words';
 import { AntButton } from '../button/AntButton';
 import { TableLoader } from '../loaders/TableLoader';
 import { AntTableVirtualized } from './AntTableVirtualized';
-import { ReactNode, useMemo, useRef, useState } from 'react';
+import React, { ReactNode, useMemo, useRef, useState } from 'react';
 import { GroupOutlined, SearchOutlined } from '@ant-design/icons';
 import { ColumnType, FilterConfirmProps } from 'antd/es/table/interface';
 import { Col, Row, Card, Input, Space, Table, Button, Result, Tooltip, InputRef, TableProps } from 'antd';
@@ -19,6 +19,7 @@ export function AntTable({
   columns,
   isError,
   refetch,
+  tableTitle,
   isLoading,
   numberOfSkeletons,
   searchCriteriaForm,
@@ -185,9 +186,20 @@ export function AntTable({
       ) : isLoading ? (
         <TableLoader numberOfSkeletons={numberOfSkeletons} />
       ) : isVirtualized ? (
-        <AntTableVirtualized dataSource={data} columns={modifiedColumns} {...restProps} />
+        <AntTableVirtualized
+          dataSource={data}
+          title={() => tableTitle}
+          columns={modifiedColumns}
+          {...restProps}
+        />
       ) : (
-        <Table size="small" dataSource={data} columns={modifiedColumns} {...restProps} />
+        <Table
+          size="small"
+          dataSource={data}
+          title={() => tableTitle}
+          columns={modifiedColumns}
+          {...restProps}
+        />
       )}
     </Card>
   );
@@ -201,6 +213,7 @@ type TAntTable = {
   isVirtualized?: boolean;
   numberOfSkeletons?: number;
   isRefreshDataEnabled?: boolean;
+  tableTitle?: ReactNode;
   isDownloadPdfEnabled?: boolean;
   searchCriteriaForm?: ReactNode;
   isDownloadExcelEnabled?: boolean;

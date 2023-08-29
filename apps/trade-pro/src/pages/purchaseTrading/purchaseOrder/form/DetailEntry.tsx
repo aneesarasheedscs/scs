@@ -3,8 +3,10 @@ import { useEffect, useState } from 'react';
 import { TPurchaseOrderDetailEntry } from '../type';
 import { AntSelectDynamic } from '@tradePro/components';
 import { useGetItemsWithBaseUom, useGetJobLot } from '../queryOptions';
+import { useTranslation } from 'react-i18next';
 
 const DynamicForm = () => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const [initialValues] = useState<TPurchaseOrderDetailEntry[]>([{ Amount: null }]);
 
@@ -18,8 +20,8 @@ const DynamicForm = () => {
         {(fields, { add, remove }) => (
           <>
             <Row gutter={16}>
-              <Col span={8}>Item Name</Col>
-              <Col span={3}>Job Lot</Col>
+              <Col span={8}> {t('item_name')}</Col>
+              <Col span={3}> {t('job_lot')}</Col>
             </Row>
             {fields.map((field) => (
               <Row key={field.key} gutter={16}>
@@ -27,7 +29,7 @@ const DynamicForm = () => {
                   <AntSelectDynamic
                     required
                     fieldValue="Id"
-                    label="Item Name"
+                    label={t('item_name')}
                     showLabel={false}
                     fieldLabel="ItemName"
                     query={useGetItemsWithBaseUom}
@@ -39,7 +41,7 @@ const DynamicForm = () => {
                   <AntSelectDynamic
                     required
                     fieldValue="Id"
-                    label="Job Lot"
+                    label={t('job_lot')}
                     showLabel={false}
                     query={useGetJobLot}
                     fieldLabel="JobLotDescription"

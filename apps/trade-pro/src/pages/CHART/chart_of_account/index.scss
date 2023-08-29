@@ -1,0 +1,244 @@
+.chartAccount {
+  box-shadow: 0px 8px 32px 0 rgb(0, 0, 255, 0.33);
+  background-color: white;
+  backdrop-filter: blur(3px);
+  width: auto;
+  padding: 40px;
+  border-radius: 10px;
+  margin-left: 2%;
+  height: fit-content;
+  padding-left: 5%;
+  transition: duration-700 ease-in-out;
+
+}
+.d{
+  margin-bottom: 0!important;
+}
+.tablesetting {
+  width: 36%;
+  margin-left: 1%;
+}
+
+.chartAccount:hover {
+  border-top-left-radius: 20%;
+  border-bottom-right-radius: 20%;
+}
+.InputField {
+  border-radius: 9px;
+  background-color: white;
+}
+.input-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+// .input-container label {
+//   position: absolute;
+//   pointer-events: none;
+//   transform: translate(0, 4px) scale(1);
+//   transform-origin: top left;
+//   transition: 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+//   color: #6f81a5;
+//   font-size: 16px;
+//   line-height: 1;
+//   left: 10px;
+//   padding: 9px;
+
+//   background-color: white;
+// }
+// .input-container:focus-within label {
+//   transform: translate(10px, 0px) scale(0.8);
+//   color: #0a53e4;
+//   background-color: white;
+
+//   z-index: 2;
+//   padding: 2px;
+// }
+// Input:focus::placeholder {
+//   opacity: 0.9;
+// }
+// Input::placeholder {
+//   opacity: 0;
+// }
+
+.InputField:hover {
+  box-shadow: 0px 8px 32px 0 rgb(0, 0, 255, 0.33);
+  border: 3px solid rgb(0, 0, 255, 0.33);
+}
+.savebtn {
+  background-color: rgb(0, 0, 255, 0.33);
+  color: white;
+  border: 1px ridge white;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset,
+    rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
+    rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
+    rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+// .freshbtn {
+//   background-color: rgb(0, 0, 255, 0.33);
+//   color: white;
+//   width: 5%;
+
+//   border-radius: 15px;
+//   border: 1px ridge white;
+//   box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+//     rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset,
+//     rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
+//     rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
+//     rgba(0, 0, 0, 0.09) 0px 32px 16px;
+// }
+// #none {
+//   pointer-events: none;
+// }
+.Table1 {
+  background-color: rgb(0, 0, 255, 0.33);
+  border: 1px ridge white;
+  width: 160%;
+  border-radius: 5px;
+  // margin-left: 2%;
+  margin-bottom: 30px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+.Table2 {
+  background-color: rgb(0, 0, 255, 0.33);
+  border: 1px ridge white;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+.childAccount:hover {
+  box-shadow: 0px 8px 32px 0 rgb(0, 0, 255, 0.33);
+  
+}
+#savebtn {
+  margin-left: 27%;
+}
+.FirstHeading {
+  display: flex;
+  gap: 80%;
+  padding: 5px;
+  padding-top: 10px;
+  box-shadow: 0px 3px 6px #00000029;
+ color:black
+}
+#Tabs {
+  border: 1px solid #f1f1f1;
+  margin-top: 20px;
+
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  width: 100%;
+}
+
+@media screen and (max-width: 900px) {
+  .FirstHeading {
+    display: flex;
+    gap: 65%;
+    padding: 5px;
+  }
+  .Table1 {
+    width: 100%;
+
+    margin-left: 5%;
+  }
+  .chartAccount {
+    width: 80%;
+  }
+  .childAccount {
+    width: 99%;
+  }
+  #savebtn {
+    margin-left: 5%;
+  }
+  .tablesetting {
+    width: 50%;
+    margin-left: 1%;
+  }
+  .tablesetting {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .FirstHeading {
+    display: flex;
+    gap: 70%;
+    padding: 5px;
+  }
+  .Table1 {
+    width: 90%;
+
+    margin-left: 5%;
+  }
+  .chartAccount {
+    width: 80%;
+  }
+  .childAccount {
+    width: 99%;
+  }
+  #savebtn {
+    margin-left: 5%;
+  }
+  .tablesetting {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1622px) {
+  .FirstHeading {
+    display: flex;
+    gap:75%;
+    padding: 5px;
+    //   background: rgb(0, 0, 255, 0.33);
+    //   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    color: white;
+  }
+  .Table1 {
+    width: 102%;
+  }
+  #savebtn {
+    margin-left: 10%;
+  }
+  .chartAccount {
+    width: 80%;
+  }
+  .childAccount {
+    width: 99%;
+  }
+}
+
+@media screen and (min-width: 1623px) and (max-width: 1870px) {
+  .FirstHeading {
+    display: flex;
+    gap: 80%;
+    padding: 5px;
+  }
+  .Table1 {
+    width: 100%;
+  }
+  #savebtn {
+    margin-left: 10%;
+  }
+  .chartAccount {
+    width: 80%;
+  }
+  .childAccount {
+    width: 300%;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .tablesetting {
+    width: 90%;
+  }
+}
+@media screen and (min-width: 1400px) and (max-width: 1500px) {
+  .tablesetting {
+    width: 42%;
+  }
+}
+@media screen and (min-width: 1500px) and (max-width: 1600px) {
+  .tablesetting {
+    width: 46%;
+  }
+}
