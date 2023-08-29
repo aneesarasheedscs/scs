@@ -1,54 +1,170 @@
-import { Card, Col, Form, Row } from 'antd';
-import { useEffect, useState } from 'react';
-import { TPurchaseOrderDetailEntry } from '../type';
-import { AntSelectDynamic } from '@tradePro/components';
-import { useGetItemsWithBaseUom, useGetJobLot } from '../queryOptions';
-import { useTranslation } from 'react-i18next';
+import { size } from 'lodash';
+import { Card, Col, Form, FormInstance, Row } from 'antd';
+import { TDetailItem, TPurchaseOrderDetailEntry } from '../type';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { useGetItemsWithBaseUom, useGetJobLot, useGetUomByItemId } from '../queryOptions';
+import { AntButton, AntInput, AntInputNumber, AntSelectDynamic } from '@tradePro/components';
 
-const DynamicForm = () => {
-  const { t } = useTranslation();
-  const [form] = Form.useForm();
-  const [initialValues] = useState<TPurchaseOrderDetailEntry[]>([{ Amount: null }]);
+const { useWatch } = Form;
 
-  useEffect(() => {
-    form.setFieldsValue({ items: initialValues });
-  }, []);
+const DynamicForm = ({ form }: TDynamicForm) => {
+  const { setFields, getFieldValue } = form;
+  const formValues = useWatch<TPurchaseOrderDetailEntry[]>('purchaseOrderDetailList', form);
+  const initialValues = {
+    UOMCode: '',
+    Amount: null,
+    JobLotId: null,
+    NetWeight: null,
+    OrderItemId: null,
+    OrderItemQty: null,
+    EquivalentRate: null,
+  };
+
+  const calculateWeight = (itemQty: number, equivalentRate: number) => itemQty * equivalentRate;
+  const calculateAmount = (weight: number, rateUOM: number, itemRate: number) => {
+    return (weight / rateUOM) * itemRate;
+  };
+
+  const handleItemChange = (obj: TDetailItem, index: number) => {
+    setFields([
+      { name: ['purchaseOrderDetailList', index, 'UOMCode'], value: obj?.UOMCode },
+      { name: ['purchaseOrderDetailList', index, 'EquivalentRate'], value: obj?.Equivalent },
+    ]);
+
+    const itemQty = getFieldValue(['purchaseOrderDetailList', index, 'OrderItemQty']);
+    if (itemQty && obj?.Equivalent) {
+      const weight = calculateWeight(itemQty, obj?.Equivalent);
+      setFields([{ name: ['purchaseOrderDetailList', index, 'NetWeight'], value: weight }]);
+    } else {
+      setFields([{ name: ['purchaseOrderDetailList', index, 'NetWeight'], value: null }]);
+    }
+  };
+
+  const handleItemQtyChange = (itemQty: number | string | null, index: number) => {
+    const equivalentRate = getFieldValue(['purchaseOrderDetailList', index, 'EquivalentRate']);
+
+    if (itemQty && typeof itemQty === 'number' && equivalentRate) {
+      const weight = calculateWeight(itemQty, equivalentRate);
+      setFields([{ name: ['purchaseOrderDetailList', index, 'NetWeight'], value: weight }]);
+    } else {
+      setFields([{ name: ['purchaseOrderDetailList', index, 'NetWeight'], value: null }]);
+    }
+  };
+
+  const handleRateUOMChange = (equivalentRate: number, index: number) => {
+    const weight = getFieldValue(['purchaseOrderDetailList', index, 'NetWeight']);
+    const itemRate = getFieldValue(['purchaseOrderDetailList', index, 'OrderItemRate']);
+
+    if (itemRate && weight && equivalentRate) {
+      const amount = calculateAmount(weight, equivalentRate, itemRate);
+      setFields([{ name: ['purchaseOrderDetailList', index, 'Amount'], value: amount }]);
+    } else {
+      setFields([{ name: ['purchaseOrderDetailList', index, 'Amount'], value: null }]);
+    }
+  };
+
+  const handleItemRateChange = (itemRate: number | string | null, index: number) => {
+    const weight = getFieldValue(['purchaseOrderDetailList', index, 'NetWeight']);
+
+    if (itemRate && typeof itemRate === 'number' && weight) {
+    }
+  };
 
   return (
-    <Card className="antCard card-shadow">
-      <Form.List name="items" initialValue={initialValues}>
+    <Card className="antCard card-shadow" style={{ overflowX: 'auto' }}>
+      <Form.List name="purchaseOrderDetailList" initialValue={[initialValues]}>
         {(fields, { add, remove }) => (
           <>
-            <Row gutter={16}>
-              <Col span={8}> {t('item_name')}</Col>
-              <Col span={3}> {t('job_lot')}</Col>
-            </Row>
             {fields.map((field) => (
-              <Row key={field.key} gutter={16}>
-                <Col xs={8}>
+              <div key={field.key} className="form-list-container">
+                <Col span={7}>
                   <AntSelectDynamic
                     required
                     fieldValue="Id"
-                    label={t('item_name')}
-                    showLabel={false}
+                    label="Item Name"
                     fieldLabel="ItemName"
                     query={useGetItemsWithBaseUom}
-                    formItemProps={{ ...field, name: [field.name, 'OrderItemId'] }}
+                    name={[field.name, 'OrderItemId']}
+                    onSelectChange={(obj) => handleItemChange(obj, field.name)}
                   />
                 </Col>
 
-                <Col xs={3}>
+                <Col span={3}>
                   <AntSelectDynamic
                     required
                     fieldValue="Id"
-                    label={t('job_lot')}
-                    showLabel={false}
+                    label="Job Lot"
                     query={useGetJobLot}
                     fieldLabel="JobLotDescription"
-                    formItemProps={{ ...field, name: [field.name, 'JobLotId'] }}
+                    name={[field.name, 'JobLotId']}
                   />
                 </Col>
-              </Row>
+
+                <Col span={3}>
+                  <AntInput readOnly label="Base UOM" formItemProps={{ ...field, name: [field.name, 'UOMCode'] }} />
+                </Col>
+
+                <Col span={3}>
+                  <AntInputNumber
+                    label="Item Qty"
+                    onChange={(itemQty) => handleItemQtyChange(itemQty, field.name)}
+                    formItemProps={{ ...field, name: [field.name, 'OrderItemQty'] }}
+                  />
+                </Col>
+
+                <Col span={3}>
+                  <AntInputNumber
+                    readOnly
+                    label="Weight"
+                    formItemProps={{ ...field, name: [field.name, 'NetWeight'] }}
+                  />
+                </Col>
+
+                <Col span={3}>
+                  <AntInputNumber
+                    label="Item Rate"
+                    formItemProps={{ ...field, name: [field.name, 'OrderItemRate'] }}
+                    onChange={(itemRate) => handleItemRateChange(itemRate, field.name)}
+                  />
+                </Col>
+
+                <Col span={4}>
+                  <AntSelectDynamic
+                    required
+                    fieldValue="Id"
+                    label="Rate UOM"
+                    fieldLabel="UOMCode"
+                    name={[field.name, 'Rate UOM']}
+                    onSelectChange={(obj) => handleRateUOMChange(obj?.Equivalent, field.name)}
+                    query={useGetUomByItemId(formValues?.[field.name]?.OrderItemId)}
+                  />
+                </Col>
+
+                <Col span={3}>
+                  <AntInputNumber label="Amount" formItemProps={{ ...field, name: [field.name, 'Amount'] }} />
+                </Col>
+
+                <Col span={2}>
+                  <Row>
+                    <Col>
+                      <AntButton
+                        type="text"
+                        onClick={() => add()}
+                        icon={<PlusOutlined className="dynamic-add-button" />}
+                      />
+                    </Col>
+                    <Col>
+                      <AntButton
+                        type="text"
+                        icon={<MinusCircleOutlined className="dynamic-delete-button" />}
+                        onClick={() => {
+                          if (size(fields) > 1) remove(field.name);
+                        }}
+                      />
+                    </Col>
+                  </Row>
+                </Col>
+              </div>
             ))}
           </>
         )}
@@ -56,5 +172,7 @@ const DynamicForm = () => {
     </Card>
   );
 };
+
+type TDynamicForm = { form: FormInstance };
 
 export default DynamicForm;

@@ -81,8 +81,12 @@ export const useGetJobLot = () => {
   });
 };
 
-export const useGetUomByItemId = (ItemId: number) => {
-  return useQuery(['uom', ItemId], () => {
-    return requestManager.get('/api/UOMSchedule/SearchByObject', { params });
-  });
+export const useGetUomByItemId = (ItemId?: number | null) => () => {
+  return useQuery(
+    ['uom', ItemId],
+    () => {
+      return requestManager.get('/api/UOMSchedule/SearchByObject', { params: { ...params, ItemId } });
+    },
+    { enabled: !!ItemId }
+  );
 };

@@ -1,4 +1,5 @@
 import './style.scss';
+import { NamePath } from 'antd/es/form/interface';
 import { Form, FormItemProps, InputNumber, InputNumberProps } from 'antd';
 
 export function AntInputNumber({
@@ -27,8 +28,8 @@ export function AntInputNumber({
 }
 
 type TAntInputNumber = {
-  name?: string;
   label: string;
+  name?: NamePath;
   required?: boolean;
   fullWidth?: boolean;
   showLabel?: boolean;
