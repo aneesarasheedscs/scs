@@ -65,13 +65,18 @@ const DynamicForm = ({ form }: TDynamicForm) => {
 
   const handleItemRateChange = (itemRate: number | string | null, index: number) => {
     const weight = getFieldValue(['purchaseOrderDetailList', index, 'NetWeight']);
+    const equivalentRate = getFieldValue(['purchaseOrderDetailList', index, 'EquivalentRate']);
 
-    if (itemRate && typeof itemRate === 'number' && weight) {
+    if (itemRate && typeof itemRate === 'number' && weight && equivalentRate) {
+      const amount = calculateAmount(weight, equivalentRate, itemRate);
+      setFields([{ name: ['purchaseOrderDetailList', index, 'Amount'], value: amount }]);
+    } else {
+      setFields([{ name: ['purchaseOrderDetailList', index, 'Amount'], value: null }]);
     }
   };
 
   return (
-    <Card className="antCard card-shadow" style={{ overflowX: 'auto' }}>
+    <Card className="antCard card-shadow">
       <Form.List name="purchaseOrderDetailList" initialValue={[initialValues]}>
         {(fields, { add, remove }) => (
           <>
@@ -134,7 +139,8 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                     fieldValue="Id"
                     label="Rate UOM"
                     fieldLabel="UOMCode"
-                    name={[field.name, 'Rate UOM']}
+                    // name={[field.name, 'Rate UOM']}
+                    name={[field.name, 'RateUOM']}
                     onSelectChange={(obj) => handleRateUOMChange(obj?.Equivalent, field.name)}
                     query={useGetUomByItemId(formValues?.[field.name]?.OrderItemId)}
                   />

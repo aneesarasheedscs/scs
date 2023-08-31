@@ -14,7 +14,7 @@ export const columns = (onUpdateAccountTitle: any): AntColumnType<TChartAccountD
   {
     title: 'Account Code',
     dataIndex: 'AccountCode',
-    width: 150,
+    width: 200,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.AccountCode.localeCompare(b.AccountCode),
   },
@@ -24,7 +24,7 @@ export const columns = (onUpdateAccountTitle: any): AntColumnType<TChartAccountD
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
-    width: 180,
+    width: 200,
   },
   {
     title: 'Account Level',
@@ -39,13 +39,13 @@ export const columns = (onUpdateAccountTitle: any): AntColumnType<TChartAccountD
   {
     title: 'Account Group',
     dataIndex: 'AccountGroup',
-    width: 160,
+    width: 180,
   },
   {
     title: 'PL/BS Note',
     searchableInput: true,
     dataIndex: 'NoteTitle',
-    width: 180,
+    width: 200,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.NoteTitle.localeCompare(b.NoteTitle),
   },
@@ -54,18 +54,18 @@ export const columns = (onUpdateAccountTitle: any): AntColumnType<TChartAccountD
     dataIndex: 'AccountClass',
     searchableInput: true,
     sorter: (a, b) => a.AccountGroup.localeCompare(b.AccountGroup),
-    width: 160,
+    width: 200,
   },
   {
     title: 'Account Type',
     dataIndex: 'AccountType',
-    width: 150,
+    width: 200,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.AccountType.localeCompare(b.AccountType),
   },
   {
     title: 'Status',
-    width: 100,
+    width: 90,
     dataIndex: 'IsActive',
     render: (IsActive) => (
       <Space
@@ -86,7 +86,7 @@ export const columns = (onUpdateAccountTitle: any): AntColumnType<TChartAccountD
   {
     title: 'Action',
     dataIndex: '',
-    width: 100,
+    width: 90,
     render: (_, record) => (
       <Tooltip title="Chose Action">
         <AntButton

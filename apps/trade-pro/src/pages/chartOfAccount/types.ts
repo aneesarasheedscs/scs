@@ -1,6 +1,4 @@
 export type TChartAccountData = {
-  key: React.Key;
-
   Id: number;
   ParentAcCode: string;
   ParentAcTitle: string;
@@ -13,6 +11,21 @@ export type TChartAccountData = {
   AccountClass: string;
   AccountType: string;
   NoteTitle: string;
+  AccountClassName: string;
+};
+
+export type TChartAccount = {
+  Id: number;
+  AccountClass: number;
+  AccountGroup: string;
+  Account_Level: number;
+  AccountCode: string;
+  AccountType: string;
+  CompanyId: string;
+  PLNote: string;
+  BsNote: string;
+  AccountTitle: string;
+  AccountClassName: string;
 };
 export type child_account = {
   key: React.Key;

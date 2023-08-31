@@ -1,30 +1,46 @@
-import { AntButton, AntInputNumber, AntSelectDynamic } from '@tradePro/components';
+import '../style.scss';
+import ChildAccountTable from './tables';
+import { AntButton } from '@tradePro/components';
 import { Card, Col, Form, Row, theme } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { SaveOutlined, SyncOutlined } from '@ant-design/icons';
-import { useGetParentAccount } from '../queryOptions';
-import { map } from 'lodash';
+import FormOfChartAccount from './FormOfChartAccount';
+import { TChartAccountData } from '../types';
+import { useState } from 'react';
+import TableofAccountLevel1 from './tables/1stLevelAccount/tableofAccountLevel1';
+import TableofAccountLevel2 from './tables/2ndLevelAccount/tableofAccountLevel2';
+import TableofAccountLevel3 from './tables/3rdLevelAccount/tableofAccountLevel3';
+import TableofAccountLevel4 from './tables/4thLevelAccount/tableofAccountLevel4';
 
 const { useToken } = theme;
 const { useForm, useWatch } = Form;
-
+interface SelectedValues {
+  accountLevel: number;
+  accountTitle: string;
+}
 function ChartAccountForm() {
-  const [form] = useForm<any>();
+  const [form] = useForm<TChartAccountData>();
   const { t } = useTranslation();
-  const { data } = useGetParentAccount();
-  const onFinish = (values: any) => {
+  const [selectedValues, setSelectedValues] = useState<SelectedValues>({
+    accountLevel: 0,
+    accountTitle: '',
+  });
+  const handleSelectedValuesChange = (accountLevel: number, accountTitle: string) => {
+    setSelectedValues({
+      accountLevel,
+      accountTitle,
+    });
+  };
+  const onFinish = (values: TChartAccountData) => {
     console.log(values);
   };
+
   return (
     <>
       <Card>
         <Form form={form} layout="vertical" onFinish={onFinish}>
           <Row align="middle" justify="space-between">
-            <Col>
-              <Row gutter={10} align="middle"></Row>
-            </Col>
-
-            <Col>
+            <Col style={{ marginLeft: 20 }}>
               <Form.Item>
                 <Row align="middle" gutter={10}>
                   <Col>
@@ -39,63 +55,31 @@ function ChartAccountForm() {
                 </Row>
               </Form.Item>
             </Col>
+            <Row style={{ marginTop: -20 }}>
+              <Col xl={11}>
+                {' '}
+                <FormOfChartAccount form={form} onSelectedValuesChange={handleSelectedValuesChange} />
+              </Col>
+              <Col xl={13}>
+                <ChildAccountTable selectedValues={selectedValues} />
+              </Col>
+            </Row>
           </Row>
-          <Row align="middle" justify="space-between">
-            <Card style={{ marginBottom: -5, width: '100%' }} className="antCard card-shadow">
-              <Row style={{ width: '100%', height: 70 }} className="row">
-                <Col xl={{ span: 10 }} xs={{ span: 10 }} className="column">
-                  <Col xl={22} xs={24} sm={20}>
-                    <AntSelectDynamic
-                      required
-                      label="Parent Account"
-                      className="select"
-                      placeholder="Parent Account"
-                      fieldValue="Id"
-                      fieldLabel="AccountTitle"
-                      name="AccountCode"
-                      style={{
-                        width: '100%',
-                        background: '#ffff',
-                      }}
-                      query={useGetParentAccount}
-                      onSelectChange={() =>
-                        form.setFieldValue('AccountClassName', data?.data?.Data?.Result?.AccountClassName)
-                      }
-                    />
-                  </Col>
-                </Col>
-                <Col xl={{ span: 4 }} xs={{ span: 10 }} style={{ marginRight: 10 }}>
-                  <AntInputNumber
-                    label="Account Class"
-                    name="AccountClassName"
-                    className="input"
-                    style={{ width: '100%', border: '1px dashed blue' }}
-                    readOnly
-                  />
-                </Col>
-                <Col xl={{ span: 9 }} xs={{ span: 23 }} className="column">
-                  <Col xl={23} xs={24} sm={20}>
-                    <AntSelectDynamic
-                      required
-                      fieldValue="Id"
-                      label="Account Level"
-                      className="select"
-                      placeholder="Select item Type"
-                      fieldLabel="Account_Level"
-                      name="Account_Level"
-                      style={{
-                        width: '100%',
-                        background: '#ffff',
-                      }}
-                      //   query={getItemType}
-                    />
-                  </Col>
-                </Col>
-              </Row>
-            </Card>
-          </Row>
-          {/* <FormFile /> */}
         </Form>
+        <Row justify={'space-between'}>
+          <Col xl={11}>
+            <TableofAccountLevel1 />
+          </Col>
+          <Col xl={12}>
+            <TableofAccountLevel2 />
+          </Col>
+          <Col xl={11}>
+            <TableofAccountLevel3 />
+          </Col>
+          <Col xl={12}>
+            <TableofAccountLevel4 />
+          </Col>
+        </Row>
       </Card>
     </>
   );
