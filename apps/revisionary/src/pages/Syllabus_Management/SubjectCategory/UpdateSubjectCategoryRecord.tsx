@@ -4,6 +4,7 @@ import { Col, Form, FormInstance, Input, Row } from 'antd';
 import { useAddUpdateSubjectCategory, useGetSubjectCategoryById } from '../queries';
 import LookupFormModal from '../../Component/LookupFormModal';
 import { useTranslation } from 'react-i18next';
+import { AntInput } from '@scs/ui';
 
 function UpdateSubjectCategoryRecord({ open, form, handleClose, selectedRecordId }: TAddUpdateRecord) {
   const [btnClicked, setBtnClicked] = useState(false);
@@ -58,21 +59,11 @@ function UpdateSubjectCategoryRecord({ open, form, handleClose, selectedRecordId
     >
       <Row gutter={10} style={{ marginTop: 20 }}>
         <Col xs={8}>
-          <Form.Item
-            name="subjectCategoryCode"
-            rules={[{ required: true, message: <>{t('add_updata_code')}</> }]}
-          >
-            <Input size="large" placeholder={t('code')} />
-          </Form.Item>
+          <AntInput label="" name="subjectCategoryCode" size="large" placeholder={t('code')} />
         </Col>
 
         <Col xs={16}>
-          <Form.Item
-            name="subjectCategoryDescription"
-            rules={[{ required: true, message: <>{t('subject_description')}</> }]}
-          >
-            <Input size="large" placeholder={t('description')} />
-          </Form.Item>
+          <AntInput label="" name="subjectCategoryDescription" size="large" placeholder={t('description')} />
         </Col>
       </Row>
     </LookupFormModal>

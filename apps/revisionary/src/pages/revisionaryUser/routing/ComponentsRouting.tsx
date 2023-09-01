@@ -3,9 +3,6 @@ import { Route, Routes } from 'react-router-dom';
 import StudentProfile from '../StudentProfile/StudentProfile';
 import MainSyllabusFile from '../SyllabusStatu';
 import Subject1 from '../Student Syllabus/AddSubject/AddSubject';
-// import LoginForm from '../../../revisionaryUser/Comp/LoginForm';
-// import SignForm from '../../../revisionaryUser/Comp/SignForm';
-// import StudentSyllabus from '../../../revisionaryUser/Comp/StudentSyllabus';
 import Assessment from '../SyllabusStatu/SyllabusTopic/SyllabusBooks';
 import LoginForm from '../Forms/LoginForm';
 import SignForm from '../Forms/SignForm';
@@ -14,8 +11,7 @@ import SyllabusManagement from '@revisionary/pages/Syllabus_Management';
 import ClassManagement from '@revisionary/pages/classManagement';
 import Dashboard from '../Dashboard/Index';
 import DashboardSubTopic from '../Dashboard/DashboardSubTopic';
-// import Tab from '../../Tab';
-// import Tab2 from '../../SyllabusManagement/SubjectCatagory';
+import ClassSyllabusDivisionByTopic from '@revisionary/pages/Class_Management/ClassSyllabusDivisionByTopic';
 
 export default function ComponentsRouting() {
   return (
@@ -32,6 +28,7 @@ export default function ComponentsRouting() {
         <Route path="/class-management" element={<ClassManagement />}></Route>
         <Route path="/dashboard" element={<Dashboard />}></Route>
         <Route path="/dashboardsubtopic" element={<DashboardSubTopic />}></Route>
+        <Route path="/classsyllabusdivisionbytopic" element={<ClassSyllabusDivisionByTopic />}></Route>
       </Routes>
     </div>
   );

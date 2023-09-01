@@ -43,7 +43,7 @@ function SubjectList({
           isLoading={isLoading}
           numberOfSkeletons={8}
           data={data?.data?.apiData || []}
-          columns={columns(setSelectedRecordId, t)}
+          columns={columns(t, setSelectedRecordId)}
           pagination={{ showSizeChanger: true, pageSizeOptions: [10, 20, 50, 100] }}
         />
       </Card>

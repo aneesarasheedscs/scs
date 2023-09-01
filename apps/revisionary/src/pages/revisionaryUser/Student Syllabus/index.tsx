@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import '../style2.scss';
 import { AntButton } from '@scs/ui';
 import { Link } from 'react-router-dom';
+import { useGetSubjectCategories } from '@revisionary/pages/Syllabus_Management/queries';
 
 const cards1 = [
   {
@@ -65,6 +66,7 @@ const cards2 = [
 ];
 
 const StudentSyllabus: React.FC = () => {
+  const { data: cards2, isError, isLoading } = useGetSubjectCategories();
   return (
     <div className="mainn">
       <Row gutter={16}>
@@ -215,64 +217,62 @@ const StudentSyllabus: React.FC = () => {
         >
           <div className="card-container">
             <Row gutter={[110, 110]}>
-              {cards2.map((card) => {
-                return (
-                  <Col
-                    className="col1"
-                    style={{ marginBottom: '-9%' }}
-                    span={10}
-                    xs={{ span: 18 }}
-                    sm={{ span: 12 }}
-                    md={{ span: 8 }}
-                    lg={{ span: 8 }}
-                    xl={{ span: 5 }}
-                    xxl={{ span: 5 }}
+              {cards2?.data?.apiData.map((item: any) => (
+                <Col
+                  className="col1"
+                  style={{ marginBottom: '-9%' }}
+                  span={10}
+                  xs={{ span: 18 }}
+                  sm={{ span: 12 }}
+                  md={{ span: 8 }}
+                  lg={{ span: 8 }}
+                  xl={{ span: 5 }}
+                  xxl={{ span: 5 }}
+                  key={item.subjectCategoryId}
+                >
+                  <Card
+                    className="cardd"
+                    style={{
+                      marginTop: '23%',
+                      height: '75%',
+                      width: '150%',
+                      border: '2px solid #52c41a',
+                      marginLeft: '45%',
+                    }}
+                    bordered={false}
                   >
-                    <Card
-                      className="cardd"
-                      style={{
-                        marginTop: '23%',
-                        height: '75%',
-                        width: '150%',
-                        border: '2px solid #52c41a',
-                        marginLeft: '45%',
-                      }}
-                      key={card.key}
-                      bordered={false}
-                    >
-                      <div>
-                        <div
-                          style={{
-                            background: '#52c41a',
-                            padding: '3%',
-                            paddingTop: '3%',
-                            fontWeight: 'bold',
-                            fontSize: '16px',
-                            lineHeight: '14px',
-                            marginTop: '-4%',
-                            fontFamily: 'Poppins',
-                            textAlign: 'center',
-                            height: '2.3rem',
-                            width: 'auto',
-                            position: 'relative',
-                            top: '-1.2rem',
-                            left: '0%',
-                            color: 'white',
-                            borderBottomLeftRadius: '16px',
-                            borderBottomRightRadius: '16px',
-                          }}
-                        >
-                          {card.code}
-                        </div>
-
-                        <p style={{ textAlign: 'left', marginTop: '45%', marginBottom: '5%' }}>
-                          {card.description}
-                        </p>
+                    <div>
+                      <div
+                        style={{
+                          background: '#52c41a',
+                          padding: '3%',
+                          paddingTop: '3%',
+                          fontWeight: 'bold',
+                          fontSize: '16px',
+                          lineHeight: '14px',
+                          marginTop: '-4%',
+                          fontFamily: 'Poppins',
+                          textAlign: 'center',
+                          height: '2.3rem',
+                          width: 'auto',
+                          position: 'relative',
+                          top: '-1.2rem',
+                          left: '0%',
+                          color: 'white',
+                          borderBottomLeftRadius: '16px',
+                          borderBottomRightRadius: '16px',
+                        }}
+                      >
+                        {item.code}
                       </div>
-                    </Card>
-                  </Col>
-                );
-              })}
+
+                      <p style={{ textAlign: 'left', marginTop: '45%', marginBottom: '5%' }}>
+                        {item.subjectCategoryDescription}
+                      </p>
+                    </div>
+                  </Card>
+                </Col>
+              ))}
             </Row>
           </div>
         </div>

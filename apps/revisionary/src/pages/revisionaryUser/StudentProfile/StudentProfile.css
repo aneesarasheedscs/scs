@@ -42,12 +42,6 @@
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.7) !important;
 }
 
-/* .ant-select-focused {
-    border:1px solid black!important;
-    box-shadow: 0px 0px 6px  rgba(0, 0, 0, 0.7) !important;
-    border-radius: 11px;
-  } */
-
 .btn1:hover {
   border: none !important;
   box-shadow: 0 0 6px black !important;

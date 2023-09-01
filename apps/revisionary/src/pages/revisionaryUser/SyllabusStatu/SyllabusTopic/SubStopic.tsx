@@ -13,7 +13,6 @@ function SubStopic() {
     { id: 5, title: 'Card 5', progress: 75 },
     { id: 6, title: 'Card 6', progress: 75 },
     { id: 7, title: 'Card 7', progress: 75 },
-    // ... more card data
   ];
 
   const chunkArray = (array: any, size: any) => {

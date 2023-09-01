@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 function SyllabusStatus() {
   const cardArray = [
     { id: 1, title: 'Topic1: Cell Biology', progress: 50 },
-    { id: 2, title: 'Card 2', progress: 75 },
+    { id: 2, title: 'Card 2', progress: 100 },
     { id: 3, title: 'Card 3', progress: 75 },
     { id: 4, title: 'Card 4', progress: 75 },
     { id: 5, title: 'Card 5', progress: 75 },

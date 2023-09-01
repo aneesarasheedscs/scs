@@ -5,8 +5,10 @@ import { RedoOutlined } from '@ant-design/icons';
 import { Col, Input, Row, Select, Form, Tooltip } from 'antd';
 import { useAddUpdateSubjectList, useGetSubjectListById } from '../queries';
 import { TSubjectListFormDataOnAdd, TSubjectListFormDataOnUpdate } from '../queries/types';
-import { AntButton, TableLoader } from '@revisionary/components';
+import { AntButton, AntSelectDynamic, TableLoader } from '@revisionary/components';
 import { useTranslation } from 'react-i18next';
+import { useGetSubjectListSelect } from '@revisionary/pages/revisionaryUser/StudentProfile/queries';
+import { TSubjectList } from './types';
 // import { TSubjectListFormDataOnAdd, TSubjectListFormDataOnUpdate } from "@/types/subjectList";
 // import { useAddUpdateSubjectList, useGetSubjectListById } from "@/hooks/apis/useSubjectList";
 
@@ -20,17 +22,17 @@ function SubjectListForm({
   isSubjectCategoryListLoading,
   isSyllabusAuthorityListLoading,
 }: TForm) {
-  const [form] = Form.useForm();
+  const [form] = Form.useForm<TSubjectList>();
   const { mutate, isSuccess } = useAddUpdateSubjectList(selectedRecordId);
   const { data, refetch, isSuccess: isDataByIdSuccess, isLoading } = useGetSubjectListById(selectedRecordId);
   const { t } = useTranslation();
-  const onFinish = (values: TSubjectListFormDataOnAdd | TSubjectListFormDataOnUpdate) => {
-    if (isNumber(selectedRecordId)) {
-      mutate({ ...values, rowVersion: data?.data?.apiData?.rowVersion });
-    } else {
-      mutate(values);
-    }
-  };
+  // const onFinish = (values: TSubjectListFormDataOnAdd | TSubjectListFormDataOnUpdate) => {
+  //   if (isNumber(selectedRecordId)) {
+  //     mutate({ ...values, rowVersion: data?.data?.apiData?.rowVersion });
+  //   } else {
+  //     mutate(values);
+  //   }
+  // };
 
   const handleReset = () => {
     form.resetFields();
@@ -58,12 +60,30 @@ function SubjectListForm({
   }
 
   return (
-    <Form form={form} onFinish={onFinish} initialValues={{ remember: true }}>
+    <Form form={form} initialValues={{ remember: true }}>
+      <AntSelectDynamic
+        required
+        size="large"
+        label=" syllabusAuthorityName"
+        name="syllabusAuthorityId"
+        fieldValue="subjectListId"
+        fieldLabel="syllabusAuthorityName"
+        query={useGetSubjectListSelect}
+      />
       <Form.Item
         name="syllabusAuthorityId"
         rules={[{ required: true, message: <>{t('placeholder_for_subject_authority')}</> }]}
       >
-        <Select
+        <AntSelectDynamic
+          required
+          size="large"
+          label=" syllabusAuthorityName"
+          name="syllabusAuthorityId"
+          fieldValue="subjectListId"
+          fieldLabel="syllabusAuthorityName"
+          query={useGetSubjectListSelect}
+        />
+        {/* <Select
           showSearch
           size="large"
           style={{ width: '100%' }}
@@ -74,7 +94,7 @@ function SubjectListForm({
             label: item?.syllabusAuthorityName,
           }))}
           filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-        />
+        /> */}
       </Form.Item>
 
       <Row gutter={10}>
@@ -182,15 +202,3 @@ type TForm = {
 };
 
 export default SubjectListForm;
-
-{
-  /* <AntSelectDynamic
-        required
-        size="large"
-        label=" "
-        name="syllabusAuthorityId"
-        fieldValue="syllabusAuthorityId"
-        fieldLabel="syllabusAuthorityName"
-        query={useSyllabusAuthorityForList()}
-      /> */
-}

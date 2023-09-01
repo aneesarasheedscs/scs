@@ -5,6 +5,7 @@ import LookupFormModal from '../../Component/LookupFormModal';
 import { useAddUpdateSyllabusAuthority, useGetSyllabusAuthorityById } from '../queries';
 import { TSyllabusAuthorityFormDataOnAdd, TSyllabusAuthorityFormDataOnUpdate } from '../queries/types';
 import { useTranslation } from 'react-i18next';
+import { AntInput } from '@scs/ui';
 
 function UpdateSyllabusAuthority({ open, form, handleClose, selectedRecordId }: TAddUpdateRecord) {
   const [btnClicked, setBtnClicked] = useState(false);
@@ -59,21 +60,17 @@ function UpdateSyllabusAuthority({ open, form, handleClose, selectedRecordId }: 
     >
       <Row gutter={10} style={{ marginTop: 20 }}>
         <Col xs={8}>
-          <Form.Item
-            name="syllabusAuthorityCode"
-            rules={[{ required: true, message: <>{t('add_updata_code')}</> }]}
-          >
-            <Input size="large" placeholder={t('code')} />
-          </Form.Item>
+          <AntInput label="" name="syllabusAuthorityCode" required size="large" placeholder={t('code')} />
         </Col>
 
         <Col xs={16}>
-          <Form.Item
+          <AntInput
+            label=""
             name="syllabusAuthorityName"
-            rules={[{ required: true, message: <>{t('add_updata_name')}</> }]}
-          >
-            <Input size="large" placeholder={t('updata_name')} />
-          </Form.Item>
+            required
+            size="large"
+            placeholder={t('updata_name')}
+          />
         </Col>
       </Row>
     </LookupFormModal>

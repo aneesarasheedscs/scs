@@ -3,8 +3,10 @@ import { Card, Col, Row, List, Progress, Divider, Input, Button } from 'antd';
 import { green } from '@ant-design/colors';
 // import './SyllabusBooks.css';
 import '../style/SyllabusBooks.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import CardWithProgress from '../../Progress/Progress';
+import { useGetSubjectCategories } from '@revisionary/pages/Syllabus_Management/queries';
 
 function SyllabusBooks() {
   const handleClick = () => {
@@ -12,93 +14,31 @@ function SyllabusBooks() {
     console.log('dfs');
   };
   const navigate = useNavigate();
+  const { data: cards2, isError, isLoading } = useGetSubjectCategories();
 
-  const cards = [
-    {
-      key: '1',
-      Subject: 'English',
-    },
-    {
-      key: '2',
-      Subject: 'Urdu',
-    },
-    {
-      key: '3',
-      Subject: 'Math',
-    },
-    {
-      key: '4',
-      Subject: 'Islamiyat',
-    },
-    {
-      key: '5',
-      Subject: 'Pak.study',
-    },
-    {
-      key: '6',
-      Subject: 'Biology',
-    },
-    {
-      key: '7',
-      Subject: 'Physics',
-    },
-    {
-      key: '8',
-      Subject: 'Chemistery',
-    },
-    {
-      key: '9',
-      Subject: 'Geography',
-    },
-    {
-      key: '10',
-      Subject: 'Economics',
-    },
-    {
-      key: '11',
-      Subject: 'History',
-    },
-    {
-      key: '12',
-      Subject: 'Science',
-    },
-    {
-      key: '13',
-      Subject: 'Psychology',
-    },
-    {
-      key: '14',
-      Subject: 'computer',
-    },
-    {
-      key: '15',
-      Subject: 'Education',
-    },
-    {
-      key: '16',
-      Subject: 'Drawing',
-    },
-  ];
   const { t } = useTranslation();
   return (
     <div className="assessment" style={{ height: '100hv', padding: 20 }}>
       <Divider orientation="center" style={{ marginTop: '40px' }}>
         <h1>{t('syllabus_status')}</h1>
       </Divider>
-      <Row gutter={[16, 16]} style={{ marginTop: '  2rem' }}>
-        {cards.map((card) => {
-          return (
-            <Col xs={8} xl={3} sm={8} md={6} key={card.key}>
+      <div>
+        <Row gutter={[16, 16]} style={{ marginTop: '  2rem' }}>
+          {cards2?.data?.apiData.map((item: any) => (
+            <Col xs={8} xl={3} sm={8} md={6} key={item.subjectCategoryId}>
               <Card
                 style={{ width: '100%', textAlign: 'center', border: '1px solid #00A148' }}
                 className="singleCard"
               >
-                <h3>{card.Subject}</h3>
+                <p>{item.subjectCategoryDescription}</p>
+                <Progress percent={90} showInfo={true} size={'small'} strokeColor={'#52c41a'} />
+
+                {/* <CardWithProgress key={item.id} cardData={item.subjectCategoryDescription} /> */}
               </Card>
             </Col>
-          );
-        })}
-      </Row>
+          ))}
+        </Row>
+      </div>
       <Divider />
 
       {/* <A */}

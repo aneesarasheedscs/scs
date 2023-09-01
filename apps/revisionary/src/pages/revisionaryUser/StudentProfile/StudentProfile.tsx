@@ -1,10 +1,13 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { Form, Input, Divider, Select, Row, Col } from 'antd';
 import './StudentProfile.css';
-import { AntButton } from '@revisionary/components';
+import { AntButton, AntInput, AntSelectDynamic } from '@revisionary/components';
 import { CameraOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
+import { useGetStudentProfile } from './queries';
 const StudentProfile: React.FC = () => {
+  const { data: cards2, isError, isLoading } = useGetStudentProfile();
+
   const onFinish = (values: any) => {
     console.log('Form values:', values);
   };
@@ -45,117 +48,80 @@ const StudentProfile: React.FC = () => {
         <Row></Row>
         <Row gutter={20}>
           <Col span={12}>
-            <Form.Item
+            <AntInput
+              required
+              size="large"
+              name="registrationcode"
               label={t('registration_code')}
-              name="Registration Code"
-              rules={[{ required: true, message: <>{t('enter_registration_code')}</> }]}
-            >
-              <Input size="large" className="custom" placeholder={t('registration_code')} />
-            </Form.Item>
+              placeholder=""
+            ></AntInput>
           </Col>
           <Col span={12}>
-            <Form.Item
+            <AntInput
+              required
+              size="large"
+              name="registrationdate"
               label={t('registration_date')}
-              name="Registration Date"
-              rules={[{ required: true, message: <>{t('enter_registration_date')}</> }]}
-            >
-              <Input size="large" className="custom" placeholder={t('registration_date')} />
-            </Form.Item>
+              placeholder=""
+            ></AntInput>
           </Col>
         </Row>
         <Row gutter={20}>
           <Col span={12}>
-            <Form.Item
-              label={t('name')}
-              name="Name"
-              rules={[
-                {
-                  required: true,
-                  message: <>{t('add_updata_name')}</>,
-                },
-              ]}
-            >
-              <Input size="large" className="custom" placeholder={t('name')} />
-            </Form.Item>
+            <AntInput required size="large" name="name" label={t('name')} placeholder=""></AntInput>
           </Col>
           <Col span={12}>
-            <Form.Item
+            <AntInput
+              required
+              size="large"
+              name="fathername"
               label={t('father_name')}
-              name="Father Name"
-              rules={[{ required: true, message: <>{t('enter_father_name')}</> }]}
-            >
-              <Input size="large" className="custom" placeholder={t('father_name')} />
-            </Form.Item>
+              placeholder=""
+            ></AntInput>
           </Col>
         </Row>
         <Row gutter={20}>
           <Col span={12}>
-            <Form.Item
+            <AntInput
+              required
+              size="large"
+              name="guardianname"
               label={t('guardian_name')}
-              name="Gardian Name"
-              rules={[{ required: true, message: <>{t('enter_guardian_name')}</> }]}
-            >
-              <Input size="large" className="custom" placeholder={t('guardian_name')} />
-            </Form.Item>
+              placeholder=""
+            ></AntInput>
           </Col>
           <Col span={12}>
-            <Form.Item
-              label={t('address')}
-              name="Address"
-              rules={[{ required: true, message: <>{t('enter_address')}</> }]}
-            >
-              <Input size="large" className="custom" placeholder={t('address')} />
-            </Form.Item>
+            <AntInput required size="large" name="address" label={t('address')} placeholder=""></AntInput>
           </Col>
         </Row>
         <Row gutter={20}>
           <Col span={12}>
-            <Form.Item
+            <AntSelectDynamic
+              required
+              size="large"
               label={t('class')}
-              name="Class"
-              rules={[{ required: true, message: <>{t('add_updata_class')}</> }]}
-            >
-              <Select
-                placeholder={t('class')}
-                style={{ textAlign: 'left', width: '100%' }}
-                onChange={handleChange}
-                size="large"
-                options={[
-                  { value: 'jack', label: 'Jack' },
-                  { value: 'lucy', label: 'Lucy' },
-                  { value: 'Yiminghe', label: 'yiminghe' },
-                  { value: 'disabled', label: 'Disabled', disabled: true },
-                ]}
-              />
-            </Form.Item>
+              name="CompanyId"
+              fieldLabel="CompName"
+              // query={useGetCompany}
+              fieldValue="CompanyId"
+            />
           </Col>
           <Col span={12}>
-            <Form.Item
-              label={t('board')}
-              name="Board"
-              rules={[{ required: true, message: <>{t('enter_board')}</> }]}
-            >
-              <Select
-                placeholder={t('board')}
-                style={{ textAlign: 'left' }}
-                onChange={handleChange}
-                size="large"
-                options={[
-                  { value: 'jack', label: 'Jack' },
-                  { value: 'lucy', label: 'Lucy' },
-                  { value: 'Yiminghe', label: 'yiminghe' },
-                  { value: 'disabled', label: 'Disabled', disabled: true },
-                ]}
-              />
-            </Form.Item>
+            <AntSelectDynamic
+              required
+              size="large"
+              label={t('examination_board')}
+              name="CompanyId"
+              fieldLabel="CompName"
+              // query={useGetCompany}
+              fieldValue="CompanyId"
+            />
           </Col>
         </Row>
 
         <Row>
           <Col span={24} style={{ display: 'flex', justifyContent: 'center' }}>
-            <Form.Item>
-              <AntButton size="large" htmlType="submit" className="btn1" label={t('submit')}></AntButton>
-            </Form.Item>
+            <AntButton size="large" htmlType="submit" className="btn1" label={t('submit')}></AntButton>
           </Col>
         </Row>
       </Form>

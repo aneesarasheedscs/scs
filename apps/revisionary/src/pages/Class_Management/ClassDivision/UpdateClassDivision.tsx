@@ -70,15 +70,6 @@ function AddUpdateClassDivision({
       <Row gutter={10} style={{ marginTop: 20 }}>
         <Col xs={12}>
           <Form.Item name="classId" rules={[{ required: true, message: <>{t('add_updata_class')}</> }]}>
-            <AntSelectDynamic // Replace with your AntSelectDynamic component
-              required
-              size="large"
-              label={''}
-              name="classId"
-              fieldLabel="className"
-              query={useGetClassDivisions} // Replace with your class division query hook
-              fieldValue="classId"
-            />
             <Select
               showSearch
               size="large"

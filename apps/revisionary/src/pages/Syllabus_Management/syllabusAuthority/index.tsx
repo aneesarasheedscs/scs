@@ -1,7 +1,7 @@
 import { Card, Input, Form, message, Row, Col, Divider } from 'antd';
 
 import '../../Syllabus_Management/SyllabusManagement/Style.css';
-import { AntButton } from '@revisionary/components';
+import { AntButton, PageLoader } from '@revisionary/components';
 import { AntCard } from '../../Component/AntCard';
 import { useState } from 'react';
 import { useSyllabusAuthority } from '../queries';
@@ -29,7 +29,7 @@ function SyllabusAuthority() {
   const { t } = useTranslation();
   return (
     <div className="card-containertab">
-      <Card className="cardContainer responsive-card">
+      <Card className="cardContainer responsive-card" style={{ marginLeft: '-200%' }}>
         <h1 className="h1"> {t('syllabus_authority_puslisher')}</h1>
         <Divider />
         <Row
@@ -44,7 +44,7 @@ function SyllabusAuthority() {
             htmlType="submit"
             size="large"
             onClick={(item: any) => handleOpen(item.syllabusAuthorityId)}
-            className="addbutton"
+            className="addbutton button-responsive"
           />
         </Row>
 
@@ -52,8 +52,8 @@ function SyllabusAuthority() {
           <AntCard data={apiResponse?.data?.apiData} isLoading={isLoading} isError={isError}>
             <Row gutter={[10, 10]}>
               {apiResponse?.data?.apiData.map((item: any) => (
-                <Col xs={24} sm={12} md={8} lg={6} key={item.syllabusAuthorityId}>
-                  <AntCard className="cardS card" bordered={false}>
+                <Col xs={24} sm={12.6} md={12} lg={6} key={item.syllabusAuthorityId}>
+                  <AntCard className="cardS inner-cards-responsive" bordered={false}>
                     <div>
                       <p className="paragraph">{item.syllabusAuthorityCode}</p>
                       <p className="paragraph2">{item.syllabusAuthorityName}</p>
@@ -78,6 +78,7 @@ function SyllabusAuthority() {
               selectedRecordId={selectedRecordId}
             />
           </AntCard>
+          {/* )} */}
         </div>
       </Card>
     </div>

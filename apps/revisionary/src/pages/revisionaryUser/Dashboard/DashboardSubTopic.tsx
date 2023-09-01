@@ -1,7 +1,7 @@
 // import '../SyllabusStatus.css';
 import React from 'react';
 import { Row, Col, Divider } from 'antd';
-import Dashboard1 from '../Progress/Dashboard/Dashboard';
+import Dashboard1 from '../Progress/Dashboard/DashboardProgressBar';
 // import Dashboard1 from './Dashboard';
 
 export default function DashboardSubTopic() {

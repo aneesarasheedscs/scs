@@ -11,4 +11,5 @@ export const route = {
   LOGIN_FORM: '/loginform',
   DASHBOARD: '/dashboard',
   DASHBOARD_SUB_TOPIC: '/dashboardsubtopic',
+  CLASS_SYLLABUS_BY_TOPIC: '/classsyllabusdivisionbytopic',
 };

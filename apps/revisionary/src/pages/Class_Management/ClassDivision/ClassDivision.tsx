@@ -50,7 +50,7 @@ function ClassDivision() {
             <Row gutter={[10, 10]}>
               {apiResponse?.data?.apiData.map((item: any) => (
                 <Col xs={24} sm={12} md={8} lg={6} key={item.classSubDivisionId}>
-                  <AntCard className="cardS card" bordered={false}>
+                  <AntCard className="cardS" bordered={false}>
                     <div>
                       <p className="paragraph">{item.className}</p>
                       <p className="paragraph2">{item.divisionDescription}</p>

@@ -42,7 +42,7 @@ function SubjectCatagory() {
             label={t('add')}
             htmlType="submit"
             size="large"
-            className="addbutton"
+            className="addbutton button-responsive"
             onClick={(item: any) => handleOpen(item.subjectCategoryId)}
           />
         </Row>
@@ -51,8 +51,8 @@ function SubjectCatagory() {
           <AntCard data={cards2?.data?.apiData} isLoading={isLoading} isError={isError}>
             <Row gutter={[10, 10]}>
               {cards2?.data?.apiData.map((item: any) => (
-                <Col xs={24} sm={12} md={8} lg={6} key={item.subjectCategoryId}>
-                  <AntCard className="cardS card" bordered={false}>
+                <Col xs={24} sm={12.6} md={12} lg={6} key={item.subjectCategoryId}>
+                  <AntCard className="cardS inner-cards-responsive" bordered={false}>
                     <div>
                       <p className="paragraph">{item.subjectCategoryCode}</p>
                       <p className="paragraph2">{item.subjectCategoryDescription}</p>

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Row, Col, Divider } from 'antd';
-import Dashboard1 from '../Progress/Dashboard/Dashboard';
+import Dashboard1 from '../Progress/Dashboard/DashboardProgressBar';
 
 export default function Dashboard() {
   const cardArray = [

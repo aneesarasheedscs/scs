@@ -3,7 +3,7 @@ import { AntColumnType } from '@revisionary/globalTypes';
 import { TSubjectListData } from '../queries/types';
 import { AntButton } from '@revisionary/components';
 
-export const columns = (setSelectedRecordId?: any, t: any): AntColumnType<TSubjectListData>[] => [
+export const columns = (t: any, setSelectedRecordId?: any): AntColumnType<TSubjectListData>[] => [
   {
     title: <>{t('title')}</>,
     width: 280,

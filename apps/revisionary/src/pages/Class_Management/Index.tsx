@@ -2,8 +2,9 @@ import { Col, Row, Tabs } from 'antd';
 import '../Syllabus_Management/SyllabusManagement/Style.css';
 import Class from './Class/Class';
 import ClassDivision from './ClassDivision/ClassDivision';
-import ClassSyllabus from './ClassSyllabus/ClassSyllabus';
+import ClassSyllabus from './ClassSyllabus/index';
 import { useTranslation } from 'react-i18next';
+import ClassSyllabusDivisionByTopic from './ClassSyllabusDivisionByTopic';
 function ClassManagement() {
   const { t } = useTranslation();
   return (
@@ -23,6 +24,9 @@ function ClassManagement() {
             </Tabs.TabPane>
             <Tabs.TabPane tab={t('class_syllabus')} key="tab3">
               <ClassSyllabus />
+            </Tabs.TabPane>
+            <Tabs.TabPane tab="Class Syllabus By Topic" key="tab4">
+              <ClassSyllabusDivisionByTopic />
             </Tabs.TabPane>
           </Tabs>
         </Col>

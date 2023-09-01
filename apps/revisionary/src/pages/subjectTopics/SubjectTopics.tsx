@@ -18,9 +18,7 @@ import {
 import type { ColumnType, ColumnsType } from 'antd/es/table';
 import type { FilterConfirmProps } from 'antd/es/table/interface';
 import React, { useRef, useState } from 'react';
-// import Cards from "./Cards";
-import { columns } from './columns';
-// import { useGetTopics } from "./queries/index";
+
 import './style.scss';
 import { AntButton } from '@scs/ui';
 import Cards from './Cards';
@@ -73,18 +71,6 @@ const SubjectTopics1: React.FC = () => {
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef<InputRef>(null);
   const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
-
-  /*           Use Get Topics             */
-
-  // const { data, isLoading, isError } = useGetTopics1();
-
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
-
-  // if (isError) {
-  //   return <div>Error loading data</div>;
-  // }
 
   const handleSearch = (
     selectedKeys: string[],
