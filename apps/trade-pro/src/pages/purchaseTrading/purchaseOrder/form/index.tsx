@@ -4,6 +4,7 @@ import MainEntry from './MainEntry';
 import DynamicForm from './DetailEntry';
 import { TPurchaseOrderEntry } from '../type';
 import { AntButton } from '@tradePro/components';
+import { useAddPurchaseOrder } from '../queries';
 import { Card, Col, Form, Input, Row } from 'antd';
 import { useGetDocumentNumber } from '../queryOptions';
 import { SaveOutlined, SyncOutlined } from '@ant-design/icons';
@@ -15,7 +16,12 @@ function PurchaseOrderForm() {
   const [form] = useForm<TPurchaseOrderEntry>();
   const { data, isError, refetch, isLoading, isSuccess } = useGetDocumentNumber();
 
+<<<<<<< HEAD
   const { t } = useTranslation();
+=======
+  const { mutate: addPurchaseOrder } = useAddPurchaseOrder();
+
+>>>>>>> 1c8869badafe9ea530acb103fc424c290543e2b1
   useEffect(() => {
     if (isSuccess) form.setFieldValue('DocNo', data?.data?.Data?.Result);
   }, [data, isSuccess]);

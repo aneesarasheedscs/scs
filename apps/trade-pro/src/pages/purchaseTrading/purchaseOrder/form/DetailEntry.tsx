@@ -1,4 +1,5 @@
 import { size } from 'lodash';
+import { useState } from 'react';
 import { Card, Col, Form, FormInstance, Row } from 'antd';
 import { TDetailItem, TPurchaseOrderDetailEntry } from '../type';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
@@ -19,6 +20,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
     OrderItemQty: null,
     EquivalentRate: null,
   };
+  const [rateUomEquivalent, setRateUomEquivalent] = useState<{ [key: number]: number }>({});
 
   const calculateWeight = (itemQty: number, equivalentRate: number) => itemQty * equivalentRate;
   const calculateAmount = (weight: number, rateUOM: number, itemRate: number) => {
@@ -58,6 +60,8 @@ const DynamicForm = ({ form }: TDynamicForm) => {
     if (itemRate && weight && equivalentRate) {
       const amount = calculateAmount(weight, equivalentRate, itemRate);
       setFields([{ name: ['purchaseOrderDetailList', index, 'Amount'], value: amount }]);
+
+      setRateUomEquivalent({ ...rateUomEquivalent, [index]: equivalentRate });
     } else {
       setFields([{ name: ['purchaseOrderDetailList', index, 'Amount'], value: null }]);
     }
@@ -65,10 +69,18 @@ const DynamicForm = ({ form }: TDynamicForm) => {
 
   const handleItemRateChange = (itemRate: number | string | null, index: number) => {
     const weight = getFieldValue(['purchaseOrderDetailList', index, 'NetWeight']);
+<<<<<<< HEAD
     const equivalentRate = getFieldValue(['purchaseOrderDetailList', index, 'EquivalentRate']);
 
     if (itemRate && typeof itemRate === 'number' && weight && equivalentRate) {
       const amount = calculateAmount(weight, equivalentRate, itemRate);
+=======
+    const rateUOM = rateUomEquivalent[index];
+
+    if (itemRate && typeof itemRate === 'number' && weight && rateUOM) {
+      const amount = calculateAmount(weight, rateUOM, itemRate);
+
+>>>>>>> 1c8869badafe9ea530acb103fc424c290543e2b1
       setFields([{ name: ['purchaseOrderDetailList', index, 'Amount'], value: amount }]);
     } else {
       setFields([{ name: ['purchaseOrderDetailList', index, 'Amount'], value: null }]);
@@ -139,10 +151,15 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                     fieldValue="Id"
                     label="Rate UOM"
                     fieldLabel="UOMCode"
+<<<<<<< HEAD
                     // name={[field.name, 'Rate UOM']}
                     name={[field.name, 'RateUOM']}
                     onSelectChange={(obj) => handleRateUOMChange(obj?.Equivalent, field.name)}
+=======
+                    name={[field.name, 'RateUom']}
+>>>>>>> 1c8869badafe9ea530acb103fc424c290543e2b1
                     query={useGetUomByItemId(formValues?.[field.name]?.OrderItemId)}
+                    onSelectChange={(obj) => handleRateUOMChange(obj?.Equivalent, field.name)}
                   />
                 </Col>
 

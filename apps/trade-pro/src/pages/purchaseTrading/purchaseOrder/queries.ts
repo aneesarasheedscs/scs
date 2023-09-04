@@ -1,7 +1,8 @@
-import { useQuery } from 'react-query';
-import { TPurchaseOrderSearchCriteria } from './type';
+import { queryClient } from '@tradePro/configs';
+import { useMutation, useQuery } from 'react-query';
 import { requestManager } from '@tradePro/configs/requestManager';
 import { storedUserDetail } from '@tradePro/utils/storageService';
+import { TPurchaseOrderEntry, TPurchaseOrderSearchCriteria } from './type';
 
 const userDetail = storedUserDetail();
 
@@ -17,5 +18,19 @@ export const useGetPurchaseOrder = (enabled = true, params?: TPurchaseOrderSearc
       });
     },
     { enabled }
+  );
+};
+
+export const useAddPurchaseOrder = () => {
+  return useMutation(
+    'add-purchase-order',
+    (data: TPurchaseOrderEntry) => {
+      return requestManager.post('/api/PurchaseOrder/Save', data);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('purchase-order');
+      },
+    }
   );
 };
