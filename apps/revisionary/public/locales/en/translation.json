@@ -67,5 +67,9 @@
   "lesson": "Lesson",
   "sub_topic": "Sub Topic",
   "total": "Total",
-  "total_marks": "Total Marks"
+  "total_marks": "Total Marks",
+  "selected_subject": "Selected Subject",
+  "un_selected_subject": "UnSelected Subject",
+  "syllabus_books": "Syllabus Books",
+  "syllabus_division_by_topic": "Syllabus Division By Topic"
 }

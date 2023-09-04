@@ -9,7 +9,7 @@
   "subject_topic": "سلیبس کاموضوع ",
   "class": "کلاس",
   "class_division": "طبقہ تقسیم",
-  "class_syllabus": "سلیبس کلاس",
+  "class_syllabus": "کلاس کا نصاب",
   "add": "شامل کریں",
   "placeholder_for_subject_authority": "برائے مہربانی مضمون کے سلیبس اتھارٹی کی موسٹشریں / ناشر درج کریں!",
   "placeholder_for_subject_category": "برائے مہربانی اپنی مضمون کی قسم درج کریں!",
@@ -69,5 +69,9 @@
   "lesson": "سبق",
   "sub_topic": "ذیلی موضوع",
   "total": "کل",
-  "total_marks": "کل نمبر"
+  "total_marks": "کل نمبر",
+  "selected_subject": "منتخب موضوع",
+  "un_selected_subject": "غیر منتخب مضمون",
+  "syllabus_books": "نصاب کی کتابیں",
+  "syllabus_division_by_topic": "موضوع کے لحاظ سے نصاب کی تقسیم"
 }

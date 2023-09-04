@@ -12,4 +12,5 @@ export const route = {
   DASHBOARD: '/dashboard',
   DASHBOARD_SUB_TOPIC: '/dashboardsubtopic',
   CLASS_SYLLABUS_BY_TOPIC: '/classsyllabusdivisionbytopic',
+  SYLLABUS_DIVISION_TOPIC: '/syllabusdivisionbytopic',
 };

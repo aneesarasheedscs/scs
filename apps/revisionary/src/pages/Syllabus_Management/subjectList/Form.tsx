@@ -7,7 +7,7 @@ import { useAddUpdateSubjectList, useGetSubjectListById } from '../queries';
 import { TSubjectListFormDataOnAdd, TSubjectListFormDataOnUpdate } from '../queries/types';
 import { AntButton, AntSelectDynamic, TableLoader } from '@revisionary/components';
 import { useTranslation } from 'react-i18next';
-import { useGetSubjectListSelect } from '@revisionary/pages/revisionaryUser/StudentProfile/queries';
+// import { useGetSubjectListSelect } from '@revisionary/pages/revisionaryUser/StudentProfile/queries';
 import { TSubjectList } from './types';
 // import { TSubjectListFormDataOnAdd, TSubjectListFormDataOnUpdate } from "@/types/subjectList";
 // import { useAddUpdateSubjectList, useGetSubjectListById } from "@/hooks/apis/useSubjectList";
@@ -61,29 +61,11 @@ function SubjectListForm({
 
   return (
     <Form form={form} initialValues={{ remember: true }}>
-      <AntSelectDynamic
-        required
-        size="large"
-        label=" syllabusAuthorityName"
-        name="syllabusAuthorityId"
-        fieldValue="subjectListId"
-        fieldLabel="syllabusAuthorityName"
-        query={useGetSubjectListSelect}
-      />
       <Form.Item
         name="syllabusAuthorityId"
         rules={[{ required: true, message: <>{t('placeholder_for_subject_authority')}</> }]}
       >
-        <AntSelectDynamic
-          required
-          size="large"
-          label=" syllabusAuthorityName"
-          name="syllabusAuthorityId"
-          fieldValue="subjectListId"
-          fieldLabel="syllabusAuthorityName"
-          query={useGetSubjectListSelect}
-        />
-        {/* <Select
+        <Select
           showSearch
           size="large"
           style={{ width: '100%' }}
@@ -94,7 +76,7 @@ function SubjectListForm({
             label: item?.syllabusAuthorityName,
           }))}
           filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-        /> */}
+        />
       </Form.Item>
 
       <Row gutter={10}>
@@ -113,9 +95,7 @@ function SubjectListForm({
                 value: item?.subjectCategoryId,
                 label: item?.subjectCategoryDescription,
               }))}
-              filterOption={(input, option) =>
-                (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-              }
+              filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
             />
           </Form.Item>
         </Col>
@@ -132,9 +112,7 @@ function SubjectListForm({
                 value: item?.classId,
                 label: item?.className,
               }))}
-              filterOption={(input, option) =>
-                (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-              }
+              filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
             />
           </Form.Item>
         </Col>

@@ -1,4 +1,5 @@
 import './style.scss';
+import { NamePath } from 'antd/es/form/interface';
 import { Form, FormItemProps, Input, InputProps } from 'antd';
 import { ReactElement, ReactNode } from 'react';
 
@@ -28,8 +29,8 @@ export function AntInput({
 }
 
 type TAntInput = {
-  name?: string;
   label: string;
+  name?: NamePath;
   required?: boolean;
   fullWidth?: boolean;
   showLabel?: boolean;

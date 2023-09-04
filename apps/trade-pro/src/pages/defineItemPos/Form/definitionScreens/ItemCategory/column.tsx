@@ -1,15 +1,15 @@
 import { AntColumnType } from '@tradePro/globalTypes';
-import { Button, Popconfirm, Space } from 'antd';
+import { Button, Popconfirm, Space, Tooltip } from 'antd';
 import { EditFilled } from '@ant-design/icons';
 import { AntButton } from '@scs/ui';
 
-export const columns = (): AntColumnType<TItemCategoryTable>[] => [
-  { title: 'Sr#', dataIndex: 'Id', width: 50 },
+export const columns = (handleOpen: (id: number) => void, t: any): AntColumnType<TItemCategoryTable>[] => [
+  { title: <>{t('serial_no')}</>, dataIndex: 'Id', width: 100 },
 
   {
     width: 200,
     searchableInput: true,
-    title: 'Category Code',
+    title: <>{t('item_category')}</>,
     dataIndex: 'CategoryCode',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.CategoryCode.localeCompare(b.CategoryCode),
@@ -17,7 +17,7 @@ export const columns = (): AntColumnType<TItemCategoryTable>[] => [
   {
     width: 200,
     searchableInput: true,
-    title: 'Description',
+    title: <>{t('item_description')} </>,
     dataIndex: 'CategoryDescription',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.CategoryDescription.localeCompare(b.CategoryDescription),
@@ -25,7 +25,7 @@ export const columns = (): AntColumnType<TItemCategoryTable>[] => [
   {
     width: 150,
     searchableInput: true,
-    title: 'Serial From',
+    title: <>{t('serial_from')} </>,
     dataIndex: 'SerialFrom',
     sortDirections: ['ascend', 'descend'],
     // sorter: (a, b) => a.SerialFrom.localeCompare(b.SerialFrom),
@@ -33,7 +33,7 @@ export const columns = (): AntColumnType<TItemCategoryTable>[] => [
   {
     width: 150,
     searchableInput: true,
-    title: 'Serial To',
+    title: <>{t('serial_to')} </>,
     dataIndex: 'SerialTo',
     sortDirections: ['ascend', 'descend'],
     // sorter: (a, b) => a.SerialTo.localeCompare(b.SerialTo),
@@ -41,7 +41,7 @@ export const columns = (): AntColumnType<TItemCategoryTable>[] => [
   {
     width: 250,
     searchableInput: true,
-    title: 'Purchase Account',
+    title: <>{t('purchase_account_GL')} </>,
     dataIndex: 'InventoryAccountTitle',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.InventoryAccountTitle.localeCompare(b.InventoryAccountTitle),
@@ -49,7 +49,7 @@ export const columns = (): AntColumnType<TItemCategoryTable>[] => [
   {
     width: 200,
     searchableInput: true,
-    title: 'Sale Account',
+    title: <>{t('sale_account_GL')} </>,
     dataIndex: 'RevenueAccountTitle',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.RevenueAccountTitle.localeCompare(b.RevenueAccountTitle),
@@ -57,7 +57,7 @@ export const columns = (): AntColumnType<TItemCategoryTable>[] => [
   {
     width: 200,
     searchableInput: true,
-    title: 'CGS Account',
+    title: <>{t('cgs_account_GL')} </>,
     dataIndex: 'CGSAccountTitle',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.CGSAccountTitle.localeCompare(b.CGSAccountTitle),
@@ -65,7 +65,7 @@ export const columns = (): AntColumnType<TItemCategoryTable>[] => [
   {
     width: 200,
     searchableInput: true,
-    title: 'Parent Category',
+    title: <>{t('parent_category')}</>,
     dataIndex: 'InvParentCateDescription',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.InvParentCateDescription.localeCompare(b.InvParentCateDescription),
@@ -73,22 +73,23 @@ export const columns = (): AntColumnType<TItemCategoryTable>[] => [
   {
     width: 200,
     searchableInput: true,
-    title: 'Class Group',
+    title: <>{t('item_class_group')} </>,
     dataIndex: 'ClassGroupName',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.ClassGroupName.localeCompare(b.ClassGroupName),
   },
   {
     width: 100,
-    title: 'Action',
-
+    title: <>{t('action')} </>,
     dataIndex: '',
     render: (_, record) => (
-      <Space size="middle" style={{ marginTop: -15, position: 'absolute', top: 20 }}>
-        <Popconfirm title="Sure to Edit?">
-          <AntButton icon={<EditFilled />} type="default"></AntButton>
-        </Popconfirm>
-      </Space>
+      <Tooltip title={t('edit')}>
+        <AntButton
+          type="text"
+          icon={<EditFilled style={{ color: 'black' }} />}
+          onClick={() => handleOpen(record?.Id)}
+        />
+      </Tooltip>
     ),
   },
 ];

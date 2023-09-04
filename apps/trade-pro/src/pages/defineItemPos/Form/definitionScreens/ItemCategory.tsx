@@ -1,170 +1,140 @@
 import { useState } from 'react';
-import { CloseOutlined, FileAddOutlined } from '@ant-design/icons';
+import { CloseOutlined, FileAddOutlined, SyncOutlined, SaveOutlined } from '@ant-design/icons';
 import { Checkbox, Col, DatePicker, Divider, Form, Row, Typography } from 'antd';
 import { TPurchaseOrderSearchCriteria } from '../../type';
-import { AntButton, AntInput, AntSelectDynamic, SearchCriteriaWrapper } from '@tradePro/components';
+import {
+  AntButton,
+  AntCheckbox,
+  AntInput,
+  AntInputNumber,
+  AntSelectDynamic,
+  SearchCriteriaWrapper,
+} from '@tradePro/components';
 import { AddButtonforItems } from './AddButtonforItems';
 import Title from 'antd/es/skeleton/Title';
-import { getItemCategory, getItemClass, getItemClassGroup, getParentCategory } from '../queries';
-import ItemCategoryTable from './table';
+import { getItemCategory, getItemClass, getItemClassGroup, getParentCategory } from '../queryOptions';
+import ItemCategoryTable from './ItemCategory/index';
+import { useTranslation } from 'react-i18next';
 
 const { useForm, useWatch } = Form;
-const { RangePicker } = DatePicker;
 
 function ItemCategory() {
   const [open, setOpen] = useState(false);
   const [form] = useForm<TPurchaseOrderSearchCriteria>();
-  const {
-    data: itemCategory,
-    isSuccess,
-    isError,
-    refetch,
-    isFetched,
-    isLoading,
-  } = getItemCategory();
-  const {
-    data: parentCategory,
-    isSuccess: isSuccessParent,
-    isError: isErrorParent,
-    isLoading: isLoadingParent,
-  } = getParentCategory();
-  const {
-    data: itemClass,
-    isSuccess: isSuccessClass,
-    isLoading: isLoadingClass,
-    isError: isErrorClass,
-  } = getItemClass();
-  const {
-    data: classGroup,
-    isSuccess: isSuccessGroup,
-    isLoading: isLoadingGroup,
-    isError: isErrorGroup,
-  } = getItemClassGroup();
 
   const formValues = useWatch<TPurchaseOrderSearchCriteria>([], form);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const handleClick = () => {
-    refetch().then(() => handleClose());
-  };
-  const handleAdd = () => {
-    console.log(formValues);
-    refetch().then(() => handleClose());
+  const onFinish = (values: any) => {
+    console.log(values);
   };
 
+  const { t } = useTranslation();
   return (
     <AddButtonforItems open={open} handleOpen={handleOpen} handleClose={handleClose}>
       <h4> Definitions</h4>
       <Divider></Divider>
-      <h2 style={{ marginBottom: 20 }}> Item Category</h2>
-      <Form form={form} layout="vertical" initialValues={formValues} style={{ width: '100%' }}>
+
+      <h2 style={{ marginBottom: 20 }}> {t('item_category')}</h2>
+      <Form form={form} layout="vertical" initialValues={formValues} onFinish={onFinish}>
         <Row gutter={[10, 10]}>
           <Col xs={24} sm={24} md={6}>
-            <AntInput name="Code" label="Code" inputProps={{ type: 'number' }} />
+            <AntInputNumber name="Code" label={t('code')} required />
           </Col>
           <Col xs={24} sm={24} md={6}>
-            <AntInput name="Description" label="Name" inputProps={{ type: 'text' }} />
+            <AntInput name="Description" label={t('item_name')} />
           </Col>
           <Col xs={24} sm={24} md={6}>
-            <AntInput name="SerialFrom" label="Serial From" inputProps={{ type: 'text' }} />
+            <AntInput name="SerialFrom" label={t('serial_from')} />
           </Col>
           <Col xs={24} sm={24} md={6}>
-            <AntInput name="SerialTo" label="Serial To" inputProps={{ type: 'text' }} />
+            <AntInput name="SerialTo" label={t('serial_to')} />
           </Col>
         </Row>
         <Row align="middle" gutter={[10, 10]}>
           <Col xs={24} sm={24} md={8}>
             <AntSelectDynamic
+              required
               name="Category"
-              label="Parent Category"
+              label={t('parent_category')}
               fieldValue="Id"
               fieldLabel="InvParentCateDescription"
-              isError={isError}
-              isLoading={isLoading}
-              data={parentCategory?.data?.Data?.Result}
+              query={getParentCategory}
             />
           </Col>
           <Col xs={24} sm={24} md={8}>
             <AntSelectDynamic
-              name="Group"
-              label="Class Group"
+              required
+              name="ClassGroup"
+              label={t('item_class_group')}
               fieldValue="Id"
               fieldLabel="ClassGroupName"
-              isError={isError}
-              isLoading={isLoading}
-              data={classGroup?.data?.Data?.Result}
+              query={getItemClassGroup}
             />
           </Col>
           <Col xs={24} sm={24} md={8}>
             <AntSelectDynamic
+              required
               name="Class"
-              label="Item Class"
+              label={t('item_class')}
               fieldValue="ClassId"
               fieldLabel="ClassDescription"
-              isError={isError}
-              isLoading={isLoading}
-              data={itemClass?.data?.Data?.Result}
+              query={getItemClass}
             />
           </Col>
           <Col xs={24} sm={24} md={8}>
             <AntSelectDynamic
+              required
               fieldValue="Id"
               name="InventoryAccountTitle"
-              label="Purchase Account"
+              label={t('purchase_account_GL')}
               fieldLabel="InventoryAccountTitle"
-              isError={isError}
-              isLoading={isLoading}
-              data={itemCategory?.data?.Data?.Result}
+              query={getItemCategory}
             />
           </Col>
           <Col xs={24} sm={24} md={8}>
             <AntSelectDynamic
+              required
               fieldValue="Id"
               name="RevenueAccountTitle"
-              label="Purchase Sale"
+              label={t('sale_account_GL')}
               fieldLabel="RevenueAccountTitle"
-              isError={isError}
-              isLoading={isLoading}
-              data={itemCategory?.data?.Data?.Result}
+              query={getItemCategory}
             />
           </Col>
           <Col xs={24} sm={24} md={8}>
             <AntSelectDynamic
+              required
               fieldValue="Id"
               name="CGSAccountTitle"
-              label="CGS Account"
+              label={t('cgs_account_GL')}
               fieldLabel="CGSAccountTitle"
-              isError={isError}
-              isLoading={isLoading}
-              data={itemCategory?.data?.Data?.Result}
+              query={getItemCategory}
             />
           </Col>
-          <Col xs={24} sm={24} md={2}>
-            Status
-            <Checkbox style={{ marginLeft: 5, padding: 5 }} />
+          <Col xs={4} sm={4} md={2} style={{ marginTop: -10 }}>
+            <Row justify={'space-around'}>
+              <span style={{ marginTop: 5 }}> {t('status')} </span>
+
+              <Checkbox name="Status" />
+            </Row>
           </Col>
-          <Col xs={24} sm={24} md={4} style={{ display: 'flex', flexDirection: 'row' }}>
-            <AntButton
-              label="Save"
-              icon={<FileAddOutlined />}
-              htmlType="submit"
-              className="fullWidth"
-              onClick={handleAdd}
-              style={{ marginTop: 2, marginRight: 5 }}
-              // isError={isPurchaseOrderError}
-              // isLoading={isPurchaseOrderLoading || isFetching}
-            />
-            <AntButton
-              label="Close"
-              icon={<CloseOutlined />}
-              onClick={handleClick}
-              className="fullWidth"
-              style={{ marginTop: 2 }}
-              // isError={isPurchaseOrderError}
-              // isLoading={isPurchaseOrderLoading || isFetching}
-            />
+          <Col xs={24} sm={24} md={10} style={{ display: 'flex', flexDirection: 'row' }}>
+            <Form.Item>
+              <Row align="middle" gutter={10}>
+                <Col>
+                  <AntButton danger ghost htmlType="reset" label={t('reset')} icon={<SyncOutlined />} />
+                </Col>
+                <Col>
+                  <AntButton label={t('save_and_add_more')} htmlType="submit" />
+                </Col>
+                <Col>
+                  <AntButton ghost label={t('save')} htmlType="submit" icon={<SaveOutlined />} />
+                </Col>
+              </Row>
+            </Form.Item>
           </Col>
         </Row>
       </Form>

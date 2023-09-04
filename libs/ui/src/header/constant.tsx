@@ -27,6 +27,10 @@ export const getSidebarList = () => {
       path: '/dashboard',
       label: t('Dashboard'),
     },
+    {
+      path: '/syllabusdivisionbytopic',
+      label: t('syllabus_division_by_topic'),
+    },
   ];
   return headerList;
 };

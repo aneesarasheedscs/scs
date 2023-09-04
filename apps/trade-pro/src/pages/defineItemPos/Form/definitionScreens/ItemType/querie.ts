@@ -7,7 +7,7 @@ const financialYear: any = JSON.parse(localStorage.getItem('financialYear') || '
 //ItemType History
 export const useGetItemTypeHistory = (enabled = true, params?: TItemTypeHistory) => {
   return useQuery(
-    'getItemTypeHistory',
+    'ItemTypeHistory',
     () => {
       return requestManager.get('/api/ItemType/GetByOrganizationCompanyId', {
         params: {

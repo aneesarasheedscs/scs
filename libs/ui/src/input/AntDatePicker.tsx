@@ -1,5 +1,6 @@
 import './style.scss';
 import dayjs from 'dayjs';
+import { NamePath } from 'antd/es/form/interface';
 import { DatePicker, Form, FormItemProps, DatePickerProps } from 'antd';
 
 export function AntDatePicker({
@@ -37,8 +38,8 @@ export function AntDatePicker({
 }
 
 type TAntDatePicker = {
-  name?: string;
   label: string;
+  name?: NamePath;
   required?: boolean;
   fullWidth?: boolean;
   showLabel?: boolean;
