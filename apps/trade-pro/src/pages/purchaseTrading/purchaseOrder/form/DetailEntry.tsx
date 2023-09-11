@@ -69,131 +69,128 @@ const DynamicForm = ({ form }: TDynamicForm) => {
 
   const handleItemRateChange = (itemRate: number | string | null, index: number) => {
     const weight = getFieldValue(['purchaseOrderDetailList', index, 'NetWeight']);
-<<<<<<< HEAD
+
     const equivalentRate = getFieldValue(['purchaseOrderDetailList', index, 'EquivalentRate']);
 
     if (itemRate && typeof itemRate === 'number' && weight && equivalentRate) {
       const amount = calculateAmount(weight, equivalentRate, itemRate);
-=======
-    const rateUOM = rateUomEquivalent[index];
 
-    if (itemRate && typeof itemRate === 'number' && weight && rateUOM) {
-      const amount = calculateAmount(weight, rateUOM, itemRate);
+      const rateUOM = rateUomEquivalent[index];
 
->>>>>>> 1c8869badafe9ea530acb103fc424c290543e2b1
-      setFields([{ name: ['purchaseOrderDetailList', index, 'Amount'], value: amount }]);
-    } else {
-      setFields([{ name: ['purchaseOrderDetailList', index, 'Amount'], value: null }]);
+      if (itemRate && typeof itemRate === 'number' && weight && rateUOM) {
+        const amount = calculateAmount(weight, rateUOM, itemRate);
+
+        setFields([{ name: ['purchaseOrderDetailList', index, 'Amount'], value: amount }]);
+      } else {
+        setFields([{ name: ['purchaseOrderDetailList', index, 'Amount'], value: null }]);
+      }
     }
+
+    return (
+      <Card className="antCard card-shadow">
+        <Form.List name="purchaseOrderDetailList" initialValue={[initialValues]}>
+          {(fields, { add, remove }) => (
+            <>
+              {fields.map((field) => (
+                <div key={field.key} className="form-list-container">
+                  <Col span={7}>
+                    <AntSelectDynamic
+                      required
+                      fieldValue="Id"
+                      label="Item Name"
+                      fieldLabel="ItemName"
+                      query={useGetItemsWithBaseUom}
+                      name={[field.name, 'OrderItemId']}
+                      onSelectChange={(obj) => handleItemChange(obj, field.name)}
+                    />
+                  </Col>
+
+                  <Col span={3}>
+                    <AntSelectDynamic
+                      required
+                      fieldValue="Id"
+                      label="Job Lot"
+                      query={useGetJobLot}
+                      fieldLabel="JobLotDescription"
+                      name={[field.name, 'JobLotId']}
+                    />
+                  </Col>
+
+                  <Col span={3}>
+                    <AntInput readOnly label="Base UOM" formItemProps={{ ...field, name: [field.name, 'UOMCode'] }} />
+                  </Col>
+
+                  <Col span={3}>
+                    <AntInputNumber
+                      label="Item Qty"
+                      onChange={(itemQty) => handleItemQtyChange(itemQty, field.name)}
+                      formItemProps={{ ...field, name: [field.name, 'OrderItemQty'] }}
+                    />
+                  </Col>
+
+                  <Col span={3}>
+                    <AntInputNumber
+                      readOnly
+                      label="Weight"
+                      formItemProps={{ ...field, name: [field.name, 'NetWeight'] }}
+                    />
+                  </Col>
+
+                  <Col span={3}>
+                    <AntInputNumber
+                      label="Item Rate"
+                      formItemProps={{ ...field, name: [field.name, 'OrderItemRate'] }}
+                      onChange={(itemRate) => handleItemRateChange(itemRate, field.name)}
+                    />
+                  </Col>
+
+                  <Col span={4}>
+                    <AntSelectDynamic
+                      required
+                      fieldValue="Id"
+                      label="Rate UOM"
+                      fieldLabel="UOMCode"
+                      // name={[field.name, 'Rate UOM']}
+                      name={[field.name, 'RateUOM']}
+                      onSelectChange={(obj) => handleRateUOMChange(obj?.Equivalent, field.name)}
+                      // name={[field.name, 'RateUom']}
+                      query={useGetUomByItemId(formValues?.[field.name]?.OrderItemId)}
+                      // onSelectChange={(obj) => handleRateUOMChange(obj?.Equivalent, field.name)}
+                    />
+                  </Col>
+
+                  <Col span={3}>
+                    <AntInputNumber label="Amount" formItemProps={{ ...field, name: [field.name, 'Amount'] }} />
+                  </Col>
+
+                  <Col span={2}>
+                    <Row>
+                      <Col>
+                        <AntButton
+                          type="text"
+                          onClick={() => add()}
+                          icon={<PlusOutlined className="dynamic-add-button" />}
+                        />
+                      </Col>
+                      <Col>
+                        <AntButton
+                          type="text"
+                          icon={<MinusCircleOutlined className="dynamic-delete-button" />}
+                          onClick={() => {
+                            if (size(fields) > 1) remove(field.name);
+                          }}
+                        />
+                      </Col>
+                    </Row>
+                  </Col>
+                </div>
+              ))}
+            </>
+          )}
+        </Form.List>
+      </Card>
+    );
   };
-
-  return (
-    <Card className="antCard card-shadow">
-      <Form.List name="purchaseOrderDetailList" initialValue={[initialValues]}>
-        {(fields, { add, remove }) => (
-          <>
-            {fields.map((field) => (
-              <div key={field.key} className="form-list-container">
-                <Col span={7}>
-                  <AntSelectDynamic
-                    required
-                    fieldValue="Id"
-                    label="Item Name"
-                    fieldLabel="ItemName"
-                    query={useGetItemsWithBaseUom}
-                    name={[field.name, 'OrderItemId']}
-                    onSelectChange={(obj) => handleItemChange(obj, field.name)}
-                  />
-                </Col>
-
-                <Col span={3}>
-                  <AntSelectDynamic
-                    required
-                    fieldValue="Id"
-                    label="Job Lot"
-                    query={useGetJobLot}
-                    fieldLabel="JobLotDescription"
-                    name={[field.name, 'JobLotId']}
-                  />
-                </Col>
-
-                <Col span={3}>
-                  <AntInput readOnly label="Base UOM" formItemProps={{ ...field, name: [field.name, 'UOMCode'] }} />
-                </Col>
-
-                <Col span={3}>
-                  <AntInputNumber
-                    label="Item Qty"
-                    onChange={(itemQty) => handleItemQtyChange(itemQty, field.name)}
-                    formItemProps={{ ...field, name: [field.name, 'OrderItemQty'] }}
-                  />
-                </Col>
-
-                <Col span={3}>
-                  <AntInputNumber
-                    readOnly
-                    label="Weight"
-                    formItemProps={{ ...field, name: [field.name, 'NetWeight'] }}
-                  />
-                </Col>
-
-                <Col span={3}>
-                  <AntInputNumber
-                    label="Item Rate"
-                    formItemProps={{ ...field, name: [field.name, 'OrderItemRate'] }}
-                    onChange={(itemRate) => handleItemRateChange(itemRate, field.name)}
-                  />
-                </Col>
-
-                <Col span={4}>
-                  <AntSelectDynamic
-                    required
-                    fieldValue="Id"
-                    label="Rate UOM"
-                    fieldLabel="UOMCode"
-<<<<<<< HEAD
-                    // name={[field.name, 'Rate UOM']}
-                    name={[field.name, 'RateUOM']}
-                    onSelectChange={(obj) => handleRateUOMChange(obj?.Equivalent, field.name)}
-=======
-                    name={[field.name, 'RateUom']}
->>>>>>> 1c8869badafe9ea530acb103fc424c290543e2b1
-                    query={useGetUomByItemId(formValues?.[field.name]?.OrderItemId)}
-                    onSelectChange={(obj) => handleRateUOMChange(obj?.Equivalent, field.name)}
-                  />
-                </Col>
-
-                <Col span={3}>
-                  <AntInputNumber label="Amount" formItemProps={{ ...field, name: [field.name, 'Amount'] }} />
-                </Col>
-
-                <Col span={2}>
-                  <Row>
-                    <Col>
-                      <AntButton
-                        type="text"
-                        onClick={() => add()}
-                        icon={<PlusOutlined className="dynamic-add-button" />}
-                      />
-                    </Col>
-                    <Col>
-                      <AntButton
-                        type="text"
-                        icon={<MinusCircleOutlined className="dynamic-delete-button" />}
-                        onClick={() => {
-                          if (size(fields) > 1) remove(field.name);
-                        }}
-                      />
-                    </Col>
-                  </Row>
-                </Col>
-              </div>
-            ))}
-          </>
-        )}
-      </Form.List>
-    </Card>
-  );
 };
 
 type TDynamicForm = { form: FormInstance };

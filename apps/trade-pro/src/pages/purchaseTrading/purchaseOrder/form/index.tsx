@@ -16,12 +16,6 @@ function PurchaseOrderForm() {
   const [form] = useForm<TPurchaseOrderEntry>();
   const { data, isError, refetch, isLoading, isSuccess } = useGetDocumentNumber();
 
-<<<<<<< HEAD
-  const { t } = useTranslation();
-=======
-  const { mutate: addPurchaseOrder } = useAddPurchaseOrder();
-
->>>>>>> 1c8869badafe9ea530acb103fc424c290543e2b1
   useEffect(() => {
     if (isSuccess) form.setFieldValue('DocNo', data?.data?.Data?.Result);
   }, [data, isSuccess]);
@@ -29,7 +23,7 @@ function PurchaseOrderForm() {
   const onFinish = (values: TPurchaseOrderEntry) => {
     console.log(values);
   };
-
+  const { t } = useTranslation();
   return (
     <Card>
       <Form form={form} layout="vertical" onFinish={onFinish}>
