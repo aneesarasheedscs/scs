@@ -4,26 +4,21 @@ import MainEntry from './MainEntry';
 import DynamicForm from './DetailEntry';
 import { TPurchaseOrderEntry } from '../type';
 import { AntButton } from '@tradePro/components';
-import { useAddPurchaseOrder } from '../queries';
 import { Card, Col, Form, Input, Row } from 'antd';
 import { useGetDocumentNumber } from '../queryOptions';
 import { SaveOutlined, SyncOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
-
 const { useForm } = Form;
-
 function PurchaseOrderForm() {
   const [form] = useForm<TPurchaseOrderEntry>();
   const { data, isError, refetch, isLoading, isSuccess } = useGetDocumentNumber();
-
+  const { t } = useTranslation();
   useEffect(() => {
     if (isSuccess) form.setFieldValue('DocNo', data?.data?.Data?.Result);
   }, [data, isSuccess]);
-
   const onFinish = (values: TPurchaseOrderEntry) => {
     console.log(values);
   };
-  const { t } = useTranslation();
   return (
     <Card>
       <Form form={form} layout="vertical" onFinish={onFinish}>
@@ -39,7 +34,6 @@ function PurchaseOrderForm() {
               </Col>
             </Row>
           </Col>
-
           <Col>
             <Form.Item>
               <Row align="middle" gutter={10}>
@@ -56,12 +50,10 @@ function PurchaseOrderForm() {
             </Form.Item>
           </Col>
         </Row>
-
         <MainEntry />
-        <DynamicForm form={form} />
+        {/* <DynamicForm form={form} /> */}
       </Form>
     </Card>
   );
 }
-
 export default PurchaseOrderForm;

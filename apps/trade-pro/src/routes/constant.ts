@@ -5,4 +5,6 @@ export const route = {
   CHART_ACCOUNT: '/define-chart-of-account',
 
   COMPANY_BRANCH_DETAIL: '/company-branch-detail',
+  JOURNAL_VOUCHER: '/journal-voucher',
+  ACCOUNT_OPENING_BLANCE: '/opening-balance',
 };
