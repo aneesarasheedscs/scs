@@ -4,41 +4,26 @@ import { useGetPurchaseOrder } from '../queries';
 import SearchCriteriaFrom from './SearchCriteriaForm';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { useTranslation } from 'react-i18next';
-import { Card, Col, Row, theme } from 'antd';
+import { Card, theme } from 'antd';
+import PurchaseOrderStatus from './purchaseOrderStatus';
 
 const { useToken } = theme;
-
-function PurchaseOrderTable() {
+interface TPurchaseTypes {
+  setSelectedRecordId: (selectedRecordId: number) => void;
+  setActiveTab: (tab: string) => void;
+}
+function PurchaseOrderTable({ setSelectedRecordId, setActiveTab }: TPurchaseTypes) {
   const { t } = useTranslation();
   const { data, refetch, isError, isLoading, isFetching } = useGetPurchaseOrder();
-
   const {
     token: { colorPrimary },
   } = theme.useToken();
+
   return (
     <>
-      <Card>
-        <Row>
-          <Col xl={8} style={{ textAlign: 'center' }}>
-            {' '}
-            <Card
-              cover={<h3>Un-Approved Order </h3>}
-              style={{ background: colorPrimary, height: '100%' }}
-              className="purchase-cards"
-            ></Card>{' '}
-          </Col>
-          <Col xl={8}>
-            {' '}
-            <Card></Card>{' '}
-          </Col>
-          <Col xl={8}>
-            {' '}
-            <Card></Card>{' '}
-          </Col>
-        </Row>
-      </Card>
-
+      <PurchaseOrderStatus />
       <AntTable
+        rowKey="Id"
         refetch={refetch}
         isError={isError}
         columns={columns(t)}
@@ -46,7 +31,10 @@ function PurchaseOrderTable() {
         isLoading={isLoading || isFetching}
         data={data?.data?.Data?.Result || []}
         searchCriteriaForm={<SearchCriteriaFrom />}
-        scroll={{ x: '', y: convertVhToPixels('62vh') }}
+        scroll={{ x: '', y: convertVhToPixels('60vh') }}
+        // printData={{pass options here as needed}}
+        // downloadExcel={{pass options here as needed}}
+        // downloadPdf={{pass options here as needed}}
       />
     </>
   );

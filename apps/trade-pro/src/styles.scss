@@ -1,5 +1,7 @@
 * {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -51,12 +53,202 @@ body {
   cursor: pointer;
   transition: all 0.3s;
 }
-.purchase-cards h3 {
-  color: #fff;
 
+:root {
+  --color-primary: #5a54f9;
+}
+// $colorPrimary: #272799;
+.form-heading {
+  font-family: 'Times New Roman', Times, serif;
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: 2px 4px 12px 1px var(--color-primary);
+  margin-bottom: 3px;
+}
+.form-heading3 {
+  font-family: 'Times New Roman', Times, serif;
+  border-radius: 5px;
+  padding: 3px;
+  box-shadow: 2px 4px 12px 1px var(--color-primary);
+  // margin-bottom: 3px;
+}
+.form-heading2 {
+  font-family: 'Times New Roman', Times, serif;
+  border: 2px double #dddddd;
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: 2px 4px 12px 2px lightgray;
+}
+//Purchase Order CSS***************************
+.purchase-cards h3 {
+  margin: 15px 0px 0px 5px;
   height: 100%;
 }
 .purchase-cards {
-  box-shadow: 2px 2px 12px 1px #cde4fd;
+  box-shadow: 4px 4px 12px 1px #cde4fd;
+  background: linear-gradient(to bottom right, var(--color-primary), #ffff);
   height: 100%;
+  transition: transform 0.2s;
+  color: #272799;
+}
+.purchase-cards:hover {
+  transform: scale(1.03);
+  box-shadow: 4px 4px 12px 2px #cde4fd;
+  background: linear-gradient(to bottom right, var(--color-primary), #ffff);
+}
+.purchase-cards h3 {
+  margin-top: 10px;
+}
+
+.purchase-cards h3 span {
+  color: #272799;
+  border-radius: 5px;
+  padding: 8px;
+  height: 100%;
+
+  background-color: #ffff;
+  box-shadow: 2px 2px 12px 1px #ffff;
+}
+
+.formfield {
+  border-bottom: 1px solid gray;
+  padding: 0px;
+  height: 38px;
+}
+//Sales Analytics****************
+.sales-cards {
+  margin-top: 15px;
+  height: 70%;
+  width: 105%;
+  box-shadow: 1px 1px 12px 1px var(--color-primary);
+  transition: transform 0.2s;
+}
+
+.sales-cards:hover {
+  transform: scale(1.03);
+  box-shadow: 2px 2px 10px 1px var(--color-primary);
+}
+
+.sales-cards h3 {
+  background-color: var(--color-primary);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: #ffff;
+  padding: 9px;
+
+  font-weight: 600;
+}
+.sales-cards h3 span {
+  color: var(--color-primary);
+  padding: 8px 8px 6px 8px;
+  background-color: #f5f5f5;
+  box-shadow: 2px 2px 12px 1px #191df7;
+  border-radius: 2px;
+}
+.sales-cards .card-row {
+  display: flex;
+  align-items: center;
+  padding: 0px 10px 0px 10px;
+  font-size: 18;
+}
+.card-amount {
+  margin-top: 5%;
+  margin-bottom: 2%;
+  text-align: center;
+  font-size: 30px;
+}
+.card-weight {
+  text-align: center;
+  font-size: 20px;
+  color: var(--color-primary);
+}
+.grn-card {
+  box-shadow: 1px 1px 12px 1px var(--color-primary);
+  transition: transform 0.2s;
+}
+.balanceSheet-cards {
+  border: 1px solid gray;
+  margin-top: 15px;
+  // box-shadow: 1px 1px 12px 1px var(--color-primary);
+  transition: transform 0.2s;
+  position: relative;
+  padding-top: 15px;
+  height: 500px;
+  // overflow: scroll;
+}
+.balanceSheet-cards:hover {
+  transform: scale(1.01);
+  box-shadow: 2px 2px 10px 1px var(--color-primary);
+}
+.balance_card_labels {
+  width: 200px;
+  color: #fff;
+}
+.balanceSheet_heading {
+  color: Blue;
+  position: absolute;
+  top: -20px;
+  left: 8px;
+  padding: 0px 10px 0px 10px;
+  z-index: 1;
+  background-color: #ffffff;
+  border-radius: 5px;
+}
+.liabilities_totals {
+  width: 150px;
+}
+.balanceSheet-totals {
+  margin-top: 5px;
+  width: 88%;
+  background-color: var(--color-primary);
+  border: 1px solid gray;
+}
+.graphAmount {
+  // border: 1px solid blue;
+  display: inline;
+  margin-bottom: -10rem;
+  margin-left: -1rem;
+}
+
+.verticalText {
+  writing-mode: vertical-lr; /* vertical writing mode, lr means left-to-right */
+  transform: rotate(180deg); /* rotate 180 degrees to make it vertical */
+}
+.salesComaprisonCard {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 8%;
+  box-shadow: 2px 2px 10px 1px lightgray;
+}
+@media screen and (max-width: 1153px) and (min-width: 965px) {
+  .salesComaprisonCard {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 10%;
+    box-shadow: 2px 2px 10px 1px lightgray;
+  }
+}
+@media screen and (max-width: 965px) and (min-width: 881px) {
+  .salesComaprisonCard {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 6%;
+    box-shadow: 2px 2px 10px 1px lightgray;
+  }
+}
+@media screen and (max-width: 881px) and (min-width: 796px) {
+  .salesComaprisonCard {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 6%;
+    box-shadow: 2px 2px 10px 1px lightgray;
+  }
+}
+@media screen and (max-width: 796px) and (min-width: 450px) {
+  .salesComaprisonCard {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 10%;
+    box-shadow: 2px 2px 10px 1px lightgray;
+  }
 }

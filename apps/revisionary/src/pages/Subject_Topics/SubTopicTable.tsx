@@ -27,18 +27,16 @@ function SubTopicTable({ subTopicName, topicsData, isTopicsLoading }: TSubTopics
     setSelectedRecordId(undefined);
   };
 
-  const filteredTableData2 = subTopic?.data?.apiData.filter(
-    (item: any) => item.unitTopicDescription === subTopicName
-  );
+  const filteredTableData2 = subTopic?.data?.apiData.filter((item: any) => item.unitTopicDescription === subTopicName);
 
   if (subTopicloading) {
-    return <div>{t ('loading')}</div>;
+    return <div>{t('loading')}</div>;
   }
 
   return (
     <div>
       <h2>Table for {subTopicName}</h2>
-      <AntButton label={t ('add')} onClick={() => handleOpen()} />
+      <AntButton label={t('add')} onClick={() => handleOpen()} />
       <AddUpdateRecord
         open={open}
         form={form}

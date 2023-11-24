@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { AntButton, TableLoader } from '..';
 import { Link, useLocation } from 'react-router-dom';
 
+
 function SideMenu() {
   const { pathname } = useLocation();
   const { data, isError, refetch, isSuccess, isLoading } = useGetMenu();

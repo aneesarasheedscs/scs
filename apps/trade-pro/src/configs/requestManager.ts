@@ -3,9 +3,10 @@ import { requestManager as reqManager } from '@scs/configs';
 import { storedUserDetail } from '@tradePro/utils/storageService';
 
 const logoutRedirect = (error: AxiosError) => {
-  // localStorage.clear();
+  alert('Session Expired!');
+  localStorage.clear();
 
-  // window.location.href = window.location.origin + '/';
+  window.location.href = window.location.origin + '/';
   return Promise.reject(error);
 };
 

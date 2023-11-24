@@ -1,0 +1,81 @@
+.formfield {
+  border-bottom: 1px solid gray;
+  padding: 0px;
+  height: 38px;
+}
+.ant-checkbox-inner,
+.ant-checkbox-input {
+  height: 1.5rem !important;
+  width: 1.5rem !important;
+}
+
+// Responsiveness
+
+@media screen and (min-width: 992px) and (max-width: 1200px) {
+  .project,
+  .voucher {
+    margin-top: 2% !important;
+  }
+  .add {
+    margin-left: 1rem;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .project,
+  .voucher {
+    margin-top: 2% !important;
+  }
+  .add {
+    margin-left: 0.5rem;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px) {
+  .project,
+  .voucher,
+  .branch,
+  .company,
+  .checkbox {
+    margin-top: 2% !important;
+  }
+  .date {
+    margin-bottom: 10% !important;
+  }
+  .type {
+    margin-bottom: 13% !important;
+  }
+  .formfield {
+    height: 0% !important;
+  }
+  .add {
+    margin-top: 1rem;
+    margin-left: 13rem;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 575px) {
+  .project,
+  .voucher,
+  .branch,
+  .company {
+    margin-top: 2% !important;
+  }
+  .checkbox {
+    margin-top: 9% !important;
+  }
+  .date,
+  .type {
+    margin-bottom: 20% !important;
+  }
+  .formfield {
+    height: 70px !important;
+  }
+  .add {
+    margin-top: 1rem;
+    margin-left: 6rem;
+  }
+  .balance {
+    height: 90px !important;
+  }
+}

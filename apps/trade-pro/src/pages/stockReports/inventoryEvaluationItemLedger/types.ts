@@ -1,0 +1,47 @@
+export type TInventoryEvaluationLedgerSearchCriteria = {
+  OrganizationId: number;
+  CompanyId: number;
+  FromDate: string;
+  ToDate: string;
+  DocumentTypeId: number;
+  InventoryParentCategories: number;
+  ItemCategoryId: number;
+  ItemClassGroupId: number;
+  ItemTypeId: number;
+  ItemId: number;
+  WarehouseId: number;
+  PurchaseGLAC: number;
+  ActionId: number;
+};
+
+export type TInventoryEvaluationLedger = {
+  DocumentTypeDescription: string;
+  TranDate: string;
+  PartyName: string;
+  DocNo: number;
+  ItemId: number;
+  WareHouseCode: string;
+  CategoryDescription: string;
+  TypeDescription: string;
+  ItemName: string;
+  CropBatch: null | string;
+  JobLot: string;
+  PackSize: string;
+  PackingType: null | string;
+  Op_Qty: number;
+  QtyIn: number;
+  QtyOut: number;
+  BalQty: number;
+  QtyRunBal: number;
+  Op_Weight: number;
+  WeightIn: number;
+  WeightOut: number;
+  BalWeight: number;
+  WeightRunBal: number;
+  ItemRate: number;
+  Op_Amount: number;
+  AmountIn: number;
+  AmountOut: number;
+  BalAmount: number;
+  AmountRunBal: number;
+};

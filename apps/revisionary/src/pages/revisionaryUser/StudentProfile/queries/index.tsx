@@ -1,4 +1,4 @@
-import { requestManager } from '@revisionary/configs/requestManager';
+import requestManager from '@revisionary/configs/requestManager';
 import { queryClient } from '@scs/configs';
 import { notification } from 'antd';
 import { AxiosError } from 'axios';

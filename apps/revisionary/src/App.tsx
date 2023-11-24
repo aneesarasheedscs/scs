@@ -11,6 +11,9 @@ import Dashboard from './pages/revisionaryUser/Dashboard/Index';
 import DashboardSubTopic from './pages/revisionaryUser/Dashboard/DashboardSubTopic';
 import ClassSyllabusDivisionByTopic from './pages/Class_Management/ClassSyllabusDivisionByTopic';
 import SubjectTopic from './pages/Class_Management/ClassSyllabusDivisionByTopic/SubjectTopic/ClassSubjectTopic';
+import Tab from './pages/Subject-Topics.tsx/Tab';
+import StudentSyllabus from './pages/DashBoard/Components/StudentSyllabus';
+// import Tabs1 from './pages/Syllabus_Management/RT/Tab';
 
 function App() {
   const [colorPrimary] = useAtom(colorPrimaryAtom);
@@ -23,6 +26,14 @@ function App() {
             <AppRoutes />
             {/* <ClassSyllabusDivisionByTopic /> */}
             {/* <SubjectTopic /> */}
+            {/* <SignForm /> */}
+            {/* <Subject1 /> */}
+            {/* <StudentProfile /> */}
+            {/* <ComponentsRouting /> */}
+            {/* <MainSyllabusFile /> */}
+            {/* <Subject1 /> */}
+            {/* <Tabs1 /> */}
+            {/* <Tab /> */}
           </Suspense>
           <ReactQueryDevtools position="bottom-right" initialIsOpen={false} />
         </QueryClientProvider>

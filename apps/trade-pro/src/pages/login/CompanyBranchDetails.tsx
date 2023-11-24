@@ -9,30 +9,30 @@ import { route } from '@tradePro/routes/constant';
 import { storedUserDetail } from '@tradePro/utils/storageService';
 import { AntButton, AntSelectDynamic } from '@tradePro/components';
 import { useGetBranch, useGetCompany, useGetFinancialYear } from './queries';
-
 const { useForm, useWatch } = Form;
-
 function CompanyBranchDetails() {
   const navigate = useNavigate();
   const [form] = useForm<TCompanyBranchDetail>();
   const formValues = useWatch<TCompanyBranchDetail>([], form);
   const [financialYearObj, setFinancialYearObj] = useState();
-  const onSelectChange = (selectedObject: any) => setFinancialYearObj(selectedObject);
-
+  const onSelectChange = (selectedObject: any) => {
+    if (selectedObject !== null && selectedObject !== undefined) setFinancialYearObj(selectedObject);
+    else {
+      form.validateFields();
+    }
+  };
   useEffect(() => {
     const userDetail = storedUserDetail();
     if (!userDetail?.access_token) navigate(route.LOGIN);
   }, []);
-
-  const handleSubmit = () => {
-    const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
-    merge({}, userDetail, { CompanyId: formValues?.CompanyId, BranchId: formValues?.BranchId });
-
-    localStorage.setItem('financialYear', JSON.stringify(financialYearObj));
-
-    navigate(route.PURCHASE_ORDER);
+  const handleSubmit = async () => {
+    if (await form.validateFields()) {
+      const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
+      merge({}, userDetail, { CompanyId: formValues?.CompanyId, BranchId: formValues?.BranchId });
+      localStorage.setItem('financialYear', JSON.stringify(financialYearObj));
+      navigate(route.APP_MENU);
+    }
   };
-
   return (
     <CardWrapper>
       <Form form={form} layout="vertical">
@@ -45,7 +45,6 @@ function CompanyBranchDetails() {
           query={useGetCompany}
           fieldValue="CompanyId"
         />
-
         <AntSelectDynamic
           required
           size="large"
@@ -55,7 +54,6 @@ function CompanyBranchDetails() {
           fieldLabel="BranchName"
           query={useGetBranch(formValues?.CompanyId)}
         />
-
         <AntSelectDynamic
           required
           size="large"
@@ -66,7 +64,6 @@ function CompanyBranchDetails() {
           onSelectChange={onSelectChange}
           query={useGetFinancialYear(formValues?.CompanyId)}
         />
-
         <Form.Item>
           <AntButton size="large" label="Submit" htmlType="submit" onClick={handleSubmit} />
         </Form.Item>
@@ -74,5 +71,4 @@ function CompanyBranchDetails() {
     </CardWrapper>
   );
 }
-
 export default CompanyBranchDetails;

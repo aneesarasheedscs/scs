@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from 'react-query';
-import { requestManager } from '@revisionary/configs/requestManager';
+import requestManager from '@revisionary/configs/requestManager';
 import { AxiosError } from 'axios';
 import { notification } from 'antd';
 import {

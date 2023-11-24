@@ -1,6 +1,8 @@
 import { ColumnType } from 'antd/es/table/interface';
 
 export type AntColumnType<T> = {
+  showTotal?: boolean;
+  showAverage?: boolean;
   searchableDate?: boolean;
   searchableInput?: boolean;
 } & ColumnType<T>;

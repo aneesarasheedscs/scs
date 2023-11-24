@@ -56,14 +56,17 @@ export function AntSelectDynamic({
   );
 }
 type TAntSelectDynamic = {
+  data?: any[];
   label: string;
   name?: NamePath;
+  isError?: boolean;
   required?: boolean;
   fieldValue: string;
   fieldLabel: string;
   showLabel?: boolean;
   fullWidth?: boolean;
   optionsData?: any[];
+  isLoading?: boolean;
   onSelectChange?: (selectedObject: any) => void;
   query?: () => UseQueryResult<AxiosResponse<any, any>, unknown>;
   formItemProps?: FormItemProps;

@@ -6,7 +6,7 @@ import { isNumber } from 'lodash';
 // import { queryClient } from "@revisionary/configs/index";
 import { TSubTopicFormDataOnAdd, TSubTopicFormDataOnUpdate } from '../../types/subTopics';
 import { TAppUserData } from '@revisionary/pages/login';
-import { requestManager } from '@revisionary/configs/requestManager';
+import requestManager from '@revisionary/configs/requestManager';
 import { queryClient } from '@revisionary/queryClient';
 
 export const useGetSubTopics = () => useQuery('sub-topics', getSubTopics);

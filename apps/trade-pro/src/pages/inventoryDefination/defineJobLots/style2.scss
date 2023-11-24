@@ -1,0 +1,122 @@
+.ant-checkbox-inner,
+.ant-checkbox-input {
+  height: 1.5rem !important;
+  width: 1.5rem !important;
+}
+
+.job-lot-heading,
+.warehouse-heading,
+.history-heading {
+  padding: 1%;
+  font-size: 1.5rem;
+  border: 2px solid #fff;
+  background: #5a54f9;
+  color: #fff;
+  text-align: center;
+}
+.save-btn2,
+.reset-btn2 {
+  width: 5rem;
+  background: #5a54f9;
+  color: #fff;
+  border: 2px double #fff;
+  padding: 5px;
+  height: 35px;
+  box-shadow: 2px 4px 12px 1px gray;
+  border-radius: 1px;
+}
+.row-border {
+  border: 2px solid #5a54f9;
+}
+
+//        Responsivenesss
+
+@media screen and (min-width: 993px) and (max-width: 1200px) {
+  .warehouse-main {
+    margin-left: -6% !important;
+  }
+  .end-date {
+    margin-left: -1%;
+  }
+  .status {
+    margin-left: 5.5% !important;
+  }
+  .type {
+    margin-left: 2.8% !important;
+  }
+  .start-date {
+    margin-left: 6% !important;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .warehouse-main,
+  .joblot-main {
+    margin-left: 8% !important;
+  }
+  .description {
+    margin-left: 11.1% !important;
+  }
+  .start-date {
+    margin-left: 12.1% !important;
+  }
+  .end-date {
+    margin-left: 14.7% !important;
+  }
+  .status {
+    margin-left: 16.5% !important;
+  }
+  .type {
+    margin-left: 14.5% !important;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px) {
+  .warehouse-main,
+  .joblot-main {
+    margin-left: 5% !important;
+  }
+  .warehouse-name {
+    margin-left: -0rem !important;
+  }
+  .description {
+    margin-left: 10% !important;
+  }
+  .start-date {
+    margin-left: 11.7% !important;
+  }
+  .end-date {
+    margin-left: 14.7% !important;
+  }
+  .status {
+    margin-left: 17% !important;
+  }
+  .type {
+    margin-left: 14.5% !important;
+  }
+  .save-btn2,
+  .reset-btn2 {
+    margin-left: -7rem;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 575px) {
+  .save-btn2,
+  .reset-btn2 {
+    margin-left: -4rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  .start-date {
+    margin-left: 8% !important;
+  }
+  .end-date {
+    margin-left: 10.9% !important;
+  }
+  .status {
+    margin-left: 9.5% !important;
+  }
+  .type {
+    margin-left: 9.8% !important;
+  }
+}

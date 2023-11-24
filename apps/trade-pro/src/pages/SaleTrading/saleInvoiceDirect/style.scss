@@ -1,0 +1,28 @@
+// outline: 2px solid rgb(90, 84, 249);
+.form-heading {
+  font-family: 'Times New Roman', Times, serif;
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: 2px 4px 12px 1px lightgray;
+  margin-bottom: 3px;
+}
+.formfield {
+  border-bottom: 1px solid gray;
+  padding: 0px;
+  height: 45px !important;
+}
+.ant-checkbox-inner,
+.ant-checkbox-input {
+  height: 1.3rem !important;
+  width: 1.3rem !important;
+  transition: 0.1s all;
+}
+
+@media screen and (max-width: 575px) {
+  .formfield {
+    height: 70px !important;
+  }
+  .checkbox {
+    margin-top: 5%;
+  }
+}

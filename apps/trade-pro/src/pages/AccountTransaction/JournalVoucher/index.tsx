@@ -1,32 +1,53 @@
-import ChartAccountForm from '@tradePro/pages/chartOfAccount/form';
-import AccountHistoryTable from '@tradePro/pages/chartOfAccount/table';
-import { Tabs, theme } from 'antd';
+import { Tabs } from 'antd';
 import { useTranslation } from 'react-i18next';
-import FormTable from './Table/JournalVoucherDetail';
-import HistoryTable from './Table/JournalVoucherHistory';
-import '../style.scss';
+import { useEffect, useState } from 'react';
+import { useGetJournalVoucherById } from './quries';
+import { useAtom } from 'jotai';
+import { viewDetailList } from './Form/Atom';
+import JournalVoucherTable from './Table/journalVoucherTable';
+import JournalVoucherDetailTable from './Table/DetailTable';
 import JournalVoucherForm from './Form';
+
 function JournalVoucher() {
   const { t } = useTranslation();
+  const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
+  const [activeTab, setActiveTab] = useState<string>('1');
+  const [viewDetail, setViewDetail] = useAtom(viewDetailList);
   const {
-    token: { colorPrimary },
-  } = theme.useToken();
+    data: journalVoucherData,
+    refetch: refetchJournal,
+    isSuccess: isDataSuccess,
+    isLoading: isDataLoading,
+  } = useGetJournalVoucherById(selectedRecordId);
+  useEffect(() => {
+    if (isDataSuccess) {
+      setViewDetail(journalVoucherData?.data?.Data?.Result?.voucherDetailList);
+    }
+  }, [isDataSuccess]);
   return (
     <>
-      <h4 className="journal-voucher-history" style={{ background: colorPrimary }}>
-        Journal Voucher
-      </h4>
-      {/* <h2 className="form-heading">Journal Voucher</h2> */}
+      <h2 className="form-heading"> Journal Voucher </h2>
+
       <Tabs
         type="card"
         size="large"
-        defaultActiveKey="1"
+        activeKey={activeTab}
         className="tabs-margin-bottom-0"
-        items={[
-          { key: '1', label: t('history'), children: <HistoryTable /> },
-          { key: '2', label: t('form'), children: <JournalVoucherForm /> },
-        ]}
-      />
+        onChange={(key) => setActiveTab(key)}
+      >
+        <Tabs.TabPane key="1" tab={t('history')}>
+          <JournalVoucherTable setSelectedRecordId={setSelectedRecordId} setActiveTab={setActiveTab} />
+          <JournalVoucherDetailTable />
+        </Tabs.TabPane>
+        <Tabs.TabPane key="2" tab={t('form')}>
+          <JournalVoucherForm
+            selectedRecordId={selectedRecordId}
+            refetchJournal={refetchJournal}
+            journalVoucherData={journalVoucherData}
+            isDataSuccess={isDataSuccess}
+          />
+        </Tabs.TabPane>
+      </Tabs>
     </>
   );
 }

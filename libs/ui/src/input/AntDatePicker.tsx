@@ -11,6 +11,7 @@ export function AntDatePicker({
   fullWidth = true,
   showLabel = true,
   disabledAfterCurrentDate = true,
+  defaultValue,
   ...restProps
 }: TAntDatePicker) {
   const requiredProps = required

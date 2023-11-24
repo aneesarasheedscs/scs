@@ -1,4 +1,4 @@
-import { requestManager } from '@revisionary/configs/requestManager';
+import requestManager from '@revisionary/configs/requestManager';
 import { useQuery } from 'react-query';
 
 export const useGetTopics = () => useQuery('topics', getTopics);

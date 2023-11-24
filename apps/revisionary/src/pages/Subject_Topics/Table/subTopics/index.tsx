@@ -1,10 +1,11 @@
-import {  useState } from "react";
-import { columns } from "./columns";
-import { Col, Form, Row } from "antd";
-import AddUpdateRecord from "./AddUpdateRecord";
-import { AntButton, AntTable } from "@revisionary/components";
-import { TSubTopicsData } from "../../types/subTopics";
-import { TTopicsData } from "../../types/topics";
+import { useState } from 'react';
+import { columns } from './columns';
+import { Col, Form, Row } from 'antd';
+import AddUpdateRecord from './AddUpdateRecord';
+import { AntButton, AntTable } from '@revisionary/components';
+import { TSubTopicsData } from '../../types/subTopics';
+import { TTopicsData } from '../../types/topics';
+import { t } from 'i18next';
 
 function SubTopics({ data, isError, isLoading, topicsData, isTopicsLoading }: TSubTopics) {
   const [form] = Form.useForm();
@@ -29,18 +30,18 @@ function SubTopics({ data, isError, isLoading, topicsData, isTopicsLoading }: TS
         isError={isError}
         isLoading={isLoading}
         numberOfSkeletons={6}
-        columns={columns(handleOpen)}
+        columns={columns(handleOpen, t)}
         pagination={{ defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: [5, 10, 20, 50, 100] }}
-        tableTitle={
-          <Row align="middle" justify="space-between">
-            <Col>
-              <h3>Sub-Topics</h3>
-            </Col>
-            <Col>
-              <AntButton ghost label="Add" onClick={() => handleOpen()} />
-            </Col>
-          </Row>
-        }
+        // tableTitle={
+        //   <Row align="middle" justify="space-between">
+        //     <Col>
+        //       <h3>Sub-Topics</h3>
+        //     </Col>
+        //     <Col>
+        //       <AntButton ghost label="Add" onClick={() => handleOpen()} />
+        //     </Col>
+        //   </Row>
+        // }
         rowKey={(record: any) => record?.subTopicId}
       />
 

@@ -49,7 +49,7 @@ export const AntTableVirtualized = <RecordType extends object>(props: TableProps
     });
   };
 
-  useEffect(() => resetVirtualGrid, [tableWidth]);
+  useEffect(() => resetVirtualGrid, [tableWidth, columns]);
 
   const renderVirtualList = (rawData: readonly object[], { scrollbarSize, ref, onScroll }: any) => {
     ref.current = connectObject;
@@ -74,15 +74,7 @@ export const AntTableVirtualized = <RecordType extends object>(props: TableProps
           onScroll({ scrollLeft });
         }}
       >
-        {({
-          columnIndex,
-          rowIndex,
-          style,
-        }: {
-          columnIndex: number;
-          rowIndex: number;
-          style: React.CSSProperties;
-        }) => {
+        {({ columnIndex, rowIndex, style }: { columnIndex: number; rowIndex: number; style: React.CSSProperties }) => {
           const column = mergedColumns[columnIndex];
           const cellData: any = (rawData?.[rowIndex] as any)[column?.dataIndex];
 

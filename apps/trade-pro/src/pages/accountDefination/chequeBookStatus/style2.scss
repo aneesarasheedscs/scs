@@ -1,0 +1,24 @@
+.formfield {
+  border-bottom: 1px solid gray;
+  padding: 0px;
+  height: 38px;
+}
+.ant-checkbox-inner,
+.ant-checkbox-input {
+  height: 1.5rem !important;
+  width: 1.5rem !important;
+}
+
+//        Responsivenesss
+
+@media screen and (min-width: 481px) and (max-width: 575px) {
+  .bankname {
+    margin-bottom: 4.5%;
+  }
+  .cheqbook {
+    margin-bottom: 2%;
+  }
+  .formfield {
+    height: 0%;
+  }
+}

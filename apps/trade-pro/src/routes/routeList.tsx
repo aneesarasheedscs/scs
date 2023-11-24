@@ -4,19 +4,175 @@ import { RouteObject } from 'react-router-dom';
 
 const Login = lazy(() => import('@tradePro/pages/login'));
 const CompanyBranchDetail = lazy(() => import('@tradePro/pages/login/CompanyBranchDetails'));
+//Dashboards
+const AccountDashboard = lazy(() => import('@tradePro/pages/dashboards/accountsDashboard'));
+const Approval_dashboard = lazy(() => import('@tradePro/pages/dashboards/approval_dashboard'));
+const MonthandQuarterWiseSaleReport = lazy(() => import('@tradePro/pages/dashboards/monthandQuarterWiseSaleReport'));
+const SalesComparison = lazy(() => import('@tradePro/pages/dashboards/salesComparisons'));
+const SaleAnalytics = lazy(() => import('@tradePro/pages/dashboards/saleAnalytics'));
+const MonthlySaleReport = lazy(() => import('@tradePro/pages/dashboards/monthly-sale-report'));
+
+//Account Reports
+const ActivitySummary = lazy(() => import('@tradePro/pages/accountReports/ActivitySummary'));
+const CashBalances = lazy(() => import('@tradePro/pages/accountReports/CashBalance'));
+const BankBalances = lazy(() => import('@tradePro/pages/accountReports/BankBalances'));
+const TrialBalance = lazy(() => import('@tradePro/pages/accountReports/trialBalanceReport'));
+const PayablesReceivablesReport = lazy(
+  () => import('@tradePro/pages/accountReports/PayablesReceivables/Payables&Receivaables/MainForm')
+);
+const VoucherReport = lazy(() => import('@tradePro/pages/accountReports/voucher Report'));
+const BalanceSheet = lazy(() => import('@tradePro/pages/accountReports/BalanceSheet'));
+const ProfitLossReport = lazy(() => import('@tradePro/pages/accountReports/Profit&Loss'));
+const BSNotesBreakup = lazy(() => import('@tradePro/pages/accountReports/BalanceSheet/bsNotesBreakup/'));
+const PLNotesBreakup = lazy(
+  () => import('@tradePro/pages/accountReports/Profit&Loss/profit&lossReport/PLNotesBreakup')
+);
+const SelectedTrialBalance = lazy(() => import('@tradePro/pages/accountReports/TrialBalaceSelectedReport'));
+const TrialBalanceAllLevelReport = lazy(() => import('@tradePro/pages/accountReports/TrialBalanceAllLevel'));
+
+const AccountPayables = lazy(() => import('@tradePro/pages/accountReports/accountPayables'));
+const AccountReceivables = lazy(() => import('@tradePro/pages/accountReports/accountReceivables'));
+const ChartOfAccountReportTable = lazy(() => import('@tradePro/pages/accountReports/COA&LangTitle/COAReportTable'));
+const PayablesTable = lazy(() => import('@tradePro/pages/accountReports/Payables/payablesTable'));
+const PayableAgingRegisterTable = lazy(() => import('@tradePro/pages/accountReports/PayablesAging/payablesAgingTable'));
+const ReceivablesAgingRegisterTable = lazy(
+  () => import('@tradePro/pages/accountReports/ReceivablesAging/receivablesAging')
+);
+const ReceivableReport = lazy(() => import('@tradePro/pages/accountReports/ReceivableReport/receivableTable'));
+const AccountReports = lazy(() => import('@tradePro/pages/accountReports/accountReports')); // general ledger
+
+//Stock Reports
+const StockReportSimple = lazy(() => import('@tradePro/pages/stockReports/stockReportSimple'));
+const StockReportswithValues = lazy(() => import('@tradePro/pages/stockReports/stockReportwithValues'));
+const InventryTransactions = lazy(() => import('@tradePro/pages/stockReports/InventryTransaction'));
+const InventoryEvaluationItemLedger = lazy(() => import('@tradePro/pages/stockReports/inventoryEvaluationItemLedger'));
+// Purcahse Trading
 const PurchaseOrder = lazy(() => import('@tradePro/pages/purchaseTrading/purchaseOrder'));
-const ItemHistory = lazy(() => import('@tradePro/pages/defineItemPos'));
-const ChartOfAccount = lazy(() => import('@tradePro/pages/chartOfAccount'));
+const GRNRetailRegister = lazy(() => import('@tradePro/pages/purchaseReports/grnRetailRegister'));
+const GoodsReceivedNotes = lazy(() => import('@tradePro/pages/purchaseTrading/goodsReceivedNotes'));
+const PurchaseInvoice = lazy(() => import('@tradePro/pages/purchaseTrading/purchaseInvoice'));
+// Purchase Reports
+const PurchaseInvoiceAgainstGrn = lazy(() => import('@tradePro/pages/purchaseTrading/purchaseInvoiceAgainstGrn'));
+const PurchaseOrderRetailRegister = lazy(() => import('@tradePro/pages/purchaseReports/purchaseOrderRetailRegister'));
+
+//Inventory Definition
+const PosDefineItem = lazy(() => import('@tradePro/pages/inventoryDefination/defineItemPos'));
+const DefineJobLots = lazy(() => import('@tradePro/pages/inventoryDefination/defineJobLots'));
+const DefineWareHouse = lazy(() => import('@tradePro/pages/inventoryDefination/defineWareHouse'));
+//Account Definition
+const ChartOfAccount = lazy(() => import('@tradePro/pages/accountDefination/chartOfAccount'));
+const ChequeBookForm = lazy(() => import('@tradePro/pages/accountDefination/chequeBookRegistration'));
+const AccountAllocation = lazy(
+  () => import('@tradePro/pages/accountDefination/accountAllocationForm/accoutAllocation')
+);
+//Account Transaction
+const ContraVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/ContraVoucher'));
+const ExpenseVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/ExpenseVoucher'));
+const BankReceiptVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/bankReceiptVoucher'));
+const BankPaymentVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/bankPaymentVoucher'));
+const CashPaymentVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/cashPaymentVoucher'));
+const CashReceiptVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/cashReceiptVoucher'));
 const JournalVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/JournalVoucher'));
-const AccountOpeningBalance = lazy(() => import('@tradePro/pages/OpeningBalance'));
+
+//Sale Trading
+const SaleOrder = lazy(() => import('@tradePro/pages/SaleTrading/saleOrder'));
+const SaleInvoiceDirect = lazy(() => import('@tradePro/pages/SaleTrading/saleInvoiceDirect'));
+//Sale Reports
+const SaleOrderRegisterTable = lazy(
+  () => import('@tradePro/pages/SaleReports/sale_order_register/saleOrderRegisterTable')
+);
+const GdnRegisterTable = lazy(() => import('@tradePro/pages/SaleReports/goodsDispatchNotesRegister/gdntable'));
+
+const EmployeeRegistration = lazy(() => import('@tradePro/pages/hmrs/employeeRegistration'));
+const AppMenu = lazy(() => import('@tradePro/pages/MainMenu'));
+const ShiftTimingDefine = lazy(() => import('@tradePro/pages/shift-timing-define/defineTiming'));
+const DutyRoasterForm = lazy(() => import('@tradePro/pages/HRM'));
+const RoadMap = lazy(() => import('@tradePro/pages/roadMap'));
+const DefineDivision = lazy(() => import('@tradePro/pages/defineDivision'));
 
 export const protectedRoutes: RouteObject[] = [
-  { path: route.PURCHASE_ORDER, element: <PurchaseOrder /> },
-  { path: route.DEFINE_ITEM_HISTORY, element: <ItemHistory /> },
+  { path: route.APP_MENU, element: <AppMenu /> },
+  //Dashboards
+  { path: route.ACCOUNTS_DASHBOARD, element: <AccountDashboard /> },
+  { path: route.APPROVAL_DASHBOARD, element: <Approval_dashboard /> },
+  { path: route.MONTH_QUARTER_WISE_SALE_REPORT, element: <MonthandQuarterWiseSaleReport /> },
+  { path: route.SALES_COMPARISON, element: <SalesComparison /> },
+  { path: route.SALE_ANALYTICS, element: <SaleAnalytics /> },
+  { path: route.MONTHLY_DATE_REPORT, element: <MonthlySaleReport /> },
+
+  //Account Definitions
   { path: route.CHART_ACCOUNT, element: <ChartOfAccount /> },
-  { path: route.JOURNAL_VOUCHER, element: <JournalVoucher /> },
-  { path: route.ACCOUNT_OPENING_BLANCE, element: <AccountOpeningBalance /> },
+  { path: route.CHEQUE_BOOK_REGISTRATION, element: <ChequeBookForm /> },
+  { path: route.ACCOUNT_ALLOCATION, element: <AccountAllocation /> },
+
+  //Account Tranaction
+  { path: route.CONTRA_VOUCHER, element: <ContraVoucher /> },
+  { path: route.EXPENSE_VOUCHER, element: <ExpenseVoucher /> },
+  { path: route.BANK_RECEIPT_VOUCHER, element: <BankReceiptVoucher /> },
+  { path: route.BANK_PAYMENT_VOUCHER, element: <BankPaymentVoucher /> },
+  { path: route.CASH_PAYMENT_VOUCHER, element: <CashPaymentVoucher /> },
+  { path: route.CASH_RECEIPT_VOUCHER, element: <CashReceiptVoucher /> },
+  { path: route.JOURNAL_Voucher, element: <JournalVoucher /> },
+
+  //Account Reports
+  { path: route.ACTIVITY_SUMMARY, element: <ActivitySummary /> },
+  { path: route.CASH_BALANCES, element: <CashBalances /> },
+  { path: route.BANK_BALANCES, element: <BankBalances /> },
+  { path: route.TRADE_DEBITORS_REPORT, element: <PayablesReceivablesReport AccountClassId={2} /> },
+  { path: route.TRADE_CREDITORS_REPORT, element: <PayablesReceivablesReport AccountClassId={3} /> },
+  { path: route.TRIAL_BALANCE, element: <TrialBalance /> },
+  { path: route.BALANCE_SHEET, element: <BalanceSheet /> },
+  { path: route.VOUCHER_REPORT, element: <VoucherReport /> },
+  { path: route.ACCOUNT_PAYABLES, element: <AccountPayables /> }, // By Due Date
+  { path: route.ACCOUNT_RECEIVABLES, element: <AccountReceivables /> }, // By Due Date
+  { path: route.SELECTED_TRIAL_BALANCE, element: <SelectedTrialBalance /> },
+  { path: route.TRIAL_BALANCE_ALL_LEVEL, element: <TrialBalanceAllLevelReport /> },
+  { path: route.PROFIT_LOSS, element: <ProfitLossReport /> },
+  { path: route.PL_NOTES_BREAKUP, element: <PLNotesBreakup /> },
+  { path: route.BS_NOTES_BREAKUP, element: <BSNotesBreakup /> },
+  { path: route.CHART_OF_ACCOUNT_TITLE_UPDATE, element: <ChartOfAccountReportTable /> },
+  // { path: route.GENERAL_LEDGER, element: <AccountReports /> },
+  { path: route.PAYABLES, element: <PayablesTable /> },
+  { path: route.PAYABLES_AGING_REPORT, element: <PayableAgingRegisterTable /> },
+  { path: route.RECEIVABLES, element: <ReceivablesAgingRegisterTable /> },
+  { path: route.RECEIVABLES_AGING_REPORT, element: <ReceivableReport /> },
+
+  //Stock Reports
+  { path: route.STOCK_REPORT_SIMPLE, element: <StockReportSimple /> },
+  { path: route.STOCK_REPORT_WITH_VALUE, element: <StockReportswithValues /> },
+  { path: route.INVENTRY_TRANSACTION, element: <InventryTransactions /> },
+  { path: route.INVENTORY_EVALUATION_LEDGER, element: <InventoryEvaluationItemLedger /> },
+
+  // Inventory Definintion
+  { path: route.DEFINE_ITEM_HISTORY, element: <PosDefineItem /> },
+  { path: route.DEFINE_WAREHOUSE, element: <DefineWareHouse /> },
+  { path: route.DEFINE_JOBLOTS, element: <DefineJobLots /> },
+
+  //Purchase Trading
+  { path: route.PURCHASE_ORDER, element: <PurchaseOrder /> },
+  { path: route.PURCHASE_INVOICE, element: <PurchaseInvoice /> },
+  { path: route.PURCHASE_INVOICE_AGAINST_GRN, element: <PurchaseInvoiceAgainstGrn /> },
+  { path: route.GOODS_RECEIVED_NOTES, element: <GoodsReceivedNotes /> },
+
+  //Purchase Reports
+  { path: route.PURCHASE_ORDER_RETAIL_REGISTER, element: <PurchaseOrderRetailRegister /> },
+  { path: route.GRN_RETAIL_REGISTER, element: <GRNRetailRegister /> },
+  { path: route.EMPLOYEE_REGISTRATION, element: <EmployeeRegistration /> },
+
+  //Sale Trading
+  { path: route.SALE_ORDER, element: <SaleOrder /> },
+  { path: route.SALE_INVOICE_DIRECT, element: <SaleInvoiceDirect /> },
+  //Sale Reports
+  { path: route.SALE_ORDER_REGISTER, element: <SaleOrderRegisterTable /> },
+  { path: route.GDN_REGISTER, element: <GdnRegisterTable /> },
+
+  //Hrm + system Utilities
+  { path: route.DEFINE_DIVISION, element: <DefineDivision /> },
+  { path: route.SALE_INVOICE_REGISTER_RETAIL, element: <ShiftTimingDefine /> },
+  { path: route.DISTRICT, element: <RoadMap /> },
+  { path: route.DUTY_ROASTER, element: <DutyRoasterForm /> },
 ];
+
 export const publicRoutes: RouteObject[] = [
   { path: route.LOGIN, element: <Login /> },
   { path: route.COMPANY_BRANCH_DETAIL, element: <CompanyBranchDetail /> },

@@ -1,0 +1,321 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+boyd {
+  font-family: 'Poppins', sans-serif;
+}
+.side-cards {
+  width: 15vw;
+  border-radius: 10% 30% 50% 70%;
+  border-style: inset;
+
+  font-size: large;
+
+  box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+}
+.side-cards:hover {
+  color: #fff;
+
+  border: dotted 2px #fff;
+}
+.icon-shadow {
+  box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+}
+
+.btn-hover {
+  width: 150px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #00a8ff;
+  cursor: pointer;
+  margin: -12px;
+  height: 40px;
+  text-align: center;
+  border: none;
+  background-size: 300% 100%;
+
+  border-radius: 50px;
+  moz-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+.btn-span {
+  // border: #fff 14px solid;
+  // border-radius: 20px;
+  // height: 10vh;
+}
+.btn-hover:hover {
+  background-position: 100% 0;
+  moz-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+  color: #fff;
+}
+
+.btn-hover:focus {
+  outline: none;
+}
+
+.btn-hover.color-9 {
+  background-image: linear-gradient(to right, #fff, #fff, #ffff, #ffff);
+  box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+}
+
+// ::-webkit-scrollbar {
+//   width: 8px;
+// }
+// ::-webkit-scrollbar-track {
+//   background-color: #aaa;
+// }
+// ::-webkit-scrollbar-thumb {
+//   background-color: #335ddc;
+//   border-radius: 8px;
+// }
+// body {
+//   font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+//     'Droid Sans', 'Helvetica Neue';
+// }
+// .login-page {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   min-height: 100vh;
+//   /* background: #D9EDFF; */
+//   /* background-image: url('../src/loginERP.jpg'); */
+//   background-repeat: no-repeat;
+//   background-size: cover;
+// }
+// .login-box {
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   flex-direction: row-reverse;
+//   max-width: 1000px;
+//   background-color: white;
+//   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+//   overflow: hidden;
+//   margin: 0 auto;
+//   border-radius: 12px;
+// }
+// #login-form {
+//   flex: 1 0 100%;
+//   max-width: 480px;
+//   width: 100%;
+//   padding: 60px;
+// }
+// #login-form p {
+//   margin-bottom: 30px;
+// }
+// #login-form p.form-title {
+//   color: #333333;
+//   font-family: 'Josefin Sans', sans-serif;
+//   font-size: 42px;
+//   font-weight: bold;
+//   line-height: 1;
+//   margin-bottom: 0;
+// }
+// #login-form .ant-form-item-label > label.ant-form-item-required::before {
+//   display: none;
+// }
+// .ant-form-item-control-input-content {
+//   text-align: left;
+// }
+// #login-form .ant-input-affix-wrapper {
+//   padding: 12px 15px;
+// }
+// #login-form_username {
+//   /* height: 48px; */
+// }
+// #login-form .ant-btn {
+//   height: 42px;
+//   letter-spacing: 1px;
+//   border-radius: 6px;
+// }
+// .login-form-button {
+//   width: 100%;
+// }
+// .illustration-wrapper {
+//   display: flex;
+//   align-items: flex-end;
+//   max-width: 800px;
+//   min-height: 100%;
+//   background-color: #fffdf2;
+// }
+// .illustration-wrapper img {
+//   display: block;
+//   width: 100%;
+// }
+@media screen and (max-width: 1023px) {
+  .login-box {
+    flex-direction: column;
+    box-shadow: none;
+  }
+  .illustration-wrapper {
+    max-width: 100%;
+    min-height: auto;
+  }
+  #login-form {
+    max-width: 100%;
+  }
+}
+
+.custom-div {
+  background-color: colorPrimary;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+  height: 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0;
+  position: absolute;
+  top: -35px;
+  left: 20px;
+  width: 30%;
+
+  border-radius: 51% 49% 100% 0% / 100% 100% 0% 0%;
+  box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+}
+.custom-title {
+  color: #fff;
+  background-color: var(--color-primary); /* Assuming you've defined --color-primary */
+  border-radius: 20px;
+  padding: 8px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+.card-container {
+  width: 100%;
+  height: 260px;
+  margin: 30px;
+  border: 1px solid var(--color-primary); /* Assuming you've defined --color-primary */
+  margin-left: 15px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+}
+
+.card-cover {
+  /* Styles for the cover content if needed */
+}
+
+/* Other styles */
+.custom-title1 {
+  // background-color: var(--color-primary); /* Assuming you've defined --color-primary */
+  margin-top: 0;
+  height: 4.5vh;
+  text-align: center;
+  font-size: 18px;
+  font-family: Poppins;
+  padding: 10px;
+  box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+}
+.card-description {
+  color: white;
+}
+.card-content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.custom-title-info {
+  background-color: var(--color-primary); /* Assuming you've defined --color-primary */
+  margin-top: 0;
+  height: 3vh;
+  color: white;
+  text-align: center;
+  font-size: 15px;
+  font-family: Poppins;
+  padding: 1px;
+  box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+}
+.card-main-container {
+  margin: 24px 16px;
+}
+.col-border-bottom {
+  margin-top: 42px;
+}
+
+.form-container {
+  width: 100%; /* Full width on smaller screens */
+}
+
+.button-container {
+  position: relative;
+  top: 0px;
+}
+
+@media screen and (max-width: 1023px) {
+  // .second-row {
+  // }
+}
+.cash-balances-container {
+  max-width: 1500px;
+  margin: 0 auto;
+  // padding: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+// .header {
+//   padding: 20px 0;
+//   background-color: #f5f7fc;
+//   border-radius: 12px;
+//   box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px,
+//     rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+//   height: 19vh;
+// }
+
+.title-cash-balances {
+  margin-bottom: 8px;
+  padding: 10px;
+}
+
+.breadcrumb {
+  font-size: 16px;
+}
+
+.divider {
+}
+
+.section-card,
+.summary-card {
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  color: #1890ff;
+  margin-bottom: 16px;
+}
+
+.summary-title {
+  color: #1890ff;
+  margin-bottom: 20px;
+}
+
+.ant-table-thead th {
+  background-color: #f5f7fa;
+  font-weight: bold;
+}
+.second-row {
+  box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  width: 1500px;
+}
+.outer-Container {
+  display: flex;
+  justify-content: center;
+}
+.Account-dashboard-div {
+  margin-top: 10px;
+  padding: 10px;
+  margin-left: 15px;
+}

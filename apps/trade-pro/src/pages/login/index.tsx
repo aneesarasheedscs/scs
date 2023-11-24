@@ -11,27 +11,21 @@ import { AntButton, AntInput } from '@tradePro/components';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { isTokenExpired } from '@tradePro/utils/isTokenExpired';
 import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
-
 function LoginPage() {
   const navigate = useNavigate();
-
   const { mutate, isError, isLoading, isSuccess } = useLogin();
-
   const onFinish = (values: TUser) => mutate(values);
-
   useEffect(() => {
     const userDetail = storedUserDetail();
     const financialYearDetail = storedFinancialYear();
-
     if (userDetail?.access_token && !isTokenExpired()) {
       if (size(financialYearDetail) < 1) {
         window.location.href = window.location.origin + route.COMPANY_BRANCH_DETAIL;
       } else {
-        navigate(route.PURCHASE_ORDER);
+        navigate(route.APP_MENU);
       }
     }
   }, [isSuccess]);
-
   return (
     <CardWrapper>
       <Form layout="vertical" onFinish={onFinish} initialValues={{ remember: true }}>
@@ -43,7 +37,6 @@ function LoginPage() {
           prefix={<UserOutlined />}
           placeholder="Enter username"
         />
-
         <AntInput
           required
           size="large"
@@ -53,7 +46,6 @@ function LoginPage() {
           prefix={<LockOutlined />}
           placeholder="Enter password"
         />
-
         <Form.Item>
           <AntButton size="large" label="Log In" htmlType="submit" isError={isError} isLoading={isLoading} />
         </Form.Item>
@@ -61,5 +53,4 @@ function LoginPage() {
     </CardWrapper>
   );
 }
-
 export default LoginPage;

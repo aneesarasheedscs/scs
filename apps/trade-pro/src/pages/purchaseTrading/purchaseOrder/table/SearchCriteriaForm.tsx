@@ -5,15 +5,18 @@ import {
   AntSelectDynamic,
   SearchCriteriaWrapper,
 } from '@tradePro/components';
-import { useState } from 'react';
+import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
 import { Col, Form, Row } from 'antd';
 import { useGetPurchaseOrder } from '../queries';
 import { TPurchaseOrderSearchCriteria } from '../type';
 import { useGetItems, useGetSuppliers, useGetOrderStatus, useGetApprovedStatus } from '../queryOptions';
+import { useTranslation } from 'react-i18next';
 
 const { useForm, useWatch } = Form;
 
 function SearchCriteria() {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [form] = useForm<TPurchaseOrderSearchCriteria>();
   const formValues = useWatch<TPurchaseOrderSearchCriteria>([], form);
@@ -23,7 +26,7 @@ function SearchCriteria() {
     isFetching,
     isError: isPurchaseOrderError,
     isLoading: isPurchaseOrderLoading,
-  } = useGetPurchaseOrder(false, form.getFieldsValue());
+  } = useGetPurchaseOrder(true, form.getFieldsValue());
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -31,31 +34,36 @@ function SearchCriteria() {
   const onFinish = (_: TPurchaseOrderSearchCriteria) => {
     refetch().then(() => handleClose());
   };
+  useEffect(() => {
+    const januaryFirst = dayjs().startOf('year').set('month', 0).set('date', 1);
+    form.setFields([{ name: 'FromDate', value: januaryFirst }]);
+    form.setFields([{ name: 'ToDate', value: dayjs(new Date()) }]);
+  }, []);
 
   return (
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
       <Form form={form} onFinish={onFinish} layout="vertical" initialValues={formValues}>
         <Row gutter={[10, 10]}>
           <Col xs={24} sm={24} md={12}>
-            <AntDatePicker name="FromDate" label="From Date" />
+            <AntDatePicker name="FromDate" label={t('from_date')} />
           </Col>
 
           <Col xs={24} sm={24} md={12}>
-            <AntDatePicker name="ToDate" label="To Date" />
+            <AntDatePicker name="ToDate" label={t('to_date')} />
           </Col>
 
           <Col xs={24} sm={24} md={12}>
-            <AntInputNumber name="FromDocNo" label="PO From" />
+            <AntInputNumber name="FromDocNo" label={t('po_from')} />
           </Col>
 
           <Col xs={24} sm={24} md={12}>
-            <AntInputNumber name="ToDocNo" label="PO To" />
+            <AntInputNumber name="ToDocNo" label={t('po_to')} />
           </Col>
 
           <Col xs={24} sm={24} md={12}>
             <AntSelectDynamic
               fieldValue="Id"
-              label="Supplier Name"
+              label={t('supplier_name')}
               query={useGetSuppliers}
               fieldLabel="CompanyName"
               name="SupplierCustomerId"
@@ -66,7 +74,7 @@ function SearchCriteria() {
             <AntSelectDynamic
               name="ItemId"
               fieldValue="Id"
-              label="Item Name"
+              label={t('item_name')}
               query={useGetItems}
               fieldLabel="ItemName"
             />
@@ -76,7 +84,7 @@ function SearchCriteria() {
           <Col xs={24} sm={24} md={8}>
             <AntSelectDynamic
               name="Status"
-              label="Status"
+              label={t('status')}
               fieldValue="Status"
               fieldLabel="Status"
               query={useGetOrderStatus}
@@ -87,7 +95,7 @@ function SearchCriteria() {
             <AntSelectDynamic
               fieldValue="Id"
               name="IsApproved"
-              label="Is Approved"
+              label={t('is_approved')}
               fieldLabel="Status"
               query={useGetApprovedStatus}
             />
@@ -95,9 +103,9 @@ function SearchCriteria() {
 
           <Col xs={24} sm={24} md={8}>
             <AntButton
-              label="Show"
+              label={t('show')}
               htmlType="submit"
-              style={{ marginTop: 2 }}
+              style={{ marginTop: 4 }}
               isError={isPurchaseOrderError}
               isLoading={isPurchaseOrderLoading || isFetching}
             />

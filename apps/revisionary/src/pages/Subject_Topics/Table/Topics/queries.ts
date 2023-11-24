@@ -7,7 +7,7 @@ import { TSubjectListFormDataOnAdd, TSubjectListFormDataOnUpdate } from '../../t
 import { TAppUserData } from '@revisionary/pages/login';
 import { TClassDivisionFormDataOnAdd, TClassDivisionFormDataOnUpdate } from '../../types/classDivision';
 import { TTopicFormDataOnAdd, TTopicFormDataOnUpdate } from '../../types/topics';
-import { requestManager } from '@revisionary/configs/requestManager';
+import requestManager from '@revisionary/configs/requestManager';
 
 export const useGetSubjectLists = () => useQuery('subject-list', getSubjectList);
 

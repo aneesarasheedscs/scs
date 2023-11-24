@@ -3,34 +3,35 @@ import PurchaseOrderForm from './form';
 import PurchaseOrderTable from './table';
 
 import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
 
-import FormFile from './Components/formfile';
 import { theme } from 'antd';
 const { useToken } = theme;
 function PurchaseOrder() {
   const { t } = useTranslation();
+  const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
+  const [activeTab, setActiveTab] = useState<string>('1');
 
-  function PurchaseOrder() {
-    const {
-      token: { colorPrimary },
-    } = theme.useToken();
+  return (
+    <>
+      <h2 className="form-heading"> {t('purchase_order')}</h2>
 
-    return (
-      <>
-        <h2 className="form-heading"> {t('purchase_order')}</h2>
-        <Tabs
-          type="card"
-          size="large"
-          defaultActiveKey="1"
-          className="tabs-margin-bottom-0"
-          items={[
-            { key: '1', label: t('history'), children: <PurchaseOrderTable /> },
-            { key: '2', label: t('form'), children: <PurchaseOrderForm /> },
-          ]}
-        />
-      </>
-    );
-  }
+      <Tabs
+        type="card"
+        size="large"
+        activeKey={activeTab}
+        className="tabs-margin-bottom-0"
+        onChange={(key) => setActiveTab(key)}
+      >
+        <Tabs.TabPane key="1" tab={t('history')}>
+          <PurchaseOrderTable setSelectedRecordId={setSelectedRecordId} setActiveTab={setActiveTab} />
+        </Tabs.TabPane>
+        <Tabs.TabPane key="2" tab={t('form')}>
+          <PurchaseOrderForm selectedRecordId={selectedRecordId} />
+        </Tabs.TabPane>
+      </Tabs>
+    </>
+  );
 }
 
 export default PurchaseOrder;

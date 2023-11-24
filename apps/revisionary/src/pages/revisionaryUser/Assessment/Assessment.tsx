@@ -363,7 +363,7 @@ function Assessment() {
                       onClick={() => handleRelatedCardClick(relatedCard.id)}
                     >
                       <h3>{relatedCard.title}:</h3>
-                      <p>{relatedCard.lession}</p>
+                      {/* <p>{relatedCard?.lession}</p>nx reset */}
                       <Progress percent={relatedCard.progress} strokeWidth={5} strokeColor="#52c41a" showInfo={true} />
                     </div>
                   ))}
@@ -390,7 +390,7 @@ function Assessment() {
 
             {activeRelatedCard && (
               <div className="subtopics">
-                {cards.flatMap((card) =>
+                {cards.flatMap((card: any) =>
                   card.relatedCards
                     .filter((relatedCard: any) => relatedCard.id === activeRelatedCard)
                     .map((relatedCard: any) =>

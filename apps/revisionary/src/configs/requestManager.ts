@@ -10,5 +10,6 @@ const logoutRedirect = (error: AxiosError) => {
 
 const baseUrl = import.meta.env.VITE_API_URL;
 const accessToken = localStorage.getItem('auth') || '';
+ const requestManager = reqManager(baseUrl, accessToken, logoutRedirect);
 
-export const requestManager = reqManager(baseUrl, accessToken, logoutRedirect);
+ export default requestManager
