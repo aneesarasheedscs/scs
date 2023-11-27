@@ -9,23 +9,25 @@ import { useTranslation } from 'react-i18next';
 import AccountsDetailSearchCriteriaForm from './tables/AccountsDetailSearchCriteriaForm';
 import { useAtom } from 'jotai';
 import { selectedItems } from '@tradePro/pages/accountReports/accountPayables/table/Atom';
+import { useParams } from 'react-router-dom';
 
 const { Title, Text } = Typography;
 interface SelectedValues {
-  branchName: string;
-  accountTitle: string;
+  branchName?: string;
+  accountTitle?: string;
 }
-
 interface TableCaptionProps {
   SelectedValues: SelectedValues;
   onSelectedValuesChange: (branchName: string, accountTitle: string) => void;
 }
+
 function AccountReports({ SelectedValues, onSelectedValuesChange }: TableCaptionProps) {
   const [selectedValues, SetSelectedValues] = useState<SelectedValues>({
     branchName: '',
     accountTitle: '',
   });
-
+  const { accountId } = useParams();
+  
   // const handleBranchName = (branchName: string, accountTitle: string) => {
   //   SetSelectedValues({ branchName, accountTitle });
   // };

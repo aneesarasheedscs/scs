@@ -1,0 +1,74 @@
+.formfield {
+  border-bottom: 1px solid gray;
+  padding: 0px;
+  height: 38px;
+}
+.ant-checkbox-inner,
+.ant-checkbox-input {
+  height: 1.5rem !important;
+  width: 1.5rem !important;
+}
+
+// Responsiveness
+
+@media screen and (min-width: 992px) and (max-width: 1200px) {
+  .status {
+    margin-top: -1%;
+  }
+  .checkbox {
+    margin-top: 2% !important;
+  }
+  .pack,
+  .qty,
+  .rate,
+  .amount {
+    margin-top: 2% !important;
+  }
+  .add {
+    width: 5rem;
+    margin-top: 1rem;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .status {
+    margin-top: -1%;
+  }
+  .pack,
+  .qty,
+  .rate,
+  .amount {
+    margin-top: 2% !important;
+  }
+  .checkbox {
+    margin-top: 2% !important;
+  }
+  .add {
+    width: 5rem;
+    margin-top: 1rem;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px) {
+  .checkbox {
+    margin-top: 2% !important;
+  }
+
+  .formfield {
+    height: 50px !important;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 575px) {
+  .checkbox {
+    margin-top: 9% !important;
+  }
+
+  .formfield {
+    height: 70px !important;
+  }
+  .add {
+    margin-left: -1rem;
+    margin-top: 1rem;
+  }
+}

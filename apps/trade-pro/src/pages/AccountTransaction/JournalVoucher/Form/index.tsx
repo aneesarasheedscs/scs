@@ -11,7 +11,7 @@ import dayjs from 'dayjs';
 import { useAddJournalVoucher, useGetDocumentNumber, useUpdateJournalVoucher } from '../quries';
 import { TJournalVoucherData } from '../types';
 import { useAtom } from 'jotai';
-import { listAtom, addtableData } from './Atom';
+import { addtableData } from './Atom';
 import _ from 'lodash';
 
 const { useForm } = Form;
@@ -19,9 +19,7 @@ const { useForm } = Form;
 function JournalVoucherForm({ selectedRecordId, refetchJournal, journalVoucherData, isDataSuccess }: TAddUpdateRecord) {
   const [form] = useForm<TJournalVoucherData>();
   const { data, isError, refetch, isLoading, isSuccess } = useGetDocumentNumber();
-  const [bankId, setBankId] = useState<number | null>(null);
   const { t } = useTranslation();
-  const [voucherDetailList, setVoucherDetailList] = useAtom(listAtom);
   const [tableData, setTableData] = useAtom(addtableData);
   const { mutate: addJournalVoucher } = useAddJournalVoucher();
   const { mutate: updateJournalVoucher } = useUpdateJournalVoucher(selectedRecordId);
@@ -32,8 +30,9 @@ function JournalVoucherForm({ selectedRecordId, refetchJournal, journalVoucherDa
   }, [data, isSuccess]);
 
   const onFinish = (values: TJournalVoucherData) => {
-    console.log(values);
     values.voucherDetailList = tableData;
+    console.log(values);
+
     const TotalDebit: number = _.sumBy(values?.voucherDetailList, 'DebitAmount');
     const TotalCredit: number = _.sumBy(values?.voucherDetailList, 'CreditAmount');
     if (TotalDebit !== TotalCredit) {
@@ -41,15 +40,12 @@ function JournalVoucherForm({ selectedRecordId, refetchJournal, journalVoucherDa
     }
     values.VoucherAmount = TotalDebit;
     if (isNumber(selectedRecordId)) {
-      values.voucherDetailList = values.voucherDetailList && voucherDetailList;
       updateJournalVoucher(values);
     } else {
-      // values.voucherDetailList = values.voucherDetailList && voucherDetailList;
-      // values.voucherDetailList = tableData;
-
       console.log(values);
       addJournalVoucher(values);
     }
+    setTableData([]);
   };
 
   useEffect(() => {
@@ -96,11 +92,16 @@ function JournalVoucherForm({ selectedRecordId, refetchJournal, journalVoucherDa
                 <Form.Item>
                   <Row align="middle" gutter={10}>
                     <Col>
-                      <AntButton danger ghost htmlType="reset" label={t('reset')} icon={<SyncOutlined />} />
+                      <AntButton
+                        danger
+                        ghost
+                        htmlType="reset"
+                        label={t('reset')}
+                        onClick={() => setTableData([])}
+                        icon={<SyncOutlined />}
+                      />
                     </Col>
-                    <Col>
-                      <AntButton label={t('save_and_more')} htmlType="submit" />
-                    </Col>
+
                     <Col>
                       <AntButton ghost label={t('save')} htmlType="submit" icon={<SaveOutlined />} />
                     </Col>

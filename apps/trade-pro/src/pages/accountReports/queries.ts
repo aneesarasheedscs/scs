@@ -35,6 +35,8 @@ export const useGetVoucherReport = (enabled = true, params?: TVoucherReportCrite
         OrganizationId: userDetail?.OrganizationId,
         CompanyId: userDetail?.CompanyId,
         FinancialYearId: financialYear?.Id,
+        IsApproved: params?.ReportType == 1 ? true : false,
+        ApprovedFilter: params?.ReportType == 3 ? 'All' : null,
         ...params,
       });
     },

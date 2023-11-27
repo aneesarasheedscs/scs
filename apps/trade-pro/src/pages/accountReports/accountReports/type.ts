@@ -21,6 +21,9 @@ export type TFilterForms = {
   DateType: string | Date;
   Branch: string;
   SubBranch: string;
+
+  
+  AccountId:number
 };
 
 export type TGeneralLedgerSummaryI = {

@@ -39,7 +39,7 @@ export const route = {
   VOUCHER_REPORT: '/voucher-report',
   ACCOUNT_PAYABLES: '/Payables-By-Due-Date',
   ACCOUNT_RECEIVABLES: '/Receiveables-By-Due-Date',
-  GENERAL_LEDGER: '/general-ledger',
+  GENERAL_LEDGER: '/general-ledger/:accountId?',
   CHART_OF_ACCOUNT_TITLE_UPDATE: '/chart-of-account',
   RECEIVABLES_AGING_REPORT: '/receivables-aging',
   PAYABLES_AGING_REPORT: '/payables-aging',
@@ -52,6 +52,10 @@ export const route = {
   DEFINE_ITEM_HISTORY: '/pos-define-item',
   DEFINE_WAREHOUSE: '/define-wareHouse',
   DEFINE_JOBLOTS: '/define-lots',
+  ITEM_CATEGORY:'/define-item-category',
+  ITEM_TYPE:'/define-item-type',
+  UOM_DEFINE:'/define-item-uom',
+  UOM_SCHEDULE:'/define-item-uom-schedule',
 
   //Purchase Trading
   PURCHASE_ORDER: '/purchsae-order',
@@ -62,6 +66,7 @@ export const route = {
   //Purchase Reports
   PURCHASE_ORDER_RETAIL_REGISTER: '/purchase-order-retail-register',
   GRN_RETAIL_REGISTER: '/grn-retail-register',
+  PURCHASE_REPORT_ACTIVITY_WISE:'/purchase-report',
 
   //Stock Reports
   STOCK_REPORT_WITH_VALUE: '/stock-report-with-values-retail',
@@ -76,6 +81,7 @@ export const route = {
   //Sale Reports
   SALE_ORDER_REGISTER: '/sale-order-register-retail',
   GDN_REGISTER: '/gdn-register-retail',
+  SALE_REPORT_ACTIVITY_WISE:'/sale-invoice-register-retail',
 
   //System Utilities
   DEFINE_DIVISION: '/define-province',
@@ -84,5 +90,28 @@ export const route = {
   //HRM
   EMPLOYEE_REGISTRATION: '/hmr',
   DUTY_ROASTER: '/sale-invoice-trading-@qty',
-  SALE_INVOICE_REGISTER_RETAIL: '/sale-invoice-register-retail', // Hrm Shift Timing Define
+  SHIFT_TIMING_DEFINE: '/', // Hrm Shift Timing Define
+
+  //Taxation
+  ITEM_TAX_SCHEDULE: '/item-tax-schedule',
+  TAX_TYPE: '/add-tax-type',
+  TAX_SCHEDULE: '/add-tax-schedule',
+
+  //Whole Sale
+  DISCOUNT_TYPE: '/discount-type',
+  DISCOUNT_CATEGORY: '/discount-category',
+  ALLOCATE_DISC_CATEGORY_TODISC_TYPE: '/allocate-disc-categoy-to-disc-type',
+  ALLOCATE_BRAND_ITEM_TO_DISC_TYPE: '/allocate-brand-item-to-disc-type',
+  CUSTOMER_DISCOUNT_POLICY: '/customer-discount-policy',
+  DISCOUNT_POLICY_FOR_PARTY: '/discount-policy-for-party',
+  SALE_PRICING_SCHEDULE:'/sale-pricing',
+
+// Store Management
+STOCK_TRANSFER_WAREHOUSE:'/stock-transfer',
+STOCK_TRANSFER_NOTE_DIRECT:'/stock-transfer-note-direct',
+STOCK_TRANSFER_NOTE:'/stock-transfer-notes',
+STOCK_RECEIVING_NOTE:'/stock-received-notes',
+REQUISITION_ORDER:'/requisition-order',
+STOCK_ADJUSTMENT:'/stock-adjustment',
+
 };

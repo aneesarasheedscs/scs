@@ -1,7 +1,8 @@
 import { Table } from 'antd';
 import { numberFormatter } from './utils';
 import { ColumnType } from 'antd/es/table';
-import { map, meanBy, size, sumBy } from 'lodash';
+import { map, meanBy, result, size, sumBy } from 'lodash';
+import _ from 'lodash';
 
 function TableSummary({ data, columns, filteredData }: TTableSummary) {
   return (
@@ -13,10 +14,12 @@ function TableSummary({ data, columns, filteredData }: TTableSummary) {
 
         const total = sumBy(dataToCalculate, (item) => item?.[dataIndex]);
         const average = meanBy(dataToCalculate, (item) => item?.[dataIndex]);
+        const count = _.size(_.filter(dataToCalculate, (item) => item?.[dataIndex]));
+        
 
         return (
           <Table.Summary.Cell key={index + '' + dataIndex} index={index}>
-            <b>{col?.showTotal ? numberFormatter(total) : col?.showAverage ? numberFormatter(average) : null}</b>
+            <b>{col?.showTotal ? numberFormatter(total) : col?.showAverage ? numberFormatter(average) : col?.showCount ? numberFormatter(count) : null}</b>
           </Table.Summary.Cell>
         );
       })}
@@ -25,6 +28,6 @@ function TableSummary({ data, columns, filteredData }: TTableSummary) {
 }
 
 type TTableSummary = { data?: any[]; columns: any[]; filteredData: any[] };
-type AntColumnType<T> = { showTotal?: boolean; showAverage?: boolean } & ColumnType<T>;
+type AntColumnType<T> = { showTotal?: boolean; showAverage?: boolean; showCount?: boolean } & ColumnType<T>;
 
 export default TableSummary;

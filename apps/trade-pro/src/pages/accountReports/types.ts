@@ -47,6 +47,7 @@ export type TVoucherReportCriterias = {
   IsApproved: boolean;
   ApprovedFilter: string;
   ManualBillNo: string;
+  ReportType: number
 };
 export type TVoucherReport = {
   Id: number;

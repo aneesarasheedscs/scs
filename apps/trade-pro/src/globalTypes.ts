@@ -3,6 +3,7 @@ import { ColumnType } from 'antd/es/table/interface';
 export type AntColumnType<T> = {
   showTotal?: boolean;
   showAverage?: boolean;
+  showCount?: boolean;
   searchableDate?: boolean;
   searchableInput?: boolean;
 } & ColumnType<T>;
@@ -30,6 +31,7 @@ export type TUserDetail = {
   '.expires': Date | string;
   IsActive: string | boolean;
   AuthenticationEnabledForUser: number | string;
+  IsHeadOffice: boolean
 };
 
 export type TFinancialYear = {

@@ -4,11 +4,12 @@ import { useMutation, useQuery } from 'react-query';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { requestManager } from '@tradePro/configs/requestManager';
 import { storedUserDetail } from '@tradePro/utils/storageService';
+import { TUserDetail } from '@tradePro/globalTypes';
 export const useLogin = () => {
   return useMutation('token', (data: TUser) => getAccessToken(data), {
     onSuccess: (response: AxiosResponse) => {
-      const userData = JSON.stringify(response?.data);
-      localStorage.setItem('loggedInUserDetail', userData);
+      const userData: TUserDetail = response?.data;
+      localStorage.setItem('loggedInUserDetail', JSON.stringify(userData));
       // queryClient.invalidateQueries
     },
     onError: (error: AxiosError<{ error_description: string }>) => {
@@ -27,6 +28,7 @@ const getAccessToken = (values: TUser) => {
   return axios.post(`${apiURL}/token`, data, { headers });
 };
 const userDetail = storedUserDetail();
+
 export const useGetCompany = () => {
   return useQuery('company', () => {
     return requestManager.get('/api/UserAccountAllocation/GetAllCompaniesByUserId', {
@@ -34,6 +36,7 @@ export const useGetCompany = () => {
     });
   });
 };
+
 export const useGetFinancialYear = (CompanyId: number | null) => () => {
   return useQuery(
     ['financial-year', CompanyId],

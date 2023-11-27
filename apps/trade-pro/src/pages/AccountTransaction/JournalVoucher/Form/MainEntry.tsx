@@ -35,8 +35,7 @@ function MainEntry({ form }: TDynamicForm) {
         <Row style={{ marginLeft: 10, marginTop: 10 }}>
           <Form.Item name="Preview" valuePropName="checked" initialValue={true}>
             <Checkbox onChange={(e) => handleCheckboxChange(e.target.checked, 'Preview')} checked={true}>
-              {' '}
-              Preview{' '}
+              {t('preview')}
             </Checkbox>
           </Form.Item>
         </Row>

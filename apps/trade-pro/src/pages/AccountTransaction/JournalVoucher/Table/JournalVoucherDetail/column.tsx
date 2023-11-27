@@ -1,61 +1,52 @@
-import { AntButton } from '@scs/ui';
 import { AntColumnType } from '@tradePro/globalTypes';
-import { Space, Tooltip } from 'antd';
+import { numberFormatter } from '@tradePro/utils/numberFormatter';
+import { TVoucherDetailList } from '../../types';
 
-export const columns = (): AntColumnType<any>[] => [
+export const detailColumns = (t?: any): AntColumnType<TVoucherDetailList>[] => [
   {
-    title: 'Account Title',
+    title: <>{t('account_title')}</>,
+    width: 280,
+    searchableInput: true,
     dataIndex: 'AccountTitle',
-    width: 100,
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.AccountTitleC.localeCompare(b.AccountTitleC),
   },
-
   {
-    title: 'Remarks',
-    dataIndex: 'Remarks',
+    title: <>{t('against_account')}</>,
+    width: 250,
+    searchableInput: true,
+    dataIndex: 'AccountTitle',
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.AccountTitleD.localeCompare(b.AccountTitleD),
+  },
+  {
+    title: <>{t('cheque no')}</>,
+    width: 180,
+    searchableInput: true,
+    dataIndex: 'CheqNoDetail',
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.CheqNoDetail.localeCompare(b.CheqNoDetail),
+  },
+  {
+    title: <>{t('debit_amount')}</>,
+    width: 180,
+    showTotal: true,
+    dataIndex: 'DebitAmount',
+    render: (_, { DebitAmount }) => <span>{numberFormatter(DebitAmount)}</span>,
+  },
+  {
+    title: <>{t('credit_amount')}</>,
+    width: 150,
+    showTotal: true,
+    dataIndex: 'CreditAmount',
+    render: (_, { CreditAmount }) => <span>{numberFormatter(CreditAmount)}</span>,
+  },
+  {
+    title: <>{t('remarks')}</>,
+    width: 200,
+    dataIndex: 'Comments',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
-    width: 100,
-  },
-
-  {
-    title: 'Cheq No',
-    dataIndex: 'CheqNo',
-    width: 100,
-    render: (Account_Level) => (
-      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>
-        <span>{Account_Level}</span>
-      </Space>
-    ),
-  },
-  {
-    title: 'Account Dr',
-    dataIndex: 'AccountDr',
-    searchableInput: true,
-    width: 100,
-  },
-  {
-    title: 'Account Cr',
-    dataIndex: 'AccountCr',
-    width: 100,
-  },
-
-  {
-    title: 'Action',
-    dataIndex: '',
-    width: 100,
-    render: (_, record) => (
-      <Tooltip title="Chose Action">
-        <AntButton
-          type="text"
-          icon={
-            <>
-              {/* <EyeOutlined style={{ color: 'red', marginRight: 10 }} /> */}
-              {/* <PlusSquareFilled style={{ color: '#5A54F9' }} /> */}
-            </>
-          }
-        />
-      </Tooltip>
-    ),
+    sorter: (a, b) => a.Comments.localeCompare(b.Comments),
   },
 ];

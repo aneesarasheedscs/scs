@@ -1,6 +1,6 @@
 import { AntButton, AntDatePicker, AntInput, AntInputNumber, AntSelectDynamic, AntTable } from '@tradePro/components';
 import { Card, Col, Row, Form, FormInstance, theme, notification } from 'antd';
-import { add, map, sumBy } from 'lodash';
+import { add, map, sortBy, sumBy } from 'lodash';
 import dayjs from 'dayjs';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import {
@@ -74,20 +74,15 @@ const DynamicForm = ({ form, bankId }: TDynamicForm) => {
     CreditAmount: 0,
     TaxesTotalAmount: 0,
   };
-
   const handleCreditAccountChange = (accountId: number) => {
     setRefAccountId(accountId);
 
-    if (accountId === 21321) {
-      form.setFieldValue(['voucherDetailList', 0, 'AccountTitle'], 'RK INTERNATIONAL ');
-    } else if (accountId === 21322) {
-      form.setFieldValue(['voucherDetailList', 0, 'AccountTitle'], 'ABDUL AHAD DAAL MILS FSD');
-    } else if (accountId === 21323) {
-      form.setFieldValue(['voucherDetailList', 0, 'AccountTitle'], 'ABDUL HAMEED & SONS');
-    } else if (accountId === 21324) {
-      form.setFieldValue(['voucherDetailList', 0, 'AccountTitle'], 'ABDUL MAJEED DAAL FACTORY');
-    } else if (accountId === 21325) {
-      form.setFieldValue(['voucherDetailList', 0, 'AccountTitle'], 'ABDULLAH TRADERS - MANDI SADIC');
+    const selectedAccount = filteredDebitAccounts.find((item: any) => item.Id === accountId);
+
+    if (selectedAccount) {
+      const accountTitle = selectedAccount.AccountTitle;
+      console.log(accountTitle);
+      form.setFieldValue(['voucherDetailList', 0, 'AccountTitle'], accountTitle);
     }
   };
 

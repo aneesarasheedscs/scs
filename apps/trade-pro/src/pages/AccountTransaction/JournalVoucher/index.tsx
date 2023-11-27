@@ -4,9 +4,11 @@ import { useEffect, useState } from 'react';
 import { useGetJournalVoucherById } from './quries';
 import { useAtom } from 'jotai';
 import { viewDetailList } from './Form/Atom';
-import JournalVoucherTable from './Table/journalVoucherTable';
-import JournalVoucherDetailTable from './Table/DetailTable';
+// import JournalVoucherTable from './Table/journalVoucherTable';
+// import JournalVoucherDetailTable from './Table/DetailTable';
 import JournalVoucherForm from './Form';
+import JournalVoucherTable from './Table/JournalVoucherHistory/journalVoucherTable';
+import JournalVoucherDetailTable from './Table/JournalVoucherDetail';
 
 function JournalVoucher() {
   const { t } = useTranslation();
@@ -26,7 +28,7 @@ function JournalVoucher() {
   }, [isDataSuccess]);
   return (
     <>
-      <h2 className="form-heading"> Journal Voucher </h2>
+      <h2 className="form-heading"> {t('journal_voucher')} </h2>
 
       <Tabs
         type="card"

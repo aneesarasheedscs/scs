@@ -22,7 +22,7 @@ export const useGetDocumentNumber = () => {
     'document-number',
     () => {
       return requestManager.get('/api/Voucher/GenerateVoucherCodeByDocumentTypeId', {
-        params: { ...params, BranchId: userDetail?.BranchesId, DocumentTypeId: 5, FinancialYearId: financialYear?.Id },
+        params: { ...params, BranchId: 2, DocumentTypeId: 5, FinancialYearId: financialYear?.Id },
       });
     },
     { cacheTime: 5000 }

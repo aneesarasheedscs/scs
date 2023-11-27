@@ -1,37 +1,47 @@
-import { Col, Row, theme } from 'antd';
 import { AntTable } from '@tradePro/components';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
-import { columns } from './column';
+import { Card, Col, Row, theme } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { useAtom } from 'jotai';
+import { viewDetailList } from '../../Form/Atom';
+import { useGetJournalVocherHistory } from '../../quries';
+import { detailColumns } from './column';
 
-function JournalVoucherDetail() {
-  //   const {
-  //     refetch,
+function JournalVoucherDetailTable() {
+  const { t } = useTranslation();
+  const { data, isError, isLoading, refetch, isFetching } = useGetJournalVocherHistory();
+  const [viewDetail, setViewDetail] = useAtom(viewDetailList);
+  const {
+    token: { colorPrimary },
+  } = theme.useToken();
 
-  //     data: table,
-  //     isError: tableError,
-  //     isLoading: tableLoading,
-  //     isSuccess: tableSuccess,
-  //   } = usegetAccountLevels();
-
-  //   const filteredTableData = table?.data?.Data?.Result?.filter((item: any) => item.Account_Level === 1) || [];
   return (
     <div>
-      <Row gutter={[16, 16]}>
-        <Col xs={24} sm={24} md={20} lg={20} xl={24}>
-          <h2 className="journalform-heading">Detail</h2>
-          <AntTable
-            // refetch={refetch}
-            // isError={tableError}
-            // data={filteredTableData || []}
-            columns={columns()}
-            // isLoading={tableLoading}
-            numberOfSkeletons={15}
-            scroll={{ x: '', y: convertVhToPixels('38vh') }}
-          />
+      <Row style={{ marginTop: '0.1%' }}>
+        <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }} xxl={20}>
+          <Card style={{ boxShadow: '2px 4px 12px 1px gray', textAlign: 'left' }}>
+            <h2 className="form-heading3" style={{ marginTop: -10 }}>
+              {t('detail')}
+            </h2>
+            <AntTable
+              isError={isError}
+              numberOfSkeletons={6}
+              isLoading={isLoading}
+              scroll={{ x: '', y: convertVhToPixels('20vh') }}
+              data={viewDetail || []}
+              columns={detailColumns(t)}
+              style={{ marginTop: 0 }}
+            />
+          </Card>
         </Col>
       </Row>
     </div>
   );
 }
 
-export default JournalVoucherDetail;
+type TFrom = {
+  setSelectedRecordId: (id: number | null) => void;
+  setActiveTab: (tab: string) => void;
+};
+
+export default JournalVoucherDetailTable;

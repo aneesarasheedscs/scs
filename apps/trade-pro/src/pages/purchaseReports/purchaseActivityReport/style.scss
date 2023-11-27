@@ -1,0 +1,28 @@
+.formfield {
+  border-bottom: 1px solid gray;
+  padding: 0px;
+  height: 38px;
+  margin-top: 5px;
+}
+
+.buttons {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.margin-top-radio-btn {
+  margin-top: 10px;
+}
+
+@media screen and (min-width: 481px) and (max-width: 575px) {
+  .formfield {
+    height: 65px !important;
+  }
+  .margin-left-right {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  .buttons {
+    margin-top: 1rem;
+    margin-left: 3px;
+  }
+}

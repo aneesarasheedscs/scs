@@ -15,6 +15,8 @@ function CompanyBranchDetails() {
   const [form] = useForm<TCompanyBranchDetail>();
   const formValues = useWatch<TCompanyBranchDetail>([], form);
   const [financialYearObj, setFinancialYearObj] = useState();
+
+  let IsHeadOffice: boolean = false;
   const onSelectChange = (selectedObject: any) => {
     if (selectedObject !== null && selectedObject !== undefined) setFinancialYearObj(selectedObject);
     else {
@@ -25,10 +27,24 @@ function CompanyBranchDetails() {
     const userDetail = storedUserDetail();
     if (!userDetail?.access_token) navigate(route.LOGIN);
   }, []);
+
+  const handleCompanyChange = (obj: any) => {
+    IsHeadOffice = obj?.IsHeadOffice;
+  }
+
   const handleSubmit = async () => {
     if (await form.validateFields()) {
       const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
-      merge({}, userDetail, { CompanyId: formValues?.CompanyId, BranchId: formValues?.BranchId });
+
+      console.log(JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}'));
+      console.log(userDetail);
+
+      merge({}, userDetail, { CompanyId: formValues?.CompanyId, BranchId: formValues?.BranchId, IsHeadOffice: IsHeadOffice });
+
+      console.log(userDetail);
+      localStorage.setItem('loggedInUserDetail', JSON.stringify(userDetail));
+      console.log(JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}'));
+
       localStorage.setItem('financialYear', JSON.stringify(financialYearObj));
       navigate(route.APP_MENU);
     }
@@ -44,6 +60,7 @@ function CompanyBranchDetails() {
           fieldLabel="CompName"
           query={useGetCompany}
           fieldValue="CompanyId"
+          onSelectChange={(obj) => handleCompanyChange(obj)}
         />
         <AntSelectDynamic
           required

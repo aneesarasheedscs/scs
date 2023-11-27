@@ -17,7 +17,7 @@ function PosDefineItem() {
 
   return (
     <>
-      <h2 className="form-heading" style={{ marginBottom: 5, marginTop: -15 }}>
+      <h2 className="form-heading" style={{ marginBottom: 5, marginTop: -5 }}>
         {t('define_item')}
       </h2>
 

@@ -1,0 +1,25 @@
+.formfield {
+  border-bottom: 1px solid gray;
+  padding: 0px;
+  height: 38px;
+}
+.ant-checkbox-inner,
+.ant-checkbox-input {
+  height: 1.5rem !important;
+  width: 1.5rem !important;
+}
+
+// Responsiveness
+
+@media screen and (min-width: 481px) and (max-width: 575px) {
+  .checkbox {
+    margin-top: 5% !important;
+  }
+  .formfield {
+    height: 70px !important;
+  }
+  .file {
+    margin-top: 2%;
+    margin-bottom: 2%;
+  }
+}

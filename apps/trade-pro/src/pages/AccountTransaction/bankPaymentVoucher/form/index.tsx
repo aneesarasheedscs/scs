@@ -125,7 +125,14 @@ function BankPaymentVoucherForm({
               <Form.Item>
                 <Row align="middle" style={{ marginLeft: '-2.5%', marginTop: '-6%' }} gutter={10}>
                   <Col>
-                    <AntButton danger ghost htmlType="reset" label={t('reset')} icon={<SyncOutlined />} />
+                    <AntButton
+                      danger
+                      ghost
+                      htmlType="reset"
+                      onClick={() => setTableData([])}
+                      label={t('reset')}
+                      icon={<SyncOutlined />}
+                    />
                   </Col>
                   <Col>
                     <AntButton label={t('save')} htmlType="submit" icon={<SaveOutlined />} />
