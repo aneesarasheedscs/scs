@@ -8,36 +8,23 @@ import ActivitySummaryReport from '@tradePro/pages/accountReports/ActivitySummar
 import CashBalances from '@tradePro/pages/accountReports/CashBalance';
 import PayablesReceivablesReport from '@tradePro/pages/accountReports/PayablesReceivables/Payables&Receivaables/MainForm';
 import BankBalances from '@tradePro/pages/accountReports/BankBalances/bankBalancesReport/BankBalances';
+import { storedUserDetail } from '@tradePro/utils/storageService';
+import CompanyWiseDataPopUp from './CompanyWiseDataPopup';
 
 const { Title, Text } = Typography;
 const { useToken } = theme;
 
-const AccountDashboardCards: React.FC<{ Data: any; FromdateProp?: Date; TodateProp?: Date }> = ({
+const AccountDashboardCards: React.FC<{ Data: any; FromdateProp?: Date; TodateProp?: Date; Companies?: string }> = ({
   Data,
   FromdateProp,
   TodateProp,
+  Companies,
 }) => {
   const { t } = useTranslation();
+  const UserDetail = storedUserDetail();
   const colorPrimary = useToken().token.colorPrimary;
   const [selectedCardData, setSelectedCardData] = useState<any>();
 
-  const cardData = [
-    { id: 1, title: 'Card 1', content: 'Content for Card 1' },
-    { id: 2, title: 'Card 2', content: 'Content for Card 2' },
-    { id: 3, title: 'Card 3', content: 'Content for Card 3' },
-  ];
-  function getIconForCard(cardId: any) {
-    switch (cardId) {
-      case 1:
-        return <SmileOutlined />;
-      case 2:
-        return <HeartOutlined />;
-      case 3:
-        return <LikeOutlined />;
-      default:
-        return null; // Default icon if no matching ID is found
-    }
-  }
   return (
     <div>
       <Row gutter={[16, 16]}>
@@ -117,41 +104,54 @@ const AccountDashboardCards: React.FC<{ Data: any; FromdateProp?: Date; TodatePr
           </div>
         </Col>
       </Row>
-
-      <Modal
-        width={1700}
-        key={selectedCardData?.Id}
-        open={selectedCardData !== undefined}
-        onCancel={() => setSelectedCardData(undefined)}
-        footer={null}
-        bodyStyle={{ maxHeight: '80vh', overflowY: 'auto' }}
-      >
-        {selectedCardData?.SortingNo == 1 && (
-          <div style={{ maxHeight: '100%', overflowY: 'auto' }}>
-            <ActivitySummaryReport FromDateProp={FromdateProp} ToDateProp={TodateProp} />
-          </div>
-        )}
-        {selectedCardData?.SortingNo == 2 && (
-          <div style={{ maxHeight: '100%', overflowY: 'auto' }}>
-            <CashBalances FromDateProp={FromdateProp} ToDateProp={TodateProp} />
-          </div>
-        )}
-        {selectedCardData?.SortingNo == 3 && (
-          <div style={{ maxHeight: '100%', overflowY: 'auto' }}>
-            <BankBalances FromDateProp={FromdateProp} ToDateProp={TodateProp} />
-          </div>
-        )}
-        {selectedCardData?.SortingNo == 6 && (
-          <div style={{ maxHeight: '100%', overflowY: 'auto' }}>
-            <PayablesReceivablesReport AccountClassId={3} FromDateProp={FromdateProp} ToDateProp={TodateProp} />
-          </div>
-        )}
-        {selectedCardData?.SortingNo == 7 && (
-          <div style={{ maxHeight: '100%', overflowY: 'auto' }}>
-            <PayablesReceivablesReport AccountClassId={2} FromDateProp={FromdateProp} ToDateProp={TodateProp} />
-          </div>
-        )}
-      </Modal>
+      {UserDetail?.IsHeadOffice == false && (
+        <Modal
+          width={1700}
+          key={selectedCardData?.Id}
+          open={selectedCardData !== undefined}
+          onCancel={() => setSelectedCardData(undefined)}
+          footer={null}
+          bodyStyle={{ maxHeight: '80vh', overflowY: 'auto' }}
+        >
+          {selectedCardData?.SortingNo == 1 && (
+            <div style={{ maxHeight: '100%', overflowY: 'auto' }}>
+              <ActivitySummaryReport FromDateProp={FromdateProp} ToDateProp={TodateProp} />
+            </div>
+          )}
+          {selectedCardData?.SortingNo == 2 && (
+            <div style={{ maxHeight: '100%', overflowY: 'auto' }}>
+              <CashBalances FromDateProp={FromdateProp} ToDateProp={TodateProp} />
+            </div>
+          )}
+          {selectedCardData?.SortingNo == 3 && (
+            <div style={{ maxHeight: '100%', overflowY: 'auto' }}>
+              <BankBalances FromDateProp={FromdateProp} ToDateProp={TodateProp} />
+            </div>
+          )}
+          {selectedCardData?.SortingNo == 6 && (
+            <div style={{ maxHeight: '100%', overflowY: 'auto' }}>
+              <PayablesReceivablesReport AccountClassId={3} FromDateProp={FromdateProp} ToDateProp={TodateProp} />
+            </div>
+          )}
+          {selectedCardData?.SortingNo == 7 && (
+            <div style={{ maxHeight: '100%', overflowY: 'auto' }}>
+              <PayablesReceivablesReport AccountClassId={2} FromDateProp={FromdateProp} ToDateProp={TodateProp} />
+            </div>
+          )}
+        </Modal>
+      )}
+      {UserDetail?.IsHeadOffice == true && (
+        <Modal
+          width={1700}
+          key={selectedCardData?.Id}
+          open={selectedCardData !== undefined}
+          onCancel={() => setSelectedCardData(undefined)}
+          footer={null}
+          bodyStyle={{ maxHeight: '80vh', overflowY: 'auto' }}
+        >
+          <CompanyWiseDataPopUp FromdateProp={FromdateProp} TodateProp={TodateProp} Companies={Companies} />
+        </Modal>
+      )}
     </div>
   );
 };

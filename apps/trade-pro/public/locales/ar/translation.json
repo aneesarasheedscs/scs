@@ -400,5 +400,6 @@
   "opening_credit": "فتح الائتمان",
   "closing_debit": "إغلاق الدين",
   "closing_credit": "إغلاق الائتمان",
-  "sr": "ريال سعودى"
+  "sr": "ريال سعودى",
+  "companyName": "اسم الشركة"
 }

@@ -725,5 +725,6 @@
   "opening_credit": "Crédito de apertura",
   "closing_debit": "Débito de cierre",
   "closing_credit": "Crédito de cierre",
-  "sr": "Sr."
+  "sr": "Sr.",
+  "companyName": "nombre de empresa"
 }

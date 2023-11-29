@@ -394,5 +394,6 @@
   "opening_credit": "开立信用证",
   "closing_debit": "期末借方",
   "closing_credit": "期末信用证",
-  "sr": "锶"
+  "sr": "锶",
+  "companyName": "公司名称"
 }

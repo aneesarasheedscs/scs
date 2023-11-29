@@ -17,6 +17,7 @@ function LoginPage() {
   const onFinish = (values: TUser) => mutate(values);
   useEffect(() => {
     const userDetail = storedUserDetail();
+
     const financialYearDetail = storedFinancialYear();
     if (userDetail?.access_token && !isTokenExpired()) {
       if (size(financialYearDetail) < 1) {

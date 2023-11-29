@@ -18,34 +18,35 @@ export const useGetDateType = () => {
   );
 };
 
-export const useGetAccountDashboardData = (enabled = false, params: TAccountDashboardCriteria) => {
+export const useGetAccountDashboardData = (enabled = false, ActivityId: number, params: TAccountDashboardCriteria) => {
   const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
   const financialYear: any = JSON.parse(localStorage.getItem('financialYear') || '{}');
   return useQuery(
-    'accounts-dashboard',
+    ['accounts-dashboard', ActivityId],
     () => {
-      return requestManager.get('/api/Dashboard/AccountDashboard?', {
-        params: {
-          OrganizationId: userDetail?.OrganizationId,
-          CompanyId: userDetail?.CompanyId,
-          FinancialYearId: financialYear?.Id,
-          ActivityId: 1,
-          ...params,
-        },
+      return requestManager.post('/api/Dashboard/AccountDashboard', {
+        OrganizationId: parseInt(userDetail?.OrganizationId),
+        FinancialYearId: parseInt(financialYear?.Id),
+        DashboardObjectName: 'ExectiveAccountsDashboard',
+        ActivityId: ActivityId,
+        CompanyIds: params.CompanyIds?.toString(),
+        FormDate: params.FromDate,
+        ToDate: params.ToDate,
+        ReqType: params.ReqType,
       });
     },
     { enabled }
   );
 };
 
-export const useGetMasterBranchByUserId = () => {
+export const useGetCompanies = () => {
   const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
 
   return useQuery(
-    'master-branch',
+    'Companies',
     () => {
-      return requestManager.get('/api/Company/GetCompaniesByUserId?OrganizationId=2&UserId=2', {
-        params: { OrganizationId: userDetail?.OrganizationId, CompanyId: userDetail?.CompanyId },
+      return requestManager.get('/api/Company/GetAlldt', {
+        params: { OrgCompanyTypeId: userDetail?.OrganizationId },
       });
     },
     { cacheTime: userDetail?.expires_in }

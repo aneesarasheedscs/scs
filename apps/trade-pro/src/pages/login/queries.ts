@@ -5,10 +5,12 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 import { requestManager } from '@tradePro/configs/requestManager';
 import { storedUserDetail } from '@tradePro/utils/storageService';
 import { TUserDetail } from '@tradePro/globalTypes';
+import { boolean } from 'joi';
 export const useLogin = () => {
   return useMutation('token', (data: TUser) => getAccessToken(data), {
     onSuccess: (response: AxiosResponse) => {
       const userData: TUserDetail = response?.data;
+      console.log(userData);
       localStorage.setItem('loggedInUserDetail', JSON.stringify(userData));
       // queryClient.invalidateQueries
     },

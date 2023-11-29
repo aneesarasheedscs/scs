@@ -1,67 +1,84 @@
 import './style.scss';
-import { Form } from 'antd';
-import { merge } from 'lodash';
+import { Form, Select } from 'antd';
+import { map, merge } from 'lodash';
 import CardWrapper from './CardWrapper';
 import { useEffect, useState } from 'react';
-import { TCompanyBranchDetail } from './types';
+import { Company, TCompanyBranchDetail } from './types';
 import { useNavigate } from 'react-router-dom';
 import { route } from '@tradePro/routes/constant';
 import { storedUserDetail } from '@tradePro/utils/storageService';
 import { AntButton, AntSelectDynamic } from '@tradePro/components';
 import { useGetBranch, useGetCompany, useGetFinancialYear } from './queries';
+import { TUserDetail } from '@tradePro/globalTypes';
 const { useForm, useWatch } = Form;
 function CompanyBranchDetails() {
   const navigate = useNavigate();
   const [form] = useForm<TCompanyBranchDetail>();
   const formValues = useWatch<TCompanyBranchDetail>([], form);
+  const [companyList, setcompanyList] = useState<Company[]>([]);
   const [financialYearObj, setFinancialYearObj] = useState();
+  const [headOffice, setheadOffice] = useState<boolean | undefined>();
 
-  let IsHeadOffice: boolean = false;
-  const onSelectChange = (selectedObject: any) => {
+  const { data: CompanyData, isSuccess } = useGetCompany();
+  const handleFinancialChange = (selectedObject: any) => {
+    console.log(selectedObject);
     if (selectedObject !== null && selectedObject !== undefined) setFinancialYearObj(selectedObject);
     else {
       form.validateFields();
     }
   };
+
   useEffect(() => {
     const userDetail = storedUserDetail();
     if (!userDetail?.access_token) navigate(route.LOGIN);
   }, []);
 
-  const handleCompanyChange = (obj: any) => {
-    IsHeadOffice = obj?.IsHeadOffice;
-  }
+  useEffect(() => {
+    if (isSuccess) {
+      setcompanyList(CompanyData?.data?.Data?.Result);
+    }
+    CompanyData;
+  });
+  // const handleCompanyChange = (obj: Company) => {
+  //   console.log(obj);
+  //   if (obj !== null && obj !== undefined) {
+  //     setheadOffice(obj?.IsHeadOffice);
+  //   }
+  // };
+
+  const handleCompanyChange = async (value: number) => {
+    const obj = await companyList.find((item: Company) => item.CompanyId === value);
+    setheadOffice(obj?.IsHeadOffice);
+  };
 
   const handleSubmit = async () => {
     if (await form.validateFields()) {
-      const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
-
-      console.log(JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}'));
-      console.log(userDetail);
-
-      merge({}, userDetail, { CompanyId: formValues?.CompanyId, BranchId: formValues?.BranchId, IsHeadOffice: IsHeadOffice });
-
-      console.log(userDetail);
-      localStorage.setItem('loggedInUserDetail', JSON.stringify(userDetail));
-      console.log(JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}'));
-
+      const userDetail: TUserDetail = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
+      const mergeObject = merge({}, userDetail, {
+        CompanyId: formValues?.CompanyId,
+        BranchesId: formValues?.BranchId,
+        IsHeadOffice: headOffice,
+      });
+      localStorage.setItem('loggedInUserDetail', JSON.stringify(mergeObject));
       localStorage.setItem('financialYear', JSON.stringify(financialYearObj));
       navigate(route.APP_MENU);
     }
   };
+
   return (
     <CardWrapper>
       <Form form={form} layout="vertical">
-        <AntSelectDynamic
-          required
-          size="large"
-          label="Company"
-          name="CompanyId"
-          fieldLabel="CompName"
-          query={useGetCompany}
-          fieldValue="CompanyId"
-          onSelectChange={(obj) => handleCompanyChange(obj)}
-        />
+        <Form.Item label="Company" name="CompanyId">
+          <Select
+            allowClear
+            onChange={handleCompanyChange}
+            style={{ width: '100%' }}
+            options={map(companyList, (item) => ({
+              value: item.CompanyId,
+              label: item.CompName,
+            }))}
+          />
+        </Form.Item>
         <AntSelectDynamic
           required
           size="large"
@@ -78,7 +95,7 @@ function CompanyBranchDetails() {
           name="FinancialYearId"
           label="Financial Year"
           fieldLabel="FinancialYearCode"
-          onSelectChange={onSelectChange}
+          onSelectChange={handleFinancialChange}
           query={useGetFinancialYear(formValues?.CompanyId)}
         />
         <Form.Item>

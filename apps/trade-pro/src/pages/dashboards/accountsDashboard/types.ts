@@ -1,6 +1,8 @@
 export type TAccountDashboardCriteria = {
-  FromDate: Date;
-  ToDate: Date;
+  FromDate?: Date;
+  ToDate?: Date;
+  CompanyIds?: string;
+  ReqType?: string;
 };
 
 export type TBankBalancesSummary = {

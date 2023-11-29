@@ -5,3 +5,9 @@ export type TCompanyBranchDetail = {
   CompanyId: number;
   FinancialYearId: number;
 };
+
+export type Company = {
+  CompanyId: number;
+  CompName: string;
+  IsHeadOffice: boolean;
+};

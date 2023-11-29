@@ -379,5 +379,6 @@
   "opening_credit": "オープニングクレジット",
   "closing_debit": "締め借方",
   "closing_credit": "クロージングクレジット",
-  "sr": "シニア"
+  "sr": "シニア",
+  "companyName": "会社名"
 }

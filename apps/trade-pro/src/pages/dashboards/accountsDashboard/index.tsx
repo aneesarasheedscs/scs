@@ -2,14 +2,13 @@ import { DatePicker, Col, Row, Typography, Card, Form, theme } from 'antd';
 import { AntButton, AntDatePicker } from '@scs/ui';
 import { AntSelectDynamic } from '@scs/ui';
 import { useTranslation } from 'react-i18next';
-import { useGetDateType, useGetAccountDashboardData, useGetMasterBranchByUserId } from './queries';
+import { useGetDateType, useGetAccountDashboardData, useGetCompanies } from './queries';
 import AccountDashboardCards from './AccountDashboardCards ';
 import dayjs from 'dayjs';
-import { storedFinancialYear } from '@tradePro/utils/storageService';
+import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 import { TAccountDashboardCriteria } from './types';
 
 const { useForm, useWatch } = Form;
-
 function AccountDashboard() {
   const [form] = useForm<TAccountDashboardCriteria>();
   const formvalues = useWatch<TAccountDashboardCriteria>([], form);
@@ -21,14 +20,17 @@ function AccountDashboard() {
     isError: isError,
     isLoading: isLoading,
     refetch,
-  } = useGetAccountDashboardData(false, form.getFieldsValue());
+  } = useGetAccountDashboardData(false, 1, form.getFieldsValue());
 
   const FinancialYear = storedFinancialYear();
+  const UserDetail = storedUserDetail();
 
   const FromDate = dayjs(FinancialYear?.Start_Period);
   const ToDate = dayjs(FinancialYear?.End_Period);
 
   const onFinish = (_: TAccountDashboardCriteria) => {
+    _.CompanyIds = _.CompanyIds?.toString();
+    console.log(_);
     refetch();
   };
   const handleDateChange = (Id: number) => {
@@ -100,11 +102,13 @@ function AccountDashboard() {
             <Col xl={6} className="formfield">
               <AntSelectDynamic
                 bordered={false}
-                label={t('master_branch')}
-                name="MasterBranch"
+                mode={UserDetail?.IsHeadOffice ? 'multiple' : undefined}
+                disabled={UserDetail?.IsHeadOffice == false ? true : false}
+                label={t('companyName')}
+                name="CompanyIds"
                 fieldLabel="CompName"
                 fieldValue="Id"
-                query={useGetMasterBranchByUserId}
+                query={useGetCompanies}
               />
             </Col>
 
@@ -119,6 +123,7 @@ function AccountDashboard() {
         Data={dataSource?.data?.Data?.Result}
         FromdateProp={getFieldValue('FromDate')}
         TodateProp={getFieldValue('ToDate')}
+        Companies={form.getFieldValue('CompanyIds')}
       />
     </div>
   );

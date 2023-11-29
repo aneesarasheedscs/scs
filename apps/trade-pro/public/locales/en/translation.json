@@ -511,5 +511,6 @@
   "opening_credit": "Opening Credit",
   "closing_debit": "Closing Debit",
   "closing_credit": "Closing Credit",
-  "sr": "Sr#"
+  "sr": "Sr#",
+  "companyName": "Company Name"
 }
