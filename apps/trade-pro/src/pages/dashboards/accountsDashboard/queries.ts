@@ -29,10 +29,14 @@ export const useGetAccountDashboardData = (enabled = false, ActivityId: number, 
         FinancialYearId: parseInt(financialYear?.Id),
         DashboardObjectName: 'ExectiveAccountsDashboard',
         ActivityId: ActivityId,
-        CompanyIds: params.CompanyIds?.toString(),
-        FormDate: params.FromDate,
+        CompanyIds: userDetail?.IsHeadOffice
+          ? params.CompanyIds !== undefined && params.CompanyIds !== null
+            ? params.CompanyIds?.toString()
+            : ''
+          : userDetail?.CompanyId.toString(),
+        FromDate: params.FromDate,
         ToDate: params.ToDate,
-        ReqType: params.ReqType,
+        ReqType: params.ReqType !== undefined && params.ReqType !== null ? params.ReqType : '',
       });
     },
     { enabled }
@@ -41,7 +45,6 @@ export const useGetAccountDashboardData = (enabled = false, ActivityId: number, 
 
 export const useGetCompanies = () => {
   const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
-
   return useQuery(
     'Companies',
     () => {

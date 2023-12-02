@@ -4,7 +4,7 @@ import { AntTable } from '@tradePro/components';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import SearchCriteriaForm from './SearchCriteriaForm';
 import { columns } from './columns';
-import { useGetAccountReceivablesTable } from '../queries/queries';
+import { useGetAccountReceivablesTable } from '../queries';
 
 function AccountReceivablesTable() {
   const { t } = useTranslation();
@@ -22,7 +22,7 @@ function AccountReceivablesTable() {
 
   return (
     <>
-      <h2 style={formHeading}>{t('account_receivables_by_due_day')}</h2>
+      <h2 style={formHeading}>{t('account_receivables_by_due_date')}</h2>
       <Row>
         <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }}>
           <Card style={{ boxShadow: '2px 4px 12px 1px gray', textAlign: 'left' }}>

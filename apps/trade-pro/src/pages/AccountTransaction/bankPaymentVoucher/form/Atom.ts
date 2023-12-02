@@ -6,3 +6,4 @@ export const selectedCreditAccountAtom = atom<any>(null);
 export const selectedAgainstAccountAtom = atom<any>(null);
 export const addtableData = atom<any>([]);
 export const viewDetailList = atom<any>([]);
+export const listAtomforTax = atom([]);

@@ -10,14 +10,15 @@ import { Col, Form, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 import { TAccountReceivablesSearchCriteria } from './types';
+
+import { selectedItems } from './Atom';
+import { map } from 'lodash';
+import { useAtom } from 'jotai';
 import {
   useGetAccountReceivablesAccountTitle,
   useGetAccountReceivablesPartyGroup,
   useGetAccountReceivablesTable,
-} from '../queries/queries';
-import { selectedItems } from './Atom';
-import { map } from 'lodash';
-import { useAtom } from 'jotai';
+} from '../queries';
 
 const { useForm, useWatch } = Form;
 
@@ -38,10 +39,9 @@ function SearchCriteriaForm() {
     isFetching,
     isError: isAccountReceivableError,
     isLoading: isAccountReceivableLoading,
-  } = useGetAccountReceivablesTable(true, form.getFieldsValue());
+  } = useGetAccountReceivablesTable(false, form.getFieldsValue());
 
   const onFinish = (values: TAccountReceivablesSearchCriteria) => {
-    values.Id = Array.isArray(values.Id) ? values.Id.join(',') : values.Id;
     console.log(values);
     setSelectedItems(values);
     console.log(selectedItem);
@@ -66,7 +66,7 @@ function SearchCriteriaForm() {
             <AntSelectDynamic
               required
               mode="multiple"
-              name="Ids"
+              name="SelectedIds"
               label={t('party_group')}
               fieldValue="Id"
               fieldLabel="Description"
@@ -78,7 +78,7 @@ function SearchCriteriaForm() {
           <Col xs={24} sm={24} md={24} style={formfield}>
             <AntSelectDynamic
               mode="multiple"
-              name="Id"
+              name="SelectedAccountIds"
               label={t('account_title')}
               fieldValue="Id"
               fieldLabel="AccountTitle"
@@ -90,19 +90,19 @@ function SearchCriteriaForm() {
             />
           </Col>
 
-          <Col xs={24} sm={24} md={11} style={formfield}>
+          <Col xs={12} sm={12} md={14} style={formfield}>
             <AntDatePicker name="DueDateTo" label={t('due_date_to')} required bordered={false} />
           </Col>
 
-          <Col xs={24} sm={24} md={11} style={formfield}>
+          <Col xs={12} sm={12} md={14} style={formfield}>
             <AntInputNumber name="FromDocNo" label={t('balance_from')} bordered={false} />
           </Col>
 
-          <Col xs={24} sm={24} md={11} style={formfield}>
+          <Col xs={12} sm={12} md={14} style={formfield}>
             <AntInputNumber name="ToDocNo" label={t('balance_to')} bordered={false} />
           </Col>
 
-          <Col xs={24} sm={24} md={8}>
+          <Col xs={12} sm={12} md={6}>
             <AntButton
               label={t('show')}
               htmlType="submit"

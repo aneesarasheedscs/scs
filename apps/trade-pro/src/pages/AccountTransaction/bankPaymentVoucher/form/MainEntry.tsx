@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 import { isWithHoldingCheckedAtom, selectedCreditAccountAtom, totalValue, selectedAgainstAccountAtom } from './Atom';
 import { useAtom } from 'jotai';
 
-function MainEntry({ form, setBankId, bankId }: TDynamicForm) {
+function MainEntry({ form, setBankId, bankId, isAddButtonClicked }: TDynamicForm) {
   const { t } = useTranslation();
   const { data: getTaxSchedule } = useGetTaxSchedule();
   const [totalDebitAmounts, setTotalDebitAmounts] = useAtom(totalValue);
@@ -22,19 +22,22 @@ function MainEntry({ form, setBankId, bankId }: TDynamicForm) {
   const [againstAccountAtom, setAgainstAccountAtom] = useAtom(selectedAgainstAccountAtom);
   const [isWithHoldingChecked, setIsWithHoldingChecked] = useAtom(isWithHoldingCheckedAtom);
   const { data: filter } = useGetWHTAgainstAcSelect();
-
   useEffect(() => {
     form.setFieldValue('VoucherAmount', totalDebitAmounts);
-  }, [credit, bankId, totalDebitAmounts]);
+    if (data?.data?.Data?.Result?.[0]?.Balance !== undefined) {
+      form.setFieldsValue({ Balance: data?.data?.Data?.Result?.[0]?.Balance.toFixed(2) });
+    }
+  }, [credit, bankId, totalDebitAmounts, data?.data?.Data?.Result]);
 
-  const handleCreditAccountChange = (accountId?: any) => {
+  const handleCreditAccountChange = (accountId?: any, index?: any) => {
+    const balance = data?.data?.Data?.Result?.[0]?.Balance.toFixed(2);
+    form.setFieldValue(['voucherDetailList', index, 'Balance'], balance);
+    console.log('abc', balance);
     setSelectedCreditAccount(accountId);
     setBankId(accountId);
   };
   const handleAgainstAccountChange = (accountId?: any) => {
     setAgainstAccountAtom(accountId);
-
-    form.setFieldValue(['voucherDetailList', 0, 'AgainstAccountId'], accountId);
   };
   const handleCheckboxChange = (isChecked: boolean, fieldName: string) => {
     form.setFieldsValue({
@@ -61,7 +64,6 @@ function MainEntry({ form, setBankId, bankId }: TDynamicForm) {
     Type: string;
   }
   const voucherType: TVoucherType[] = [{ Id: 1, Type: 'BPV' }];
-
   return (
     <>
       <Row gutter={[10, 10]} style={{ marginTop: '-1%' }}>
@@ -69,12 +71,12 @@ function MainEntry({ form, setBankId, bankId }: TDynamicForm) {
           <Card style={{ paddingBottom: '0.5%', boxShadow: '2px 4px 12px 1px gray' }}>
             <Row gutter={[10, 10]} justify={'space-between'} style={{ marginLeft: 10 }}>
               <Col
-                xs={{ span: 20 }}
-                sm={{ span: 21 }}
+                xs={{ span: 24 }}
+                sm={{ span: 23 }}
                 md={{ span: 11 }}
                 lg={{ span: 11 }}
-                xl={{ span: 6 }}
-                xxl={{ span: 4 }}
+                xl={{ span: 4 }}
+                xxl={{ span: 3 }}
                 className="formfield  "
               >
                 <AntSelectDynamic
@@ -92,25 +94,25 @@ function MainEntry({ form, setBankId, bankId }: TDynamicForm) {
               </Col>
               <Col
                 xs={{ span: 24 }}
-                sm={{ span: 21 }}
+                sm={{ span: 23 }}
                 md={{ span: 11 }}
                 lg={{ span: 11 }}
-                xl={{ span: 7 }}
-                xxl={{ span: 5 }}
+                xl={{ span: 6 }}
+                xxl={{ span: 4 }}
                 className="formfield "
               >
                 <AntDatePicker bordered={false} name="VoucherDate" label={t('voucher_date')} />
               </Col>
               <Col
                 xs={{ span: 24 }}
-                sm={{ span: 21 }}
+                sm={{ span: 23 }}
                 md={{ span: 11 }}
                 lg={{ span: 11 }}
-                xl={{ span: 10 }}
+                xl={{ span: 9 }}
                 xxl={{ span: 7 }}
-                className="formfield"
+                className="formfield credit"
               >
-                <p style={{ marginTop: -18, marginLeft: '65%' }}>
+                <p style={{ marginTop: -18, marginLeft: '65%' }} className="cr">
                   Cr : <b> {data?.data?.Data?.Result?.[0]?.Balance.toFixed(2)}</b>
                 </p>
 
@@ -124,17 +126,36 @@ function MainEntry({ form, setBankId, bankId }: TDynamicForm) {
                     name="RefAccountId"
                     query={useGetCreditAccountSelect}
                     onChange={(accountId) => handleCreditAccountChange(accountId)}
+                    disabled={!isAddButtonClicked}
                   />
                 </p>
               </Col>
               <Col
                 xs={{ span: 24 }}
-                sm={{ span: 21 }}
+                sm={{ span: 23 }}
+                md={{ span: 11 }}
+                lg={{ span: 11 }}
+                xl={{ span: 4 }}
+                xxl={{ span: 3 }}
+                className="formfield balance"
+              >
+                <AntInput
+                  readOnly
+                  bordered={false}
+                  name="Balance"
+                  value={form.getFieldValue(['voucherDetailList[0].Balance'])}
+                  label={t('balance')}
+                  style={{ fontWeight: 'bold' }}
+                />
+              </Col>
+              <Col
+                xs={{ span: 24 }}
+                sm={{ span: 23 }}
                 md={{ span: 11 }}
                 lg={{ span: 11 }}
                 xl={{ span: 9 }}
                 xxl={{ span: 6 }}
-                className="formfield"
+                className="formfield against"
               >
                 <AntSelectDynamic
                   bordered={false}
@@ -152,42 +173,41 @@ function MainEntry({ form, setBankId, bankId }: TDynamicForm) {
               </Col>
               <Col
                 xs={{ span: 24 }}
-                sm={{ span: 21 }}
-                md={{ span: 24 }}
+                sm={{ span: 23 }}
+                md={{ span: 11 }}
                 lg={{ span: 11 }}
                 xl={{ span: 10 }}
                 style={{ marginTop: '' }}
-                className="formfield"
+                className="formfield remarks"
               >
                 <AntInput bordered={false} name="Remarks" label={t('remarks')} />
                 <AntInput bordered={false} label={t('')} name="VoucherAmount" style={{ display: 'none' }} />
               </Col>
               <Col
                 xs={{ span: 12 }}
-                sm={{ span: 7 }}
+                sm={{ span: 10 }}
                 md={{ span: 6 }}
-                lg={{ span: 5 }}
+                lg={{ span: 7 }}
                 xl={{ span: 4 }}
                 xxl={{ span: 5 }}
                 style={{ marginTop: '0.5%' }}
                 className="checkbox"
               >
-                <label>
-                  <Form.Item name="IsTaxable" valuePropName="checked" initialValue={true}>
-                    <Checkbox onChange={(e) => handleCheckboxChange(e.target.checked, 'IsTaxable')}>
-                      {t('print_preview')}
-                    </Checkbox>
-                  </Form.Item>
-                </label>
+                <Form.Item name="IsTaxable" valuePropName="checked" initialValue={true}>
+                  <Checkbox onChange={(e) => handleCheckboxChange(e.target.checked, 'IsTaxable')}>
+                    {t('print_preview')}
+                  </Checkbox>
+                </Form.Item>
               </Col>
               <Col
-                xs={{ span: 10 }}
-                sm={{ span: 17 }}
-                md={{ span: 18 }}
-                lg={{ span: 5 }}
-                xl={{ span: 5 }}
+                xs={{ span: 5 }}
+                sm={{ span: 5 }}
+                md={{ span: 6 }}
+                lg={{ span: 18 }}
+                xl={{ span: 4 }}
+                xxl={{ span: 8 }}
                 style={{ marginTop: '0.5%' }}
-                className="checkbox"
+                className="wht"
               >
                 <Form.Item name="IncludeWHT" valuePropName="checked" initialValue={false}>
                   <Checkbox onChange={(e) => handleCheckboxChangeforWHT(e.target.checked, 'IncludeWHT')}>
@@ -202,7 +222,11 @@ function MainEntry({ form, setBankId, bankId }: TDynamicForm) {
     </>
   );
 }
-
-type TDynamicForm = { form: FormInstance; setBankId: any; bankId: any };
+type TDynamicForm = {
+  form: FormInstance;
+  setBankId: any;
+  bankId: any;
+  isAddButtonClicked: any;
+};
 
 export default MainEntry;

@@ -11,9 +11,10 @@ import {
 import { storedFinancialYear } from '@tradePro/utils/storageService';
 import { TtrialBalanceSelectedSearchCriteria } from './type';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
-import { useGetAccountTitle, useGetCityName, useGetDateTypes, useGetTrialBalanceSelectedReport } from './queries';
+import { useGetAccountTitle, useGetDateTypes, useGetTrialBalanceSelectedReport } from './queries';
 import '../style.scss';
 import { useTranslation } from 'react-i18next';
+import { useGetCityName } from '@tradePro/pages/Payables/queryOptions';
 const financialYear = storedFinancialYear();
 const { useForm, useWatch } = Form;
 
@@ -22,6 +23,8 @@ function CriteriaTrialBalanceSelected() {
   const [form] = useForm<TtrialBalanceSelectedSearchCriteria>();
   const formValues = useWatch<TtrialBalanceSelectedSearchCriteria>([], form);
   const { setFieldValue, getFieldValue } = form;
+  const { data } = useGetAccountTitle();
+  console.log('this is account', data);
 
   const {
     refetch,
@@ -37,21 +40,21 @@ function CriteriaTrialBalanceSelected() {
     refetch().then(() => handleClose());
   };
 
-  const onChangeSkipZero = (e: CheckboxChangeEvent) => {
+  const onChangeIsActive = (e: CheckboxChangeEvent) => {
     if (e.target.checked) {
-      setFieldValue('ZeroBalanceType', 1);
+      setFieldValue('ActionId', 1);
     } else {
-      setFieldValue('ZeroBalanceType', 0);
+      setFieldValue('ActionId', 0);
     }
   };
 
-  const onChangeUnPost = (e: CheckboxChangeEvent) => {
-    if (e.target.checked) {
-      setFieldValue('IsApproved', false);
-    } else {
-      setFieldValue('IsApproved', true);
-    }
-  };
+  // const onChangeUnPost = (e: CheckboxChangeEvent) => {
+  //   if (e.target.checked) {
+  //     setFieldValue('IsApproved', false);
+  //   } else {
+  //     setFieldValue('IsApproved', true);
+  //   }
+  // };
 
   const FromDate = dayjs(financialYear?.Start_Period);
   const ToDate = dayjs(financialYear?.End_Period);
@@ -82,6 +85,7 @@ function CriteriaTrialBalanceSelected() {
     setFieldValue('FromDate', dayjs(fromDate));
     setFieldValue('ToDate', dayjs(toDate));
   };
+
   const { t } = useTranslation();
   return (
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
@@ -101,28 +105,24 @@ function CriteriaTrialBalanceSelected() {
           </Col>
 
           <Col xs={24} sm={12} md={12} className="form_field">
-            <AntDatePicker defaultValue={FromDate} name="FromDate" label="From Date" bordered={false} />
+            <Form.Item name="FromDate" initialValue={FromDate}>
+              <AntDatePicker name="FromDate" label="From Date" bordered={false} />
+            </Form.Item>
           </Col>
 
           <Col xs={24} sm={12} md={11} className="form_field" offset={1}>
-            <AntDatePicker defaultValue={ToDate} name="ToDate" label="To Date" bordered={false} />
-          </Col>
-
-          <Col xs={24} sm={12} md={12} className="form_field">
-            <AntInputNumber name="Debit" label="cl-Debit" bordered={false} />
-          </Col>
-
-          <Col xs={24} sm={12} md={11} className="form_field" offset={1}>
-            <AntInputNumber name="Credit" label="cl-Credit" bordered={false} />
+            <Form.Item name="ToDate" initialValue={ToDate}>
+              <AntDatePicker name="ToDate" label="To Date" bordered={false} />
+            </Form.Item>
           </Col>
 
           <Col xs={24} sm={12} md={24} className="form_field">
             <AntSelectDynamic
               bordered={false}
               label={t('account_title')}
-              name=""
-              fieldLabel="AccounTitle"
-              fieldValue="AccountTitle"
+              name="GroupAccountId"
+              fieldValue="Id"
+              fieldLabel="AccountTitle"
               query={useGetAccountTitle}
             />
           </Col>
@@ -130,7 +130,7 @@ function CriteriaTrialBalanceSelected() {
             <AntSelectDynamic
               bordered={false}
               label={t('city_name')}
-              name="CityName"
+              name="CityId"
               fieldLabel="CityName"
               fieldValue="Id"
               query={useGetCityName}
@@ -138,22 +138,14 @@ function CriteriaTrialBalanceSelected() {
           </Col>
 
           <Col xs={12} sm={6} md={6}>
-            <Form.Item name="ZeroBalanceType">
-              <Checkbox checked={getFieldValue('ZeroBalanceType')} onChange={onChangeSkipZero}>
+            <Form.Item name="ActionId">
+              <Checkbox checked={getFieldValue('ActionId') === 1} onChange={onChangeIsActive}>
                 Is Active
               </Checkbox>
             </Form.Item>
           </Col>
 
-          <Col xs={12} sm={6} md={6}>
-            <Form.Item name="IsApproved">
-              <Checkbox checked={getFieldValue('IsApproved')} onChange={onChangeUnPost}>
-                Un Post
-              </Checkbox>
-            </Form.Item>
-          </Col>
-
-          <Col xs={24} sm={24} md={8}>
+          <Col xs={8} sm={4} md={4}>
             <AntButton
               label="Show"
               htmlType="submit"

@@ -1,13 +1,14 @@
 import { AntTable } from '@scs/ui';
 import { Row } from 'antd';
-import { useGetVoucherReport } from '../queries';
+import { useGetVoucherReport } from './queries';
 import { columnsVoucherReport } from './columns';
 import { t } from 'i18next';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import SearchCriteria from './searchCriteria';
 
 function VoucherReport() {
-  const { data, refetch, isError, isLoading, isFetching } = useGetVoucherReport(false);
+  const { data, refetch, isError, isLoading, isFetching } = useGetVoucherReport();
+
   return (
     <AntTable
       refetch={refetch}

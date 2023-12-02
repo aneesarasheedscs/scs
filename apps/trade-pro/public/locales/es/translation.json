@@ -726,5 +726,6 @@
   "closing_debit": "Débito de cierre",
   "closing_credit": "Crédito de cierre",
   "sr": "Sr.",
-  "companyName": "nombre de empresa"
+  "companyName": "nombre de empresa",
+  "paid-to": "Pagado para"
 }

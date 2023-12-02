@@ -2,26 +2,24 @@ import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { TVoucherReport } from '../types';
-import { Link } from 'react-router-dom';
 
 function handleRowClick(AccountId: number) {
   console.log('Clicked on accountId:', AccountId);
-  // Perform any other actions you need with the accountId here
 }
 
 export const columnsVoucherReport = (): AntColumnType<TVoucherReport>[] => [
-  {
-    title: 'sr#',
-    dataIndex: '',
-    width: 85,
-    render: (_, __, index) => index + 1,
-    showCount: true
-  },
+  // {
+  //   title: 'sr#',
+  //   dataIndex: '',
+  //   width: 85,
+  //   render: (_, __, index) => index + 1,
+  //   showCount: true
+  // },
 
   {
     title: 'Type',
     dataIndex: 'DocumentTypeCode',
-    width: 100,
+    width: 80,
   },
   // {
   //   title: 'DocumentTypeSrNo',
@@ -31,13 +29,13 @@ export const columnsVoucherReport = (): AntColumnType<TVoucherReport>[] => [
   {
     title: 'Voucher Code',
     dataIndex: 'VoucherCode',
-    width: 100,
+    width: 120,
   },
 
   {
     title: 'Voucher Date',
     dataIndex: 'voucherdate',
-    width: 150,
+    width: 200,
     render: (_, { VoucherDate }) => formateDate(VoucherDate),
   },
 
@@ -51,19 +49,21 @@ export const columnsVoucherReport = (): AntColumnType<TVoucherReport>[] => [
     title: 'Account Code',
     dataIndex: 'AccountCode',
     width: 120,
+    render: (_, { AccountCode }) => <a>{AccountCode}</a>,
+
     // render: (_, { AccountCode, AccountId }) => <a onClick={() => handleRowClick(AccountId)}>{AccountCode}</a>,
 
-    render: (_, { AccountCode, AccountId }) => (
-      <Link to={`/general-ledger${AccountId ? `/${AccountId}` : ''}`}>
-        {AccountCode}
-      </Link>
-    )
+    // render: (_, { AccountCode, AccountId }) => (
+    //   <Link to={`/general-ledger${AccountId ? `/${AccountId}` : ''}`}>
+    //     {AccountCode}
+    //   </Link>
+    // )
   },
 
   {
     title: 'Account Title',
     dataIndex: 'AccountTitle',
-    width: 150,
+    width: 200,
   },
 
   {
@@ -81,7 +81,7 @@ export const columnsVoucherReport = (): AntColumnType<TVoucherReport>[] => [
   {
     title: 'Debit',
     dataIndex: 'DebitAmount',
-    width: 150,
+    width: 200,
     showTotal: true,
     render: (_, { DebitAmount }) => numberFormatter(DebitAmount),
   },
@@ -90,7 +90,7 @@ export const columnsVoucherReport = (): AntColumnType<TVoucherReport>[] => [
     title: 'Credit',
     dataIndex: 'CreditAmount',
     showTotal: true,
-    width: 150,
+    width: 200,
     render: (_, { CreditAmount }) => numberFormatter(CreditAmount),
   },
 ];

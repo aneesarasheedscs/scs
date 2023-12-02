@@ -5,15 +5,15 @@ import { TVoucherReportCriterias, TrialBalanceSearchCriteria } from './types';
 import { TAccountDashboardCriteria } from './CashBalance';
 
 //Activity Summary
-export const useGetActivitySummary = (enabled = false, params?: Tfilter) => {
+export const useGetActivitySummary = (enabled = false, CompanyId?: number, params?: Tfilter) => {
   const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
   const FinancialYear: any = JSON.parse(localStorage.getItem('financialYear') || '{}');
   return useQuery(
-    ['activity-summary', params],
+    ['activity-summary'],
     () => {
       return requestManager.post('/api/AccountsReports/ReadByActivitySummary', {
         OrganizationId: userDetail?.OrganizationId,
-        CompanyId: userDetail?.CompanyId,
+        CompanyId: CompanyId,
         FinancialYearId: FinancialYear?.Id,
         IsApproved: params?.ApprovedFilter == 'All' ? false : true,
         ...params,
@@ -148,20 +148,21 @@ export const useGetTrialBalanceReport = (enabled = true, params?: TrialBalanceSe
 export const useCashBankBalancesSummary = (
   enabled: boolean,
   AccountTypeId: number,
+  CompanyId?: number,
   params?: TAccountDashboardCriteria
 ) => {
   const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
   const financialYear: any = JSON.parse(localStorage.getItem('financialYear') || '{}');
   return useQuery(
-    ['cash_Bank_balancesummary', AccountTypeId, params],
+    ['cash_Bank_balancesummary', AccountTypeId],
     () => {
       return requestManager.post('api/AccountsReports/CashandBankBalancesSummery', {
-        CompanyId: userDetail?.CompanyId,
+        CompanyId: CompanyId,
         OrganizationId: userDetail?.OrganizationId,
         FinancialYearId: financialYear?.Id,
         AccountTypeId: AccountTypeId,
         ApprovedFilter: 'All',
-        BranchesId: 0,
+        BranchesId: userDetail?.BranchesId,
         ProjectsId: 0,
         ...params,
       });
@@ -171,15 +172,15 @@ export const useCashBankBalancesSummary = (
 };
 //========================
 //Cash Receipt And Payment
-export const useGetCashReceiptPayment = (enabled: boolean, params: TAccountDashboardCriteria) => {
+export const useGetCashReceiptPayment = (enabled: boolean, CompanyId?: number, params?: TAccountDashboardCriteria) => {
   const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
   return useQuery(
-    ['cash_Receipt_Payment', params],
+    'cash_Receipt_Payment',
     () => {
       return requestManager.get('api/AccountsReports/CashBalances', {
         params: {
           OrganizationId: userDetail?.OrganizationId,
-          CompanyId: userDetail?.CompanyId,
+          CompanyId: CompanyId,
           ...params,
         },
       });
@@ -189,7 +190,11 @@ export const useGetCashReceiptPayment = (enabled: boolean, params: TAccountDashb
 };
 //==========================
 //Bank Receipt and Payment
-export const useGetBankBalancesReceiptPayment = (enabled: boolean, params: TAccountDashboardCriteria) => {
+export const useGetBankBalancesReceiptPayment = (
+  enabled: boolean,
+  CompanyId?: number,
+  params?: TAccountDashboardCriteria
+) => {
   const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
   const financialYear: any = JSON.parse(localStorage.getItem('financialYear') || '{}');
   return useQuery(
@@ -198,7 +203,7 @@ export const useGetBankBalancesReceiptPayment = (enabled: boolean, params: TAcco
       return requestManager.get('api/AccountsReports/BankBalances', {
         params: {
           OrganizationId: userDetail?.OrganizationId,
-          CompanyId: userDetail?.CompanyId,
+          CompanyId: CompanyId,
           FinancialYearId: financialYear?.Id,
           ...params,
         },

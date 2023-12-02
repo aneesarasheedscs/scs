@@ -3,9 +3,9 @@ import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { Space } from 'antd';
-import { TBankBalances, TBankPayment } from '../../types';
+import { TPaymentReceipt } from '../../types';
 
-export const columnsBankBalance = (t: any): AntColumnType<TBankBalances>[] => [
+export const columnsBankBalance = (t: any): AntColumnType<TPaymentReceipt>[] => [
   {
     title: <>{t('sr#')}</>,
     width: 85,
@@ -30,28 +30,32 @@ export const columnsBankBalance = (t: any): AntColumnType<TBankBalances>[] => [
     render: (_, { voucherdate }) => formateDate(voucherdate),
   },
   {
+    width: 120,
     title: <>{t('amount')}</>,
     dataIndex: 'DebitAmount',
     showTotal: true,
-    width: 120,
     render: (DebitAmount, record) => (
       <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(DebitAmount)}</Space>
     ),
+  },
+  {
+    title: <>{t('bank_name')}</>,
+    dataIndex: 'AccountTitle',
+    width: 200,
+  },
+  {
+    title: <>{t('cheque_no')}</>,
+    dataIndex: 'ChequeNo',
+    width: 150,
   },
   {
     title: <>{t('receive_from')}</>,
     dataIndex: 'OffsetAccountTitle',
     width: 200,
   },
-
-  {
-    title: <>{t('bank_name')}</>,
-    dataIndex: 'AccountTitle',
-    width: 200,
-  },
 ];
 
-export const columnsBankPayment = (t: any): AntColumnType<TBankPayment>[] => [
+export const columnsBankPayment = (t: any): AntColumnType<TPaymentReceipt>[] => [
   {
     title: <>{t('sr#')}</>,
     dataIndex: '',
@@ -76,13 +80,27 @@ export const columnsBankPayment = (t: any): AntColumnType<TBankPayment>[] => [
     render: (_, { voucherdate }) => formateDate(voucherdate),
   },
   {
+    width: 120,
+    title: <>{t('amount')}</>,
+    dataIndex: 'DebitAmount',
+    showTotal: true,
+    render: (DebitAmount, record) => (
+      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(DebitAmount)}</Space>
+    ),
+  },
+  {
     title: <>{t('bank_name')}</>,
     dataIndex: 'AccountTitle',
-    width: 150,
+    width: 200,
   },
   {
     title: <>{t('cheque_no')}</>,
     dataIndex: 'ChequeNo',
     width: 150,
+  },
+  {
+    title: <>{t('paid-to')}</>,
+    dataIndex: 'OffsetAccountTitle',
+    width: 200,
   },
 ];

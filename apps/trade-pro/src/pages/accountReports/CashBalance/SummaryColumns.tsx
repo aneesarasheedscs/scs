@@ -39,22 +39,22 @@ export const CashBalancesSummaryCash = (t: any): AntColumnType<TCashAndBankBalan
   },
   {
     width: 150,
-    title: <>{t('current_credit')}</>,
-    searchableDate: true,
-    dataIndex: 'CurrCredit',
-    showTotal: true,
-    render: (CurrCredit, record) => (
-      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(CurrCredit)}</Space>
-    ),
-  },
-  {
-    width: 150,
     title: <>{t('current_debit')}</>,
     searchableDate: true,
     dataIndex: 'CurrDebit',
     showTotal: true,
     render: (CurrDebit, record) => (
       <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(CurrDebit)}</Space>
+    ),
+  },
+  {
+    width: 150,
+    title: <>{t('current_credit')}</>,
+    searchableDate: true,
+    dataIndex: 'CurrCredit',
+    showTotal: true,
+    render: (CurrCredit, record) => (
+      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(CurrCredit)}</Space>
     ),
   },
   {

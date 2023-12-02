@@ -380,5 +380,6 @@
   "closing_debit": "締め借方",
   "closing_credit": "クロージングクレジット",
   "sr": "シニア",
-  "companyName": "会社名"
+  "companyName": "会社名",
+  "paid-to": "支払先"
 }

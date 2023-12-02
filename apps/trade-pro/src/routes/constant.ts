@@ -52,10 +52,10 @@ export const route = {
   DEFINE_ITEM_HISTORY: '/pos-define-item',
   DEFINE_WAREHOUSE: '/define-wareHouse',
   DEFINE_JOBLOTS: '/define-lots',
-  ITEM_CATEGORY:'/define-item-category',
-  ITEM_TYPE:'/define-item-type',
-  UOM_DEFINE:'/define-item-uom',
-  UOM_SCHEDULE:'/define-item-uom-schedule',
+  ITEM_CATEGORY: '/define-item-category',
+  ITEM_TYPE: '/define-item-type',
+  UOM_DEFINE: '/define-item-uom',
+  UOM_SCHEDULE: '/define-item-uom-schedule',
 
   //Purchase Trading
   PURCHASE_ORDER: '/purchsae-order',
@@ -66,7 +66,7 @@ export const route = {
   //Purchase Reports
   PURCHASE_ORDER_RETAIL_REGISTER: '/purchase-order-retail-register',
   GRN_RETAIL_REGISTER: '/grn-retail-register',
-  PURCHASE_REPORT_ACTIVITY_WISE:'/purchase-report',
+  PURCHASE_REPORT_ACTIVITY_WISE: '/purchase-report',
 
   //Stock Reports
   STOCK_REPORT_WITH_VALUE: '/stock-report-with-values-retail',
@@ -75,13 +75,13 @@ export const route = {
   INVENTORY_EVALUATION_LEDGER: '/Inventory-Evaluation-Item-Ledger',
 
   //Sales Trading
-  SALE_ORDER: 'Sale-Order',
+  SALE_ORDER: '/order-booking',
   SALE_INVOICE_DIRECT: '/Sale-Invoice-Direct',
 
   //Sale Reports
   SALE_ORDER_REGISTER: '/sale-order-register-retail',
   GDN_REGISTER: '/gdn-register-retail',
-  SALE_REPORT_ACTIVITY_WISE:'/sale-invoice-register-retail',
+  SALE_REPORT_ACTIVITY_WISE: '/sale-invoice-register-retail',
 
   //System Utilities
   DEFINE_DIVISION: '/define-province',
@@ -104,14 +104,13 @@ export const route = {
   ALLOCATE_BRAND_ITEM_TO_DISC_TYPE: '/allocate-brand-item-to-disc-type',
   CUSTOMER_DISCOUNT_POLICY: '/customer-discount-policy',
   DISCOUNT_POLICY_FOR_PARTY: '/discount-policy-for-party',
-  SALE_PRICING_SCHEDULE:'/sale-pricing',
+  SALE_PRICING_SCHEDULE: '/sale-pricing',
 
-// Store Management
-STOCK_TRANSFER_WAREHOUSE:'/stock-transfer',
-STOCK_TRANSFER_NOTE_DIRECT:'/stock-transfer-note-direct',
-STOCK_TRANSFER_NOTE:'/stock-transfer-notes',
-STOCK_RECEIVING_NOTE:'/stock-received-notes',
-REQUISITION_ORDER:'/requisition-order',
-STOCK_ADJUSTMENT:'/stock-adjustment',
-
+  // Store Management
+  STOCK_TRANSFER_WAREHOUSE: '/stock-transfer',
+  STOCK_TRANSFER_NOTE_DIRECT: '/stock-transfer-note-direct',
+  STOCK_TRANSFER_NOTE: '/stock-transfer-notes',
+  STOCK_RECEIVING_NOTE: '/stock-received-notes',
+  REQUISITION_ORDER: '/requisition-order',
+  STOCK_ADJUSTMENT: '/stock-adjustment',
 };

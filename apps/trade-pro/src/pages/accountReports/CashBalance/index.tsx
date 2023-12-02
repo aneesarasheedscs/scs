@@ -11,24 +11,39 @@ import {
 } from '../queries';
 import './style.scss';
 import dayjs from 'dayjs';
-import { storedFinancialYear } from '@tradePro/utils/storageService';
+import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 import React, { useEffect } from 'react';
 
 const { Title, Text } = Typography;
 const { useToken } = theme;
 const { useForm, useWatch } = Form;
+const UserDetail = storedUserDetail();
+const FinancialYear = storedFinancialYear();
+const FromDate = dayjs(FinancialYear?.Start_Period);
+const ToDate = dayjs(FinancialYear?.End_Period);
 
-const CashBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date }> = (props) => {
-  const { FromDateProp, ToDateProp } = props;
+const CashBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId?: number }> = (props) => {
+  const { FromDateProp, ToDateProp, CompanyId } = props;
   const { t } = useTranslation();
   const [form] = useForm<TAccountDashboardCriteria>();
   const formvalues = useWatch<TAccountDashboardCriteria>([], form);
-  const { setFieldValue } = form;
+  const { setFieldValue, getFieldValue } = form;
 
   useEffect(() => {
-    setFieldValue('FromDate', dayjs(FromDateProp));
-    setFieldValue('ToDate', dayjs(ToDateProp));
-  });
+    if ((FromDateProp !== undefined || FromDateProp !== null) && (ToDateProp !== undefined || ToDateProp !== null)) {
+      const fromDate = getFieldValue('FromDate');
+      const todate = getFieldValue('ToDate');
+      if (
+        (fromDate == null || fromDate == undefined || fromDate != FromDateProp) &&
+        (todate == null || todate == undefined || todate != ToDateProp)
+      ) {
+        setFieldValue('FromDate', dayjs(FromDateProp));
+        setFieldValue('ToDate', dayjs(ToDateProp));
+      }
+    }
+    refetch();
+    RefetchSummary();
+  }, [props]);
 
   const {
     data: Cash_ReceiptPayment,
@@ -36,7 +51,8 @@ const CashBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date }> = (prop
     isLoading: isLoading,
     refetch,
   } = useGetCashReceiptPayment(
-    FromDateProp !== undefined && ToDateProp !== undefined ? true : false,
+    false,
+    CompanyId !== undefined && CompanyId > 0 ? CompanyId : UserDetail?.CompanyId,
     form.getFieldsValue()
   );
 
@@ -46,15 +62,12 @@ const CashBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date }> = (prop
     isLoading: isSummaryLoading,
     refetch: RefetchSummary,
   } = useCashBankBalancesSummary(
-    FromDateProp !== undefined && ToDateProp !== undefined ? true : false,
+    false,
     2,
+    CompanyId !== undefined && CompanyId > 0 ? CompanyId : UserDetail?.CompanyId,
     form.getFieldsValue()
   );
 
-  const FinancialYear = storedFinancialYear();
-
-  const FromDate = dayjs(FinancialYear?.Start_Period);
-  const ToDate = dayjs(FinancialYear?.End_Period);
   const {
     token: { colorPrimary },
   } = theme.useToken();
@@ -125,7 +138,7 @@ const CashBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date }> = (prop
                   <Col xl={4} className="formfield">
                     <AntDatePicker name="ToDate" bordered={false} label={t('to_date')} />
                   </Col>
-                  <Col xl={6} className="formfield">
+                  {/* <Col xl={6} className="formfield">
                     <AntSelectDynamic
                       bordered={false}
                       label={t('master_branch')}
@@ -134,7 +147,7 @@ const CashBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date }> = (prop
                       fieldValue="Id"
                       query={useGetMasterBranchByUserId}
                     />
-                  </Col>
+                  </Col> */}
 
                   <Col xl={2}>
                     <AntButton label={t('show')} htmlType="submit" isError={isError} isLoading={isLoading} />

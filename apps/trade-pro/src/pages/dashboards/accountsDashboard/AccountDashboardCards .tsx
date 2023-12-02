@@ -142,14 +142,22 @@ const AccountDashboardCards: React.FC<{ Data: any; FromdateProp?: Date; TodatePr
       )}
       {UserDetail?.IsHeadOffice == true && (
         <Modal
-          width={1700}
+          width={1500}
+          title={selectedCardData?.AccountDescription}
           key={selectedCardData?.Id}
           open={selectedCardData !== undefined}
           onCancel={() => setSelectedCardData(undefined)}
           footer={null}
+          destroyOnClose={true}
           bodyStyle={{ maxHeight: '80vh', overflowY: 'auto' }}
         >
-          <CompanyWiseDataPopUp FromdateProp={FromdateProp} TodateProp={TodateProp} Companies={Companies} />
+          <CompanyWiseDataPopUp
+            FromdateProp={FromdateProp}
+            TodateProp={TodateProp}
+            Companies={Companies}
+            ReqType={selectedCardData?.AccountDescription}
+            Id={selectedCardData?.SortingNo}
+          />
         </Modal>
       )}
     </div>

@@ -68,16 +68,17 @@ export type TBankPaymentDetailEntry = {
   CreditAmount?: number;
   AdvanceAmount?: number;
   CheqNoDetail: number;
+  CheqId: number;
   InvoiceNoRefId: number;
   PayeeTitle: string;
   Comments: string;
   IsTaxable: boolean;
   Amount: number;
-  AccountId: number; // Header RefDocNoId
-  AgainstAccountId: number; // Header Against Account Id
+  AccountId: number;
+  AgainstAccountId: number;
   TaxTypeId: number;
   TaxPrcnt: number;
-  TaxesTotalAmount: number; // Tax amount
+  TaxesTotalAmount: number;
 };
 
 export type TFormDetailList = {

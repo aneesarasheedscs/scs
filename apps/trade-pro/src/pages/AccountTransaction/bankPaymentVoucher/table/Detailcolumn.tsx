@@ -19,7 +19,6 @@ export const detailColumns = (t?: any): AntColumnType<DataType>[] => [
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.JobLotDescription.localeCompare(b.JobLotDescription),
   },
-
   {
     title: <>{t('debit_amount')}</>,
     width: 200,

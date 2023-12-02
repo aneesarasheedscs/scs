@@ -395,5 +395,6 @@
   "closing_debit": "期末借方",
   "closing_credit": "期末信用证",
   "sr": "锶",
-  "companyName": "公司名称"
+  "companyName": "公司名称",
+  "paid-to": "支付给"
 }

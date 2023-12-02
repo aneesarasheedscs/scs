@@ -5,7 +5,7 @@ import { Space } from 'antd';
 import { TActivitySummary } from './types';
 // import CustomModal from './customModal';
 
-export const Columns = (t: any): AntColumnType<TActivitySummary>[] => {
+export const Columns = (t: any, handleAccountCodeClick: any): AntColumnType<TActivitySummary>[] => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedAccountCode, setSelectedAccountCode] = useState('');
   const [selectedAccountId, setSelectedAccountId] = useState(''); // Add this line
@@ -22,11 +22,6 @@ export const Columns = (t: any): AntColumnType<TActivitySummary>[] => {
     setIsModalVisible(false);
   };
 
-  const handleAccountCodeClick = (AccountCode: number, AccountId: number) => {
-    // event.preventDefault();
-    showModal(AccountCode, AccountId);
-  };
-
   return [
     { title: <>{t('sr#')}</>, dataIndex: '', width: 70, render: (_, __, index) => index + 1 },
     {
@@ -36,19 +31,10 @@ export const Columns = (t: any): AntColumnType<TActivitySummary>[] => {
       dataIndex: 'AccountCode',
       render: (_, { AccountCode, AccountId }) => (
         <>
-          <a href={`/${AccountCode}`} onClick={() => handleAccountCodeClick(AccountCode, AccountId)}>
-            {AccountCode}
-          </a>
-          {/* <CustomModal
-            visible={isModalVisible}
-            handleCancel={handleCancel}
-            selectedAccountCode={selectedAccountCode}
-            selectedAccountId={selectedAccountId}
-          /> */}
+          <a onClick={() => handleAccountCodeClick(AccountId)}>{AccountCode}</a>
         </>
       ),
     },
-
     {
       width: 300,
       searchableInput: true,
@@ -58,7 +44,7 @@ export const Columns = (t: any): AntColumnType<TActivitySummary>[] => {
       sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
     },
     {
-      width: 120,
+      width: 200,
       title: <>{t('opening')}</>,
       dataIndex: 'Opening',
       showTotal: true,
@@ -67,7 +53,7 @@ export const Columns = (t: any): AntColumnType<TActivitySummary>[] => {
       ),
     },
     {
-      width: 150,
+      width: 200,
       title: <>{t('debit')}</>,
       dataIndex: 'Debit',
       showTotal: true,
@@ -76,7 +62,7 @@ export const Columns = (t: any): AntColumnType<TActivitySummary>[] => {
       ),
     },
     {
-      width: 150,
+      width: 200,
       title: <>{t('credit')}</>,
       dataIndex: 'Credit',
       showTotal: true,
@@ -85,7 +71,7 @@ export const Columns = (t: any): AntColumnType<TActivitySummary>[] => {
       ),
     },
     {
-      width: 150,
+      width: 200,
       title: <>{t('closing')}</>,
       dataIndex: 'Closing',
       showTotal: true,

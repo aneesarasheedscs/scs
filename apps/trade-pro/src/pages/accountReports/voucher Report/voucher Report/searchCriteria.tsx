@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useGetAccountTitle, useGetCustomGroup, useGetDocumentType } from '../queries';
+import './style.scss';
+
 import { Col, Form, Radio, Row, Space } from 'antd';
 import dayjs from 'dayjs';
 
@@ -12,8 +13,9 @@ import {
   SearchCriteriaWrapper,
 } from '@tradePro/components';
 import { storedFinancialYear } from '@tradePro/utils/storageService';
-import { useGetVoucherReport } from '../queries';
 import { TVoucherReportCriterias } from '../types';
+import { useGetAccountTitle, useGetCustomGroup, useGetDocumentType, useGetVoucherReport } from './queries';
+
 const financialYear = storedFinancialYear();
 const { useForm, useWatch } = Form;
 
@@ -38,29 +40,35 @@ function searchCriteriaVoucherReport() {
   const onFinish = (_: TVoucherReportCriterias) => {
     refetch().then(() => handleClose());
   };
+  const { data } = useGetCustomGroup();
+  console.log('dataaa', data?.data?.Data?.Result);
+
+  // const { data: daa1 } = useGetDocumentType();
+  // console.log('customerData', daa1?.data?.Data?.Result);
 
   return (
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
-      <Form form={form} onFinish={onFinish} layout="vertical" initialValues={{ FromDate, ToDate }}>
+      <Form form={form} onFinish={onFinish} layout="inline" initialValues={{ FromDate, ToDate }}>
         <Row gutter={[10, 10]}>
-          <Col xs={24} sm={12} md={6}>
-            <AntDatePicker name="FromDate" label="From Date" />
+          <Col xs={12} sm={12} md={12} className="form_field">
+            <AntDatePicker name="FromDate" label="From Date" bordered={false} />
           </Col>
 
-          <Col xs={24} sm={12} md={6}>
-            <AntDatePicker name="ToDate" label="To Date" />
+          <Col xs={24} sm={12} md={11} className="form_field" offset={1}>
+            <AntDatePicker name="ToDate" label="To Date" bordered={false} />
           </Col>
 
-          <Col xs={24} sm={12} md={6}>
-            <AntInputNumber name="FromDocNo" label="From Doc#" />
+          <Col xs={12} sm={12} md={12} className="form_field">
+            <AntInputNumber name="FromDocNo" label="From Doc#" bordered={false} />
           </Col>
 
-          <Col xs={24} sm={12} md={6}>
-            <AntInputNumber name="ToDocNo" label="To Doc#" />
+          <Col xs={24} sm={12} md={11} className="form_field" offset={1}>
+            <AntInputNumber name="ToDocNo" label="To Doc#" bordered={false} />
           </Col>
 
-          <Col xs={24} sm={12} md={6}>
+          <Col xs={24} sm={24} md={24} className="form_field">
             <AntSelectDynamic
+              bordered={false}
               fieldValue="Id"
               label="Account Title"
               query={useGetAccountTitle}
@@ -69,8 +77,9 @@ function searchCriteriaVoucherReport() {
             />
           </Col>
 
-          <Col xs={24} sm={12} md={6}>
+          <Col xs={24} sm={24} md={24} className="form_field">
             <AntSelectDynamic
+              bordered={false}
               fieldValue="Id"
               fieldLabel="AcLookUpsDescription"
               label="Custom Group"
@@ -78,24 +87,26 @@ function searchCriteriaVoucherReport() {
               name="CustomerGroupId"
             />
           </Col>
-          <Col xs={24} sm={12} md={6}>
+          <Col xs={24} sm={24} md={24} className="form_field">
             <AntSelectDynamic
+              bordered={false}
+              mode="multiple"
               fieldValue="Id"
               label="Document Type"
               query={useGetDocumentType}
               fieldLabel="DocumentTypeDescription"
-              name="SaleInvoiceDocumentTypeIds"
+              name="SelectedDocuments"
             />
           </Col>
-          <Col xs={24} sm={12} md={6}>
-            <AntInput name="ManualBillNo" label="Manual Number"></AntInput>
+          <Col xs={12} sm={12} md={12} className="form_field">
+            <AntInput name="ManualBillNo" label="Manual Number" bordered={false}></AntInput>
           </Col>
+          <Col xs={12} sm={12} md={12} offset={1}></Col>
 
           {/* <Col xs={24} sm={24} md={12}>
             <Radio name="ManualBillNo"></Radio>
           </Col> */}
-          <Col xs={4} sm={4} md={4}>
-
+          <Col xs={24} sm={12} md={12}>
             <Form.Item name="ReportType" label="Report Type">
               <Radio.Group defaultValue={'3'}>
                 <Space direction="vertical">
@@ -106,7 +117,7 @@ function searchCriteriaVoucherReport() {
               </Radio.Group>
             </Form.Item>
           </Col>
-          <Col xs={3} sm={3} md={3}>
+          <Col xs={24} sm={24} md={6}>
             <AntButton
               label="Show"
               htmlType="submit"

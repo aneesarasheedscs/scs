@@ -15,12 +15,12 @@ function BankPaymentDetailTable() {
 
   return (
     <>
-      <Row style={{ marginTop: '0.2%' }}>
-        <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }} xxl={20}>
+      <Row style={{ marginTop: '0.5%' }}>
+        <Col span={24}>
           <Card style={{ boxShadow: '2px 4px 12px 1px gray', textAlign: 'left' }}>
             <h2 className="form-heading3" style={{ marginTop: -10 }}>
               {' '}
-              Detail
+              {t('detail')}
             </h2>
             <AntTable
               numberOfSkeletons={6}
@@ -35,10 +35,5 @@ function BankPaymentDetailTable() {
     </>
   );
 }
-
-type TFrom = {
-  setSelectedRecordId: (id: number | null) => void;
-  setActiveTab: (tab: string) => void;
-};
 
 export default BankPaymentDetailTable;

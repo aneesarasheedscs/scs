@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AntButton } from '@tradePro/components';
-import { Card, Col, Form, Input, Row } from 'antd';
+import { Card, Col, Form, Input, Row, notification } from 'antd';
 import '../style.scss';
 import { SaveOutlined, SyncOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
@@ -14,9 +14,7 @@ import MainEntry from './MainEntry';
 import DynamicForm from './DetailEntry';
 import { useAtom } from 'jotai';
 import { addtableData, isWithHoldingCheckedAtom } from './Atom';
-
 const { useForm } = Form;
-
 function BankPaymentVoucherForm({
   selectedRecordId,
   refetchBankPayment,
@@ -30,7 +28,7 @@ function BankPaymentVoucherForm({
   const { data, isError, refetch, isLoading, isSuccess } = useGetVoucherNo(DocumentTypeId);
   const [tableData, setTableData] = useAtom(addtableData);
   const [isWithHoldingChecked, setIsWithHoldingChecked] = useAtom(isWithHoldingCheckedAtom);
-
+  const [isAddButtonClicked, setIsAddButtonClicked] = useState(true);
   const { mutate: addBankPaymentVoucher } = useAddBankPaymentVoucher(DocumentTypeId);
   const { mutate: updateBankPaymentVoucher } = useUpdateBankPaymentVoucher(DocumentTypeId, selectedRecordId);
 
@@ -73,12 +71,20 @@ function BankPaymentVoucherForm({
     console.log(values);
     if (isNumber(selectedRecordId)) {
       updateBankPaymentVoucher(values);
+      console.log(values);
+    } else if (tableData.length === 0) {
+      notification.error({
+        message: 'Error',
+        description: 'Please enter data in the grid before saving.',
+      });
     } else {
+      console.log(values);
+      form.resetFields();
       addBankPaymentVoucher(values);
     }
+
     setTableData([]);
     setBankId(0);
-    form.resetFields();
   };
 
   useEffect(() => {
@@ -142,14 +148,12 @@ function BankPaymentVoucherForm({
             </Col>
           </Row>
         </div>
-
-        <MainEntry form={form} setBankId={setBankId} bankId={bankId} />
-        <DynamicForm form={form} bankId={bankId} />
+        <MainEntry form={form} setBankId={setBankId} bankId={bankId} isAddButtonClicked={isAddButtonClicked} />
+        <DynamicForm form={form} bankId={bankId} setIsAddButtonClicked={setIsAddButtonClicked} />
       </Form>
     </Card>
   );
 }
-
 type TAddUpdateRecord = {
   selectedRecordId?: number | null;
   refetchBankPayment: any;

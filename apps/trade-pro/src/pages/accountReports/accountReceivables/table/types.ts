@@ -5,8 +5,11 @@ export type TAccountReceivablesSearchCriteria = {
   FromDocNo: number;
   ToDocNo: number;
   LanguageId: number;
-  Id?: string;
+  Ids: string;
   AccountIds: number;
+
+  SelectedIds: string;
+  SelectedAccountIds: string;
 };
 
 export type AccountReceivables = {

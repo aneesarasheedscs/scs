@@ -14,6 +14,7 @@ const financialYear = storedFinancialYear();
 export const usePostPayablesReceivables = (
   enabled?: boolean,
   AccouuntClassId?: number,
+  CompanyId?: number,
   params?: TPayablesReceivablesCriteria
 ) => {
   const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
@@ -22,7 +23,7 @@ export const usePostPayablesReceivables = (
     () => {
       return requestManager.post('/api/AccountsReports/TradeDebtorsAndCreditors_Report', {
         OrganizationId: userDetail?.OrganizationId,
-        CompanyId: userDetail?.CompanyId,
+        CompanyId: CompanyId,
         CwCoaId: userDetail?.CompanyId,
         AccouuntClassId,
         AccountId: 3,

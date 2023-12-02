@@ -1,13 +1,22 @@
 import { lazy } from 'react';
 import { route } from './constant';
 import { RouteObject } from 'react-router-dom';
+import RequisitionOrder from '@tradePro/pages/StoreManagement/RequisitionOrder';
 
 const PurchaseActivity = lazy(() => import('@tradePro/pages/purchaseReports/purchaseActivityReport'));
 const SalesActivity = lazy(() => import('@tradePro/pages/SaleReports/salesActivityReport'));
-const ItemCategory = lazy(() => import('@tradePro/pages/inventoryDefination/defineItemPos/Form/definitionScreens/ItemCategory'));
-const ItemType = lazy(() => import('@tradePro/pages/inventoryDefination/defineItemPos/Form/definitionScreens/ItemType'));
-const ItemBaseUOM = lazy(() => import('@tradePro/pages/inventoryDefination/defineItemPos/Form/definitionScreens/BaseUom'));
-const ItemBaseScheduleUOM = lazy(() => import('@tradePro/pages/inventoryDefination/defineItemPos/Form/definitionScreens/BaseScheduleUnit'));
+const ItemCategory = lazy(
+  () => import('@tradePro/pages/inventoryDefination/defineItemPos/Form/definitionScreens/ItemCategory')
+);
+const ItemType = lazy(
+  () => import('@tradePro/pages/inventoryDefination/defineItemPos/Form/definitionScreens/ItemType')
+);
+const ItemBaseUOM = lazy(
+  () => import('@tradePro/pages/inventoryDefination/defineItemPos/Form/definitionScreens/BaseUom')
+);
+const ItemBaseScheduleUOM = lazy(
+  () => import('@tradePro/pages/inventoryDefination/defineItemPos/Form/definitionScreens/BaseScheduleUnit')
+);
 const DiscountCategory = lazy(() => import('@tradePro/pages/WholeSale/discountCategory'));
 const DiscountTypes = lazy(() => import('@tradePro/pages/WholeSale/discountType'));
 const AllocateDiscCategoryToDiscType = lazy(() => import('@tradePro/pages/WholeSale/allocateDiscCategoryToDiscType'));
@@ -33,11 +42,11 @@ const MonthlySaleReport = lazy(() => import('@tradePro/pages/dashboards/monthly-
 const ActivitySummary = lazy(() => import('@tradePro/pages/accountReports/ActivitySummary'));
 const CashBalances = lazy(() => import('@tradePro/pages/accountReports/CashBalance'));
 const BankBalances = lazy(() => import('@tradePro/pages/accountReports/BankBalances'));
-const TrialBalance = lazy(() => import('@tradePro/pages/accountReports/trialBalanceReport'));
+const TrialBalance = lazy(() => import('@tradePro/pages/accountReports/TrialBReport'));
 const PayablesReceivablesReport = lazy(
   () => import('@tradePro/pages/accountReports/PayablesReceivables/Payables&Receivaables/MainForm')
 );
-const VoucherReport = lazy(() => import('@tradePro/pages/accountReports/voucher Report'));
+const VoucherReport = lazy(() => import('@tradePro/pages/accountReports/voucher Report/voucher Report'));
 const BalanceSheet = lazy(() => import('@tradePro/pages/accountReports/BalanceSheet'));
 const ProfitLossReport = lazy(() => import('@tradePro/pages/accountReports/Profit&Loss'));
 const BSNotesBreakup = lazy(() => import('@tradePro/pages/accountReports/BalanceSheet/bsNotesBreakup/'));
@@ -164,19 +173,18 @@ export const protectedRoutes: RouteObject[] = [
   { path: route.DEFINE_ITEM_HISTORY, element: <PosDefineItem /> },
   { path: route.DEFINE_WAREHOUSE, element: <DefineWareHouse /> },
   { path: route.DEFINE_JOBLOTS, element: <DefineJobLots /> },
-  { path: route.ITEM_CATEGORY, element: < ItemCategory /> },
-  { path: route.ITEM_TYPE, element: < ItemType /> },
-  { path: route.UOM_DEFINE, element: < ItemBaseUOM /> },
-  { path: route.UOM_SCHEDULE, element: < ItemBaseScheduleUOM /> },
-  { path: route.DISCOUNT_CATEGORY, element: < DiscountCategory /> },
-  { path: route.DISCOUNT_TYPE, element: < DiscountTypes /> },
-  { path: route.ALLOCATE_DISC_CATEGORY_TODISC_TYPE, element: < AllocateDiscCategoryToDiscType /> },
-  { path: route.ALLOCATE_BRAND_ITEM_TO_DISC_TYPE, element: < AllocateBrandItemtoDiscountType /> },
-  { path: route.CUSTOMER_DISCOUNT_POLICY, element: < CustomerDiscountPolicy /> },
+  { path: route.ITEM_CATEGORY, element: <ItemCategory /> },
+  { path: route.ITEM_TYPE, element: <ItemType /> },
+  { path: route.UOM_DEFINE, element: <ItemBaseUOM /> },
+  { path: route.UOM_SCHEDULE, element: <ItemBaseScheduleUOM /> },
+  { path: route.DISCOUNT_CATEGORY, element: <DiscountCategory /> },
+  { path: route.DISCOUNT_TYPE, element: <DiscountTypes /> },
+  { path: route.ALLOCATE_DISC_CATEGORY_TODISC_TYPE, element: <AllocateDiscCategoryToDiscType /> },
+  { path: route.ALLOCATE_BRAND_ITEM_TO_DISC_TYPE, element: <AllocateBrandItemtoDiscountType /> },
+  { path: route.CUSTOMER_DISCOUNT_POLICY, element: <CustomerDiscountPolicy /> },
 
-  { path: route.DISCOUNT_POLICY_FOR_PARTY, element: < ItemBaseScheduleUOM /> },
-  { path: route.SALE_PRICING_SCHEDULE, element: < ItemBaseScheduleUOM /> },
-
+  { path: route.DISCOUNT_POLICY_FOR_PARTY, element: <ItemBaseScheduleUOM /> },
+  { path: route.SALE_PRICING_SCHEDULE, element: <ItemBaseScheduleUOM /> },
 
   //Purchase Trading
   { path: route.PURCHASE_ORDER, element: <PurchaseOrder /> },
@@ -196,22 +204,21 @@ export const protectedRoutes: RouteObject[] = [
   //Sale Reports
   { path: route.SALE_ORDER_REGISTER, element: <SaleOrderRegisterTable /> },
   { path: route.GDN_REGISTER, element: <GdnRegisterTable /> },
-  { path: route.SALE_REPORT_ACTIVITY_WISE, element: < SalesActivity /> },
+  { path: route.SALE_REPORT_ACTIVITY_WISE, element: <SalesActivity /> },
 
   //Taxation
-  { path: route.TAX_TYPE, element: < AddTaxType /> },
-  { path: route.TAX_SCHEDULE, element: < AddTaxSheduleScreen /> },
-  { path: route.ITEM_TAX_SCHEDULE, element: < ItemTaxSheduleScreen /> },
+  { path: route.TAX_TYPE, element: <AddTaxType /> },
+  { path: route.TAX_SCHEDULE, element: <AddTaxSheduleScreen /> },
+  { path: route.ITEM_TAX_SCHEDULE, element: <ItemTaxSheduleScreen /> },
 
   //Store Management
-  { path: route.STOCK_TRANSFER_WAREHOUSE, element: < StockTransfer /> },
-  { path: route.STOCK_TRANSFER_NOTE_DIRECT, element: < StockTransferNoteDirect /> },
+  { path: route.REQUISITION_ORDER, element: <RequisitionOrder /> },
+  { path: route.STOCK_TRANSFER_WAREHOUSE, element: <StockTransfer /> },
+  { path: route.STOCK_TRANSFER_NOTE_DIRECT, element: <StockTransferNoteDirect /> },
 
-  { path: route.REQUISITION_ORDER, element: < ItemBaseScheduleUOM /> },
-  { path: route.STOCK_TRANSFER_NOTE, element: < ItemBaseScheduleUOM /> },
-  { path: route.STOCK_RECEIVING_NOTE, element: < ItemBaseScheduleUOM /> },
-  { path: route.STOCK_ADJUSTMENT, element: < ItemBaseScheduleUOM /> },
-
+  { path: route.STOCK_TRANSFER_NOTE, element: <ItemBaseScheduleUOM /> },
+  { path: route.STOCK_RECEIVING_NOTE, element: <ItemBaseScheduleUOM /> },
+  { path: route.STOCK_ADJUSTMENT, element: <ItemBaseScheduleUOM /> },
 
   //Hrm + system Utilities
   { path: route.DEFINE_DIVISION, element: <DefineDivision /> },

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col, Card, Typography, Form, theme } from 'antd';
 import { AntButton, AntDatePicker, AntSelectDynamic } from '@scs/ui';
 import { useTranslation } from 'react-i18next';
@@ -11,25 +11,43 @@ import {
   useGetBankBalancesReceiptPayment,
   useGetBranchesByUserId,
   useGetDateType,
-  useGetDateTypes,
   useGetMasterBranchByUserId,
 } from '../../queries';
-import { storedFinancialYear } from '@tradePro/utils/storageService';
+import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 const { Title, Text } = Typography;
 const { useToken } = theme;
+const UserDetail = storedUserDetail();
 
-const BankBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date }> = (props) => {
-  const { FromDateProp, ToDateProp } = props;
+const BankBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId?: number }> = (props) => {
+  const { FromDateProp, ToDateProp, CompanyId } = props;
   const { t } = useTranslation();
   const [form] = useForm<TAccountDashboardCriteria>();
-  const { setFieldValue } = form;
+  const { setFieldValue, getFieldValue } = form;
+  const formvalues = useWatch<TAccountDashboardCriteria>([], form);
+
+  const [formState, setformState] = useState<any>({});
+
+  const FinancialYear = storedFinancialYear();
+  const FromDate = dayjs(FinancialYear?.Start_Period);
+  const ToDate = dayjs(FinancialYear?.End_Period);
 
   useEffect(() => {
-    setFieldValue('FromDate', dayjs(FromDateProp));
-    setFieldValue('ToDate', dayjs(ToDateProp));
-  });
+    if (FromDateProp !== undefined && ToDateProp !== undefined) {
+      form.setFieldValue('FromDate', dayjs(FromDateProp));
+      form.setFieldValue('ToDate', dayjs(ToDateProp));
+      // setformState(form.getFieldsValue());
+    } else {
+      setFieldValue('FromDate', FromDate);
+      setFieldValue('ToDate', ToDate);
+    }
+  }, []);
 
-  const formvalues = useWatch<TAccountDashboardCriteria>([], form);
+  useEffect(() => {
+    if (FromDateProp !== undefined && ToDateProp !== undefined) {
+      refetch();
+      RefetchSummary();
+    }
+  }, [props]);
 
   const {
     data: Bank_ReceiptPayment,
@@ -37,7 +55,8 @@ const BankBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date }> = (prop
     isLoading: isLoading,
     refetch,
   } = useGetBankBalancesReceiptPayment(
-    FromDateProp !== undefined && ToDateProp !== undefined ? true : false,
+    false,
+    CompanyId !== undefined && CompanyId > 0 ? CompanyId : UserDetail?.CompanyId,
     form.getFieldsValue()
   );
 
@@ -47,15 +66,12 @@ const BankBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date }> = (prop
     isLoading: isSummaryLoading,
     refetch: RefetchSummary,
   } = useCashBankBalancesSummary(
-    FromDateProp !== undefined && ToDateProp !== undefined ? true : false,
+    false,
     15,
+    CompanyId !== undefined && CompanyId > 0 ? CompanyId : UserDetail?.CompanyId,
     form.getFieldsValue()
   );
 
-  const FinancialYear = storedFinancialYear();
-
-  const FromDate = dayjs(FinancialYear?.Start_Period);
-  const ToDate = dayjs(FinancialYear?.End_Period);
   const onFinish = (_: TAccountDashboardCriteria) => {
     refetch();
     RefetchSummary();
@@ -126,7 +142,8 @@ const BankBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date }> = (prop
                   <Col xl={4} className="formfield">
                     <AntDatePicker name="ToDate" bordered={false} label={t('to_date')} />
                   </Col>
-                  <Col xl={6} className="formfield">
+
+                  {/* <Col xl={6} className="formfield">
                     <AntSelectDynamic
                       bordered={false}
                       label={t('master_branch')}
@@ -135,7 +152,7 @@ const BankBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date }> = (prop
                       fieldValue="Id"
                       query={useGetMasterBranchByUserId}
                     />
-                  </Col>
+                  </Col> */}
 
                   <Col xl={2}>
                     <AntButton label={t('show')} htmlType="submit" isError={isError} isLoading={isLoading} />
@@ -159,6 +176,7 @@ const BankBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date }> = (prop
 };
 
 export default BankBalances;
+
 export type TAccountDashboardCriteria = {
   FromDate: Date;
   ToDate: Date;

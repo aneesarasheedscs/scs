@@ -39,7 +39,6 @@ export const useAddBankPaymentVoucher = (DocumentTypeId?: number, params?: TSave
     (data: TSaveBankPaymentVoucher) => {
       let dataToSubmit = {};
       const userDetail = storedUserDetail();
-
       dataToSubmit = {
         ...data,
         Id: 0,
@@ -53,10 +52,6 @@ export const useAddBankPaymentVoucher = (DocumentTypeId?: number, params?: TSave
         EntryDate: new Date().toISOString(),
         ModifyDate: new Date().toISOString(),
         DocumentTypeId: DocumentTypeId,
-        // RefAccountId: 21284,
-        // AgainstAccountId: 0,
-        // RefDocNoId: 0,
-        // VoucherAmount: 1000,
         ...params,
       };
 
@@ -100,11 +95,6 @@ export const useUpdateBankPaymentVoucher = (
         EntryDate: new Date().toISOString(),
         ModifyDate: new Date().toISOString(),
         DocumentTypeId: DocumentTypeId,
-        // DocumentTypeId: 2,
-        // RefAccountId: 21284,
-        // AgainstAccountId: 0,
-        // RefDocNoId: 0,
-        // VoucherAmount: 1000,
         ...params,
       };
       return requestManager.post('/api/voucher/Save', dataToSubmit);

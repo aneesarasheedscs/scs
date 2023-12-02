@@ -11,25 +11,15 @@ export type TCashAndBankBalancesSummary = {
   AccountDescription: string;
 };
 
-export type TBankBalances = {
-  Id: number;
-  AccountTitle: string;
-  Opening: number;
-  CurrDebit: number;
-  CurrCredit: number;
-  Closing: number;
+export type TPaymentReceipt = {
   voucherdate: Date;
-  DebitAmount: number;
-  fillteredTableData: number;
-  length: any;
-};
-export type TBankPayment = {
   Id: number;
+  DocumentTypeId: number;
+  DocumentTypeSrNo: number;
+  DocumentTypeCode: number;
+  Vouchercode: number;
   AccountTitle: string;
-  Opening: number;
-  CurrDebit: number;
-  CurrCredit: number;
-  Closing: number;
-  voucherdate: Date;
+  OffsetAccountTitle: string;
+  ChequeNo: number;
   DebitAmount: number;
 };

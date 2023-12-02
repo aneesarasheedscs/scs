@@ -7,44 +7,63 @@ import { TPayablesReceivablesCriteria } from '../types';
 import { useGetCustomGroup, useGetDateTypes } from '../../queries';
 import { usePostPayablesReceivables } from '../quries';
 import dayjs from 'dayjs';
-import { storedFinancialYear } from '@tradePro/utils/storageService';
+import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import PayablesReceivablesTable from '../Table/tables';
 import './style.scss';
 const { Title, Text } = Typography;
 const { useToken } = theme;
 const { useForm, useWatch } = Form;
-
-const PayablesReceivables: React.FC<{ AccountClassId?: number; FromDateProp?: Date; ToDateProp?: Date }> = (props) => {
-  const { AccountClassId, FromDateProp, ToDateProp } = props;
+const UserDetail = storedUserDetail();
+const PayablesReceivables: React.FC<{
+  AccountClassId?: number;
+  FromDateProp?: Date;
+  ToDateProp?: Date;
+  CompanyId?: number;
+}> = (props) => {
+  const { AccountClassId, FromDateProp, ToDateProp, CompanyId } = props;
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const { t } = useTranslation();
   const [form] = useForm<TPayablesReceivablesCriteria>();
   const formvalues = useWatch<TPayablesReceivablesCriteria>([], form);
-  const { setFieldValue } = form;
+
+  const FinancialYear = storedFinancialYear();
+  const FromDate = dayjs(FinancialYear?.Start_Period);
+  const ToDate = dayjs(FinancialYear?.End_Period);
+
+  const { setFieldValue, getFieldValue } = form;
   const {
     token: { colorPrimary },
   } = theme.useToken();
+
   useEffect(() => {
-    setFieldValue('FromDate', dayjs(FromDateProp));
-    setFieldValue('ToDate', dayjs(ToDateProp));
-  });
+    if ((FromDateProp !== undefined || FromDateProp !== null) && (ToDateProp !== undefined || ToDateProp !== null)) {
+      const fromDate = getFieldValue('FromDate');
+      const todate = getFieldValue('ToDate');
+      if (
+        (fromDate == null || fromDate == undefined || fromDate != FromDateProp) &&
+        (todate == null || todate == undefined || todate != ToDateProp)
+      ) {
+        setFieldValue('FromDate', dayjs(FromDateProp));
+        setFieldValue('ToDate', dayjs(ToDateProp));
+      }
+    }
+    refetch();
+  }, [props]);
+
   const {
     data: dataSource,
     isError: isError,
     isLoading: isLoading,
     refetch,
   } = usePostPayablesReceivables(
-    FromDateProp !== undefined && ToDateProp !== undefined ? true : false,
+    false,
     AccountClassId,
+    CompanyId !== undefined && CompanyId > 0 ? CompanyId : UserDetail?.CompanyId,
     form.getFieldsValue()
   );
-  const FinancialYear = storedFinancialYear();
-
-  const FromDate = dayjs(FinancialYear?.Start_Period);
-  const ToDate = dayjs(FinancialYear?.End_Period);
 
   const onFinish = (_: TPayablesReceivablesCriteria) => {
     refetch().then(() => handleClose());

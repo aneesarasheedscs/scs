@@ -394,5 +394,6 @@
   "closing_debit": "Débit de clôture",
   "closing_credit": "Crédit de clôture",
   "sr": "Sr",
-  "companyName": "Nom de l'entreprise"
+  "companyName": "Nom de l'entreprise",
+  "paid-to": "Versée à"
 }

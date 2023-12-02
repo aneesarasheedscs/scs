@@ -19,35 +19,71 @@
   left: 10;
   z-index: 1;
 }
-@media screen and (min-width: 992px) and (max-width: 1200px) {
-  .project,
-  .voucher {
-    margin-top: 2% !important;
+@media screen and (min-width: 1200px) and (max-width: 1600px) {
+  .wht {
+    margin-top: -2.5% !important;
   }
+  .dr {
+    margin-left: 55% !important;
+  }
+}
+@media screen and (min-width: 992px) and (max-width: 1200px) {
   .checkbox {
     margin-top: 2% !important;
+  }
+  .wht {
+    margin-left: -12%;
+    margin-top: 2% !important;
+  }
+  .credit,
+  .against,
+  .balance,
+  .remarks {
+    margin-top: 1.5%;
+  }
+  .cr,
+  .dr {
+    margin-left: 50% !important;
+  }
+  .add {
+    margin-top: 3%;
+    margin-bottom: 2%;
   }
 }
 
 @media screen and (min-width: 768px) and (max-width: 992px) {
-  .project,
-  .voucher {
+  .wht {
+    margin-right: 50%;
     margin-top: 2% !important;
   }
-
   .checkbox {
     margin-top: 2% !important;
+  }
+  .cr,
+  .dr {
+    margin-left: 57% !important;
+  }
+  .credit,
+  .against,
+  .balance,
+  .remarks {
+    margin-top: 1.5%;
+  }
+  .add {
+    margin-top: 3%;
+    margin-bottom: 2%;
   }
 }
 
 @media screen and (min-width: 576px) and (max-width: 768px) {
-  .project,
-  .voucher,
-  .branch,
-  .company {
+  .checkbox {
     margin-top: 2% !important;
   }
-  .checkbox {
+  .credit {
+    margin-top: 1.5%;
+  }
+  .wht {
+    margin-right: 36%;
     margin-top: 2% !important;
   }
   .date {
@@ -56,22 +92,42 @@
   .type {
     margin-bottom: 10% !important;
   }
+  .add {
+    margin-top: 3%;
+    margin-bottom: 2%;
+  }
+  .formfield {
+    height: 2.5rem;
+  }
 }
 
 @media screen and (min-width: 481px) and (max-width: 575px) {
-  .project,
-  .voucher,
-  .branch,
-  .company {
+  .checkbox,
+  .credit {
     margin-top: 2% !important;
   }
-  .checkbox {
-    margin-top: 9% !important;
+  .wht {
+    margin-right: 28%;
+    margin-top: 2% !important;
+  }
+  .debit {
+    height: 85px !important;
+  }
+  .cr,
+  .dr {
+    margin-left: 50% !important;
   }
   .date {
     margin-bottom: 10% !important;
   }
   .type {
     margin-bottom: 15% !important;
+  }
+  .add {
+    margin-top: 3%;
+    margin-bottom: 2%;
+  }
+  .formfield {
+    height: 65px;
   }
 }

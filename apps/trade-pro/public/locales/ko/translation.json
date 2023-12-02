@@ -380,5 +380,6 @@
   "closing_debit": "마감 차변",
   "closing_credit": "마감 크레딧",
   "sr": "경",
-  "companyName": "회사 이름"
+  "companyName": "회사 이름",
+  "paid-to": "지불 대상"
 }

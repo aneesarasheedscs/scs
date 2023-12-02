@@ -1,7 +1,7 @@
 import { EditFilled, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { AntButton } from '@tradePro/components';
-import { Popconfirm, Space, Tooltip } from 'antd';
+import { Space, Tooltip } from 'antd';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { TBankPaymentVoucherTable } from './types';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
@@ -109,11 +109,6 @@ export const columns = (
                 setSelectedRecordId(record.Id);
               }}
             />
-          </Space>
-        </Tooltip>
-        <Tooltip title="Delete">
-          <Space>
-            <AntButton type="text" icon={<DeleteOutlined style={{ color: 'red', marginLeft: 4 }} />} />
           </Space>
         </Tooltip>
       </>

@@ -16,7 +16,7 @@ function AccountDashboard() {
 
   const { setFieldValue, getFieldValue } = form;
   const {
-    data: dataSource,
+    data,
     isError: isError,
     isLoading: isLoading,
     refetch,
@@ -30,7 +30,6 @@ function AccountDashboard() {
 
   const onFinish = (_: TAccountDashboardCriteria) => {
     _.CompanyIds = _.CompanyIds?.toString();
-    console.log(_);
     refetch();
   };
   const handleDateChange = (Id: number) => {
@@ -103,7 +102,8 @@ function AccountDashboard() {
               <AntSelectDynamic
                 bordered={false}
                 mode={UserDetail?.IsHeadOffice ? 'multiple' : undefined}
-                disabled={UserDetail?.IsHeadOffice == false ? true : false}
+                disabled={UserDetail?.IsHeadOffice === false}
+                defaultValue={UserDetail?.IsHeadOffice == false ? UserDetail?.CompanyId : undefined}
                 label={t('companyName')}
                 name="CompanyIds"
                 fieldLabel="CompName"
@@ -120,10 +120,10 @@ function AccountDashboard() {
       </Card>
 
       <AccountDashboardCards
-        Data={dataSource?.data?.Data?.Result}
+        Data={data?.data?.Data?.Result}
         FromdateProp={getFieldValue('FromDate')}
         TodateProp={getFieldValue('ToDate')}
-        Companies={form.getFieldValue('CompanyIds')}
+        Companies={form.getFieldValue('CompanyIds')?.toString()}
       />
     </div>
   );

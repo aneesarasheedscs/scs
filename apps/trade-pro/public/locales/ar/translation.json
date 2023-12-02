@@ -401,5 +401,6 @@
   "closing_debit": "إغلاق الدين",
   "closing_credit": "إغلاق الائتمان",
   "sr": "ريال سعودى",
-  "companyName": "اسم الشركة"
+  "companyName": "اسم الشركة",
+  "paid-to": "المدفوعة لل"
 }
