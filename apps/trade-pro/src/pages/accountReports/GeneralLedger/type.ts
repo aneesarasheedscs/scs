@@ -10,20 +10,18 @@ export type TGeneralLedgerDetail = {
   Comments: string;
   ChequeNo: number | string;
   ChequeDate: Date;
+  QtyIn: number;
+  QtyOut: number;
+  MannualNo: string;
   NoOfAttachments: number;
 };
 
 export type TFilterForms = {
-  FromDate?: string;
-  ToDate?: string;
-  Id?: number;
-  AccountTitle: string;
-  DateType: string | Date;
-  Branch: string;
-  SubBranch: string;
-
-  
-  AccountId:number
+  FromDate?: Date;
+  ToDate?: Date;
+  AccountId?: number;
+  PostUnpost?: boolean;
+  ReportType?: number;
 };
 
 export type TGeneralLedgerSummaryI = {
@@ -36,7 +34,7 @@ export type TGeneralLedgerSummaryI = {
   DebitAmount: number;
   CreditAmount: number;
   RunningBalance: number;
-  IsApproved: boolean;
+  IsApproved: string;
   DocumentTypeDescription: string;
 };
 
@@ -46,14 +44,11 @@ export type TGeneralLedgerSummaryII = {
   VoucherNo: string;
   ManualBillNo: string;
   AccountTitle: string;
-  OffsetAccountTitle: string;
+  OffSetAccountTitle: string;
   Remarks: string;
   DebitAmount: number;
   CreditAmount: number;
   RunningBalance: number;
   NumAttachments: number;
   VoucherType: string;
-};
-export type TBranchId = {
-  BranchName: string;
 };

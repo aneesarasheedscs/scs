@@ -6,13 +6,7 @@ import BankPaymentTables from './bankTables';
 import { useForm, useWatch } from 'antd/es/form/Form';
 import dayjs from 'dayjs';
 import '../style.scss';
-import {
-  useCashBankBalancesSummary,
-  useGetBankBalancesReceiptPayment,
-  useGetBranchesByUserId,
-  useGetDateType,
-  useGetMasterBranchByUserId,
-} from '../../queries';
+import { useCashBankBalancesSummary, useGetBankBalancesReceiptPayment, useGetDateType } from '../../queries';
 import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 const { Title, Text } = Typography;
 const { useToken } = theme;
@@ -25,7 +19,7 @@ const BankBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId
   const { setFieldValue, getFieldValue } = form;
   const formvalues = useWatch<TAccountDashboardCriteria>([], form);
 
-  const [formState, setformState] = useState<any>({});
+  const [formState, setformState] = useState<TAccountDashboardCriteria>({ FromDate: FromDateProp, ToDate: ToDateProp });
 
   const FinancialYear = storedFinancialYear();
   const FromDate = dayjs(FinancialYear?.Start_Period);
@@ -35,19 +29,11 @@ const BankBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId
     if (FromDateProp !== undefined && ToDateProp !== undefined) {
       form.setFieldValue('FromDate', dayjs(FromDateProp));
       form.setFieldValue('ToDate', dayjs(ToDateProp));
-      // setformState(form.getFieldsValue());
     } else {
       setFieldValue('FromDate', FromDate);
       setFieldValue('ToDate', ToDate);
     }
   }, []);
-
-  useEffect(() => {
-    if (FromDateProp !== undefined && ToDateProp !== undefined) {
-      refetch();
-      RefetchSummary();
-    }
-  }, [props]);
 
   const {
     data: Bank_ReceiptPayment,
@@ -57,7 +43,7 @@ const BankBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId
   } = useGetBankBalancesReceiptPayment(
     false,
     CompanyId !== undefined && CompanyId > 0 ? CompanyId : UserDetail?.CompanyId,
-    form.getFieldsValue()
+    formState
   );
 
   const {
@@ -69,12 +55,18 @@ const BankBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId
     false,
     15,
     CompanyId !== undefined && CompanyId > 0 ? CompanyId : UserDetail?.CompanyId,
-    form.getFieldsValue()
+    formState
   );
 
+  useEffect(() => {
+    if (formState.FromDate !== undefined && formState.ToDate != undefined) {
+      refetch();
+      RefetchSummary();
+    }
+  }, [formState]);
+
   const onFinish = (_: TAccountDashboardCriteria) => {
-    refetch();
-    RefetchSummary();
+    setformState(form.getFieldsValue());
   };
 
   const handleDateChange = (Id: number) => {
@@ -178,6 +170,6 @@ const BankBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId
 export default BankBalances;
 
 export type TAccountDashboardCriteria = {
-  FromDate: Date;
-  ToDate: Date;
+  FromDate?: Date;
+  ToDate?: Date;
 };

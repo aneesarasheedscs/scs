@@ -9,8 +9,8 @@ export type TActivitySummary = {
 };
 
 export type Tfilter = {
-  FromDate: Date;
-  ToDate: Date;
+  FromDate?: Date;
+  ToDate?: Date;
   ApprovedFilter: string;
   IsApproved: boolean;
 };

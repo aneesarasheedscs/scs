@@ -1,0 +1,30 @@
+//Account Reports css
+.formfield {
+  border-bottom: 1px solid gray;
+  padding: 0px;
+  height: 38px;
+}
+.ant-checkbox-inner,
+.ant-checkbox-input {
+  height: 1.5rem !important;
+  width: 1.5rem !important;
+}
+
+// Responsive
+@media screen and (min-width: 992px) and (max-width: 1200px) {
+  .card {
+    margin-top: 1% !important;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .card {
+    margin-top: 0 !important;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px) {
+  .card {
+    margin-top: 0 !important;
+  }
+}

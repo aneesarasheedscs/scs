@@ -10,38 +10,41 @@ import './style.scss';
 import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import React, { useEffect, useState } from 'react';
+import GeneralLedgerReport from '../GeneralLedger';
 const { Title, Text } = Typography;
 const { useToken } = theme;
 const financialYear = storedFinancialYear();
+const FromDate = dayjs(financialYear?.Start_Period);
+const ToDate = dayjs(financialYear?.End_Period);
+
+const { useForm, useWatch } = Form;
 const UserDetail = storedUserDetail();
 
 const ActivitySummaryReport: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId?: number }> = (props) => {
   const { FromDateProp, ToDateProp, CompanyId } = props;
-  const { useForm, useWatch } = Form;
+  const { t } = useTranslation();
   const [form] = useForm<Tfilter>();
   const formValues = useWatch<Tfilter>([], form);
-  const [SelectedAccount, setSelectedAccount] = useState<number | undefined>(undefined);
-  const { setFieldValue, getFieldValue } = form;
-  const { t } = useTranslation();
+  const { setFieldValue } = form;
 
-  const FromDate = dayjs(financialYear?.Start_Period);
-  const ToDate = dayjs(financialYear?.End_Period);
+  const [SelectedAccount, setSelectedAccount] = useState<number | undefined>(undefined);
 
   useEffect(() => {
-    if (FromDateProp !== undefined && FromDateProp !== null && ToDateProp !== undefined && ToDateProp !== null) {
-      const fromDate = getFieldValue('FromDate');
-      const todate = getFieldValue('ToDate');
-      if (
-        (fromDate == null || fromDate == undefined || fromDate != FromDateProp) &&
-        (todate == null || todate == undefined || todate != ToDateProp)
-      ) {
-        setFieldValue('FromDate', dayjs(FromDateProp));
-        setFieldValue('ToDate', dayjs(ToDateProp));
-        setFieldValue('DateType', null);
-      }
+    if (FromDateProp !== undefined && ToDateProp !== undefined) {
+      form.setFieldValue('FromDate', dayjs(FromDateProp));
+      form.setFieldValue('ToDate', dayjs(ToDateProp));
+    } else {
+      setFieldValue('FromDate', FromDate);
+      setFieldValue('ToDate', ToDate);
     }
-    refetch();
-  }, [props]);
+  }, []);
+
+  const [formState, setformState] = useState<Tfilter>({
+    FromDate: FromDateProp,
+    ToDate: ToDateProp,
+    ApprovedFilter: '',
+    IsApproved: true,
+  });
 
   const {
     refetch,
@@ -52,8 +55,15 @@ const ActivitySummaryReport: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; 
   } = useGetActivitySummary(
     false,
     CompanyId !== undefined && CompanyId > 0 ? CompanyId : UserDetail?.CompanyId,
-    form.getFieldsValue()
+    formState
   );
+
+  useEffect(() => {
+    if (formState.FromDate !== undefined && formState.ToDate != undefined) {
+      refetch();
+    }
+  }, [formState]);
+
   const handleAccountCodeClick = (AccountId: number) => {
     console.log(AccountId);
     setSelectedAccount(AccountId);
@@ -64,8 +74,9 @@ const ActivitySummaryReport: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; 
   } = theme.useToken();
 
   const onFinish = (_: Tfilter) => {
-    refetch();
+    setformState(form.getFieldsValue());
   };
+
   const handleDateChange = (Id: number) => {
     let fromDate, toDate;
     if (Id == 1) {
@@ -133,7 +144,7 @@ const ActivitySummaryReport: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; 
                 bordered={false}
                 fieldValue="Id"
                 fieldLabel="DateType"
-                defaultValue={'5'}
+                defaultValue={FromDateProp !== undefined ? undefined : 5}
                 label={t('date_type')}
                 query={useGetDateTypes}
                 onSelectChange={(obj) => handleDateChange(obj.Id)}
@@ -188,10 +199,10 @@ const ActivitySummaryReport: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; 
         bodyStyle={{ maxHeight: '80vh', overflowY: 'auto' }}
       >
         <div style={{ maxHeight: '100%', overflowY: 'auto' }}>
-          <ActivitySummaryReport // Here Change General Ledger Component
+          <GeneralLedgerReport
             FromDateProp={form.getFieldValue('FromDate')}
             ToDateProp={form.getFieldValue('ToDate')}
-            CompanyId={SelectedAccount}
+            AccountIdProp={SelectedAccount}
           />
         </div>
       </Modal>

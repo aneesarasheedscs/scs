@@ -15,7 +15,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import { TableLoader } from '../loaders/TableLoader';
 import { AntTableVirtualized } from './AntTableVirtualized';
 import { ReactNode, useMemo, useRef, useState } from 'react';
-import { ColumnType, FilterConfirmProps } from 'antd/es/table/interface';
+import { ColumnType, FilterConfirmProps, TableRowSelection } from 'antd/es/table/interface';
 import { Button, Card, Col, Input, InputRef, Result, Row, Space, Table, TableProps } from 'antd';
 import { useTranslation } from 'react-i18next';
 
@@ -35,6 +35,7 @@ export function AntTable({
   numberOfSkeletons,
   searchCriteriaForm,
   isVirtualized = true,
+  rowSelection,
   refreshData: refreshDataOptions,
   columnChooser: columnChooserOptions,
   ...restProps
@@ -219,6 +220,7 @@ export function AntTable({
         <AntTableVirtualized
           columns={cols}
           dataSource={data}
+          rowSelection={rowSelection}
           onChange={(pagination, filters, sorter, extra) => {
             if (onChange) onChange(pagination, filters, sorter, extra);
             else setFilteredData(extra?.currentDataSource);
@@ -239,6 +241,7 @@ export function AntTable({
           size="small"
           columns={cols}
           dataSource={data}
+          rowSelection={rowSelection}
           onChange={(pagination, filters, sorter, extra) => {
             if (onChange) onChange(pagination, filters, sorter, extra);
             else setFilteredData(extra?.currentDataSource);
@@ -271,6 +274,7 @@ type TAntTable = {
   groupByColumns?: { enabled?: boolean; show?: boolean };
   downloadExcel?: { enabled?: boolean; show?: boolean; fileName?: string };
   printData?: { enabled?: boolean; show?: boolean; settings?: jsPDFOptions; pdfTableOptions?: UserOptions };
+  rowSelection?: TableRowSelection<any>;
   downloadPdf?: {
     show?: boolean;
     enabled?: boolean;

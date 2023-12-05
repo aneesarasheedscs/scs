@@ -34,6 +34,19 @@ const CashReceiptPaymentTables: React.FC<{
   const {
     token: { colorPrimary },
   } = theme.useToken();
+
+  const [selectedRowKeys, setSelectedRowKeys] = React.useState<any>([]);
+  const onSelectChange = (selectedRowKeys: any[], selectedRows: any) => {
+    debugger;
+    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+    setSelectedRowKeys(selectedRowKeys);
+  };
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+    hideDefaultSelections: true,
+  };
+
   return (
     <>
       <Col xl={22} style={{ marginLeft: '3%' }}>
@@ -42,6 +55,8 @@ const CashReceiptPaymentTables: React.FC<{
       <Row gutter={[24, 24]}>
         <Col xl={23} xs={24} md={24} className="summary-card" style={{ marginLeft: '2%' }}>
           <AntTable
+            rowKey={'AccountTitle'}
+            rowSelection={rowSelection}
             columns={CashBalancesSummaryCash(t)}
             isError={IsSummaryError}
             isLoading={IsSummaryLoading}

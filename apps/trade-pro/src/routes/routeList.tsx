@@ -3,6 +3,7 @@ import { route } from './constant';
 import { RouteObject } from 'react-router-dom';
 import RequisitionOrder from '@tradePro/pages/StoreManagement/RequisitionOrder';
 
+const GeneralLedgerReport = lazy(() => import('@tradePro/pages/accountReports/GeneralLedger'));
 const PurchaseActivity = lazy(() => import('@tradePro/pages/purchaseReports/purchaseActivityReport'));
 const SalesActivity = lazy(() => import('@tradePro/pages/SaleReports/salesActivityReport'));
 const ItemCategory = lazy(
@@ -65,7 +66,6 @@ const ReceivablesAgingRegisterTable = lazy(
   () => import('@tradePro/pages/accountReports/ReceivablesAging/receivablesAging')
 );
 const ReceivableReport = lazy(() => import('@tradePro/pages/accountReports/ReceivableReport/receivableTable'));
-const AccountReports = lazy(() => import('@tradePro/pages/accountReports/accountReports')); // general ledger
 
 //Stock Reports
 const StockReportSimple = lazy(() => import('@tradePro/pages/stockReports/stockReportSimple'));
@@ -157,7 +157,7 @@ export const protectedRoutes: RouteObject[] = [
   { path: route.PL_NOTES_BREAKUP, element: <PLNotesBreakup /> },
   { path: route.BS_NOTES_BREAKUP, element: <BSNotesBreakup /> },
   { path: route.CHART_OF_ACCOUNT_TITLE_UPDATE, element: <ChartOfAccountReportTable /> },
-  { path: route.GENERAL_LEDGER, element: <AccountReports /> },
+  { path: route.GENERAL_LEDGER, element: <GeneralLedgerReport /> },
   { path: route.PAYABLES, element: <PayablesTable /> },
   { path: route.PAYABLES_AGING_REPORT, element: <PayableAgingRegisterTable /> },
   { path: route.RECEIVABLES, element: <ReceivablesAgingRegisterTable /> },

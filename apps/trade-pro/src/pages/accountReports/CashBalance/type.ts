@@ -1,5 +1,5 @@
 export type TCashAndBankBalancesSummary = {
-  Id: number;
+  AccountId: number;
   AccountTitle: string;
   AccountCode: string;
   Opening: number;
