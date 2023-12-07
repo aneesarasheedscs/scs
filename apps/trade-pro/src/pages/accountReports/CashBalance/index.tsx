@@ -1,4 +1,4 @@
-import { Row, Col, Card, Typography, DatePicker, theme, Form } from 'antd';
+import { Row, Col, Card, Typography, DatePicker, theme, Form, Modal } from 'antd';
 import { AntButton, AntDatePicker, AntSelectDynamic } from '@scs/ui';
 import { useTranslation } from 'react-i18next';
 import CashReceiptPaymentTables from './tables';
@@ -7,6 +7,7 @@ import './style.scss';
 import dayjs from 'dayjs';
 import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 import React, { useEffect, useState } from 'react';
+import GeneralLedgerReport from '../GeneralLedger';
 
 const { Title, Text } = Typography;
 const { useToken } = theme;
@@ -65,6 +66,11 @@ const CashBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId
       RefetchSummary();
     }
   }, [formState]);
+
+  const [SelectedAccount, setSelectedAccount] = useState<number | undefined>(undefined);
+  const handleAccountCodeClick = (AccountId: number) => {
+    setSelectedAccount(AccountId);
+  };
 
   const {
     token: { colorPrimary },
@@ -125,6 +131,7 @@ const CashBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId
                       name="DateType"
                       fieldLabel="DateType"
                       fieldValue="Id"
+                      defaultValue={FromDateProp !== undefined ? undefined : '5'}
                       query={useGetDateType}
                       onChange={(value) => handleDateChange(value)}
                     />
@@ -163,7 +170,27 @@ const CashBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId
         IsSummaryLoading={isSummaryLoading}
         IsCashPaymentError={isError}
         IsCashPaymentLoading={isLoading}
+        handleAccountCodeClick={handleAccountCodeClick}
       />
+
+      <Modal
+        width={1800}
+        key={SelectedAccount}
+        open={SelectedAccount !== undefined}
+        onCancel={() => setSelectedAccount(undefined)}
+        destroyOnClose={true}
+        footer={null}
+        bodyStyle={{ maxHeight: '80vh', overflowY: 'auto' }}
+      >
+        <div style={{ maxHeight: '100%', overflowY: 'auto' }}>
+          <GeneralLedgerReport
+            FromDateProp={form.getFieldValue('FromDate')}
+            ToDateProp={form.getFieldValue('ToDate')}
+            AccountIdProp={SelectedAccount}
+            CompanyId={CompanyId}
+          />
+        </div>
+      </Modal>
     </div>
   );
 };

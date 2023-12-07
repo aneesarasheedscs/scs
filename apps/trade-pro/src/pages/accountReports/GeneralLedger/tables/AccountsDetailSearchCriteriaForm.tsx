@@ -4,20 +4,25 @@ import { Checkbox, Col, Form, Radio, Row, Space } from 'antd';
 import { TFilterForms } from '../type';
 import { useGetAccountTitle } from '../queryOptions';
 import dayjs from 'dayjs';
-import { storedFinancialYear } from '@tradePro/utils/storageService';
+import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 import { t } from 'i18next';
+import { map } from 'lodash';
 const { useForm, useWatch } = Form;
 
 interface Criteria {
   FromDateProp?: Date;
   ToDateProp?: Date;
   AccountIdProp?: number;
+  CompanyId?: number;
 }
 
 const FinancialYear = storedFinancialYear();
+const userDetail = storedUserDetail();
+
 const FromDate = dayjs(FinancialYear?.Start_Period);
 const ToDate = dayjs(FinancialYear?.End_Period);
 const style: React.CSSProperties = { marginTop: '20px' };
+
 const AccountsDetailSearchCriteriaForm: React.FC<{
   CriteriaObject?: Criteria;
   handleAccountTitleChange: any;
@@ -27,17 +32,23 @@ const AccountsDetailSearchCriteriaForm: React.FC<{
   const [open, setOpen] = useState(false);
   const [form] = useForm<TFilterForms>();
   const formValues = useWatch<TFilterForms>([], form);
-  const { setFieldValue, getFieldValue } = form;
+  const { setFieldValue } = form;
+
+  // const { data } = useGetAccountTitle(
+  //   CriteriaObject?.CompanyId !== undefined ? CriteriaObject?.CompanyId : userDetail?.CompanyId
+  // );
+  // const AccountTitleData = data?.data?.Data?.Result;
 
   useEffect(() => {
     if (
       CriteriaObject?.AccountIdProp !== undefined &&
       CriteriaObject?.FromDateProp !== undefined &&
-      CriteriaObject !== undefined
+      CriteriaObject?.ToDateProp !== undefined
     ) {
-      form.setFieldValue('AccountId', CriteriaObject?.AccountIdProp);
       form.setFieldValue('FromDate', dayjs(CriteriaObject?.FromDateProp));
       form.setFieldValue('ToDate', dayjs(CriteriaObject?.ToDateProp));
+      form.setFieldValue('AccountId', CriteriaObject?.AccountIdProp);
+      handleAccountTitleChange(CriteriaObject?.AccountIdProp);
     } else {
       setFieldValue('FromDate', FromDate);
       setFieldValue('ToDate', ToDate);
@@ -48,7 +59,7 @@ const AccountsDetailSearchCriteriaForm: React.FC<{
     AccountId: CriteriaObject?.AccountIdProp,
     FromDate: CriteriaObject?.FromDateProp,
     ToDate: CriteriaObject?.ToDateProp,
-    PostUnpost: false,
+    PostUnpost: true,
     ReportType: 1,
   });
 
@@ -79,12 +90,20 @@ const AccountsDetailSearchCriteriaForm: React.FC<{
             <AntSelectDynamic
               required
               bordered={false}
+              label="Account Title"
               name="AccountId"
               fieldValue="Id"
-              label="Account Title"
-              query={useGetAccountTitle}
               fieldLabel="AccountTitle"
               onChange={(value) => handleAccountTitleChange(value)}
+              query={() =>
+                useGetAccountTitle(
+                  CriteriaObject?.CompanyId !== undefined ? CriteriaObject?.CompanyId : userDetail?.CompanyId
+                )
+              }
+              // options={map(AccountTitleData, (item: any) => ({
+              //   value: item.Id,
+              //   label: item.AccountTitle,
+              // }))}
             />
           </Col>
 
@@ -100,7 +119,7 @@ const AccountsDetailSearchCriteriaForm: React.FC<{
             </Form.Item>
           </Col>
           <Col span={10}>
-            <Form.Item name="PostUnpost" valuePropName="checked" initialValue={false}>
+            <Form.Item name="PostUnpost" valuePropName="checked" initialValue={true}>
               <Checkbox>{t('include_unposted_vouchers')}</Checkbox>
             </Form.Item>
           </Col>

@@ -11,6 +11,7 @@ import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { curry } from 'lodash';
 import CashBalances from '@tradePro/pages/accountReports/CashBalance';
 import BankBalances from '@tradePro/pages/accountReports/BankBalances/bankBalancesReport/BankBalances';
+import PayablesReceivablesReport from '@tradePro/pages/accountReports/PayablesReceivables/Payables&Receivaables/MainForm';
 
 type CompanyWiseData = {
   CompanyId: number;
@@ -58,8 +59,8 @@ const CompanyWiseDataPopUp: React.FC<{
       dataIndex: 'Company',
       // searchableInput: true,
       width: 250,
-      sortDirections: ['ascend', 'descend'],
-      sorter: (a, b) => a.Company.localeCompare(b.Company),
+      // sortDirections: ['ascend', 'descend'],
+      // sorter: (a, b) => a.Company.localeCompare(b.Company),
       render: (_, { Company, CompanyId }) => (
         <>
           <a onClick={() => handleRowClick(CompanyId)}>{Company}</a>,
@@ -67,7 +68,7 @@ const CompanyWiseDataPopUp: React.FC<{
       ),
     },
     {
-      width: 300,
+      width: 200,
       title: 'Opening',
       dataIndex: 'Opening',
       // searchableInput: true,
@@ -76,7 +77,7 @@ const CompanyWiseDataPopUp: React.FC<{
       render: (_, { Opening }) => numberFormatter(Opening),
     },
     {
-      width: 300,
+      width: 200,
       title: 'Debit',
       dataIndex: 'CurrDr',
       // searchableInput: true,
@@ -86,7 +87,7 @@ const CompanyWiseDataPopUp: React.FC<{
       render: (_, { CurrDr }) => numberFormatter(CurrDr),
     },
     {
-      width: 300,
+      width: 200,
       title: 'Credit',
       dataIndex: 'CurrCr',
       // searchableInput: true,
@@ -96,7 +97,7 @@ const CompanyWiseDataPopUp: React.FC<{
       render: (_, { CurrCr }) => numberFormatter(CurrCr),
     },
     {
-      width: 300,
+      width: 200,
       title: 'Closing',
       dataIndex: 'Closing',
       // searchableInput: true,
@@ -141,16 +142,26 @@ const CompanyWiseDataPopUp: React.FC<{
             <BankBalances FromDateProp={FromdateProp} ToDateProp={TodateProp} CompanyId={SelectedCompany} />
           </div>
         )}
-        {/* {Id== 6 && (
+        {Id == 6 && (
           <div style={{ maxHeight: '100%', overflowY: 'auto' }}>
-            <PayablesReceivablesReport AccountClassId={3} FromDateProp={FromdateProp} ToDateProp={TodateProp} />
+            <PayablesReceivablesReport
+              AccountClassId={3}
+              FromDateProp={FromdateProp}
+              ToDateProp={TodateProp}
+              CompanyIdProp={SelectedCompany}
+            />
           </div>
         )}
         {Id == 7 && (
           <div style={{ maxHeight: '100%', overflowY: 'auto' }}>
-            <PayablesReceivablesReport AccountClassId={2} FromDateProp={FromdateProp} ToDateProp={TodateProp} />
+            <PayablesReceivablesReport
+              AccountClassId={2}
+              FromDateProp={FromdateProp}
+              ToDateProp={TodateProp}
+              CompanyIdProp={SelectedCompany}
+            />
           </div>
-        )} */}
+        )}
       </Modal>
     </>
   );

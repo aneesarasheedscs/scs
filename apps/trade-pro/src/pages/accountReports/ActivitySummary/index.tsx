@@ -65,7 +65,6 @@ const ActivitySummaryReport: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; 
   }, [formState]);
 
   const handleAccountCodeClick = (AccountId: number) => {
-    console.log(AccountId);
     setSelectedAccount(AccountId);
   };
 
@@ -144,7 +143,7 @@ const ActivitySummaryReport: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; 
                 bordered={false}
                 fieldValue="Id"
                 fieldLabel="DateType"
-                defaultValue={FromDateProp !== undefined ? undefined : 5}
+                defaultValue={FromDateProp !== undefined ? undefined : '5'}
                 label={t('date_type')}
                 query={useGetDateTypes}
                 onSelectChange={(obj) => handleDateChange(obj.Id)}

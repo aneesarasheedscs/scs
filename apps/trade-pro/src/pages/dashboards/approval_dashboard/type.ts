@@ -20,6 +20,29 @@ export type Voucher = {
   NoOfAttachments: number;
 };
 
+export type VoucherApprovalHistory = {
+  RecordNo: number;
+  VoucherHeadId: number;
+  DocumentTypeId: number;
+  DocumentType: string;
+  DocumentTypeDescriptio: string;
+  VoucherCode: number;
+  VoucherDate: Date;
+  RefAccountId: number;
+  HeaderAccountTitle: string;
+  VoucherAmount: number;
+  PayTitle: string;
+  ChequeNo: string;
+  ChequeDate: Date;
+  ActionTypeId: boolean;
+  IsApproved: boolean;
+  EntryUserName: string;
+  EntryDate: Date;
+  Remarks: string;
+  ModifyUserName: string;
+  ModifyDate: Date;
+};
+
 export type VoucherDetailHistory = {
   AgainstAccountId: number;
   AccountId: number;

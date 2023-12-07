@@ -5,7 +5,10 @@ import { Space, Tooltip } from 'antd';
 import { PrinterFilled, CheckSquareFilled } from '@ant-design/icons';
 import { TCashAndBankBalancesSummary } from '../../types';
 
-export const BankBalancesSummaryBank = (t: any): AntColumnType<TCashAndBankBalancesSummary>[] => [
+export const BankBalancesSummaryBank = (
+  t: any,
+  handleAccountCodeClick: any
+): AntColumnType<TCashAndBankBalancesSummary>[] => [
   {
     title: <>{t('sr#')}</>,
     dataIndex: '',
@@ -16,13 +19,17 @@ export const BankBalancesSummaryBank = (t: any): AntColumnType<TCashAndBankBalan
   {
     width: 150,
     title: <>{t('account_code')}</>,
-    searchableDate: true,
     dataIndex: 'AccountCode',
+    render: (_, { AccountCode, AccountId }) => (
+      <>
+        <a onClick={() => handleAccountCodeClick(AccountId)}>{AccountCode}</a>
+      </>
+    ),
   },
   {
     width: 150,
     title: <>{t('account_title')}</>,
-    searchableDate: true,
+    searchableInput: true,
     dataIndex: 'AccountTitle',
 
     sortDirections: ['ascend', 'descend'],

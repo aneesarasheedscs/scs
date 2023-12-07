@@ -4,10 +4,13 @@ import { useTranslation } from 'react-i18next';
 import FollowUp from './FollowUp';
 import PayablesReceivables from './payablesReceivables';
 
-const PayablesReceivablesReport: React.FC<{ AccountClassId?: number; FromDateProp?: Date; ToDateProp?: Date }> = (
-  props
-) => {
-  const { AccountClassId, FromDateProp, ToDateProp } = props;
+const PayablesReceivablesReport: React.FC<{
+  AccountClassId?: number;
+  FromDateProp?: Date;
+  ToDateProp?: Date;
+  CompanyIdProp?: number;
+}> = (props) => {
+  const { AccountClassId, FromDateProp, ToDateProp, CompanyIdProp } = props;
   const { t } = useTranslation();
   return (
     <div>
@@ -30,6 +33,7 @@ const PayablesReceivablesReport: React.FC<{ AccountClassId?: number; FromDatePro
                   AccountClassId={AccountClassId}
                   FromDateProp={FromDateProp}
                   ToDateProp={ToDateProp}
+                  CompanyIdProp={CompanyIdProp}
                 />
               ),
             },

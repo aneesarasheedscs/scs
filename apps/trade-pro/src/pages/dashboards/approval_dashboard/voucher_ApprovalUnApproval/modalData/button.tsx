@@ -10,9 +10,10 @@ import {
 } from '@ant-design/icons';
 import React from 'react';
 
-const Buttons: React.FC<{ SelectedDocumentsCount: number; ApproveSelectedVouchers(): any }> = ({
+const Buttons: React.FC<{ SelectedDocumentsCount: number; ApproveSelectedVouchers: any; ForRevision?: boolean }> = ({
   SelectedDocumentsCount,
   ApproveSelectedVouchers,
+  ForRevision,
 }) => {
   return (
     <div>
@@ -25,25 +26,30 @@ const Buttons: React.FC<{ SelectedDocumentsCount: number; ApproveSelectedVoucher
           </Tooltip>
         </Col>
         <Col xs={24} sm={12}>
-          <div style={{ float: 'right' }}>
-            <Tooltip placement="top" title="Approved Selected Vouchers">
+          <Tooltip placement="top" title="Approved Selected Vouchers">
+            <AntButton
+              icon={<FileProtectOutlined />}
+              className="btn"
+              onClick={() => ApproveSelectedVouchers(false)}
+              label={`${SelectedDocumentsCount}`}
+            />
+          </Tooltip>
+          {!ForRevision ? (
+            <Tooltip placement="top" title="Make For Revision">
               <AntButton
-                icon={<FileProtectOutlined />}
+                icon={<EditFilled />}
                 className="btn"
-                onClick={ApproveSelectedVouchers}
+                onClick={() => ApproveSelectedVouchers(true)}
                 label={`${SelectedDocumentsCount}`}
               />
             </Tooltip>
-            <Tooltip placement="top" title="Make For Revision">
-              <AntButton icon={<EditFilled />} className="btn" label={`${SelectedDocumentsCount}`} />
-            </Tooltip>
-            <Tooltip placement="top" title="Take Notes">
+          ) : null}
+          {/* <Tooltip placement="top" title="Take Notes">
               <AntButton className="btn" icon={<FileTextOutlined />} />
-            </Tooltip>
-            <Tooltip placement="top" title="General Ledger Of Header Account">
+            </Tooltip> */}
+          {/* <Tooltip placement="top" title="General Ledger Of Header Account">
               <AntButton className="btn" icon={<AlignLeftOutlined />} />
-            </Tooltip>
-          </div>
+            </Tooltip> */}
         </Col>
       </Row>
     </div>

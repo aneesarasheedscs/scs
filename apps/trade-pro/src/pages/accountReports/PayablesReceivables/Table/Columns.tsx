@@ -2,34 +2,33 @@ import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { TFollowUp, Tpayables, Treceivable } from '../types';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { Space } from 'antd';
-
-import { fromPairs } from 'lodash';
 import { formateDate } from '@tradePro/utils/formateDate';
 
-export const PayableColumn = (t: any): AntColumnType<Tpayables>[] => [
+export const PayableColumn = (t: any, handleAccountCodeClick: any): AntColumnType<Tpayables>[] => [
   {
     title: <>{t('sr#')}</>,
     dataIndex: '',
     width: 100,
-
     render: (_, __, index) => index + 1,
   },
   {
     width: 260,
     title: <>{t('account_title_3rd')}</>,
-    searchableDate: true,
     dataIndex: 'lvl03_Title',
   },
   {
     width: 150,
     title: <>{t('account_code')}</>,
-    searchableDate: true,
     dataIndex: 'AccountCode',
+    render: (_, { AccountCode, AccountId }) => (
+      <>
+        <a onClick={() => handleAccountCodeClick(AccountId)}>{AccountCode}</a>
+      </>
+    ),
   },
   {
     width: 150,
     title: <>{t('account_title')}</>,
-    searchableDate: true,
     dataIndex: 'AccountTitle',
 
     sortDirections: ['ascend', 'descend'],
@@ -38,7 +37,6 @@ export const PayableColumn = (t: any): AntColumnType<Tpayables>[] => [
   {
     width: 150,
     title: t('opening'),
-    searchableDate: true,
     dataIndex: 'Opening',
     align: 'right',
     render: (Opening, record) => (
@@ -48,7 +46,6 @@ export const PayableColumn = (t: any): AntColumnType<Tpayables>[] => [
   {
     width: 150,
     title: <>{t('debit')}</>,
-    searchableDate: true,
     dataIndex: 'Debit',
     align: 'right',
     render: (CurrDebit, record) => (
@@ -58,7 +55,6 @@ export const PayableColumn = (t: any): AntColumnType<Tpayables>[] => [
   {
     width: 150,
     title: <>{t('current_credit')}</>,
-    searchableDate: true,
     dataIndex: 'Credit',
     align: 'right',
     render: (CurrCredit, record) => (
@@ -69,7 +65,6 @@ export const PayableColumn = (t: any): AntColumnType<Tpayables>[] => [
   {
     width: 150,
     title: <>{t('closing')}</>,
-    searchableDate: true,
     dataIndex: 'Closing',
     align: 'right',
     render: (Closing, record) => (
@@ -119,7 +114,7 @@ export const PayableColumn = (t: any): AntColumnType<Tpayables>[] => [
   },
 ];
 
-export const ReceivableColumn = (t: any): AntColumnType<Treceivable>[] => [
+export const ReceivableColumn = (t: any, handleAccountCodeClick: any): AntColumnType<Treceivable>[] => [
   {
     title: <>{t('sr#')}</>,
     dataIndex: '',
@@ -130,19 +125,21 @@ export const ReceivableColumn = (t: any): AntColumnType<Treceivable>[] => [
   {
     width: 250,
     title: <>{t('account_title_3rd')}</>,
-    searchableDate: true,
     dataIndex: 'lvl03_Title',
   },
   {
     width: 150,
     title: <>{t('account_code')}</>,
-    searchableDate: true,
     dataIndex: 'AccountCode',
+    render: (_, { AccountCode, AccountId }) => (
+      <>
+        <a onClick={() => handleAccountCodeClick(AccountId)}>{AccountCode}</a>
+      </>
+    ),
   },
   {
     width: 250,
     title: <>{t('account_title')}</>,
-    searchableDate: true,
     dataIndex: 'AccountTitle',
 
     sortDirections: ['ascend', 'descend'],
@@ -151,7 +148,6 @@ export const ReceivableColumn = (t: any): AntColumnType<Treceivable>[] => [
   {
     width: 150,
     title: t('opening'),
-    searchableDate: true,
     dataIndex: 'Opening',
     align: 'right',
     render: (Opening, record) => (
@@ -161,7 +157,6 @@ export const ReceivableColumn = (t: any): AntColumnType<Treceivable>[] => [
   {
     width: 150,
     title: <>{t('debit')}</>,
-    searchableDate: true,
     dataIndex: 'Debit',
     align: 'right',
     render: (Debit) => (
@@ -171,7 +166,6 @@ export const ReceivableColumn = (t: any): AntColumnType<Treceivable>[] => [
   {
     width: 150,
     title: <>{t('credit')}</>,
-    searchableDate: true,
     dataIndex: 'Credit',
     align: 'right',
     render: (Credit) => (
@@ -182,7 +176,6 @@ export const ReceivableColumn = (t: any): AntColumnType<Treceivable>[] => [
   {
     width: 150,
     title: <>{t('closing')}</>,
-    searchableDate: true,
     dataIndex: 'Closing',
     align: 'right',
     render: (Closing) => (
@@ -242,7 +235,6 @@ export const FollowUpColumn = (t: any): AntColumnType<TFollowUp>[] => [
   {
     width: 100,
     title: <>{t('account_title')}</>,
-    searchableDate: true,
     dataIndex: 'AccountTitle',
 
     sortDirections: ['ascend', 'descend'],
@@ -257,7 +249,6 @@ export const FollowUpColumn = (t: any): AntColumnType<TFollowUp>[] => [
   {
     width: 100,
     title: <>{t('NF-Days')}</>,
-    searchableDate: true,
     dataIndex: 'NF-Days',
   },
   {
@@ -269,7 +260,6 @@ export const FollowUpColumn = (t: any): AntColumnType<TFollowUp>[] => [
   {
     width: 100,
     title: t('comment_detail'),
-    searchableDate: true,
     dataIndex: 'CommentDetail',
   },
 ];

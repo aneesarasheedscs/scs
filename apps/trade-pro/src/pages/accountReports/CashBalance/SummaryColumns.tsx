@@ -4,7 +4,10 @@ import { AntColumnType } from '@tradePro/globalTypes';
 import { Space, Tooltip } from 'antd';
 import { PrinterFilled, CheckSquareFilled } from '@ant-design/icons';
 
-export const CashBalancesSummaryCash = (t: any): AntColumnType<TCashAndBankBalancesSummary>[] => [
+export const CashBalancesSummaryCash = (
+  t: any,
+  handleAccountCodeClick: any
+): AntColumnType<TCashAndBankBalancesSummary>[] => [
   {
     title: <>{t('sr#')}</>,
     dataIndex: '',
@@ -15,8 +18,12 @@ export const CashBalancesSummaryCash = (t: any): AntColumnType<TCashAndBankBalan
   {
     width: 150,
     title: <>{t('account_code')}</>,
-    searchableDate: true,
     dataIndex: 'AccountCode',
+    render: (_, { AccountCode, AccountId }) => (
+      <>
+        <a onClick={() => handleAccountCodeClick(AccountId)}>{AccountCode}</a>
+      </>
+    ),
   },
   {
     width: 150,

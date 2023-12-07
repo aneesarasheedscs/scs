@@ -24,16 +24,16 @@ export const usePostPayablesReceivables = (
       return requestManager.post('/api/AccountsReports/TradeDebtorsAndCreditors_Report', {
         OrganizationId: userDetail?.OrganizationId,
         CompanyId: CompanyId,
-        CwCoaId: userDetail?.CompanyId,
+        CwCoaId: CompanyId,
         AccouuntClassId,
         AccountId: 3,
         ApprovedFilter: params?.IsApproved == true ? '' : 'All',
         ActionId:
-          params?.OnlyCreditAmountAction && params.OnlyDebitAmountAction
+          params?.OnlyCreditAmountAction == true && params.OnlyDebitAmountAction == true
             ? 0
-            : params?.OnlyCreditAmountAction && params.OnlyDebitAmountAction == false
+            : params?.OnlyCreditAmountAction == true && params.OnlyDebitAmountAction == false
             ? 1
-            : params?.OnlyCreditAmountAction == false && params.OnlyDebitAmountAction
+            : params?.OnlyCreditAmountAction == false && params.OnlyDebitAmountAction == true
             ? 2
             : null,
         ...params,

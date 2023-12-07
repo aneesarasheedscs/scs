@@ -14,44 +14,66 @@ import Buttons from './modalData/button';
 import { VouchersHistory_Header, VouchersModernHistory } from '../type';
 import ToolTipToShowUserData from './tooltop';
 import { useAtom } from 'jotai';
-import { SelectedVouchers } from './Atom';
-const CardView: React.FC<{ documentTypeId: number; approvalUnApproval: boolean }> = ({
-  documentTypeId,
-  approvalUnApproval,
-}) => {
-  const {
-    data: Data,
-    isError: VouchersError,
-    refetch: VouchersRefetch,
-    isSuccess: VouchersSucess,
-    isLoading: VouchersLoading,
-  } = useGetVouchersModernHistoryHeaderData(documentTypeId.toString(), 0, true, 'Not All', approvalUnApproval);
-
+const CardView: React.FC<{
+  documentTypeId: number;
+  approvalUnApproval: boolean;
+  dataSource: any;
+  ForRevision?: boolean;
+  // TotalDataLength?: any;
+  // filteredDataLength?: any;
+}> = ({ documentTypeId, approvalUnApproval, dataSource, ForRevision }) => {
   const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
-  const voucherData = Data?.data?.Data?.Result; // Replace with your actual data array
   const [mainDataSource, setMainDataSource] = useState<VouchersModernHistory[]>([]);
   const { mutate: Approve } = useApproveVouchers(documentTypeId);
+  // const {
+  //   data: Data,
+  //   isError: VouchersError,
+  //   refetch: VouchersRefetch,
+  //   isSuccess: VouchersSucess,
+  //   isLoading: VouchersLoading,
+  // } = useGetVouchersModernHistoryHeaderData(documentTypeId.toString(), 0, true, 'Not All', approvalUnApproval);
+  // const voucherData = Data?.data?.Data?.Result;
+  // useEffect(() => {
+  //   if (!VouchersLoading && VouchersSucess) {
+  //     const updatedMainDataSource = [];
+  //     let FilteredData = voucherData.filter((item: any) => (item.ActionTypeId == ForRevision ? 1 : 0));
+  //     TotalDataLength(voucherData.length);
+  //     filteredDataLength(FilteredData.length);
+  //     for (let i = 0; i < FilteredData?.length; i++) {
+  //       updatedMainDataSource.push({
+  //         VoucherHistoryHeader: FilteredData[i],
+  //         VoucherHistoryDetail: [],
+  //         IsChecked: false,
+  //         IsSelected: false,
+  //       });
+  //     }
+  //     setMainDataSource(updatedMainDataSource);
+  //   }
+  // }, [voucherData]);
 
   useEffect(() => {
-    const updatedMainDataSource = [];
-    for (let i = 0; i < voucherData?.length; i++) {
-      updatedMainDataSource.push({
-        VoucherHistoryHeader: voucherData[i],
-        VoucherHistoryDetail: [],
-        IsChecked: false,
-        IsSelected: false,
-      });
+    if (dataSource.length > 0) {
+      const updatedMainDataSource = [];
+      for (let i = 0; i < dataSource?.length; i++) {
+        updatedMainDataSource.push({
+          VoucherHistoryHeader: dataSource[i],
+          VoucherHistoryDetail: [],
+          IsChecked: false,
+          IsSelected: false,
+        });
+      }
+      setMainDataSource(updatedMainDataSource);
     }
-    setMainDataSource(updatedMainDataSource);
-  }, [voucherData]);
+  }, [dataSource]);
 
   const [records, setRecords] = useState(String);
   const [selectedCardData, setSelectedCardData] = useState<VouchersHistory_Header>();
-  const totalRecords = Data?.data?.Data?.Result.length || 0;
+  // const totalRecords = Data?.data?.Data?.Result.length || 0;
+  const totalRecords = dataSource.length || 0;
   const [showContent, setShowContent] = useState(false);
-  const [SelectedDocumentsCount, setSelectedDocumentsCount] = useState(1);
+  const [SelectedDocumentsCount, setSelectedDocumentsCount] = useState(0);
   const [TooltipVisible, setTooltipVisible] = useState(false);
-  const [SelectedVouchersData, setSelectedVouchersData] = useAtom(SelectedVouchers);
+  const [SelectedVouchersData, setSelectedVouchersData] = useState<any>([]);
   const toggleContent = () => {
     setShowContent(!showContent);
   };
@@ -106,10 +128,10 @@ const CardView: React.FC<{ documentTypeId: number; approvalUnApproval: boolean }
     setRecords(value);
   };
 
-  useEffect(() => {
-    console.log('Count: ', SelectedDocumentsCount);
-    console.log('Data: ', SelectedVouchersData);
-  }, [SelectedDocumentsCount, SelectedVouchersData]);
+  // useEffect(() => {
+  //   console.log('Count: ', SelectedDocumentsCount);
+  //   console.log('Data: ', SelectedVouchersData);
+  // }, [SelectedDocumentsCount, SelectedVouchersData]);
 
   const HighLightCard = (data: VouchersModernHistory, event: React.MouseEvent<HTMLDivElement>) => {
     let newData: any = [];
@@ -140,28 +162,30 @@ const CardView: React.FC<{ documentTypeId: number; approvalUnApproval: boolean }
   };
 
   let ApproveData: any = [];
-  const ApproveRecords = () => {
-    // ApproveData.OrganizationId = userDetail?.OrganizationId;
-    // ApproveData.CompanyId = userDetail?.CompanyId;
-    ApproveData.AllApprovalLists = [];
-    for (let i = 0; i < SelectedVouchersData?.length; i++) {
-      ApproveData?.AllApprovalLists.push({
-        OrganizationId: userDetail?.OrganizationId,
-        CompanyId: userDetail?.CompanyId,
-        Id: SelectedVouchersData[i].VoucherHistoryHeader.VoucherHeadId,
-        PostDate: new Date(),
-        EntryUser: userDetail?.UserId,
-        ActionTypeId: 0, // For Approve
-        ReqType: approvalUnApproval == false ? 'AP' : 'UP',
-      });
+  const ApproveRecords = (ActionTypeId: boolean) => {
+    if (SelectedVouchersData.length > 0) {
+      // ApproveData.OrganizationId = userDetail?.OrganizationId;
+      // ApproveData.CompanyId = userDetail?.CompanyId;
+      ApproveData.AllApprovalLists = [];
+      for (let i = 0; i < SelectedVouchersData?.length; i++) {
+        ApproveData?.AllApprovalLists.push({
+          OrganizationId: userDetail?.OrganizationId,
+          CompanyId: userDetail?.CompanyId,
+          Id: SelectedVouchersData[i].VoucherHistoryHeader.VoucherHeadId,
+          PostDate: new Date(),
+          EntryUser: userDetail?.UserId,
+          ActionTypeId: ActionTypeId, // false For Approve ,,, true for Revision
+          ReqType: approvalUnApproval == false ? 'AP' : 'UP',
+        });
+      }
+      console.log('Approval Data: ', ApproveData);
+      Approve(ApproveData);
+      setSelectedCardData(undefined);
     }
-    console.log('Approval Data: ', ApproveData);
-    Approve(ApproveData);
-    setSelectedCardData(undefined);
   };
 
-  const handleApproveSelectedVouchers = () => {
-    ApproveRecords();
+  const handleApproveSelectedVouchers = (TypeId: boolean) => {
+    ApproveRecords(TypeId);
   };
 
   const HandleFilterCriteriaData = () => {};
@@ -247,13 +271,15 @@ const CardView: React.FC<{ documentTypeId: number; approvalUnApproval: boolean }
           </div>
           <h3 style={{ textAlign: 'center' }}>Total Records:{numberFormatter(totalRecords)} </h3>
         </Col>
-
-        {selectedCardData && (
-          <Col lg={{ span: 16 }} sm={{ span: 24 }} className="columns">
+        <Col lg={{ span: 16 }} sm={{ span: 24 }} className="columns">
+          <Row>
             <Buttons
               SelectedDocumentsCount={SelectedDocumentsCount}
               ApproveSelectedVouchers={handleApproveSelectedVouchers}
+              ForRevision={ForRevision}
             />
+          </Row>
+          {selectedCardData && (
             <Row align="middle">
               <Col xs={23} sm={16} className="columns">
                 <div className="main-voucher-design" id="Rice_Invoice_Main_Box">
@@ -359,8 +385,8 @@ const CardView: React.FC<{ documentTypeId: number; approvalUnApproval: boolean }
                 </div>
               </Col>
             </Row>
-          </Col>
-        )}
+          )}
+        </Col>
       </Row>
 
       {/* <Tooltip

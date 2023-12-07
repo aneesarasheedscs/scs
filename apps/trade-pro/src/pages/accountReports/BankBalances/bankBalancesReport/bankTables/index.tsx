@@ -20,6 +20,7 @@ const BankPaymentTables: React.FC<{
   IsReceiptPaymentLoading: boolean;
   IsSummaryError: boolean;
   IsSummaryLoading: boolean;
+  handleAccountCodeClick: any;
 }> = (props) => {
   const {
     PaymentReceiptData,
@@ -28,6 +29,7 @@ const BankPaymentTables: React.FC<{
     IsReceiptPaymentLoading,
     IsSummaryError,
     IsSummaryLoading,
+    handleAccountCodeClick,
   } = props;
   const { t } = useTranslation();
 
@@ -46,7 +48,7 @@ const BankPaymentTables: React.FC<{
       <Row gutter={[24, 24]}>
         <Col xl={23} xs={24} md={24} className="summary-card" style={{ marginLeft: '2%' }}>
           <AntTable
-            columns={BankBalancesSummaryBank(t)}
+            columns={BankBalancesSummaryBank(t, handleAccountCodeClick)}
             isError={IsSummaryError}
             isLoading={IsSummaryLoading}
             data={SummaryData || []}

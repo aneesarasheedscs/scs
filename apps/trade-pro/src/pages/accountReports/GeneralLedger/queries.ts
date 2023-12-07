@@ -8,7 +8,7 @@ import { CheckBox } from './tables/Atom';
 const userDetail = storedUserDetail();
 const FinancialYearId = storedFinancialYear();
 
-export const useGetGeneralLedgerDetail = (enabled = false, params?: TFilterForms) => {
+export const useGetGeneralLedgerDetail = (enabled = false, CompanyId?: number, params?: TFilterForms) => {
   // const [isUnpostedChecked, setIsUnpostedChecked] = useAtom(CheckBox);
   // const filter = isUnpostedChecked ? 'IsApproved' : 'ApprovedFilter';
   // const filterValue = isUnpostedChecked ? true : 'All';
@@ -17,7 +17,7 @@ export const useGetGeneralLedgerDetail = (enabled = false, params?: TFilterForms
     () => {
       return requestManager.post('/api/AccountsReports/GeneralLedgerWithOffsetAccount', {
         OrganizationId: userDetail?.OrganizationId,
-        CompanyId: userDetail?.CompanyId,
+        CompanyId: CompanyId,
         FinancialYearId: FinancialYearId?.Id,
         BranchesId: userDetail?.BranchesId,
         EntryUser: userDetail?.UserId,
@@ -30,7 +30,7 @@ export const useGetGeneralLedgerDetail = (enabled = false, params?: TFilterForms
   );
 };
 
-export const useGetGeneralLedgerSummaryI = (enabled = true, params?: TFilterForms) => {
+export const useGetGeneralLedgerSummaryI = (enabled: boolean, CompanyId?: number, params?: TFilterForms) => {
   const [isUnpostedChecked, setIsUnpostedChecked] = useAtom(CheckBox);
   const filter = isUnpostedChecked ? 'IsApproved' : 'ApprovedFilter';
   const filterValue = isUnpostedChecked ? true : 'All';
@@ -40,7 +40,7 @@ export const useGetGeneralLedgerSummaryI = (enabled = true, params?: TFilterForm
     () => {
       return requestManager.post('/api/AccountsReports/GeneralLedgerSummery', {
         OrganizationId: userDetail?.OrganizationId,
-        CompanyId: userDetail?.CompanyId,
+        CompanyId: CompanyId,
         FinancialYearId: FinancialYearId?.Id,
         BranchesId: userDetail?.BranchesId,
         ApprovedFilter: filter === 'ApprovedFilter' ? filterValue : undefined,
@@ -51,7 +51,7 @@ export const useGetGeneralLedgerSummaryI = (enabled = true, params?: TFilterForm
     { enabled }
   );
 };
-export const useGetGeneralLedgerSummaryII = (enabled = true, params?: TFilterForms) => {
+export const useGetGeneralLedgerSummaryII = (enabled: boolean, CompanyId?: number, params?: TFilterForms) => {
   const [isUnpostedChecked, setIsUnpostedChecked] = useAtom(CheckBox);
   const filter = isUnpostedChecked ? 'IsApproved' : 'ApprovedFilter';
   const filterValue = isUnpostedChecked ? true : 'All';
@@ -60,7 +60,7 @@ export const useGetGeneralLedgerSummaryII = (enabled = true, params?: TFilterFor
     () => {
       return requestManager.post('/api/AccountsReports/GeneralLedger2Format_Rpt', {
         OrganizationId: userDetail?.OrganizationId,
-        CompanyId: userDetail?.CompanyId,
+        CompanyId: CompanyId,
         ApprovedFilter: filter === 'ApprovedFilter' ? filterValue : undefined,
         IsApproved: filter === 'IsApproved' ? filterValue : undefined,
         ...params,

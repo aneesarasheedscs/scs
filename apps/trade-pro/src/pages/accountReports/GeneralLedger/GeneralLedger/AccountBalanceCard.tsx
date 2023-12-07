@@ -13,7 +13,7 @@ const AccountBalanceCard = () => {
     data: AccountBalance,
     isError: isAccountDetailError,
     isLoading: isAccountDetailLoading,
-  } = useGetAccountBalance(false, 1, new Date(), new Date());
+  } = useGetAccountBalance(false, 1, 1, new Date(), new Date());
 
   const {
     token: { colorPrimary },

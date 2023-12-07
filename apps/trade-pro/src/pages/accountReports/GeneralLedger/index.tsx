@@ -10,10 +10,17 @@ import { AntTable } from '@scs/ui';
 import { DetailTableColumns, SummaryIITableColumns, SummaryITableColumns } from './tables/columns';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { useGetAccountBalance, useGetAccountDetail } from './queryOptions';
+import { storedUserDetail } from '@tradePro/utils/storageService';
 const { Title, Text } = Typography;
+const userDetail = storedUserDetail();
 
-const GeneralLedgerReport: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; AccountIdProp?: number }> = (props) => {
-  const { FromDateProp, ToDateProp, AccountIdProp } = props;
+const GeneralLedgerReport: React.FC<{
+  FromDateProp?: Date;
+  ToDateProp?: Date;
+  AccountIdProp?: number;
+  CompanyId?: number;
+}> = (props) => {
+  const { FromDateProp, ToDateProp, AccountIdProp, CompanyId } = props;
   const { t } = useTranslation();
 
   const [RefAccountId, setRefAccountId] = useState(0);
@@ -21,7 +28,6 @@ const GeneralLedgerReport: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; Ac
   const [showAccountDetailCard, setShowAccountDetailCard] = useState(false);
 
   const handleAccountTitleChange = (AccountId: number) => {
-    console.log(AccountId);
     if (AccountId > 0) {
       setRefAccountId(AccountId);
       setShowAccountDetailCard(true);
@@ -40,14 +46,24 @@ const GeneralLedgerReport: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; Ac
     isError,
     isLoading,
     refetch: refetchAccountDetail,
-  } = useGetAccountDetail(false, RefAccountId);
+  } = useGetAccountDetail(
+    false,
+    CompanyId !== undefined && CompanyId > 0 ? CompanyId : userDetail?.CompanyId,
+    RefAccountId
+  );
 
   const {
     data: AccountBalance,
     isError: isAccountBalanceError,
     isLoading: isAccountBalanceLoading,
     refetch: refetchAccountBalance,
-  } = useGetAccountBalance(false, formState?.AccountId, formState?.FromDate, formState?.ToDate);
+  } = useGetAccountBalance(
+    false,
+    CompanyId !== undefined && CompanyId > 0 ? CompanyId : userDetail?.CompanyId,
+    formState?.AccountId,
+    formState?.FromDate,
+    formState?.ToDate
+  );
 
   const {
     data: detailData,
@@ -55,7 +71,11 @@ const GeneralLedgerReport: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; Ac
     isSuccess: detailDataSuccess,
     isLoading: detailDataLoading,
     refetch: detailRefetch,
-  } = useGetGeneralLedgerDetail(false, formState);
+  } = useGetGeneralLedgerDetail(
+    false,
+    CompanyId !== undefined && CompanyId > 0 ? CompanyId : userDetail?.CompanyId,
+    formState
+  );
 
   const {
     data: summary1Data,
@@ -63,7 +83,11 @@ const GeneralLedgerReport: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; Ac
     isSuccess: summary1DataSuccess,
     isLoading: summary1DataLoading,
     refetch: summary1Refetch,
-  } = useGetGeneralLedgerSummaryI(false, formState);
+  } = useGetGeneralLedgerSummaryI(
+    false,
+    CompanyId !== undefined && CompanyId > 0 ? CompanyId : userDetail?.CompanyId,
+    formState
+  );
 
   const {
     data: summary2Data,
@@ -71,9 +95,12 @@ const GeneralLedgerReport: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; Ac
     isSuccess: summary2DataSuccess,
     isLoading: summary2DataLoading,
     refetch: summary2Refetch,
-  } = useGetGeneralLedgerSummaryII(false, formState);
-
-  const { data, isSuccess } = useGetGeneralLedgerDetail();
+  } = useGetGeneralLedgerSummaryII(
+    false,
+    CompanyId !== undefined && CompanyId > 0 ? CompanyId : userDetail?.CompanyId,
+    formState
+  );
+  // const { data, isSuccess } = useGetGeneralLedgerDetail();
 
   useEffect(() => {
     if (RefAccountId > 0) {
@@ -110,7 +137,7 @@ const GeneralLedgerReport: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; Ac
       <Col xs={15} sm={10} md={6} lg={5} xxl={4}>
         {' '}
         <AccountsDetailSearchCriteriaForm
-          CriteriaObject={{ AccountIdProp, FromDateProp, ToDateProp }}
+          CriteriaObject={{ AccountIdProp, FromDateProp, ToDateProp, CompanyId }}
           handleAccountTitleChange={handleAccountTitleChange}
           handleFormStateChange={handleFormStateChange}
         />

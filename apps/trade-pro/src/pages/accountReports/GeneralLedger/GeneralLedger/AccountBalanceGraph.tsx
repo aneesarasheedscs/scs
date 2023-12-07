@@ -14,7 +14,7 @@ const AccountBalanceGraph = () => {
     token: { colorPrimary },
   } = theme.useToken();
   // const AccountId = 1;
-  const { data } = useGetAccountBalance(false, 1, new Date(), new Date());
+  const { data } = useGetAccountBalance(false, 1, 1, new Date(), new Date());
 
   return (
     <div>

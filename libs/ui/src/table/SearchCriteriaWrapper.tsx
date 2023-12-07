@@ -8,7 +8,7 @@ export function SearchCriteriaWrapper({ open, children, handleOpen, handleClose 
   return (
     <>
       <AntButton ghost icon={<FilterFilled />} label={t('search_criteria')} onClick={handleOpen} />
-      <Modal open={open} onCancel={handleClose} footer={null} width={900}>
+      <Modal open={open} onCancel={handleClose} footer={null} width={900} destroyOnClose={true}>
         {children}
       </Modal>
     </>

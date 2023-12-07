@@ -4,7 +4,6 @@ import { CashBalancesSummaryCash } from './SummaryColumns';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { columnsCashBalance, columnsCashPayment } from './CashColumns';
 import { useTranslation } from 'react-i18next';
-import React from 'react';
 import './style.scss';
 
 const { Title, Text } = Typography;
@@ -18,6 +17,7 @@ const CashReceiptPaymentTables: React.FC<{
   IsCashPaymentLoading: boolean;
   IsSummaryError: boolean;
   IsSummaryLoading: boolean;
+  handleAccountCodeClick: any;
 }> = (props) => {
   const {
     PaymentReceiptData,
@@ -26,6 +26,7 @@ const CashReceiptPaymentTables: React.FC<{
     IsCashPaymentLoading,
     IsSummaryError,
     IsSummaryLoading,
+    handleAccountCodeClick,
   } = props;
   const { t } = useTranslation();
 
@@ -35,17 +36,21 @@ const CashReceiptPaymentTables: React.FC<{
     token: { colorPrimary },
   } = theme.useToken();
 
-  const [selectedRowKeys, setSelectedRowKeys] = React.useState<any>([]);
-  const onSelectChange = (selectedRowKeys: any[], selectedRows: any) => {
-    debugger;
-    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-    setSelectedRowKeys(selectedRowKeys);
-  };
-  const rowSelection = {
-    selectedRowKeys,
-    onChange: onSelectChange,
-    hideDefaultSelections: true,
-  };
+  // const handleAccountCodeClick = (AccountId: number) => {
+  //   setSelectedAccount(AccountId);
+  // };
+
+  // const [selectedRowKeys, setSelectedRowKeys] = React.useState<any>([]);
+  // const onSelectChange = (selectedRowKeys: any[], selectedRows: any) => {
+  //   debugger;
+  //   console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+  //   setSelectedRowKeys(selectedRowKeys);
+  // };
+  // const rowSelection = {
+  //   selectedRowKeys,
+  //   onChange: onSelectChange,
+  //   hideDefaultSelections: true,
+  // };
 
   return (
     <>
@@ -55,9 +60,9 @@ const CashReceiptPaymentTables: React.FC<{
       <Row gutter={[24, 24]}>
         <Col xl={23} xs={24} md={24} className="summary-card" style={{ marginLeft: '2%' }}>
           <AntTable
-            rowKey={'AccountTitle'}
-            rowSelection={rowSelection}
-            columns={CashBalancesSummaryCash(t)}
+            rowKey={'AccountId'}
+            // rowSelection={rowSelection}
+            columns={CashBalancesSummaryCash(t, handleAccountCodeClick)}
             isError={IsSummaryError}
             isLoading={IsSummaryLoading}
             data={SummaryData || []}

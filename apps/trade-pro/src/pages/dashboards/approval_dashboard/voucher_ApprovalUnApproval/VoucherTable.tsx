@@ -1,48 +1,98 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { columns } from '../columns';
-import { useGetVouchersForApproval } from '../queries/approvel';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { useTranslation } from 'react-i18next';
-import { AntTable } from '@tradePro/components';
-
-const VoucherTable: React.FC<{ documentTypeId: number }> = ({ documentTypeId }) => {
-  const {
-    data: table,
-    isError: tableError,
-    refetch: tableRefetch,
-    isSuccess: tableSucess,
-    isLoading: tableLoading,
-    isFetching,
-  } = useGetVouchersForApproval(documentTypeId);
-
-  const [clickedRow, setClickedRow] = useState(null); // Track the clicked row
-
-  // Handle row click event
-  // const handleRowClick = (record: any) => {
-  //   console.log('Clicked row:', record.key);
-  //   if (clickedRow === record.key) {
-  //     setClickedRow(null); // Clear the clicked row
-  //   } else {
-  //     setClickedRow(record.key); // Set the clicked row
-  //   }
-  // };
-
+import { AntButton, AntTable } from '@scs/ui';
+import { useApproveVouchers } from '../queries/approvel';
+import { Tooltip } from 'antd';
+import { FileProtectOutlined, EditFilled } from '@ant-design/icons';
+import '../approvel.scss';
+const VoucherTable: React.FC<{
+  documentTypeId: number;
+  approvalUnApproval: boolean;
+  dataSource: any;
+  ForRevision?: boolean;
+}> = ({ documentTypeId, approvalUnApproval, dataSource, ForRevision }) => {
+  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
   const { t } = useTranslation();
+  const { mutate: Approve } = useApproveVouchers(documentTypeId);
+  const [selected, setSelected] = useState<any>([]);
 
+  const onSelectChange = (selectedRowKeys: any[], selectedRows: any) => {
+    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+    // Use the state updater function form of setSelected
+    setSelected((prevSelected: any) => selectedRows);
+  };
+  const rowSelection = {
+    selected,
+    onChange: onSelectChange,
+    hideDefaultSelections: true,
+  };
+
+  let ApproveData: any = [];
+  const ApproveRecords = (ActionTypeId: boolean) => {
+    // ApproveData.OrganizationId = userDetail?.OrganizationId;
+    // ApproveData.CompanyId = userDetail?.CompanyId;
+    ApproveData.AllApprovalLists = [];
+    for (let i = 0; i < selected?.length; i++) {
+      ApproveData?.AllApprovalLists.push({
+        OrganizationId: userDetail?.OrganizationId,
+        CompanyId: userDetail?.CompanyId,
+        Id: selected[i].VoucherHeadId,
+        PostDate: new Date(),
+        EntryUser: userDetail?.UserId,
+        ActionTypeId: ActionTypeId, // false For Approve ,, true for revision
+        ReqType: approvalUnApproval == false ? 'AP' : 'UP',
+      });
+    }
+    Approve(ApproveData);
+  };
   return (
-    <AntTable
-      refetch={tableRefetch}
-      numberOfSkeletons={10}
-      data={table?.data?.Data?.Result || []}
-      isLoading={tableLoading || isFetching}
-      isError={tableError}
-      columns={columns(t)}
-      scroll={{ x: '', y: convertVhToPixels('50vh') }}
+    <div>
+      <div className="Approval_Button">
+        <Tooltip placement="top" title="Approved Selected Vouchers">
+          <AntButton
+            icon={<FileProtectOutlined />}
+            className="btn"
+            onClick={() => ApproveRecords(false)}
+            label={`${selected.length}`}
+          />
+        </Tooltip>
+        {!ForRevision ? (
+          <Tooltip placement="top" title="Make For Revision">
+            <AntButton
+              icon={<EditFilled />}
+              style={{ marginLeft: '3px' }}
+              className="btn"
+              onClick={() => ApproveRecords(true)}
+              label={`${selected.length}`}
+            />
+          </Tooltip>
+        ) : null}
+      </div>
 
-      // onRow={(record) => ({
-      //   onClick: () => handleRowClick(record),
-      // })}
-    />
+      <AntTable
+        // scroll={{ x: 'max-content', y: convertVhToPixels('50vh') }}
+        rowKey={'VoucherHeadId'}
+        rowSelection={rowSelection}
+        columns={columns(t)}
+        data={dataSource || []}
+        scroll={{ x: 'max-content' }}
+        // searchCriteriaForm={
+        //   <div style={{ float: 'right' }}>
+        //     <Tooltip placement="top" title="Approved Selected Vouchers">
+        //       <AntButton
+        //         icon={<FileProtectOutlined />}
+        //         className="btn"
+        //         onClick={() => ApproveRecords()}
+        //         label={`${selected.length}`}
+        //       />
+        //     </Tooltip>
+        //   </div>
+        // }
+        // <ApproveRecordButtonOnTable SelectedCount={SelectedRowsLength} ApproveRecords={ApproveRecords}
+      />
+    </div>
   );
 };
 

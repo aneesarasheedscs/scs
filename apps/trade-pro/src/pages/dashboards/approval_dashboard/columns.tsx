@@ -1,4 +1,13 @@
-import { CashInHand, SaleOrder, SaleOrderCard, EmptyBags, SaleInvoice, ChargeToProduct, Voucher } from './type';
+import {
+  CashInHand,
+  SaleOrder,
+  SaleOrderCard,
+  EmptyBags,
+  SaleInvoice,
+  ChargeToProduct,
+  Voucher,
+  VoucherApprovalHistory,
+} from './type';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
@@ -7,15 +16,13 @@ import dayjs from 'dayjs';
 
 import { PrinterFilled, CheckSquareFilled } from '@ant-design/icons';
 
-export const columns = (t: any): AntColumnType<Voucher>[] => [
+export const columns = (t: any): AntColumnType<VoucherApprovalHistory>[] => [
   {
+    width: 80,
     title: <>{t('sr')}</>,
-    dataIndex: 'key',
-    render: (_, __, index) => index + 1,
-    width: 50,
-    showTotal: true,
+    dataIndex: 'RecordNo',
+    showCount: true,
   },
-
   {
     title: <>{t('code')}</>,
     dataIndex: 'VoucherCode',
@@ -26,10 +33,10 @@ export const columns = (t: any): AntColumnType<Voucher>[] => [
   },
   {
     title: <>{t('type')}</>,
-    dataIndex: 'DocumentTypeCode',
+    dataIndex: 'DocumentType',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.DocumentTypeCode.localeCompare(b.DocumentTypeCode),
+    sorter: (a, b) => a.DocumentType.localeCompare(b.DocumentType),
     width: 100,
   },
   {
@@ -47,10 +54,10 @@ export const columns = (t: any): AntColumnType<Voucher>[] => [
   },
   {
     title: <>{t('account_title')}</>,
-    dataIndex: 'AccountTitle',
+    dataIndex: 'HeaderAccountTitle',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
+    sorter: (a, b) => a.HeaderAccountTitle.localeCompare(b.HeaderAccountTitle),
     width: 170,
   },
   {
@@ -65,22 +72,21 @@ export const columns = (t: any): AntColumnType<Voucher>[] => [
   {
     title: <>{t('cheque_no')}</>,
     dataIndex: 'ChequeNo',
-    render: (_, { ChequeNo }) => numberFormatter(ChequeNo),
     searchableInput: true,
-    sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.ChequeNo - b.ChequeNo,
+    // sortDirections: ['ascend', 'descend'],
+    // sorter: (a, b) => a.ChequeNo - b.ChequeNo,
     width: 150,
   },
   {
     title: <>{t('cheque_date')}</>,
     dataIndex: 'ChequeDate',
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => {
-      const dateA = dayjs(a.ChequeDate);
-      const dateB = dayjs(b.ChequeDate);
-      return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
-    },
-    render: (_, { ChequeDate }) => formateDate(ChequeDate),
+    // sorter: (a, b) => {
+    //   const dateA = dayjs(a.ChequeDate);
+    //   const dateB = dayjs(b.ChequeDate);
+    //   return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
+    // },
+    // render: (_, { ChequeDate }) => formateDate(ChequeDate),
     width: 150,
   },
   {
@@ -88,25 +94,25 @@ export const columns = (t: any): AntColumnType<Voucher>[] => [
     dataIndex: 'UserName',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.UserName.localeCompare(b.UserName),
+    sorter: (a, b) => a.EntryUserName.localeCompare(b.EntryUserName),
     width: 160,
   },
-  {
-    title: <>{t('pay_title')}</>,
-    dataIndex: 'PayTitle',
-    searchableInput: true,
-    sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.PayTitle.localeCompare(b.PayTitle),
-    width: 170,
-  },
-  {
-    title: <>{t('no of attachments')}</>,
-    dataIndex: 'NoOfAttachments',
-    sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.NoOfAttachments - b.NoOfAttachments,
+  // {
+  //   title: <>{t('pay_title')}</>,
+  //   dataIndex: 'PayTitle',
+  //   searchableInput: true,
+  //   sortDirections: ['ascend', 'descend'],
+  //   sorter: (a, b) => a.PayTitle.localeCompare(b.PayTitle),
+  //   width: 170,
+  // },
+  // {
+  //   title: <>{t('no of attachments')}</>,
+  //   dataIndex: 'NoOfAttachments',
+  //   sortDirections: ['ascend', 'descend'],
+  //   sorter: (a, b) => a.NoOfAttachments - b.NoOfAttachments,
 
-    width: 190,
-  },
+  //   width: 190,
+  // },
   {
     title: <>{t('remarks')}</>,
     dataIndex: 'Remarks',
@@ -142,9 +148,6 @@ export const columns = (t: any): AntColumnType<Voucher>[] => [
     dataIndex: '',
     render: (_, record) => (
       <Space>
-        <Tooltip title="Approve">
-          <Checkbox />
-        </Tooltip>
         <Tooltip title="Voucher-Slip">
           <PrinterFilled
             style={{

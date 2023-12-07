@@ -1,5 +1,6 @@
 export type Tpayables = {
   lvl03_Title: string;
+  AccountId: number;
   AccountCode: number;
   AccountTitle: string;
   Opening: number;
@@ -16,6 +17,7 @@ export type Tpayables = {
 };
 export type Treceivable = {
   AccountTitle3rd: string;
+  AccountId: number;
   AccountCode: number;
   AccountTitle: string;
   Opening: number;
@@ -42,14 +44,13 @@ export type TAddFollowUp = {
 };
 
 export type TPayablesReceivablesCriteria = {
-  FromDate: Date;
-  ToDate: Date;
+  FromDate?: Date;
+  ToDate?: Date;
   BalanceFrom: number;
   BalanceTo: number;
   CityId: number;
   Status: string;
   CustomGroupId: number;
-  ActionId: number;
   IsApproved: boolean;
   ReportTypeId: number;
   ApprovedFilter: string;

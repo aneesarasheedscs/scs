@@ -11,24 +11,24 @@ const [BranchesId, CompanyId, OrganizationId] = [
   userDetail?.OrganizationId,
 ];
 
-const params = { CompanyId, OrganizationId, BranchesId };
+const params = { OrganizationId, BranchesId };
 
-export const useGetAccountTitle = () => {
-  return useQuery('accounttitle', () => {
+export const useGetAccountTitle = (CompanyId?: number) => {
+  return useQuery(['accounttitle', CompanyId], () => {
     return requestManager.get('/api/ChartofAccount/DetailAccount', {
-      params: { ...params, LanguageId: 0 },
+      params: { CompanyId: CompanyId, ...params, LanguageId: 0 },
     });
   });
 };
 
-export const useGetAccountDetail = (enabled: boolean, AccountId?: number) => {
+export const useGetAccountDetail = (enabled: boolean, CompanyId?: number, AccountId?: number) => {
   return useQuery(
     ['account_detail'],
     () => {
       return requestManager.get('/api/ChartofAccount/GetCoaDetailByAccountId', {
         params: {
           OrganizationId: userDetail?.OrganizationId,
-          CompanyId: userDetail?.CompanyId,
+          CompanyId: CompanyId,
           Id: AccountId,
         },
       });
@@ -39,6 +39,7 @@ export const useGetAccountDetail = (enabled: boolean, AccountId?: number) => {
 
 export const useGetAccountBalance = (
   enabled?: boolean,
+  CompanyId?: Number,
   AccountId?: number,
   FromDate?: string | Date,
   ToDate?: string | Date
@@ -50,7 +51,7 @@ export const useGetAccountBalance = (
       return requestManager.get('/api/Voucher/GetAccountsBalancesOpeningCurrentAndClosing', {
         params: {
           OrganizationId: userDetail?.OrganizationId,
-          CompanyId: userDetail?.CompanyId,
+          CompanyId: CompanyId,
           AccountId: AccountId,
           FromDate: FromDate,
           ToDate: ToDate,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Typography, theme, Form, Checkbox } from 'antd';
+import { Row, Col, Typography, theme, Form, Checkbox, Modal } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { AntButton, AntDatePicker, AntInput, AntSelectDynamic, SearchCriteriaWrapper } from '@scs/ui';
 import { useGetCityName, useGetGroupAccount } from '../queryOptions';
@@ -11,47 +11,62 @@ import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageSe
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import PayablesReceivablesTable from '../Table/tables';
 import './style.scss';
+import GeneralLedgerReport from '../../GeneralLedger';
 const { Title, Text } = Typography;
 const { useToken } = theme;
+
 const { useForm, useWatch } = Form;
 const UserDetail = storedUserDetail();
+const FinancialYear = storedFinancialYear();
+const FromDate = dayjs(FinancialYear?.Start_Period);
+const ToDate = dayjs(FinancialYear?.End_Period);
+
 const PayablesReceivables: React.FC<{
   AccountClassId?: number;
   FromDateProp?: Date;
   ToDateProp?: Date;
-  CompanyId?: number;
+  CompanyIdProp?: number;
 }> = (props) => {
-  const { AccountClassId, FromDateProp, ToDateProp, CompanyId } = props;
+  const { AccountClassId, FromDateProp, ToDateProp, CompanyIdProp } = props;
+  const {
+    token: { colorPrimary },
+  } = theme.useToken();
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const { t } = useTranslation();
   const [form] = useForm<TPayablesReceivablesCriteria>();
   const formvalues = useWatch<TPayablesReceivablesCriteria>([], form);
-
-  const FinancialYear = storedFinancialYear();
-  const FromDate = dayjs(FinancialYear?.Start_Period);
-  const ToDate = dayjs(FinancialYear?.End_Period);
-
-  const { setFieldValue, getFieldValue } = form;
-  const {
-    token: { colorPrimary },
-  } = theme.useToken();
+  const { setFieldValue } = form;
 
   useEffect(() => {
-    if ((FromDateProp !== undefined || FromDateProp !== null) && (ToDateProp !== undefined || ToDateProp !== null)) {
-      const fromDate = getFieldValue('FromDate');
-      const todate = getFieldValue('ToDate');
-      if (
-        (fromDate == null || fromDate == undefined || fromDate != FromDateProp) &&
-        (todate == null || todate == undefined || todate != ToDateProp)
-      ) {
-        setFieldValue('FromDate', dayjs(FromDateProp));
-        setFieldValue('ToDate', dayjs(ToDateProp));
-      }
+    if (FromDateProp !== undefined && ToDateProp !== undefined) {
+      form.setFieldValue('FromDate', dayjs(FromDateProp));
+      form.setFieldValue('ToDate', dayjs(ToDateProp));
+    } else {
+      setFieldValue('FromDate', FromDate);
+      setFieldValue('ToDate', ToDate);
     }
-    refetch();
-  }, [props]);
+    form.setFieldValue('OnlyDebitAmountAction', AccountClassId == 2 ? true : false);
+    form.setFieldValue('OnlyCreditAmountAction', AccountClassId == 3 ? true : false);
+  }, []);
+
+  const [formState, setformState] = useState<TPayablesReceivablesCriteria>({
+    FromDate: FromDateProp,
+    ToDate: ToDateProp,
+    BalanceFrom: 0,
+    BalanceTo: 0,
+    CityId: 0,
+    Status: '',
+    CustomGroupId: 0,
+    IsApproved: false,
+    ReportTypeId: AccountClassId == 2 ? 2 : AccountClassId == 3 ? 1 : 0,
+    ApprovedFilter: 'All',
+    DateType: 5,
+    OnlyCreditAmountAction: AccountClassId == 3 ? true : false,
+    OnlyDebitAmountAction: AccountClassId == 2 ? true : false,
+  });
 
   const {
     data: dataSource,
@@ -61,13 +76,10 @@ const PayablesReceivables: React.FC<{
   } = usePostPayablesReceivables(
     false,
     AccountClassId,
-    CompanyId !== undefined && CompanyId > 0 ? CompanyId : UserDetail?.CompanyId,
-    form.getFieldsValue()
+    CompanyIdProp !== undefined && CompanyIdProp > 0 ? CompanyIdProp : UserDetail?.CompanyId,
+    formState
   );
 
-  const onFinish = (_: TPayablesReceivablesCriteria) => {
-    refetch().then(() => handleClose());
-  };
   const handleDateChange = (Id: number) => {
     let fromDate, toDate;
     if (Id == 1) {
@@ -95,33 +107,34 @@ const PayablesReceivables: React.FC<{
     setFieldValue('ToDate', dayjs(toDate));
   };
 
-  const handleChange = (value: string[]) => {
-    let statusList: string = '';
-    for (let index = 0; index < value.length; index++) {
-      statusList += value[index] + ',';
-    }
-    if (statusList.length > 0) {
-      setFieldValue('status', statusList);
-    } else {
-      setFieldValue('status', '');
-    }
-    console.log(`selected ${statusList}`);
-  };
+  // const handleChange = (value: string[]) => {
+  //   let statusList: string = '';
+  //   for (let index = 0; index < value.length; index++) {
+  //     statusList += value[index] + ',';
+  //   }
+  //   if (statusList.length > 0) {
+  //     setFieldValue('status', statusList);
+  //   } else {
+  //     setFieldValue('status', '');
+  //   }
+  //   console.log(`selected ${statusList}`);
+  // };
 
-  const onChangeOnlyCreditAmount = (e: CheckboxChangeEvent) => {
-    if (e.target.checked) {
-      setFieldValue('OnlyCreditAmountAction', true);
-    } else {
-      setFieldValue('OnlyCreditAmountAction', false);
-    }
-  };
-  const onChangeOnlyDebitAmount = (e: CheckboxChangeEvent) => {
-    if (e.target.checked) {
-      setFieldValue('OnlyDebitAmountAction', true);
-    } else {
-      setFieldValue('OnlyDebitAmountAction', false);
-    }
-  };
+  // const onChangeOnlyCreditAmount = (e: CheckboxChangeEvent) => {
+  //   if (e.target.checked) {
+  //     setFieldValue('OnlyCreditAmountAction', true);
+  //   } else {
+  //     setFieldValue('OnlyCreditAmountAction', false);
+  //   }
+  // };
+  // const onChangeOnlyDebitAmount = (e: CheckboxChangeEvent) => {
+  //   if (e.target.checked) {
+  //     setFieldValue('OnlyDebitAmountAction', true);
+  //   } else {
+  //     setFieldValue('OnlyDebitAmountAction', false);
+  //   }
+  // };
+
   const onChangeTradeParties = (e: CheckboxChangeEvent) => {
     if (e.target.checked) {
       if (AccountClassId == 2) setFieldValue('ReportTypeId', 2); // For Sale
@@ -133,12 +146,28 @@ const PayablesReceivables: React.FC<{
     }
   };
 
-  const onChangeApprovedTransactions = (e: CheckboxChangeEvent) => {
-    if (e.target.checked) {
-      setFieldValue('IsApproved', true);
-    } else {
-      setFieldValue('IsApproved', false);
+  // const onChangeApprovedTransactions = (e: CheckboxChangeEvent) => {
+  //   if (e.target.checked) {
+  //     setFieldValue('IsApproved', true);
+  //   } else {
+  //     setFieldValue('IsApproved', false);
+  //   }
+  // };
+
+  useEffect(() => {
+    if (formState.FromDate !== undefined && formState.ToDate != undefined) {
+      refetch();
     }
+  }, [formState]);
+
+  const onFinish = (_: TPayablesReceivablesCriteria) => {
+    _.Status = _.Status.toString();
+    setformState(_);
+  };
+
+  const [SelectedAccount, setSelectedAccount] = useState<number | undefined>(undefined);
+  const handleAccountCodeClick = (AccountId: number) => {
+    setSelectedAccount(AccountId);
   };
 
   return (
@@ -168,7 +197,7 @@ const PayablesReceivables: React.FC<{
       <Row style={{ marginTop: '20px', marginLeft: '10px' }}>
         <div>
           <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
-            <Form name="basic" form={form} onFinish={onFinish} initialValues={formvalues} layout="inline">
+            <Form name="basic" form={form} onFinish={onFinish} layout="inline">
               <Row gutter={16}>
                 <Col xl={14} className="formfield" style={{ marginTop: '10px' }}>
                   <AntSelectDynamic
@@ -177,6 +206,7 @@ const PayablesReceivables: React.FC<{
                     name="DateType"
                     fieldLabel="DateType"
                     fieldValue="Id"
+                    defaultValue={FromDateProp !== undefined ? undefined : '5'}
                     query={useGetDateTypes}
                     onChange={(value) => handleDateChange(value)}
                   />
@@ -205,8 +235,12 @@ const PayablesReceivables: React.FC<{
                     name="Status"
                     fieldLabel="AccountTitle"
                     fieldValue="AccountCode"
-                    query={() => useGetGroupAccount(AccountClassId)}
-                    onChange={handleChange}
+                    query={() =>
+                      useGetGroupAccount(
+                        AccountClassId,
+                        CompanyIdProp !== undefined ? CompanyIdProp : UserDetail?.CompanyId
+                      )
+                    }
                   />
                 </Col>
 
@@ -218,7 +252,7 @@ const PayablesReceivables: React.FC<{
                     name="CustomGroupId"
                     fieldLabel="AcLookUpsDescription"
                     fieldValue="Id"
-                    query={useGetCustomGroup}
+                    query={() => useGetCustomGroup(CompanyIdProp !== undefined ? CompanyIdProp : UserDetail?.CompanyId)}
                   />
                 </Col>
 
@@ -230,25 +264,34 @@ const PayablesReceivables: React.FC<{
                     name="CityId"
                     fieldLabel="CityName"
                     fieldValue="Id"
-                    query={useGetCityName}
+                    query={() => useGetCityName(CompanyIdProp !== undefined ? CompanyIdProp : UserDetail?.CompanyId)}
                   />
                 </Col>
               </Row>
 
               <Col xs={12} sm={6} md={6} className="Col-margin-top">
-                <Form.Item name="OnlyCreditAmountAction">
-                  <Checkbox checked={form.getFieldValue('OnlyCreditAmountAction')} onChange={onChangeOnlyCreditAmount}>
-                    {t('only_credit_amount')}
-                  </Checkbox>
+                <Form.Item
+                  name="OnlyCreditAmountAction"
+                  valuePropName="checked"
+                  initialValue={AccountClassId == 3 ? true : false}
+                >
+                  <Checkbox>{t('only_credit_amount')}</Checkbox>
                 </Form.Item>
               </Col>
 
               <Col xs={12} sm={6} md={6} className="Col-margin-top">
-                <Form.Item name="OnlyDebitAmountAction">
+                <Form.Item
+                  name="OnlyDebitAmountAction"
+                  valuePropName="checked"
+                  initialValue={AccountClassId == 2 ? true : false}
+                >
+                  <Checkbox>{t('only_debit_amount')}</Checkbox>
+                </Form.Item>
+                {/* <Form.Item name="OnlyDebitAmountAction">
                   <Checkbox checked={form.getFieldValue('OnlyDebitAmountAction')} onChange={onChangeOnlyDebitAmount}>
                     {t('only_debit_amount')}
                   </Checkbox>
-                </Form.Item>
+                </Form.Item> */}
               </Col>
 
               <Col xs={12} sm={6} md={5} className="Col-margin-top">
@@ -260,10 +303,8 @@ const PayablesReceivables: React.FC<{
               </Col>
 
               <Col xs={12} sm={6} md={7} className="Col-margin-top">
-                <Form.Item name="IsApproved">
-                  <Checkbox checked={form.getFieldValue('IsApproved')} onChange={onChangeApprovedTransactions}>
-                    {t('approved_transactions')}
-                  </Checkbox>
+                <Form.Item name="IsApproved" valuePropName="checked" initialValue={false}>
+                  <Checkbox>{t('approved_transactions')}</Checkbox>
                 </Form.Item>
               </Col>
 
@@ -277,7 +318,31 @@ const PayablesReceivables: React.FC<{
         </div>
       </Row>
 
-      <PayablesReceivablesTable Data={dataSource?.data?.Data?.Result} IsError={isError} IsLoading={isLoading} />
+      <PayablesReceivablesTable
+        Data={dataSource?.data?.Data?.Result}
+        IsError={isError}
+        IsLoading={isLoading}
+        handleAccountCodeClick={handleAccountCodeClick}
+      />
+
+      <Modal
+        width={1800}
+        key={SelectedAccount}
+        open={SelectedAccount !== undefined}
+        onCancel={() => setSelectedAccount(undefined)}
+        destroyOnClose={true}
+        footer={null}
+        bodyStyle={{ maxHeight: '80vh', overflowY: 'auto' }}
+      >
+        <div style={{ maxHeight: '100%', overflowY: 'auto' }}>
+          <GeneralLedgerReport
+            FromDateProp={form.getFieldValue('FromDate')}
+            ToDateProp={form.getFieldValue('ToDate')}
+            AccountIdProp={SelectedAccount}
+            CompanyId={CompanyIdProp}
+          />
+        </div>
+      </Modal>
     </div>
   );
 };

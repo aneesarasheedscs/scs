@@ -6,28 +6,11 @@ import { TActivitySummary } from './types';
 // import CustomModal from './customModal';
 
 export const Columns = (t: any, handleAccountCodeClick: any): AntColumnType<TActivitySummary>[] => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedAccountCode, setSelectedAccountCode] = useState('');
-  const [selectedAccountId, setSelectedAccountId] = useState(''); // Add this line
-
-  const showModal = (AccountCode: any, AccountId: any) => {
-    setSelectedAccountCode(AccountCode);
-    setSelectedAccountId(AccountId); // Set the selectedAccountID
-    setIsModalVisible(true);
-  };
-
-  const handleCancel = () => {
-    setSelectedAccountCode('');
-    setSelectedAccountId(selectedAccountId); // Reset the selectedAccountID
-    setIsModalVisible(false);
-  };
-
   return [
     { title: <>{t('sr#')}</>, dataIndex: '', width: 70, render: (_, __, index) => index + 1 },
     {
       width: 150,
       title: <>{t('account_code')}</>,
-      searchableDate: true,
       dataIndex: 'AccountCode',
       render: (_, { AccountCode, AccountId }) => (
         <>

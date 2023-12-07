@@ -1,29 +1,29 @@
 import { useQuery } from 'react-query';
 import { requestManager } from '@tradePro/configs/requestManager';
 
-export const useGetCityName = () => {
+export const useGetCityName = (CompanyId?: number) => {
   const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
   return useQuery(
-    'city-name',
+    ['city-name', CompanyId],
     () => {
       return requestManager.get('/api/City/GetByOrganizationCompanyId', {
-        params: { OrganizationId: userDetail?.OrganizationId, CompanyId: userDetail?.CompanyId },
+        params: { OrganizationId: userDetail?.OrganizationId, CompanyId: CompanyId },
       });
     },
     { cacheTime: userDetail?.expires_in }
   );
 };
 
-export const useGetGroupAccount = (AccountClassId?: number) => {
+export const useGetGroupAccount = (AccountClassId?: number, CompanyId?: number) => {
   const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
   const financialYear: any = JSON.parse(localStorage.getItem('financialYear') || '{}');
   return useQuery(
-    ['group-account', AccountClassId],
+    ['group-account', AccountClassId, CompanyId],
     () => {
       return requestManager.get('/api/ChartofAccount/ReadAllParentGroupAccount', {
         params: {
           OrganizationId: userDetail?.OrganizationId,
-          CompanyId: userDetail?.CompanyId,
+          CompanyId: CompanyId,
           FinancialYearId: financialYear.Id,
           Account_Level: 3,
           LanguageId: 0,

@@ -62,15 +62,15 @@ export const useGetAccountTitle = () => {
   );
 };
 
-export const useGetCustomGroup = () => {
+export const useGetCustomGroup = (CompanyId?: number) => {
   const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
   return useQuery(
-    'custom-group',
+    ['custom-group'],
     () => {
       return requestManager.get('/api/AcLookUpsController/GetAll', {
         params: {
           OrganizationId: userDetail?.OrganizationId,
-          CompanyId: userDetail?.CompanyId,
+          CompanyId: CompanyId,
         },
       });
     },

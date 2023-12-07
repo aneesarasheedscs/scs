@@ -122,7 +122,6 @@ export const useApproveVouchers = (documentTypeId?: number) => {
   return useMutation(
     'Approve_Vouchers',
     (ApprovalList: any) => {
-      console.log('Data in Api', ApprovalList);
       let dataToSubmit = {
         OrganizationId: userDetail?.OrganizationId,
         CompanyId: userDetail?.CompanyId,

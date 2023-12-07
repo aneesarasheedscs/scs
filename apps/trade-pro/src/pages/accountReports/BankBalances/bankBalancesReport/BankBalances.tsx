@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Card, Typography, Form, theme } from 'antd';
+import { Row, Col, Card, Typography, Form, theme, Modal } from 'antd';
 import { AntButton, AntDatePicker, AntSelectDynamic } from '@scs/ui';
 import { useTranslation } from 'react-i18next';
 import BankPaymentTables from './bankTables';
@@ -8,6 +8,7 @@ import dayjs from 'dayjs';
 import '../style.scss';
 import { useCashBankBalancesSummary, useGetBankBalancesReceiptPayment, useGetDateType } from '../../queries';
 import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
+import GeneralLedgerReport from '../../GeneralLedger';
 const { Title, Text } = Typography;
 const { useToken } = theme;
 const UserDetail = storedUserDetail();
@@ -100,6 +101,11 @@ const BankBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId
     token: { colorPrimary },
   } = theme.useToken();
 
+  const [SelectedAccount, setSelectedAccount] = useState<number | undefined>(undefined);
+  const handleAccountCodeClick = (AccountId: number) => {
+    setSelectedAccount(AccountId);
+  };
+
   return (
     <div className="cash-balances-container-bank">
       <Row gutter={[24, 24]}>
@@ -162,7 +168,26 @@ const BankBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId
         IsSummaryLoading={isSummaryLoading}
         IsReceiptPaymentError={isError}
         IsReceiptPaymentLoading={isLoading}
+        handleAccountCodeClick={handleAccountCodeClick}
       />
+      <Modal
+        width={1800}
+        key={SelectedAccount}
+        open={SelectedAccount !== undefined}
+        onCancel={() => setSelectedAccount(undefined)}
+        destroyOnClose={true}
+        footer={null}
+        bodyStyle={{ maxHeight: '80vh', overflowY: 'auto' }}
+      >
+        <div style={{ maxHeight: '100%', overflowY: 'auto' }}>
+          <GeneralLedgerReport
+            FromDateProp={form.getFieldValue('FromDate')}
+            ToDateProp={form.getFieldValue('ToDate')}
+            AccountIdProp={SelectedAccount}
+            CompanyId={CompanyId}
+          />
+        </div>
+      </Modal>
     </div>
   );
 };
