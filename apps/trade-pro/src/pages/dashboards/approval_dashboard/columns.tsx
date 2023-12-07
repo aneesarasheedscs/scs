@@ -91,7 +91,7 @@ export const columns = (t: any): AntColumnType<VoucherApprovalHistory>[] => [
   },
   {
     title: <>{t('entry_user')}</>,
-    dataIndex: 'UserName',
+    dataIndex: 'EntryUserName',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.EntryUserName.localeCompare(b.EntryUserName),

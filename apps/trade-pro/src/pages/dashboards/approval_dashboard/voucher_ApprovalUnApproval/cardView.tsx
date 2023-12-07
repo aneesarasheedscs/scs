@@ -272,13 +272,11 @@ const CardView: React.FC<{
           <h3 style={{ textAlign: 'center' }}>Total Records:{numberFormatter(totalRecords)} </h3>
         </Col>
         <Col lg={{ span: 16 }} sm={{ span: 24 }} className="columns">
-          <Row>
-            <Buttons
-              SelectedDocumentsCount={SelectedDocumentsCount}
-              ApproveSelectedVouchers={handleApproveSelectedVouchers}
-              ForRevision={ForRevision}
-            />
-          </Row>
+          <Buttons
+            SelectedDocumentsCount={SelectedDocumentsCount}
+            ApproveSelectedVouchers={handleApproveSelectedVouchers}
+            ForRevision={ForRevision}
+          />
           {selectedCardData && (
             <Row align="middle">
               <Col xs={23} sm={16} className="columns">
@@ -335,14 +333,11 @@ const CardView: React.FC<{
                         onMouseEnter={() => handleMouseEnter()}
                         onMouseLeave={() => handleMouseLeave()}
                       >
-                        <Badge text={selectedCardData.EntryUserName}></Badge>
+                        <Badge.Ribbon text={selectedCardData.EntryUserName}></Badge.Ribbon>
                         {TooltipVisible && (
                           <ToolTipToShowUserData
-                            UserInfoDataForTooltip={[
-                              selectedCardData.EntryUserProfileImageUrl,
-                              selectedCardData.EntryUserName,
-                              selectedCardData.EntryDate,
-                            ]}
+                            UserType={'EntryUser'}
+                            UserInfoDataForTooltip={selectedCardData}
                             UserInfoTooltipVisible={TooltipVisible}
                           />
                         )}
@@ -381,6 +376,12 @@ const CardView: React.FC<{
                       </div>
                     )}
                   </div>
+                  <Row>
+                    <div className="caption-value-wrape">
+                      <div className="caption">Remarks:</div>
+                      <div className="value">{selectedCardData?.Remarks}</div>
+                    </div>
+                  </Row>
                   <Tablefile voucherHeadId={selectedCardData?.VoucherHeadId} documentTypeId={documentTypeId} />
                 </div>
               </Col>

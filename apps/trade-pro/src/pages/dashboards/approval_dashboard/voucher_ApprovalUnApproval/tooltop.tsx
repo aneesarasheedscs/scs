@@ -1,12 +1,41 @@
-import React from 'react';
-import { Col, Row, Tooltip } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Tooltip } from 'antd';
 import { formateDate } from '@tradePro/utils/formateDate';
-import { round } from 'lodash';
-
-const ToolTipToShowUserData: React.FC<{ UserInfoDataForTooltip: any; UserInfoTooltipVisible: boolean }> = (
-  { UserInfoDataForTooltip, UserInfoTooltipVisible } // Use object destructuring here
+type UserInfo = {
+  Image: string;
+  Name: string;
+  Date: Date | string;
+};
+const ToolTipToShowUserData: React.FC<{
+  UserType: string;
+  UserInfoDataForTooltip: any;
+  UserInfoTooltipVisible: boolean;
+}> = (
+  { UserType, UserInfoDataForTooltip, UserInfoTooltipVisible } // Use object destructuring here
 ) => {
-  const { UserProfileImageUrl, UserName, date } = UserInfoDataForTooltip;
+  const [User, setUser] = useState<UserInfo>(); // Use the correct type for UserInfo
+
+  useEffect(() => {
+    if (UserType === 'EntryUser') {
+      setUser({
+        Image: UserInfoDataForTooltip.EntryUserProfileImageUrl,
+        Name: UserInfoDataForTooltip.EntryUserName,
+        Date: UserInfoDataForTooltip.EntryDate,
+      });
+    } else if (UserType === 'ModifyUser') {
+      setUser({
+        Image: UserInfoDataForTooltip.ModifyUserProfileImageUrl,
+        Name: UserInfoDataForTooltip.ModifyUserName,
+        Date: UserInfoDataForTooltip.ModifyDate,
+      });
+    } else if (UserType === 'ApprovalUser') {
+      setUser({
+        Image: UserInfoDataForTooltip.ApprovalUserProfileImageUrl,
+        Name: UserInfoDataForTooltip.ApprovalUserName,
+        Date: UserInfoDataForTooltip.PostDate,
+      });
+    }
+  }, [UserType]);
 
   console.log(UserInfoDataForTooltip);
   return (
@@ -14,19 +43,14 @@ const ToolTipToShowUserData: React.FC<{ UserInfoDataForTooltip: any; UserInfoToo
       title={
         <div className="detail" style={{ display: 'flex' }}>
           <div>
-            <img
-              className=""
-              style={{ height: '40px', width: '40px', borderRadius: '' }}
-              src={UserProfileImageUrl}
-              alt=""
-            />
+            <img className="" style={{ height: '40px', width: '40px', borderRadius: '' }} src={User?.Image} alt="" />
           </div>
           <div>
             <p style={{ padding: '0px 2px', margin: '0' }} className="">
-              {UserName}
+              {User?.Name}
             </p>
             <p style={{ padding: '0px 2px', margin: '0' }} className="">
-              {formateDate(date)}
+              {User?.Date && formateDate(User.Date)}
             </p>
           </div>
         </div>

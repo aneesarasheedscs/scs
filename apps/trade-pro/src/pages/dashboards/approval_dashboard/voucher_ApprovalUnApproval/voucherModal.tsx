@@ -85,7 +85,7 @@ const VoucherModal: React.FC<{ approvalId: number | undefined; appRovalUnApprova
             label: `${t('pending_for_approval')} ${RecordsPendingForApproval}`,
             children: (
               <>
-                <Row align="middle" className="">
+                <Row align="middle" className="col">
                   <Col xs={24} sm={12}>
                     <h2>
                       {' '}

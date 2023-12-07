@@ -130,11 +130,11 @@ const Tablefile: React.FC<{ voucherHeadId?: number; documentTypeId: number }> = 
       <div className="Detail-wrape">
         <div className="Table" key={1}>
           <div className="table-header">
-            <div className="show-hide-icon">
+            {/* <div className="show-hide-icon">
               <span className="show-detail-icon" onClick={() => ExpandAllDetails()}>
                 {ExpandedFlag ? <MinusSquareOutlined /> : <PlusSquareOutlined />}
               </span>
-            </div>
+            </div> */}
             <div className="Account">Account Title</div>
             <div className="offset_Account">Offset Account</div>
             <div className="jobLOt">Job/Lot</div>
@@ -144,11 +144,11 @@ const Tablefile: React.FC<{ voucherHeadId?: number; documentTypeId: number }> = 
           {mainDataSource?.VoucherHistoryDetail?.map((item: VoucherHistory_Detail) => (
             <div key={item.VoucherDetailId}>
               <div className="table-Row">
-                <div className="show-hide-icon">
+                {/* <div className="show-hide-icon">
                   <span className="show-detail-icon" onClick={() => ExpandSpecificDetail(item)}>
                     {item?.IsDetailExpanded ? <MinusSquareOutlined /> : <PlusSquareOutlined />}
                   </span>
-                </div>
+                </div> */}
                 {!GeneralLedgerLinkVisible ? (
                   <div className="Account">{item.DetailAccountTitle}</div>
                 ) : (
@@ -178,16 +178,16 @@ const Tablefile: React.FC<{ voucherHeadId?: number; documentTypeId: number }> = 
                 <div className="Debit">{item.DebitAmount > 0 ? numberFormatter(item.DebitAmount) : 0}</div>
                 <div className="Credit">{item.CreditAmount > 0 ? numberFormatter(item.CreditAmount) : 0}</div>
               </div>
-              {item.IsDetailExpanded && (
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                  <div className="detail-table-row">
-                    <div className="Detail-remarks">
-                      <div className="caption">Remarks</div>
-                      <div className="value">{item.Comments}</div>
-                    </div>
+              {/* {item.IsDetailExpanded && ( */}
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <div className="detail-table-row">
+                  <div className="Detail-remarks">
+                    <div className="caption">Remarks</div>
+                    <div className="value">{item.Comments}</div>
                   </div>
                 </div>
-              )}
+              </div>
+              {/* )} */}
             </div>
           ))}
           <div key={0} className="table-Footer">
