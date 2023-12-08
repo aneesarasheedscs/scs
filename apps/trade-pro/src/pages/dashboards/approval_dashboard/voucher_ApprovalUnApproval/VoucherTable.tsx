@@ -7,6 +7,7 @@ import { useApproveVouchers } from '../queries/approvel';
 import { Tooltip } from 'antd';
 import { FileProtectOutlined, EditFilled } from '@ant-design/icons';
 import '../approvel.scss';
+import CustomPopup from 'libs/ui/src/notificationPopUp/notificationPopup';
 const VoucherTable: React.FC<{
   documentTypeId: number;
   approvalUnApproval: boolean;
@@ -15,8 +16,13 @@ const VoucherTable: React.FC<{
 }> = ({ documentTypeId, approvalUnApproval, dataSource, ForRevision }) => {
   const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
   const { t } = useTranslation();
-  const { mutate: Approve } = useApproveVouchers(documentTypeId);
+  const { mutate: Approve, isError, isSuccess, error: ErrorMesg } = useApproveVouchers(documentTypeId);
   const [selected, setSelected] = useState<any>([]);
+
+  const [popupVisibility, setpopupVisibility] = useState(false);
+  const [popupType, setpopupType] = useState('');
+  const [popupMesg, setpopupMesg] = useState('');
+  const [popupTitle, setpopupTitle] = useState('');
 
   const onSelectChange = (selectedRowKeys: any[], selectedRows: any) => {
     console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -47,6 +53,23 @@ const VoucherTable: React.FC<{
     }
     Approve(ApproveData);
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      setpopupTitle('Success');
+      setpopupType('success');
+      setpopupMesg("Record's Approved Successfully");
+      setpopupVisibility(true);
+      setSelected([]);
+    }
+    if (isError) {
+      setpopupTitle('Error');
+      setpopupType('error');
+      setpopupMesg('Error ' + ErrorMesg);
+      setpopupVisibility(true);
+    }
+  }, [isError, isSuccess]);
+
   return (
     <div>
       <div className="Approval_Button">
@@ -70,7 +93,6 @@ const VoucherTable: React.FC<{
           </Tooltip>
         ) : null}
       </div>
-
       <AntTable
         // scroll={{ x: 'max-content', y: convertVhToPixels('50vh') }}
         rowKey={'VoucherHeadId'}
@@ -92,6 +114,15 @@ const VoucherTable: React.FC<{
         // }
         // <ApproveRecordButtonOnTable SelectedCount={SelectedRowsLength} ApproveRecords={ApproveRecords}
       />
+      <CustomPopup
+        type={popupType}
+        title={popupTitle}
+        message={popupMesg}
+        visibility={popupVisibility}
+        onOk={() => setpopupVisibility(false)}
+        onNoClicked={() => setpopupVisibility(false)}
+        onYesClicked={ApproveRecords}
+      ></CustomPopup>
     </div>
   );
 };

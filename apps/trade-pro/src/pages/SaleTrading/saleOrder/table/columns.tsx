@@ -1,91 +1,125 @@
-import { TSaleOrder, TSaleOrderForm, TSaleOrderForm2 } from '../type';
+import { TSaleOrder, TSaleOrderDetail, TSaleOrderForm, TSaleOrderForm2 } from '../type';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { formateDate } from '@tradePro/utils/formateDate';
-import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { Button, Space, Tooltip } from 'antd';
-import { PrinterFilled, EditFilled, SaveFilled } from '@ant-design/icons';
+import { PrinterFilled, EditFilled, SaveFilled, DeleteOutlined } from '@ant-design/icons';
+import { AntButton } from '@tradePro/components';
+import { numberFormatter } from '@tradePro/utils/numberFormatter';
 
-export const saleOrderFormcolumns = (): AntColumnType<TSaleOrderForm>[] => [
-  { title: 'Item Name', dataIndex: 'DocNo', width: 100 },
+export const saleOrderFormcolumns = (
+  t: any,
+  handleDeleteRow: any,
+  handleEditRow: any
+): AntColumnType<TSaleOrderDetail>[] => [
+  { title: <>t{'Item Name'}</>, dataIndex: 'ItemName', width: 300 },
   {
     width: 150,
-    title: 'Pack Uom',
+    title: <>{t('Pack Uom')}</>,
     searchableDate: true,
-    dataIndex: 'DocDate',
+    dataIndex: 'UOMCode',
   },
   {
     width: 150,
     searchableInput: true,
-    title: 'QTY',
-    dataIndex: 'SupplierName',
+    title: <>{t('QTY')}</>,
+    dataIndex: 'OrderItemQty',
     sortDirections: ['ascend', 'descend'],
   },
-  { title: 'Weight', dataIndex: 'DeliveryTerm', width: 150 },
-  { title: 'Item Price', dataIndex: 'ItemName', width: 150 },
-  { title: 'Base UOM', dataIndex: 'UOMCodeItm', width: 120 },
+
+  { title: <>{t('weight')}</>, dataIndex: 'NetWeight', width: 150 },
+  {
+    title: <>{t('Item Price')}</>,
+    dataIndex: 'BagPrice',
+    width: 150,
+    render: (Amount, record) => (
+      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(Amount)}</Space>
+    ),
+  },
+
+  // { title: 'Base UOM', dataIndex: 'UOMCodeItm', width: 120 },
   {
     width: 120,
-    title: 'Add Less',
-    dataIndex: 'OrderItemQty',
+    title: <>{t('Add Less')}</>,
+    dataIndex: 'AddLess',
   },
   {
     width: 120,
-    title: 'Net Rate',
-    dataIndex: 'ReceivedQty',
+    title: <>{t('Net Rate')}</>,
+    dataIndex: 'RetailRate',
   },
   {
     width: 100,
-    title: 'Rate UOM',
-    dataIndex: 'RejQty',
+    title: <>{'Rate UOM'}</>,
+    dataIndex: 'RateUom',
   },
   {
+    title: <>{t('Amount')}</>,
     width: 120,
+    showTotal: true,
     dataIndex: 'Amount',
-    title: 'Balance Qty',
+    render: (Amount, record) => (
+      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(Amount)}</Space>
+    ),
   },
   {
     width: 120,
-    title: 'Remarks',
-    dataIndex: 'NetWeight',
+    title: <>{t('Remarks')}</>,
+    dataIndex: 'OrderRemarks',
   },
+
   {
-    width: 130,
     title: 'Action',
-    dataIndex: 'ReceivedWeight',
+    width: 120,
+    render: (_, record) => (
+      <Tooltip title="Actions">
+        <Space>
+          <AntButton
+            type="text"
+            icon={<DeleteOutlined style={{ color: 'red' }} onClick={() => handleDeleteRow(record)} />}
+          />
+
+          <AntButton
+            type="text"
+            icon={<EditFilled style={{ color: 'blue' }} />}
+            onClick={() => handleEditRow(record)}
+          />
+        </Space>
+      </Tooltip>
+    ),
   },
 ];
 
 export const saleOrderFormcolumns2 = (): AntColumnType<TSaleOrderForm2>[] => [
-  { title: 'Item Name', dataIndex: '', width: 100 },
+  { title: 'Item Name', dataIndex: 'ItemName', width: 100 },
   {
     width: 150,
     title: 'Pack Uom',
     searchableDate: true,
-    dataIndex: '',
+    dataIndex: 'UOMCode',
   },
   {
     width: 150,
     searchableInput: true,
     title: 'QTY',
-    dataIndex: '',
+    dataIndex: 'OrderItemQty',
     sortDirections: ['ascend', 'descend'],
   },
-  { title: 'Weight', dataIndex: '', width: 150 },
+  { title: 'Weight', dataIndex: 'NetWeight', width: 150 },
   { title: 'Rate', dataIndex: '', width: 150 },
 
   {
     width: 100,
     title: 'Rate UOM',
-    dataIndex: '',
+    dataIndex: 'UOMCode',
   },
   {
     width: 120,
-    dataIndex: '',
+    dataIndex: 'OrderItemQty',
     title: 'Balance Qty',
   },
   {
     width: 120,
-    title: '',
+    title: 'NetWeight',
     dataIndex: 'NetWeight',
   },
 ];
@@ -132,7 +166,7 @@ export const SaleOrdercolumns = (t: any): AntColumnType<TSaleOrder>[] => [
     width: 150,
     title: 'Due Date',
     dataIndex: 'DueDate',
-    render: (_, { DueDate }) => formateDate(DueDate),
+    // render: (_, { DueDate }) => formateDate(DueDate),
   },
   {
     width: 120,

@@ -27,7 +27,7 @@ export const useGetCashPaymentVoucherTable = (enabled = true, params?: TCashHist
         FinancialYearId: financialYear?.Id,
         Ids: '1',
         PostState: true,
-        NoOfRecords: 50,
+        // NoOfRecords: 50,
         ...params,
       });
     },
@@ -37,12 +37,19 @@ export const useGetCashPaymentVoucherTable = (enabled = true, params?: TCashHist
 
 // Voucher No
 
-export const useGetVoucherNo = () => {
+export const useGetVoucherNo = (DocumentTypeId: number) => {
   return useQuery(
-    'voucher-number',
+    ['voucher-number', DocumentTypeId],
     () => {
       return requestManager.get('/api/Voucher/GenerateVoucherCodeByDocumentTypeId', {
-        params: { ...params, DocumentTypeId: 1, BranchId: 2, FinancialYearId: 2, CompanyId: 2, OrganizationId: 2 },
+        params: {
+          ...params,
+          DocumentTypeId: DocumentTypeId,
+          BranchId: userDetail?.BranchesId,
+          FinancialYearId: financialYear?.Id,
+          CompanyId: userDetail?.CompanyId,
+          OrganizationId: userDetail?.OrganizationId,
+        },
       });
     },
     { cacheTime: 5000 }
@@ -142,7 +149,7 @@ export const useGetCashPaymentTaxType = () => {
   return useQuery(
     'CashPayment-Tax',
     () => {
-      return requestManager.get('/api/TaxesTypes/GetForComboBind', { params: { ...params, Type: 1 } });
+      return requestManager.get('/api/TaxesTypes/GetForComboBind', { params: { ...params, Type: 2 } });
     },
     { cacheTime: 5000 }
   );
@@ -179,7 +186,7 @@ export const useGetTaxSchedule = () => {
     'TaxSchedule',
     () => {
       return requestManager.get('/api/TaxScheduleMain/GetTaxSchedule', {
-        params: { ...params, EffectedDate: '2023-09-12', TaxNameId: 11 },
+        params: { ...params, EffectedDate: new Date(), TaxNameId: 11 },
       });
     },
     { cacheTime: 5000 }

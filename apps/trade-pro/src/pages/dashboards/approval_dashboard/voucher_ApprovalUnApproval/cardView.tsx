@@ -1,4 +1,4 @@
-import { Card, Col, Row, Tooltip, Badge } from 'antd';
+import { Card, Col, Row, Badge } from 'antd';
 import { SortAscendingOutlined, SortDescendingOutlined, CaretDownOutlined } from '@ant-design/icons';
 import '../approvel.scss';
 import Search from 'antd/es/input/Search';
@@ -13,7 +13,6 @@ import FormFilter from './modalData/form';
 import Buttons from './modalData/button';
 import { VouchersHistory_Header, VouchersModernHistory } from '../type';
 import ToolTipToShowUserData from './tooltop';
-import { useAtom } from 'jotai';
 const CardView: React.FC<{
   documentTypeId: number;
   approvalUnApproval: boolean;
@@ -123,6 +122,7 @@ const CardView: React.FC<{
   //   }
   //   console.log('Data modify Send to Tooltip: ', UserInfoDataForTooltip);
   // };
+
   const handleSearch = (value: string) => {
     // You can perform any additional logic here
     setRecords(value);

@@ -5,6 +5,7 @@ import { storedUserDetail } from '@tradePro/utils/storageService';
 import { queryClient } from '@scs/configs';
 import { notification } from 'antd';
 import { AxiosError } from 'axios';
+import dayjs from 'dayjs';
 
 const userDetail = storedUserDetail();
 const financialYear = storedUserDetail();
@@ -46,10 +47,10 @@ const getSaleOrderById = (Id?: number | null) => {
   return requestManager.get('/api/SaleOrder/GetByID?Id=5072', { params: { Id } });
 };
 //Save Sale Order
-export const useAddSaleOrder = (params?: TSaleOrderDetail) => {
+export const useAddSaleOrder = (params?: TSaleOrder) => {
   return useMutation(
     'sale-order-detail',
-    (data: TSaleOrderDetail) => {
+    (data: TSaleOrder) => {
       return requestManager.post('/api/SaleOrder/Save', {
         ...data,
         Id: 0,
@@ -77,10 +78,10 @@ export const useAddSaleOrder = (params?: TSaleOrderDetail) => {
     }
   );
 };
-export const useUpdateSaleOrder = (Id?: number | null, params?: TSaleOrderDetail) => {
+export const useUpdateSaleOrder = (Id?: number | null, params?: TSaleOrder) => {
   return useMutation(
     'sale-order-detail',
-    (data: TSaleOrderDetail) => {
+    (data: TSaleOrder) => {
       return requestManager.post('/api/SaleOrder/Save', {
         ...data,
         Id: 0,
@@ -106,5 +107,76 @@ export const useUpdateSaleOrder = (Id?: number | null, params?: TSaleOrderDetail
         notification.success({ description: '', message: msg });
       },
     }
+  );
+};
+
+export const useGetPriceSchedule = (ItemIds?: number | null, enabled = true, params?: TSaleOrderDetail) => {
+  return useQuery(
+    ['item', ItemIds],
+    () => {
+      return requestManager.post('/api/InvSaleInvoice/GetLastPriceScheduleByItemIdAndDate', {
+        CompanyId: userDetail?.CompanyId,
+        OrganizationId: userDetail?.OrganizationId,
+        BranchesId: userDetail?.BranchesId,
+        PriceTypeId: 6,
+        ItemIds: ItemIds,
+        EffectedDate: dayjs(new Date().toISOString()),
+
+        ...params,
+      });
+    },
+    { enabled }
+  );
+};
+
+export const useGetDiscountRate = (
+  // enabled = true,
+  // params?: TSaleOrderDetail,
+  SupplierCustomerId?: number | null
+  // ItemIds?: number | null
+) => {
+  return useQuery(
+    ['discount-rate', SupplierCustomerId],
+    () => {
+      return requestManager.post('/api/InvSaleInvoice/GetDiscountByCustomerItemAndEffectiveDate', {
+        CompanyId: userDetail?.CompanyId,
+        OrganizationId: userDetail?.OrganizationId,
+        BranchesId: userDetail?.BranchesId,
+        SupplierCustomerId,
+        // ItemIds,
+        EffectedDate: new Date().toISOString(),
+
+        // obj.OrganizationId = UserAccount.OrganizationId;
+        //             obj.CompanyId = UserAccount.CompanyId;
+        //             obj.BranchesId = UserAccount.BranchesId;
+        //             obj.SupplierCustomerId = Conversion.ToInt(combsuppname.Value);
+        //             obj.ItemId = Conversion.ToInt(combitem.Value);
+        //             obj.EffectedDate = Conversion.ToDateTime(DocDate.Value);
+
+        // ...params,
+      });
+    },
+    { enabled: !!SupplierCustomerId }
+  );
+};
+
+// export const useGetUomByItemId = (ItemId?: number | null) => () => {
+//   return useQuery(
+//     ['uom', ItemId],
+//     () => {
+//       return requestManager.get('/api/UOMSchedule/SearchByObject', { params: { ...params, ItemId } });
+//     },
+//     { enabled: !!ItemId }
+//   );
+// };
+export const useGetBranch = (CompanyId: number | null) => () => {
+  return useQuery(
+    ['branch', CompanyId],
+    () => {
+      return requestManager.get('/api/UserAccountAllocation/GetBranchesByUserId', {
+        params: { CompanyId, UserAccountId: userDetail?.UserId },
+      });
+    },
+    { enabled: !!CompanyId }
   );
 };

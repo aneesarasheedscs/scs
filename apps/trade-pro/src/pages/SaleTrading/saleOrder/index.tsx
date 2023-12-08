@@ -1,9 +1,10 @@
-import { Col, Row, Tabs, Typography } from 'antd';
+import { Card, Col, Row, Tabs, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
 import SaleOrderTable from './table';
 import SaleOrderForm from './forms';
 import { AppHeader } from '@scs/ui';
 import { useState } from 'react';
+
 const { Title, Text } = Typography;
 function SaleOrder() {
   const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
@@ -12,11 +13,8 @@ function SaleOrder() {
 
   return (
     <>
-      <Row gutter={[24, 24]} style={{ marginBottom: '10px' }}>
-        <Col xs={24} md={12} lg={8} style={{ marginLeft: '15px' }}>
-          <Text style={{ fontSize: '20px' }}>{t('Sale Order')}</Text>
-        </Col>
-      </Row>
+<Card style={{ background: 'transparent', marginLeft: '-1%', marginTop: '-2%' }}>
+        <h2 style={{ textAlign: 'center' }}>{t('sale_order')}</h2>
 
       <Tabs
         type="card"
@@ -32,9 +30,10 @@ function SaleOrder() {
             children: <SaleOrderTable setSelectedRecordId={setSelectedRecordId} setActiveTab={setActiveTab} />,
           },
           { key: '2', label: t('form'), children: <SaleOrderForm selectedRecordId={selectedRecordId} /> },
-          //selectedRecordId={selectedRecordId}
         ]}
       />
+          
+      </Card>
     </>
   );
 }

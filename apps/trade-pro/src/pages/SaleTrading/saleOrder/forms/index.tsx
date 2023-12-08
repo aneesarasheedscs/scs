@@ -1,23 +1,31 @@
 import { useEffect } from 'react';
 import DocNumber from './DocNumber';
 import MainEntry from './MainEntry';
-import { AntButton, AntTable } from '@tradePro/components';
-import { Card, Col, Form, Input, Row } from 'antd';
+import { AntButton, AntDatePicker, AntTable } from '@tradePro/components';
+import { Badge, Card, Checkbox, Col, Form, Input, Row } from 'antd';
 import { useGetDocNumberSaleOrder } from '../queryOptions';
-import { SyncOutlined, SaveOutlined } from '@ant-design/icons';
+import { SyncOutlined, SaveOutlined, PaperClipOutlined, ReloadOutlined } from '@ant-design/icons';
 import DynamicForm from './DetailEntry';
 import { saleOrderFormcolumns } from '../table/columns';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { isNumber } from 'lodash';
 import dayjs from 'dayjs';
-import { useAddSaleOrder, useGetSaleOrderById, useUpdateSaleOrder } from '../queries';
-import { TSaleOrderDetail } from '../type';
+import { useAddSaleOrder, useGetSaleOrder, useGetSaleOrderById, useUpdateSaleOrder } from '../queries';
+import { TSaleOrder, TSaleOrderDetail } from '../type';
+import { useTranslation } from 'react-i18next';
+import { useAtom } from 'jotai';
+import { tableDataList } from './Atom';
+import SalesPersonalInfo from './SalesInfo';
+import '../style.scss';
 
 const { useForm } = Form;
 
 function SaleOrderForm({ selectedRecordId }: TAddUpdatedRecod) {
-  const [form] = useForm();
+  const { t } = useTranslation();
+  const [form] = useForm<TSaleOrder>();
   const { data, isError, refetch, isLoading, isSuccess } = useGetDocNumberSaleOrder();
+  const { data: add, refetch: addRefetch, isError: addisError, isLoading: addisLoading } = useGetSaleOrder();
+
   const {
     data: saleOrderData,
     refetch: refetchPurchase,
@@ -27,12 +35,12 @@ function SaleOrderForm({ selectedRecordId }: TAddUpdatedRecod) {
 
   const { mutate: addSaleOrderDetail } = useAddSaleOrder();
   const { mutate: updateSaleOrder } = useUpdateSaleOrder(selectedRecordId);
+  const [tableData, setTableData] = useAtom(tableDataList);
 
   useEffect(() => {
     if (isSuccess) form.setFieldValue('DocNo', data?.data?.Data?.Result);
   }, [data, isSuccess]);
-
-  const onFinish = (values: TSaleOrderDetail) => {
+  const onFinish = (values: TSaleOrder) => {
     console.log(values);
     if (isNumber(selectedRecordId)) {
       values.SaleOrderDetailList = values.SaleOrderDetailList.map((detail) => ({
@@ -61,15 +69,15 @@ function SaleOrderForm({ selectedRecordId }: TAddUpdatedRecod) {
       form.setFieldValue('OrderDueDate', dayjs(saleOrderData?.data?.Data?.Result?.OrderDueDate));
     }
   }, [isDataSuccess]);
-
+  console.log(tableData);
   return (
     <>
       <Card>
-        <Form form={form} layout="vertical" onFinish={onFinish}>
-          <Row align="middle" justify="space-between">
-            <Col>
-              <Row gutter={10} align="middle">
-                <Col style={{ fontSize: 18 }}>Document No.</Col>
+        <Form form={form} layout="inline" onFinish={onFinish}>
+          <Row gutter={10} align="middle" style={{ width: '100%' }}>
+            <Col xl={12} style={{}}>
+              <Row gutter={[10, 10]} align="middle">
+                <Col style={{ fontSize: 18, fontWeight: 'bold' }}>Document No.</Col>
                 <Col>
                   <DocNumber
                     isError={isError}
@@ -81,39 +89,93 @@ function SaleOrderForm({ selectedRecordId }: TAddUpdatedRecod) {
                     <Input />
                   </Form.Item>
                 </Col>
+                <Col xl={9} className="formfields" style={{ marginLeft: '2%' }}>
+                  <AntDatePicker required name="DocDate" label="Document Date" placeholder="" bordered={false} />
+                </Col>
               </Row>
             </Col>
 
-            <Col>
+            <Col xl={12}>
               <Form.Item>
-                <Row align="middle" gutter={10}>
-                  <Col>
+                {/* <Row align="middle" gutter={[16, 16]} style={{display: "flex" , justifyContent: "end"}}> */}
+                {/* <Col xs={24} sm={24} md={24} lg={24} xl={3}>
                     <AntButton danger ghost htmlType="reset" label="Reset" icon={<SyncOutlined />} />
                   </Col>
-                  <Col>
+                  <Col xs={24} sm={24} md={24} lg={24} xl={5}>
                     <AntButton label="Save and add more" htmlType="submit" />
                   </Col>
-                  <Col>
+                  <Col xs={24} sm={24} md={24} lg={24} xl={3}>
                     <AntButton ghost label="Save" htmlType="submit" icon={<SaveOutlined />} />
-                  </Col>
-                </Row>
+                  </Col> */}
+
+                <Form.Item>
+                  {/* <Row style={{ marginLeft: '-25%', marginTop: '1%' }} gutter={10} className="btns"> */}
+                  <Row align="middle" gutter={[16, 16]} style={{ display: 'flex', justifyContent: 'end', }}>
+                    <Col xs={10} sm={15} md={24} lg={24} xl={4}>
+                      <Form.Item name="IsTaxable" valuePropName="checked" initialValue={true}>
+                        {/* <Checkbox onChange={(e) => handleCheckboxChange(e.target.checked, 'IsTaxable')}> */}
+                        <Checkbox>{t('print_preview')}</Checkbox>
+                      </Form.Item>
+                    </Col>
+
+                    <Col xs={10} sm={15} md={24} lg={24} xl={2} className="icon">
+                      <Badge size="small" count={1}>
+                        <AntButton
+                          // style={{ marginLeft: '-3rem' }}
+                          // danger
+                          // ghost
+                          // htmlType="reset"
+                          // onClick={() => setTableData([])}
+                          label={t('')}
+                          icon={<PaperClipOutlined />}
+                        />
+                        {/* <Avatar shape="square" size="large" icon={<LinkOutlined />} /> */}
+                      </Badge>
+                      {/* <AntButton
+                      style={{ width: '5rem', marginLeft: '-3rem' }}
+                      // danger
+                      // ghost
+                      // htmlType="reset"
+                      // onClick={() => setTableData([])}
+                      label={t('')}
+                      icon={<LinkOutlined style={{ fontSize: '1.3rem' }} />}
+                    /> */}
+                    </Col>
+
+                    <Col xs={10} sm={15} md={24} lg={24} xl={4}>
+                      <AntButton
+                        danger
+                        ghost
+                        htmlType="reset"
+                        onClick={() => setTableData([])}
+                        label={t('reset')}
+                        icon={<SyncOutlined />}
+                      />
+                    </Col>
+                    <Col xs={10} sm={15} md={24} lg={24} xl={4}>
+                      <AntButton
+                        danger
+                        ghost
+                        // htmlType="reset"
+                        // onClick={() => setTableData([])}
+                        label={t('refresh')}
+                        icon={<ReloadOutlined />}
+                      />
+                    </Col>
+                    <Col xs={10} sm={15} md={24} lg={24} xl={3}>
+                      <AntButton label={t('save')} htmlType="submit" icon={<SaveOutlined />} />
+                    </Col>
+                  </Row>
+                </Form.Item>
               </Form.Item>
             </Col>
           </Row>
 
-          <MainEntry />
+          <MainEntry form={form} />
+          {/* <SalesPersonalInfo form={form} /> */}
           <DynamicForm form={form} />
         </Form>
       </Card>
-      <AntTable
-        refetch={refetch}
-        isError={isError}
-        columns={saleOrderFormcolumns()}
-        numberOfSkeletons={12}
-        isLoading={isLoading}
-        // data={data?.data?.Data?.Result || []}
-        scroll={{ x: '', y: convertVhToPixels('15vh') }}
-      />
     </>
   );
 }

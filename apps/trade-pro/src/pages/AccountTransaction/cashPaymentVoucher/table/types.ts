@@ -10,6 +10,8 @@ export type TCashPaymentVoucherTable = {
   VoucherAmount: number;
   UserName: string;
   CheqNo: string;
+  Debit: number;
+  EntryDate: Date | string;
 };
 
 export type TCashHistory = {

@@ -20,23 +20,7 @@ export type TSaveCashPaymentVoucher = {
   ChequeDate: string;
   Remarks: string;
   VoucherAmount: number;
-  voucherDetailList: PaymentVoucher[];
-};
-
-export type PaymentVoucher = {
-  AccountId: number;
-  AgainstAccountId: number;
-  JobLotId: number;
-  Comments: string;
-  PaymentType: 'Advance' | 'Other';
-  AdvanceAmount?: number;
-  DebitAmount: number;
-  CreditAmount: number;
-  InvoiceNoRefId: number;
-  CheqNoDetail: number;
-  DCheqDate: string;
-  PayeeTitle: string;
-  IsTaxable: boolean;
+  voucherDetailList: TCashPaymentDetailEntry[];
 };
 
 export type AccountData = {
@@ -64,6 +48,7 @@ export type TCashPaymentDetailEntry = {
   JobLotId: number;
   Remarks: string;
   AccountId: number;
+  AccountIdDebit: number;
   AccountTitle: string;
   JobLotDescription: string;
   AgainstAccountId: number;
@@ -71,66 +56,46 @@ export type TCashPaymentDetailEntry = {
   DebitAmount: number;
   Comments: string;
   key: number;
+  Amount: number;
+  TaxTypeId: number;
+  TaxPrcnt: number;
+  TaxesTotalAmount: number;
+  CheqId: number;
+  InvoiceNoRefId: number;
+  PayeeTitle: string;
+  CheqNoDetail: number;
+  IsDetailExpanded: boolean;
 };
 
 export type TFormDetailList = {
-  TaxTypeId: number;
   TaxPercent: number;
   TotalAmount: number;
-  Amount: number;
   TaxAmount: number;
-  IncludeWHT: boolean | string;
-  AgainstAccountId: number;
-};
-
-export type TSaveCashPayment = {
-  Id: number;
-  Type: number;
-  BranchId: number;
-  ProjectId: number;
-  OrganizationId: number;
-  CompanyId: number;
-  FinancialYearId: number;
-  EntryUser: number;
-  ModifyUser: number;
-  EntryDate: string;
-  ModifyDate: string;
-  DocumentTypeId: number;
-  VoucherCode: number;
-  VoucherDate: string;
-  RefAccountId: number;
-  AgainstAccountId: number;
-  RefDocNoId: number;
   IncludeWHT: boolean;
-  ChequeDate: string;
-  Remarks: string;
-  VoucherAmount: number;
-  voucherDetailList: VoucherDetail[];
-};
-
-type VoucherDetail = {
   AccountId: number;
   AgainstAccountId: number;
-  JobLotId: number;
-  Comments: string;
-  PaymentType: 'Advance' | 'Other';
-  AdvanceAmount?: number;
-  DebitAmount: number;
-  CreditAmount: number;
-  InvoiceNoRefId: number;
-  CheqNoDetail: number;
-  DCheqDate: string;
-  PayeeTitle: string;
   IsTaxable: boolean;
+  Comments: string;
+  CreditAmount: number;
+  TaxTypeId: number;
 };
 
 export type DataType = {
-  key: number;
-  PaymentType: string;
+  Id: number;
   AccountTitle: string;
   JobLotDescription: string;
+  JobLotId: number;
+  DCheqDate: Date | string;
+  PaymentType: string;
+  AccountId: number;
   DebitAmount: number;
+  CreditAmount: number;
+  AdvanceAmount: number;
+  CheqNoDetail: number;
+  InvoiceNoRefId: number;
+  PayeeTitle: string;
   Comments: string;
+  IsTaxable: boolean;
 };
 
 export type TCreditAccountBind = {
@@ -148,4 +113,8 @@ export type TjobLot = {
   Id: number;
   JobLotCode: string;
   JobLotDescription: string;
+};
+export type TTaxType = {
+  Id: number;
+  TaxName: string;
 };

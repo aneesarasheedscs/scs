@@ -119,10 +119,11 @@ export const useGetVouchersModernHistoryByHeaderId = (documentId?: number, docum
 //Approval
 export const useApproveVouchers = (documentTypeId?: number) => {
   const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
+  let dataToSubmit: any;
   return useMutation(
     'Approve_Vouchers',
     (ApprovalList: any) => {
-      let dataToSubmit = {
+      dataToSubmit = {
         OrganizationId: userDetail?.OrganizationId,
         CompanyId: userDetail?.CompanyId,
         documentTypeId,
@@ -134,9 +135,14 @@ export const useApproveVouchers = (documentTypeId?: number) => {
       onSuccess: () => {
         queryClient.invalidateQueries(['Modern-history-Header', documentTypeId?.toString()]);
         queryClient.invalidateQueries('vouchers-Approval');
-        queryClient.invalidateQueries(['voucher-history-table', documentTypeId]);
-        const msg = 'Record Approve successfully!';
-        notification.success({ description: '', message: msg });
+        // queryClient.invalidateQueries(['voucher-history-table', documentTypeId]);
+        // let msg: string = '';
+        // if (dataToSubmit.AllApprovalLists[0].ActionTypeId === false) {
+        //   msg = 'Record Approve successfully!';
+        // } else if (dataToSubmit.AllApprovalLists[0].ActionTypeId === true) {
+        //   msg = 'Record Sent For Revision successfully!';
+        // }
+        // notification.success({ description: '', message: msg });
       },
       onError: (error: AxiosError) => {
         const msg = error.response?.data || 'Something went wrong';

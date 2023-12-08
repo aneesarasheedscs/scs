@@ -61,29 +61,46 @@ export const useGetDocNumberSaleOrder = () => {
   );
 };
 
-export const useGetSubPartyAccount = () => {
-  return useQuery('sub-party-account', () => {
-    return requestManager.get(
-      '/api/SupplierCustomer/GetSubPartiesByParentId?OrganizationId=2&CompanyId=2&ParentsSupCustId=0',
-      {
+export const useGetSubPartyAccount = (ParentsSupCustId: number | null) => () => {
+  return useQuery(
+    ['sub-party-account', ParentsSupCustId],
+
+    () => {
+      return requestManager.get('/api/SupplierCustomer/GetSubPartiesByParentId', {
         params: {
           ...params,
-          ParentsSupCustId: 0,
+          ParentsSupCustId,
         },
-      }
-    );
-  });
+      });
+    },
+    { enabled: !!ParentsSupCustId }
+  );
 };
-export const useGetShiptToAddress = () => {
-  return useQuery('ship-to-address', () => {
-    return requestManager.get('/api/SupplierCustomer/GetforComboBinding?OrganizationId=2&CompanyId=2', {
-      params: {
-        ...params,
-        OrganizationId,
-        CompanyId,
-      },
-    });
-  });
+export const useGetShiptToAddress = (SupplierId: number | null) => () => {
+  return useQuery(
+    ['Ship-to-address', SupplierId],
+    () => {
+      return requestManager.get('/api/SupplierCustomerShipToAddress/GetDataBySupplierId', {
+        params: {
+          ...params,
+          SupplierId,
+        },
+      });
+    },
+    { enabled: !!SupplierId }
+  );
+};
+
+export const useGetBranch = (CompanyId: number | null) => () => {
+  return useQuery(
+    ['branch', CompanyId],
+    () => {
+      return requestManager.get('/api/UserAccountAllocation/GetBranchesByUserId', {
+        params: { CompanyId, UserAccountId: userDetail?.UserId },
+      });
+    },
+    { enabled: !!CompanyId }
+  );
 };
 
 export const useGetDeliveryTerms = () => {
@@ -92,12 +109,16 @@ export const useGetDeliveryTerms = () => {
   });
 };
 
-export const useGetCustomerName = () => {
+export const useGetCustomerNameSalesManAgent = () => {
   return useQuery('customer-name', () => {
-    return requestManager.get(
-      '/api/SupplierCustomer/GetSubPartiesByParentId?OrganizationId=2&CompanyId=2&ParentsSupCustId=0',
-      { params }
-    );
+    return requestManager.get('/api/SupplierCustomer/GetforComboBinding', {
+      params,
+    });
+  });
+};
+export const useGetItemsWithBaseUom = () => {
+  return useQuery('items-base-uom', () => {
+    return requestManager.get('/api/Item/ItemsWithBaseUOM', { params });
   });
 };
 

@@ -1,15 +1,28 @@
 import { Card, Tabs, theme } from 'antd';
 import { useTranslation } from 'react-i18next';
 import './style.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CashPaymentTable from './table/cashPaymentVoucher';
 import CashPaymentVoucherForm from './form';
+import { useAtom } from 'jotai';
+import { useGetCashPaymentVoucherById } from './queries/querySave';
+import { viewDetailList } from './form/Atom';
 
 function CashPaymentVoucher() {
   const { t } = useTranslation();
   const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
   const [activeTab, setActiveTab] = useState<string>('1');
-
+  const [viewDetail, setViewDetail] = useAtom(viewDetailList);
+  const {
+    data: addCashPayment,
+    refetch: refetchCashPayment,
+    isSuccess: isDataSuccess,
+  } = useGetCashPaymentVoucherById(selectedRecordId);
+  useEffect(() => {
+    if (isDataSuccess) {
+      setViewDetail(addCashPayment?.data?.Data?.Result?.voucherDetailList);
+    }
+  }, [isDataSuccess]);
   const {
     token: { colorPrimary },
   } = theme.useToken();
@@ -17,7 +30,7 @@ function CashPaymentVoucher() {
   return (
     <>
       <Card style={{ background: 'transparent', marginLeft: '-1%', marginTop: '-2%' }}>
-        <h2 className="form-heading">{t('cash_payment_voucher')}</h2>
+        <h2 style={{ textAlign: 'center' }}>{t('cash_payment_voucher')}</h2>
         <Tabs
           type="card"
           size="large"
@@ -29,7 +42,12 @@ function CashPaymentVoucher() {
             <CashPaymentTable setSelectedRecordId={setSelectedRecordId} setActiveTab={setActiveTab} />
           </Tabs.TabPane>
           <Tabs.TabPane key="2" tab={t('form')}>
-            <CashPaymentVoucherForm selectedRecordId={selectedRecordId} />
+            <CashPaymentVoucherForm
+              selectedRecordId={selectedRecordId}
+              addCashPayment={addCashPayment}
+              refetchCashPayment={refetchCashPayment}
+              isDataSuccess={isDataSuccess}
+            />
           </Tabs.TabPane>
         </Tabs>
       </Card>

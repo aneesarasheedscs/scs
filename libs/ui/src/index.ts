@@ -15,3 +15,4 @@ export * from './select/AntSelectDynamicMultiple';
 export * from './rangePicker/AntRangePicker';
 export * from './table/SearchCriteriaWrapper';
 export * from './languageSwitcher/LanguageSwitcher';
+export * from './notificationPopUp/notificationPopup';

@@ -4,13 +4,16 @@ import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { SaleOrdercolumns, saleOrderFormcolumns2 } from './columns';
 import { t } from 'i18next';
 import { useTranslation } from 'react-i18next';
+import { Col, Row } from 'antd';
 
 const SaleOrderTable = ({ setSelectedRecordId, setActiveTab }: TFrom) => {
   const { t } = useTranslation();
   const { data, refetch, isError, isLoading, isFetching } = useGetSaleOrder();
-  console.log(data?.data?.Data?.Result);
+  console.log('sale order', data?.data?.Data?.Result);
   return (
     <>
+        <Row gutter={[16,16]}  justify={'space-between'} >      {/* <Row> */}
+<Col>
       <AntTable
         refetch={refetch}
         isError={isError}
@@ -21,6 +24,9 @@ const SaleOrderTable = ({ setSelectedRecordId, setActiveTab }: TFrom) => {
         scroll={{ x: '', y: convertVhToPixels('26vh') }}
       />
       <br></br>
+      <Row gutter={[16,16]}  justify={'space-between'} >      {/* <Row> */}
+
+      <Col>
       <AntTable
         refetch={refetch}
         isError={isError}
@@ -30,6 +36,11 @@ const SaleOrderTable = ({ setSelectedRecordId, setActiveTab }: TFrom) => {
         data={data?.data?.Data?.Result || []}
         scroll={{ x: '', y: convertVhToPixels('18vh') }}
       />
+      </Col>
+      </Row>
+      </Col>
+      </Row>
+
     </>
   );
 };
