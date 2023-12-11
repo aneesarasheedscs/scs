@@ -34,18 +34,36 @@ const CustomPopup: React.FC<{
   };
 
   return (
-    <Modal title={title} open={visibility} onCancel={onOk} footer={null}>
+    <Modal
+      destroyOnClose
+      centered
+      width={390}
+      title={title}
+      open={visibility}
+      onCancel={type === 'confirmation' ? onNoClicked : onOk}
+      footer={null}
+    >
       <div style={{ textAlign: 'center' }}>
         {renderIcon()}
-        <Text>{message}</Text>
+        <div>{message}</div>
         <div style={{ marginTop: '1em', display: 'flex', justifyContent: 'center' }}>
           {type !== 'confirmation' && (
-            <AntButton label="Ok" style={{ /* backgroundColor: 'blue',*/ color: '#28971e' }} onClick={onOk} />
+            <AntButton label="Ok" style={{ /* backgroundColor: 'blue',*/ width: '80px' }} onClick={onOk} />
           )}
           {type === 'confirmation' && (
             <>
-              <AntButton style={{ color: '#dd2923' }} onClick={onYesClicked} label="Yes" />
-              <AntButton style={{ color: '#28971e', marginLeft: '5px' }} onClick={onNoClicked} label="No" />
+              <AntButton danger style={{ /*color: '#dd2923',*/ width: '80px' }} onClick={onYesClicked} label="Yes" />
+              <AntButton
+                style={{
+                  backgroundColor: 'white',
+                  color: '#28971e',
+                  border: '1px solid',
+                  marginLeft: '5px',
+                  width: '80px',
+                }}
+                onClick={onNoClicked}
+                label="No"
+              />
             </>
           )}
         </div>

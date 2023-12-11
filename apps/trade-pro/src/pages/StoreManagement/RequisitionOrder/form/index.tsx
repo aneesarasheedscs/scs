@@ -27,6 +27,7 @@ function RequisitionOrderForm({
   const DocumentTypeId = 105;
 
   const { data, isError, refetch, isLoading, isSuccess } = useGetDocumentNumber(DocumentTypeId);
+
   const [delettableData, setDeleteTableData] = useAtom(deleteData);
   const [newtableData, setNewTableData] = useAtom(newTableData);
 
@@ -119,9 +120,11 @@ function RequisitionOrderForm({
       setTableData(requisitionById?.data?.Data?.Result?.WsRmRequisitionPoDetailsList);
     }
   }, [isDataSuccess, !isDataLoading]);
+
   useEffect(() => {
     if (isSuccess) form.setFieldValue('DocNo', data?.data?.Data?.Result);
   }, [data, isSuccess]);
+
   return (
     <>
       <Card>

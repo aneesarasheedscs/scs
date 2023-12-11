@@ -1,7 +1,7 @@
 import { queryClient } from '@tradePro/configs/index';
 import { useMutation, useQuery } from 'react-query';
 import { notification } from 'antd';
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { requestManager } from '@tradePro/configs/requestManager';
 import { storedUserDetail } from '@tradePro/utils/storageService';
 import { TSaveCashPaymentVoucher } from '../form/types';
@@ -50,16 +50,24 @@ export const useAddCashPaymentVoucher = (params?: TSaveCashPaymentVoucher) => {
         ModifyUser: userDetail?.UserId,
         EntryDate: new Date().toISOString(),
         ModifyDate: new Date().toISOString(),
+        DocumentTypeId: 1,
         ...params,
       };
 
       return requestManager.post('/api/voucher/Save', dataToSubmit);
     },
     {
-      onSuccess: () => {
+      onSuccess: (response: AxiosResponse) => {
         queryClient.invalidateQueries('CashPaymentVoucher-history');
-        const msg = 'Record added successfully!';
-        notification.success({ description: '', message: msg });
+        if (response?.data && response?.data?.Status === false) {
+          notification.error({
+            message: 'Error',
+            description: response?.data?.Message || 'An error occurred.',
+          });
+        } else if (response?.data && response?.data?.Status === true) {
+          const msg = 'Record Updated successfully!';
+          notification.success({ description: '', message: msg });
+        }
       },
       onError: (error: AxiosError) => {
         const msg = error.response?.data || 'Something went wrong';
@@ -69,8 +77,7 @@ export const useAddCashPaymentVoucher = (params?: TSaveCashPaymentVoucher) => {
   );
 };
 
-export const useUpdateCashPaymentVoucher = (Id?: number | null, params?: TSaveCashPaymentVoucher) => {
-  console.log(Id);
+export const useUpdateCashPaymentVoucher = (RecId?: number | null, params?: TSaveCashPaymentVoucher) => {
   return useMutation(
     'CashPaymentVoucher-history',
     (data: TSaveCashPaymentVoucher) => {
@@ -78,7 +85,7 @@ export const useUpdateCashPaymentVoucher = (Id?: number | null, params?: TSaveCa
       const userDetail = storedUserDetail();
       dataToSubmit = {
         ...data,
-        Id: Id,
+        Id: RecId,
         Type: 0,
         OrganizationId: userDetail?.OrganizationId,
         CompanyId: userDetail?.CompanyId,
@@ -88,11 +95,7 @@ export const useUpdateCashPaymentVoucher = (Id?: number | null, params?: TSaveCa
         ModifyUser: userDetail?.UserId,
         EntryDate: new Date().toISOString(),
         ModifyDate: new Date().toISOString(),
-        // DocumentTypeId: 1,
-        // RefAccountId: 21284,
-        // AgainstAccountId: 0,
-        // RefDocNoId: 0,
-        // VoucherAmount: 1000,
+        DocumentTypeId: 1,
         ...params,
       };
       return requestManager.post('/api/voucher/Save', dataToSubmit);

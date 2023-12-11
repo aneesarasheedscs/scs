@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { AntButton, AntDatePicker } from '@tradePro/components';
-import { Avatar, Badge, Card, Checkbox, Col, Form, Input, Row, notification } from 'antd';
+import { Badge, Card, Checkbox, Col, Form, Input, Row, notification } from 'antd';
 import '../style.scss';
 import { SaveOutlined, SyncOutlined, PaperClipOutlined, ReloadOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import VoucherNo from './VoucherNo';
 import { useGetVoucherNo } from '../queries/queries';
-import { isNumber, map } from 'lodash';
+import { map } from 'lodash';
 import dayjs from 'dayjs';
 import MainEntry from './MainEntry';
 import DynamicForm from './DetailEntry';
@@ -22,26 +22,36 @@ function CashPaymentVoucherForm({
   refetchCashPayment,
   isDataSuccess,
   addCashPayment,
+  setSelectedRecordId,
 }: TAddUpdateRecord) {
   const [form] = useForm<TSaveCashPaymentVoucher>();
   const { t } = useTranslation();
   const [bankId, setBankId] = useState<number | null>(null);
   const DocumentTypeId = 1;
-  const { data, isError, refetch, isLoading, isSuccess } = useGetVoucherNo(DocumentTypeId);
+  const { data, isError, refetch, isLoading, isSuccess } = useGetVoucherNo(
+    selectedRecordId !== null ? false : true,
+    DocumentTypeId
+  );
+
   const [tableData, setTableData] = useAtom(addtableData);
   const [isWithHoldingChecked, setIsWithHoldingChecked] = useAtom(isWithHoldingCheckedAtom);
   const [isAddButtonClicked, setIsAddButtonClicked] = useState(true);
-  const { mutate: addCashPaymentVoucher } = useAddCashPaymentVoucher();
-  const { mutate: updateCashPaymentVoucher } = useUpdateCashPaymentVoucher(selectedRecordId);
+  const { mutate: addCashPaymentVoucher, isSuccess: isEntrySuccessful, data: entryData } = useAddCashPaymentVoucher();
+  const {
+    mutate: updateCashPaymentVoucher,
+    isSuccess: isUpdateEntrySuccessful,
+    data: UpdateData,
+  } = useUpdateCashPaymentVoucher(selectedRecordId);
 
   useEffect(() => {
-    if (isSuccess)
-      form.setFieldValue(
-        'VoucherNo',
-        map(data?.data?.Data?.Result, (item) => item.VoucherCode)
-      );
-    form.setFields([{ name: 'VoucherDate', value: dayjs(new Date()) }]);
-  }, [data, isSuccess]);
+    if (selectedRecordId) {
+      setTableData([]);
+      form.resetFields();
+    } else {
+      if (isSuccess) form.setFieldValue('VoucherCode', data?.data?.Data?.Result[0]?.VoucherCode);
+      form.setFields([{ name: 'VoucherDate', value: dayjs(new Date()) }]);
+    }
+  }, [selectedRecordId]);
 
   const onFinish = (values: TSaveCashPaymentVoucher) => {
     const AgainstAccountId = values.voucherDetailList?.[0]?.AgainstAccountId;
@@ -68,11 +78,23 @@ function CashPaymentVoucherForm({
       values.voucherDetailList = values.voucherDetailList && voucherDetailListwithWHT;
     } else {
       values.voucherDetailList = values.voucherDetailList && tableData;
+      //Above Line Meant This
+      // if (!values.voucherDetailList) {
+      //   values.voucherDetailList = tableData;
+      // }
     }
+    values.voucherDetailList = values.voucherDetailList = values.voucherDetailList.map((item) => ({
+      ...item, // Copy all existing properties of the item
+      AgainstAccountId: values.RefAccountId, // Update the specific field
+    }));
     console.log(values);
-    if (isNumber(selectedRecordId)) {
+
+    if (selectedRecordId) {
       updateCashPaymentVoucher(values);
-      console.log(values);
+      if (isUpdateEntrySuccessful == true && UpdateData?.data?.Status == true) {
+        console.log('update');
+        handleReset();
+      }
     } else if (tableData.length === 0) {
       notification.error({
         message: 'Error',
@@ -80,30 +102,20 @@ function CashPaymentVoucherForm({
       });
     } else {
       console.log(values);
-      form.resetFields();
       addCashPaymentVoucher(values);
+      if (isEntrySuccessful == true && entryData?.data?.Status == true) {
+        console.log('Insert');
+        handleReset();
+      }
     }
+  };
 
+  const handleReset = () => {
+    setSelectedRecordId(null);
     setTableData([]);
+    refetch();
     setBankId(0);
   };
-  //   console.log(values);
-  //   if (isNumber(selectedRecordId)) {
-  //     values.voucherDetailList = values.voucherDetailList.map((detail) => ({
-  //       ...detail,
-  //     }));
-  //     updateBankPaymentVoucher(values);
-  //   } else {
-  //     values.voucherDetailList = values.voucherDetailList && voucherDetailList;
-  //     addBankPaymentVoucher(values);
-  //   }
-  // };
-
-  useEffect(() => {
-    if (isNumber(selectedRecordId)) {
-      refetchCashPayment();
-    }
-  }, [selectedRecordId]);
 
   const handleCheckboxChange = (isChecked: boolean, fieldName: string) => {
     form.setFieldsValue({
@@ -113,16 +125,20 @@ function CashPaymentVoucherForm({
 
   useEffect(() => {
     if (isDataSuccess) {
+      form.setFieldValue('VoucherCode', addCashPayment?.data?.Data?.Result?.VoucherCode);
       form.setFieldValue('VoucherDate', dayjs(addCashPayment?.data?.Data?.Result?.VoucherDate));
       form.setFieldValue('RefAccountId', addCashPayment?.data?.Data?.Result?.RefAccountId);
       form.setFieldValue('Remarks', addCashPayment?.data?.Data?.Result?.Remarks);
       form.setFieldValue('JobLotId', addCashPayment?.data?.Data?.Result?.JobLotDescription);
+
       form.setFieldValue(
         ['voucherDetailList', 0, 'DCheqDate'],
         dayjs(addCashPayment?.data?.Data?.Result?.voucherDetailList?.DCheqDate)
       );
-
-      setTableData(addCashPayment?.data?.Data?.Result?.voucherDetailList);
+      const DetailList = addCashPayment?.data?.Data?.Result?.voucherDetailList.filter(
+        (row: any) => row.DebitAmount > 0
+      );
+      setTableData(DetailList);
     }
   }, [isDataSuccess]);
 
@@ -141,9 +157,13 @@ function CashPaymentVoucherForm({
                     isError={isError}
                     refetch={refetch}
                     isLoading={isLoading}
-                    data={map(data?.data?.Data?.Result, (item) => item.VoucherCode)}
+                    data={
+                      selectedRecordId
+                        ? addCashPayment?.data?.Data?.Result?.VoucherCode
+                        : data?.data?.Data?.Result?.[0]?.VoucherCode
+                    }
                   />
-                  <Form.Item name="VoucherNo" style={{ display: 'none' }}>
+                  <Form.Item name="VoucherCode" style={{ display: 'none' }}>
                     <Input />
                   </Form.Item>
                 </Col>
@@ -179,7 +199,7 @@ function CashPaymentVoucherForm({
                     </Form.Item>
                   </Col>
                   <Col className="icon">
-                    <Badge size="small" count={1}>
+                    <Badge size="small" count={0}>
                       <AntButton label={t('')} icon={<PaperClipOutlined />} />
                     </Badge>
                   </Col>
@@ -188,7 +208,7 @@ function CashPaymentVoucherForm({
                       danger
                       ghost
                       htmlType="reset"
-                      onClick={() => setTableData([])}
+                      onClick={() => handleReset()}
                       label={t('reset')}
                       icon={<SyncOutlined />}
                     />
@@ -197,7 +217,11 @@ function CashPaymentVoucherForm({
                     <AntButton danger ghost label={t('refresh')} icon={<ReloadOutlined />} />
                   </Col>
                   <Col>
-                    <AntButton label={t('save')} htmlType="submit" icon={<SaveOutlined />} />
+                    <AntButton
+                      label={selectedRecordId ? t('update') : t('save')}
+                      htmlType="submit"
+                      icon={<SaveOutlined />}
+                    />
                   </Col>
                 </Row>
               </Form.Item>
@@ -217,6 +241,7 @@ type TAddUpdateRecord = {
   refetchCashPayment: any;
   isDataSuccess: any;
   addCashPayment: any;
+  setSelectedRecordId: any;
 };
 
 export default CashPaymentVoucherForm;

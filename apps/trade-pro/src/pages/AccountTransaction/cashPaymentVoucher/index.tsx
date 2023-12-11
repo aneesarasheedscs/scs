@@ -13,16 +13,20 @@ function CashPaymentVoucher() {
   const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
   const [activeTab, setActiveTab] = useState<string>('1');
   const [viewDetail, setViewDetail] = useAtom(viewDetailList);
+
   const {
     data: addCashPayment,
     refetch: refetchCashPayment,
     isSuccess: isDataSuccess,
+    isLoading,
   } = useGetCashPaymentVoucherById(selectedRecordId);
+
   useEffect(() => {
-    if (isDataSuccess) {
-      setViewDetail(addCashPayment?.data?.Data?.Result?.voucherDetailList);
+    if (isDataSuccess && !isLoading) {
+      setViewDetail(addCashPayment?.data?.Data?.Result?.WsRmRequisitionPoDetailsList);
     }
-  }, [isDataSuccess]);
+  }, [isDataSuccess, !isLoading]);
+
   const {
     token: { colorPrimary },
   } = theme.useToken();
@@ -41,12 +45,14 @@ function CashPaymentVoucher() {
           <Tabs.TabPane key="1" tab={t('history')}>
             <CashPaymentTable setSelectedRecordId={setSelectedRecordId} setActiveTab={setActiveTab} />
           </Tabs.TabPane>
+
           <Tabs.TabPane key="2" tab={t('form')}>
             <CashPaymentVoucherForm
               selectedRecordId={selectedRecordId}
-              addCashPayment={addCashPayment}
-              refetchCashPayment={refetchCashPayment}
+              setSelectedRecordId={setSelectedRecordId}
               isDataSuccess={isDataSuccess}
+              refetchCashPayment={refetchCashPayment}
+              addCashPayment={addCashPayment}
             />
           </Tabs.TabPane>
         </Tabs>

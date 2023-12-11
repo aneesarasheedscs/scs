@@ -112,7 +112,7 @@ function MainEntry({ form, setBankId, bankId, isAddButtonClicked }: TDynamicForm
                   label={t('voucher_type')}
                   fieldValue="Id"
                   fieldLabel="Type"
-                  name="Id"
+                  name=""
                   options={map(voucherType, (item: any) => ({
                     value: item.Id,
                     label: item.Type,
@@ -162,7 +162,7 @@ function MainEntry({ form, setBankId, bankId, isAddButtonClicked }: TDynamicForm
                   label={t('wht_against_ac')}
                   fieldValue="Id"
                   fieldLabel="AccountTitle"
-                  name="AgainstAccountId"
+                  name="RefDocNoId"
                   disabled={!isWithHoldingChecked}
                   options={map(whtAgainst, (item: any) => ({
                     value: item.Id,

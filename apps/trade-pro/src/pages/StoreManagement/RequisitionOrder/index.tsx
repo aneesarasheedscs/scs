@@ -21,6 +21,7 @@ function RequisitionOrder() {
     isSuccess: isDataSuccess,
     isLoading: isDataLoading,
   } = useGetRequisitionOrderById(selectedRecordId);
+
   const {
     data: requisitionDetail,
     // refetch: refetchReqesition,
@@ -33,6 +34,7 @@ function RequisitionOrder() {
       setViewDetail(requisitionById?.data?.Data?.Result?.WsRmRequisitionPoDetailsList);
     }
   }, [isDataSuccessforDetail, !isDataLoadingDetail]);
+
   return (
     <>
       <h2 className="form-heading"> {t('requisition_order')} </h2>

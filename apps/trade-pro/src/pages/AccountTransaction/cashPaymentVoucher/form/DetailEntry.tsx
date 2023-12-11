@@ -29,6 +29,7 @@ const { useWatch } = Form;
 
 const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
   const formValues = useWatch<TCashPaymentDetailEntry[]>('voucherDetailList', form);
+
   const { t } = useTranslation();
   const [tableData, setTableData] = useAtom(addtableData);
   const [totalDebitAmounts, setTotalDebitAmounts] = useAtom(totalValue);
@@ -42,7 +43,8 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
   const { data: debit } = useGetDebitAccountSelect();
   const [counter, setCounter] = useState<any>(0);
   const [isEditMode, setIsEditMode] = useState(false);
-  const [edit, setEdit] = useState<any>([]);
+  // const [edit, setEdit] = useState<any>([]);
+  const [rowIndex, setrowIndex] = useState(-1);
   const allowedAccountTypes = isExpenseAccountAllowed ? [2, 15] : [2, 11, 12, 13, 14, 15, 20, 21];
   const filteredDebitAccounts = debit?.data?.Data?.Result.filter(
     (item: any) => !allowedAccountTypes.includes(item.AccountTypeId)
@@ -96,46 +98,45 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
   };
 
   const handleAddToTable = () => {
-    const newData = formValues.map((item, index) => ({
-      PaymentType: item.PaymentType,
-      AccountId: item.AccountIdDebit,
-      AccountTitle: item.AccountTitle,
-      JobLotDescription: item.JobLotDescription,
-      JobLotId: item.JobLotId,
-      DebitAmount: item.DebitAmount,
-      // CreditAmount: item.DebitAmount,
-      CreditAmount: 0,
-      InvoiceNoRefId: item.InvoiceNoRefId,
-      CheqNoDetail: item.CheqNoDetail,
-      // CheqId: item.CheqId,
-      PayeeTitle: item.PayeeTitle,
-      Comments: item.Comments,
-      IsTaxable: 'false',
-    }));
-    if (newData.some((item) => item.DebitAmount === null || item.DebitAmount === undefined)) {
-      const message = 'Please fill  Debit Amount';
-      notification.error({ message: message });
-      return;
-    }
-    if (newData.some((item) => item.AccountId === null || item.AccountId === undefined)) {
+    console.log(formValues);
+    if (formValues[0].AccountId == null || formValues[0].AccountId == undefined) {
       const message = 'Please fill  Debit Account';
       notification.error({ message: message });
       return;
     }
+    if (formValues[0].DebitAmount == null || formValues[0].DebitAmount == undefined) {
+      const message = 'Please fill  Debit Amount';
+      notification.error({ message: message });
+      return;
+    }
+
+    // const newData = {
+    //   PaymentType: formValues.PaymentType,
+    //   AccountId: formValues.AccountId,
+    //   AccountTitle: formValues.AccountTitle,
+    //   JobLotDescription: formValues.JobLotDescription,
+    //   JobLotId: formValues.JobLotId,
+    //   DebitAmount: formValues.DebitAmount,
+    //   // CreditAmount: item.DebitAmount,
+    //   CreditAmount: 0,
+    //   InvoiceNoRefId: formValues.InvoiceNoRefId,
+    //   CheqNoDetail: formValues.CheqNoDetail,
+    //   // CheqId: item.CheqId,
+    //   PayeeTitle: formValues.PayeeTitle,
+    //   Comments: formValues.Comments,
+    //   IsTaxable: 'false',
+    // };
+    const newData = formValues[0];
+    console.log(newData);
+
     setRefAccountId(0);
-    setCounter((prevCounter: any) => prevCounter + 1);
+
     setTableData((prevData: any[]) => {
-      const updatedData = newData.map((item) => ({
-        ...item,
-        CheqId: counter,
-        // ChequeNo: counter,
-        // AgainstAccountId: againstAccountId,
-      }));
-      const combinedData = [...prevData, ...updatedData];
+      const combinedData = [...prevData, newData];
       console.log('New tableData:', combinedData);
       return combinedData;
     });
-    form.setFieldValue(['voucherDetailList', 0, 'AccountIdDebit'], null);
+    form.setFieldValue(['voucherDetailList', 0, 'AccountId'], null);
     form.setFieldValue(['voucherDetailList', 0, 'AccountTitle'], null);
     form.setFieldValue(['voucherDetailList', 0, 'JobLotId'], null);
     form.setFieldValue(['voucherDetailList', 0, 'JobLotDescription'], null);
@@ -145,56 +146,65 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
     form.setFieldValue(['voucherDetailList', 0, 'PayeeTitle'], null);
     setIsEditMode(false);
   };
+
   const handleUpdateToTable = () => {
     console.log('Form Values:', formValues);
-    const newData = formValues.map((item, index) => ({
-      PaymentType: item.PaymentType,
-      AccountId: item.AccountIdDebit,
-      AccountTitle: item.AccountTitle,
-      JobLotDescription: item.JobLotDescription,
-      JobLotId: item.JobLotId,
-      DebitAmount: item.DebitAmount,
-      // CreditAmount: item.DebitAmount,
+
+    const newData = {
+      PaymentType: formValues[0].PaymentType,
+      AccountId: formValues[0].AccountId,
+      AccountTitle: formValues[0].AccountTitle,
+      JobLotId: formValues[0].JobLotId,
+      JobLotDescription: formValues[0].JobLotDescription,
+      DebitAmount: formValues[0].DebitAmount,
+      Comments: formValues[0].Comments,
       CreditAmount: 0,
-      InvoiceNoRefId: item.InvoiceNoRefId,
-      CheqNoDetail: item.CheqNoDetail,
-      // CheqId: item.CheqId,
-      PayeeTitle: item.PayeeTitle,
-      Comments: item.Comments,
       IsTaxable: 'false',
-    }));
-    if (newData.some((item) => item.DebitAmount === null || item.DebitAmount === undefined)) {
+    };
+
+    if (newData.DebitAmount === null || newData.DebitAmount === undefined) {
       const message = 'Please fill  Debit Amount';
       notification.error({ message: message });
       return;
     }
 
-    if (newData.some((item) => item.AccountId === null || item.AccountId === undefined)) {
+    if (newData.AccountId === null || newData.AccountId === undefined) {
       const message = 'Please select a Debit account';
       notification.error({ message: message });
       return;
     }
 
-    setCounter((prevCounter: any) => prevCounter - 1);
     setTableData((prevData: any[]) => {
-      const updatedData = newData.map((item, index) => {
-        const editedRowIndex = prevData.findIndex((row) => row.CheqId === edit.CheqId);
-        if (editedRowIndex >= 0) {
-          return {
-            ...item,
-            CheqId: edit.CheqId,
-            // ChequeNo: counter,
-            // AgainstAccountId: againstAccountId,
-          };
+      return prevData.map((item, index) => {
+        if (index === rowIndex) {
+          // Update the item at rowIndex
+          return newData;
+        } else {
+          // Keep other items unchanged
+          return item;
         }
-        return item;
       });
-
-      const combinedData = [...prevData.filter((row) => row.CheqId !== edit.CheqId), ...updatedData];
-      console.log('New tableData:', combinedData);
-      return combinedData;
     });
-    form.setFieldValue(['voucherDetailList', 0, 'AccountIdDebit'], null);
+
+    // setCounter((prevCounter: any) => prevCounter - 1);
+
+    // setTableData((prevData: any[]) => {
+    //   const updatedData = newData.map((item, index) => {
+    //     if (rowIndex >= 0) {
+    //       return {
+    //         ...item,
+    //         // ChequeNo: counter,
+    //         // AgainstAccountId: againstAccountId,
+    //       };
+    //     }
+    //     return item;
+    //   });
+
+    //   const combinedData = [...prevData.filter((row) => row.CheqId !== edit.CheqId), ...updatedData];
+    //   console.log('New tableData:', combinedData);
+    //   return combinedData;
+    // })
+    form.setFieldValue(['voucherDetailList', 0, 'AccountId'], null);
     form.setFieldValue(['voucherDetailList', 0, 'AccountTitle'], null);
     form.setFieldValue(['voucherDetailList', 0, 'JobLotId'], null);
     form.setFieldValue(['voucherDetailList', 0, 'JobLotDescription'], null);
@@ -202,6 +212,7 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
     form.setFieldValue(['voucherDetailList', 0, 'Comments'], null);
     form.setFieldValue(['voucherDetailList', 0, 'CheqNoDetail'], null);
     form.setFieldValue(['voucherDetailList', 0, 'PayeeTitle'], null);
+
     setIsEditMode(false);
   };
 
@@ -213,31 +224,32 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
     });
   };
 
-  const handleEditRow = (record: any) => {
-    setEdit(record);
-    setTableData((prevData: any[]) => {
-      const updatedData = [...prevData]; // Create a copy of the array
-      const rowIndex = updatedData.findIndex((item: any) => item.CheqId === record.CheqId);
+  const handleEditRow = (record: any, index: number) => {
+    console.log('Row Index: ', index);
+    setrowIndex(index);
+    // setEdit(record);
 
-      if (rowIndex !== -1) {
-        updatedData[rowIndex] = {
-          ...updatedData[rowIndex],
-          PaymentTypeId: record.PaymentType,
-          AccountId: record.AccountTitle,
-          JobLotId: record.JobLotDescription,
-          DebitAmount: record.DebitAmount,
-          CheqNoDetail: record.CheqNoDetail,
-          // CheqId: record.CheqId,
-          PayeeTitle: record.PayeeTitle,
-          Comments: record.Comments,
-        };
+    form.setFieldValue(['voucherDetailList', 0], record); // Update form values
+    setIsEditMode(true);
 
-        form.setFieldValue(['voucherDetailList', 0], updatedData[rowIndex]); // Update form values
-        setIsEditMode(true);
-      }
-      console.log('New tableData:', updatedData);
-      return updatedData;
-    });
+    // setTableData((prevData: any[]) => {
+    //   const updatedData = [...prevData]; // Create a copy of the array
+
+    //   // const rowIndex = updatedData.findIndex((item: any) => item.CheqId === record.CheqId);
+    //   const rowIndex = index;
+    //   if (rowIndex !== -1) {
+    //     updatedData[rowIndex] = {
+    //       ...updatedData[rowIndex],
+    //       PaymentTypeId: record.PaymentType,
+    //       AccountId: record.AccountTitle,
+    //       JobLotId: record.JobLotDescription,
+    //       DebitAmount: record.DebitAmount,
+    //       Comments: record.Comments,
+    //     };
+    //   }
+    //   console.log('New tableData:', updatedData);
+    //   return updatedData;
+    // });
   };
   const handleSelectjobLotChange = (obj: TjobLot, index: number) => {
     form.setFieldValue(['voucherDetailList', 0, 'JobLotDescription'], obj?.JobLotDescription);
@@ -356,7 +368,7 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
                             label={t('debit_account')}
                             fieldValue="Id"
                             fieldLabel="AccountTitle"
-                            name={[field.name, 'AccountIdDebit']}
+                            name={[field.name, 'AccountId']}
                             onChange={handleCreditAccountChange}
                             options={map(filteredDebitAccounts, (item: any) => ({
                               value: item.Id,
@@ -529,6 +541,7 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
                                     bordered={false}
                                     fieldValue="Id"
                                     fieldLabel="AccountTitle"
+                                    name="AgainstAccountId"
                                     formItemProps={{ ...field, name: [field.name, 'AgainstAccountId'] }}
                                     label={t('wht_account')}
                                     options={map(filter, (item: any) => ({

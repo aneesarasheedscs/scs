@@ -20,6 +20,8 @@ const VoucherTable: React.FC<{
   const [selected, setSelected] = useState<any>([]);
 
   const [popupVisibility, setpopupVisibility] = useState(false);
+  const [ConfirmPopupVisibility, setConfirmPopupVisibility] = useState(false);
+  const [ConfirmationMesg, setConfirmationMesg] = useState('');
   const [popupType, setpopupType] = useState('');
   const [popupMesg, setpopupMesg] = useState('');
   const [popupTitle, setpopupTitle] = useState('');
@@ -33,6 +35,11 @@ const VoucherTable: React.FC<{
     selected,
     onChange: onSelectChange,
     hideDefaultSelections: true,
+  };
+
+  const handleRecordsForApproveAndRevision = (ActionTypeId: boolean) => {
+    setConfirmationMesg("Are You Sure To approve Record's");
+    setConfirmPopupVisibility(true);
   };
 
   let ApproveData: any = [];
@@ -51,7 +58,6 @@ const VoucherTable: React.FC<{
         ReqType: approvalUnApproval == false ? 'AP' : 'UP',
       });
     }
-    Approve(ApproveData);
   };
 
   useEffect(() => {
@@ -77,7 +83,7 @@ const VoucherTable: React.FC<{
           <AntButton
             icon={<FileProtectOutlined />}
             className="btn"
-            onClick={() => ApproveRecords(false)}
+            onClick={() => handleRecordsForApproveAndRevision(false)}
             label={`${selected.length}`}
           />
         </Tooltip>
@@ -87,7 +93,7 @@ const VoucherTable: React.FC<{
               icon={<EditFilled />}
               style={{ marginLeft: '3px' }}
               className="btn"
-              onClick={() => ApproveRecords(true)}
+              onClick={() => handleRecordsForApproveAndRevision(true)}
               label={`${selected.length}`}
             />
           </Tooltip>
@@ -120,7 +126,13 @@ const VoucherTable: React.FC<{
         message={popupMesg}
         visibility={popupVisibility}
         onOk={() => setpopupVisibility(false)}
-        onNoClicked={() => setpopupVisibility(false)}
+      ></CustomPopup>
+      <CustomPopup
+        type={'confirmation'}
+        title={'Confirmation'}
+        message={ConfirmationMesg}
+        visibility={ConfirmPopupVisibility}
+        onNoClicked={() => setConfirmPopupVisibility(false)}
         onYesClicked={ApproveRecords}
       ></CustomPopup>
     </div>

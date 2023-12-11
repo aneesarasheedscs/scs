@@ -190,19 +190,19 @@ export const column2 = (t: any, handleDeleteRow: any, handleEditRow: any): AntCo
   {
     title: <>{t('action')}</>,
     width: 120,
-    render: (_, record) => (
+    render: (_, record, index) => (
       <Tooltip title="Actions">
         <Space>
           <AntButton
             type="text"
             icon={<DeleteOutlined style={{ color: 'red' }} />}
-            onClick={() => handleDeleteRow(record)}
+            onClick={() => handleDeleteRow(record, index)}
           />
 
           <AntButton
             type="text"
             icon={<EditFilled style={{ color: 'blue' }} />}
-            onClick={() => handleEditRow(record)}
+            onClick={() => handleEditRow(record, index)}
           />
         </Space>
       </Tooltip>

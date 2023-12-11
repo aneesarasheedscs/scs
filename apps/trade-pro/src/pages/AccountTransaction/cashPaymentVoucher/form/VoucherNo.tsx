@@ -8,7 +8,6 @@ const { useToken } = theme;
 function VoucherNo({ data, isError, refetch, isLoading }: TVoucherNo) {
   const { token } = useToken();
   const { t } = useTranslation();
-  console.log(data);
   if (isError)
     return (
       <Row gutter={5} align="middle">
