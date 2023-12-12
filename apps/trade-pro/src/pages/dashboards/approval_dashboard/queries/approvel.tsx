@@ -135,19 +135,45 @@ export const useApproveVouchers = (documentTypeId?: number) => {
       onSuccess: () => {
         queryClient.invalidateQueries(['Modern-history-Header', documentTypeId?.toString()]);
         queryClient.invalidateQueries('vouchers-Approval');
-        // queryClient.invalidateQueries(['voucher-history-table', documentTypeId]);
-        // let msg: string = '';
-        // if (dataToSubmit.AllApprovalLists[0].ActionTypeId === false) {
-        //   msg = 'Record Approve successfully!';
-        // } else if (dataToSubmit.AllApprovalLists[0].ActionTypeId === true) {
-        //   msg = 'Record Sent For Revision successfully!';
-        // }
-        // notification.success({ description: '', message: msg });
       },
       onError: (error: AxiosError) => {
         const msg = error.response?.data || 'Something went wrong';
         notification.error({ description: '', message: msg as string });
       },
+    }
+  );
+};
+
+// Notes Save
+export const useVouchersNotesByApprovalUserId_Save = (documentTypeId?: number) => {
+  return useMutation(
+    'VouchersNotesByApprovalUserId_Save',
+    (dataToSubmit: any) => {
+      return requestManager.post('api/VouchersApprovedByEditorRemarks/Save', dataToSubmit);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('VouchersRemarksByApprovalUser_History');
+      },
+      onError: (error: AxiosError) => {
+        const msg = error.response?.data || 'Something went wrong';
+        notification.error({ description: '', message: msg as string });
+      },
+    }
+  );
+};
+//Notes History
+export const useVouchersRemarksByApprovalUser_History = (documentTypeId?: number, VoucherHeadId?: number) => {
+  return useQuery(
+    'VouchersRemarksByApprovalUser_History',
+    () => {
+      return requestManager.post('api/VouchersApprovedByEditorRemarks/HistoryByUserAndDocumentId', {
+        CommentsUserId: documentTypeId,
+        RefDocMasterRecordId: VoucherHeadId,
+      });
+    },
+    {
+      enabled: !!VoucherHeadId,
     }
   );
 };

@@ -1,11 +1,10 @@
-import { Tabs } from 'antd';
+import { Row, Tabs } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import { useGetStockTransferById } from './quries';
 import { useAtom } from 'jotai';
 import { viewDetailList, addtableData } from './form/Atom';
 import StockTransferTable from './table/StockTransferTable';
-import StockTransferDetailTable from './table/DetailTable';
 import StockTransferForm from './form';
 import './style.scss';
 
@@ -28,7 +27,10 @@ function StockTransfer() {
   }, [isDataSuccess]);
   return (
     <>
-      <h2 className="form-heading"> {t('stock_transfer_warehouse_to_warehouse')} </h2>
+      {/* <h2 className="form-heading"> {t('stock_transfer_warehouse_to_warehouse')} </h2> */}
+      <h2 className="" style={{ textAlign: 'center' }}>
+        {t('stock_transfer_warehouse_to_warehouse')}{' '}
+      </h2>
 
       <Tabs
         type="card"
@@ -39,11 +41,11 @@ function StockTransfer() {
       >
         <Tabs.TabPane key="1" tab={t('history')}>
           <StockTransferTable setSelectedRecordId={setSelectedRecordId} setActiveTab={setActiveTab} />
-          <StockTransferDetailTable />
         </Tabs.TabPane>
         <Tabs.TabPane key="2" tab={t('form')}>
           <StockTransferForm
             selectedRecordId={selectedRecordId}
+            setSelectedRecordId={setSelectedRecordId}
             stockTransfergetById={stockTransfergetById}
             refetchStock={refetchStock}
             isDataSuccess={isDataSuccess}

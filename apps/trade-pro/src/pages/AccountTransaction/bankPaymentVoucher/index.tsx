@@ -4,7 +4,6 @@ import './style.scss';
 import BankPaymentVoucherForm from './form';
 import { useEffect, useState } from 'react';
 import BankPaymentTable from './table/bankPaymentVoucher';
-import BankPaymentDetailTable from './table/DetailTable';
 import { useGetBankPaymentVoucherById } from './queries/querySave';
 import { useAtom } from 'jotai';
 import { viewDetailList } from './form/Atom';
@@ -31,7 +30,7 @@ function BankPaymentVoucher() {
   return (
     <>
       <Card style={{ background: 'transparent', marginLeft: '-1%', marginTop: '-2%' }}>
-        <h2 className="form-heading">{t('bank_payment_voucher')}</h2>
+        <h2 style={{ textAlign: 'center' }}>{t('bank_payment_voucher')}</h2>
         <Tabs
           type="card"
           size="large"
@@ -41,7 +40,6 @@ function BankPaymentVoucher() {
         >
           <Tabs.TabPane key="1" tab={t('history')}>
             <BankPaymentTable setSelectedRecordId={setSelectedRecordId} setActiveTab={setActiveTab} />
-            <BankPaymentDetailTable />
           </Tabs.TabPane>
           <Tabs.TabPane key="2" tab={t('form')}>
             <BankPaymentVoucherForm

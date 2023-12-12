@@ -11,7 +11,7 @@ import dayjs from 'dayjs';
 import MainEntry from './MainEntry';
 import DynamicForm from './DetailEntry';
 import { TSaveCashPaymentVoucher } from './types';
-import { useAddCashPaymentVoucher, useAddUpdateCashPaymentVoucher } from '../queries/querySave';
+import { useAddCashPaymentVoucher, useUpdateCashPaymentVoucher } from '../queries/querySave';
 import { useAtom } from 'jotai';
 import { addtableData, isWithHoldingCheckedAtom } from './Atom';
 
@@ -33,20 +33,16 @@ function CashPaymentVoucherForm({
   const [tableData, setTableData] = useAtom(addtableData);
   const [isWithHoldingChecked, setIsWithHoldingChecked] = useAtom(isWithHoldingCheckedAtom);
   const [isAddButtonClicked, setIsAddButtonClicked] = useState(true);
-  const {
-    mutate: addCashPaymentVoucher,
-    isSuccess: isEntrySuccessful,
-    data: entryData,
-  } = useAddUpdateCashPaymentVoucher();
+  const { mutate: addCashPaymentVoucher, isSuccess: isEntrySuccessful, data: entryData } = useAddCashPaymentVoucher();
   const {
     mutate: updateCashPaymentVoucher,
     isSuccess: isUpdateEntrySuccessful,
     data: UpdateData,
-  } = useAddUpdateCashPaymentVoucher(selectedRecordId);
+  } = useUpdateCashPaymentVoucher(selectedRecordId);
 
   useEffect(() => {
+    setTableData([]);
     if (selectedRecordId) {
-      setTableData([]);
       form.resetFields();
     } else {
       if (isSuccess) form.setFieldValue('VoucherCode', data?.data?.Data?.Result[0]?.VoucherCode);
@@ -92,9 +88,7 @@ function CashPaymentVoucherForm({
 
     if (selectedRecordId) {
       updateCashPaymentVoucher(values);
-      if (isUpdateEntrySuccessful == true && UpdateData?.data?.Status == true) {
-        console.log('update');
-        handleReset();
+      if (isUpdateEntrySuccessful) {
       }
     } else if (tableData.length === 0) {
       notification.error({
@@ -105,10 +99,9 @@ function CashPaymentVoucherForm({
       console.log(values);
       addCashPaymentVoucher(values);
       if (isEntrySuccessful == true && entryData?.data?.Status == true) {
-        console.log('Insert');
-        handleReset();
       }
     }
+    handleReset();
   };
 
   const handleReset = () => {

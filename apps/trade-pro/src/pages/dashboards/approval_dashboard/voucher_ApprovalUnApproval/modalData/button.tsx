@@ -10,10 +10,18 @@ import {
 } from '@ant-design/icons';
 import React from 'react';
 
-const Buttons: React.FC<{ SelectedDocumentsCount: number; ApproveSelectedVouchers: any; ForRevision?: boolean }> = ({
+const Buttons: React.FC<{
+  SelectedDocumentsCount: number;
+  ApproveSelectedVouchers: any;
+  ForRevision?: boolean;
+  VoucherNotesByApprovalPersonVisible?: boolean;
+  handlVoucherNotesButtonClick?: any;
+}> = ({
   SelectedDocumentsCount,
   ApproveSelectedVouchers,
   ForRevision,
+  VoucherNotesByApprovalPersonVisible,
+  handlVoucherNotesButtonClick,
 }) => {
   return (
     // <div>
@@ -44,9 +52,11 @@ const Buttons: React.FC<{ SelectedDocumentsCount: number; ApproveSelectedVoucher
             />
           </Tooltip>
         ) : null}
-        {/* <Tooltip placement="top" title="Take Notes">
-              <AntButton className="btn" icon={<FileTextOutlined />} />
-            </Tooltip> */}
+        {VoucherNotesByApprovalPersonVisible && (
+          <Tooltip placement="top" title="Take Notes">
+            <AntButton className="btn" icon={<FileTextOutlined />} onClick={handlVoucherNotesButtonClick} />
+          </Tooltip>
+        )}
         {/* <Tooltip placement="top" title="General Ledger Of Header Account">
               <AntButton className="btn" icon={<AlignLeftOutlined />} />
             </Tooltip> */}

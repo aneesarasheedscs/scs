@@ -1,10 +1,10 @@
-import { useMutation, useQuery } from 'react-query';
+import { QueryFunction, QueryFunctionContext, QueryKey, UseQueryResult, useMutation, useQuery } from 'react-query';
 import { requestManager } from '@tradePro/configs/requestManager';
 import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 import { queryClient } from '@tradePro/configs';
 import { notification } from 'antd';
-import { AxiosError } from 'axios';
-import { TStockTransferHistory, TJournalVoucherData, TJournalVoucherHistory, TStockTransfer } from './types';
+import { AxiosError, AxiosResponse } from 'axios';
+import { TStockTransferHistory, TStockTransfer, TDetailPackUom } from './types';
 
 const userDetail = storedUserDetail();
 const financialYear = storedFinancialYear();
@@ -140,14 +140,43 @@ export const useGetItemName = () => {
     });
   });
 };
-export const useGetUomByItemId = (ItemId?: number | null) => () => {
-  return useQuery(
-    ['uom', ItemId],
-    () => {
-      return requestManager.get('/api/UOMSchedule/SearchByObject', { params: { ...params, ItemId } });
-    },
-    { enabled: !!ItemId }
-  );
+// export const useGetUomByItemId2 = (ItemId?: number | null) => () => {
+//   return useQuery(
+//     ['uom2', ItemId],
+//     () => {
+//       return requestManager.get('/api/UOMSchedule/SearchByObject', { params: { ...params, ItemId } });
+//     },
+//     { enabled: !!ItemId }
+//   );
+// };
+
+export const useGetUomByItemId = (ItemId?: number | null | any) => {
+  return useQuery(['destination_location', ItemId], getUomByItemId, {
+    cacheTime: userDetail?.expires_in,
+  });
+};
+
+const getUomByItemId: QueryFunction<AxiosResponse<TDetailPackUom, TDetailPackUom>, [QueryKey, number | null]> = async (
+  context: QueryFunctionContext<[QueryKey, number | null]>
+) => {
+  const ItemId = context.queryKey[1];
+  const response = await requestManager.get('/api/UOMSchedule/SearchByObject', {
+    params: { ...params, ItemId },
+  });
+
+  const filterData = response?.data?.Data?.Result;
+  console.log(filterData);
+  const hasBasePackUom = filterData.some((uom: any) => uom.BasePackUom);
+  console.log(hasBasePackUom);
+  // If any BasePackUom is true, filter the options
+  if (hasBasePackUom) {
+    const response = filterData.filter((uom: any) => uom.BasePackUom);
+    console.log(response);
+    return response;
+  } else {
+    // If all BasePackUom are false, bind with the first record
+    return [filterData[0]];
+  }
 };
 
 //Get ById
@@ -231,7 +260,7 @@ export const useAddStocktransfer = (params?: TStockTransfer) => {
 export const useUpdateStocktransfer = (Id?: number | null, params?: TStockTransfer) => {
   return useMutation(
     'update-stock-transfer',
-    (data: TStockTransfer, Id?: number) => {
+    (data: TStockTransfer) => {
       let dataToSubmit = {};
       dataToSubmit = {
         ...data,

@@ -6,33 +6,41 @@ import { formateDate } from '@tradePro/utils/formateDate';
 import { TBankPaymentVoucherTable } from './types';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { DataType } from '../form/types';
-
+import dayjs from 'dayjs';
 export const columns = (
   t: any,
   setSelectedRecordId?: any,
   setActiveTab?: any
 ): AntColumnType<TBankPaymentVoucherTable>[] => [
   {
-    title: <>{t('document_type_code')}</>,
-    width: 220,
-    searchableInput: true,
-    dataIndex: 'DocumentTypeCode',
-    sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.DocumentTypeCode.localeCompare(b.DocumentTypeCode),
-  },
-  {
-    title: <>{t('voucher_code')}</>,
-    width: 190,
+    title: <>{t('code')}</>,
+    width: 120,
     searchableInput: true,
     dataIndex: 'VoucherCode',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.VoucherCode.localeCompare(b.VoucherCode),
   },
   {
+    title: <>{t('type')}</>,
+    width: 120,
+    searchableInput: true,
+    dataIndex: 'DocumentTypeCode',
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.DocumentTypeCode.localeCompare(b.DocumentTypeCode),
+  },
+
+  {
     title: <>{t('voucher_date')}</>,
     width: 200,
     dataIndex: 'VoucherDate',
+    searchableDate: true,
     render: (_, { VoucherDate }) => formateDate(VoucherDate),
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => {
+      const dateA = dayjs(a.VoucherDate);
+      const dateB = dayjs(b.VoucherDate);
+      return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
+    },
   },
   {
     title: <>{t('account_title')}</>,
@@ -43,14 +51,6 @@ export const columns = (
     sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
   },
   {
-    title: <>{t('remarks')}</>,
-    width: 220,
-    dataIndex: 'Remarks',
-    searchableInput: true,
-    sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.Remarks.localeCompare(b.Remarks),
-  },
-  {
     title: <>{t('voucher_amount')}</>,
     width: 200,
     showTotal: true,
@@ -58,18 +58,8 @@ export const columns = (
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.VoucherAmount - b.VoucherAmount,
     render: (_, { VoucherAmount }) => (
-      <span style={{ display: 'flex', justifyContent: 'end', marginRight: '20%' }}>
-        {numberFormatter(VoucherAmount)}
-      </span>
+      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(VoucherAmount)}</span>
     ),
-  },
-  {
-    title: <>{t('user_name')}</>,
-    width: 220,
-    dataIndex: 'UserName',
-    searchableInput: true,
-    sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.UserName.localeCompare(b.UserName),
   },
   {
     title: <>{t('cheque_no')}</>,
@@ -80,7 +70,83 @@ export const columns = (
     sorter: (a, b) => a.CheqNo.localeCompare(b.CheqNo),
   },
   {
-    title: <>{t('attachment')}</>,
+    title: <>{t('cheque_date')}</>,
+    dataIndex: 'ChequeDate',
+    searchableInput: true,
+    sortDirections: ['ascend', 'descend'],
+    searchableDate: true,
+    render: (_, { ChequeDate }) => formateDate(ChequeDate),
+    sorter: (a, b) => {
+      const dateA = dayjs(a.ChequeDate);
+      const dateB = dayjs(b.ChequeDate);
+      return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
+    },
+    width: 160,
+  },
+  {
+    title: <>{t('remarks')}</>,
+    width: 220,
+    dataIndex: 'Remarks',
+    searchableInput: true,
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.Remarks.localeCompare(b.Remarks),
+  },
+
+  {
+    title: <>{t('user_name')}</>,
+    width: 220,
+    dataIndex: 'UserName',
+    searchableInput: true,
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.UserName.localeCompare(b.UserName),
+  },
+  {
+    title: <>{t('entry_date')}</>,
+    dataIndex: 'EntryDate',
+    searchableInput: true,
+    sortDirections: ['ascend', 'descend'],
+    searchableDate: true,
+    render: (_, { EntryDate }) => formateDate(EntryDate),
+    sorter: (a, b) => {
+      const dateA = dayjs(a.EntryDate);
+      const dateB = dayjs(b.EntryDate);
+      return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
+    },
+    width: 160,
+  },
+  {
+    title: <>{t('pay_title')}</>,
+    width: 200,
+    dataIndex: 'PayeeTitle',
+    searchableInput: true,
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.PayeeTitle.localeCompare(b.PayeeTitle),
+  },
+  {
+    title: <>{t('status')}</>,
+    dataIndex: 'IsApproved',
+    render: (IsApproved) => (
+      <Space
+        style={{
+          backgroundColor: IsApproved ? '#00A148' : '#f37daa',
+          color: 'white',
+          borderRadius: '5px',
+          width: '95%',
+          paddingLeft: 8,
+          border: '1px ridge white',
+          boxShadow: ' rgba(0, 0, 0, 0.35) 0px 5px 15px',
+          position: 'absolute',
+          top: 8,
+          left: 0,
+        }}
+      >
+        {IsApproved ? 'Approved' : 'Not Approved'}
+      </Space>
+    ),
+    width: 150,
+  },
+  {
+    title: <>{t('no_of_attachment')}</>,
     width: 150,
     dataIndex: 'Attachment',
   },

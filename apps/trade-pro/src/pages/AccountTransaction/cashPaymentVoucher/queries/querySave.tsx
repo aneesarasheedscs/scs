@@ -36,7 +36,7 @@ const getCashPaymentVoucherById = (Id?: number | null) => {
 
 export const useAddCashPaymentVoucher = (params?: TSaveCashPaymentVoucher) => {
   return useMutation(
-    'C',
+    'AddCpvVoucher',
     (data: TSaveCashPaymentVoucher) => {
       let dataToSubmit = {};
       dataToSubmit = {
@@ -78,9 +78,9 @@ export const useAddCashPaymentVoucher = (params?: TSaveCashPaymentVoucher) => {
   );
 };
 
-export const useAddUpdateCashPaymentVoucher = (RecId?: number | null, params?: TSaveCashPaymentVoucher) => {
+export const useUpdateCashPaymentVoucher = (RecId?: number | null, params?: TSaveCashPaymentVoucher) => {
   return useMutation(
-    'AddUpdate_CashPayment',
+    'Update_CashPayment',
     (data: TSaveCashPaymentVoucher) => {
       let dataToSubmit = {};
       const userDetail = storedUserDetail();
@@ -109,12 +109,7 @@ export const useAddUpdateCashPaymentVoucher = (RecId?: number | null, params?: T
             description: response?.data?.Message || 'An error occurred.',
           });
         } else if (response?.data && response?.data?.Status === true) {
-          let msg = '';
-          if (isNumber(RecId)) {
-            msg = 'Record Updated successfully!';
-          } else {
-            msg = 'Record saved successfully!';
-          }
+          const msg = 'Record Updated successfully!';
           notification.success({ description: '', message: msg });
           queryClient.invalidateQueries('CashPaymentVoucher-history');
         }

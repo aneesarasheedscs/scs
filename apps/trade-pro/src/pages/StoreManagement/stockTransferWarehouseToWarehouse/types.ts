@@ -117,6 +117,7 @@ export type TWsRmWareHouseToWareHouseStocTransferDetailList = {
   RemarksDetail: string;
   ActionTypeId: number;
   LineId: number;
+  IsDetailExpanded: boolean;
 };
 export type TStockTransferHistory = {
   Id: string;
@@ -135,4 +136,6 @@ export type TStockTransferHistory = {
   CompanyId: number;
   BranchesId: number;
   FinancialYearId: number;
+  TotalQty: number;
+  TotalAmount: number;
 };

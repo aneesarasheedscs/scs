@@ -27,7 +27,7 @@ export const useGetBankPaymentVoucherTable = (enabled = true, params?: TBankHist
         FinancialYearId: financialYear?.Id,
         Ids: '2',
         PostState: true,
-        NoOfRecords: 50,
+        // NoOfRecords: 50,
         ...params,
       });
     },
@@ -42,7 +42,7 @@ export const useGetVoucherNo = (DocumentTypeId: number) => {
       return requestManager.get('/api/Voucher/GenerateVoucherCodeByDocumentTypeId', {
         params: {
           DocumentTypeId: DocumentTypeId,
-          BranchId: 2,
+          BranchId: userDetail?.BranchesId,
           FinancialYearId: financialYear?.Id,
           CompanyId: userDetail?.CompanyId,
           OrganizationId: userDetail?.OrganizationId,
@@ -102,24 +102,6 @@ export const useGetConfigration = (configDescription: any) => {
       return requestManager.get('/api/ConfigrationsAllocation/GetConfigurationByOrgCompandConfigDescription', {
         params: { ...params, ConfigDescription: configDescription },
       });
-    },
-    { cacheTime: 5000 }
-  );
-};
-
-export const useGetBankPaymentCompanySelect = () => {
-  return useQuery('BankPaymentCompany-Select', () => {
-    return requestManager.get('/api/Company/GetAlldt', {
-      params: { ...params, OrgCompanyTypeId: 2 },
-    });
-  });
-};
-
-export const useGetBankPaymentBranchSelect = () => {
-  return useQuery(
-    'BankPaymentBranch-Select',
-    () => {
-      return requestManager.get('/api/Branches/GetAll', { params: { ...params } });
     },
     { cacheTime: 5000 }
   );

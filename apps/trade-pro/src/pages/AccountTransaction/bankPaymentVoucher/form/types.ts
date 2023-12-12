@@ -23,22 +23,6 @@ export type TSaveBankPaymentVoucher = {
   voucherDetailList: TBankPaymentDetailEntry[];
 };
 
-export type PaymentVoucher = {
-  AccountId: number;
-  AgainstAccountId: number;
-  JobLotId: number;
-  Comments: string;
-  PaymentType: 'Advance' | 'Other';
-  AdvanceAmount?: number;
-  DebitAmount: number;
-  CreditAmount: number;
-  InvoiceNoRefId: number;
-  CheqNoDetail: number;
-  DCheqDate: string;
-  PayeeTitle: string;
-  IsTaxable: boolean;
-};
-
 export type AccountData = {
   Id: number;
   ChartofAccountId: number;
@@ -64,9 +48,9 @@ export type TBankPaymentDetailEntry = {
   JobLotId: number;
   DCheqDate: Date | string;
   PaymentType: string;
-  DebitAmount?: number;
-  CreditAmount?: number;
-  AdvanceAmount?: number;
+  DebitAmount: number;
+  CreditAmount: number;
+  AdvanceAmount: number;
   CheqNoDetail: number;
   CheqId: number;
   InvoiceNoRefId: number;
@@ -79,6 +63,10 @@ export type TBankPaymentDetailEntry = {
   TaxTypeId: number;
   TaxPrcnt: number;
   TaxesTotalAmount: number;
+  IsDetailExpanded: boolean;
+  AccountCode: string;
+  AgainstAccountCode: string;
+  AgainstAccount: string;
 };
 
 export type TFormDetailList = {
@@ -92,31 +80,6 @@ export type TFormDetailList = {
   TaxPrcnt: number;
   TaxesTotalAmount: number;
   Amount: number;
-};
-
-export type TSaveBankPayment = {
-  Id: number;
-  Type: number;
-  BranchId: number;
-  ProjectId: number;
-  OrganizationId: number;
-  CompanyId: number;
-  FinancialYearId: number;
-  EntryUser: number;
-  ModifyUser: number;
-  EntryDate: string;
-  ModifyDate: string;
-  DocumentTypeId: number;
-  VoucherCode: number;
-  VoucherDate: string;
-  RefAccountId: number;
-  AgainstAccountId: number;
-  RefDocNoId: number;
-  IncludeWHT: boolean;
-  ChequeDate: string;
-  Remarks: string;
-  VoucherAmount: number;
-  voucherDetailList: TBankPaymentDetailEntry[];
 };
 
 export type DataType = {

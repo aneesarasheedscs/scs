@@ -1,5 +1,5 @@
 import { AntButton, AntDatePicker, AntInput, AntInputNumber, AntSelectDynamic, AntTable } from '@tradePro/components';
-import { Card, Col, Row, Form, FormInstance, theme, notification } from 'antd';
+import { Card, Col, Row, Form, FormInstance, notification } from 'antd';
 import { add, map, sumBy } from 'lodash';
 import dayjs from 'dayjs';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
@@ -30,7 +30,6 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
   const [refAccountId, setRefAccountId] = useState(0);
   const { data } = useGetAccountsBalance(refAccountId);
   const { data: configData } = useGetConfigration('CheqBook Enabled');
-  console.log(configData);
   const isExpenseAccountAllowed = configData?.data?.Data?.Result === 'True';
   const { data: debit } = useGetDebitAccountSelect();
   const [counter, setCounter] = useState<any>(0);
@@ -74,9 +73,6 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
   };
   const handleDebitAccountChange = (accountId: number) => {
     setRefAccountId(accountId);
-    const balance2 = data?.data?.Data?.Result?.[0]?.Balance.toFixed(2);
-    form.setFieldValue(['voucherDetailList', 0, 'Balance'], balance2);
-    console.log('abc', balance2);
     const selectedAccount = filteredDebitAccounts.find((item: any) => item.Id === accountId);
     if (selectedAccount) {
       const accountTitle = selectedAccount.AccountTitle;
@@ -321,8 +317,8 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
                         sm={{ span: 23 }}
                         md={{ span: 11 }}
                         lg={{ span: 11 }}
-                        xl={{ span: 6 }}
-                        xxl={{ span: 4 }}
+                        xl={{ span: 7 }}
+                        xxl={{ span: 5 }}
                         className="formfield type"
                         style={{ marginBottom: '1%' }}
                       >
@@ -348,10 +344,10 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
                       <Col
                         xs={{ span: 24 }}
                         sm={{ span: 23 }}
-                        md={{ span: 11 }}
+                        md={{ span: 12 }}
                         lg={{ span: 12 }}
-                        xl={{ span: 8 }}
-                        xxl={{ span: 6 }}
+                        xl={{ span: 9 }}
+                        xxl={{ span: 7 }}
                         className="formfield debit"
                         style={{ marginTop: '-2.5rem', borderBottom: '1px solid gray', padding: '0px', height: '60px' }}
                       >
@@ -373,7 +369,7 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
                           />
                         </p>
                       </Col>
-                      <Col
+                      {/* <Col
                         xs={{ span: 24 }}
                         sm={{ span: 23 }}
                         md={{ span: 11 }}
@@ -390,13 +386,14 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
                           value={form.getFieldValue(['voucherDetailList[0].Balance'])}
                           style={{ fontWeight: 'bold' }}
                         />
-                      </Col>
+                      </Col> */}
                       <Col
                         xs={{ span: 24 }}
                         sm={{ span: 23 }}
                         md={{ span: 11 }}
-                        lg={{ span: 12 }}
-                        xl={{ span: 4 }}
+                        lg={{ span: 11 }}
+                        xl={{ span: 6 }}
+                        xxl={{ span: 5 }}
                         className="formfield"
                         style={{ marginBottom: '1%' }}
                       >
@@ -413,9 +410,9 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
                       <Col
                         xs={{ span: 24 }}
                         sm={{ span: 23 }}
-                        md={{ span: 11 }}
-                        lg={{ span: 11 }}
-                        xl={{ span: 6 }}
+                        md={{ span: 12 }}
+                        lg={{ span: 12 }}
+                        xl={{ span: 7 }}
                         xxl={{ span: 5 }}
                         className="formfield"
                         style={{ marginBottom: '1%' }}
@@ -432,24 +429,8 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
                         xs={{ span: 24 }}
                         sm={{ span: 23 }}
                         md={{ span: 11 }}
-                        lg={{ span: 12 }}
-                        xl={{ span: 6 }}
-                        xxl={{ span: 5 }}
-                        className="formfield"
-                        style={{ marginBottom: '1%' }}
-                      >
-                        <AntDatePicker
-                          bordered={false}
-                          label={t('cheque_date')}
-                          formItemProps={{ ...field, name: [field.name, 'DCheqDate'] }}
-                        />
-                      </Col>
-                      <Col
-                        xs={{ span: 24 }}
-                        sm={{ span: 23 }}
-                        md={{ span: 11 }}
                         lg={{ span: 11 }}
-                        xl={{ span: 5 }}
+                        xl={{ span: 9 }}
                         xxl={{ span: 5 }}
                         className="formfield"
                         style={{ marginBottom: '1%' }}
@@ -467,10 +448,27 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
                       <Col
                         xs={{ span: 24 }}
                         sm={{ span: 23 }}
-                        md={{ span: 11 }}
+                        md={{ span: 12 }}
                         lg={{ span: 12 }}
-                        xl={{ span: 5 }}
-                        xxl={{ span: 13 }}
+                        xl={{ span: 6 }}
+                        xxl={{ span: 7 }}
+                        className="formfield"
+                        style={{ marginBottom: '1%' }}
+                      >
+                        <AntDatePicker
+                          bordered={false}
+                          label={t('cheque_date')}
+                          formItemProps={{ ...field, name: [field.name, 'DCheqDate'] }}
+                        />
+                      </Col>
+
+                      <Col
+                        xs={{ span: 24 }}
+                        sm={{ span: 23 }}
+                        md={{ span: 11 }}
+                        lg={{ span: 11 }}
+                        xl={{ span: 7 }}
+                        xxl={{ span: 11 }}
                         className="formfield"
                         style={{ marginBottom: '1%' }}
                       >
@@ -483,10 +481,10 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
                       <Col
                         xs={{ span: 24 }}
                         sm={{ span: 23 }}
-                        md={{ span: 24 }}
-                        lg={{ span: 24 }}
-                        xl={{ span: 12 }}
-                        xxl={{ span: 11 }}
+                        md={{ span: 12 }}
+                        lg={{ span: 12 }}
+                        xl={{ span: 16 }}
+                        xxl={{ span: 12 }}
                         style={{ marginBottom: '1%' }}
                         className="formfield"
                       >
@@ -518,25 +516,25 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
                         xs={{ span: 24 }}
                         sm={{ span: 24 }}
                         md={{ span: 24 }}
-                        lg={{ span: 12 }}
-                        xl={{ span: 11 }}
-                        xxl={{ span: 12 }}
+                        lg={{ span: 24 }}
+                        xl={{ span: 24 }}
+                        xxl={{ span: 11 }}
                       >
-                        <Row className="add">
-                          <Col
-                            xs={{ span: 7, offset: 10 }}
-                            sm={{ span: 4, offset: 10 }}
-                            md={{ span: 3, offset: 11 }}
-                            lg={{ span: 6, offset: 21 }}
-                            xl={{ span: 4, offset: 0 }}
-                          >
-                            <AntButton
-                              onClick={isEditMode ? handleUpdateToTable : handleAddToTable}
-                              label={isEditMode ? `${t('update')}` : `${t('add')}`}
-                              style={{ marginLeft: -10 }}
-                            ></AntButton>
-                          </Col>
-                        </Row>
+                        <Col
+                          xs={{ span: 7, offset: 10 }}
+                          sm={{ span: 5, offset: 10 }}
+                          md={{ span: 4, offset: 10 }}
+                          lg={{ span: 4, offset: 10 }}
+                          xl={{ span: 3, offset: 11 }}
+                          xxl={{ span: 4, offset: 0 }}
+                          className="add"
+                        >
+                          <AntButton
+                            onClick={isEditMode ? handleUpdateToTable : handleAddToTable}
+                            label={isEditMode ? `${t('update')}` : `${t('add')}`}
+                            style={{ marginLeft: -10 }}
+                          ></AntButton>
+                        </Col>
                       </Col>
                       <Row gutter={[16, 16]} style={{ marginTop: '1%' }}>
                         <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }}>

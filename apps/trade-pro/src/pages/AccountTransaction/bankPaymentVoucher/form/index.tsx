@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { AntButton } from '@tradePro/components';
-import { Card, Col, Form, Input, Row, notification } from 'antd';
+import { AntButton, AntDatePicker } from '@tradePro/components';
+import { Badge, Card, Checkbox, Col, Form, Input, Row, notification } from 'antd';
 import '../style.scss';
-import { SaveOutlined, SyncOutlined } from '@ant-design/icons';
+import { SaveOutlined, SyncOutlined, PaperClipOutlined, ReloadOutlined, PrinterFilled } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import VoucherNo from './VoucherNo';
 import { useGetVoucherNo } from '../queries/queries';
@@ -31,7 +31,7 @@ function BankPaymentVoucherForm({
   const [isAddButtonClicked, setIsAddButtonClicked] = useState(true);
   const { mutate: addBankPaymentVoucher } = useAddBankPaymentVoucher(DocumentTypeId);
   const { mutate: updateBankPaymentVoucher } = useUpdateBankPaymentVoucher(DocumentTypeId, selectedRecordId);
-
+  const [isTaxable, setIsTaxable] = useState(false);
   useEffect(() => {
     if (isSuccess)
       form.setFieldValue(
@@ -106,15 +106,22 @@ function BankPaymentVoucherForm({
     }
   }, [isDataSuccess]);
 
+  const handleButtonClick = () => {
+    setIsTaxable(!isTaxable);
+    console.log(isTaxable);
+  };
+
   return (
     <Card className="main_card">
       <Form initialValues={{ remember: true }} form={form} layout="horizontal" onFinish={onFinish}>
-        <div style={{ marginLeft: '0%', marginTop: '-0.5%' }}>
+        <div style={{ marginTop: '-0.5%' }}>
           <Row align="middle" justify="space-between">
             <Col span={24}>
               <Row gutter={10} align="middle">
-                <Col style={{ fontSize: 18 }}>{t('voucher_no')}</Col>
-                <Col>
+                <Col style={{ fontSize: 18, fontWeight: 'bold', marginLeft: '0.5%' }} className="formfield1 voucherNo">
+                  {t('voucher_no')}:
+                </Col>
+                <Col className="formfield1 voucherNo">
                   <VoucherNo
                     isError={isError}
                     refetch={refetch}
@@ -125,11 +132,44 @@ function BankPaymentVoucherForm({
                     <Input />
                   </Form.Item>
                 </Col>
+                <Col
+                  xs={{ span: 11, offset: 1 }}
+                  sm={{ span: 11, offset: 1 }}
+                  md={{ span: 11, offset: 1 }}
+                  lg={{ span: 11, offset: 1 }}
+                  xl={{ span: 6, offset: 1 }}
+                  xxl={{ span: 4, offset: 1 }}
+                  className="formfield voucherDate"
+                >
+                  <AntDatePicker bordered={false} name="VoucherDate" label={t('voucher_date')} />
+                </Col>
               </Row>
             </Col>
+
             <Col style={{ display: 'flex', justifyContent: 'end' }} span={24}>
               <Form.Item>
-                <Row align="middle" style={{ marginLeft: '-2.5%', marginTop: '-6%' }} gutter={10}>
+                <Row style={{ marginLeft: '-3%', marginTop: '-12%' }} gutter={[10, 10]} className="btns">
+                  <Col
+                    xs={{ span: 24 }}
+                    sm={{ span: 2 }}
+                    md={{ span: 2 }}
+                    lg={{ span: 2 }}
+                    xl={{ span: 2 }}
+                    xxl={{ span: 2 }}
+                    style={{ marginRight: '2%' }}
+                    className="checkbox"
+                  >
+                    <AntButton
+                      onClick={handleButtonClick}
+                      icon={<PrinterFilled />}
+                      style={{ backgroundColor: isTaxable ? 'red' : 'lightgreen' }}
+                    />
+                  </Col>
+                  <Col>
+                    <Badge size="small" count={1}>
+                      <AntButton label={t('')} icon={<PaperClipOutlined />} />
+                    </Badge>
+                  </Col>
                   <Col>
                     <AntButton
                       danger
@@ -139,6 +179,9 @@ function BankPaymentVoucherForm({
                       label={t('reset')}
                       icon={<SyncOutlined />}
                     />
+                  </Col>
+                  <Col>
+                    <AntButton danger ghost label={t('refresh')} icon={<ReloadOutlined />} />
                   </Col>
                   <Col>
                     <AntButton label={t('save')} htmlType="submit" icon={<SaveOutlined />} />

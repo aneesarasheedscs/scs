@@ -10,6 +10,9 @@ export type TBankPaymentVoucherTable = {
   VoucherAmount: number;
   UserName: string;
   CheqNo: string;
+  EntryDate: Date | string;
+  ChequeDate: Date;
+  PayeeTitle: string;
 };
 
 export type TBankHistory = {

@@ -41,9 +41,9 @@ const VoucherTable: React.FC<{
     setConfirmationMesg("Are You Sure To approve Record's");
     setConfirmPopupVisibility(true);
   };
-  
+
   const handleRecordsForRevision = () => {
-    setConfirmationMesg("Do You want to Mark Selected Documents For Revision");
+    setConfirmationMesg('Do You want to Mark Selected Documents For Revision');
     setConfirmPopupVisibility(true);
   };
 
@@ -61,6 +61,7 @@ const VoucherTable: React.FC<{
         ReqType: approvalUnApproval == false ? 'AP' : 'UP',
       });
     }
+    setConfirmPopupVisibility(false);
     Approve(ApproveData);
   };
 
@@ -82,13 +83,13 @@ const VoucherTable: React.FC<{
   };
 
   useEffect(() => {
-    if (isSuccess) {
-      setpopupTitle('Success');
-      setpopupType('success');
-      setpopupMesg("Record's Approved Successfully");
-      setpopupVisibility(true);
-      setSelected([]);
-    }
+    // if (isSuccess) {
+    //   setpopupTitle('Success');
+    //   setpopupType('success');
+    //   setpopupMesg("Record's Approved Successfully");
+    //   setpopupVisibility(true);
+    //   setSelected([]);
+    // }
     if (isError) {
       setpopupTitle('Error');
       setpopupType('error');

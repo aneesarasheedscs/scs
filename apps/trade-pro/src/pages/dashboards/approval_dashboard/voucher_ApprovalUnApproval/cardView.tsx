@@ -4,15 +4,31 @@ import '../approvel.scss';
 import Search from 'antd/es/input/Search';
 import React, { useEffect, useState } from 'react';
 import Tablefile from './Tablefile';
-import { colorPrimaryAtom } from '@tradePro/globalAtoms';
 import dayjs from 'dayjs';
-import { useApproveVouchers, useGetVouchersModernHistoryHeaderData } from '../queries/approvel';
+import {
+  useApproveVouchers,
+  useGetVouchersModernHistoryHeaderData,
+  useVouchersRemarksByApprovalUser_History,
+} from '../queries/approvel';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import FormFilter from './modalData/form';
 import Buttons from './modalData/button';
 import { VouchersHistory_Header, VouchersModernHistory } from '../type';
 import ToolTipToShowUserData from './tooltop';
+import VouchersNotesPopup from './Notes';
+import { colorPrimaryAtom } from '@tradePro/globalAtoms';
+
+type VouchersRemarksByApprovalUser = {
+  Id: number;
+  RefDocTypeId: number;
+  RefDocMasterRecordId: number;
+  Comments: string;
+  CommentsUserId: number;
+  CommentsEntryDate: Date;
+  SortNo: number;
+};
+
 const CardView: React.FC<{
   documentTypeId: number;
   approvalUnApproval: boolean;
@@ -23,7 +39,17 @@ const CardView: React.FC<{
 }> = ({ documentTypeId, approvalUnApproval, dataSource, ForRevision }) => {
   const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
   const [mainDataSource, setMainDataSource] = useState<VouchersModernHistory[]>([]);
+  const [selectedCardData, setSelectedCardData] = useState<VouchersHistory_Header>();
+  const [NotesPopupVisible, setNotesPopupVisible] = useState(false);
+
+  const {
+    data: NotesData,
+    isSuccess: NotesSuccess,
+    isLoading: NotesLoading,
+  } = useVouchersRemarksByApprovalUser_History(documentTypeId, selectedCardData?.VoucherHeadId);
+
   const { mutate: Approve } = useApproveVouchers(documentTypeId);
+
   // const {
   //   data: Data,
   //   isError: VouchersError,
@@ -66,7 +92,6 @@ const CardView: React.FC<{
   }, [dataSource]);
 
   const [records, setRecords] = useState(String);
-  const [selectedCardData, setSelectedCardData] = useState<VouchersHistory_Header>();
   // const totalRecords = Data?.data?.Data?.Result.length || 0;
   const totalRecords = dataSource.length || 0;
   const [showContent, setShowContent] = useState(false);
@@ -164,8 +189,6 @@ const CardView: React.FC<{
   let ApproveData: any = [];
   const ApproveRecords = (ActionTypeId: boolean) => {
     if (SelectedVouchersData.length > 0) {
-      // ApproveData.OrganizationId = userDetail?.OrganizationId;
-      // ApproveData.CompanyId = userDetail?.CompanyId;
       ApproveData.AllApprovalLists = [];
       for (let i = 0; i < SelectedVouchersData?.length; i++) {
         ApproveData?.AllApprovalLists.push({
@@ -186,6 +209,13 @@ const CardView: React.FC<{
 
   const handleApproveSelectedVouchers = (TypeId: boolean) => {
     ApproveRecords(TypeId);
+  };
+
+  const handlVoucherNotesButtonClick = () => {
+    setNotesPopupVisible(true);
+  };
+  const handleSavingVoucherNotes = (Comments: string) => {
+    console.log(Comments);
   };
 
   const HandleFilterCriteriaData = () => {};
@@ -276,6 +306,8 @@ const CardView: React.FC<{
             SelectedDocumentsCount={SelectedDocumentsCount}
             ApproveSelectedVouchers={handleApproveSelectedVouchers}
             ForRevision={ForRevision}
+            VoucherNotesByApprovalPersonVisible={true}
+            handlVoucherNotesButtonClick={handlVoucherNotesButtonClick}
           />
           {selectedCardData && (
             <Row align="middle">
@@ -390,31 +422,12 @@ const CardView: React.FC<{
         </Col>
       </Row>
 
-      {/* <Tooltip
-        open={TooltipVisible}
-        key={UserInfoDataForTooltip?.TargetId}
-        trigger={['hover']}
-        title={
-          <div className="row">
-            <div className="col-2">
-              <div className="detail d-flex">
-                <div>
-                  <img
-                    className="border rounded"
-                    style={{ height: '40px', width: '40px' }}
-                    src={UserInfoDataForTooltip?.UserProfileImageUrl}
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <p className="px-1 m-0 font-regular text-truncate">{UserInfoDataForTooltip?.UserName}</p>
-                  <p className="px-1 m-0 font-regular text-truncate">{formateDate(UserInfoDataForTooltip?.date)}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        }
-      ></Tooltip> */}
+      <VouchersNotesPopup
+        visible={NotesPopupVisible}
+        historyData={NotesData}
+        onClose={() => setNotesPopupVisible(false)}
+        onSave={handleSavingVoucherNotes}
+      ></VouchersNotesPopup>
     </div>
   );
 };

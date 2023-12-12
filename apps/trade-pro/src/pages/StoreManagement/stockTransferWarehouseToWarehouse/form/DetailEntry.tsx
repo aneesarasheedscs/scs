@@ -15,8 +15,9 @@ import {
   useGetWareHouse,
 } from '../quries';
 import { useAtom } from 'jotai';
-import { addtableData, listAtom } from './Atom';
+import { addtableData, listAtom, deleteData, newTableData } from './Atom';
 import { TDetailItem, TDetailPackUom, TWarehouse, TWsRmWareHouseToWareHouseStocTransferDetailList } from '../types';
+import { UseQueryResult } from 'react-query';
 
 const { useWatch } = Form;
 
@@ -54,8 +55,38 @@ const DynamicForm = ({ form }: TDynamicForm) => {
     isLoading: isLoadingItemRate,
     refetch,
   } = useGetStockByFifoMethod(itemId, wareHouseFromId, itemQty, netWeight, itemUomId, equivalentRate);
-
+  const {
+    data: packUOM,
+    isSuccess: succesPack,
+    isLoading: loadingPack,
+  } = useGetUomByItemId(itemId) as UseQueryResult<TDetailPackUom[], unknown>;
+  console.log(packUOM);
+  console.log(packUOM?.[0]?.UOMCode);
+  useEffect(() => {
+    if (succesPack && !loadingPack) {
+      setFields([
+        { name: ['WsRmWareHouseToWareHouseStocTransferDetailList', 0, 'ItemUomId'], value: packUOM?.[0]?.Id },
+        { name: ['WsRmWareHouseToWareHouseStocTransferDetailList', 0, 'ItemUomCode'], value: packUOM?.[0]?.UOMCode },
+        {
+          name: ['WsRmWareHouseToWareHouseStocTransferDetailList', 0, 'EquivalentRate'],
+          value: packUOM?.[0]?.Equivalent,
+        },
+      ]);
+    } else {
+      setFields([
+        { name: ['WsRmWareHouseToWareHouseStocTransferDetailList', 0, 'ItemUomId'], value: null },
+        { name: ['WsRmWareHouseToWareHouseStocTransferDetailList', 0, 'ItemUomCode'], value: null },
+        {
+          name: ['WsRmWareHouseToWareHouseStocTransferDetailList', 0, 'EquivalentRate'],
+          value: null,
+        },
+      ]);
+    }
+  }, [packUOM, isSuccess, !loadingPack]);
   const [tableData, setTableData] = useAtom(addtableData);
+
+  const [delettableData, setDeleteTableData] = useAtom(deleteData);
+  const [newtableData, setNewTableData] = useAtom(newTableData);
   const selectedOption1Ref = useRef<string | null>('');
   const selectedOption2Ref = useRef<string | null>('');
   const [isErrorModalVisible, setIsErrorModalVisible] = useState<boolean>(false);
@@ -88,7 +119,6 @@ const DynamicForm = ({ form }: TDynamicForm) => {
 
   const handleAddToTable = () => {
     const newData = formValues.map((item, index) => ({
-      Id: item.ItemId,
       ItemId: item.ItemId,
       ItemName: item.ItemName,
       WareHouseFromId: item.WareHouseFromId,
@@ -104,15 +134,14 @@ const DynamicForm = ({ form }: TDynamicForm) => {
       WareHouseToId: item.WareHouseToId,
       WarehouseToName: item.WarehouseToName,
       RemarksDetail: item.RemarksDetail,
-      WsRmStockTransferId: item.ItemId,
     }));
 
     if (newData.some((item) => item.ItemId === null || item.ItemId === undefined)) {
-      const message = 'Please select a Credit account';
+      const message = 'Please select Item Name!';
       notification.error({ message: message });
       return;
     } else if (newData.some((item) => item.ItemAmount === null || item.ItemAmount === undefined)) {
-      const message = 'Please fill  Debit Amount';
+      const message = 'Please fill  Amount';
       notification.error({ message: message });
       return;
     } else if (newData.some((item) => item.WareHouseFromId === item.WareHouseToId)) {
@@ -124,11 +153,24 @@ const DynamicForm = ({ form }: TDynamicForm) => {
     setTableData((prevData: any[]) => {
       const updatedData = newData.map((item) => ({
         ...item,
-
+        Id: 0,
         LineId: counter,
         ActionTypeId: 1,
+        WsRmStockTransferId: 0,
       }));
 
+      const combinedData = [...prevData, ...updatedData];
+      console.log('New tableData:', combinedData);
+      return combinedData;
+    });
+    setNewTableData((prevData: any[]) => {
+      const updatedData = newData.map((item) => ({
+        ...item,
+        Id: 0,
+        LineId: counter,
+        ActionTypeId: 1,
+        WsRmStockTransferId: 0,
+      }));
       const combinedData = [...prevData, ...updatedData];
       console.log('New tableData:', combinedData);
       return combinedData;
@@ -156,7 +198,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
 
   const handleUpdateToTable = () => {
     const newData = formValues.map((item, index) => ({
-      Id: item.ItemId,
+      Id: item.Id,
       ItemId: item.ItemId,
       ItemName: item.ItemName,
       WareHouseFromId: item.WareHouseFromId,
@@ -172,15 +214,15 @@ const DynamicForm = ({ form }: TDynamicForm) => {
       WareHouseToId: item.WareHouseToId,
       WarehouseToName: item.WarehouseToName,
       RemarksDetail: item.RemarksDetail,
-      WsRmStockTransferId: item.ItemId,
+      WsRmStockTransferId: item.WsRmStockTransferId,
     }));
 
     if (newData.some((item) => item.ItemId === null || item.ItemId === undefined)) {
-      const message = 'Please select a Credit account';
+      const message = 'Please select Item Name!';
       notification.error({ message: message });
       return;
     } else if (newData.some((item) => item.ItemAmount === null || item.ItemAmount === undefined)) {
-      const message = 'Please fill  Debit Amount';
+      const message = 'Please fill   Amount';
       notification.error({ message: message });
       return;
     } else if (newData.some((item) => item.WareHouseFromId === item.WareHouseToId)) {
@@ -194,8 +236,8 @@ const DynamicForm = ({ form }: TDynamicForm) => {
         if (editedRowIndex >= 0) {
           return {
             ...item,
-            ActionTypeId: 2,
-            LineId: edit.Id,
+            ActionTypeId: 1,
+            LineId: edit.LineId,
           };
         }
         return item;
@@ -225,10 +267,39 @@ const DynamicForm = ({ form }: TDynamicForm) => {
       { name: ['WsRmWareHouseToWareHouseStocTransferDetailList', 0, 'RemarksDetail'], value: null },
     ]);
   };
-
+  const handleResetForm = () => {
+    setFields([
+      { name: ['WsRmWareHouseToWareHouseStocTransferDetailList', 0, 'ItemId'], value: null },
+      { name: ['WsRmWareHouseToWareHouseStocTransferDetailList', 0, 'ItemName'], value: null },
+      { name: ['WsRmWareHouseToWareHouseStocTransferDetailList', 0, 'WareHouseFromId'], value: null },
+      { name: ['WsRmWareHouseToWareHouseStocTransferDetailList', 0, 'WareHouseFrom'], value: null },
+      { name: ['WsRmWareHouseToWareHouseStocTransferDetailList', 0, 'ItemUomId'], value: null },
+      { name: ['WsRmWareHouseToWareHouseStocTransferDetailList', 0, 'ItemUom'], value: null },
+      { name: ['WsRmWareHouseToWareHouseStocTransferDetailList', 0, 'EquivalentRate'], value: null },
+      { name: ['WsRmWareHouseToWareHouseStocTransferDetailList', 0, 'ItemQty'], value: null },
+      { name: ['WsRmWareHouseToWareHouseStocTransferDetailList', 0, 'BalQty'], value: null },
+      { name: ['WsRmWareHouseToWareHouseStocTransferDetailList', 0, 'BalWeight'], value: null },
+      { name: ['WsRmWareHouseToWareHouseStocTransferDetailList', 0, 'NetWeight'], value: null },
+      { name: ['WsRmWareHouseToWareHouseStocTransferDetailList', 0, 'ItemRate'], value: null },
+      { name: ['WsRmWareHouseToWareHouseStocTransferDetailList', 0, 'ItemAmount'], value: null },
+      { name: ['WsRmWareHouseToWareHouseStocTransferDetailList', 0, 'WareHouseToId'], value: null },
+      { name: ['WsRmWareHouseToWareHouseStocTransferDetailList', 0, 'WareHouseTo'], value: null },
+      { name: ['WsRmWareHouseToWareHouseStocTransferDetailList', 0, 'RemarksDetail'], value: null },
+    ]);
+  };
   const handleDeleteRow = (record: any) => {
+    if (record?.Id > 0) {
+      const recordsToDelete = Array.isArray(record) ? record : [record];
+      setDeleteTableData((prevData) => [...prevData, ...recordsToDelete]);
+    }
+    console.log(record);
     setTableData((prevData: any[]) => {
-      const updatedData = prevData.filter((item: any) => item.LineId !== record.LineId);
+      const updatedData = prevData.filter((item: any) => item.LineId !== record?.LineId || item.Id !== record?.Id);
+      console.log('New tableData:', updatedData);
+      return updatedData;
+    });
+    setNewTableData((prevData: any[]) => {
+      const updatedData = prevData.filter((item: any) => item.LineId !== record?.LineId || item.Id !== record?.Id);
       console.log('New tableData:', updatedData);
       return updatedData;
     });
@@ -242,6 +313,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
       if (rowIndex !== -1) {
         updatedData[rowIndex] = {
           ...updatedData[rowIndex],
+          Id: record.Id,
           ItemId: record.ItemId,
           ItemName: record.ItemName,
           WareHouseFromId: record.WareHouseFromId,
@@ -298,7 +370,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
     }
   };
 
-  const handleRateUOMChange = (obj: TDetailPackUom, index: number) => {
+  const handleRateUOMChange = (obj: TDetailPackUom | any, index: number) => {
     setFields([
       { name: ['WsRmWareHouseToWareHouseStocTransferDetailList', index, 'ItemUomCode'], value: obj?.UOMCode },
       { name: ['WsRmWareHouseToWareHouseStocTransferDetailList', index, 'EquivalentRate'], value: obj?.Equivalent },
@@ -382,6 +454,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
         },
       ]);
     }
+    console.log(ItemRate?.data?.Data?.Result);
     if (isSuccessRate && isSuccessERP && ERPFeature?.data?.Data?.Result?.[0]?.Id === 5) {
       handleItemRateChange(ItemRate?.data?.Data?.Result, 0);
       setFields([
@@ -422,7 +495,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
   console.log(formValues);
   return (
     <>
-      <Row gutter={[10, 10]} style={{ marginTop: '-1%' }}>
+      <Row gutter={[10, 10]} style={{ marginTop: '-0.5%' }}>
         <Col xs={24} sm={24} md={24} lg={{ span: 24 }} xl={{ span: 24 }}>
           <Card style={{ boxShadow: '2px 4px 12px 1px gray', paddingTop: '-10%' }}>
             <Form.List name="WsRmWareHouseToWareHouseStocTransferDetailList" initialValue={[initialValues]}>
@@ -439,19 +512,22 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         sm={{ span: 20 }}
                         md={{ span: 12 }}
                         lg={{ span: 8 }}
-                        xl={{ span: 8 }}
+                        xl={{ span: 7 }}
+                        xxl={{ span: 8 }}
                         className="formfield"
                         style={{ marginTop: 15 }}
                       >
-                        <AntSelectDynamic
-                          bordered={false}
-                          label={t('item_name')}
-                          fieldValue="Id"
-                          fieldLabel="ItemName"
-                          query={useGetItemName}
-                          name={[field.name, 'ItemId']}
-                          onSelectChange={(obj) => handleItemChange(obj, field.name)}
-                        />
+                        <p>
+                          <AntSelectDynamic
+                            bordered={false}
+                            label={t('item_name')}
+                            fieldValue="Id"
+                            fieldLabel="ItemName"
+                            query={useGetItemName}
+                            name={[field.name, 'ItemId']}
+                            onSelectChange={(obj) => handleItemChange(obj, field.name)}
+                          />
+                        </p>
                       </Col>
 
                       <Col
@@ -459,7 +535,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         sm={{ span: 20 }}
                         md={{ span: 11 }}
                         lg={{ span: 8 }}
-                        xl={{ span: 6 }}
+                        xl={{ span: 5 }}
                         className="formfield"
                         style={{ marginTop: 15 }}
                       >
@@ -489,7 +565,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         sm={{ span: 20 }}
                         md={{ span: 12 }}
                         lg={{ span: 6 }}
-                        xl={{ span: 4 }}
+                        xl={{ span: 3 }}
                         className="formfield"
                         style={{ marginTop: 15 }}
                       >
@@ -506,20 +582,18 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         sm={{ span: 20 }}
                         md={{ span: 11 }}
                         lg={{ span: 8 }}
-                        xl={{ span: 5 }}
-                        xxl={{ span: 4 }}
+                        xl={{ span: 4 }}
+                        xxl={{ span: 3 }}
                         className="formfield"
                         style={{ marginTop: 15 }}
                       >
                         <p style={{ marginTop: 5 }}>
-                          <AntSelectDynamic
+                          <AntInputNumber
+                            disabled
+                            readOnly
                             bordered={false}
-                            fieldValue="Id"
+                            formItemProps={{ ...field, name: [field.name, 'ItemUomCode'] }}
                             label={t('pack_uom')}
-                            fieldLabel="UOMCode"
-                            name={[field.name, 'ItemUomId']}
-                            query={useGetUomByItemId(formValues?.[field.name]?.ItemId)}
-                            onSelectChange={(obj) => handleRateUOMChange(obj, field.name)}
                           />
                         </p>
                       </Col>
@@ -535,6 +609,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                       >
                         <p>
                           <AntInputNumber
+                            disabled
                             bordered={false}
                             readOnly
                             label={t('net_weight')}
@@ -549,13 +624,15 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         md={{ span: 11 }}
                         lg={{ span: 6 }}
                         xl={{ span: 5 }}
+                        xxl={{ span: 4 }}
                         className="formfield"
-                        style={{ marginTop: 15 }}
+                        style={{ marginTop: 15, width: '90%' }}
                       >
                         <p>
                           <AntInputNumber
                             bordered={false}
                             readOnly
+                            disabled
                             label={t('available_quantity')}
                             formItemProps={{ ...field, name: [field.name, 'BalQty'] }}
                           />
@@ -567,6 +644,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         md={{ span: 12 }}
                         lg={{ span: 8 }}
                         xl={{ span: 5 }}
+                        xxl={{ span: 4 }}
                         className="formfield"
                         style={{ marginTop: 15 }}
                       >
@@ -574,6 +652,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                           <AntInputNumber
                             bordered={false}
                             readOnly
+                            disabled
                             label={t('available_weight')}
                             formItemProps={{ ...field, name: [field.name, 'BalWeight'] }}
                           />
@@ -584,45 +663,10 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         sm={{ span: 20 }}
                         md={{ span: 11 }}
                         lg={{ span: 8 }}
-                        xl={{ span: 4 }}
+                        xl={{ span: 5 }}
+                        xxl={{ span: 5 }}
                         className="formfield"
                         style={{ marginTop: 15 }}
-                      >
-                        <p>
-                          <AntInputNumber
-                            bordered={false}
-                            readOnly
-                            label={t('item_rate')}
-                            formItemProps={{ ...field, name: [field.name, 'ItemRate'] }}
-                            onChange={(itemRate) => handleItemRateChange(itemRate, field.name)}
-                          />
-                        </p>
-                      </Col>
-                      <Col
-                        xs={{ span: 24 }}
-                        sm={{ span: 20 }}
-                        md={{ span: 12 }}
-                        lg={{ span: 6 }}
-                        xl={{ span: 4 }}
-                        className="formfield"
-                        style={{ marginTop: 15 }}
-                      >
-                        <p>
-                          <AntInputNumber
-                            bordered={false}
-                            readOnly
-                            label={t('amount')}
-                            formItemProps={{ ...field, name: [field.name, 'ItemAmount'] }}
-                          />
-                        </p>
-                      </Col>
-                      <Col
-                        xs={{ span: 24 }}
-                        sm={{ span: 20 }}
-                        md={{ span: 11 }}
-                        lg={{ span: 8 }}
-                        xl={{ span: 7 }}
-                        className="formfield"
                       >
                         <AntSelectDynamic
                           bordered={false}
@@ -637,10 +681,65 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                       <Col
                         xs={{ span: 24 }}
                         sm={{ span: 20 }}
-                        md={{ span: 16 }}
-                        lg={{ span: 10 }}
-                        xl={{ span: 10 }}
+                        md={{ span: 12 }}
+                        lg={{ span: 6 }}
+                        xl={{ span: 4 }}
+                        xxl={{ span: 3 }}
                         className="formfield"
+                        style={{ marginTop: 15 }}
+                      >
+                        <p>
+                          <AntInputNumber
+                            bordered={false}
+                            readOnly
+                            disabled
+                            label={t('item_rate')}
+                            formItemProps={{ ...field, name: [field.name, 'ItemRate'] }}
+                            onChange={(itemRate) => handleItemRateChange(itemRate, field.name)}
+                          />
+                        </p>
+                      </Col>
+
+                      <Col
+                        xs={{ span: 24 }}
+                        sm={{ span: 20 }}
+                        md={{ span: 11 }}
+                        lg={{ span: 8 }}
+                        xl={{ span: 4 }}
+                        xxl={{ span: 3 }}
+                        className="formfield"
+                        style={{ marginTop: 15 }}
+                      >
+                        <p>
+                          <AntInputNumber
+                            bordered={false}
+                            readOnly
+                            disabled
+                            label={t('amount')}
+                            formItemProps={{ ...field, name: [field.name, 'ItemAmount'] }}
+                          />
+                        </p>
+                      </Col>
+
+                      <Col
+                        xs={{ span: 0 }}
+                        sm={{ span: 0 }}
+                        md={{ span: 0 }}
+                        lg={{ span: 0 }}
+                        xl={{ span: 0 }}
+                        xxl={{ span: 4 }}
+                        style={{ marginTop: 15 }}
+                      ></Col>
+
+                      <Col
+                        xs={{ span: 24 }}
+                        sm={{ span: 20 }}
+                        md={{ span: 16 }}
+                        lg={{ span: 15 }}
+                        xl={{ span: 10 }}
+                        xxl={{ span: 8 }}
+                        className="formfield"
+                        style={{ marginTop: 15 }}
                       >
                         <AntInput
                           bordered={false}
@@ -648,20 +747,46 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                           formItemProps={{ ...field, name: [field.name, 'RemarksDetail'] }}
                         />
                       </Col>
-                      <Col xs={{ span: 24 }} sm={{ span: 21 }} md={{ span: 4 }} lg={{ span: 4 }} xl={{ span: 6 }}>
-                        <Row style={{ marginTop: '2%' }}>
+                      <Col
+                        xs={{ span: 24 }}
+                        sm={{ span: 21 }}
+                        md={{ span: 7 }}
+                        lg={{ span: 13 }}
+                        xl={{ span: 13 }}
+                        xxl={15}
+                      >
+                        <Row style={{ marginTop: '0%', marginLeft: '-3%' }}>
                           <Col
                             xs={{ span: 10 }}
                             sm={{ span: 6 }}
-                            md={{ span: 20 }}
-                            lg={{ span: 20 }}
-                            xl={{ span: 6 }}
-                            xxl={4}
+                            md={{ span: 9 }}
+                            lg={{ span: 5 }}
+                            xl={{ span: 3 }}
+                            xxl={2}
                           >
                             <AntButton
                               style={{ marginTop: 15 }}
                               onClick={isEditMode ? handleUpdateToTable : handleAddToTable}
                               label={isEditMode ? 'Update' : 'Add'}
+                            ></AntButton>
+                          </Col>
+                          <Col
+                            xs={{ span: 10 }}
+                            sm={{ span: 6 }}
+                            md={{ span: 9 }}
+                            lg={{ span: 5 }}
+                            xl={{ span: 3 }}
+                            xxl={2}
+                            style={{ marginLeft: '1%' }}
+                          >
+                            <AntButton
+                              ghost
+                              style={{ marginTop: 15 }}
+                              onClick={() => {
+                                handleResetForm();
+                                setIsEditMode(false);
+                              }}
+                              label={'Cancel'}
                             ></AntButton>
                           </Col>
                           <AntInput
@@ -685,19 +810,17 @@ const DynamicForm = ({ form }: TDynamicForm) => {
             </Form.List>
           </Card>
 
-          <Row gutter={[16, 16]} style={{ marginTop: 10 }}>
-            <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }}>
-              <Card style={{ boxShadow: '2px 4px 12px 1px gray', textAlign: 'left' }}>
-                <AntTable
-                  numberOfSkeletons={12}
-                  scroll={{ x: '', y: convertVhToPixels('20vh') }}
-                  data={tableData || []}
-                  columns={columns(t, handleDeleteRow, handleEditRow)}
-                />
-              </Card>
-            </Col>
-          </Row>
           <br />
+        </Col>
+      </Row>
+      <Row gutter={[16, 16]} style={{ marginTop: '-0.5%' }}>
+        <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }}>
+          <AntTable
+            numberOfSkeletons={12}
+            scroll={{ x: '', y: convertVhToPixels('20vh') }}
+            data={tableData || []}
+            columns={columns(t, handleDeleteRow, handleEditRow)}
+          />
         </Col>
       </Row>
     </>

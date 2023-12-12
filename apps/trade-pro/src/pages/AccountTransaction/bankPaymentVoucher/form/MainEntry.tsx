@@ -1,4 +1,4 @@
-import { AntDatePicker, AntInput, AntSelectDynamic } from '@tradePro/components';
+import { AntInput, AntSelectDynamic } from '@tradePro/components';
 import { Card, Checkbox, Col, Row, Form, FormInstance } from 'antd';
 import { useTranslation } from 'react-i18next';
 import {
@@ -22,6 +22,7 @@ function MainEntry({ form, setBankId, bankId, isAddButtonClicked }: TDynamicForm
   const [againstAccountAtom, setAgainstAccountAtom] = useAtom(selectedAgainstAccountAtom);
   const [isWithHoldingChecked, setIsWithHoldingChecked] = useAtom(isWithHoldingCheckedAtom);
   const { data: filter } = useGetWHTAgainstAcSelect();
+
   useEffect(() => {
     form.setFieldValue('VoucherAmount', totalDebitAmounts);
     if (data?.data?.Data?.Result?.[0]?.Balance !== undefined) {
@@ -30,20 +31,13 @@ function MainEntry({ form, setBankId, bankId, isAddButtonClicked }: TDynamicForm
   }, [credit, bankId, totalDebitAmounts, data?.data?.Data?.Result]);
 
   const handleCreditAccountChange = (accountId?: any, index?: any) => {
-    const balance = data?.data?.Data?.Result?.[0]?.Balance.toFixed(2);
-    form.setFieldValue(['voucherDetailList', index, 'Balance'], balance);
-    console.log('abc', balance);
     setSelectedCreditAccount(accountId);
     setBankId(accountId);
   };
   const handleAgainstAccountChange = (accountId?: any) => {
     setAgainstAccountAtom(accountId);
   };
-  const handleCheckboxChange = (isChecked: boolean, fieldName: string) => {
-    form.setFieldsValue({
-      [fieldName]: isChecked,
-    });
-  };
+
   const handleCheckboxChangeforWHT = (isChecked: boolean, fieldName: string) => {
     setIsWithHoldingChecked(isChecked);
     form.setFieldsValue({
@@ -75,9 +69,9 @@ function MainEntry({ form, setBankId, bankId, isAddButtonClicked }: TDynamicForm
                 sm={{ span: 23 }}
                 md={{ span: 11 }}
                 lg={{ span: 11 }}
-                xl={{ span: 4 }}
-                xxl={{ span: 3 }}
-                className="formfield  "
+                xl={{ span: 5 }}
+                xxl={{ span: 4 }}
+                className="formfield"
               >
                 <AntSelectDynamic
                   bordered={false}
@@ -92,24 +86,14 @@ function MainEntry({ form, setBankId, bankId, isAddButtonClicked }: TDynamicForm
                   defaultValue={1}
                 />
               </Col>
+
               <Col
                 xs={{ span: 24 }}
                 sm={{ span: 23 }}
-                md={{ span: 11 }}
-                lg={{ span: 11 }}
-                xl={{ span: 6 }}
-                xxl={{ span: 4 }}
-                className="formfield "
-              >
-                <AntDatePicker bordered={false} name="VoucherDate" label={t('voucher_date')} />
-              </Col>
-              <Col
-                xs={{ span: 24 }}
-                sm={{ span: 23 }}
-                md={{ span: 11 }}
-                lg={{ span: 11 }}
-                xl={{ span: 9 }}
-                xxl={{ span: 7 }}
+                md={{ span: 12 }}
+                lg={{ span: 12 }}
+                xl={{ span: 7 }}
+                xxl={{ span: 8 }}
                 className="formfield credit"
               >
                 <p style={{ marginTop: -18, marginLeft: '65%' }} className="cr">
@@ -130,31 +114,14 @@ function MainEntry({ form, setBankId, bankId, isAddButtonClicked }: TDynamicForm
                   />
                 </p>
               </Col>
+
               <Col
-                xs={{ span: 24 }}
-                sm={{ span: 23 }}
-                md={{ span: 11 }}
-                lg={{ span: 11 }}
-                xl={{ span: 4 }}
-                xxl={{ span: 3 }}
-                className="formfield balance"
-              >
-                <AntInput
-                  readOnly
-                  bordered={false}
-                  name="Balance"
-                  value={form.getFieldValue(['voucherDetailList[0].Balance'])}
-                  label={t('balance')}
-                  style={{ fontWeight: 'bold' }}
-                />
-              </Col>
-              <Col
-                xs={{ span: 24 }}
-                sm={{ span: 23 }}
-                md={{ span: 11 }}
-                lg={{ span: 11 }}
-                xl={{ span: 9 }}
-                xxl={{ span: 6 }}
+                xs={{ span: 19 }}
+                sm={{ span: 19 }}
+                md={{ span: 9 }}
+                lg={{ span: 9 }}
+                xl={{ span: 7 }}
+                xxl={{ span: 8 }}
                 className="formfield against"
               >
                 <AntSelectDynamic
@@ -172,48 +139,33 @@ function MainEntry({ form, setBankId, bankId, isAddButtonClicked }: TDynamicForm
                 />
               </Col>
               <Col
-                xs={{ span: 24 }}
-                sm={{ span: 23 }}
-                md={{ span: 11 }}
-                lg={{ span: 11 }}
-                xl={{ span: 10 }}
-                style={{ marginTop: '' }}
-                className="formfield remarks"
-              >
-                <AntInput bordered={false} name="Remarks" label={t('remarks')} />
-                <AntInput bordered={false} label={t('')} name="VoucherAmount" style={{ display: 'none' }} />
-              </Col>
-              <Col
-                xs={{ span: 12 }}
-                sm={{ span: 10 }}
-                md={{ span: 6 }}
-                lg={{ span: 7 }}
-                xl={{ span: 4 }}
-                xxl={{ span: 5 }}
-                style={{ marginTop: '0.5%' }}
-                className="checkbox"
-              >
-                <Form.Item name="IsTaxable" valuePropName="checked" initialValue={true}>
-                  <Checkbox onChange={(e) => handleCheckboxChange(e.target.checked, 'IsTaxable')}>
-                    {t('print_preview')}
-                  </Checkbox>
-                </Form.Item>
-              </Col>
-              <Col
-                xs={{ span: 5 }}
-                sm={{ span: 5 }}
-                md={{ span: 6 }}
-                lg={{ span: 18 }}
-                xl={{ span: 4 }}
-                xxl={{ span: 8 }}
+                xs={{ span: 2 }}
+                sm={{ span: 4 }}
+                md={{ span: 2 }}
+                lg={{ span: 2 }}
+                xl={{ span: 2 }}
+                xxl={{ span: 2 }}
                 style={{ marginTop: '0.5%' }}
                 className="wht"
               >
-                <Form.Item name="IncludeWHT" valuePropName="checked" initialValue={false}>
+                <Form.Item className="box" name="IncludeWHT" valuePropName="checked" initialValue={false}>
                   <Checkbox onChange={(e) => handleCheckboxChangeforWHT(e.target.checked, 'IncludeWHT')}>
                     {t('wht')}
                   </Checkbox>
                 </Form.Item>
+              </Col>
+              <Col
+                xs={{ span: 24 }}
+                sm={{ span: 23 }}
+                md={{ span: 12 }}
+                lg={{ span: 12 }}
+                xl={{ span: 13 }}
+                xxl={{ span: 13 }}
+                style={{ marginTop: '-2%' }}
+                className="formfield remarks"
+              >
+                <AntInput bordered={false} name="Remarks" label={t('remarks')} />
+                <AntInput bordered={false} label={t('')} name="VoucherAmount" style={{ display: 'none' }} />
               </Col>
             </Row>
           </Card>
