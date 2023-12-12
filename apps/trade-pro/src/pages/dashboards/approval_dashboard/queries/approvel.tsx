@@ -145,7 +145,7 @@ export const useApproveVouchers = (documentTypeId?: number) => {
 };
 
 // Notes Save
-export const useVouchersNotesByApprovalUserId_Save = (documentTypeId?: number) => {
+export const useVouchersNotesByApprovalUserId_Save = () => {
   return useMutation(
     'VouchersNotesByApprovalUserId_Save',
     (dataToSubmit: any) => {
@@ -169,6 +169,21 @@ export const useVouchersRemarksByApprovalUser_History = (documentTypeId?: number
     () => {
       return requestManager.post('api/VouchersApprovedByEditorRemarks/HistoryByUserAndDocumentId', {
         CommentsUserId: documentTypeId,
+        RefDocMasterRecordId: VoucherHeadId,
+      });
+    },
+    {
+      enabled: !!VoucherHeadId,
+    }
+  );
+};
+//Notes History as single string
+export const useNotesByApprovalPerson_ReadAsSingleString = (documentTypeId?: number, VoucherHeadId?: number) => {
+  return useQuery(
+    'NotesByApprovalPerson_ReadAsSingleString',
+    () => {
+      return requestManager.post('api/VouchersApprovedByEditorRemarks/ReadAsSingleString', {
+        RefDocTypeId: documentTypeId,
         RefDocMasterRecordId: VoucherHeadId,
       });
     },

@@ -15,6 +15,8 @@ const Tablefile: React.FC<{ voucherHeadId?: number; documentTypeId: number }> = 
     isLoading: DetailLoading,
     isSuccess: DetailSuccess,
   } = useGetVouchersModernHistoryByHeaderId(voucherHeadId, documentTypeId.toString());
+
+  
   let GeneralLedgerLinkVisible = true;
   const voucherData = DetailData?.data?.Data?.Result; // Replace with your actual data array
   const [mainDataSource, setMainDataSource] = useState<VouchersModernHistory>();

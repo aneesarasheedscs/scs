@@ -54,7 +54,7 @@ const Buttons: React.FC<{
         ) : null}
         {VoucherNotesByApprovalPersonVisible && (
           <Tooltip placement="top" title="Take Notes">
-            <AntButton className="btn" icon={<FileTextOutlined />} onClick={handlVoucherNotesButtonClick} />
+            <AntButton className="btn" icon={<FileTextOutlined />} onClick={() => handlVoucherNotesButtonClick()} />
           </Tooltip>
         )}
         {/* <Tooltip placement="top" title="General Ledger Of Header Account">

@@ -4,10 +4,9 @@ import { AntTable } from '@scs/ui';
 import { AntColumnType } from '@tradePro/globalTypes';
 
 type NotesHistory = {
-  SrNo: number;
-  UserName: string;
-  Date: Date;
-  Note: string;
+  CommentsUserName: string;
+  CommentsEntryDate: Date;
+  Comments: string;
 };
 
 const VouchersNotesPopup: React.FC<{
@@ -35,6 +34,7 @@ const VouchersNotesPopup: React.FC<{
     <Modal
       open={visible}
       onCancel={onClose}
+      destroyOnClose={true}
       width={600}
       title="Voucher Notes"
       footer={[
@@ -57,25 +57,25 @@ const VouchersNotesPopup: React.FC<{
         dataSource={historyData}
         bordered
         pagination={false}
-        scroll={{ x: 'max-content', y: 250 }}
-        // summary={(pageData) => {
-        //   let totalSr = 0;
-        //   pageData.forEach((record) => {
-        //     totalSr += record['Sr#'];
-        //   });
-        //   return (
-        //     <>
-        //       <Table.Summary.Row>
-        //         <Table.Summary.Cell index={0} colSpan={1}>
-        //           Total
-        //         </Table.Summary.Cell>
-        //         <Table.Summary.Cell index={1} colSpan={1}>
-        //           {totalSr}
-        //         </Table.Summary.Cell>
-        //       </Table.Summary.Row>
-        //     </>
-        //   );
-        // }}
+        scroll={{ x: 'max-content', y: 180 }}
+        summary={(pageData) => {
+          let totalSr = 0;
+          pageData.forEach((record) => {
+            totalSr += record['Sr#'];
+          });
+          return (
+            <>
+              <Table.Summary.Row>
+                <Table.Summary.Cell index={0} colSpan={1}>
+                  Total
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={1} colSpan={1}>
+                  {totalSr}
+                </Table.Summary.Cell>
+              </Table.Summary.Row>
+            </>
+          );
+        }}
       />
     </Modal>
   );

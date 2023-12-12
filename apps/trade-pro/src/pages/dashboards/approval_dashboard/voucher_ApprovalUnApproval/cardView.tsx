@@ -8,6 +8,8 @@ import dayjs from 'dayjs';
 import {
   useApproveVouchers,
   useGetVouchersModernHistoryHeaderData,
+  useNotesByApprovalPerson_ReadAsSingleString,
+  useVouchersNotesByApprovalUserId_Save,
   useVouchersRemarksByApprovalUser_History,
 } from '../queries/approvel';
 import { formateDate } from '@tradePro/utils/formateDate';
@@ -18,16 +20,6 @@ import { VouchersHistory_Header, VouchersModernHistory } from '../type';
 import ToolTipToShowUserData from './tooltop';
 import VouchersNotesPopup from './Notes';
 import { colorPrimaryAtom } from '@tradePro/globalAtoms';
-
-type VouchersRemarksByApprovalUser = {
-  Id: number;
-  RefDocTypeId: number;
-  RefDocMasterRecordId: number;
-  Comments: string;
-  CommentsUserId: number;
-  CommentsEntryDate: Date;
-  SortNo: number;
-};
 
 const CardView: React.FC<{
   documentTypeId: number;
@@ -46,9 +38,23 @@ const CardView: React.FC<{
     data: NotesData,
     isSuccess: NotesSuccess,
     isLoading: NotesLoading,
+    refetch: NotesHistoryRefetch
   } = useVouchersRemarksByApprovalUser_History(documentTypeId, selectedCardData?.VoucherHeadId);
 
+  const { data: NotesbyApprovalPerson, refetch: SingleNotesRefetch } = useNotesByApprovalPerson_ReadAsSingleString(
+    documentTypeId,
+    selectedCardData?.VoucherHeadId
+  );
+
   const { mutate: Approve } = useApproveVouchers(documentTypeId);
+  const { mutate: SaveNotes } = useVouchersNotesByApprovalUserId_Save();
+
+  useEffect(() => {
+    if (selectedCardData) {
+      SingleNotesRefetch();
+      NotesHistoryRefetch();
+    }
+  }, [selectedCardData]);
 
   // const {
   //   data: Data,
@@ -214,8 +220,17 @@ const CardView: React.FC<{
   const handlVoucherNotesButtonClick = () => {
     setNotesPopupVisible(true);
   };
-  const handleSavingVoucherNotes = (Comments: string) => {
-    console.log(Comments);
+
+  const handleSavingVoucherNotes = (obj: any) => {
+    console.log(obj);
+    SaveNotes({
+      RefDocTypeId: documentTypeId,
+      RefDocMasterRecordId: selectedCardData?.VoucherHeadId,
+      Comments: obj.Comments,
+      CommentsUserId: userDetail?.UserId,
+      CommentsEntryDate: new Date(),
+      SortNo: 1,
+    });
   };
 
   const HandleFilterCriteriaData = () => {};
@@ -414,6 +429,15 @@ const CardView: React.FC<{
                       <div className="value">{selectedCardData?.Remarks}</div>
                     </div>
                   </Row>
+                  {NotesbyApprovalPerson?.data?.Data?.Result && (
+                    <Row>
+                      <div className="caption-value-wrape">
+                        <div className="caption">Notes:</div>
+                        <div className="value">{NotesbyApprovalPerson?.data?.Data?.Result}</div>
+                      </div>
+                    </Row>
+                  )}
+
                   <Tablefile voucherHeadId={selectedCardData?.VoucherHeadId} documentTypeId={documentTypeId} />
                 </div>
               </Col>
@@ -424,7 +448,7 @@ const CardView: React.FC<{
 
       <VouchersNotesPopup
         visible={NotesPopupVisible}
-        historyData={NotesData}
+        historyData={NotesData?.data?.Data?.Result}
         onClose={() => setNotesPopupVisible(false)}
         onSave={handleSavingVoucherNotes}
       ></VouchersNotesPopup>
