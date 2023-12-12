@@ -5,6 +5,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { requestManager } from '@tradePro/configs/requestManager';
 import { storedUserDetail } from '@tradePro/utils/storageService';
 import { TSaveCashPaymentVoucher } from '../form/types';
+import { isNumber } from 'lodash';
 
 const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
 const financialYear: any = JSON.parse(localStorage.getItem('financialYear') || '{}');
@@ -35,7 +36,7 @@ const getCashPaymentVoucherById = (Id?: number | null) => {
 
 export const useAddCashPaymentVoucher = (params?: TSaveCashPaymentVoucher) => {
   return useMutation(
-    'CashPaymentVoucher-history',
+    'C',
     (data: TSaveCashPaymentVoucher) => {
       let dataToSubmit = {};
       dataToSubmit = {
@@ -58,15 +59,15 @@ export const useAddCashPaymentVoucher = (params?: TSaveCashPaymentVoucher) => {
     },
     {
       onSuccess: (response: AxiosResponse) => {
-        queryClient.invalidateQueries('CashPaymentVoucher-history');
         if (response?.data && response?.data?.Status === false) {
           notification.error({
             message: 'Error',
             description: response?.data?.Message || 'An error occurred.',
           });
         } else if (response?.data && response?.data?.Status === true) {
-          const msg = 'Record Updated successfully!';
+          const msg = 'Record saved successfully!';
           notification.success({ description: '', message: msg });
+          queryClient.invalidateQueries('CashPaymentVoucher-history');
         }
       },
       onError: (error: AxiosError) => {
@@ -77,16 +78,16 @@ export const useAddCashPaymentVoucher = (params?: TSaveCashPaymentVoucher) => {
   );
 };
 
-export const useUpdateCashPaymentVoucher = (RecId?: number | null, params?: TSaveCashPaymentVoucher) => {
+export const useAddUpdateCashPaymentVoucher = (RecId?: number | null, params?: TSaveCashPaymentVoucher) => {
   return useMutation(
-    'CashPaymentVoucher-history',
+    'AddUpdate_CashPayment',
     (data: TSaveCashPaymentVoucher) => {
       let dataToSubmit = {};
       const userDetail = storedUserDetail();
       dataToSubmit = {
         ...data,
-        Id: RecId,
         Type: 0,
+        Id: isNumber(RecId) ? RecId : 0,
         OrganizationId: userDetail?.OrganizationId,
         CompanyId: userDetail?.CompanyId,
         BranchId: userDetail?.BranchesId,
@@ -101,10 +102,22 @@ export const useUpdateCashPaymentVoucher = (RecId?: number | null, params?: TSav
       return requestManager.post('/api/voucher/Save', dataToSubmit);
     },
     {
-      onSuccess: () => {
-        queryClient.invalidateQueries('bankPaymentVoucher-history');
-        const msg = 'Record updated successfully!';
-        notification.success({ description: '', message: msg });
+      onSuccess: (response: AxiosResponse) => {
+        if (response?.data && response?.data?.Status === false) {
+          notification.error({
+            message: 'Error',
+            description: response?.data?.Message || 'An error occurred.',
+          });
+        } else if (response?.data && response?.data?.Status === true) {
+          let msg = '';
+          if (isNumber(RecId)) {
+            msg = 'Record Updated successfully!';
+          } else {
+            msg = 'Record saved successfully!';
+          }
+          notification.success({ description: '', message: msg });
+          queryClient.invalidateQueries('CashPaymentVoucher-history');
+        }
       },
       onError: (error: AxiosError) => {
         const msg = error.response?.data || 'Something went wrong';

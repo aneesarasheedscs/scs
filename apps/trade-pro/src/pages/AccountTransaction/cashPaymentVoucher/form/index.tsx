@@ -11,7 +11,7 @@ import dayjs from 'dayjs';
 import MainEntry from './MainEntry';
 import DynamicForm from './DetailEntry';
 import { TSaveCashPaymentVoucher } from './types';
-import { useAddCashPaymentVoucher, useUpdateCashPaymentVoucher } from '../queries/querySave';
+import { useAddCashPaymentVoucher, useAddUpdateCashPaymentVoucher } from '../queries/querySave';
 import { useAtom } from 'jotai';
 import { addtableData, isWithHoldingCheckedAtom } from './Atom';
 
@@ -28,20 +28,21 @@ function CashPaymentVoucherForm({
   const { t } = useTranslation();
   const [bankId, setBankId] = useState<number | null>(null);
   const DocumentTypeId = 1;
-  const { data, isError, refetch, isLoading, isSuccess } = useGetVoucherNo(
-    selectedRecordId !== null ? false : true,
-    DocumentTypeId
-  );
+  const { data, isError, refetch, isLoading, isSuccess } = useGetVoucherNo(DocumentTypeId);
 
   const [tableData, setTableData] = useAtom(addtableData);
   const [isWithHoldingChecked, setIsWithHoldingChecked] = useAtom(isWithHoldingCheckedAtom);
   const [isAddButtonClicked, setIsAddButtonClicked] = useState(true);
-  const { mutate: addCashPaymentVoucher, isSuccess: isEntrySuccessful, data: entryData } = useAddCashPaymentVoucher();
+  const {
+    mutate: addCashPaymentVoucher,
+    isSuccess: isEntrySuccessful,
+    data: entryData,
+  } = useAddUpdateCashPaymentVoucher();
   const {
     mutate: updateCashPaymentVoucher,
     isSuccess: isUpdateEntrySuccessful,
     data: UpdateData,
-  } = useUpdateCashPaymentVoucher(selectedRecordId);
+  } = useAddUpdateCashPaymentVoucher(selectedRecordId);
 
   useEffect(() => {
     if (selectedRecordId) {

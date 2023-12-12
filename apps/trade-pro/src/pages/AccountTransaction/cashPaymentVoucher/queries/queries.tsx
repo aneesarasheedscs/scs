@@ -37,7 +37,7 @@ export const useGetCashPaymentVoucherTable = (enabled = true, params?: TCashHist
 
 // Voucher No
 
-export const useGetVoucherNo = (enabled: boolean, DocumentTypeId: number) => {
+export const useGetVoucherNo = (DocumentTypeId: number) => {
   return useQuery(
     ['voucher-number', DocumentTypeId],
     () => {
@@ -52,7 +52,7 @@ export const useGetVoucherNo = (enabled: boolean, DocumentTypeId: number) => {
         },
       });
     },
-    { enabled: enabled, cacheTime: 5000 }
+    { cacheTime: 5000 }
   );
 };
 

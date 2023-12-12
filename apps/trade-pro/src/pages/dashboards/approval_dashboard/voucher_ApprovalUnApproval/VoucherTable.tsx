@@ -37,15 +37,18 @@ const VoucherTable: React.FC<{
     hideDefaultSelections: true,
   };
 
-  const handleRecordsForApproveAndRevision = (ActionTypeId: boolean) => {
+  const handleRecordsForApprove = () => {
     setConfirmationMesg("Are You Sure To approve Record's");
+    setConfirmPopupVisibility(true);
+  };
+  
+  const handleRecordsForRevision = () => {
+    setConfirmationMesg("Do You want to Mark Selected Documents For Revision");
     setConfirmPopupVisibility(true);
   };
 
   let ApproveData: any = [];
-  const ApproveRecords = (ActionTypeId: boolean) => {
-    // ApproveData.OrganizationId = userDetail?.OrganizationId;
-    // ApproveData.CompanyId = userDetail?.CompanyId;
+  const ApproveRecords = () => {
     ApproveData.AllApprovalLists = [];
     for (let i = 0; i < selected?.length; i++) {
       ApproveData?.AllApprovalLists.push({
@@ -54,10 +57,28 @@ const VoucherTable: React.FC<{
         Id: selected[i].VoucherHeadId,
         PostDate: new Date(),
         EntryUser: userDetail?.UserId,
-        ActionTypeId: ActionTypeId, // false For Approve ,, true for revision
+        ActionTypeId: false, // false For Approve ,, true for revision
         ReqType: approvalUnApproval == false ? 'AP' : 'UP',
       });
     }
+    Approve(ApproveData);
+  };
+
+  let DataForRevision: any = [];
+  const ReviseRecords = () => {
+    DataForRevision.AllApprovalLists = [];
+    for (let i = 0; i < selected?.length; i++) {
+      ApproveData?.AllApprovalLists.push({
+        OrganizationId: userDetail?.OrganizationId,
+        CompanyId: userDetail?.CompanyId,
+        Id: selected[i].VoucherHeadId,
+        PostDate: new Date(),
+        EntryUser: userDetail?.UserId,
+        ActionTypeId: true, // false For Approve ,, true for revision
+        ReqType: approvalUnApproval == false ? 'AP' : 'UP',
+      });
+    }
+    Approve(DataForRevision);
   };
 
   useEffect(() => {
@@ -83,7 +104,7 @@ const VoucherTable: React.FC<{
           <AntButton
             icon={<FileProtectOutlined />}
             className="btn"
-            onClick={() => handleRecordsForApproveAndRevision(false)}
+            onClick={() => handleRecordsForApprove()}
             label={`${selected.length}`}
           />
         </Tooltip>
@@ -93,7 +114,7 @@ const VoucherTable: React.FC<{
               icon={<EditFilled />}
               style={{ marginLeft: '3px' }}
               className="btn"
-              onClick={() => handleRecordsForApproveAndRevision(true)}
+              onClick={() => handleRecordsForRevision()}
               label={`${selected.length}`}
             />
           </Tooltip>
@@ -127,6 +148,7 @@ const VoucherTable: React.FC<{
         visibility={popupVisibility}
         onOk={() => setpopupVisibility(false)}
       ></CustomPopup>
+
       <CustomPopup
         type={'confirmation'}
         title={'Confirmation'}
