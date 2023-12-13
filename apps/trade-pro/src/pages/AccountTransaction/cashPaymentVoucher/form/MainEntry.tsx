@@ -15,18 +15,34 @@ import { useAtom } from 'jotai';
 
 function MainEntry({ form, setBankId, bankId, isAddButtonClicked }: TDynamicForm) {
   const { t } = useTranslation();
-  const { data: getTaxSchedule } = useGetTaxSchedule();
+
+  const { data: getTaxSchedule, refetch: TaxScheduleRefetch } = useGetTaxSchedule(
+    form.getFieldValue('VoucherDate'),
+    form.getFieldValue(['voucherDetailList', 0, 'TaxTypeId'])
+  );
+
+  useEffect(() => {
+    if (form.getFieldValue('IncludeWHT')) {
+      if (form.getFieldValue('VoucherDate') && form.getFieldValue(['voucherDetailList', 0, 'TaxTypeId'])) {
+        TaxScheduleRefetch();
+      }
+    }
+  }, [form.getFieldValue('VoucherDate'), form.getFieldValue(['voucherDetailList', 0, 'TaxTypeId'])]);
+
   const [totalDebitAmounts, setTotalDebitAmounts] = useAtom(totalValue);
   const { data: credit } = useGetCreditAccountSelect();
   const { data } = useGetAccountsBalance(bankId);
+
   const [selectedCreditAccount, setSelectedCreditAccount] = useAtom(selectedCreditAccountAtom);
   const [againstAccountAtom, setAgainstAccountAtom] = useAtom(selectedAgainstAccountAtom);
   const [isWithHoldingChecked, setIsWithHoldingChecked] = useAtom(isWithHoldingCheckedAtom);
+
   const { data: whtAgainst } = useGetWHTAgainstAcSelect();
   const { data: project } = useGetCashPaymentProjectSelect();
+
   useEffect(() => {
-    form.setFieldValue('VoucherAmount', totalDebitAmounts);
     form.setFieldValue('ProjectId', project?.data?.Data?.Result?.[0]?.ProjectName);
+    // form.setFieldValue('VoucherAmount', totalDebitAmounts);
     if (data?.data?.Data?.Result?.[0]?.Balance !== undefined) {
       form.setFieldsValue({ Balance: data?.data?.Data?.Result?.[0]?.Balance.toFixed(2) });
     }
@@ -54,20 +70,17 @@ function MainEntry({ form, setBankId, bankId, isAddButtonClicked }: TDynamicForm
     form.setFieldsValue({
       [fieldName]: isChecked,
     });
-
     if (isChecked) {
       form.setFieldValue(['voucherDetailList', 0, 'TaxPrcnt'], getTaxSchedule?.data?.Data?.Result?.[0]?.TaxPercent);
-      form.setFieldValue(['voucherDetailList', 0, 'AgainstAccountId'], 21321);
-      form.setFieldValue('AgainstAccountId', 21321);
+      form.setFieldValue(
+        ['voucherDetailList', 0, 'AgainstAccountId'],
+        getTaxSchedule?.data?.Data?.Result?.[0]?.TaxGLAccountId
+      );
     } else if (!isChecked) {
       form.setFieldValue(['voucherDetailList', 0, 'TaxPrcnt'], 0);
-      form.setFieldValue('AgainstAccountId', 21321);
       form.setFieldValue(['voucherDetailList', 0, 'AgainstAccountId'], null);
     }
   };
-
-  const { data: filter } = useGetWHTAgainstAcSelect();
-
   interface TVoucherType {
     Id: number;
     Type: string;
@@ -158,12 +171,13 @@ function MainEntry({ form, setBankId, bankId, isAddButtonClicked }: TDynamicForm
                 className="formfield against"
               >
                 <AntSelectDynamic
+                  required={form.getFieldValue('IncludeWHT') ? true : false}
                   bordered={false}
                   label={t('wht_against_ac')}
                   fieldValue="Id"
                   fieldLabel="AccountTitle"
                   name="RefDocNoId"
-                  disabled={!isWithHoldingChecked}
+                  disabled={!form.getFieldValue('IncludeWHT') /*isWithHoldingChecked*/}
                   options={map(whtAgainst, (item: any) => ({
                     value: item.Id,
                     label: item.AccountTitle,

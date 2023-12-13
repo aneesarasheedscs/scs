@@ -56,15 +56,18 @@ export type TCashPaymentDetailEntry = {
   DebitAmount: number;
   Comments: string;
   key: number;
-  Amount: number;
   TaxTypeId: number;
+  TaxName: string;
   TaxPrcnt: number;
-  TaxesTotalAmount: number;
   CheqId: number;
   InvoiceNoRefId: number;
   PayeeTitle: string;
   CheqNoDetail: number;
   IsDetailExpanded: boolean;
+  Amount: number;
+  TaxAmount: number;
+  TotalAmount: number;
+  IsTaxable: boolean;
 };
 
 export type TFormDetailList = {
@@ -82,12 +85,13 @@ export type TFormDetailList = {
 
 export type DataType = {
   Id: number;
-  AccountTitle: string;
-  JobLotDescription: string;
-  JobLotId: number;
-  DCheqDate: Date | string;
+  PaymentTypeId: number;
   PaymentType: string;
   AccountId: number;
+  AccountTitle: string;
+  JobLotId: number;
+  JobLotDescription: string;
+  DCheqDate: Date | string;
   DebitAmount: number;
   CreditAmount: number;
   AdvanceAmount: number;
@@ -96,6 +100,7 @@ export type DataType = {
   PayeeTitle: string;
   Comments: string;
   IsTaxable: boolean;
+  TaxName: string;
 };
 
 export type TCreditAccountBind = {

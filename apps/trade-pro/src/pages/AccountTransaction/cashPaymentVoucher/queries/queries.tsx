@@ -181,14 +181,19 @@ export const useGetCashPaymentJobLotSelect = () => {
   );
 };
 
-export const useGetTaxSchedule = () => {
+export const useGetTaxSchedule = (DocDate: Date, TaxNameId: number) => {
   return useQuery(
     'TaxSchedule',
     () => {
       return requestManager.get('/api/TaxScheduleMain/GetTaxSchedule', {
-        params: { ...params, EffectedDate: new Date(), TaxNameId: 11 },
+        params: {
+          OrganizationId: userDetail?.OrganizationId,
+          CompanyId: userDetail?.CompanyId,
+          EffectedDate: DocDate,
+          TaxNameId: TaxNameId,
+        },
       });
     },
-    { cacheTime: 5000 }
+    { enabled: !!DocDate && !!TaxNameId, cacheTime: 5000 }
   );
 };

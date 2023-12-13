@@ -6,7 +6,6 @@ import { SaveOutlined, SyncOutlined, PaperClipOutlined, ReloadOutlined } from '@
 import { useTranslation } from 'react-i18next';
 import VoucherNo from './VoucherNo';
 import { useGetVoucherNo } from '../queries/queries';
-import { map } from 'lodash';
 import dayjs from 'dayjs';
 import MainEntry from './MainEntry';
 import DynamicForm from './DetailEntry';
@@ -51,28 +50,25 @@ function CashPaymentVoucherForm({
   }, [selectedRecordId]);
 
   const onFinish = (values: TSaveCashPaymentVoucher) => {
-    const AgainstAccountId = values.voucherDetailList?.[0]?.AgainstAccountId;
-    const AccountId = values.voucherDetailList?.[0]?.AccountId;
-    const Amount = values.voucherDetailList?.[0]?.Amount;
-    const TaxTypeId = values.voucherDetailList?.[0]?.TaxTypeId;
-    const TaxPrcnt = values.voucherDetailList?.[0]?.TaxPrcnt;
-    const CreditAmount = values.voucherDetailList?.[0]?.CreditAmount;
-    const TaxesTotalAmount = values.voucherDetailList?.[0]?.TaxesTotalAmount;
-    const Comments = values.voucherDetailList?.[0]?.Comments;
-    const IsTaxable = 'true';
-    const includeWHTList = [
-      { AgainstAccountId, AccountId, TaxTypeId, TaxPrcnt, Amount, CreditAmount, IsTaxable, TaxesTotalAmount, Comments },
-    ];
-    const includeWHTListEntry = includeWHTList.map((item) => ({
-      ...item,
-    }));
+    const TaxableEntry: any = {};
+    if (values.IncludeWHT) {
+      TaxableEntry.AccountId = values.RefDocNoId;
+      TaxableEntry.AgainstAccountId = values.voucherDetailList[0].AgainstAccountId;
+      TaxableEntry.TaxTypeId = values.voucherDetailList?.[0]?.TaxTypeId;
+      TaxableEntry.IsTaxable = 'True';
+      TaxableEntry.Comments =
+        'Tax Name' +
+        '    ' +
+        values.voucherDetailList?.[0]?.TaxName +
+        '   ' +
+        'Tax %' +
+        '   ' +
+        values.voucherDetailList?.[0]?.TaxPrcnt;
+      TaxableEntry.TaxPrcnt = values.voucherDetailList?.[0]?.TaxPrcnt;
+      TaxableEntry.TaxesTotalAmount = values.voucherDetailList?.[0]?.TaxAmount;
+      TaxableEntry.DebitAmount = values.voucherDetailList?.[0]?.TaxAmount;
 
-    if (isWithHoldingChecked) {
-      const voucherDetailListwithWHT = tableData.map((item: any) => ({
-        ...item,
-        includeWHTListEntry,
-      }));
-      values.voucherDetailList = values.voucherDetailList && voucherDetailListwithWHT;
+      values.voucherDetailList = [...tableData, TaxableEntry];
     } else {
       values.voucherDetailList = values.voucherDetailList && tableData;
       //Above Line Meant This
@@ -84,6 +80,20 @@ function CashPaymentVoucherForm({
       ...item, // Copy all existing properties of the item
       AgainstAccountId: values.RefAccountId, // Update the specific field
     }));
+
+    values.voucherDetailList = values.voucherDetailList.map((item) => {
+      // Check if IsTaxable is not true
+      if (item.IsTaxable !== true) {
+        return {
+          ...item,
+          AgainstAccountId: values.RefAccountId,
+        };
+      } else {
+        // If IsTaxable is true, return the item without modification
+        return item;
+      }
+    });
+
     console.log(values);
 
     if (selectedRecordId) {
