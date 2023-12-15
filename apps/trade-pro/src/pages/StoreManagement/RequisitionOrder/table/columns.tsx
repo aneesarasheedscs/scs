@@ -26,7 +26,7 @@ export const columns = (
     dataIndex: 'DocDate',
     searchableDate: true,
     render: (_, { DocDate }) => formateDate(DocDate),
-    width: 150,
+    width: 140,
     sorter: (a, b) => {
       const dateA = dayjs(a.DocDate);
       const dateB = dayjs(b.DocDate);
@@ -36,7 +36,7 @@ export const columns = (
   {
     title: <>{t('location_from')}</>,
     dataIndex: 'LocationFrom',
-    width: 250,
+    width: 280,
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.EntryUser.localeCompare(b.EntryUser),
@@ -99,7 +99,7 @@ export const columns = (
   },
   {
     title: <>{t('approved_user')}</>,
-    dataIndex: ' ApprovedUser',
+    dataIndex: 'ApprovedUser',
     width: 180,
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
@@ -120,9 +120,29 @@ export const columns = (
   {
     title: <>{t('is_approved')}</>,
     dataIndex: 'IsApproved',
-    width: 180,
-    searchableInput: true,
+    width: 120,
+    // searchableInput: true,
     sortDirections: ['ascend', 'descend'],
+    render: (IsApproved) => (
+      <Space
+        style={{
+          color: IsApproved === 'Approved' ? 'lightgreen' : 'red',
+          // color: 'white',
+          borderRadius: '5px',
+          fontWeight: 'bold',
+          width: '95%',
+          paddingLeft: 8,
+          border: '1px ridge white',
+          boxShadow: ' rgba(0, 0, 0, 0.35) 0px 5px 15px',
+          position: 'absolute',
+          top: 8,
+          left: 0,
+          textAlign: 'center',
+        }}
+      >
+        {IsApproved === 'Approved' ? 'Approved' : 'Not Approved'}
+      </Space>
+    ),
     // sorter: (a, b) => a.ApprovalStatus.localeCompare(b.ApprovalStatus),
   },
 
@@ -141,7 +161,7 @@ export const columns = (
   },
   {
     title: <>{t('action')}</>,
-    width: 150,
+    width: 120,
     render: (_, record) => (
       <>
         <Tooltip title="Edit">
@@ -168,11 +188,6 @@ export const columns = (
                 />
               }
             />
-          </Space>
-        </Tooltip>
-        <Tooltip title="Delete">
-          <Space>
-            <AntButton type="text" icon={<DeleteOutlined style={{ color: 'red', marginLeft: 4 }} />} />
           </Space>
         </Tooltip>
       </>

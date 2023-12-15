@@ -1,15 +1,27 @@
 export type TBankReceiptVoucherTable = {
-  Id: string;
-  VoucherCode: string;
-  DocumentTypeId: string;
+  Id: number;
+  VoucherCode: number;
+  DocumentTypeId: number;
   DocumentTypeCode: string;
-  VoucherDate: string | Date;
-  ManualBillNo: string | null;
+  VoucherDate: string;
+  ManualBillNo: number;
   AccountTitle: string;
   Remarks: string;
   VoucherAmount: number;
   UserName: string;
-  CheqNo: string;
+  CheqNo: number;
+  TaxAmount: number;
+  TaxPrcnt: number;
+  TaxName: string;
+  TaxAccount: string;
+  CustomerAddress: string;
+  EntryUserProfileImageUrl: string;
+  ModifyUserProfileImageUrl: string;
+  ApprovalUserProfileImageUrl: string;
+  CompLogoImage: string;
+  ChequeDate: Date | string;
+  EntryDate: Date | string;
+  PayeeTitle: string;
 };
 
 export type TBankHistory = {

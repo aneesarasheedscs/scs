@@ -1,7 +1,6 @@
 import { lazy } from 'react';
 import { route } from './constant';
 import { RouteObject } from 'react-router-dom';
-import RequisitionOrder from '@tradePro/pages/StoreManagement/RequisitionOrder';
 
 const GeneralLedgerReport = lazy(() => import('@tradePro/pages/accountReports/GeneralLedger'));
 const PurchaseActivity = lazy(() => import('@tradePro/pages/purchaseReports/purchaseActivityReport'));
@@ -26,8 +25,13 @@ const CustomerDiscountPolicy = lazy(() => import('@tradePro/pages/WholeSale/Cust
 const AddTaxType = lazy(() => import('@tradePro/pages/Taxation/AddTaxType/form'));
 const AddTaxSheduleScreen = lazy(() => import('@tradePro/pages/Taxation/AddTaxShedule/form'));
 const ItemTaxSheduleScreen = lazy(() => import('@tradePro/pages/Taxation/ItemTaxShedule/form'));
+
+// Store Management
 const StockTransfer = lazy(() => import('@tradePro/pages/StoreManagement/stockTransferWarehouseToWarehouse'));
 const StockTransferNoteDirect = lazy(() => import('@tradePro/pages/StoreManagement/StockTransferNoteDirect'));
+const RequisitionOrder = lazy(() => import('@tradePro/pages/StoreManagement/RequisitionOrder'));
+const StockTranferNotes = lazy(() => import('@tradePro/pages/StoreManagement/StockTransferNotes'));
+const StockReceivedNotes = lazy(() => import('@tradePro/pages/StoreManagement/StockReceivedNotes'));
 
 const Login = lazy(() => import('@tradePro/pages/login'));
 const CompanyBranchDetail = lazy(() => import('@tradePro/pages/login/CompanyBranchDetails'));
@@ -213,6 +217,8 @@ export const protectedRoutes: RouteObject[] = [
 
   //Store Management
   { path: route.REQUISITION_ORDER, element: <RequisitionOrder /> },
+  { path: route.STOCK_TRANSFER_NOTE, element: <StockTranferNotes /> },
+  { path: route.STOCK_RECEIVING_NOTE, element: <StockReceivedNotes /> },
   { path: route.STOCK_TRANSFER_WAREHOUSE, element: <StockTransfer /> },
   { path: route.STOCK_TRANSFER_NOTE_DIRECT, element: <StockTransferNoteDirect /> },
 

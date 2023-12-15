@@ -17,7 +17,7 @@ function BankReceiptVoucher() {
   return (
     <>
       <Card style={{ background: 'transparent', marginLeft: '-1%', marginTop: '-2%' }}>
-        <h2 className="form-heading">{t('bank_receipt_voucher')}</h2>
+        <h2 style={{ textAlign: 'center' }}>{t('bank_receipt_voucher')}</h2>
         <Tabs
           type="card"
           size="large"

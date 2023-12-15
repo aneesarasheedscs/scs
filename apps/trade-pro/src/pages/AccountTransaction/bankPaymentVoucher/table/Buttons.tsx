@@ -1,4 +1,4 @@
-import { AntButton } from '@scs/ui';
+import { AntButton } from '@tradePro/components';
 import { Col, Row, Tooltip } from 'antd';
 import { PrinterFilled, LinkOutlined, EditFilled } from '@ant-design/icons';
 

@@ -61,10 +61,10 @@ const FormListt = ({ form }: FormListt) => {
                   {fields.map((field) => (
                     <div key={field.key} className="form-list-container">
                       <Col
-                        xs={{ span: 18, offset: 0 }}
-                        sm={{ span: 18, offset: 1 }}
-                        md={{ span: 9, offset: 0 }}
-                        lg={{ span: 10, offset: 0 }}
+                        xs={{ span: 24, offset: 0 }}
+                        sm={{ span: 21, offset: 1 }}
+                        md={{ span: 11, offset: 0 }}
+                        lg={{ span: 11, offset: 0 }}
                         xl={{ span: 7, offset: 0 }}
                         className="formfield"
                       >
@@ -79,7 +79,7 @@ const FormListt = ({ form }: FormListt) => {
                         />
                       </Col>
 
-                      <Col
+                      {/* <Col
                         xs={{ span: 5, offset: 0 }}
                         sm={{ span: 4, offset: 0 }}
                         md={{ span: 3, offset: 0 }}
@@ -93,15 +93,15 @@ const FormListt = ({ form }: FormListt) => {
                             </Checkbox>
                           </Form.Item>
                         </label>
-                      </Col>
+                      </Col> */}
 
                       <>
                         <Col
                           xs={{ span: 24, offset: 0 }}
                           sm={{ span: 21, offset: 1 }}
-                          md={{ span: 9, offset: 1 }}
-                          lg={{ span: 10, offset: 1 }}
-                          xl={{ span: 6, offset: 1 }}
+                          md={{ span: 11, offset: 1 }}
+                          lg={{ span: 11, offset: 1 }}
+                          xl={{ span: 7, offset: 1 }}
                           className="formfield"
                         >
                           <AntInputNumber
@@ -115,8 +115,8 @@ const FormListt = ({ form }: FormListt) => {
                         <Col
                           xs={{ span: 24, offset: 0 }}
                           sm={{ span: 21, offset: 1 }}
-                          md={{ span: 9, offset: 0 }}
-                          lg={{ span: 10, offset: 0 }}
+                          md={{ span: 11, offset: 0 }}
+                          lg={{ span: 11, offset: 0 }}
                           xl={{ span: 7, offset: 1 }}
                           className="formfield"
                         >
@@ -137,8 +137,8 @@ const FormListt = ({ form }: FormListt) => {
                         <Col
                           xs={{ span: 24, offset: 0 }}
                           sm={{ span: 21, offset: 1 }}
-                          md={{ span: 9, offset: 4 }}
-                          lg={{ span: 10, offset: 3 }}
+                          md={{ span: 11, offset: 1 }}
+                          lg={{ span: 11, offset: 1 }}
                           xl={{ span: 7, offset: 0 }}
                           className="formfield"
                           style={{ marginTop: '1%' }}
@@ -154,9 +154,9 @@ const FormListt = ({ form }: FormListt) => {
                         <Col
                           xs={{ span: 24, offset: 0 }}
                           sm={{ span: 21, offset: 1 }}
-                          md={{ span: 9, offset: 0 }}
-                          lg={{ span: 10, offset: 0 }}
-                          xl={{ span: 6, offset: 2 }}
+                          md={{ span: 11, offset: 0 }}
+                          lg={{ span: 11, offset: 0 }}
+                          xl={{ span: 7, offset: 1 }}
                           style={{ marginTop: '1%' }}
                           className="formfield"
                         >
@@ -171,8 +171,8 @@ const FormListt = ({ form }: FormListt) => {
                         <Col
                           xs={{ span: 24, offset: 0 }}
                           sm={{ span: 21, offset: 1 }}
-                          md={{ span: 9, offset: 4 }}
-                          lg={{ span: 10, offset: 3 }}
+                          md={{ span: 11, offset: 1 }}
+                          lg={{ span: 11, offset: 1 }}
                           xl={{ span: 7, offset: 1 }}
                           style={{ marginTop: '1%' }}
                           className="formfield"

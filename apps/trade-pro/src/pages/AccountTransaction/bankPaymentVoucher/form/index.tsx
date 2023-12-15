@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AntButton, AntDatePicker } from '@tradePro/components';
-import { Badge, Card, Checkbox, Col, Form, Input, Row, notification } from 'antd';
+import { Badge, Card, Col, Form, Input, Row, notification } from 'antd';
 import '../style.scss';
 import { SaveOutlined, SyncOutlined, PaperClipOutlined, ReloadOutlined, PrinterFilled } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';

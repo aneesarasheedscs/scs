@@ -60,6 +60,8 @@ export type TRequisitionOrder = {
   ApprovedDate: Date;
   HoApprovalDate: Date;
   IsApproved: boolean;
+  HoIsApproved: boolean;
+  HoApprovedUserId: number;
   WsRmRequisitionPoDetailsList: TWsRmRequisitionPoDetailsList[];
 };
 export type TWsRmRequisitionPoDetailsList = {
@@ -82,10 +84,11 @@ export type TWsRmRequisitionPoDetailsList = {
   ItemUom: number;
   PackUom: string;
   PackEquivalent: number;
+  DestinationLocationId: number;
 };
 
 export type TRequisitionOrderHistory = {
-  Id: string;
+  Id: number;
   DocNo: number;
   DocDate: Date | string;
   LocationFrom: string;

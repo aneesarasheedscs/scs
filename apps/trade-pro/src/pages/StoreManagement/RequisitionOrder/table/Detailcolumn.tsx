@@ -5,7 +5,7 @@ import { TWsRmRequisitionPoDetailsList } from '../types';
 export const detailColumns = (t?: any): AntColumnType<TWsRmRequisitionPoDetailsList>[] => [
   {
     title: <>{t('item_name')}</>,
-    width: 350,
+    width: 400,
     searchableInput: true,
     dataIndex: 'ItemName',
     sortDirections: ['ascend', 'descend'],
@@ -66,7 +66,7 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmRequisitionPoDetailsL
 
   {
     title: <>{t('remarks')}</>,
-    width: 300,
+    width: 420,
     dataIndex: 'RemarksDetail',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],

@@ -104,11 +104,14 @@ export const useGetRequisitionOrderById = (Id?: number | null) => {
     }
   );
 };
+const getRequisitionOrderById = (Id?: number | null) => {
+  return requestManager.get(`/api/WsRmRequisitionPo/GetByID`, { params: { Id } });
+};
 export const useGetRequisitionOrderByIdforDetail = (Id?: number | null) => {
   return useQuery(
     ['requisition-getById-detail', Id],
     () => {
-      return getRequisitionOrderById(Id);
+      return getRequisitionOrderByIdforDetail(Id);
     },
     {
       cacheTime: 0,
@@ -121,11 +124,11 @@ export const useGetRequisitionOrderByIdforDetail = (Id?: number | null) => {
     }
   );
 };
-
-const getRequisitionOrderById = (Id?: number | null) => {
+const getRequisitionOrderByIdforDetail = (Id?: number | null) => {
   return requestManager.get(`/api/WsRmRequisitionPo/GetByID`, { params: { Id } });
 };
-//Get Stock History
+
+//Get  History
 export const useRequisitionOrderHistory = (enabled = true, params?: TRequisitionOrderHistory) => {
   return useQuery(
     'requisition_order',
@@ -165,16 +168,28 @@ export const useAddRequisitionOrder = (DocumentTypeId?: number, params?: TRequis
         ApprovedDate: new Date().toISOString(),
         EntryDate: new Date().toISOString(),
         ModifyDate: new Date().toISOString(),
+        HoApprovedUserId: userDetail?.UserId,
         HoApprovalDate: new Date().toISOString(),
+        IsApproved: false,
+        HoIsApproved: false,
         ...params,
       };
       return requestManager.post('/api/WsRmRequisitionPo/Save', dataToSubmit);
     },
     {
-      onSuccess: () => {
+      onSuccess: (response: AxiosResponse) => {
         queryClient.invalidateQueries('requisition_order');
-        const msg = 'Record added successfully!';
-        notification.success({ description: '', message: msg });
+        // const msg = 'Record added successfully!';
+        // notification.success({ description: '', message: msg });
+        if (response?.data && response?.data?.Status === false) {
+          notification.error({
+            message: 'Error',
+            description: response?.data?.Message || 'An error occurred.',
+          });
+        } else if (response?.data && response?.data?.Status === true) {
+          const msg = 'Record Approved successfully!';
+          notification.success({ description: '', message: msg });
+        }
       },
       onError: (error: AxiosError) => {
         const msg = error.response?.data || 'Something went wrong';
@@ -199,19 +214,29 @@ export const useUpdateRequisitionOrder = (Id?: number | null, DocumentTypeId?: n
         EntryUserId: userDetail?.UserId,
         ModifyUserId: userDetail?.UserId,
         ApprovedUserId: userDetail?.UserId,
+        HoApprovedUserId: userDetail?.UserId,
         ApprovedDate: new Date().toISOString(),
         EntryDate: new Date().toISOString(),
         ModifyDate: new Date().toISOString(),
         HoApprovalDate: new Date().toISOString(),
+        IsApproved: false,
+        HoIsApproved: false,
         ...params,
       };
       return requestManager.post('/api/WsRmRequisitionPo/Save', dataToSubmit);
     },
     {
-      onSuccess: () => {
+      onSuccess: (response: AxiosResponse) => {
         queryClient.invalidateQueries('requisition_order');
-        const msg = 'Record updated successfully!';
-        notification.success({ description: '', message: msg });
+        if (response?.data && response?.data?.Status === false) {
+          notification.error({
+            message: 'Error',
+            description: response?.data?.Message || 'An error occurred.',
+          });
+        } else if (response?.data && response?.data?.Status === true) {
+          const msg = 'Record Updated successfully!';
+          notification.success({ description: '', message: msg });
+        }
       },
       onError: (error: AxiosError) => {
         const msg = error.response?.data || 'Something went wrong';

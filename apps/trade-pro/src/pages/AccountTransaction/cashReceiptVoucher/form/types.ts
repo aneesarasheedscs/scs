@@ -58,12 +58,13 @@ export type TTaxSchedule = {
 };
 
 export type TCashReceiptDetailEntry = {
-  Id: number;
   PaymentTypeId: number;
+  Id: number;
   PaymentType: string;
   JobLotId: number;
   Remarks: string;
   AccountId: number;
+  AccountIdDebit: number;
   AccountTitle: string;
   JobLotDescription: string;
   AgainstAccountId: number;
@@ -71,6 +72,17 @@ export type TCashReceiptDetailEntry = {
   DebitAmount: number;
   Comments: string;
   key: number;
+  Amount: number;
+  TaxTypeId: number;
+  TaxPrcnt: number;
+  TaxesTotalAmount: number;
+  CheqId: number;
+  InvoiceNoRefId: number;
+  PayeeTitle: string;
+  CheqNoDetail: number;
+  AccountCode: number;
+  AgainstAccount: string;
+  IsDetailExpanded: boolean;
 };
 
 export type TFormDetailList = {

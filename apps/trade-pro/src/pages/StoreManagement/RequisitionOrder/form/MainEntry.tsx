@@ -77,8 +77,8 @@ function MainEntry({ form }: TDynamicForm) {
 
       <Col xl={4} xxl={5} sm={6} xs={12} md={3}>
         <Row style={{ marginLeft: 10, marginTop: 10 }}>
-          <Form.Item name="IsApproved" valuePropName="checked" initialValue={true}>
-            <Checkbox onChange={(e) => handleCheckboxChange(e.target.checked, 'IsApproved')} checked={true}>
+          <Form.Item name="PrintPreview" valuePropName="checked" initialValue={true}>
+            <Checkbox onChange={(e) => handleCheckboxChange(e.target.checked, 'PrintPreview')} checked={true}>
               {t('preview')}
             </Checkbox>
           </Form.Item>

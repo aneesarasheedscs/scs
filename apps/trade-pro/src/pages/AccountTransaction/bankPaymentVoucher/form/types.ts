@@ -64,8 +64,7 @@ export type TBankPaymentDetailEntry = {
   TaxPrcnt: number;
   TaxesTotalAmount: number;
   IsDetailExpanded: boolean;
-  AccountCode: string;
-  AgainstAccountCode: string;
+  AccountCode: number;
   AgainstAccount: string;
 };
 

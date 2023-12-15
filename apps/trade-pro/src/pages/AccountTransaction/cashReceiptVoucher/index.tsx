@@ -2,7 +2,7 @@ import { Card, Tabs, theme } from 'antd';
 import { useTranslation } from 'react-i18next';
 import './style.scss';
 import { useState } from 'react';
-import CashReceiptTable from './table/cashPaymentVoucher';
+import CashReceiptTable from './table/cashReceiptVoucher';
 import CashReceiptVoucherForm from './form';
 
 function CashReceiptVoucher() {
@@ -17,7 +17,7 @@ function CashReceiptVoucher() {
   return (
     <>
       <Card style={{ background: 'transparent', marginLeft: '-1%', marginTop: '-2%' }}>
-        <h2 className="form-heading">{t('cash_receipt_voucher')}</h2>
+        <h2 style={{ textAlign: 'center' }}>{t('cash_receipt_voucher')}</h2>
         <Tabs
           type="card"
           size="large"

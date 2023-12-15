@@ -18,7 +18,6 @@ export const columns = (
     searchableInput: true,
     dataIndex: 'VoucherCode',
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.VoucherCode.localeCompare(b.VoucherCode),
   },
   {
     title: <>{t('type')}</>,
@@ -63,11 +62,10 @@ export const columns = (
   },
   {
     title: <>{t('cheque_no')}</>,
-    width: 200,
+    width: 170,
     dataIndex: 'CheqNo',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.CheqNo.localeCompare(b.CheqNo),
   },
   {
     title: <>{t('cheque_date')}</>,
@@ -91,7 +89,6 @@ export const columns = (
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.Remarks.localeCompare(b.Remarks),
   },
-
   {
     title: <>{t('user_name')}</>,
     width: 220,
@@ -143,7 +140,7 @@ export const columns = (
         {IsApproved ? 'Approved' : 'Not Approved'}
       </Space>
     ),
-    width: 150,
+    width: 120,
   },
   {
     title: <>{t('no_of_attachment')}</>,

@@ -61,7 +61,7 @@ function MainEntry({ form, setBankId, bankId, isAddButtonClicked }: TDynamicForm
   return (
     <>
       <Row gutter={[10, 10]} style={{ marginTop: '-1%' }}>
-        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+        <Col span={24}>
           <Card style={{ paddingBottom: '0.5%', boxShadow: '2px 4px 12px 1px gray' }}>
             <Row gutter={[10, 10]} justify={'space-between'} style={{ marginLeft: 10 }}>
               <Col

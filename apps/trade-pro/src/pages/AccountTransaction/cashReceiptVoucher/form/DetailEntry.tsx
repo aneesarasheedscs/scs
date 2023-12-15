@@ -34,7 +34,6 @@ const DynamicForm = ({ form, againstAccountId }: TDynamicForm) => {
   const filteredDebitAccounts = debit?.data?.Data?.Result.filter(
     (item: any) => !allowedAccountTypes.includes(item.AccountTypeId)
   );
-  const [edit, setEdit] = useState<any>([]);
 
   interface TPaymentType {
     typeId: number;
@@ -138,6 +137,47 @@ const DynamicForm = ({ form, againstAccountId }: TDynamicForm) => {
     setIsEditMode(false);
   };
 
+  const handleUpdateToTable = () => {
+    const newData = formValues.map((item, index) => ({
+      PaymentType: item.PaymentTypeId,
+      AccountId: item.AccountId,
+      AccountTitle: item.AccountTitle,
+      JobLotDescription: item.JobLotDescription,
+      JobLotId: item.JobLotId,
+      DebitAmount: item.CreditAmount,
+      CreditAmount: item.CreditAmount,
+      Comments: item.Comments,
+    }));
+    if (newData.some((item) => item.CreditAmount === null || item.CreditAmount === undefined)) {
+      const message = 'Please fill  Credit Amount';
+      notification.error({ message: message });
+      return;
+    }
+    if (newData.some((item) => item.AccountId === null || item.AccountId === undefined)) {
+      const message = 'Please fill  Credit Account';
+      notification.error({ message: message });
+      return;
+    }
+    setCounter((prevCounter: any) => prevCounter - 1);
+    setTableData((prevData: any[]) => {
+      const updatedData = newData.map((item) => ({
+        ...item,
+        CheqId: counter,
+        ChequeNo: counter,
+        AgainstAccountId: againstAccountId,
+      }));
+
+      const combinedData = [...prevData, ...updatedData];
+      console.log('New tableData:', combinedData);
+      return combinedData;
+    });
+
+    form.setFieldValue(['voucherDetailList', 0, 'AccountId'], null);
+    form.setFieldValue(['voucherDetailList', 0, 'JobLotId'], null);
+    form.setFieldValue(['voucherDetailList', 0, 'CreditAmount'], null);
+    form.setFieldValue(['voucherDetailList', 0, 'Comments'], null);
+    setIsEditMode(false);
+  };
   const handleDeleteRow = (record: any) => {
     setTableData((prevData: any[]) => {
       const updatedData = prevData.filter((item: any) => item.CheqId !== record.CheqId);
@@ -146,76 +186,20 @@ const DynamicForm = ({ form, againstAccountId }: TDynamicForm) => {
     });
   };
 
-  const handleUpdateToTable = () => {
-    console.log('Form Values:', formValues);
-    const newData = formValues.map((item, index) => ({
-      PaymentType: item.PaymentType,
-      AccountId: item.AccountId,
-      AccountTitle: item.AccountTitle,
-      JobLotDescription: item.JobLotDescription,
-      JobLotId: item.JobLotId,
-      DebitAmount: item.DebitAmount,
-      CreditAmount: item.DebitAmount,
-      Comments: item.Comments,
-    }));
-    if (newData.some((item) => item.DebitAmount === null || item.DebitAmount === undefined)) {
-      const message = 'Please fill  Debit Amount';
-      notification.error({ message: message });
-      return;
-    }
-
-    if (newData.some((item) => item.AccountId === null || item.AccountId === undefined)) {
-      const message = 'Please select a Debit account';
-      notification.error({ message: message });
-      return;
-    }
-
-    setCounter((prevCounter: any) => prevCounter - 1);
-    setTableData((prevData: any[]) => {
-      const updatedData = newData.map((item, index) => {
-        const editedRowIndex = prevData.findIndex((row) => row.CheqId === edit.CheqId);
-        if (editedRowIndex >= 0) {
-          return {
-            ...item,
-            CheqId: counter,
-            ChequeNo: counter,
-            AgainstAccountId: againstAccountId,
-          };
-        }
-        return item;
-      });
-
-      const combinedData = [...prevData.filter((row) => row.CheqId !== edit.CheqId), ...updatedData];
-      console.log('New tableData:', combinedData);
-      return combinedData;
-    });
-    form.setFieldValue(['voucherDetailList', 0, 'AccountId'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'JobLotId'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'CreditAmount'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'Comments'], null);
-    setIsEditMode(false);
-  };
   const handleEditRow = (record: any) => {
-    setEdit(record);
     setTableData((prevData: any[]) => {
-      const updatedData = [...prevData]; // Create a copy of the array
-      const rowIndex = updatedData.findIndex((item: any) => item.CheqId === record.CheqId);
-      if (rowIndex !== -1) {
-        updatedData[rowIndex] = {
-          ...updatedData[rowIndex],
-          PaymentTypeId: record.PaymentType,
-          AccountId: record.AccountTitle,
-          JobLotId: record.JobLotDescription,
-          DebitAmount: record.DebitAmount,
-          Comments: record.Comments,
-        };
-        form.setFieldValue(['voucherDetailList', 0], updatedData[rowIndex]); // Update form values
-        setIsEditMode(true);
-      }
+      const updatedData = prevData.filter((item: any) => item.CheqId !== record.CheqId);
+      form.setFieldValue(['voucherDetailList', 0, 'PaymentTypeId'], record.PaymentType);
+      form.setFieldValue(['voucherDetailList', 0, 'AccountId'], record.AccountTitle);
+      form.setFieldValue(['voucherDetailList', 0, 'JobLotId'], record.JobLotDescription);
+      form.setFieldValue(['voucherDetailList', 0, 'CreditAmount'], record.CreditAmount);
+      form.setFieldValue(['voucherDetailList', 0, 'Comments'], record.Comments);
+      setIsEditMode(true);
       console.log('New tableData:', updatedData);
       return updatedData;
     });
   };
+
   const handleSelectjobLotChange = (obj: TjobLot, index: number) => {
     form.setFieldValue(['voucherDetailList', 0, 'JobLotDescription'], obj?.JobLotDescription);
   };
@@ -245,11 +229,9 @@ const DynamicForm = ({ form, againstAccountId }: TDynamicForm) => {
 
   return (
     <>
-      <Row gutter={[16, 16]} style={{ marginTop: '-2%' }}>
+      <Row gutter={[16, 16]}>
         <Col xs={24} sm={24} md={24} lg={{ span: 24 }} xl={{ span: 24 }}>
           <Card style={{ boxShadow: '2px 4px 12px 1px gray', paddingBottom: '1%' }}>
-            <br />
-
             <Form.List name="voucherDetailList" initialValue={[initialValues]}>
               {(fields, {}) => (
                 <>
@@ -261,6 +243,7 @@ const DynamicForm = ({ form, againstAccountId }: TDynamicForm) => {
                         md={{ span: 11, offset: 0 }}
                         lg={{ span: 11, offset: 0 }}
                         xl={{ span: 5, offset: 0 }}
+                        xxl={{ span: 4, offset: 0 }}
                         className="formfield type"
                         style={{ marginBottom: '1%' }}
                       >
@@ -284,14 +267,15 @@ const DynamicForm = ({ form, againstAccountId }: TDynamicForm) => {
                         sm={{ span: 21, offset: 1 }}
                         md={{ span: 11, offset: 1 }}
                         lg={{ span: 11, offset: 1 }}
-                        xl={{ span: 5, offset: 1 }}
-                        className="formfield balance"
-                        style={{ marginTop: '-2.5rem', borderBottom: '1px solid gray', padding: '0px', height: '60px' }}
+                        xl={{ span: 6, offset: 1 }}
+                        xxl={{ span: 7, offset: 1 }}
+                        className="formfield credit"
+                        style={{ marginTop: '-2.3rem', borderBottom: '1px solid gray', padding: '0px', height: '60px' }}
                       >
-                        <p style={{ marginTop: -10 }}>
-                          {t('credit_account_balance')} : <b> {data?.data?.Data?.Result?.[0]?.Balance.toFixed(2)}</b>
+                        <p style={{ marginTop: 0, marginLeft: '60%' }} className="cr">
+                          Cr : <b> {data?.data?.Data?.Result?.[0]?.Balance.toFixed(2)}</b>
                         </p>
-                        <p style={{ marginTop: 12 }}>
+                        <p style={{ marginTop: 0 }}>
                           <AntSelectDynamic
                             bordered={false}
                             label={t('credit_account')}
@@ -312,7 +296,8 @@ const DynamicForm = ({ form, againstAccountId }: TDynamicForm) => {
                         sm={{ span: 21, offset: 1 }}
                         md={{ span: 11, offset: 0 }}
                         lg={{ span: 11, offset: 0 }}
-                        xl={{ span: 5, offset: 1 }}
+                        xl={{ span: 4, offset: 1 }}
+                        xxl={{ span: 4, offset: 1 }}
                         className="formfield"
                         style={{ marginBottom: '1%' }}
                       >
@@ -333,6 +318,7 @@ const DynamicForm = ({ form, againstAccountId }: TDynamicForm) => {
                         md={{ span: 11, offset: 1 }}
                         lg={{ span: 11, offset: 1 }}
                         xl={{ span: 5, offset: 1 }}
+                        xxl={{ span: 5, offset: 1 }}
                         className="formfield"
                         style={{ marginBottom: '1%' }}
                       >
@@ -346,9 +332,9 @@ const DynamicForm = ({ form, againstAccountId }: TDynamicForm) => {
                       <Col
                         xs={{ span: 24, offset: 0 }}
                         sm={{ span: 21, offset: 1 }}
-                        md={{ span: 20, offset: 0 }}
-                        lg={{ span: 19, offset: 0 }}
-                        xl={{ span: 14, offset: 0 }}
+                        md={{ span: 23, offset: 0 }}
+                        lg={{ span: 23, offset: 0 }}
+                        xl={{ span: 12, offset: 0 }}
                         style={{ marginBottom: '1%' }}
                         className="formfield"
                       >
@@ -383,12 +369,20 @@ const DynamicForm = ({ form, againstAccountId }: TDynamicForm) => {
                         formItemProps={{ ...field, name: [field.name, 'DebitAmount'] }}
                       />
 
-                      <Col xs={{ span: 1 }} sm={{ span: 1 }} md={{ span: 25 }} lg={{ span: 2 }} xl={{ span: 5 }}>
+                      <Col
+                        xs={{ span: 7, offset: 10 }}
+                        sm={{ span: 5, offset: 10 }}
+                        md={{ span: 4, offset: 11 }}
+                        lg={{ span: 4, offset: 10 }}
+                        xl={{ span: 3, offset: 1 }}
+                        xxl={{ span: 2, offset: 1 }}
+                        className="add"
+                      >
                         <AntButton
-                          className="add"
                           onClick={isEditMode ? handleUpdateToTable : handleAddToTable}
-                          label={isEditMode ? <>{t('update')}</> : <>{t('add')}</>}
-                        />
+                          label={isEditMode ? `${t('update')}` : `${t('add')}`}
+                          style={{ marginLeft: -32 }}
+                        ></AntButton>
                       </Col>
                     </div>
                   ))}
@@ -396,14 +390,13 @@ const DynamicForm = ({ form, againstAccountId }: TDynamicForm) => {
               )}
             </Form.List>
             <br />
-            <Card style={{ boxShadow: '2px 4px 12px 1px gray', textAlign: 'left' }}>
-              <AntTable
-                numberOfSkeletons={12}
-                scroll={{ x: '', y: convertVhToPixels('15vh') }}
-                data={tableData}
-                columns={column2(t, handleDeleteRow, handleEditRow)}
-              />
-            </Card>
+
+            <AntTable
+              numberOfSkeletons={12}
+              scroll={{ x: '', y: convertVhToPixels('15vh') }}
+              data={tableData}
+              columns={column2(t, handleDeleteRow, handleEditRow)}
+            />
           </Card>
 
           <br />

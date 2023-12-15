@@ -1,4 +1,4 @@
-import { Card, Col, Row, Badge } from 'antd';
+import { Card, Col, Image, Row } from 'antd';
 import { SortAscendingOutlined, SortDescendingOutlined, HeartFilled } from '@ant-design/icons';
 import React, { useState } from 'react';
 import dayjs from 'dayjs';
@@ -7,37 +7,44 @@ import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import Search from 'antd/es/input/Search';
 import Buttons from './Buttons';
 import { useTranslation } from 'react-i18next';
+import { storedUserDetail } from '@tradePro/utils/storageService';
+import Tablefile from './DetailTableFile';
 import { useGetBankPaymentVoucherTable } from '../queries/queries';
 import { TBankPaymentVoucherTable } from './types';
-import Tablefile from './DetailTableFile';
-import { storedUserDetail } from '@tradePro/utils/storageService';
+
 const CardView: React.FC<{}> = () => {
   const { t } = useTranslation();
-  const { data, isError, isLoading } = useGetBankPaymentVoucherTable();
-
-  const voucherBankData = data?.data?.Data?.Result;
+  const { data } = useGetBankPaymentVoucherTable();
+  const voucherData = data?.data?.Data?.Result;
   console.log(data?.data?.Data?.Result);
-
-  const [records, setRecords] = useState<TBankPaymentVoucherTable[]>([]);
-
+  const [records, setRecords] = useState<TBankPaymentVoucherTable>();
   const [selectedCardData, setSelectedCardData] = useState<TBankPaymentVoucherTable>();
   console.log(selectedCardData);
-
   const totalRecords = data?.data?.Data?.Result.length || 0;
   const userDetail = storedUserDetail();
-
-  const [TooltipVisible, setTooltipVisible] = useState(false);
   const selectedRecordId = selectedCardData?.Id;
-  console.log(selectedRecordId);
 
-  const handleMouseEnter = () => {
-    setTooltipVisible(true);
+  const arrayBufferToBase64 = (buffer: Uint8Array) => {
+    let binary = '';
+    buffer.forEach((byte) => {
+      binary += String.fromCharCode(byte);
+    });
+    return window.btoa(binary);
   };
+  // const compLogoImage = selectedCardData?.CompLogoImage;
+  // let imageUrl;
+  // if (compLogoImage) {
+  //   const uint8Array = new Uint8Array(compLogoImage);
+  //   const base64Image = arrayBufferToBase64(uint8Array);
+  //   console.log(base64Image);
 
-  const handleMouseLeave = () => {
-    setTooltipVisible(false);
-  };
-
+  //   imageUrl = `data:image/png;base64,${base64Image}`;
+  //   console.log(imageUrl);
+  //   // Now you can use the 'imageUrl' variable as needed in your application
+  // } else {
+  //   // Handle the case where CompLogoImage is undefined
+  //   console.error('CompLogoImage is undefined');
+  // }
   const handleSearch = (value: any) => {
     setRecords(value);
   };
@@ -45,7 +52,7 @@ const CardView: React.FC<{}> = () => {
   return (
     <div>
       <Row className="row1">
-        <Col lg={{ span: 7 }} sm={{ span: 24 }} className="columns">
+        <Col lg={{ span: 6 }} sm={{ span: 24 }} className="columns">
           <Row className="col" align="middle">
             <Search onChange={(e) => handleSearch(e.target.value)} placeholder="Filter" />
           </Row>
@@ -73,26 +80,25 @@ const CardView: React.FC<{}> = () => {
                 width: '99%',
               }}
             >
-              {voucherBankData?.map((card: TBankPaymentVoucherTable | any) => (
+              {voucherData?.map((card: TBankPaymentVoucherTable | any) => (
                 <Col span={24} key={card.Id}>
                   <Card className="singleCard" onClick={() => setSelectedCardData(card)}>
                     <Row justify={'space-between'} style={{ marginTop: '-3%' }}>
                       <p className="list-item1">
-                        {card.VoucherCode} &nbsp; &nbsp; &nbsp;
+                        {card.VoucherCode} &nbsp; &nbsp;
                         {card.DocumentTypeCode}
                       </p>
 
                       <h3>{formateDate(card.VoucherDate)}</h3>
                     </Row>
 
-                    <Row justify={'space-between'} style={{ marginTop: '5%' }}>
-                      <h3>{card.AccountTitle}</h3>
-
-                      <p style={{ textAlign: 'center' }}>
+                    <Row justify={'space-between'} style={{ marginTop: '3%' }}>
+                      <h3 style={{ width: '5.5rem' }}>{card.AccountTitle}</h3>
+                      <p style={{ textAlign: 'center', marginTop: '6%' }}>
                         <span
                           className="list-items2"
                           style={{
-                            background: card.ApprovalStatus === 'Approved' ? 'green' : 'red',
+                            color: card.ApprovalStatus === 'Approved' ? 'green' : 'red',
                           }}
                         >
                           {card.ApprovalStatus === 'Approved' ? 'Approved' : 'Not Approved'}
@@ -110,7 +116,6 @@ const CardView: React.FC<{}> = () => {
               ))}
             </Row>
           </div>
-
           <h3 style={{ textAlign: 'center' }}>
             {' '}
             {t('total_records')} {numberFormatter(totalRecords)}{' '}
@@ -118,91 +123,152 @@ const CardView: React.FC<{}> = () => {
         </Col>
 
         {selectedCardData && (
-          <Col lg={{ span: 16 }} sm={{ span: 24 }} className="columns">
+          <Col lg={{ span: 18 }} sm={{ span: 24 }} className="columns">
             <Buttons />
             <Row align="middle">
               <Col xs={16} sm={16} className="columns">
                 <div className="main-voucher-design" id="Rice_Invoice_Main_Box">
                   <div className="row">
-                    <div className="">
-                      <div style={{ fontSize: '1.5rem', color: 'green', fontWeight: 'bold', textAlign: 'left' }}>
-                        {userDetail?.CompanyName}
-                      </div>
-                      <div style={{ fontSize: '1.3rem', color: 'green', textAlign: 'left' }}>
-                        {userDetail?.CompanyAddress}
-                      </div>
-                      <div style={{ fontSize: '1rem', color: 'green', textAlign: 'left' }}>{userDetail?.CellNo}</div>
-                    </div>
-                  </div>
-                  <div className="Wrapper">
-                    <div className="">
-                      <div className="caption-value-wrape">
-                        <div className="caption">{t('voucher_type')}</div>
-                        <div className="value">{selectedCardData?.DocumentTypeCode}</div>
-                      </div>
-                      <div className="caption-value-wrape">
-                        <div className="caption">{t('voucher_date')}</div>
-                        <div className="value">
-                          {selectedCardData ? dayjs(selectedCardData.VoucherDate).format('YYYY-MM-DD') : ''}
+                    <Row>
+                      <Col
+                        xs={{ span: 6 }}
+                        sm={{ span: 5 }}
+                        md={{ span: 4 }}
+                        lg={{ span: 6 }}
+                        xl={{ span: 4 }}
+                        xxl={{ span: 3 }}
+                      >
+                        <div
+                          style={{
+                            fontSize: '1.5rem',
+                            color: 'green',
+                            fontWeight: 'bold',
+                            textAlign: 'left',
+                          }}
+                        >
+                          <div>
+                            <Image
+                              className="Img"
+                              // src={voucherData?.data?.Data?.Result?.[0]?.CompLogoImage}
+                              src={"data:image/jpeg;base64,"+ selectedCardData?.CompLogoImage}
+                              style={{ width: '6rem', height: '6rem' }}
+                            />
+                          </div>
                         </div>
-                      </div>
-
-                      <div className="caption-value-wrape">
-                        <div className="caption">{t('voucher_code')}</div>
-                        <div className="value">{selectedCardData?.VoucherCode}</div>
-                      </div>
-
-                      <div className="caption-value-wrape">
-                        <div className="caption">{t('total_amount')}</div>
-                        <div className="value">
-                          {selectedCardData?.VoucherAmount > 0 ? numberFormatter(selectedCardData?.VoucherAmount) : 0}
+                      </Col>
+                      <Col
+                        xs={{ span: 18 }}
+                        sm={{ span: 19 }}
+                        md={{ span: 20 }}
+                        lg={{ span: 18 }}
+                        xl={{ span: 20 }}
+                        xxl={{ span: 20 }}
+                      >
+                        <div>
+                          <div className="">
+                            <div style={{ fontSize: '1.5rem', color: 'green', textAlign: 'left' }}>
+                              {userDetail?.CompanyName}
+                            </div>
+                            <div style={{ fontSize: '1.1rem', color: 'green', textAlign: 'left' }}>
+                              {userDetail?.CompanyAddress}
+                            </div>
+                            <div style={{ fontSize: '0.8rem', color: 'green', textAlign: 'left' }}>
+                              {userDetail?.CellNo}
+                            </div>
+                          </div>
                         </div>
-                      </div>
-
-                      <div className="caption-value-wrape">
-                        <div className="caption">{t('remarks')}</div>
-                        <div className="value">
-                          <div className="value">{selectedCardData?.Remarks}</div>
-                        </div>
-                      </div>
-                    </div>
-                    {/* </Col> */}
-
-                    <div className="">
-                      <div className="caption-value-wrape">
-                        <div className="voucher_Account_title">
-                          <div className="Account_title">{selectedCardData?.AccountTitle}</div>
-                        </div>
-                      </div>
-                      <div style={{ color: 'red', textAlign: 'center' }}>Customer Address</div>
-                      <div style={{ color: 'red', textAlign: 'center' }}>Naration</div>
-                    </div>
-
-                    <div className="">
-                      <div className="caption-value-wrape">
-                        <div className="caption">{t('payee_title')}</div>
-                        <div className="value">{selectedCardData?.PayeeTitle}</div>
-                      </div>
-                      <div className="caption-value-wrape">
-                        <div className="caption">{t('cheque_no')}</div>
-                        <div className="value">{selectedCardData?.CheqNo}</div>
-                      </div>
-                      <div className="caption-value-wrape">
-                        <div className="caption">{t('cheque_date')}</div>
-                        <div className="value">
-                          {selectedCardData ? dayjs(selectedCardData.ChequeDate).format('YYYY-MM-DD') : ''}
-                        </div>
-                      </div>
-                    </div>
+                      </Col>
+                    </Row>
                   </div>
 
+                  <div className="Wrapper" style={{ marginTop: '1.5%' }}>
+                    <Col span={7}>
+                      <div className="">
+                        <div className="caption-value-wrape">
+                          <div className="caption">{t('voucher_type')}</div>
+                          <div className="value">{selectedCardData?.DocumentTypeCode}</div>
+                        </div>
+                        <div className="caption-value-wrape">
+                          <div className="caption">{t('voucher_date')}</div>
+                          <div className="value">
+                            {selectedCardData ? dayjs(selectedCardData.VoucherDate).format('YYYY-MM-DD') : ''}
+                          </div>
+                        </div>
+
+                        <div className="caption-value-wrape">
+                          <div className="caption">{t('voucher_code')}</div>
+                          <div className="value">{selectedCardData?.VoucherCode}</div>
+                        </div>
+
+                        <div className="caption-value-wrape">
+                          <div className="caption">{t('total_amount')}</div>
+                          <div className="value">
+                            {selectedCardData?.VoucherAmount > 0 ? numberFormatter(selectedCardData?.VoucherAmount) : 0}
+                          </div>
+                        </div>
+
+                        <div className="caption-value-wrape">
+                          <div className="caption">{t('remarks')}</div>
+                          <div className="value">
+                            <div
+                              style={{
+                                marginLeft: '1.4rem',
+                                textAlign: 'center',
+                                width: '100%',
+                              }}
+                              className="value remarks-heading"
+                            >
+                              {selectedCardData?.Remarks}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </Col>
+                    <Col span={10} style={{ marginTop: '-1%' }}>
+                      <div className="">
+                        <div className="caption-value-wrape">
+                          <div className="voucher_Account_title">
+                            <div className="Account_title">{selectedCardData?.AccountTitle}</div>
+                          </div>
+                        </div>
+                        <div style={{ color: 'green', textAlign: 'center' }}>{selectedCardData?.CustomerAddress}</div>
+                      </div>
+                    </Col>
+                    <Col span={7}>
+                      <div className="">
+                        <div
+                          style={{ display: 'flex', justifyContent: 'space-between' }}
+                          className="caption-value-wrape"
+                        >
+                          <div className="caption">{t('payee_title')}</div>
+                          <div className="value">{selectedCardData?.PayeeTitle}</div>
+                        </div>
+                        <div
+                          style={{ display: 'flex', justifyContent: 'space-between' }}
+                          className="caption-value-wrape"
+                        >
+                          <div className="caption">{t('cheque_no')}</div>
+                          <div className="value">{selectedCardData?.CheqNo}</div>
+                        </div>
+                        <div
+                          style={{ display: 'flex', justifyContent: 'space-between' }}
+                          className="caption-value-wrape"
+                        >
+                          <div className="caption">{t('cheque_date')}</div>
+                          <div className="value">
+                            {selectedCardData ? dayjs(selectedCardData.ChequeDate).format('YYYY-MM-DD') : ''}
+                          </div>
+                        </div>
+                      </div>
+                    </Col>
+                  </div>
                   <Tablefile selectedRecordId={selectedRecordId} />
                 </div>
               </Col>
             </Row>
           </Col>
         )}
-        <Col xl={{ span: 17, offset: 7 }} span={24}>
+        <Col xl={{ span: 18, offset: 6 }} span={24}>
           <div className="Footer">
             <div className="Thanks">
               {t('thank_you')}{' '}

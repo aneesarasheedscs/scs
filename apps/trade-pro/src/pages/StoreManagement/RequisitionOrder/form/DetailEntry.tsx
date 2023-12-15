@@ -91,6 +91,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
         Id: 0,
         ActionTypeId: 1,
         WsRmRequisitionPoId: counter,
+        DestinationLocationId: 2,
       }));
       const combinedData = [...prevData, ...updatedData];
       console.log('New tableData:', combinedData);
@@ -174,6 +175,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
           LineId: edit.LineId,
           Id: edit.Id,
           WsRmRequisitionPoId: edit.WsRmRequisitionPoId,
+          DestinationLocationId: edit.DestinationLocationId,
         };
         console.log('New tableData:', updatedData);
         return updatedData;
@@ -217,7 +219,6 @@ const DynamicForm = ({ form }: TDynamicForm) => {
       { name: ['WsRmRequisitionPoDetailsList', 0, 'RemarksDetail'], value: null },
     ]);
   };
-  console.log(delettableData);
   const handleDeleteRow = (record: any | any[]) => {
     if (record?.Id > 0) {
       const recordsToDelete = Array.isArray(record) ? record : [record];
@@ -262,6 +263,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
           PackEquivalent: record.PackEquivalent,
           WsRmRequisitionPoId: record.WsRmRequisitionPoId,
           RemarksDetail: record.RemarksDetail,
+          DestinationLocationId: record.DestinationLocationId,
         };
 
         form.setFieldValue(['WsRmRequisitionPoDetailsList', 0], updatedData[rowIndex]); // Update form values

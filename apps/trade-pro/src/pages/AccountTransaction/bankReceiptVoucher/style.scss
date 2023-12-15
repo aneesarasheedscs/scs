@@ -1,44 +1,78 @@
 .formfield {
   border-bottom: 1px solid gray;
   padding: 0px;
-  height: 38px;
+  height: 34px;
 }
 .ant-checkbox-inner,
 .ant-checkbox-input {
   height: 1.5rem !important;
   width: 1.5rem !important;
 }
-
+.formfield1 {
+  border-bottom: 1px solid gray;
+  padding: 0px;
+  height: 38px;
+}
+// Responsiveness
+.main_card {
+  position: relative;
+}
+.detail_list_optional {
+  position: absolute;
+  top: 0;
+  left: 10;
+  z-index: 1;
+}
 // Responsiveness
 
+@media screen and (min-width: 1200px) and (max-width: 1600px) {
+  .dr,
+  .cr {
+    margin-left: 55% !important;
+  }
+  .against,
+  .remarks {
+    margin-top: 1%;
+  }
+}
 @media screen and (min-width: 992px) and (max-width: 1200px) {
-  .project,
-  .voucher {
+  .balance {
+    margin-top: 0.6% !important;
+  }
+  .against {
+    margin-top: 3%;
+  }
+  .date,
+  .cheqno,
+  .payment,
+  .remarks,
+  .wht {
     margin-top: 2% !important;
   }
-  .add {
-    margin-left: 1rem;
+  .btns {
+    margin-top: 1.5rem !important;
   }
 }
 
 @media screen and (min-width: 768px) and (max-width: 992px) {
-  .project,
-  .voucher {
+  .balance {
+    margin-top: 0.5% !important;
+  }
+  .against {
+    margin-top: 3%;
+  }
+  .date,
+  .cheqno,
+  .payment,
+  .remarks {
     margin-top: 2% !important;
   }
-  .add {
-    margin-left: 0.5rem;
+  .btns {
+    margin-top: 1.5rem !important;
   }
 }
 
 @media screen and (min-width: 576px) and (max-width: 768px) {
-  .project,
-  .voucher,
-  .branch,
-  .company,
-  .checkbox {
-    margin-top: 2% !important;
-  }
   .date {
     margin-bottom: 10% !important;
   }
@@ -46,36 +80,50 @@
     margin-bottom: 13% !important;
   }
   .formfield {
-    height: 0% !important;
+    height: 45px !important;
   }
-  .add {
-    margin-top: 1rem;
-    margin-left: 13rem;
+  .balance {
+    margin-top: 0rem !important;
+    height: 55px !important;
+  }
+  .credit {
+    margin-top: -5rem !important;
+    height: 55px !important;
+  }
+
+  .cheqno {
+    margin-top: -8% !important;
+  }
+  .against {
+    margin-top: 3%;
+  }
+  .btns {
+    margin-top: 1.5rem !important;
+  }
+  .voucherDate {
+    margin-top: -0.4rem !important;
   }
 }
 
 @media screen and (min-width: 481px) and (max-width: 575px) {
-  .project,
-  .voucher,
-  .branch,
-  .company {
-    margin-top: 2% !important;
-  }
-  .checkbox {
-    margin-top: 9% !important;
-  }
-  .date,
-  .type {
-    margin-bottom: 20% !important;
-  }
   .formfield {
-    height: 70px !important;
+    height: 70px;
   }
-  .add {
-    margin-top: 1rem;
-    margin-left: 6rem;
+  .balance,
+  .credit {
+    margin-top: 0rem !important;
+    height: 85px !important;
   }
-  .balance {
-    height: 90px !important;
+  .btns {
+    margin-top: 1.5rem !important;
+  }
+  .voucherDate {
+    margin-top: -1.1rem !important;
+  }
+  .voucherNo {
+    margin-top: 0.5rem;
+  }
+  .icon {
+    margin-left: -1%;
   }
 }

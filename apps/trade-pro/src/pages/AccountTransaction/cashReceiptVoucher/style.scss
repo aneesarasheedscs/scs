@@ -8,77 +8,114 @@
   height: 1.5rem !important;
   width: 1.5rem !important;
 }
-
+.formfield1 {
+  border-bottom: 1px solid gray;
+  padding: 0px;
+  height: 38px;
+}
 // Responsiveness
 
-@media screen and (min-width: 992px) and (max-width: 1200px) {
-  .project,
-  .voucher,
-  .checkbox {
-    margin-top: 2% !important;
+.main_card {
+  position: relative;
+}
+.detail_list_optional {
+  position: absolute;
+  top: 0;
+  left: 10;
+  z-index: 1;
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1600px) {
+  .cr,
+  .dr {
+    margin-left: 5.5rem !important;
   }
-  .add {
-    margin-left: 1rem;
+}
+
+@media screen and (min-width: 992px) and (max-width: 1200px) {
+  .against,
+  .balance,
+  .remarks {
+    margin-top: 2.5% !important;
+  }
+  .credit {
+    margin-top: -1.8rem !important;
+  }
+  .dr,
+  .cr {
+    margin-left: 6.5rem !important;
+  }
+  .btns {
+    margin-top: 1.5rem !important;
   }
 }
 
 @media screen and (min-width: 768px) and (max-width: 992px) {
-  .project,
-  .voucher,
-  .checkbox {
-    margin-top: 2% !important;
+  .against,
+  .balance,
+  .remarks {
+    margin-top: 2.5% !important;
   }
-  .add {
-    margin-left: 0.5rem;
+  .credit {
+    margin-top: -1.8rem !important;
+  }
+  .btns {
+    margin-top: 1.5rem !important;
   }
 }
 
 @media screen and (min-width: 576px) and (max-width: 768px) {
-  .project,
+  .balance,
+  .date,
+  .against,
   .voucher,
-  .branch,
-  .company,
-  .checkbox {
-    margin-top: 2% !important;
+  .remarks {
+    margin-top: 1rem !important;
   }
-
-  .date {
-    margin-bottom: 10% !important;
+  .credit {
+    margin-top: -12% !important;
+    margin-bottom: 0.5rem !important;
+  }
+  .btns {
+    margin-top: 1.5rem !important;
   }
   .type {
     margin-bottom: 12% !important;
   }
   .add {
-    margin-top: 1rem;
     margin-left: 13rem;
-  }
-  .formfield {
-    height: 0% !important;
   }
 }
 
 @media screen and (min-width: 481px) and (max-width: 575px) {
-  .project,
-  .voucher,
-  .branch,
-  .company {
-    margin-top: 2% !important;
-  }
-  .checkbox {
-    margin-top: 9% !important;
-  }
-  .date,
-  .type {
-    margin-bottom: 20% !important;
+  .balance {
+    margin-top: 1rem !important;
   }
   .formfield {
-    height: 0% !important;
+    height: 70px;
   }
   .add {
     margin-top: 1rem;
     margin-left: 4rem;
   }
-  .balance {
+  .voucherDate {
+    margin-top: -1.5rem !important;
+  }
+  .voucherNo {
+    margin-top: 0.5rem;
+  }
+  .btns {
+    margin-top: 1.5rem !important;
+    margin-left: -1rem !important;
+  }
+  .icon {
+    margin-left: -1%;
+  }
+  .credit {
+    margin-top: 2px !important;
     height: 90px !important;
+  }
+  .add {
+    margin-left: 5.5rem !important;
   }
 }

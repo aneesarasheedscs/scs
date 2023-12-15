@@ -4,13 +4,13 @@ import { notification } from 'antd';
 import { AxiosError } from 'axios';
 import { requestManager } from '@tradePro/configs/requestManager';
 import { storedUserDetail } from '@tradePro/utils/storageService';
-import { TSaveCashReceiptVoucher } from '../form/types';
+import { TSaveCashReceipt, TSaveCashReceiptVoucher } from '../form/types';
 
 const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
 const financialYear: any = JSON.parse(localStorage.getItem('financialYear') || '{}');
 
 //Get ById
-export const useGetCashReceiptVoucherById = (Id?: number | null) => {
+export const useGetCashReceiptVoucherById = (Id?: number | null | any) => {
   return useQuery(
     ['CashReceiptVoucher-getById', Id],
     () => {
@@ -33,10 +33,10 @@ const getCashReceiptVoucherById = (Id?: number | null) => {
 
 // save form
 
-export const useAddCashReceiptVoucher = (params?: TSaveCashReceiptVoucher) => {
+export const useAddCashReceiptVoucher = (params?: TSaveCashReceipt) => {
   return useMutation(
     'CashReceiptVoucher-history',
-    (data: TSaveCashReceiptVoucher) => {
+    (data: TSaveCashReceipt) => {
       let dataToSubmit = {};
       dataToSubmit = {
         ...data,
@@ -74,11 +74,11 @@ export const useAddCashReceiptVoucher = (params?: TSaveCashReceiptVoucher) => {
   );
 };
 
-export const useUpdateCashReceiptVoucher = (Id?: number | null, params?: TSaveCashReceiptVoucher) => {
+export const useUpdateCashReceiptVoucher = (Id?: number | null, params?: TSaveCashReceipt) => {
   console.log(Id);
   return useMutation(
     'CashReceiptVoucher-history',
-    (data: TSaveCashReceiptVoucher) => {
+    (data: TSaveCashReceipt) => {
       let dataToSubmit = {};
       const userDetail = storedUserDetail();
       dataToSubmit = {

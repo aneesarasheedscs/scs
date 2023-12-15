@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { useAtom } from 'jotai';
 import { isWithHoldingCheckedAtom, totalValue } from './Atom';
 import { TFormDetailList } from './types';
-import { listAtomforTax } from '../form/Atom';
+import { listAtomforTax } from '@tradePro/pages/bankPaymentVoucher/form/Atom';
 
 const { useWatch } = Form;
 
@@ -65,7 +65,7 @@ const FormListt = ({ form }: FormListt) => {
       <br />
       <br />
       <Row gutter={[16, 16]} style={{ marginTop: '-3.2%' }}>
-        <Col xs={24} sm={24} md={24} lg={{ span: 24 }} xl={{ span: 24 }}>
+        <Col span={24}>
           <Card style={{ boxShadow: '2px 4px 12px 1px gray', paddingBottom: '1%' }}>
             <Form.List name="voucherDetailList" initialValue={[initialValues]}>
               {(fields, {}) => (
@@ -73,11 +73,11 @@ const FormListt = ({ form }: FormListt) => {
                   {fields.map((field) => (
                     <div key={field.key} className="form-list-container">
                       <Col
-                        xs={{ span: 18, offset: 0 }}
-                        sm={{ span: 9, offset: 0 }}
-                        md={{ span: 9, offset: 0 }}
-                        lg={{ span: 8, offset: 1 }}
-                        xl={{ span: 6, offset: 0 }}
+                        xs={{ span: 24, offset: 0 }}
+                        sm={{ span: 22, offset: 1 }}
+                        md={{ span: 11, offset: 0 }}
+                        lg={{ span: 11, offset: 0 }}
+                        xl={{ span: 7, offset: 0 }}
                         className="formfield"
                       >
                         <AntSelectDynamic
@@ -92,118 +92,98 @@ const FormListt = ({ form }: FormListt) => {
                       </Col>
 
                       <Col
-                        xs={{ span: 5, offset: 0 }}
-                        sm={{ span: 4, offset: 0 }}
-                        md={{ span: 3, offset: 0 }}
-                        lg={{ span: 3, offset: 0 }}
-                        xl={{ span: 3, offset: 0 }}
+                        xs={{ span: 24, offset: 0 }}
+                        sm={{ span: 22, offset: 1 }}
+                        md={{ span: 11, offset: 1 }}
+                        lg={{ span: 11, offset: 1 }}
+                        xl={{ span: 7, offset: 1 }}
+                        className="formfield"
                       >
-                        <label>
-                          <Form.Item name="IncludeWHT" valuePropName="checked" initialValue={false}>
-                            <Checkbox onChange={(e) => handleCheckboxChange(e.target.checked, 'IncludeWHT')}>
-                              {t('wht')}
-                            </Checkbox>
-                          </Form.Item>
-                        </label>
+                        <AntInputNumber
+                          disabled={!isWithHoldingChecked}
+                          bordered={false}
+                          label={t('tax_percentage')}
+                          formItemProps={{ ...field, name: [field.name, 'TaxPercent'] }}
+                        />
                       </Col>
 
-                      <>
-                        <Col
-                          xs={{ span: 24, offset: 0 }}
-                          sm={{ span: 9, offset: 0 }}
-                          md={{ span: 9, offset: 1 }}
-                          lg={{ span: 8, offset: 2 }}
-                          xl={{ span: 6, offset: 0 }}
-                          className="formfield"
-                        >
-                          <AntInputNumber
-                            disabled={!isWithHoldingChecked}
-                            bordered={false}
-                            label={t('tax_percentage')}
-                            formItemProps={{ ...field, name: [field.name, 'TaxPercent'] }}
-                          />
-                        </Col>
+                      <Col
+                        xs={{ span: 24, offset: 0 }}
+                        sm={{ span: 22, offset: 1 }}
+                        md={{ span: 11, offset: 0 }}
+                        lg={{ span: 11, offset: 0 }}
+                        xl={{ span: 7, offset: 1 }}
+                        className="formfield"
+                      >
+                        <AntSelectDynamic
+                          disabled={!isWithHoldingChecked}
+                          bordered={false}
+                          fieldValue="Id"
+                          fieldLabel="AccountTitle"
+                          formItemProps={{ ...field, name: [field.name, 'AgainstAccountId'] }}
+                          label={t('wht_account')}
+                          options={map(filter, (item: any) => ({
+                            value: item.Id,
+                            label: item.AccountTitle,
+                          }))}
+                        />
+                      </Col>
 
-                        <Col
-                          xs={{ span: 24, offset: 0 }}
-                          sm={{ span: 9, offset: 0 }}
-                          md={{ span: 9, offset: 0 }}
-                          lg={{ span: 8, offset: 1 }}
-                          xl={{ span: 6, offset: 1 }}
-                          className="formfield"
-                        >
-                          <AntSelectDynamic
-                            disabled={!isWithHoldingChecked}
-                            bordered={false}
-                            fieldValue="Id"
-                            fieldLabel="AccountTitle"
-                            formItemProps={{ ...field, name: [field.name, 'AgainstAccountId'] }}
-                            label={t('wht_account')}
-                            options={map(filter, (item: any) => ({
-                              value: item.Id,
-                              label: item.AccountTitle,
-                            }))}
-                          />
-                        </Col>
+                      <Col
+                        xs={{ span: 24, offset: 0 }}
+                        sm={{ span: 22, offset: 1 }}
+                        md={{ span: 11, offset: 1 }}
+                        lg={{ span: 11, offset: 1 }}
+                        xl={{ span: 7, offset: 0 }}
+                        className="formfield"
+                        style={{ marginTop: '1%' }}
+                      >
+                        <AntInputNumber
+                          disabled={!isWithHoldingChecked}
+                          bordered={false}
+                          label={t('amount')}
+                          formItemProps={{ ...field, name: [field.name, 'Amount'] }}
+                        />
+                      </Col>
 
-                        <Col
-                          xs={{ span: 24, offset: 0 }}
-                          sm={{ span: 9, offset: 4 }}
-                          md={{ span: 9, offset: 4 }}
-                          lg={{ span: 8, offset: 5 }}
-                          xl={{ span: 6, offset: 0 }}
-                          className="formfield"
-                          style={{ marginTop: '1%' }}
-                        >
-                          <AntInputNumber
-                            disabled={!isWithHoldingChecked}
-                            bordered={false}
-                            label={t('amount')}
-                            formItemProps={{ ...field, name: [field.name, 'Amount'] }}
-                          />
-                        </Col>
+                      <Col
+                        xs={{ span: 24, offset: 0 }}
+                        sm={{ span: 22, offset: 1 }}
+                        md={{ span: 11, offset: 0 }}
+                        lg={{ span: 11, offset: 0 }}
+                        xl={{ span: 7, offset: 1 }}
+                        style={{ marginTop: '1%' }}
+                        className="formfield"
+                      >
+                        <AntInputNumber
+                          disabled={!isWithHoldingChecked}
+                          bordered={false}
+                          label={t('tax_amount')}
+                          formItemProps={{ ...field, name: [field.name, 'TaxAmount'] }}
+                        />
+                      </Col>
 
-                        <Col
-                          xs={{ span: 24, offset: 0 }}
-                          sm={{ span: 9, offset: 0 }}
-                          md={{ span: 9, offset: 0 }}
-                          lg={{ span: 8, offset: 1 }}
-                          xl={{ span: 6, offset: 3 }}
-                          style={{ marginTop: '1%' }}
-                          className="formfield"
-                        >
-                          <AntInputNumber
-                            disabled={!isWithHoldingChecked}
-                            bordered={false}
-                            label={t('tax_amount')}
-                            formItemProps={{ ...field, name: [field.name, 'TaxAmount'] }}
-                          />
-                        </Col>
-
-                        <Col
-                          xs={{ span: 24, offset: 0 }}
-                          sm={{ span: 9, offset: 4 }}
-                          md={{ span: 9, offset: 4 }}
-                          lg={{ span: 8, offset: 5 }}
-                          xl={{ span: 6, offset: 1 }}
-                          style={{ marginTop: '1%' }}
-                          className="formfield"
-                        >
-                          <AntInputNumber
-                            disabled={!isWithHoldingChecked}
-                            bordered={false}
-                            label={t('total_amount')}
-                            name="TotalAmount"
-                          />
-                        </Col>
-                      </>
+                      <Col
+                        xs={{ span: 24, offset: 0 }}
+                        sm={{ span: 22, offset: 1 }}
+                        md={{ span: 11, offset: 1 }}
+                        lg={{ span: 11, offset: 1 }}
+                        xl={{ span: 7, offset: 1 }}
+                        style={{ marginTop: '1%' }}
+                        className="formfield"
+                      >
+                        <AntInputNumber
+                          disabled={!isWithHoldingChecked}
+                          bordered={false}
+                          label={t('total_amount')}
+                          name="TotalAmount"
+                        />
+                      </Col>
                     </div>
                   ))}
                 </>
               )}
             </Form.List>
-            <br />
-            <br />
           </Card>
         </Col>
       </Row>

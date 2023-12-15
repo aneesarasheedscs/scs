@@ -21,10 +21,9 @@ function RequisitionOrder() {
     isSuccess: isDataSuccess,
     isLoading: isDataLoading,
   } = useGetRequisitionOrderById(selectedRecordId);
-
   const {
     data: requisitionDetail,
-    // refetch: refetchReqesition,
+    refetch: refetchDetail,
     isSuccess: isDataSuccessforDetail,
     isLoading: isDataLoadingDetail,
   } = useGetRequisitionOrderByIdforDetail(selectedRecordIdforDetail);
@@ -34,10 +33,12 @@ function RequisitionOrder() {
       setViewDetail(requisitionById?.data?.Data?.Result?.WsRmRequisitionPoDetailsList);
     }
   }, [isDataSuccessforDetail, !isDataLoadingDetail]);
-
   return (
     <>
-      <h2 className="form-heading"> {t('requisition_order')} </h2>
+      <h2 className="" style={{ textAlign: 'center' }}>
+        {' '}
+        {t('requisition_order')}{' '}
+      </h2>
 
       <Tabs
         type="card"
@@ -51,8 +52,10 @@ function RequisitionOrder() {
             setSelectedRecordId={setSelectedRecordId}
             setActiveTab={setActiveTab}
             setSelectedRecordIdforDetail={setSelectedRecordIdforDetail}
+            requisitionDetail={requisitionDetail}
+            isDataLoadingDetail={isDataLoadingDetail}
+            refetchDetail={refetchDetail}
           />
-          <RequisitionOrderDetailTable requisitionDetail={requisitionDetail} />
         </Tabs.TabPane>
         <Tabs.TabPane key="2" tab={t('form')}>
           <RequisitionOrderForm

@@ -27,7 +27,6 @@ function RequisitionOrderForm({
   const DocumentTypeId = 105;
 
   const { data, isError, refetch, isLoading, isSuccess } = useGetDocumentNumber(DocumentTypeId);
-
   const [delettableData, setDeleteTableData] = useAtom(deleteData);
   const [newtableData, setNewTableData] = useAtom(newTableData);
 
@@ -115,16 +114,13 @@ function RequisitionOrderForm({
       }
       form.setFieldValue('DestinationLocationId', requisitionById?.data?.Data?.Result?.DestinationLocationId);
       form.setFieldValue('SourceLocationId', requisitionById?.data?.Data?.Result?.SourceLocationId);
-      form.setFieldValue('IsApproved', requisitionById?.data?.Data?.Result?.IsApproved);
       form.setFieldValue('RemarksHeader', requisitionById?.data?.Data?.Result?.RemarksHeader);
       setTableData(requisitionById?.data?.Data?.Result?.WsRmRequisitionPoDetailsList);
     }
-  }, [isDataSuccess, !isDataLoading]);
-
+  }, [isDataSuccess, !isDataLoading, selectedRecordId]);
   useEffect(() => {
     if (isSuccess) form.setFieldValue('DocNo', data?.data?.Data?.Result);
   }, [data, isSuccess]);
-
   return (
     <>
       <Card>

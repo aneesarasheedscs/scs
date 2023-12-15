@@ -25,9 +25,9 @@ export const useGetCashReceiptVoucherTable = (enabled = true, params?: TCashHist
         BranchesId: userDetail?.BranchesId,
         CompanyId: userDetail?.CompanyId,
         FinancialYearId: financialYear?.Id,
-        Ids: '3',
+        Ids: '1',
         PostState: true,
-        NoOfRecords: 50,
+        // NoOfRecords: 50,
         ...params,
       });
     },
@@ -37,15 +37,15 @@ export const useGetCashReceiptVoucherTable = (enabled = true, params?: TCashHist
 
 // Voucher No
 
-export const useGetVoucherNo = (DocumentTypeId: number) => {
+export const useGetVoucherNo = () => {
   return useQuery(
-    ['voucher-number', DocumentTypeId],
+    'voucher-number',
     () => {
       return requestManager.get('/api/Voucher/GenerateVoucherCodeByDocumentTypeId', {
         params: {
           ...params,
-          DocumentTypeId: DocumentTypeId,
-          BranchId: 2,
+          DocumentTypeId: 1,
+          BranchId: userDetail?.BranchesId,
           FinancialYearId: financialYear?.Id,
           CompanyId: userDetail?.CompanyId,
           OrganizationId: userDetail?.OrganizationId,
@@ -114,24 +114,6 @@ export const useGetConfigration = (configDescription: any) => {
 };
 
 //   Select Fields Query
-
-export const useGetCashReceiptCompanySelect = () => {
-  return useQuery('CashReceiptCompany-Select', () => {
-    return requestManager.get('/api/Company/GetAlldt', {
-      params: { ...params, OrgCompanyTypeId: 2 },
-    });
-  });
-};
-
-export const useGetCashReceiptBranchSelect = () => {
-  return useQuery(
-    'CashReceiptBranch-Select',
-    () => {
-      return requestManager.get('/api/Branches/GetAll', { params: { ...params } });
-    },
-    { cacheTime: 5000 }
-  );
-};
 
 export const useGetCashReceiptProjectSelect = () => {
   return useQuery(

@@ -25,7 +25,7 @@ export const useGetBankReceiptVoucherTable = (enabled = true, params?: TBankHist
         BranchesId: userDetail?.BranchesId,
         CompanyId: userDetail?.CompanyId,
         FinancialYearId: financialYear?.Id,
-        Ids: '4',
+        Ids: '1',
         PostState: true,
         NoOfRecords: 50,
         ...params,
@@ -108,28 +108,6 @@ export const useGetConfigration = (configDescription: any) => {
 };
 
 //   Select Fields Query
-
-export const useGetBankReceiptCompanySelect = () => {
-  return useQuery(
-    'BankReceiptCompany-Select',
-    () => {
-      return requestManager.get('/api/Company/GetAlldt', {
-        params: { ...params, OrgCompanyTypeId: 2 },
-      });
-    },
-    { cacheTime: 5000 }
-  );
-};
-
-export const useGetBankReceiptBranchSelect = () => {
-  return useQuery(
-    'BankReceiptBranch-Select',
-    () => {
-      return requestManager.get('/api/Branches/GetAll', { params: { ...params } });
-    },
-    { cacheTime: 5000 }
-  );
-};
 
 export const useGetBankReceiptProjectSelect = () => {
   return useQuery(

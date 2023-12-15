@@ -3,8 +3,6 @@ import { Card, Checkbox, Col, Row, Form, FormInstance } from 'antd';
 import { useTranslation } from 'react-i18next';
 import {
   useGetAccountsBalance,
-  useGetCashReceiptBranchSelect,
-  useGetCashReceiptCompanySelect,
   useGetCashReceiptProjectSelect,
   useGetCreditAccountSelect,
   useGetWHTAgainstAcSelect,
@@ -16,20 +14,16 @@ import { useAtom } from 'jotai';
 
 function MainEntry({ form, setBankId, bankId, setAgainstAccountId }: TDynamicForm) {
   const { t } = useTranslation();
-
-  const [isWithHoldingChecked] = useAtom(isWithHoldingCheckedAtom);
   const { data } = useGetAccountsBalance(bankId);
-  const { data: company, isSuccess, isLoading } = useGetCashReceiptCompanySelect();
-  const { data: bank } = useGetCashReceiptBranchSelect();
+  const [isWithHoldingChecked, setIsWithHoldingChecked] = useAtom(isWithHoldingCheckedAtom);
   const [selectedCreditAccount, setSelectedCreditAccount] = useAtom(selectedCreditAccountAtom);
-  const { data: project, isSuccess: projectSuccess } = useGetCashReceiptProjectSelect();
+  const { data: project, isSuccess, isLoading } = useGetCashReceiptProjectSelect();
+
   useEffect(() => {
-    if (isSuccess && projectSuccess && !isLoading) {
-      form.setFieldValue('CompanyId', company?.data?.Data?.Result?.[0]?.CompName);
-      form.setFieldValue('BranchId', bank?.data?.Data?.Result?.[0]?.BranchName);
+    if (isSuccess && !isLoading) {
       form.setFieldValue('ProjectId', project?.data?.Data?.Result?.[0]?.ProjectName);
     }
-  }, [isSuccess, projectSuccess, !isLoading]);
+  }, [isSuccess]);
 
   // For Credit Account
 
@@ -37,12 +31,6 @@ function MainEntry({ form, setBankId, bankId, setAgainstAccountId }: TDynamicFor
     setBankId(accountId);
     setAgainstAccountId(accountId);
     setSelectedCreditAccount(accountId);
-  };
-
-  const handleCheckboxChange = (isChecked: boolean, fieldName: string) => {
-    form.setFieldsValue({
-      [fieldName]: isChecked,
-    });
   };
 
   const { data: filter } = useGetWHTAgainstAcSelect();
@@ -53,13 +41,20 @@ function MainEntry({ form, setBankId, bankId, setAgainstAccountId }: TDynamicFor
   }
   const voucherType: TVoucherType[] = [{ Id: 1, Type: 'CRV' }];
 
+  const handleCheckboxChangeforWHT = (isChecked: boolean, fieldName: string) => {
+    setIsWithHoldingChecked(isChecked);
+    form.setFieldsValue({
+      [fieldName]: isChecked,
+    });
+  };
+
   return (
     <>
       <Row gutter={[10, 10]} style={{ marginTop: '-1%' }}>
         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
           <Card style={{ paddingBottom: '0.5%', boxShadow: '2px 4px 12px 1px gray' }}>
             <div className="form-list-container">
-              <Col
+              {/* <Col
                 xs={{ span: 20, offset: 1 }}
                 sm={{ span: 21, offset: 1 }}
                 md={{ span: 11, offset: 0 }}
@@ -74,7 +69,6 @@ function MainEntry({ form, setBankId, bankId, setAgainstAccountId }: TDynamicFor
                   fieldLabel="CompName"
                   name="CompanyId"
                   query={useGetCashReceiptCompanySelect}
-                  autoFocus
                 />
               </Col>
               <Col
@@ -93,18 +87,19 @@ function MainEntry({ form, setBankId, bankId, setAgainstAccountId }: TDynamicFor
                   name="BranchId"
                   query={useGetCashReceiptBranchSelect}
                 />
-              </Col>
+              </Col> */}
               <Col
-                xs={{ span: 20, offset: 1 }}
-                sm={{ span: 21, offset: 1 }}
+                xs={{ span: 23, offset: 0 }}
+                sm={{ span: 22, offset: 1 }}
                 md={{ span: 11, offset: 0 }}
                 lg={{ span: 11, offset: 0 }}
-                xl={{ span: 5, offset: 1 }}
+                xl={{ span: 9, offset: 0 }}
+                xxl={{ span: 6, offset: 0 }}
                 className="formfield project"
               >
                 <AntSelectDynamic
                   bordered={false}
-                  label={t('project')}
+                  label={t('cost_center')}
                   fieldValue="Id"
                   fieldLabel="ProjectName"
                   name="ProjectId"
@@ -112,11 +107,12 @@ function MainEntry({ form, setBankId, bankId, setAgainstAccountId }: TDynamicFor
                 />
               </Col>
               <Col
-                xs={{ span: 20, offset: 1 }}
-                sm={{ span: 21, offset: 1 }}
+                xs={{ span: 23, offset: 0 }}
+                sm={{ span: 22, offset: 1 }}
                 md={{ span: 11, offset: 1 }}
                 lg={{ span: 11, offset: 1 }}
                 xl={{ span: 5, offset: 1 }}
+                xxl={{ span: 3, offset: 1 }}
                 className="formfield voucher"
               >
                 <AntSelectDynamic
@@ -124,7 +120,7 @@ function MainEntry({ form, setBankId, bankId, setAgainstAccountId }: TDynamicFor
                   label={t('voucher_type')}
                   fieldValue="Id"
                   fieldLabel="Type"
-                  name="Id"
+                  name="Type"
                   options={map(voucherType, (item: any) => ({
                     value: item.Id,
                     label: item.Type,
@@ -132,14 +128,8 @@ function MainEntry({ form, setBankId, bankId, setAgainstAccountId }: TDynamicFor
                   defaultValue={1}
                 />
               </Col>
-            </div>
-            <br /> <br />
-            <Col xs={23} sm={23} md={23} lg={23} xl={23}>
-              <Card>
-                <br />
 
-                <div className="form-list-container">
-                  <Col
+              {/* <Col
                     xs={{ span: 24, offset: 0 }}
                     sm={{ span: 21, offset: 1 }}
                     md={{ span: 11, offset: 0 }}
@@ -148,89 +138,87 @@ function MainEntry({ form, setBankId, bankId, setAgainstAccountId }: TDynamicFor
                     className="formfield date"
                   >
                     <AntDatePicker bordered={false} name="VoucherDate" label={t('voucher_date')} />
-                  </Col>
-                  <Col
-                    xs={{ span: 24, offset: 0 }}
-                    sm={{ span: 21, offset: 1 }}
-                    md={{ span: 11, offset: 1 }}
-                    lg={{ span: 11, offset: 1 }}
-                    xl={{ span: 7, offset: 1 }}
-                    style={{ marginTop: '-1.3rem', borderBottom: '1px solid gray', height: '60px' }}
-                    className="formfield balance"
-                  >
-                    <p style={{ marginTop: -15 }}>
-                      {t('debit_account_balance')} : <b> {data?.data?.Data?.Result?.[0]?.Balance.toFixed(2)}</b>
-                    </p>
+                  </Col> */}
+              <Col
+                xs={{ span: 23, offset: 0 }}
+                sm={{ span: 22, offset: 1 }}
+                md={{ span: 11, offset: 0 }}
+                lg={{ span: 11, offset: 0 }}
+                xl={{ span: 7, offset: 1 }}
+                xxl={{ span: 5, offset: 1 }}
+                className="formfield balance"
+              >
+                <p style={{ marginTop: -18, marginLeft: '50%' }} className="dr">
+                  Dr : <b> {data?.data?.Data?.Result?.[0]?.Balance.toFixed(2)}</b>
+                </p>
 
-                    <p style={{ marginTop: 12 }}>
-                      <AntSelectDynamic
-                        required
-                        bordered={false}
-                        label={t('debit_account')}
-                        fieldValue="Id"
-                        fieldLabel="AccountTitle"
-                        name="RefAccountId"
-                        query={useGetCreditAccountSelect}
-                        onChange={(accountId) => handleCreditAccountChange(accountId)}
-                      />
-                    </p>
-                  </Col>
-                  <Col
-                    xs={{ span: 24, offset: 0 }}
-                    sm={{ span: 21, offset: 1 }}
-                    md={{ span: 11, offset: 0 }}
-                    lg={{ span: 11, offset: 0 }}
-                    xl={{ span: 7, offset: 1 }}
-                    className="formfield"
-                  >
-                    <AntSelectDynamic
-                      bordered={false}
-                      label={t('against_ac')}
-                      fieldValue="Id"
-                      fieldLabel="AccountTitle"
-                      name="Id"
-                      disabled={!isWithHoldingChecked}
-                      options={map(filter, (item: any) => ({
-                        value: item.Id,
-                        label: item.AccountTitle,
-                      }))}
-                    />
-                  </Col>
-                  <Col
-                    xs={{ span: 24, offset: 0 }}
-                    sm={{ span: 21, offset: 1 }}
-                    md={{ span: 11, offset: 1 }}
-                    lg={{ span: 11, offset: 1 }}
-                    xl={{ span: 15, offset: 0 }}
-                    style={{ marginTop: '1%' }}
-                    className="formfield"
-                  >
-                    <AntInput bordered={false} name="Remarks" label={t('remarks')} />
-                  </Col>
-                  <Col
-                    xs={{ span: 18, offset: 0 }}
-                    sm={{ span: 22, offset: 1 }}
-                    md={{ span: 22, offset: 0 }}
-                    lg={{ span: 24, offset: 0 }}
-                    xl={{ span: 10, offset: 17 }}
-                    style={{ marginTop: '-3%' }}
-                    className="checkbox"
-                  >
-                    <label>
-                      <Form.Item name="IsTaxable" valuePropName="checked" initialValue={true}>
-                        <Checkbox onChange={(e) => handleCheckboxChange(e.target.checked, 'IsTaxable')}>
-                          {t('print_preview')}
-                        </Checkbox>
-                      </Form.Item>
-                    </label>
-                  </Col>
-                </div>
-              </Card>
-            </Col>
+                <p style={{ marginTop: -4 }}>
+                  <AntSelectDynamic
+                    required
+                    bordered={false}
+                    label={t('debit_account')}
+                    fieldValue="Id"
+                    fieldLabel="AccountTitle"
+                    name="AccountId"
+                    query={useGetCreditAccountSelect}
+                    onChange={(accountId) => handleCreditAccountChange(accountId)}
+                  />
+                </p>
+              </Col>
+              <Col
+                xs={{ span: 18, offset: 0 }}
+                sm={{ span: 18, offset: 1 }}
+                md={{ span: 9, offset: 1 }}
+                lg={{ span: 9, offset: 1 }}
+                xl={{ span: 7, offset: 0 }}
+                xxl={{ span: 5, offset: 1 }}
+                className="formfield against"
+              >
+                <AntSelectDynamic
+                  bordered={false}
+                  label={t('against_ac')}
+                  fieldValue="Id"
+                  fieldLabel="AccountTitle"
+                  name="AgainstAccountId"
+                  disabled={!isWithHoldingChecked}
+                  options={map(filter, (item: any) => ({
+                    value: item.Id,
+                    label: item.AccountTitle,
+                  }))}
+                />
+              </Col>
+              <Col
+                xs={{ span: 2 }}
+                sm={{ span: 2 }}
+                md={{ span: 2 }}
+                lg={{ span: 2 }}
+                xl={{ span: 3 }}
+                xxl={{ span: 1 }}
+                style={{ height: '20px' }}
+                className="wht"
+              >
+                <Form.Item name="IncludeWHT" valuePropName="checked" initialValue={false}>
+                  <Checkbox onChange={(e) => handleCheckboxChangeforWHT(e.target.checked, 'IncludeWHT')}>
+                    {t('wht')}
+                  </Checkbox>
+                </Form.Item>
+              </Col>
+              <Col
+                xs={{ span: 23, offset: 0 }}
+                sm={{ span: 22, offset: 1 }}
+                md={{ span: 23, offset: 0 }}
+                lg={{ span: 23, offset: 0 }}
+                xl={{ span: 13, offset: 0 }}
+                xxl={{ span: 16, offset: 0 }}
+                style={{ marginTop: '1%' }}
+                className="formfield remarks"
+              >
+                <AntInput bordered={false} name="Remarks" label={t('remarks')} />
+              </Col>
+            </div>
           </Card>
         </Col>
       </Row>
-      <br />
       <br />
     </>
   );
