@@ -18,7 +18,6 @@ import { useAtom } from 'jotai';
 import {
   addtableData,
   isWithHoldingCheckedAtom,
-  listAtom,
   selectedAgainstAccountAtom,
   selectedCreditAccountAtom,
   totalValue,
@@ -32,7 +31,6 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
 
   const { t } = useTranslation();
   const [tableData, setTableData] = useAtom(addtableData);
-  // const [voucherDetailList, setVoucherDetailList] = useAtom(listAtom);
 
   const [totalDebitAmounts, setTotalDebitAmounts] = useAtom(totalValue);
   const [selectedCreditAccount, setSelectedCreditAccount] = useAtom(selectedCreditAccountAtom);
@@ -88,6 +86,37 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
     CreditAmount: 0,
     TaxesTotalAmount: 0,
   };
+
+  useEffect(() => {
+    form.setFieldValue(['voucherDetailList', 0, 'PaymentTypeId'], '1');
+    form.setFieldValue(['voucherDetailList', 0, 'PaymentType'], 'Regular');
+    form.setFieldValue(['voucherDetailList', 0, 'DCheqDate'], dayjs(new Date()));
+  }, []);
+
+  const handleCalculations = () => {
+    let DebitAmount = 0;
+    tableData.map((item: any) => (DebitAmount += item.DebitAmount));
+    const taxPercent = form.getFieldValue(['voucherDetailList', 0, 'TaxPrcnt']);
+
+    const Amount = (DebitAmount / (100 - taxPercent)) * 100;
+    const TaxAmount = taxPercent > 0 ? (Amount * taxPercent) / 100 : 0;
+    const TotalAmount = DebitAmount + TaxAmount;
+
+    console.log(DebitAmount);
+    console.log(TaxAmount);
+    console.log(TotalAmount);
+
+    form.setFields([{ name: ['voucherDetailList', 0, 'Amount'], value: DebitAmount }]);
+    form.setFields([{ name: ['voucherDetailList', 0, 'TaxAmount'], value: TaxAmount }]);
+    form.setFields([{ name: ['voucherDetailList', 0, 'TotalAmount'], value: TotalAmount }]);
+    form.setFieldValue('VoucherAmount', DebitAmount);
+  };
+
+  useEffect(() => {
+    if (tableData.length > 0) {
+      handleCalculations();
+    }
+  }, [form, tableData]);
 
   // For Debit Account
   const handleCreditAccountChange = (accountId: number) => {
@@ -276,38 +305,10 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
   //   setVoucherDetailList(list);
   // }, [tableData]);
 
-  useEffect(() => {
-    // form.setFieldValue(['voucherDetailList', 0, 'PaymentTypeId'], '1');
-    // form.setFieldValue(['voucherDetailList', 0, 'PaymentType'], 'Regular');
-    form.setFieldValue(['voucherDetailList', 0, 'DCheqDate'], dayjs(new Date()));
-  }, [form]);
-
-  const handleItemChange = (obj: TTaxType, index: number) => {
-    form.setFields([{ name: ['voucherDetailList', index, 'TaxPrcnt'], value: obj?.Id }]);
+  const handleTaxChange = (obj: TTaxType, index: number) => {
+    // form.setFields([{ name: ['voucherDetailList', index, 'TaxPrcnt'], value: obj?.Id }]);
     form.setFields([{ name: ['voucherDetailList', index, 'TaxName'], value: obj?.TaxName }]);
   };
-
-  const CalculateTaxAmount = (totalDebitAmount: number, Percent: number) => {
-    const AmountOnWhichTaxWillCalculate = (totalDebitAmount / (100 - Percent)) * 100;
-    return (AmountOnWhichTaxWillCalculate * Percent) / 100;
-  };
-
-  useEffect(() => {
-    let DebitAmount = 0;
-    tableData.map((item: any) => (DebitAmount += item.DebitAmount));
-    const taxPercent = form.getFieldValue(['voucherDetailList', 0, 'TaxPrcnt']);
-    const TaxAmount = CalculateTaxAmount(DebitAmount, taxPercent);
-    const TotalAmount = add(DebitAmount, TaxAmount);
-
-    console.log(DebitAmount);
-    console.log(TaxAmount);
-    console.log(TotalAmount);
-
-    form.setFields([{ name: ['voucherDetailList', 0, 'Amount'], value: DebitAmount }]);
-    form.setFields([{ name: ['voucherDetailList', 0, 'TaxAmount'], value: TaxAmount }]);
-    form.setFields([{ name: ['voucherDetailList', 0, 'TotalAmount'], value: TotalAmount }]);
-    form.setFieldValue('VoucherAmount', DebitAmount);
-  }, [form, tableData]);
 
   return (
     <>
@@ -506,7 +507,7 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
                                     fieldLabel="TaxName"
                                     name={[field.name, 'TaxTypeId']}
                                     query={useGetCashPaymentTaxType}
-                                    onSelectChange={(obj) => handleItemChange(obj, field.name)}
+                                    onSelectChange={(obj) => handleTaxChange(obj, field.name)}
                                   />
                                 </Col>
                                 <Col

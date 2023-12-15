@@ -4,9 +4,9 @@ import { Badge, Card, Col, Form, Input, Row } from 'antd';
 import '../style.scss';
 import { SaveOutlined, SyncOutlined, PaperClipOutlined, ReloadOutlined, PrinterFilled } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
-import MainEntry from '@tradePro/pages/bankReceiptVoucher/form/MainEntry';
-import DynamicForm from '@tradePro/pages/bankReceiptVoucher/form/DetailEntry';
-import FormListt from '@tradePro/pages/bankReceiptVoucher/form/FormList';
+import MainEntry from '@tradePro/pages/AccountTransaction/bankReceiptVoucher/form/MainEntry';
+import DynamicForm from '@tradePro/pages/AccountTransaction/bankReceiptVoucher/form/DetailEntry';
+import FormListt from '@tradePro/pages/AccountTransaction/bankReceiptVoucher/form/FormList';
 import VoucherNo from './VoucherNo';
 import { useGetVoucherNo } from '../queries/queries';
 import { isNumber, map } from 'lodash';
@@ -19,7 +19,7 @@ import {
 import dayjs from 'dayjs';
 import { useAtom } from 'jotai';
 import { listAtom } from './Atom';
-import { listAtomforTax } from '@tradePro/pages/bankPaymentVoucher/form/Atom';
+import { listAtomforTax } from '@tradePro/pages/AccountTransaction/bankPaymentVoucher/form/Atom';
 
 const { useForm } = Form;
 

@@ -24,27 +24,6 @@ const CardView: React.FC<{}> = () => {
   const userDetail = storedUserDetail();
   const selectedRecordId = selectedCardData?.Id;
 
-  const arrayBufferToBase64 = (buffer: Uint8Array) => {
-    let binary = '';
-    buffer.forEach((byte) => {
-      binary += String.fromCharCode(byte);
-    });
-    return window.btoa(binary);
-  };
-  // const compLogoImage = selectedCardData?.CompLogoImage;
-  // let imageUrl;
-  // if (compLogoImage) {
-  //   const uint8Array = new Uint8Array(compLogoImage);
-  //   const base64Image = arrayBufferToBase64(uint8Array);
-  //   console.log(base64Image);
-
-  //   imageUrl = `data:image/png;base64,${base64Image}`;
-  //   console.log(imageUrl);
-  //   // Now you can use the 'imageUrl' variable as needed in your application
-  // } else {
-  //   // Handle the case where CompLogoImage is undefined
-  //   console.error('CompLogoImage is undefined');
-  // }
   const handleSearch = (value: any) => {
     setRecords(value);
   };
@@ -150,7 +129,7 @@ const CardView: React.FC<{}> = () => {
                             <Image
                               className="Img"
                               // src={voucherData?.data?.Data?.Result?.[0]?.CompLogoImage}
-                              src={"data:image/jpeg;base64,"+ selectedCardData?.CompLogoImage}
+                              src={'data:image/jpeg;base64,' + selectedCardData?.CompLogoImage}
                               style={{ width: '6rem', height: '6rem' }}
                             />
                           </div>

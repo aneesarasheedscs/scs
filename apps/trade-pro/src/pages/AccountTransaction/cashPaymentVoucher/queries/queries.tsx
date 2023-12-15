@@ -147,9 +147,9 @@ export const useGetCashPaymentProjectSelect = () => {
 
 export const useGetCashPaymentTaxType = () => {
   return useQuery(
-    'CashPayment-Tax',
+    'TaxTypes',
     () => {
-      return requestManager.get('/api/TaxesTypes/GetForComboBind', { params: { ...params, Type: 2 } });
+      return requestManager.get('/api/TaxesTypes/GetForComboBind', { params: { ...params, Type: 1 } });
     },
     { cacheTime: 5000 }
   );
@@ -181,7 +181,7 @@ export const useGetCashPaymentJobLotSelect = () => {
   );
 };
 
-export const useGetTaxSchedule = (DocDate: Date, TaxNameId: number) => {
+export const useGetTaxSchedule = (DocDate?: Date, TaxNameId?: number) => {
   return useQuery(
     'TaxSchedule',
     () => {

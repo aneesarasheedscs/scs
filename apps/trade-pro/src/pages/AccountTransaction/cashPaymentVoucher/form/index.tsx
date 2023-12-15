@@ -5,7 +5,7 @@ import '../style.scss';
 import { SaveOutlined, SyncOutlined, PaperClipOutlined, ReloadOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import VoucherNo from './VoucherNo';
-import { useGetVoucherNo } from '../queries/queries';
+import { useGetTaxSchedule, useGetVoucherNo } from '../queries/queries';
 import dayjs from 'dayjs';
 import MainEntry from './MainEntry';
 import DynamicForm from './DetailEntry';
@@ -27,17 +27,49 @@ function CashPaymentVoucherForm({
   const { t } = useTranslation();
   const [bankId, setBankId] = useState<number | null>(null);
   const DocumentTypeId = 1;
-  const { data, isError, refetch, isLoading, isSuccess } = useGetVoucherNo(DocumentTypeId);
+
+  const [VoucherDate, setVoucherDate] = useState<Date>();
+  const [TaxTypeId, setTaxTypeId] = useState<number | undefined>();
+  const [SharedStateIncludeWHT, setSharedStateIncludeWHT] = useState(false);
 
   const [tableData, setTableData] = useAtom(addtableData);
-  const [isWithHoldingChecked, setIsWithHoldingChecked] = useAtom(isWithHoldingCheckedAtom);
   const [isAddButtonClicked, setIsAddButtonClicked] = useState(true);
+
+  const { data, isError, refetch, isLoading, isSuccess } = useGetVoucherNo(DocumentTypeId);
+
   const { mutate: addCashPaymentVoucher, isSuccess: isEntrySuccessful, data: entryData } = useAddCashPaymentVoucher();
   const {
     mutate: updateCashPaymentVoucher,
     isSuccess: isUpdateEntrySuccessful,
     data: UpdateData,
   } = useUpdateCashPaymentVoucher(selectedRecordId);
+
+  const {
+    data: getTaxSchedule,
+    isSuccess: TaxSuccess,
+    refetch: TaxScheduleRefetch,
+  } = useGetTaxSchedule(VoucherDate, TaxTypeId);
+
+  useEffect(() => {
+    if (SharedStateIncludeWHT) {
+      if (VoucherDate && TaxTypeId) {
+        TaxScheduleRefetch();
+      }
+    }
+  }, [VoucherDate, TaxTypeId]);
+
+  useEffect(() => {
+    if (TaxSuccess && SharedStateIncludeWHT) {
+      form.setFieldValue(['voucherDetailList', 0, 'TaxPrcnt'], getTaxSchedule?.data?.Data?.Result?.[0]?.TaxPercent);
+      form.setFieldValue(
+        ['voucherDetailList', 0, 'AgainstAccountId'],
+        getTaxSchedule?.data?.Data?.Result?.[0]?.TaxGLAccountId
+      );
+    } else {
+      form.setFieldValue(['voucherDetailList', 0, 'TaxPrcnt'], 0);
+      form.setFieldValue(['voucherDetailList', 0, 'AgainstAccountId'], null);
+    }
+  }, [form, TaxSuccess]);
 
   useEffect(() => {
     setTableData([]);
@@ -93,8 +125,6 @@ function CashPaymentVoucherForm({
         return item;
       }
     });
-
-    console.log(values);
 
     if (selectedRecordId) {
       updateCashPaymentVoucher(values);
@@ -180,7 +210,12 @@ function CashPaymentVoucherForm({
                   xxl={{ span: 4, offset: 1 }}
                   className="formfield voucherDate"
                 >
-                  <AntDatePicker bordered={false} name="VoucherDate" label={t('voucher_date')} />
+                  <AntDatePicker
+                    bordered={false}
+                    name="VoucherDate"
+                    label={t('voucher_date')}
+                    onChange={() => setVoucherDate(form.getFieldValue('VoucherDate'))}
+                  />
                 </Col>
               </Row>
             </Col>
@@ -233,7 +268,13 @@ function CashPaymentVoucherForm({
           </Row>
         </div>
 
-        <MainEntry form={form} isAddButtonClicked={isAddButtonClicked} setBankId={setBankId} bankId={bankId} />
+        <MainEntry
+          form={form}
+          setSharedStateIncludeWHT={setSharedStateIncludeWHT}
+          isAddButtonClicked={isAddButtonClicked}
+          setBankId={setBankId}
+          bankId={bankId}
+        />
         <DynamicForm form={form} bankId={bankId} setIsAddButtonClicked={setIsAddButtonClicked} />
       </Form>
     </Card>
