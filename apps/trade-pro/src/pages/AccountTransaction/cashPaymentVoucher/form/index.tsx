@@ -28,14 +28,19 @@ function CashPaymentVoucherForm({
   const [bankId, setBankId] = useState<number | null>(null);
   const DocumentTypeId = 1;
 
-  const [VoucherDate, setVoucherDate] = useState<Date>();
+  const [VoucherDate, setVoucherDate] = useState<Date>(new Date());
   const [TaxTypeId, setTaxTypeId] = useState<number | undefined>();
   const [SharedStateIncludeWHT, setSharedStateIncludeWHT] = useState(false);
 
   const [tableData, setTableData] = useAtom(addtableData);
   const [isAddButtonClicked, setIsAddButtonClicked] = useState(true);
-
   const { data, isError, refetch, isLoading, isSuccess } = useGetVoucherNo(DocumentTypeId);
+  const {
+    data: getTaxSchedule,
+    isSuccess: TaxSuccess,
+    refetch: TaxScheduleRefetch,
+    isLoading: TaxLoading,
+  } = useGetTaxSchedule(VoucherDate, TaxTypeId);
 
   const { mutate: addCashPaymentVoucher, isSuccess: isEntrySuccessful, data: entryData } = useAddCashPaymentVoucher();
   const {
@@ -44,32 +49,13 @@ function CashPaymentVoucherForm({
     data: UpdateData,
   } = useUpdateCashPaymentVoucher(selectedRecordId);
 
-  const {
-    data: getTaxSchedule,
-    isSuccess: TaxSuccess,
-    refetch: TaxScheduleRefetch,
-  } = useGetTaxSchedule(VoucherDate, TaxTypeId);
-
   useEffect(() => {
     if (SharedStateIncludeWHT) {
       if (VoucherDate && TaxTypeId) {
         TaxScheduleRefetch();
       }
     }
-  }, [VoucherDate, TaxTypeId]);
-
-  useEffect(() => {
-    if (TaxSuccess && SharedStateIncludeWHT) {
-      form.setFieldValue(['voucherDetailList', 0, 'TaxPrcnt'], getTaxSchedule?.data?.Data?.Result?.[0]?.TaxPercent);
-      form.setFieldValue(
-        ['voucherDetailList', 0, 'AgainstAccountId'],
-        getTaxSchedule?.data?.Data?.Result?.[0]?.TaxGLAccountId
-      );
-    } else {
-      form.setFieldValue(['voucherDetailList', 0, 'TaxPrcnt'], 0);
-      form.setFieldValue(['voucherDetailList', 0, 'AgainstAccountId'], null);
-    }
-  }, [form, TaxSuccess]);
+  }, [SharedStateIncludeWHT, VoucherDate, TaxTypeId]);
 
   useEffect(() => {
     setTableData([]);
@@ -81,6 +67,9 @@ function CashPaymentVoucherForm({
     }
   }, [selectedRecordId]);
 
+  const handleTaxTypeChange = (TaxId: number) => {
+    setTaxTypeId(TaxId);
+  };
   const onFinish = (values: TSaveCashPaymentVoucher) => {
     const TaxableEntry: any = {};
     if (values.IncludeWHT) {
@@ -275,7 +264,12 @@ function CashPaymentVoucherForm({
           setBankId={setBankId}
           bankId={bankId}
         />
-        <DynamicForm form={form} bankId={bankId} setIsAddButtonClicked={setIsAddButtonClicked} />
+        <DynamicForm
+          form={form}
+          SharedStateIncludeWHT={SharedStateIncludeWHT}
+          handleTaxTypeChange={handleTaxTypeChange}
+          ScheduleData={getTaxSchedule?.data?.Data?.Result?.[0]}
+        />
       </Form>
     </Card>
   );

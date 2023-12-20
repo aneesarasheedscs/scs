@@ -9,48 +9,32 @@ import {
 } from '../queries/queries';
 import { map } from 'lodash';
 import { useEffect } from 'react';
-import { isWithHoldingCheckedAtom, selectedAgainstAccountAtom, selectedCreditAccountAtom, totalValue } from './Atom';
-import { useAtom } from 'jotai';
 
 function MainEntry({ form, setBankId, bankId, isAddButtonClicked, setSharedStateIncludeWHT }: TDynamicForm) {
   const { t } = useTranslation();
-
   const handleCheckboxChangeforWHT = (isChecked: boolean, fieldName: string) => {
-    setIsWithHoldingChecked(isChecked);
+    setSharedStateIncludeWHT(isChecked);
     form.setFieldsValue({
       [fieldName]: isChecked,
     });
   };
 
-  const [totalDebitAmounts, setTotalDebitAmounts] = useAtom(totalValue);
+  const { data: project } = useGetCashPaymentProjectSelect();
   const { data: credit } = useGetCreditAccountSelect();
   const { data } = useGetAccountsBalance(bankId);
-
-  const [selectedCreditAccount, setSelectedCreditAccount] = useAtom(selectedCreditAccountAtom);
-  const [againstAccountAtom, setAgainstAccountAtom] = useAtom(selectedAgainstAccountAtom);
-  const [isWithHoldingChecked, setIsWithHoldingChecked] = useAtom(isWithHoldingCheckedAtom);
-
   const { data: whtAgainst } = useGetWHTAgainstAcSelect();
-  const { data: project } = useGetCashPaymentProjectSelect();
 
   useEffect(() => {
     form.setFieldValue('ProjectId', project?.data?.Data?.Result?.[0]?.ProjectName);
-    // form.setFieldValue('VoucherAmount', totalDebitAmounts);
     if (data?.data?.Data?.Result?.[0]?.Balance !== undefined) {
       form.setFieldsValue({ Balance: data?.data?.Data?.Result?.[0]?.Balance.toFixed(2) });
     }
-  }, [credit, bankId, totalDebitAmounts, data?.data?.Data?.Result]);
+  }, [credit, bankId, data?.data?.Data?.Result]);
 
   const handleCreditAccountChange = (accountId?: any, index?: any) => {
     const balance = data?.data?.Data?.Result?.[0]?.Balance.toFixed(2);
     form.setFieldValue(['voucherDetailList', index, 'Balance'], balance);
-    console.log('abc', balance);
-    setSelectedCreditAccount(accountId);
     setBankId(accountId);
-  };
-
-  const handleAgainstAccountChange = (accountId?: any) => {
-    setAgainstAccountAtom(accountId);
   };
 
   interface TVoucherType {
@@ -58,7 +42,6 @@ function MainEntry({ form, setBankId, bankId, isAddButtonClicked, setSharedState
     Type: string;
   }
   const voucherType: TVoucherType[] = [{ Id: 1, Type: 'CPV' }];
-
   return (
     <>
       <Row gutter={[10, 10]} style={{ marginTop: '-2%' }}>
@@ -117,7 +100,6 @@ function MainEntry({ form, setBankId, bankId, isAddButtonClicked, setSharedState
                 <p style={{ marginTop: -18, marginLeft: '50%' }} className="cr">
                   Cr : <b> {data?.data?.Data?.Result?.[0]?.Balance.toFixed(2)}</b>
                 </p>
-
                 <p style={{ marginTop: -4 }}>
                   <AntSelectDynamic
                     bordered={false}
@@ -154,7 +136,6 @@ function MainEntry({ form, setBankId, bankId, isAddButtonClicked, setSharedState
                     value: item.Id,
                     label: item.AccountTitle,
                   }))}
-                  onChange={(accountId) => handleAgainstAccountChange(accountId)}
                 />
               </Col>
               <Col

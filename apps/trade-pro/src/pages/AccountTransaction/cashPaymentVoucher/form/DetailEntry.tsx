@@ -26,7 +26,7 @@ import dayjs from 'dayjs';
 
 const { useWatch } = Form;
 
-const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
+const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, ScheduleData }: TDynamicForm) => {
   const formValues = useWatch<TCashPaymentDetailEntry[]>('voucherDetailList', form);
 
   const { t } = useTranslation();
@@ -93,19 +93,28 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
     form.setFieldValue(['voucherDetailList', 0, 'DCheqDate'], dayjs(new Date()));
   }, []);
 
+  useEffect(() => {
+    console.log('OutsideTaxSucess');
+    if (SharedStateIncludeWHT && ScheduleData) {
+      console.log('InsideTaxSucess');
+      form.setFieldValue(['voucherDetailList', 0, 'TaxPrcnt'], ScheduleData?.TaxPercent);
+      form.setFieldValue(['voucherDetailList', 0, 'AgainstAccountId'], ScheduleData?.TaxGLAccountId);
+      handleCalculations();
+    } else {
+      form.setFieldValue(['voucherDetailList', 0, 'TaxPrcnt'], 0);
+      form.setFieldValue(['voucherDetailList', 0, 'AgainstAccountId'], null);
+      handleCalculations();
+    }
+  }, [form, SharedStateIncludeWHT, ScheduleData]);
+
   const handleCalculations = () => {
     let DebitAmount = 0;
     tableData.map((item: any) => (DebitAmount += item.DebitAmount));
     const taxPercent = form.getFieldValue(['voucherDetailList', 0, 'TaxPrcnt']);
-
+    console.log(taxPercent);
     const Amount = (DebitAmount / (100 - taxPercent)) * 100;
-    const TaxAmount = taxPercent > 0 ? (Amount * taxPercent) / 100 : 0;
-    const TotalAmount = DebitAmount + TaxAmount;
-
-    console.log(DebitAmount);
-    console.log(TaxAmount);
-    console.log(TotalAmount);
-
+    const TaxAmount = taxPercent > 0 ? ((Amount * taxPercent) / 100).toFixed(2) : '0';
+    const TotalAmount = (DebitAmount + parseFloat(TaxAmount)).toFixed(2);
     form.setFields([{ name: ['voucherDetailList', 0, 'Amount'], value: DebitAmount }]);
     form.setFields([{ name: ['voucherDetailList', 0, 'TaxAmount'], value: TaxAmount }]);
     form.setFields([{ name: ['voucherDetailList', 0, 'TotalAmount'], value: TotalAmount }]);
@@ -308,6 +317,7 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
   const handleTaxChange = (obj: TTaxType, index: number) => {
     // form.setFields([{ name: ['voucherDetailList', index, 'TaxPrcnt'], value: obj?.Id }]);
     form.setFields([{ name: ['voucherDetailList', index, 'TaxName'], value: obj?.TaxName }]);
+    handleTaxTypeChange(obj.Id);
   };
 
   return (
@@ -535,7 +545,7 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
                                   className="formfield"
                                 >
                                   <AntSelectDynamic
-                                    disabled={!form.getFieldValue('IncludeWHT') /* isWithHoldingChecked*/}
+                                    disabled={!SharedStateIncludeWHT /* isWithHoldingChecked*/}
                                     bordered={false}
                                     fieldValue="Id"
                                     fieldLabel="AccountTitle"
@@ -619,6 +629,6 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
   );
 };
 
-type TDynamicForm = { form: FormInstance; bankId: any; setIsAddButtonClicked: any };
+type TDynamicForm = { form: FormInstance; SharedStateIncludeWHT: boolean; handleTaxTypeChange: any; ScheduleData: any };
 
 export default DynamicForm;
