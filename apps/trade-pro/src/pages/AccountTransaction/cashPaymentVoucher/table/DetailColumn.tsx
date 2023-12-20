@@ -34,7 +34,7 @@ export const detailColumns = (t?: any): AntColumnType<DataType>[] => [
     dataIndex: 'DebitAmount',
     sorter: (a, b) => a.DebitAmount - b.DebitAmount,
     render: (_, { DebitAmount }) => (
-      <span style={{ display: 'flex', justifyContent: 'end', marginRight: '15%' }}>{numberFormatter(DebitAmount)}</span>
+      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(DebitAmount)}</span>
     ),
   },
   {
@@ -44,9 +44,7 @@ export const detailColumns = (t?: any): AntColumnType<DataType>[] => [
     dataIndex: 'CreditAmount',
     sorter: (a, b) => a.CreditAmount - b.CreditAmount,
     render: (_, { CreditAmount }) => (
-      <span style={{ display: 'flex', justifyContent: 'end', marginRight: '15%' }}>
-        {numberFormatter(CreditAmount)}
-      </span>
+      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(CreditAmount)}</span>
     ),
   },
 ];

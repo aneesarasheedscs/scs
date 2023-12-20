@@ -1,4 +1,4 @@
-import { EditFilled, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
+import { EditFilled, EyeOutlined, DeleteOutlined, PrinterOutlined } from '@ant-design/icons';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { AntButton } from '@tradePro/components';
 import { Space, Tooltip } from 'antd';
@@ -137,12 +137,15 @@ export const columns = (
           <Space>
             <AntButton
               type="text"
-              icon={<EyeOutlined style={{ color: 'blue', marginLeft: 4 }} />}
+              icon={<EyeOutlined style={{ color: 'blue' }} />}
               onClick={() => {
                 setSelectedRecordId(record.Id);
               }}
             />
           </Space>
+          <Tooltip>
+            <AntButton type="text" icon={<PrinterOutlined style={{ color: 'red' }} />} />
+          </Tooltip>
         </Tooltip>
       </>
     ),

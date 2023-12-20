@@ -9,33 +9,52 @@
   width: 1.5rem !important;
   transition: 0.1s all;
 }
+.formfield1 {
+  border-bottom: 1px solid gray;
+  padding: 0px;
+  height: 38px;
+}
 
 // Responsiveness
 
 @media screen and (min-width: 992px) and (max-width: 1200px) {
-  .remark,
   .remarks {
     margin-top: 2.2% !important;
   }
   .paytitle {
-    margin-top: 0.5% !important;
+    margin-top: -0% !important;
   }
-  .job {
+  .cr {
+    margin-top: -2% !important;
+  }
+
+  .add {
     margin-top: 3% !important;
+  }
+  .btns {
+    margin-top: 1.5rem !important;
+    margin-bottom: 2%;
   }
 }
 
 @media screen and (min-width: 768px) and (max-width: 992px) {
-  .remark,
+  .remark {
+    margin-top: 1% !important;
+  }
   .remarks {
-    margin-top: 2.3% !important;
+    margin-top: 1.5% !important;
   }
   .paytitle {
     margin-top: 0% !important;
   }
-
-  .checkbox {
-    margin-top: 10% !important;
+  .cr {
+    margin-top: -2% !important;
+  }
+  .add {
+    margin-top: 3% !important;
+  }
+  .btns {
+    margin-top: 1.5rem !important;
   }
 }
 
@@ -43,19 +62,53 @@
   .remarks {
     margin-top: 1rem !important;
   }
+  .btns {
+    margin-top: 1.5rem !important;
+  }
+  .cr {
+    margin-top: 1% !important;
+    margin-left: 65% !important;
+  }
+  .credit,
+  .debit {
+    margin-top: 0rem !important;
+    height: 60px !important;
+  }
+  .formfield {
+    height: 55px !important;
+  }
 }
 
 @media screen and (min-width: 481px) and (max-width: 575px) {
-  .checkbox {
-    margin-top: 9% !important;
-  }
   .formfield {
-    height: 65px !important;
+    height: 70px !important;
   }
-  .formfield1 {
-    height: 100px !important;
+  .add {
+    margin-top: 5% !important;
   }
-  .buttons {
-    margin-top: 1.5rem;
+  .icon {
+    margin-left: -1%;
+  }
+  .voucherDate {
+    margin-top: -1.5rem !important;
+  }
+  .voucherNo {
+    margin-top: 0.5rem;
+  }
+  .btns {
+    margin-top: 1.5rem !important;
+    margin-left: -3.9% !important;
+  }
+  .cr {
+    margin-top: 1% !important;
+    margin-left: 65% !important;
+  }
+  .credit {
+    margin-top: 0rem !important;
+    height: 87px !important;
+  }
+  .debit {
+    margin-top: -1.5rem !important;
+    height: 87px !important;
   }
 }

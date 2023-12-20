@@ -10,7 +10,7 @@ const userDetail = storedUserDetail();
 const financialYear = storedFinancialYear();
 
 //Get ById
-export const useGetContraVoucherById = (Id?: string | null) => {
+export const useGetContraVoucherById = (Id?: string | null | any) => {
   return useQuery(
     ['contraVoucher-getById', Id],
     () => {

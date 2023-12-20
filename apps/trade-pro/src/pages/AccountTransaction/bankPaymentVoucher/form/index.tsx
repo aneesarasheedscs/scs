@@ -139,6 +139,7 @@ function BankPaymentVoucherForm({
                   lg={{ span: 11, offset: 1 }}
                   xl={{ span: 6, offset: 1 }}
                   xxl={{ span: 4, offset: 1 }}
+                  style={{ marginTop: '0.2%' }}
                   className="formfield voucherDate"
                 >
                   <AntDatePicker bordered={false} name="VoucherDate" label={t('voucher_date')} />

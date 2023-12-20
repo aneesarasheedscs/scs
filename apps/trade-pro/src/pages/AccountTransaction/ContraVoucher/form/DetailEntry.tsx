@@ -210,24 +210,25 @@ const DynamicForm = ({ form, againstAccountId }: TDynamicForm) => {
                         lg={{ span: 11, offset: 0 }}
                         xl={{ span: 7, offset: 0 }}
                         className="formfield1 debit"
-                        style={{ marginTop: '0.2rem', borderBottom: '1px solid gray', padding: '0px', height: '60px' }}
+                        style={{ marginTop: '0rem', borderBottom: '1px solid gray', padding: '0px', height: '60px' }}
                       >
-                        <p style={{ marginTop: -10 }}>
-                          {t('debit_account_balance')} :{' '}
-                          <b> {numberFormatter(data?.data?.Data?.Result?.[0]?.Balance)}</b>
+                        <p style={{ marginTop: -18, marginLeft: '50%' }} className="cr">
+                          Dr : <b> {data?.data?.Data?.Result?.[0]?.Balance.toFixed(2)}</b>
                         </p>
-                        <AntSelectDynamic
-                          bordered={false}
-                          label={t('debit_account')}
-                          fieldValue="Id"
-                          fieldLabel="AccountTitle"
-                          name={[field.name, 'AccountId']}
-                          options={map(filter, (item: any) => ({
-                            value: item.Id,
-                            label: item.AccountTitle,
-                          }))}
-                          onChange={handleDebitAccountChange}
-                        />
+                        <p style={{ marginTop: -4 }}>
+                          <AntSelectDynamic
+                            bordered={false}
+                            label={t('debit_account')}
+                            fieldValue="Id"
+                            fieldLabel="AccountTitle"
+                            name={[field.name, 'AccountId']}
+                            options={map(filter, (item: any) => ({
+                              value: item.Id,
+                              label: item.AccountTitle,
+                            }))}
+                            onChange={handleDebitAccountChange}
+                          />
+                        </p>
                       </Col>
                       <Col
                         xs={{ span: 23, offset: 0 }}
@@ -300,16 +301,18 @@ const DynamicForm = ({ form, againstAccountId }: TDynamicForm) => {
                       </Col>
 
                       <Col
-                        xs={{ span: 24, offset: 0 }}
-                        sm={{ span: 3, offset: 1 }}
-                        md={{ span: 3, offset: 1 }}
-                        lg={{ span: 3, offset: 1 }}
+                        xs={{ span: 8, offset: 8 }}
+                        sm={{ span: 5, offset: 10 }}
+                        md={{ span: 4, offset: 10 }}
+                        lg={{ span: 4, offset: 10 }}
                         xl={{ span: 2, offset: 1 }}
+                        style={{ marginTop: '1%' }}
+                        className="add"
                       >
                         <AntButton
                           onClick={isEditMode ? handleUpdateToTable : handleAddToTable}
-                          label={isEditMode ? 'Update' : 'Add'}
-                        ></AntButton>
+                          label={isEditMode ? <>{t('update')}</> : <>{t('add')}</>}
+                        />
                       </Col>
                     </div>
                   ))}
@@ -318,16 +321,15 @@ const DynamicForm = ({ form, againstAccountId }: TDynamicForm) => {
             </Form.List>
           </Card>
           <br />
-          <Card style={{ boxShadow: '2px 4px 12px 1px gray', textAlign: 'left' }}>
-            <AntTable
-              // isError={isError}
-              numberOfSkeletons={12}
-              // isLoading={isLoading}
-              scroll={{ x: '', y: convertVhToPixels('15vh') }}
-              data={tableData}
-              columns={columns2(t, handleDeleteRow, handleEditRow)}
-            />
-          </Card>
+
+          <AntTable
+            // isError={isError}
+            numberOfSkeletons={12}
+            // isLoading={isLoading}
+            scroll={{ x: '', y: convertVhToPixels('15vh') }}
+            data={tableData}
+            columns={columns2(t, handleDeleteRow, handleEditRow)}
+          />
         </Col>
       </Row>
     </>

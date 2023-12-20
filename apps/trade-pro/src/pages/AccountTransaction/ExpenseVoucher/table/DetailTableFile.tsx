@@ -2,52 +2,27 @@ import React, { useEffect, useState } from 'react';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { Row, Col, theme } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { TCashPaymentDetailEntry } from '../form/types';
-import { useGetCashPaymentVoucherById } from '../queries/querySave';
-import { useGetCashPaymentVoucherTable } from '../queries/queries';
-import { isNumber } from 'lodash';
+import { useGetExpenseVoucherTable } from '../queries/queries';
+import { TExpenseDetailEntry } from '../form/types';
+import { useGetExpenseVoucherById } from '../queries/querySave';
 
 const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedRecordId }) => {
   const { t } = useTranslation();
-  const { data: table } = useGetCashPaymentVoucherTable();
-  const { data, isLoading, isSuccess } = useGetCashPaymentVoucherById(selectedRecordId);
+  const { data: table } = useGetExpenseVoucherTable();
+  const { data, isLoading, isSuccess } = useGetExpenseVoucherById(selectedRecordId);
   const voucherData = data?.data?.Data?.Result?.voucherDetailList;
-  const [mainDataSource, setMainDataSource] = useState<TCashPaymentDetailEntry[]>([]);
+  const [mainDataSource, setMainDataSource] = useState<TExpenseDetailEntry[]>([]);
   console.log(data?.data?.Data?.Result.IncludeWHT);
-  type TaxEntry = {
-    Wht_Account: string;
-    Wht_AgainstAccount: string;
-    TaxType: string;
-    TaxPercent: number;
-    TaxAmount: number;
-  };
 
   useEffect(() => {
     if (isSuccess && !isLoading) {
       setMainDataSource(voucherData);
-      if (data?.data?.Data?.Result?.IncludeWHT) {
-        for (let i = 0; i < voucherData.length; i++) {
-          if (
-            voucherData[i]?.IsTaxable == 'True' &&
-            voucherData[i].DebitAmount > 0 &&
-            voucherData[i].AccountId == data?.data?.Data?.Result?.RefDocNoId
-          ) {
-            setTaxableEntry({
-              Wht_Account: voucherData[i].AccountTitle,
-              Wht_AgainstAccount: voucherData[i].AgainstAccount,
-              TaxType: voucherData[i].TaxType,
-              TaxPercent: voucherData[i].TaxPrcnt,
-              TaxAmount: voucherData[i].TaxesTotalAmount,
-            });
-          }
-        }
-      }
     }
   }, [isSuccess, !isLoading]);
 
   const totalDebit = voucherData?.reduce((total: number, item: any) => total + item.DebitAmount, 0) || 0;
   const totalCredit = voucherData?.reduce((total: number, item: any) => total + item.CreditAmount, 0) || 0;
-  const [TaxableEntry, setTaxableEntry] = useState<TaxEntry>();
+
   console.log(data?.data?.Data?.Result);
   console.log(table?.data?.Data?.Result?.[0]?.ModifyUserProfileImageUrl);
   const {
@@ -74,7 +49,7 @@ const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedR
             </div>
           </div>
 
-          {voucherData?.map((item: TCashPaymentDetailEntry, index: number) => (
+          {voucherData?.map((item: TExpenseDetailEntry, index: number) => (
             <div className={`table-data ${index % 2 === 0 ? '' : 'alternate'}`} key={index}>
               <div className="table-Row">
                 <div
@@ -151,11 +126,7 @@ const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedR
 
       <Row>
         <Col
-          xs={{ span: 8 }}
-          sm={{ span: 8 }}
-          md={{ span: 5 }}
-          lg={{ span: 5 }}
-          xl={{ span: 5 }}
+          span={8}
           style={{
             display: 'flex',
             textAlignLast: 'center',
@@ -172,11 +143,7 @@ const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedR
           </div>
         </Col>
         <Col
-          xs={{ span: 8 }}
-          sm={{ span: 8 }}
-          md={{ span: 5 }}
-          lg={{ span: 5 }}
-          xl={{ span: 5 }}
+          span={8}
           style={{
             display: 'flex',
             textAlignLast: 'center',
@@ -191,11 +158,7 @@ const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedR
           <p>{table?.data?.Data?.Result?.[0]?.UserName}</p>
         </Col>
         <Col
-          xs={{ span: 8 }}
-          sm={{ span: 8 }}
-          md={{ span: 5 }}
-          lg={{ span: 5 }}
-          xl={{ span: 5 }}
+          span={8}
           style={{
             display: 'flex',
             textAlignLast: 'center',
@@ -213,87 +176,6 @@ const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedR
           </div>
           <div>
             <p>{table?.data?.Data?.Result?.[0]?.UserName}</p>
-          </div>
-        </Col>
-
-        <Col
-          xs={{ span: 24 }}
-          sm={{ span: 24 }}
-          md={{ span: 9 }}
-          lg={{ span: 9 }}
-          xl={{ span: 9 }}
-          style={{ marginTop: '0.9%' }}
-        >
-          {data?.data?.Data?.Result.IncludeWHT && (
-            <div className="WhtAgaints_Account">
-              <div className="Wrap">
-                <div className="Title_Wrap">
-                  <div className="Wht-Title">{t('wht_against_account')}</div>
-                  <div className="Wht-Value">{TaxableEntry?.Wht_AgainstAccount}</div>
-                </div>
-                <div className="my-2">
-                  <div
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                    }}
-                    className="caption-value-wrape"
-                  >
-                    <div className="caption">{t('wht_account')}</div>
-                    <div style={{ textAlign: 'right' }} className="value">
-                      {TaxableEntry?.Wht_Account}
-                    </div>
-                  </div>
-                  <div className="d-flex justify-content-between">
-                    <div
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                      }}
-                      className="caption-value-wrape"
-                    >
-                      <div className="caption">{t('tax_type')}</div>
-                      <div style={{ textAlign: 'right' }} className="value">
-                        {TaxableEntry?.TaxType}
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                      }}
-                      className="caption-value-wrape"
-                    >
-                      <div className="caption">{t('tax_percent')}</div>
-                      <div style={{ textAlign: 'right' }} className="value">
-                        {TaxableEntry?.TaxPercent.toFixed(2)}
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                    }}
-                    className="caption-value-wrape"
-                  >
-                    <div className="caption">{t('tax_amount')}</div>
-                    <div style={{ textAlign: 'right' }} className="value">
-                      {numberFormatter(isNumber(TaxableEntry?.TaxAmount) ? TaxableEntry?.TaxAmount : 0)}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          <div style={{ marginLeft: '-2.5%' }} className="grand-total-wrape">
-            <div className="grand-totals">
-              <div className="calculate-wrape grand-total">
-                <div className="total-caption">{t('amount')}</div>
-                <div className="total-value">{numberFormatter(data?.data?.Data?.Result?.VoucherAmount)}</div>
-              </div>
-            </div>
           </div>
         </Col>
       </Row>

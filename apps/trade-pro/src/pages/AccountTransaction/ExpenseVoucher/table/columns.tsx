@@ -13,20 +13,19 @@ export const columns = (
   setActiveTab?: any
 ): AntColumnType<TExpenseVoucherHistory>[] => [
   {
-    title: <>{t('document_type_code')}</>,
-    width: 200,
+    title: <>{t('type')}</>,
+    width: 120,
     searchableInput: true,
     dataIndex: 'DocumentTypeCode',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.DocumentTypeCode.localeCompare(b.DocumentTypeCode),
   },
   {
-    title: <>{t('voucher_code')}</>,
-    width: 200,
+    title: <>{t('code')}</>,
+    width: 120,
     searchableInput: true,
     dataIndex: 'VoucherCode',
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.VoucherCode.localeCompare(b.VoucherCode),
   },
   {
     title: <>{t('voucher_date')}</>,
@@ -55,8 +54,12 @@ export const columns = (
     width: 200,
     dataIndex: 'VoucherAmount',
     showTotal: true,
-    render: (_, { VoucherAmount }) => <span>{numberFormatter(VoucherAmount)}</span>,
+    sorter: (a, b) => a.VoucherAmount - b.VoucherAmount,
+    render: (_, { VoucherAmount }) => (
+      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(VoucherAmount)}</span>
+    ),
   },
+
   {
     title: <>{t('user_name')}</>,
     width: 200,
@@ -71,7 +74,6 @@ export const columns = (
     dataIndex: 'CheqNo',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.CheqNo.localeCompare(b.CheqNo),
   },
   {
     title: <>{t('attachment')}</>,
@@ -111,7 +113,7 @@ export const columns2 = (t: any, handleDeleteRow: any, handleEditRow: any): AntC
   },
   {
     title: <>{t('job_lot')}</>,
-    width: 250,
+    width: 300,
     searchableInput: true,
     dataIndex: 'JobLotDescription',
     key: 2,

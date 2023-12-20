@@ -22,7 +22,7 @@ export const useGetExpenseVoucherTable = (enabled = true, params?: TVoucherHisto
     () => {
       return requestManager.post('/api/Voucher/VoucherFormHistory', {
         OrganizationId: userDetail?.OrganizationId,
-        BranchesId: 2,
+        BranchesId: userDetail?.BranchesId,
         CompanyId: userDetail?.CompanyId,
         FinancialYearId: financialYear?.Id,
         Ids: '26',
@@ -104,16 +104,6 @@ const GetExpenseDebitAccountSelect: QueryFunction<AxiosResponse<any, any>> = asy
 };
 
 //   Select Fields Query
-
-export const useGetExpenseBranchSelect = () => {
-  return useQuery(
-    'ExpenseBranch-Select',
-    () => {
-      return requestManager.get('/api/Branches/GetAll?OrganizationId=2&CompanyId=2', { params: { ...params } });
-    },
-    { cacheTime: 5000 }
-  );
-};
 
 export const useGetExpenseProjectSelect = () => {
   return useQuery(

@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 function ExpenseVoucher() {
   const { t } = useTranslation();
-  const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
+  const [selectedRecordId, setSelectedRecordId] = useState<any>();
   const [activeTab, setActiveTab] = useState<string>('1');
 
   const {
@@ -17,7 +17,7 @@ function ExpenseVoucher() {
   return (
     <>
       <Card style={{ background: 'transparent', marginLeft: '-1%', marginTop: '-1%' }}>
-        <h2 className="form-heading">{t('expense_voucher')}</h2>
+        <h2 style={{ textAlign: 'center' }}>{t('expense_voucher')}</h2>
         <Tabs
           type="card"
           size="large"

@@ -52,7 +52,6 @@ function ContraTable({ setSelectedRecordId, setActiveTab }: TFrom) {
       searchableInput: true,
       dataIndex: 'VoucherCode',
       sortDirections: ['ascend', 'descend'],
-      sorter: (a, b) => a.VoucherCode.localeCompare(b.VoucherCode),
     },
     {
       title: <>{t('voucher_date')}</>,
@@ -97,7 +96,6 @@ function ContraTable({ setSelectedRecordId, setActiveTab }: TFrom) {
       dataIndex: 'CheqNo',
       searchableInput: true,
       sortDirections: ['ascend', 'descend'],
-      sorter: (a, b) => a.CheqNo.localeCompare(b.CheqNo),
     },
     {
       title: <>{t('attachment')}</>,

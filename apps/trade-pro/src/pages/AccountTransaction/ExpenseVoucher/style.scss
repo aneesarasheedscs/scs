@@ -8,52 +8,49 @@
   height: 1.5rem !important;
   width: 1.5rem !important;
 }
-
+.formfield1 {
+  border-bottom: 1px solid gray;
+  padding: 0px;
+  height: 38px;
+}
 // Responsiveness
 
 @media screen and (min-width: 992px) and (max-width: 1200px) {
-  .remark,
-  .debit {
+  .date {
     margin-top: 1% !important;
   }
-  .paytitle {
-    margin-top: 1.5% !important;
-  }
   .job {
-    margin-top: 2.5% !important;
+    margin-top: 0.1% !important;
   }
   .add {
-    margin-top: 20%;
+    margin-top: 3% !important;
   }
-  .checkbox {
-    margin-top: -5%;
+  .btns {
+    margin-top: 1.5rem !important;
+    margin-bottom: 2%;
+  }
+  .remark {
+    margin-top: 0.5% !important;
   }
 }
 
 @media screen and (min-width: 768px) and (max-width: 992px) {
-  .remark,
-  .debit {
+  .remark {
     margin-top: 1% !important;
   }
-  .paytitle {
-    margin-top: 1.5% !important;
-  }
-  .job {
+
+  .add {
     margin-top: 2.5% !important;
   }
-  .checkbox {
-    margin-top: 10% !important;
+  .cr {
+    margin-left: 8rem !important;
   }
-  .add {
-    margin-top: 20%;
+  .btns {
+    margin-top: 1.5rem !important;
   }
 }
 
 @media screen and (min-width: 576px) and (max-width: 768px) {
-  .checkbox {
-    margin-top: 7% !important;
-  }
-
   .paytitle {
     margin-top: 0.5% !important;
   }
@@ -64,19 +61,57 @@
   .add {
     margin-top: 20%;
   }
+  .btns {
+    margin-top: 1.5rem !important;
+  }
+  .voucherDate {
+    margin-top: -0.4rem !important;
+  }
+  .formfield {
+    height: 45px !important;
+  }
+  .cr {
+    margin-top: 1% !important;
+    margin-left: 65% !important;
+  }
+  .credit,
+  .debit {
+    margin-top: 0rem !important;
+    height: 60px !important;
+  }
 }
 
 @media screen and (min-width: 481px) and (max-width: 575px) {
   .checkbox {
     margin-top: 9% !important;
   }
-  .formfield {
-    height: 65px !important;
-  }
-  .formfield1 {
-    height: 100px !important;
-  }
+
   .add {
-    margin-top: 20%;
+    margin-top: 5% !important;
+  }
+  .icon {
+    margin-left: -1%;
+  }
+  .voucherDate {
+    margin-top: -1.5rem !important;
+  }
+  .voucherNo {
+    margin-top: 0.5rem;
+  }
+  .btns {
+    margin-top: 1.5rem !important;
+    margin-left: -3.9% !important;
+  }
+  .cr {
+    margin-top: 1% !important;
+    margin-left: 65% !important;
+  }
+  .credit {
+    margin-top: 0rem !important;
+    height: 87px !important;
+  }
+  .debit {
+    margin-top: -1.5rem !important;
+    height: 110px !important;
   }
 }

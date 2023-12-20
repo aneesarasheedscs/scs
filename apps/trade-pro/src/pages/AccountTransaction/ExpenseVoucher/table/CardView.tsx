@@ -4,21 +4,21 @@ import React, { useState } from 'react';
 import dayjs from 'dayjs';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import { useGetCashPaymentVoucherTable } from '../queries/queries';
-import { TCashPaymentVoucherTable } from './types';
 import Search from 'antd/es/input/Search';
-import Buttons from './Buttons';
 import { useTranslation } from 'react-i18next';
-import Tablefile from './TableFile';
 import { storedUserDetail } from '@tradePro/utils/storageService';
+import Buttons from './Buttons';
+import Tablefile from './DetailTableFile';
+import { useGetExpenseVoucherTable } from '../queries/queries';
+import { TExpenseVoucherHistory } from './types';
 
 const CardView: React.FC<{}> = () => {
   const { t } = useTranslation();
-  const { data } = useGetCashPaymentVoucherTable();
+  const { data } = useGetExpenseVoucherTable();
   const voucherData = data?.data?.Data?.Result;
   console.log(data?.data?.Data?.Result);
-  const [records, setRecords] = useState<TCashPaymentVoucherTable>();
-  const [selectedCardData, setSelectedCardData] = useState<TCashPaymentVoucherTable>();
+  const [records, setRecords] = useState<TExpenseVoucherHistory>();
+  const [selectedCardData, setSelectedCardData] = useState<TExpenseVoucherHistory>();
   console.log(selectedCardData);
   const totalRecords = data?.data?.Data?.Result.length || 0;
   const userDetail = storedUserDetail();
@@ -61,7 +61,7 @@ const CardView: React.FC<{}> = () => {
                 width: '99%',
               }}
             >
-              {voucherData?.map((card: TCashPaymentVoucherTable | any) => (
+              {voucherData?.map((card: TExpenseVoucherHistory | any) => (
                 <Col span={24} key={card.Id}>
                   <Card className="singleCard" onClick={() => setSelectedCardData(card)}>
                     <Row justify={'space-between'} style={{ marginTop: '-3%' }}>
@@ -222,7 +222,7 @@ const CardView: React.FC<{}> = () => {
                           className="caption-value-wrape"
                         >
                           <div className="caption">{t('payee_title')}</div>
-                          <div className="value">{selectedCardData?.PayeeTitle}</div>
+                          <div className="value">{selectedCardData?.PayTitle}</div>
                         </div>
                         <div
                           style={{ display: 'flex', justifyContent: 'space-between' }}

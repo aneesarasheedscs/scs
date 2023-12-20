@@ -7,11 +7,10 @@ import '../style.scss';
 import {
   useGetAccountsBalance,
   useGetConfigration,
-  useGetExpenseBranchSelect,
-  useGetExpenseChequeNoSelect,
   useGetExpenseFetchAccountSelect,
   useGetExpenseProjectSelect,
 } from '../queries/queries';
+import { useGetContraChequeNoSelect } from '@tradePro/pages/ContraVoucher/queries/queries';
 import { useAtom } from 'jotai';
 import { totalValue } from './Atom';
 
@@ -23,14 +22,12 @@ function MainEntry({ form, setAgainstAccountId }: TDynamicForm) {
   const [bankId, setBankId] = useState<number>(0);
   const { data } = useGetAccountsBalance(bankId);
   const { data: credit } = useGetExpenseFetchAccountSelect();
-  const { data: chequeBooks } = useGetExpenseChequeNoSelect(bankId);
+  const { data: chequeBooks } = useGetContraChequeNoSelect(bankId);
   const { data: chequeNoCompulsoryConfig } = useGetConfigration('ChequeBook Enabled');
   const isChequeNoCompulsory = chequeNoCompulsoryConfig?.data?.Data?.Result === 'True';
-  const { data: branch, isSuccess, isLoading } = useGetExpenseBranchSelect();
-  const { data: project, isSuccess: projectSuccess } = useGetExpenseProjectSelect();
+  const { data: project, isSuccess, isLoading } = useGetExpenseProjectSelect();
   useEffect(() => {
-    if (isSuccess && projectSuccess && !isLoading) {
-      form.setFieldValue('BranchId', branch?.data?.Data?.Result?.[0]?.BranchName);
+    if (isSuccess && !isLoading) {
       form.setFieldValue('ProjectId', project?.data?.Data?.Result?.[0]?.ProjectName);
     }
   }, [isSuccess]);
@@ -58,9 +55,9 @@ function MainEntry({ form, setAgainstAccountId }: TDynamicForm) {
 
   return (
     <>
-      <Row gutter={[16, 16]} style={{ marginTop: '-2%' }}>
-        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-          <Card style={{ paddingBottom: '1%', boxShadow: '2px 4px 12px 1px gray' }}>
+      <Row gutter={[10, 10]} style={{ marginTop: '-2%' }}>
+        <Col span={24}>
+          <Card style={{ paddingBottom: '0.5%', boxShadow: '2px 4px 12px 1px gray' }}>
             <div className="form-list-container">
               <Col
                 xs={{ span: 24, offset: 0 }}
@@ -68,24 +65,6 @@ function MainEntry({ form, setAgainstAccountId }: TDynamicForm) {
                 md={{ span: 11, offset: 0 }}
                 lg={{ span: 11, offset: 0 }}
                 xl={{ span: 7, offset: 0 }}
-                className="formfield"
-              >
-                <AntSelectDynamic
-                  autoFocus
-                  bordered={false}
-                  label={t('branch')}
-                  fieldValue="Id"
-                  fieldLabel="BranchName"
-                  name="BranchId"
-                  query={useGetExpenseBranchSelect}
-                />
-              </Col>
-              <Col
-                xs={{ span: 24, offset: 0 }}
-                sm={{ span: 23, offset: 0 }}
-                md={{ span: 11, offset: 1 }}
-                lg={{ span: 11, offset: 1 }}
-                xl={{ span: 7, offset: 1 }}
                 className="formfield"
               >
                 <AntSelectDynamic
@@ -97,130 +76,95 @@ function MainEntry({ form, setAgainstAccountId }: TDynamicForm) {
                   query={useGetExpenseProjectSelect}
                 />
               </Col>
-
+              <Col
+                xs={{ span: 24, offset: 0 }}
+                sm={{ span: 23, offset: 0 }}
+                md={{ span: 11, offset: 1 }}
+                lg={{ span: 11, offset: 1 }}
+                xl={{ span: 7, offset: 1 }}
+                className="formfield credit"
+              >
+                <p style={{ marginTop: -18, marginLeft: '50%' }} className="cr">
+                  Cr : <b> {data?.data?.Data?.Result?.[0]?.Balance.toFixed(2)}</b>
+                </p>
+                <p style={{ marginTop: -4 }}>
+                  <AntSelectDynamic
+                    required
+                    bordered={false}
+                    label={t('credit_account')}
+                    fieldValue="Id"
+                    fieldLabel="AccountTitle"
+                    name="AgainstAccountId"
+                    options={map(credit, (item: any) => ({
+                      value: item.Id,
+                      label: item.AccountTitle,
+                    }))}
+                    value={bankId}
+                    onChange={(value) => handleCreditAccountChange(value)}
+                  />
+                </p>
+              </Col>
               <Col
                 xs={{ span: 24, offset: 0 }}
                 sm={{ span: 23, offset: 0 }}
                 md={{ span: 11, offset: 0 }}
                 lg={{ span: 11, offset: 0 }}
                 xl={{ span: 7, offset: 1 }}
-                className="formfield"
+                // style={{ marginTop: '1.5%' }}
+                className="formfield date"
               >
-                <AntDatePicker bordered={false} label={t('voucher_date')} name="VoucherDate" />{' '}
+                <AntDatePicker bordered={false} name="ChequeDate" label={t('cheque_date')} />
+              </Col>
+              <Col
+                xs={{ span: 24, offset: 0 }}
+                sm={{ span: 23, offset: 0 }}
+                md={{ span: 11, offset: 1 }}
+                lg={{ span: 11, offset: 1 }}
+                xl={{ span: 7, offset: 0 }}
+                className="formfield cheqno"
+                style={{ marginTop: '1%' }}
+              >
+                {chequeNoEnabled ? (
+                  <AntInput bordered={false} label={t('cheque_no')} name="CheqId" required={isChequeNoCompulsory} />
+                ) : (
+                  <AntSelectDynamic
+                    required={isChequeNoCompulsory}
+                    bordered={false}
+                    label={t('cheque_no')}
+                    fieldValue="Id"
+                    fieldLabel="CheqNo"
+                    name="CheqId"
+                    options={chequeBookOptions}
+                  />
+                )}
+              </Col>
+              <Col
+                xs={{ span: 24, offset: 0 }}
+                sm={{ span: 23, offset: 0 }}
+                md={{ span: 11, offset: 0 }}
+                lg={{ span: 11, offset: 0 }}
+                xl={{ span: 7, offset: 1 }}
+                style={{ marginTop: '1%' }}
+                className="formfield paytitle"
+              >
+                <AntInput bordered={false} label={t('pay_title')} name="PayTitle" />
+              </Col>
+              <Col
+                xs={{ span: 24, offset: 0 }}
+                sm={{ span: 23, offset: 0 }}
+                md={{ span: 11, offset: 1 }}
+                lg={{ span: 11, offset: 1 }}
+                xl={{ span: 7, offset: 1 }}
+                style={{ marginTop: '1%' }}
+                className="formfield remark"
+              >
+                <AntInput bordered={false} label={t('remarks')} name="Remarks" />
               </Col>
             </div>
-            <br />
-            <br />
-
-            <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-              <Card style={{ boxShadow: '2px 4px 12px 1px gray' }}>
-                <div className="form-list-container">
-                  <Col
-                    xs={{ span: 24, offset: 0 }}
-                    sm={{ span: 23, offset: 0 }}
-                    md={{ span: 11, offset: 0 }}
-                    lg={{ span: 11, offset: 0 }}
-                    xl={{ span: 7, offset: 0 }}
-                    className="formfield1"
-                    style={{
-                      borderBottom: '1px solid gray',
-                      height: '60px',
-                      marginBottom: '1%',
-                    }}
-                  >
-                    <p style={{ marginTop: 0 }}>
-                      {t('credit_account_balance')} : <b> {data?.data?.Data?.Result?.[0]?.Balance.toFixed(2)}</b>
-                    </p>
-                    <AntSelectDynamic
-                      required
-                      bordered={false}
-                      label={t('credit_account')}
-                      fieldValue="Id"
-                      fieldLabel="AccountTitle"
-                      name="RefAccountId"
-                      options={map(credit, (item: any) => ({
-                        value: item.Id,
-                        label: item.AccountTitle,
-                      }))}
-                      value={bankId}
-                      onChange={(value) => handleCreditAccountChange(value)}
-                    />
-                  </Col>
-                  <Col
-                    xs={{ span: 24, offset: 0 }}
-                    sm={{ span: 23, offset: 0 }}
-                    md={{ span: 11, offset: 1 }}
-                    lg={{ span: 11, offset: 1 }}
-                    xl={{ span: 7, offset: 1 }}
-                    style={{ marginTop: '1.5%' }}
-                    className="formfield"
-                  >
-                    <AntDatePicker bordered={false} name="ChequeDate" label={t('cheque_date')} />
-                  </Col>
-                  <Col
-                    xs={{ span: 24, offset: 0 }}
-                    sm={{ span: 23, offset: 0 }}
-                    md={{ span: 11, offset: 0 }}
-                    lg={{ span: 11, offset: 0 }}
-                    xl={{ span: 7, offset: 1 }}
-                    className="formfield"
-                    style={{ marginTop: '1.5%' }}
-                  >
-                    {chequeNoEnabled ? (
-                      <AntInput bordered={false} label={t('cheque_no')} name="CheqId" required={isChequeNoCompulsory} />
-                    ) : (
-                      <AntSelectDynamic
-                        required={isChequeNoCompulsory}
-                        bordered={false}
-                        label={t('cheque_no')}
-                        fieldValue="Id"
-                        fieldLabel="CheqNo"
-                        name="ChequeNo"
-                        options={chequeBookOptions}
-                      />
-                    )}
-                  </Col>
-                  <Col
-                    xs={{ span: 24, offset: 0 }}
-                    sm={{ span: 23, offset: 0 }}
-                    md={{ span: 11, offset: 1 }}
-                    lg={{ span: 11, offset: 1 }}
-                    xl={{ span: 7, offset: 0 }}
-                    className="formfield paytitle"
-                  >
-                    <AntInput bordered={false} label={t('pay_title')} name="PayTitle" />
-                  </Col>
-                  <Col
-                    xs={{ span: 24, offset: 0 }}
-                    sm={{ span: 23, offset: 0 }}
-                    md={{ span: 23, offset: 0 }}
-                    lg={{ span: 18, offset: 0 }}
-                    xl={{ span: 7, offset: 1 }}
-                    className="formfield remark"
-                  >
-                    <AntInput bordered={false} label={t('remarks')} name="Remarks" />
-                  </Col>
-                  <Col
-                    xs={{ span: 15, offset: 0 }}
-                    sm={{ span: 15, offset: 0 }}
-                    md={{ span: 10, offset: 0 }}
-                    lg={{ span: 10, offset: 19 }}
-                    xl={{ span: 10, offset: 16 }}
-                    style={{ marginTop: '-2%' }}
-                  >
-                    <label>
-                      <Form.Item className="checkbox" name="IncludeWHT" valuePropName="checked" initialValue={true}>
-                        <Checkbox onChange={(e) => handleCheckboxChange(e.target.checked, 'IncludeWHT')}>
-                          {t('print_preview')}
-                        </Checkbox>
-                      </Form.Item>
-                    </label>
-                  </Col>
-                </div>
-              </Card>
-            </Col>
           </Card>
         </Col>
+        {/* </Card> */}
+        {/* </Col>*/}
       </Row>
       <br />
       <br />

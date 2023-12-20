@@ -54,6 +54,8 @@ export type TExpenseDetailEntry = {
   DebitAmount: number;
   Comments: string;
   key: number;
+  AccountCode: number;
+  AgainstAccount: string;
 };
 export type DataType = {
   key: number;

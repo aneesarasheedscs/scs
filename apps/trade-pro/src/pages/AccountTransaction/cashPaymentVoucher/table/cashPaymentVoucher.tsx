@@ -46,7 +46,6 @@ function CashPaymentTable({ setSelectedRecordId, setActiveTab }: TFrom) {
                 data={data?.data?.Data?.Result || []}
                 columns={columns(t, setSelectedRecordId, setActiveTab)}
               />
-
               <Col>
                 <CashPaymentDetailTable />
               </Col>

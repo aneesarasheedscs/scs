@@ -1,4 +1,4 @@
-import { Card, Col, Image, Row } from 'antd';
+import { Card, Col, Row } from 'antd';
 import { SortAscendingOutlined, SortDescendingOutlined, HeartFilled } from '@ant-design/icons';
 import React, { useState } from 'react';
 import dayjs from 'dayjs';
@@ -23,7 +23,9 @@ const CardView: React.FC<{}> = () => {
   const totalRecords = data?.data?.Data?.Result.length || 0;
   const userDetail = storedUserDetail();
   const selectedRecordId = selectedCardData?.Id;
-
+  console.log(selectedRecordId);
+  console.log(voucherData?.data?.Data?.Result?.[0]?.CompLogoImage);
+  console.log('data', selectedCardData?.CompLogoImage);
   const handleSearch = (value: any) => {
     setRecords(value);
   };
@@ -126,12 +128,12 @@ const CardView: React.FC<{}> = () => {
                           }}
                         >
                           <div>
-                            <Image
+                            <img
                               className="Img"
                               // src={voucherData?.data?.Data?.Result?.[0]?.CompLogoImage}
-                              src={'data:image/jpeg;base64,' + selectedCardData?.CompLogoImage}
+                              src={selectedCardData?.CompLogoImage}
                               style={{ width: '6rem', height: '6rem' }}
-                            />
+                            ></img>
                           </div>
                         </div>
                       </Col>
