@@ -1,7 +1,7 @@
 import { Table } from 'antd';
 import { numberFormatter } from './utils';
 import { ColumnType } from 'antd/es/table';
-import { map, meanBy, result, size, sumBy } from 'lodash';
+import { map, meanBy, size, sumBy } from 'lodash';
 import _ from 'lodash';
 
 function TableSummary({ data, columns, filteredData }: TTableSummary) {
@@ -15,11 +15,18 @@ function TableSummary({ data, columns, filteredData }: TTableSummary) {
         const total = sumBy(dataToCalculate, (item) => item?.[dataIndex]);
         const average = meanBy(dataToCalculate, (item) => item?.[dataIndex]);
         const count = _.size(_.filter(dataToCalculate, (item) => item?.[dataIndex]));
-        
 
         return (
           <Table.Summary.Cell key={index + '' + dataIndex} index={index}>
-            <b>{col?.showTotal ? numberFormatter(total) : col?.showAverage ? numberFormatter(average) : col?.showCount ? numberFormatter(count) : null}</b>
+            <b style={{ display: 'flex', justifyContent: 'end', marginRight: '10%' }}>
+              {col?.showTotal
+                ? numberFormatter(total)
+                : col?.showAverage
+                ? numberFormatter(average)
+                : col?.showCount
+                ? numberFormatter(count)
+                : null}
+            </b>
           </Table.Summary.Cell>
         );
       })}

@@ -19,6 +19,25 @@ export type TPurchaseOrderHistory = {
   ApprovedDate: Date | string;
   PurchaseGLAC: number | string;
   OrderExpiryDate: Date | string;
+  ReportCriteria: string;
+  PoDetailId: number;
+  SupplierCustomerId: number;
+  PaymentTerm: string;
+  DueDays: number;
+  DueDate: Date | string;
+  DeliveryStartDate: Date | string;
+  DeliveryDays: number;
+  RateUom: string;
+  OrderAmount: number;
+  ReceivedAmount: number;
+  BalAmount: number;
+  EntryUser: string;
+  EntryDate: Date | string;
+  ModifyUser: string;
+  ModifyDate: Date | string;
+  ApprovalUser: string;
+  OrderStatus: string;
+  ApprovedStatus: string;
 };
 
 export type TPurchaseOrderSearchCriteria = {

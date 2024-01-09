@@ -7,7 +7,7 @@ export const route = {
   //Dashboards
   ACCOUNTS_DASHBOARD: '/accounts-dashboard',
   APPROVAL_DASHBOARD: '/approval-dashboard',
-  MONTH_QUARTER_WISE_SALE_REPORT: '/Month-Wise-And-Quarterly-Report',
+  MONTH_QUARTER_WISE_SALE_REPORT: '/month-and-quarterly-report-',
   SALES_COMPARISON: '/Sale-Comparison-Report',
   SALE_ANALYTICS: '/sale-analytics',
   MONTHLY_DATE_REPORT: '/monthly-sale-report',
@@ -88,9 +88,9 @@ export const route = {
   DISTRICT: '/district',
 
   //HRM
-  EMPLOYEE_REGISTRATION: '/hmr',
+  EMPLOYEE_REGISTRATION: '/employee_registration',
   DUTY_ROASTER: '/sale-invoice-trading-@qty',
-  SHIFT_TIMING_DEFINE: '/', // Hrm Shift Timing Define
+  SHIFT_TIMING_DEFINE: '/shift-timing-define', // Hrm Shift Timing Define
 
   //Taxation
   ITEM_TAX_SCHEDULE: '/item-tax-schedule',

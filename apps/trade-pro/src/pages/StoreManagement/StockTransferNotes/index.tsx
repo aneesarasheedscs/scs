@@ -26,7 +26,6 @@ function StockTranferNotes() {
 
   return (
     <>
-      {/* <h2 className="form-heading"> {t('stock_transfer_notes')} </h2> */}
       <h2 style={{ textAlign: 'center' }}> {t('stock_transfer_notes')} </h2>
 
       <Tabs

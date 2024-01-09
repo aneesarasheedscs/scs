@@ -9,52 +9,33 @@
   width: 1.5rem !important;
   transition: 0.1s all;
 }
-.formfield1 {
-  border-bottom: 1px solid gray;
-  padding: 0px;
-  height: 38px;
-}
 
 // Responsiveness
 
 @media screen and (min-width: 992px) and (max-width: 1200px) {
+  .remark,
   .remarks {
     margin-top: 2.2% !important;
   }
   .paytitle {
-    margin-top: -0% !important;
+    margin-top: 0.5% !important;
   }
-  .cr {
-    margin-top: -2% !important;
-  }
-
-  .add {
+  .job {
     margin-top: 3% !important;
-  }
-  .btns {
-    margin-top: 1.5rem !important;
-    margin-bottom: 2%;
   }
 }
 
 @media screen and (min-width: 768px) and (max-width: 992px) {
-  .remark {
-    margin-top: 1% !important;
-  }
+  .remark,
   .remarks {
-    margin-top: 1.5% !important;
+    margin-top: 2.3% !important;
   }
   .paytitle {
     margin-top: 0% !important;
   }
-  .cr {
-    margin-top: -2% !important;
-  }
-  .add {
-    margin-top: 3% !important;
-  }
-  .btns {
-    margin-top: 1.5rem !important;
+
+  .checkbox {
+    margin-top: 10% !important;
   }
 }
 
@@ -62,53 +43,19 @@
   .remarks {
     margin-top: 1rem !important;
   }
-  .btns {
-    margin-top: 1.5rem !important;
-  }
-  .cr {
-    margin-top: 1% !important;
-    margin-left: 65% !important;
-  }
-  .credit,
-  .debit {
-    margin-top: 0rem !important;
-    height: 60px !important;
-  }
-  .formfield {
-    height: 55px !important;
-  }
 }
 
 @media screen and (min-width: 481px) and (max-width: 575px) {
+  .checkbox {
+    margin-top: 9% !important;
+  }
   .formfield {
-    height: 70px !important;
+    height: 65px !important;
   }
-  .add {
-    margin-top: 5% !important;
+  .formfield1 {
+    height: 100px !important;
   }
-  .icon {
-    margin-left: -1%;
-  }
-  .voucherDate {
-    margin-top: -1.5rem !important;
-  }
-  .voucherNo {
-    margin-top: 0.5rem;
-  }
-  .btns {
-    margin-top: 1.5rem !important;
-    margin-left: -3.9% !important;
-  }
-  .cr {
-    margin-top: 1% !important;
-    margin-left: 65% !important;
-  }
-  .credit {
-    margin-top: 0rem !important;
-    height: 87px !important;
-  }
-  .debit {
-    margin-top: -1.5rem !important;
-    height: 87px !important;
+  .buttons {
+    margin-top: 1.5rem;
   }
 }

@@ -66,17 +66,9 @@ const Tablefile: React.FC<{ selectedRecordId?: number | any; stockTransfer: any 
               </div>
             </div>
 
-            {mainDataSourc?.map((item: TWsRmRequisitionPoDetailsList | any) => (
-              <div>
+            {mainDataSourc?.map((item: TWsRmRequisitionPoDetailsList | any, index: number) => (
+              <div className={`table-data ${index % 2 === 0 ? '' : 'alternate'}`} key={index}>
                 <div className="table-Row">
-                  {/* <div
-                    className="Account"
-                    title="Click to View General Ledger"
-                    style={{ color: '#8a86f7', cursor: 'pointer', fontWeight: 'bold' }}
-                  >
-                    {item.WareHouseName}
-                  </div> */}
-
                   <div
                     className="offset_Account"
                     style={{ color: '#8a86f7', cursor: 'pointer', fontWeight: 'bold', marginLeft: '0%' }}
@@ -97,9 +89,6 @@ const Tablefile: React.FC<{ selectedRecordId?: number | any; stockTransfer: any 
                   <div style={{ textAlign: 'right' }} className="Credit">
                     {item.ReqRate > 0 ? numberFormatter(item.ReqRate) : 0}
                   </div>
-                  {/* <div style={{ textAlign: 'right' }} className="Credit">
-                    {item.ExpenseAmount > 0 ? numberFormatter(item.ExpenseAmount) : 0}
-                  </div> */}
                   <div style={{ textAlign: 'right' }} className="Credit">
                     {item.ReqAmount > 0 ? numberFormatter(item.ReqAmount) : 0}
                   </div>

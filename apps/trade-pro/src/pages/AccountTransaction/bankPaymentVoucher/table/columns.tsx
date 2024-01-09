@@ -1,4 +1,4 @@
-import { EditFilled, EyeOutlined, DeleteOutlined, PrinterOutlined } from '@ant-design/icons';
+import { EditFilled, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { AntButton } from '@tradePro/components';
 import { Space, Tooltip } from 'antd';
@@ -70,6 +70,7 @@ export const columns = (
   {
     title: <>{t('cheque_date')}</>,
     dataIndex: 'ChequeDate',
+    searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     searchableDate: true,
     render: (_, { ChequeDate }) => formateDate(ChequeDate),
@@ -166,15 +167,12 @@ export const columns = (
           <Space>
             <AntButton
               type="text"
-              icon={<EyeOutlined style={{ color: 'blue' }} />}
+              icon={<EyeOutlined style={{ color: 'blue', marginLeft: 4 }} />}
               onClick={() => {
                 setSelectedRecordId(record.Id);
               }}
             />
           </Space>
-        </Tooltip>
-        <Tooltip title="Print">
-          <AntButton type="text" icon={<PrinterOutlined style={{ color: 'red' }} />} />
         </Tooltip>
       </>
     ),
@@ -214,7 +212,7 @@ export const column2 = (t: any, handleDeleteRow?: any, handleEditRow?: any): Ant
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.DebitAmount - b.DebitAmount,
     render: (_, { DebitAmount }) => (
-      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(DebitAmount)}</span>
+      <span style={{ display: 'flex', justifyContent: 'end', marginRight: '10%' }}>{numberFormatter(DebitAmount)}</span>
     ),
   },
   {
@@ -253,13 +251,14 @@ export const column2 = (t: any, handleDeleteRow?: any, handleEditRow?: any): Ant
         <Space>
           <AntButton
             type="text"
-            icon={<EditFilled style={{ color: 'blue' }} />}
-            onClick={() => handleEditRow(record)}
-          />
-          <AntButton
-            type="text"
             icon={<DeleteOutlined style={{ color: 'red' }} />}
             onClick={() => handleDeleteRow(record)}
+          />
+
+          <AntButton
+            type="text"
+            icon={<EditFilled style={{ color: 'blue' }} />}
+            onClick={() => handleEditRow(record)}
           />
         </Space>
       </Tooltip>

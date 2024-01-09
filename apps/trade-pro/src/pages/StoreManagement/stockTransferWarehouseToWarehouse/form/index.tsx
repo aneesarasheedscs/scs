@@ -123,7 +123,10 @@ function StockTransferForm({
           <Row align="middle" justify="space-between" style={{ marginLeft: 10, marginRight: 0 }}>
             <Col>
               <Row gutter={10} align="middle">
-                <Col style={{ fontSize: 18 }}> {t('document_no')}</Col>
+                <Col style={{ fontSize: 18 }}>
+                  {' '}
+                  <b> {t('document_no')}</b>
+                </Col>
                 <Col>
                   <DocNumber
                     isError={isError}

@@ -11,8 +11,6 @@ import StockTransferDetailTable from './DetailTable';
 function StockTransferTable({ setSelectedRecordId, setActiveTab }: TFrom) {
   const { t } = useTranslation();
   const [showComponent, setShowComponent] = useState(false);
-  const [appRovalUnApproval, setappRovalUnApproval] = useState(false);
-  const [documentTypeId, setdocumentTypeId] = useState(10);
 
   const toggleGridView = () => {
     setShowComponent(false);
@@ -30,8 +28,7 @@ function StockTransferTable({ setSelectedRecordId, setActiveTab }: TFrom) {
       <Row style={{ marginTop: '' }}>
         <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }} xxl={24}>
           <h2 className="form-heading2">
-            {/* Approved Requisition Order Load{' '} */}
-            <Row gutter={10} style={{ display: 'flex', justifyContent: '' }}>
+            <Row gutter={10} style={{ display: 'flex' }}>
               <div style={{ display: 'flex' }}>
                 <AntButton onClick={toggleGridView} className="btn" label="Grid View" />
 
@@ -41,7 +38,7 @@ function StockTransferTable({ setSelectedRecordId, setActiveTab }: TFrom) {
           </h2>
           <div>
             {showComponent ? (
-              <CardView documentTypeId={documentTypeId} approvalUnApproval={appRovalUnApproval} />
+              <CardView setActiveTab={setActiveTab} setSelectedRecordId={setSelectedRecordId} />
             ) : (
               <>
                 <AntTable
@@ -57,16 +54,6 @@ function StockTransferTable({ setSelectedRecordId, setActiveTab }: TFrom) {
               </>
             )}
           </div>
-          {/* <Card style={{ boxShadow: '2px 4px 12px 1px gray', textAlign: 'left' }}>
-            <AntTable
-              isError={isError}
-              numberOfSkeletons={8}
-              isLoading={isLoading}
-              scroll={{ x: '', y: convertVhToPixels('30vh') }}
-              data={data?.data?.Data?.Result || []}
-              columns={columns(t, setSelectedRecordId, setActiveTab)}
-            />
-          </Card> */}
         </Col>
       </Row>
     </div>

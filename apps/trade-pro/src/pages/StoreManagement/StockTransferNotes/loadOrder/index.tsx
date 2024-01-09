@@ -1,5 +1,4 @@
 import { AntButton, AntTable } from '@tradePro/components';
-import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { Card, Col, Row, message, notification, theme } from 'antd';
 import { columns } from './columns';
 import { useTranslation } from 'react-i18next';

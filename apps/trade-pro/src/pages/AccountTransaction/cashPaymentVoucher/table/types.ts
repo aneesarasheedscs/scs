@@ -1,27 +1,17 @@
 export type TCashPaymentVoucherTable = {
-  Id: number;
-  VoucherCode: number;
-  DocumentTypeId: number;
+  Id: string;
+  VoucherCode: string;
+  DocumentTypeId: string;
   DocumentTypeCode: string;
-  VoucherDate: string;
-  ManualBillNo: number;
+  VoucherDate: string | Date;
+  ManualBillNo: string | null;
   AccountTitle: string;
   Remarks: string;
   VoucherAmount: number;
   UserName: string;
-  CheqNo: number;
-  TaxAmount: number;
-  TaxPrcnt: number;
-  TaxName: string;
-  TaxAccount: string;
-  CustomerAddress: string;
-  EntryUserProfileImageUrl: string;
-  ModifyUserProfileImageUrl: string;
-  ApprovalUserProfileImageUrl: string;
-  CompLogoImage: string;
-  ChequeDate: Date | string;
+  CheqNo: string;
+  Debit: number;
   EntryDate: Date | string;
-  PayeeTitle: string;
 };
 
 export type TCashHistory = {

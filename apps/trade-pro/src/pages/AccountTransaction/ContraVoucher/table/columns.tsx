@@ -1,4 +1,4 @@
-import { EditFilled, PrinterOutlined, DeleteOutlined, EyeOutlined } from '@ant-design/icons';
+import { EditFilled, PrinterOutlined, DeleteOutlined } from '@ant-design/icons';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { AntButton } from '@tradePro/components';
 import { Space, Tooltip } from 'antd';
@@ -12,19 +12,20 @@ export const columns = (
   setActiveTab?: any
 ): AntColumnType<TContraVoucherHistory>[] => [
   {
-    title: <>{t('type')}</>,
-    width: 150,
+    title: <>{t('document_type_code')}</>,
+    width: 200,
     searchableInput: true,
     dataIndex: 'DocumentTypeCode',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.DocumentTypeCode.localeCompare(b.DocumentTypeCode),
   },
   {
-    title: <>{t('code')}</>,
-    width: 120,
+    title: <>{t('voucher_code')}</>,
+    width: 160,
     searchableInput: true,
     dataIndex: 'VoucherCode',
     sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.VoucherCode.localeCompare(b.VoucherCode),
   },
   {
     title: <>{t('voucher_date')}</>,
@@ -53,10 +54,7 @@ export const columns = (
     width: 160,
     dataIndex: 'VoucherAmount',
     showTotal: true,
-    sorter: (a, b) => a.VoucherAmount - b.VoucherAmount,
-    render: (_, { VoucherAmount }) => (
-      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(VoucherAmount)}</span>
-    ),
+    render: (_, { VoucherAmount }) => <span>{numberFormatter(VoucherAmount)}</span>,
   },
   {
     title: <>{t('user_name')}</>,
@@ -72,6 +70,7 @@ export const columns = (
     dataIndex: 'CheqNo',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.CheqNo.localeCompare(b.CheqNo),
   },
   {
     title: <>{t('attachment')}</>,
@@ -80,35 +79,20 @@ export const columns = (
   },
   {
     title: <>{t('action')}</>,
-    width: 150,
+    width: 120,
     render: (_, record) => (
-      <>
-        <Tooltip title="Edit">
-          <Space>
-            <AntButton
-              type="text"
-              icon={<EditFilled style={{ color: 'black' }} />}
-              onClick={() => {
-                setSelectedRecordId(record?.Id), setActiveTab('2');
-              }}
-            />
-          </Space>
-        </Tooltip>
-        <Tooltip title="View Detail">
-          <Space>
-            <AntButton
-              type="text"
-              icon={<EyeOutlined style={{ color: 'blue' }} />}
-              onClick={() => {
-                setSelectedRecordId(record.Id);
-              }}
-            />
-          </Space>
-        </Tooltip>
-        <Tooltip title="Print">
-          <AntButton type="text" icon={<PrinterOutlined style={{ color: 'red' }} />} />
-        </Tooltip>
-      </>
+      <Tooltip title={t('actions')}>
+        <Space>
+          <AntButton
+            type="text"
+            icon={<EditFilled style={{ color: 'black' }} />}
+            onClick={() => {
+              setSelectedRecordId(record?.Id), setActiveTab('2');
+            }}
+          />
+          <AntButton type="text" icon={<PrinterOutlined style={{ color: 'red', marginLeft: '-1rem' }} />} />
+        </Space>
+      </Tooltip>
     ),
   },
 ];

@@ -11,7 +11,7 @@ export const columns = (t?: any): AntColumnType<TStockReportDetail>[] => [
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
-    render: (_, { AccountTitle }) => <Link to="/Inventory-EvaluationI-tem-Ledger">{AccountTitle}</Link>,
+    render: (_, { AccountTitle }) => <Link to="/Inventory-Evaluation-Item-Ledger">{AccountTitle}</Link>,
   },
 
   {
@@ -20,7 +20,7 @@ export const columns = (t?: any): AntColumnType<TStockReportDetail>[] => [
     width: 300,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.ItemName.localeCompare(b.ItemName),
-    render: (_, { ItemName }) => <Link to={`/Inventory-EvaluationI-tem-Ledger`}>{ItemName}</Link>,
+    render: (_, { ItemName }) => <Link to={`/Inventory-Evaluation-Item-Ledger`}>{ItemName}</Link>,
   },
   {
     title: <>{t('opening_quantity')}</>,

@@ -29,16 +29,16 @@ function InventryTransactions() {
   };
   return (
     <>
-      <h2 style={formHeading}>{t('inventry_transaction')}</h2>
+      <h2 style={{ textAlign: 'center' }}>{t('inventry_transaction')}</h2>
 
-      <Card style={{ background: 'transparent' }}>
-        <InventryTransactionTable
-          FromdateProp={FromdateProp}
-          ToDateProp={ToDateProp}
-          WarehouseId={WarehouseId}
-          ItemId={ItemId}
-        />
-      </Card>
+      {/* <Card style={{ background: 'transparent' }}> */}
+      <InventryTransactionTable
+        FromdateProp={FromdateProp}
+        ToDateProp={ToDateProp}
+        WarehouseId={WarehouseId}
+        ItemId={ItemId}
+      />
+      {/* </Card> */}
     </>
   );
 }

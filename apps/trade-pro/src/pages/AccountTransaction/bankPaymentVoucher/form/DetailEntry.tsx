@@ -538,12 +538,14 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
                       </Col>
                       <Row gutter={[16, 16]} style={{ marginTop: '1%' }}>
                         <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }}>
-                          <AntTable
-                            numberOfSkeletons={12}
-                            scroll={{ x: '', y: convertVhToPixels('15vh') }}
-                            data={tableData}
-                            columns={column2(t, handleDeleteRow, handleEditRow)}
-                          />
+                          <Card style={{ boxShadow: '2px 4px 12px 1px gray', textAlign: 'left' }}>
+                            <AntTable
+                              numberOfSkeletons={12}
+                              scroll={{ x: '', y: convertVhToPixels('15vh') }}
+                              data={tableData}
+                              columns={column2(t, handleDeleteRow, handleEditRow)}
+                            />
+                          </Card>
                         </Col>
                       </Row>
                       <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }}>

@@ -1,44 +1,42 @@
-import { Card, Col, Row, Tooltip, Badge } from 'antd';
-import { SortAscendingOutlined, SortDescendingOutlined } from '@ant-design/icons';
+import { Card, Col, Image, Row } from 'antd';
+import { SortAscendingOutlined, SortDescendingOutlined, HeartFilled } from '@ant-design/icons';
 import '../style.scss';
 import Search from 'antd/es/input/Search';
 import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import Buttons from '@tradePro/pages/dashboards/approval_dashboard/voucher_ApprovalUnApproval/modalData/button';
-import ToolTipToShowUserData from '@tradePro/pages/dashboards/approval_dashboard/voucher_ApprovalUnApproval/tooltop';
 import { useGetStockTransferHistory } from '../quries';
 import { TStockTransferHistory } from '../types';
-import DetailTablefile from './DetailTablefile';
+import { useTranslation } from 'react-i18next';
+import { storedUserDetail } from '@tradePro/utils/storageService';
+import Tablefile from './DetailTablefile';
+import Buttons from './Buttons';
 
-const CardView: React.FC<{ documentTypeId: number; approvalUnApproval: boolean }> = ({
-  documentTypeId,
-  approvalUnApproval,
+const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecordId: (id: number | null) => void }> = ({
+  setActiveTab,
+  setSelectedRecordId,
 }) => {
+  const userDetail = storedUserDetail();
   const { data, isError, isLoading, refetch, isFetching } = useGetStockTransferHistory();
   const stockTransfer = data?.data?.Data?.Result;
-
+  const logoImageBytes = data?.data?.Data?.Result?.[0]?.CompLogoImage;
+  // Convert Uint8Array to a regular array of numbers
+  const byteArray = Array.from(new Uint8Array(logoImageBytes));
+  // Convert the array to a base64-encoded string
+  const base64String = btoa(String.fromCharCode.apply(null, byteArray));
+  // Assuming the image format is PNG, you can change it based on the actual format
+  const dataUrl = `data:image/png;base64,${base64String}`;
   const [records, setRecords] = useState<TStockTransferHistory[]>([]);
   const [selectedCardData, setSelectedCardData] = useState<TStockTransferHistory>();
   const totalRecords = data?.data?.Data?.Result.length || 0;
-  const [showContent, setShowContent] = useState(false);
-  const [TooltipVisible, setTooltipVisible] = useState(false);
+
+  const { t } = useTranslation();
   useEffect(() => {
     setRecords(stockTransfer);
   }, [stockTransfer]);
   console.log('records', records);
-  const toggleContent = () => {
-    setShowContent(!showContent);
-  };
 
-  const handleMouseEnter = () => {
-    setTooltipVisible(true);
-  };
-
-  const handleMouseLeave = () => {
-    setTooltipVisible(false);
-  };
   const [sortOrderAmount, setSortOrderAmount] = useState<'asc' | 'desc' | undefined>(undefined);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | undefined>(undefined);
   const [sortOrderDocDate, setSortOrderDocDate] = useState<'asc' | 'desc' | undefined>(undefined);
@@ -68,18 +66,8 @@ const CardView: React.FC<{ documentTypeId: number; approvalUnApproval: boolean }
 
     setRecords(sortedRecords);
   };
-  const handleSortEntryUser3 = () => {
-    //Sort Entry User
-    const newSortOrder = sortOrderEntryUser === 'asc' ? 'desc' : 'asc';
-    setSortOrderEntryUser(newSortOrder);
 
-    const sortedRecords = [...(records || [])].sort((a, b) => {
-      const comparison = sortOrderEntryUser === 'asc' ? 1 : -1;
-      return a.EntryUser.localeCompare(b.EntryUser) * comparison;
-    });
-
-    setRecords(sortedRecords);
-  };
+  const selectedRecordId = selectedCardData?.Id;
   const handleSortEntryUser = () => {
     // Sort Entry User
     const newSortOrder = sortOrderEntryUser === 'asc' ? 'desc' : 'asc';
@@ -110,7 +98,7 @@ const CardView: React.FC<{ documentTypeId: number; approvalUnApproval: boolean }
 
   const handleSearch = (value: any) => {
     console.log(value);
-    const trimmedValue = value.trim(); // Trim leading and trailing whitespaces
+    const trimmedValue = value.trim();
     const filteredRecords = stockTransfer?.filter((record: TStockTransferHistory) => {
       return record.EntryUser.toLowerCase().includes(trimmedValue.toLowerCase());
     });
@@ -123,8 +111,8 @@ const CardView: React.FC<{ documentTypeId: number; approvalUnApproval: boolean }
 
   return (
     <div>
-      <Row className="row1">
-        <Col lg={{ span: 8 }} sm={{ span: 24 }} xl={6} className="columns">
+      <Row className="row1" style={{ border: '', width: '', height: '100%' }}>
+        <Col lg={{ span: 8 }} xl={6} xxl={6} sm={{ span: 24 }} className="columns">
           <Row className="col" align="middle">
             <Search onChange={(e) => handleSearch(e.target.value)} placeholder="Filter" />
           </Row>
@@ -147,18 +135,17 @@ const CardView: React.FC<{ documentTypeId: number; approvalUnApproval: boolean }
               <SortDescendingOutlined onClick={() => handleSortAmount()} />
             </Col>
           </Row>
-          <div
-            style={{ backgroundColor: ' #d6d6e7', maxHeight: 'calc(114vh - 200px)', height: '70%', overflowY: 'auto' }}
-          >
+
+          <div style={{ backgroundColor: ' #d6d6e7', height: '52vh', overflowY: 'auto' }}>
             <Row
-              gutter={[10, 16]}
+              gutter={[14, 14]}
               style={{
                 borderRadius: '1%',
                 width: '99%',
               }}
             >
-              {records?.map((card: TStockTransferHistory) => (
-                <Col lg={24} sm={24} xs={24} md={24} key={card.Id}>
+              {records?.map((card: TStockTransferHistory | any) => (
+                <Col span={24} key={card.Id}>
                   <Card className="singleCard" onClick={() => setSelectedCardData(card)}>
                     <Row justify={'space-between'} style={{ marginTop: '-3%' }}>
                       <p className="list-item2">Doc# {card.DocNo}</p>
@@ -172,131 +159,172 @@ const CardView: React.FC<{ documentTypeId: number; approvalUnApproval: boolean }
                       <span
                         className="list-items2"
                         style={{
-                          background: card.ApprovalStatus === 'Approved' ? 'green' : 'red',
+                          color: card.ApprovalStatus === 'Approved' ? 'green' : 'red',
                         }}
                       >
                         {card.ApprovalStatus === 'Approved' ? 'Approved' : 'Not Approved'}
                       </span>
                     </p>
                     <Row justify={'space-between'} style={{ marginBottom: '-2%' }}>
-                      <p className="list-item1">{numberFormatter(card.TotalQty)}0</p>
-                      <h3>{numberFormatter(card.TotalAmount)}0</h3>
+                      <p className="list-item1">{card.TotalQty > 0 ? numberFormatter(card.TotalQty) : 0} </p>
+                      <h3>{card.TotalAmount > 0 ? numberFormatter(card.TotalAmount) : 0}</h3>
                     </Row>
                   </Card>
                 </Col>
               ))}
             </Row>
           </div>
-          <h3 style={{ textAlign: 'center' }}>Total Records:{numberFormatter(totalRecords)} </h3>
+          <h3 style={{ textAlign: 'center' }}>
+            {t('total_records')} {numberFormatter(totalRecords)}{' '}
+          </h3>
         </Col>
 
         {selectedCardData && (
-          <Col lg={{ span: 16 }} sm={{ span: 24 }} xl={18} className="columns">
-            <Buttons />
+          <Col lg={{ span: 24 }} xl={18} xxl={18} sm={{ span: 24 }} className="columns">
+            <Buttons
+              setActiveTab={setActiveTab}
+              selectedCardData={selectedCardData}
+              setSelectedRecordId={setSelectedRecordId}
+            />
             <Row align="middle">
-              <Col xs={23} sm={16} className="columns">
+              <Col xs={16} sm={16} className="columns">
                 <div className="main-voucher-design" id="Rice_Invoice_Main_Box">
                   <div className="row">
-                    <div className="">
-                      <div className="voucher_Account_title">
-                        <div className="Account_title">{selectedCardData?.EntryUser}</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="Wrapper">
-                    <div className="">
-                      <div className="caption-value-wrape">
-                        <div className="caption">Document No#</div>
-                        <div className="value">{selectedCardData?.DocNo}</div>
-                      </div>
-                      <div className="caption-value-wrape">
-                        <div className="caption">Document Date:</div>
-                        <div className="value">
-                          {selectedCardData ? dayjs(selectedCardData.DocDate).format('YYYY-MM-DD') : ''}
-                        </div>
-                      </div>
-
-                      <div className="caption-value-wrape">
-                        <div className="caption">Total Quantity:</div>
-                        <div className="value">
-                          {selectedCardData?.TotalQty > 0 ? numberFormatter(selectedCardData?.TotalQty) : 0}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="">
-                      <div className="caption-value-wrape">
-                        <div className="caption">Entry User:</div>
-                        <div className="value">{selectedCardData?.EntryUser}</div>
-                      </div>
-                      <div className="caption-value-wrape">
-                        <div className="caption">Entry Date:</div>
-                        {selectedCardData ? dayjs(selectedCardData.EntryDate).format('YYYY-MM-DD') : ''}
-                      </div>
-                      <div className="caption-value-wrape">
-                        <div className="caption">Total Amount:</div>
-                        <div className="value">
-                          {selectedCardData?.TotalAmount > 0 ? numberFormatter(selectedCardData?.TotalAmount) : 0}
-                        </div>
-                      </div>
-                    </div>
-                    <div style={{ textAlign: 'center', margin: '0px 10px' }}>
-                      <div className="Caption">Entery User</div>
-                      <div>
-                        <img className="Img" src={selectedCardData?.EntryUser} alt=""></img>
-                      </div>
-                      <div
-                        id="EntryUser"
-                        className="Value"
-                        onMouseEnter={() => handleMouseEnter()}
-                        onMouseLeave={() => handleMouseLeave()}
+                    <Row>
+                      <Col
+                        xs={{ span: 6 }}
+                        sm={{ span: 5 }}
+                        md={{ span: 4 }}
+                        lg={{ span: 6 }}
+                        xl={{ span: 4 }}
+                        xxl={{ span: 3 }}
                       >
-                        <Badge text={selectedCardData.EntryUser}></Badge>
-                        {TooltipVisible && (
-                          <ToolTipToShowUserData
-                            UserInfoDataForTooltip={[
-                              // selectedCardData.EntryUserProfileImageUrl,
-                              selectedCardData.EntryUser,
-                              selectedCardData.EntryDate,
-                            ]}
-                            UserInfoTooltipVisible={TooltipVisible}
-                          />
-                        )}
-                      </div>
-                    </div>
+                        <div
+                          style={{
+                            fontSize: '1.5rem',
+                            color: 'green',
+                            fontWeight: 'bold',
+                            textAlign: 'left',
+                          }}
+                        >
+                          <div>
+                            <Image
+                              className="Img"
+                              // src={voucherData?.data?.Data?.Result?.[0]?.CompLogoImage}
+                              src={'data:image/jpeg;base64,' + selectedCardData?.CompLogoImage}
+                              style={{ width: '6rem', height: '6rem' }}
+                            />
+                          </div>
+                        </div>
+                      </Col>
+                      <Col
+                        xs={{ span: 18 }}
+                        sm={{ span: 19 }}
+                        md={{ span: 20 }}
+                        lg={{ span: 18 }}
+                        xl={{ span: 20 }}
+                        xxl={{ span: 20 }}
+                      >
+                        <div>
+                          <div className="">
+                            <div style={{ fontSize: '1.5rem', color: 'green', textAlign: 'left' }}>
+                              {userDetail?.CompanyName}
+                            </div>
+                            <div style={{ fontSize: '1.1rem', color: 'green', textAlign: 'left' }}>
+                              {userDetail?.CompanyAddress}
+                            </div>
+                            <div style={{ fontSize: '0.8rem', color: 'green', textAlign: 'left' }}>
+                              {userDetail?.CellNo}
+                            </div>
+                          </div>
+                        </div>
+                      </Col>
+                    </Row>
                   </div>
-                  <DetailTablefile selectedRecordId={selectedCardData?.Id} documentTypeId={documentTypeId} />
+
+                  <div className="Wrapper">
+                    <Col span={8} style={{ marginTop: '0.5%' }}>
+                      <div className="">
+                        <div className="caption-value-wrape">
+                          <div className="caption">{t('doc_no')} #</div>
+                          <div className="value">{selectedCardData?.DocNo}</div>
+                        </div>
+
+                        <div className="caption-value-wrape">
+                          <div className="caption">{t('total_qty')}:</div>
+                          <div className="value">
+                            {selectedCardData?.TotalQty > 0 ? numberFormatter(selectedCardData?.TotalQty) : 0}
+                          </div>
+                        </div>
+
+                        <div className="caption-value-wrape">
+                          <div className="caption">{t('remarks')}:</div>
+                          <div className="value">
+                            <div
+                              style={{
+                                marginLeft: '1.4rem',
+                                textAlign: 'center',
+                                width: '100%',
+                              }}
+                              className="value"
+                            >
+                              {selectedCardData?.Remarks}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </Col>
+                    <Col span={11}></Col>
+                    <Col span={8} style={{ marginTop: '0.5%' }}>
+                      <div className="">
+                        <div
+                          style={{ display: 'flex', justifyContent: 'space-between' }}
+                          className="caption-value-wrape"
+                        >
+                          <div className="caption">{t('doc_date')}:</div>
+                          <div className="value">
+                            {selectedCardData ? dayjs(selectedCardData.DocDate).format('YYYY-MM-DD') : ''}
+                          </div>
+                        </div>
+                        <div
+                          style={{ display: 'flex', justifyContent: 'space-between' }}
+                          className="caption-value-wrape"
+                        >
+                          <div className="caption">{t('total_amount')}:</div>
+                          <div className="value">
+                            {selectedCardData?.TotalAmount > 0 ? numberFormatter(selectedCardData?.TotalAmount) : 0}
+                          </div>
+                        </div>
+                      </div>
+                    </Col>
+                  </div>
+
+                  <Tablefile selectedRecordId={selectedRecordId} stockTransfer={stockTransfer} />
                 </div>
               </Col>
             </Row>
           </Col>
         )}
-      </Row>
-
-      {/* <Tooltip
-        open={TooltipVisible}
-        key={UserInfoDataForTooltip?.TargetId}
-        trigger={['hover']}
-        title={
-          <div className="row">
-            <div className="col-2">
-              <div className="detail d-flex">
-                <div>
-                  <img
-                    className="border rounded"
-                    style={{ height: '40px', width: '40px' }}
-                    src={UserInfoDataForTooltip?.UserProfileImageUrl}
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <p className="px-1 m-0 font-regular text-truncate">{UserInfoDataForTooltip?.UserName}</p>
-                  <p className="px-1 m-0 font-regular text-truncate">{formateDate(UserInfoDataForTooltip?.date)}</p>
-                </div>
-              </div>
+        <Col xl={{ span: 18, offset: 6 }} md={24} sm={24} lg={24} xxl={{ span: 18, offset: 6 }}>
+          <div className="Footer">
+            <div className="Thanks">
+              {t('thank_you')}{' '}
+              <span className="heart-icon">
+                {' '}
+                <HeartFilled />{' '}
+              </span>
+            </div>
+            <div className="powered-by">
+              {t('powered_by')}{' '}
+              <span>
+                <a href="https://eccountbookapps.com/" className="Scss-Link" target="_blank">
+                  {t('synergic_corporation_and_solution')}
+                </a>
+              </span>
             </div>
           </div>
-        }
-      ></Tooltip> */}
+        </Col>
+      </Row>
     </div>
   );
 };

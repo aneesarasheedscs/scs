@@ -1,12 +1,7 @@
-import { EditFilled, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
 import { AntColumnType } from '@tradePro/globalTypes';
-import { AntButton } from '@tradePro/components';
-import { Checkbox, Space, Tooltip } from 'antd';
 import { formateDate } from '@tradePro/utils/formateDate';
-import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { TLoadORderHistory } from '../types';
 import dayjs from 'dayjs';
-import { useState } from 'react';
 
 export const columns = (t: any): AntColumnType<TLoadORderHistory>[] => {
   return [

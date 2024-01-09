@@ -252,7 +252,7 @@ function StockTransferNoteForm({
                   </Col>
                   <Col>
                     <AntButton
-                      title="Load Dispatched Stock Transfer Notes"
+                      title={t('load_stock_transfer_notes')}
                       ghost
                       label={t('load_stn')}
                       icon={<ExportOutlined />}

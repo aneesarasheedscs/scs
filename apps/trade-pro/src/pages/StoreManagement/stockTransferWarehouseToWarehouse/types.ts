@@ -120,7 +120,7 @@ export type TWsRmWareHouseToWareHouseStocTransferDetailList = {
   IsDetailExpanded: boolean;
 };
 export type TStockTransferHistory = {
-  Id: string;
+  Id: number;
   DocNo: number;
   DocDate: Date;
   EntryUser: string;
@@ -138,4 +138,8 @@ export type TStockTransferHistory = {
   FinancialYearId: number;
   TotalQty: number;
   TotalAmount: number;
+
+  EntryUserProfileImageUrl: string;
+  ModifyUserProfileImageUrl: string;
+  CompLogoImage: string;
 };

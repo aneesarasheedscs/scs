@@ -67,6 +67,8 @@ export type TStockReceivedNoteHistory = {
   EntryUser: string;
   EntryDate: Date | string;
   RemarksHeader: string;
+  CompLogoImage: string;
+
   NoOfAttachments: number;
 };
 export type TDispatchedSTNLoadHistory = {

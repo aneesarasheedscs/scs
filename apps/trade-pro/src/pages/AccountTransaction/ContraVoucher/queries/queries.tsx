@@ -88,6 +88,28 @@ const GetContraCreditAccountSelect: QueryFunction<AxiosResponse<any, any>> = asy
 
 //   Select Fields Query
 
+export const useGetContraCompanySelect = () => {
+  return useQuery(
+    'ContraCompany-Select',
+    () => {
+      return requestManager.get('/api/Company/GetAlldt?OrgCompanyTypeId=2', {
+        params: { ...params, OrgCompanyTypeId: 2 },
+      });
+    },
+    { cacheTime: 5000 }
+  );
+};
+
+export const useGetContraBranchSelect = () => {
+  return useQuery(
+    'ContraBranch-Select',
+    () => {
+      return requestManager.get('/api/Branches/GetAll?OrganizationId=2&CompanyId=2', { params: { ...params } });
+    },
+    { cacheTime: 5000 }
+  );
+};
+
 export const useGetContraProjectSelect = () => {
   return useQuery(
     'ContraProject-Select',

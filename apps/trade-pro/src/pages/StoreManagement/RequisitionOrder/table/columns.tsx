@@ -121,13 +121,11 @@ export const columns = (
     title: <>{t('is_approved')}</>,
     dataIndex: 'IsApproved',
     width: 120,
-    // searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     render: (IsApproved) => (
       <Space
         style={{
           color: IsApproved === 'Approved' ? 'lightgreen' : 'red',
-          // color: 'white',
           borderRadius: '5px',
           fontWeight: 'bold',
           width: '95%',
@@ -143,7 +141,6 @@ export const columns = (
         {IsApproved === 'Approved' ? 'Approved' : 'Not Approved'}
       </Space>
     ),
-    // sorter: (a, b) => a.ApprovalStatus.localeCompare(b.ApprovalStatus),
   },
 
   {

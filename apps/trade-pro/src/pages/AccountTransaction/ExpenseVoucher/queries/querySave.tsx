@@ -10,7 +10,7 @@ const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') ||
 const financialYear: any = JSON.parse(localStorage.getItem('financialYear') || '{}');
 
 //Get ById
-export const useGetExpenseVoucherById = (Id?: number | null | any) => {
+export const useGetExpenseVoucherById = (Id?: number | null) => {
   return useQuery(
     ['ExpenseVoucher-getById', Id],
     () => {

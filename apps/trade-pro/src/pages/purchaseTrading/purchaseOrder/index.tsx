@@ -1,12 +1,10 @@
 import { Tabs } from 'antd';
 import PurchaseOrderForm from './form';
 import PurchaseOrderTable from './table';
-
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
+import './style.scss';
 
-import { theme } from 'antd';
-const { useToken } = theme;
 function PurchaseOrder() {
   const { t } = useTranslation();
   const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
@@ -14,7 +12,7 @@ function PurchaseOrder() {
 
   return (
     <>
-      <h2 className="form-heading"> {t('purchase_order')}</h2>
+      <h2 style={{ textAlign: 'center' }}> {t('purchase_order')}</h2>
 
       <Tabs
         type="card"

@@ -79,15 +79,14 @@ function PurchaseOrderForm({ selectedRecordId }: TAddUpdateRecord) {
               </Col>
             </Row>
           </Col>
+
           <Col>
             <Form.Item>
               <Row align="middle" gutter={10}>
                 <Col>
                   <AntButton danger ghost htmlType="reset" label={t('reset')} icon={<SyncOutlined />} />
                 </Col>
-                <Col>
-                  <AntButton label={t('save_and_more')} htmlType="submit" />
-                </Col>
+
                 <Col>
                   <AntButton ghost label={t('save')} htmlType="submit" icon={<SaveOutlined />} />
                 </Col>

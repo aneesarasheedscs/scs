@@ -2,14 +2,14 @@ import FormFile from './ItemForm';
 import { isNumber, map } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import React, { useEffect, useState } from 'react';
+import dayjs from 'dayjs';
 import ItemType from './definitionScreens/ItemType';
 import { Card, Col, Form, Input, Row, theme } from 'antd';
 import ItemCategory from './definitionScreens/ItemCategory';
 import { useGetItemById, useSaveItemCategory, useUpdateItemCategory } from './querieSave';
-import { SyncOutlined, SaveOutlined, PlusOutlined } from '@ant-design/icons';
+import { SyncOutlined, SaveOutlined, PrinterFilled, PaperClipOutlined, RedoOutlined } from '@ant-design/icons';
 import { AntButton, AntInputNumber, AntSelectDynamic } from '@tradePro/components';
 import { getItemCategory, getItemClass, getItemCode, getItemType } from './queryOptions';
-import { TPurchaseOrderEntry } from '@tradePro/pages/purchaseTrading/purchaseOrder/type';
 import {
   TDefineItemData,
   TDefineItemDataOnAdd,
@@ -26,6 +26,7 @@ function ItemFormtoSave({ selectedRecordId }: any) {
   const formValues = useWatch<TDefineItemDataOnSave>([], form);
   const { data, isError, isLoading } = getItemCode();
   const { token } = useToken();
+  const [printPreview, setPrintPreview] = useState(true);
 
   const { mutate: addItem, isSuccess } = useSaveItemCategory();
   const { mutate: updateItem, isSuccess: isSuccessUpdate } = useUpdateItemCategory(selectedRecordId);
@@ -51,6 +52,11 @@ function ItemFormtoSave({ selectedRecordId }: any) {
     }
   }, [isSuccessById]);
   const { t } = useTranslation();
+  const handleButtonClick = () => {
+    setPrintPreview(!printPreview);
+    console.log(printPreview);
+  };
+  const handleResetForm = () => {};
   return (
     <>
       <Card>
@@ -64,13 +70,37 @@ function ItemFormtoSave({ selectedRecordId }: any) {
               <Form.Item>
                 <Row align="middle" gutter={10}>
                   <Col>
-                    <AntButton danger ghost htmlType="reset" label={t('reset')} icon={<SyncOutlined />} />
+                    <AntButton
+                      title="PrintPreview"
+                      onClick={handleButtonClick}
+                      icon={<PrinterFilled />}
+                      style={{ backgroundColor: printPreview ? 'lightgreen' : 'red' }}
+                    />
                   </Col>
                   <Col>
-                    <AntButton label={t('save_and_more')} htmlType="submit" />
+                    <AntButton title="Attachment" label={'(0)'} icon={<PaperClipOutlined />} />
+                  </Col>
+
+                  <Col>
+                    <AntButton
+                      danger
+                      ghost
+                      label={t('reset')}
+                      htmlType="reset"
+                      onClick={handleResetForm}
+                      icon={<SyncOutlined />}
+                    />
                   </Col>
                   <Col>
-                    <AntButton ghost label={t('save')} htmlType="submit" icon={<SaveOutlined />} />
+                    <AntButton danger ghost label={t('referesh')} icon={<RedoOutlined />} />
+                  </Col>
+                  <Col>
+                    <AntButton
+                      ghost
+                      label={selectedRecordId ? t('update') : t('save')}
+                      htmlType="submit"
+                      icon={<SaveOutlined />}
+                    />
                   </Col>
                 </Row>
               </Form.Item>
