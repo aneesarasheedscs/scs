@@ -32,3 +32,43 @@
   margin-top: -5px;
   font-size: 15px;
 }
+@media only screen and (min-width: 500px) and (max-width: 991px) {
+  .form-container {
+    margin-top: 0%;
+    height: 70px;
+    padding: 10px;
+  }
+  .btn-margin-top {
+    margin-top: 3%;
+  }
+  .custom-title1 {
+    height: 6.5vh;
+  }
+  .space-vertical {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media only screen and (min-width: 800px) and (max-width: 991px) {
+  .form-container {
+    height: 40px;
+  }
+  .btn-margin-top {
+    margin-top: 2%;
+  }
+  .custom-title1 {
+    height: 6.5vh;
+  }
+}
+
+@media only screen and (min-width: 900px) and (max-width: 1000px) {
+  .btn-margin-top {
+    margin-top: 2%;
+  }
+}
+@media only screen and (min-width: 1500px) and (max-width: 1800px) {
+  .btn-margin-top {
+    margin-top: 1%;
+  }
+}

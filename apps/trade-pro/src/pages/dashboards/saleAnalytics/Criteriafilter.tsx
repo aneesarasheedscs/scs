@@ -56,49 +56,51 @@ function SalesAnalyticalCriteria({ refetch, form }: any) {
   };
 
   return (
-    <Row>
-      <Card style={{ width: '100vw' }}>
-        <Form form={form} onFinish={onFinish} initialValues={formValues}>
-          <Row gutter={16} justify={'space-evenly'}>
-            <Col xl={4} className="formfield">
-              <AntSelectDynamic
-                bordered={false}
-                label={t('date_type')}
-                name="DateType"
-                fieldLabel="DateType"
-                fieldValue="Id"
-                query={useGetDateType}
-                onChange={(value) => handleDateChange(value)}
-              />
-            </Col>
-            <Col xl={4} className="formfield">
-              <AntDatePicker name="FromDate" bordered={false} label={t('from_date')} />
-            </Col>
-            <Col xl={4} className="formfield">
-              <AntDatePicker name="ToDate" bordered={false} label={t('to_date')} />
-            </Col>
-            <Col xl={6} className="formfield">
-              <AntSelectDynamic
-                bordered={false}
-                label={t('master_branch')}
-                name="MasterBranch"
-                fieldLabel="CompName"
-                fieldValue="Id"
-                query={useGetMasterBranchByUserId}
-              />
-            </Col>
+    <Row gutter={[16, 16]}>
+      <Col xxl={24} xl={24} xs={23} lg={24} sm={24} md={24}>
+        <Card>
+          <Form form={form} onFinish={onFinish} initialValues={formValues}>
+            <Row gutter={16} justify={'space-around'}>
+              <Col xl={7} xs={24} sm={23} md={10} lg={23} xxl={4} className="formfield form-container">
+                <AntSelectDynamic
+                  bordered={false}
+                  label={t('date_type')}
+                  name="DateType"
+                  fieldLabel="DateType"
+                  fieldValue="Id"
+                  query={useGetDateType}
+                  onChange={(value) => handleDateChange(value)}
+                />
+              </Col>
+              <Col xl={6} xs={24} sm={12} md={10} lg={23} xxl={4} className="formfield form-container">
+                <AntDatePicker name="FromDate" bordered={false} label={t('from_date')} />
+              </Col>
+              <Col xl={6} xs={24} sm={11} md={10} lg={23} xxl={4} className="formfield form-container">
+                <AntDatePicker name="ToDate" bordered={false} label={t('to_date')} />
+              </Col>
+              <Col xl={18} xs={24} sm={23} md={10} lg={23} xxl={5} className="formfield form-container">
+                <AntSelectDynamic
+                  bordered={false}
+                  label={t('master_branch')}
+                  name="MasterBranch"
+                  fieldLabel="CompName"
+                  fieldValue="Id"
+                  query={useGetMasterBranchByUserId}
+                />
+              </Col>
 
-            <Col xl={2}>
-              <AntButton
-                label={t('show')}
-                htmlType="submit"
-                // isError={isFromToDateError}
-                // isLoading={isFromToDateLoading}
-              />
-            </Col>
-          </Row>
-        </Form>
-      </Card>
+              <Col xl={3} xs={10} sm={8} md={10} lg={5} xxl={3} className="btn-margin-top">
+                <AntButton
+                  label={t('show')}
+                  htmlType="submit"
+                  // isError={isFromToDateError}
+                  // isLoading={isFromToDateLoading}
+                />
+              </Col>
+            </Row>
+          </Form>
+        </Card>
+      </Col>
     </Row>
   );
 }

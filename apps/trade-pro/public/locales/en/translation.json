@@ -513,5 +513,19 @@
   "closing_credit": "Closing Credit",
   "sr": "Sr#",
   "companyName": "Company Name",
-  "paid-to": "Paid To"
+  "paid-to": "Paid To",
+  "payables_report_accounts_classification_wise": "Payables Report Accounts Classification",
+  "custom_group": "Custom Group",
+  "approved_transactions": "Approved Transactions",
+  "trade_parties": "Trade Parties",
+  "only_debit_amount": "Only Debit Amount",
+  "only_credit_amount": "Only Credit Amount",
+  "promise-date": "Promise Date",
+  "receivables_report_accounts_classification_wise": "Receivales Report Accounts Classification Wise",
+  "sales_analytical_dashboard": "Sales Analytical Dashboard",
+  "credit_balance": "Credit Balance",
+  "select": "Select",
+  "debit_balance": "Debit Balance",
+  "opening_balance": "Opening Balance",
+  "account_definition": "Account Definition"
 }

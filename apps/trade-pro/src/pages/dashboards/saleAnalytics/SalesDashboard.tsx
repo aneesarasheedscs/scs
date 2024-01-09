@@ -136,155 +136,175 @@ const SalesDashboard = () => {
   const { t } = useTranslation();
 
   return (
-    <div style={{ backgroundColor: '#fff', padding: '10px' }}>
-      <Typography.Title level={2} style={formHeading}>
-        Sales Analytical Dashboard
-      </Typography.Title>
-      <SalesAnalyticalCriteria refetch={refetch} form={form} />
+    <div style={{ backgroundColor: '#fff' }}>
       <Row gutter={[24, 24]}>
-        <Col xl={4} style={{ marginTop: '10px' }}>
-          <Typography.Title
-            level={4}
-            style={{
-              fontFamily: 'Times New Roman',
-              borderRadius: '5px',
-              padding: '5px',
-              boxShadow: '2px 4px 12px 1px lightgray',
-              marginBottom: '7px',
-              fontSize: '1.3rem',
-              textAlign: 'center',
-              color: 'blueviolet',
-            }}
-          >
-            {t('current_statistics')}
+        <Col xl={24} xs={24} sm={23} md={24} lg={23} xxl={24}>
+          <Typography.Title level={2} style={formHeading}>
+            {t('sales_analytical_dashboard')}
           </Typography.Title>
+          <SalesAnalyticalCriteria refetch={refetch} form={form} />
+          <Row gutter={[24, 24]}>
+            <Col xl={6} xs={23} sm={23} md={10} lg={23} xxl={4} style={{ marginTop: '10px' }}>
+              <Typography.Title
+                level={4}
+                style={{
+                  fontFamily: 'Times New Roman',
+                  borderRadius: '5px',
+                  padding: '5px',
+                  boxShadow: '2px 4px 12px 1px lightgray',
+                  marginBottom: '7px',
+                  fontSize: '1.3rem',
+                  textAlign: 'center',
+                  color: 'blueviolet',
+                }}
+              >
+                {t('current_statistics')}
+              </Typography.Title>
 
-          <Space direction="vertical">
-            {map(filteredCurrentStatics, (card: any, index: any) => (
-              <SalesDashboardCard
-                key={index}
-                title={card.StartDate}
-                value={card.EndDate}
-                desc={card.DescriptionTitle}
-                Amount={card.NetAmount}
-                backgroundColor={cardBackgroundColors[index % cardBackgroundColors.length]}
-                icon={defaultIcons[index % defaultIcons2.length]} // Assign icons based on index
-              />
-            ))}
-          </Space>
-        </Col>
-
-        <Col xl={20} style={{ marginTop: '10px' }}>
-          <Typography.Title
-            level={4}
-            style={{
-              fontFamily: 'Times New Roman',
-              borderRadius: '5px',
-              padding: '5px',
-              boxShadow: '2px 4px 12px 1px lightgray',
-              marginBottom: '7px',
-              fontSize: '1.3rem',
-              textAlign: 'center',
-              color: 'green',
-            }}
-          >
-            {t('sales_payment_term')}
-          </Typography.Title>
-          <Row>
-            <Col>
-              {' '}
-              <Space direction="horizontal">
-                {map(filteredSalesPaymentTerms, (card: any, index: any) => (
-                  <SalesPaymentCard
+              <Space direction="vertical">
+                {map(filteredCurrentStatics, (card: any, index: any) => (
+                  <SalesDashboardCard
                     key={index}
+                    title={card.StartDate}
+                    value={card.EndDate}
                     desc={card.DescriptionTitle}
                     Amount={card.NetAmount}
-                    percentOfTotal={card.PrcntOfTotalAmount}
-                    backgroundColor={card.backgroundColor}
-                    textColor={card.color}
-                    icon={defaultIcons[index % defaultIcons.length]}
+                    backgroundColor={cardBackgroundColors[index % cardBackgroundColors.length]}
+                    icon={defaultIcons[index % defaultIcons2.length]} // Assign icons based on index
                   />
-                ))}{' '}
+                ))}
               </Space>
             </Col>
-            <Col style={{ marginLeft: '30px', marginTop: '15px' }}>
-              <SalesDashboardChart data={data} />
-            </Col>
-          </Row>
-          <Typography.Title
-            level={4}
-            style={{
-              fontFamily: 'Times New Roman',
-              borderRadius: '5px',
-              padding: '5px',
-              // boxShadow: '2px 4px 12px 1px lightgray',
-              marginBottom: '7px',
-              fontSize: '1.3rem',
-              marginTop: '-4%',
-              textAlign: 'center',
-              color: 'blue',
-            }}
-          >
-            {t('parent_category')}
-          </Typography.Title>
 
-          <Row>
-            <Col xl={12} style={{ marginTop: '-5px', marginLeft: '2%' }}>
-              <ParentCategoryChart data={data} />
-            </Col>
-            <Col xl={12} style={{ marginTop: '30px', marginLeft: '-5%' }}>
-              <ParentCategoryTable data={data} />
-            </Col>
-            <Col style={{ marginTop: '-30px' }}></Col>
-          </Row>
+            <Col xl={18} xs={23} sm={23} md={10} lg={23} xxl={20} style={{ marginTop: '10px' }}>
+              <Typography.Title
+                level={4}
+                style={{
+                  fontFamily: 'Times New Roman',
+                  borderRadius: '5px',
+                  padding: '5px',
+                  boxShadow: '2px 4px 12px 1px lightgray',
+                  marginBottom: '7px',
+                  fontSize: '1.3rem',
+                  textAlign: 'center',
+                  color: 'green',
+                }}
+              >
+                {t('sales_payment_term')}
+              </Typography.Title>
+              <Row style={{ border: '1px solid red' }}>
+                <Col xl={18} xs={23} sm={23} md={10} lg={23} xxl={10}>
+                  {' '}
+                  <Space direction="horizontal" className="space-vertical">
+                    {map(filteredSalesPaymentTerms, (card: any, index: any) => (
+                      <SalesPaymentCard
+                        key={index}
+                        desc={card.DescriptionTitle}
+                        Amount={card.NetAmount}
+                        percentOfTotal={card.PrcntOfTotalAmount}
+                        backgroundColor={card.backgroundColor}
+                        textColor={card.color}
+                        icon={defaultIcons[index % defaultIcons.length]}
+                      />
+                    ))}{' '}
+                  </Space>
+                </Col>
+                <Col
+                  xl={18}
+                  xs={23}
+                  sm={23}
+                  md={10}
+                  lg={23}
+                  xxl={5}
+                  style={{ marginLeft: '30px', marginTop: '15px', marginBottom: '15px' }}
+                >
+                  <SalesDashboardChart data={data} />
+                </Col>
+              </Row>
+              <Typography.Title
+                level={4}
+                style={{
+                  fontFamily: 'Times New Roman',
+                  borderRadius: '5px',
+                  padding: '5px',
+                  // boxShadow: '2px 4px 12px 1px lightgray',
+                  marginBottom: '7px',
+                  fontSize: '1.3rem',
+                  marginTop: '-4%',
+                  textAlign: 'center',
+                  color: 'blue',
+                }}
+              >
+                {t('parent_category')}
+              </Typography.Title>
 
-          <Typography.Title
-            level={4}
-            style={{
-              fontFamily: 'Times New Roman',
-              borderRadius: '5px',
-              padding: '5px',
-              // boxShadow: '2px 4px 12px 1px lightgray',
-              marginBottom: '7px',
-              fontSize: '1.3rem',
-              marginTop: '-4%',
-              textAlign: 'center',
-              color: 'blue',
-            }}
-          >
-            {t('sales_by_items')}
-          </Typography.Title>
-          <Row>
-            <Col xl={24} style={{ marginTop: '-10px', marginLeft: '-5%' }}>
-              <SaleByItemChart data={data} />
-            </Col>
-            <Col xl={15} style={{ marginTop: '20px', marginLeft: '20%' }}>
-              <SaleByItemTable data={data} />
-            </Col>
-          </Row>
+              <Row gutter={[24, 24]}>
+                <Col xl={18} xs={23} sm={23} md={10} lg={23} xxl={12} style={{ marginTop: '-5px', marginLeft: '2%' }}>
+                  <ParentCategoryChart data={data} />
+                </Col>
+                <Col
+                  xl={{ span: 18, offset: 1 }}
+                  xs={23}
+                  sm={23}
+                  md={10}
+                  lg={23}
+                  xxl={11}
+                  style={{ marginTop: '30px', marginLeft: '0%' }}
+                >
+                  <ParentCategoryTable data={data} />
+                </Col>
+                <Col style={{ marginTop: '-30px' }}></Col>
+              </Row>
 
-          <Typography.Title
-            level={4}
-            style={{
-              fontFamily: 'Times New Roman',
-              borderRadius: '5px',
-              padding: '5px',
-              // boxShadow: '2px 4px 12px 1px lightgray',
-              marginBottom: '7px',
-              fontSize: '1.3rem',
-              marginTop: '20px',
-              textAlign: 'center',
-              color: 'purple',
-            }}
-          >
-            {t('sales-by-branch')}
-          </Typography.Title>
-          <Row>
-            <Col xl={11} style={{ marginTop: '20px', marginLeft: '-10%' }}>
-              <SaleByBranchChart2 data={data} />
-            </Col>
-            <Col xl={13} style={{ marginTop: '7%', marginLeft: '5%' }}>
-              <SaleBybranchTable data={data} />
+              <Typography.Title
+                level={4}
+                style={{
+                  fontFamily: 'Times New Roman',
+                  borderRadius: '5px',
+                  padding: '5px',
+                  // boxShadow: '2px 4px 12px 1px lightgray',
+                  marginBottom: '7px',
+                  fontSize: '1.3rem',
+                  marginTop: '-4%',
+                  textAlign: 'center',
+                  color: 'blue',
+                }}
+              >
+                {t('sales_by_items')}
+              </Typography.Title>
+              <Row>
+                <Col xxl={22} xl={24} style={{ marginTop: '-10px', marginLeft: '0%' }}>
+                  <SaleByItemChart data={data} />
+                </Col>
+                <Col xxl={18} xl={16} style={{ marginTop: '20px', marginLeft: '10%' }}>
+                  <SaleByItemTable data={data} />
+                </Col>
+              </Row>
+
+              <Typography.Title
+                level={4}
+                style={{
+                  fontFamily: 'Times New Roman',
+                  borderRadius: '5px',
+                  padding: '5px',
+                  // boxShadow: '2px 4px 12px 1px lightgray',
+                  marginBottom: '7px',
+                  fontSize: '1.3rem',
+                  marginTop: '20px',
+                  textAlign: 'center',
+                  color: 'purple',
+                }}
+              >
+                {t('sales-by-branch')}
+              </Typography.Title>
+              <Row>
+                <Col xl={11} style={{ marginTop: '0px', marginLeft: '-10%' }}>
+                  <SaleByBranchChart2 data={data} />
+                </Col>
+                <Col xl={14} style={{ marginTop: '7%', marginLeft: '5%' }}>
+                  <SaleBybranchTable data={data} />
+                </Col>
+              </Row>
             </Col>
           </Row>
         </Col>

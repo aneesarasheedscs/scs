@@ -3,7 +3,6 @@ import { Col, Row, Typography, Card, Modal, theme } from 'antd';
 import { ArrowRightOutlined, SmileOutlined, HeartOutlined, LikeOutlined, ExportOutlined } from '@ant-design/icons';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { useTranslation } from 'react-i18next';
-import './style.scss';
 import ActivitySummaryReport from '@tradePro/pages/accountReports/ActivitySummary';
 import CashBalances from '@tradePro/pages/accountReports/CashBalance';
 import PayablesReceivablesReport from '@tradePro/pages/accountReports/PayablesReceivables/Payables&Receivaables/MainForm';
@@ -27,12 +26,12 @@ const AccountDashboardCards: React.FC<{ Data: any; FromdateProp?: Date; TodatePr
 
   return (
     <div>
-      <Row gutter={[16, 16]}>
-        <Col span={24}>
+      <Row gutter={[16, 16]} justify={'center'}>
+        <Col xxl={20} xs={24} sm={24} md={24} lg={23} xl={20}>
           <div className="card-main-container">
             <Row gutter={[8, 16]} justify="center">
               {Data?.map((card: any, index: number) => (
-                <Col xs={24} sm={12} md={8} lg={6} xl={7} key={index}>
+                <Col xxl={8} xs={24} sm={12} md={12} lg={12} xl={12} key={index}>
                   <Card
                     hoverable
                     className="card-container"
@@ -47,7 +46,7 @@ const AccountDashboardCards: React.FC<{ Data: any; FromdateProp?: Date; TodatePr
                         <ExportOutlined style={{ color: '#fff' }} />
                       </Title>
                     </div>
-                    <Col span={24}>
+                    <Col xxl={24} xs={24} sm={24} md={24} lg={24} xl={23}>
                       <Title
                         level={5}
                         className="custom-title1"
@@ -83,7 +82,7 @@ const AccountDashboardCards: React.FC<{ Data: any; FromdateProp?: Date; TodatePr
                     <Col span={24}>
                       <Title
                         level={5}
-                        className="custom-title-info"
+                        // className="custom-title-info"
                         style={{
                           backgroundColor: colorPrimary,
                         }}

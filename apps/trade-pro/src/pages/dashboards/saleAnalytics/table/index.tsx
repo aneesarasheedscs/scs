@@ -11,6 +11,7 @@ const ParentCategoryTable = ({ data }: any) => {
     <>
       {/* <Typography.Text>Recent Sales</Typography.Text> */}
       <Table
+        style={{ marginLeft: '3em' }}
         dataSource={filteredParentCategory}
         columns={[
           {
@@ -265,13 +266,13 @@ export const SaleBybranchTable = ({ data }: any) => {
           },
           {
             title: <>{t('%_of_total_weight')}</>,
-            width: 136,
+            width: 180,
             dataIndex: 'PrcntOfTotalWeight',
           },
 
           {
             title: <>{t('%_of_total_amount')}</>,
-            width: 136,
+            width: 180,
             dataIndex: 'PrcntOfTotalAmount',
           },
         ]}

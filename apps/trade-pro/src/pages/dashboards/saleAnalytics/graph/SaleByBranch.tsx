@@ -25,7 +25,7 @@ const SaleByBranchChart = ({ data }: any) => {
   ];
 
   return (
-    <Col span={24}>
+    <Col xxl={24} xl={20} style={{}}>
       <ReactECharts
         option={{
           title: {},
@@ -45,7 +45,7 @@ const SaleByBranchChart = ({ data }: any) => {
           },
           grid: {
             top: '15%',
-            left: '25%',
+            left: '10%',
             right: '10%',
             bottom: '15%',
             containLabel: true,

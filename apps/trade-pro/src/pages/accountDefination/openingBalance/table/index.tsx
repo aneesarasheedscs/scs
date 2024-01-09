@@ -36,14 +36,14 @@ const OpeningBalanceTable = () => {
           />
         </Col>
 
-        <Col xs={24} lg={12} style={{ marginTop: '10px' }}>
+        {/* <Col xs={24} lg={12} style={{ marginTop: '10px' }}>
           <AntTable
             columns={OpeningBalanceColumns(t, handleEditButtonClick)} // Define columns for the other table
             data={selectedRows || []}
             isError={isError}
             isLoading={isLoading}
           />
-        </Col>
+        </Col> */}
       </Row>
     </div>
   );

@@ -122,8 +122,8 @@ const BankBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId
           <Col xs={24} md={24} lg={24}>
             <Card className="bank-balances-card">
               <Form form={form} onFinish={onFinish}>
-                <Row gutter={16} justify={'space-evenly'}>
-                  <Col xl={4} className="formfield">
+                <Row gutter={[4, 4]} justify={'space-around'}>
+                  <Col xxl={5} xl={4} className="formfield">
                     <AntSelectDynamic
                       bordered={false}
                       label={t('date_type')}
@@ -134,25 +134,14 @@ const BankBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId
                       onChange={(value) => handleDateChange(value)}
                     />
                   </Col>
-                  <Col xl={4} className="formfield">
+                  <Col xxl={5} xl={4} className="formfield">
                     <AntDatePicker name="FromDate" bordered={false} label={t('from_date')} />
                   </Col>
-                  <Col xl={4} className="formfield">
+                  <Col xxl={5} xl={4} className="formfield">
                     <AntDatePicker name="ToDate" bordered={false} label={t('to_date')} />
                   </Col>
 
-                  {/* <Col xl={6} className="formfield">
-                    <AntSelectDynamic
-                      bordered={false}
-                      label={t('master_branch')}
-                      name="MasterBranch"
-                      fieldLabel="CompName"
-                      fieldValue="Id"
-                      query={useGetMasterBranchByUserId}
-                    />
-                  </Col> */}
-
-                  <Col xl={2}>
+                  <Col xxl={2} xl={2}>
                     <AntButton label={t('show')} htmlType="submit" isError={isError} isLoading={isLoading} />
                   </Col>
                 </Row>

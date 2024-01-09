@@ -54,7 +54,7 @@ export const OpeningBalanceColumns = (t: any, handleEditButtonChange: any): AntC
     ),
   },
   {
-    title: 'Select ',
+    title: <>{t('select')}</>,
     dataIndex: 'Id',
     width: 120,
     render: (_, record) => <AntButton onClick={(e) => handleEditButtonChange(record)} label="Edit" size="small" />,

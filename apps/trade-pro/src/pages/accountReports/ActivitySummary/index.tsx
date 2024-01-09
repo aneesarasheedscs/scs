@@ -129,53 +129,56 @@ const ActivitySummaryReport: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; 
           </span>
         </Col>
       </Row>
-
-      <Card style={{ width: '80vw', marginLeft: '30px' }}>
-        <Form
-          form={form}
-          initialValues={FromDateProp === undefined && ToDateProp === undefined ? { FromDate, ToDate } : undefined}
-          onFinish={onFinish}
-        >
-          {/* <Row gutter={[24, { xs: 8, sm: 16, md: 24, lg: 32 }]} justify={'start'}> */}
-          <Row gutter={[24, 24]}>
-            <Col xl={5} className="formsfield" style={{ marginLeft: '10px' }}>
-              <AntSelectDynamic
-                bordered={false}
-                fieldValue="Id"
-                fieldLabel="DateType"
-                defaultValue={FromDateProp !== undefined ? undefined : '5'}
-                label={t('date_type')}
-                query={useGetDateTypes}
-                onSelectChange={(obj) => handleDateChange(obj.Id)}
-                name="DateType"
-              />
-            </Col>
-            <Col xl={5} className="formsfield" offset={1}>
-              <AntDatePicker name="FromDate" bordered={false} label={t('from_date')} />
-            </Col>
-            <Col xl={5} className="formsfield" offset={1}>
-              <AntDatePicker name="ToDate" bordered={false} label={t('to_date')} />
-            </Col>
-            <Col xl={5}>
-              <Form.Item name="ApprovedFilter">
-                <Checkbox onChange={onChangeUnPost}>{t('include_unposted_vochers')}</Checkbox>
-              </Form.Item>
-            </Col>
-            <Col>
-              <AntButton
-                label={t('show')}
-                htmlType="submit"
-                isError={isActivitySummaryError}
-                isLoading={isActivitySummaryLoading || isFetching}
-              />
-            </Col>
-          </Row>
-        </Form>
-      </Card>
+      <Row justify={'space-around'}>
+        <Col>
+          <Card className="cash-balances-card">
+            <Form
+              form={form}
+              initialValues={FromDateProp === undefined && ToDateProp === undefined ? { FromDate, ToDate } : undefined}
+              onFinish={onFinish}
+            >
+              {/* <Row gutter={[24, { xs: 8, sm: 16, md: 24, lg: 32 }]} justify={'start'}> */}
+              <Row gutter={[4, 4]} justify={'space-around'}>
+                <Col xxl={5} xl={4} className="formfield">
+                  <AntSelectDynamic
+                    bordered={false}
+                    fieldValue="Id"
+                    fieldLabel="DateType"
+                    defaultValue={FromDateProp !== undefined ? undefined : '5'}
+                    label={t('date_type')}
+                    query={useGetDateTypes}
+                    onSelectChange={(obj) => handleDateChange(obj.Id)}
+                    name="DateType"
+                  />
+                </Col>
+                <Col xxl={5} xl={4} className="formfield">
+                  <AntDatePicker name="FromDate" bordered={false} label={t('from_date')} />
+                </Col>
+                <Col xxl={5} xl={4} className="formfield">
+                  <AntDatePicker name="ToDate" bordered={false} label={t('to_date')} />
+                </Col>
+                <Col xxl={5} xl={4}>
+                  <Form.Item name="ApprovedFilter">
+                    <Checkbox onChange={onChangeUnPost}>{t('include_unposted_vochers')}</Checkbox>
+                  </Form.Item>
+                </Col>
+                <Col xxl={2} xl={2}>
+                  <AntButton
+                    label={t('show')}
+                    htmlType="submit"
+                    isError={isActivitySummaryError}
+                    isLoading={isActivitySummaryLoading || isFetching}
+                  />
+                </Col>
+              </Row>
+            </Form>
+          </Card>
+        </Col>
+      </Row>
 
       <div className="summary-table-container">
         <Row gutter={[24, 24]}>
-          <Col xs={24} md={24} className="summary-table-card">
+          <Col xs={24} md={24} className="">
             <AntTable
               rowKey={'AccountId'}
               columns={Columns(t, handleAccountCodeClick)}

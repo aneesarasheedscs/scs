@@ -1,6 +1,6 @@
 import { formateDate } from '@tradePro/utils/formateDate';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import { Avatar, Card, Col, Typography, theme } from 'antd';
+import { Avatar, Card, Col, Row, Typography, theme } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 const { useToken } = theme;
@@ -65,57 +65,88 @@ export function SalesPaymentCard({ percentOfTotal, icon, backgroundColor, desc, 
 
   return (
     <div>
-      <Card
-        hoverable={true}
-        className="card-container-sale-payment"
-        style={{
-          marginTop: '20px',
-          backgroundColor: backgroundColor,
-          border: '1px solid white',
-          textAlign: 'center',
-          boxShadow: 'rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px',
-        }}
-      >
-        <Card.Meta
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            marginTop: '-35%',
-          }}
-          avatar={<Avatar size={70} src={icon}></Avatar>}
-        ></Card.Meta>
-        <Col span={24} style={{ marginTop: '-10px' }}>
-          <Title
-            level={5}
+      <Row gutter={[16, 16]}>
+        <Col xl={23} xs={23} sm={23} md={10} lg={23} xxl={22}>
+          <Card
+            hoverable={true}
+            className="card-container-sale-payment"
             style={{
-              fontSize: '17px',
-              color: 'green',
+              marginTop: '20px',
+              backgroundColor: backgroundColor,
+              border: '1px solid white',
+              textAlign: 'center',
+              boxShadow: 'rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px',
             }}
           >
-            <p className="card-description"> {desc}</p>
-          </Title>
+            <Card.Meta
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                marginTop: '-45%',
+              }}
+              avatar={<Avatar size={70} src={icon}></Avatar>}
+            ></Card.Meta>
+            <Col xl={18} xs={23} sm={23} md={10} lg={23} xxl={24} style={{ marginTop: '-10px' }}>
+              <Title
+                level={5}
+                style={{
+                  fontSize: '17px',
+                  color: 'green',
+                }}
+              >
+                <p className="card-description"> {desc}</p>
+              </Title>
+            </Col>
+            <Text>
+              <Col
+                xl={18}
+                xs={23}
+                sm={23}
+                md={10}
+                lg={23}
+                xxl={22}
+                className=""
+                style={{ marginTop: '-50px', color: 'blue' }}
+              >
+                <p> {t('amount')}</p>
+              </Col>
+              <b>
+                <Col
+                  xl={18}
+                  xs={23}
+                  sm={23}
+                  md={10}
+                  lg={23}
+                  xxl={24}
+                  className=""
+                  style={{ textAlign: 'center', marginTop: '-20xp' }}
+                >
+                  <p> {numberFormatter(Amount)}</p>
+                </Col>
+              </b>
+              <b>
+                <Col
+                  xl={20}
+                  xs={23}
+                  sm={23}
+                  md={10}
+                  lg={23}
+                  xxl={24}
+                  className=""
+                  style={{ marginTop: '-5px', color: 'crimson' }}
+                >
+                  <p> {t('Percent Of Total')}</p>
+                </Col>
+              </b>
+              <b>
+                <Col xl={18} xs={23} sm={23} md={10} lg={23} xxl={22} className="" style={{ textAlign: 'center' }}>
+                  <p> {numberFormatter(percentOfTotal)}</p>
+                </Col>
+              </b>
+            </Text>
+          </Card>
         </Col>
-        <Text>
-          <Col className="" style={{ marginTop: '-10px', color: 'blue' }}>
-            <p> {t('amount')}</p>
-          </Col>
-          <b>
-            <Col className="" style={{ textAlign: 'center', marginTop: '-20xp' }}>
-              <p> {numberFormatter(Amount)}</p>
-            </Col>
-          </b>
-          <b>
-            <Col className="" style={{ marginTop: '-5px', color: 'crimson' }}>
-              <p> {t('Percent Of Total')}</p>
-            </Col>
-          </b>
-          <b>
-            <Col className="" style={{ textAlign: 'center' }}>
-              <p> {numberFormatter(percentOfTotal)}</p>
-            </Col>
-          </b>
-        </Text>
-      </Card>
+      </Row>
     </div>
   );
 }

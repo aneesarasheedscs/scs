@@ -1,4 +1,4 @@
-import { DatePicker, Col, Row, Typography, Card, Form, theme } from 'antd';
+import { Col, Row, Card, Form } from 'antd';
 import { AntButton, AntDatePicker } from '@scs/ui';
 import { AntSelectDynamic } from '@scs/ui';
 import { useTranslation } from 'react-i18next';
@@ -7,6 +7,7 @@ import AccountDashboardCards from './AccountDashboardCards ';
 import dayjs from 'dayjs';
 import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 import { TAccountDashboardCriteria } from './types';
+import './style.scss';
 
 const { useForm, useWatch } = Form;
 function AccountDashboard() {
@@ -63,68 +64,79 @@ function AccountDashboard() {
     <div style={{ backgroundColor: '#fff' }}>
       <Row>
         <Col
-          xs={2}
-          sm={4}
-          md={6}
-          lg={8}
-          xl={14}
+          xs={12}
+          sm={10}
+          md={12}
+          lg={6}
+          xl={9}
+          xxl={12}
           style={{ display: 'flex', alignItems: 'center', alignContent: 'center', margin: '16px' }}
         >
           <h1 style={{ fontFamily: 'Poppins', fontSize: '19px', padding: '10px' }}>{t('account_dashboard')} </h1>
-          <span style={{ position: 'relative', left: '120%' }}>
-            {' '}
-            <b> {t('dashboard')}</b> &#9654; {t('account_dashboard')}
-          </span>
+          <Col xs={8} sm={10} md={8} lg={20} xl={14} xxl={12}>
+            <span style={{ position: 'relative', left: '270%' }}>
+              {' '}
+              <b> {t('dashboard')}</b> &#9654; {t('account_dashboard')}
+            </span>
+          </Col>
         </Col>
       </Row>
 
-      <Card style={{ width: '80vw', marginLeft: '50px' }}>
-        <Form form={form} onFinish={onFinish}>
-          <Row gutter={16} justify={'space-evenly'}>
-            <Col xl={4} className="formfield">
-              <AntSelectDynamic
-                bordered={false}
-                label={t('date_type')}
-                name="DateType"
-                fieldLabel="DateType"
-                fieldValue="Id"
-                query={useGetDateType}
-                onChange={(value) => handleDateChange(value)}
-              />
-            </Col>
-            <Col xl={4} className="formfield">
-              <AntDatePicker name="FromDate" bordered={false} label={t('from_date')} />
-            </Col>
-            <Col xl={4} className="formfield">
-              <AntDatePicker name="ToDate" bordered={false} label={t('to_date')} />
-            </Col>
-            <Col xl={6} className="formfield">
-              <AntSelectDynamic
-                bordered={false}
-                mode={UserDetail?.IsHeadOffice ? 'multiple' : undefined}
-                disabled={UserDetail?.IsHeadOffice === false}
-                defaultValue={UserDetail?.IsHeadOffice == false ? UserDetail?.CompanyId : undefined}
-                label={t('companyName')}
-                name="CompanyIds"
-                fieldLabel="CompName"
-                fieldValue="Id"
-                query={useGetCompanies}
-              />
-            </Col>
+      <Row justify={'space-around'}>
+        <Col xxl={23} xs={23} sm={23} md={23} lg={23} xl={23}>
+          <Card>
+            <Form form={form} onFinish={onFinish}>
+              <Row gutter={16} justify={'space-between'}>
+                <Col xl={10} xs={24} sm={23} md={10} lg={23} xxl={4} className="formfield form-container">
+                  <AntSelectDynamic
+                    bordered={false}
+                    label={t('date_type')}
+                    name="DateType"
+                    fieldLabel="DateType"
+                    fieldValue="Id"
+                    query={useGetDateType}
+                    onChange={(value) => handleDateChange(value)}
+                  />
+                </Col>
+                <Col xl={6} xs={24} sm={12} md={6} lg={12} xxl={4} className="formfield form-container">
+                  <AntDatePicker name="FromDate" bordered={false} label={t('from_date')} />
+                </Col>
+                <Col xl={6} xs={24} sm={11} md={6} lg={11} xxl={4} className="formfield form-container">
+                  <AntDatePicker name="ToDate" bordered={false} label={t('to_date')} />
+                </Col>
+                <Col xl={20} xs={24} sm={20} md={18} lg={18} xxl={6} className="formfield form-container">
+                  <AntSelectDynamic
+                    bordered={false}
+                    mode={UserDetail?.IsHeadOffice ? 'multiple' : undefined}
+                    disabled={UserDetail?.IsHeadOffice === false}
+                    defaultValue={UserDetail?.IsHeadOffice == false ? UserDetail?.CompanyId : undefined}
+                    label={t('companyName')}
+                    name="CompanyIds"
+                    fieldLabel="CompName"
+                    fieldValue="Id"
+                    query={useGetCompanies}
+                  />
+                </Col>
 
-            <Col xl={2}>
-              <AntButton label={t('show')} htmlType="submit" isError={isError} isLoading={isLoading} />
-            </Col>
-          </Row>
-        </Form>
-      </Card>
+                <Col xl={2} xs={10} sm={4} md={4} lg={5} xxl={2} className="btn-margin-top">
+                  <AntButton label={t('show')} htmlType="submit" isError={isError} isLoading={isLoading} />
+                </Col>
+              </Row>
+            </Form>
+          </Card>
+        </Col>
+      </Row>
 
-      <AccountDashboardCards
-        Data={data?.data?.Data?.Result}
-        FromdateProp={getFieldValue('FromDate')}
-        TodateProp={getFieldValue('ToDate')}
-        Companies={form.getFieldValue('CompanyIds')?.toString()}
-      />
+      <Row justify={'center'}>
+        <Col xxl={24} sm={24} md={24}>
+          <AccountDashboardCards
+            Data={data?.data?.Data?.Result}
+            FromdateProp={getFieldValue('FromDate')}
+            TodateProp={getFieldValue('ToDate')}
+            Companies={form.getFieldValue('CompanyIds')?.toString()}
+          />
+        </Col>
+      </Row>
     </div>
   );
 }

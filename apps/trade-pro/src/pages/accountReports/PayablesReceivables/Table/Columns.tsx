@@ -39,6 +39,7 @@ export const PayableColumn = (t: any, handleAccountCodeClick: any): AntColumnTyp
     title: t('opening'),
     dataIndex: 'Opening',
     align: 'right',
+    showTotal: true,
     render: (Opening, record) => (
       <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(Opening)}</Space>
     ),
@@ -48,6 +49,7 @@ export const PayableColumn = (t: any, handleAccountCodeClick: any): AntColumnTyp
     title: <>{t('debit')}</>,
     dataIndex: 'Debit',
     align: 'right',
+    showTotal: true,
     render: (CurrDebit, record) => (
       <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(CurrDebit)}</Space>
     ),
@@ -57,6 +59,7 @@ export const PayableColumn = (t: any, handleAccountCodeClick: any): AntColumnTyp
     title: <>{t('current_credit')}</>,
     dataIndex: 'Credit',
     align: 'right',
+    showTotal: true,
     render: (CurrCredit, record) => (
       <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(CurrCredit)}</Space>
     ),
@@ -67,6 +70,7 @@ export const PayableColumn = (t: any, handleAccountCodeClick: any): AntColumnTyp
     title: <>{t('closing')}</>,
     dataIndex: 'Closing',
     align: 'right',
+    showTotal: true,
     render: (Closing, record) => (
       <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(Closing)}</Space>
     ),
@@ -149,7 +153,9 @@ export const ReceivableColumn = (t: any, handleAccountCodeClick: any): AntColumn
     width: 150,
     title: t('opening'),
     dataIndex: 'Opening',
+
     align: 'right',
+    showTotal: true,
     render: (Opening, record) => (
       <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(Opening)}</Space>
     ),
@@ -159,6 +165,7 @@ export const ReceivableColumn = (t: any, handleAccountCodeClick: any): AntColumn
     title: <>{t('debit')}</>,
     dataIndex: 'Debit',
     align: 'right',
+    showTotal: true,
     render: (Debit) => (
       <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(Debit)}</Space>
     ),
@@ -168,6 +175,7 @@ export const ReceivableColumn = (t: any, handleAccountCodeClick: any): AntColumn
     title: <>{t('credit')}</>,
     dataIndex: 'Credit',
     align: 'right',
+    showTotal: true,
     render: (Credit) => (
       <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(Credit)}</Space>
     ),
@@ -177,6 +185,7 @@ export const ReceivableColumn = (t: any, handleAccountCodeClick: any): AntColumn
     width: 150,
     title: <>{t('closing')}</>,
     dataIndex: 'Closing',
+    showTotal: true,
     align: 'right',
     render: (Closing) => (
       <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(Closing)}</Space>

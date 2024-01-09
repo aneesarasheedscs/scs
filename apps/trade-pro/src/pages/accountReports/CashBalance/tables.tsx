@@ -58,7 +58,7 @@ const CashReceiptPaymentTables: React.FC<{
         <Divider />
       </Col>
       <Row gutter={[24, 24]}>
-        <Col xl={23} xs={24} md={24} className="summary-card" style={{ marginLeft: '2%' }}>
+        <Col xl={23} xs={24} md={24} style={{ marginLeft: '2%' }}>
           <AntTable
             rowKey={'AccountId'}
             // rowSelection={rowSelection}
@@ -72,7 +72,7 @@ const CashReceiptPaymentTables: React.FC<{
       </Row>
 
       <Row gutter={[24, 24]} justify={'space-between'} style={{ marginLeft: 20, width: '97%' }}>
-        <Col xl={12} xs={24} md={12} className="section-card">
+        <Col xl={12} xs={24} md={12} className="">
           <Title className="section-title" level={3}>
             {t('cash_receipt')}
           </Title>
@@ -85,7 +85,7 @@ const CashReceiptPaymentTables: React.FC<{
             scroll={{ y: convertVhToPixels('35vh') }}
           />
         </Col>
-        <Col xl={12} xs={24} md={12} className="section-card">
+        <Col xl={12} xs={24} md={12} className="">
           <Title className="section-title" level={3}>
             {t('cash_payment')}
           </Title>
@@ -94,7 +94,7 @@ const CashReceiptPaymentTables: React.FC<{
             data={filteredTableData2 || []}
             isError={IsCashPaymentError}
             isLoading={IsCashPaymentLoading}
-            scroll={{ y: convertVhToPixels('35vh') }}
+            scroll={{ y: convertVhToPixels('38vh') }}
           />
         </Col>
       </Row>
