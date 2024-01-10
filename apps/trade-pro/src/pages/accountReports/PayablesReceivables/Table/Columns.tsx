@@ -6,19 +6,19 @@ import { formateDate } from '@tradePro/utils/formateDate';
 
 export const PayableColumn = (t: any, handleAccountCodeClick: any): AntColumnType<Tpayables>[] => [
   {
-    title: <>{t('sr#')}</>,
+    title: t('sr#'),
     dataIndex: '',
     width: 100,
     render: (_, __, index) => index + 1,
   },
   {
     width: 260,
-    title: <>{t('account_title_3rd')}</>,
+    title: t('account_title_3rd'),
     dataIndex: 'lvl03_Title',
   },
   {
     width: 150,
-    title: <>{t('account_code')}</>,
+    title: t('account_code'),
     dataIndex: 'AccountCode',
     render: (_, { AccountCode, AccountId }) => (
       <>
@@ -28,7 +28,7 @@ export const PayableColumn = (t: any, handleAccountCodeClick: any): AntColumnTyp
   },
   {
     width: 150,
-    title: <>{t('account_title')}</>,
+    title: t('account_title'),
     dataIndex: 'AccountTitle',
 
     sortDirections: ['ascend', 'descend'],
@@ -46,7 +46,7 @@ export const PayableColumn = (t: any, handleAccountCodeClick: any): AntColumnTyp
   },
   {
     width: 150,
-    title: <>{t('debit')}</>,
+    title: t('debit'),
     dataIndex: 'Debit',
     align: 'right',
     showTotal: true,
@@ -56,7 +56,7 @@ export const PayableColumn = (t: any, handleAccountCodeClick: any): AntColumnTyp
   },
   {
     width: 150,
-    title: <>{t('current_credit')}</>,
+    title: t('current_credit'),
     dataIndex: 'Credit',
     align: 'right',
     showTotal: true,
@@ -67,7 +67,7 @@ export const PayableColumn = (t: any, handleAccountCodeClick: any): AntColumnTyp
 
   {
     width: 150,
-    title: <>{t('closing')}</>,
+    title: t('closing'),
     dataIndex: 'Closing',
     align: 'right',
     showTotal: true,
@@ -77,50 +77,50 @@ export const PayableColumn = (t: any, handleAccountCodeClick: any): AntColumnTyp
   },
   {
     width: 150,
-    title: <>{t('last_bill_date')}</>,
+    title: t('last_bill_date'),
     dataIndex: 'LastBillDate',
     render: (_, { LastBillDate }) => formateDate(LastBillDate),
   },
   {
     width: 150,
-    title: <>{t('last_bills_amount')}</>,
+    title: t('last_bills_amount'),
     dataIndex: 'LastBillsAmount',
   },
   {
     width: 150,
-    title: <>{t('bill_days')}</>,
+    title: t('bill_days'),
     dataIndex: 'BillDays',
   },
   {
     width: 150,
-    title: <>{t('last_paid_amount')}</>,
+    title: t('last_paid_amount'),
     dataIndex: 'LastRcvdAmount',
   },
   {
     width: 150,
-    title: <>{t('paid_days')}</>,
+    title: t('paid_days'),
     dataIndex: 'RcvdDays',
   },
   {
     width: 150,
-    title: <>{t('city_name')}</>,
+    title: t('city_name'),
     dataIndex: 'CityName',
   },
   {
     width: 150,
-    title: <>{t('mobile_personal')}</>,
+    title: t('mobile_personal'),
     dataIndex: 'MobilePersonal',
   },
   {
     width: 150,
-    title: <>{t('title')}</>,
+    title: t('title'),
     dataIndex: 'Title',
   },
 ];
 
 export const ReceivableColumn = (t: any, handleAccountCodeClick: any): AntColumnType<Treceivable>[] => [
   {
-    title: <>{t('sr#')}</>,
+    title: t('sr#'),
     dataIndex: '',
     width: 100,
 
@@ -128,12 +128,12 @@ export const ReceivableColumn = (t: any, handleAccountCodeClick: any): AntColumn
   },
   {
     width: 250,
-    title: <>{t('account_title_3rd')}</>,
+    title: t('account_title_3rd'),
     dataIndex: 'lvl03_Title',
   },
   {
     width: 150,
-    title: <>{t('account_code')}</>,
+    title: t('account_code'),
     dataIndex: 'AccountCode',
     render: (_, { AccountCode, AccountId }) => (
       <>
@@ -143,7 +143,7 @@ export const ReceivableColumn = (t: any, handleAccountCodeClick: any): AntColumn
   },
   {
     width: 250,
-    title: <>{t('account_title')}</>,
+    title: t('account_title'),
     dataIndex: 'AccountTitle',
 
     sortDirections: ['ascend', 'descend'],
@@ -162,7 +162,7 @@ export const ReceivableColumn = (t: any, handleAccountCodeClick: any): AntColumn
   },
   {
     width: 150,
-    title: <>{t('debit')}</>,
+    title: t('debit'),
     dataIndex: 'Debit',
     align: 'right',
     showTotal: true,
@@ -172,7 +172,7 @@ export const ReceivableColumn = (t: any, handleAccountCodeClick: any): AntColumn
   },
   {
     width: 150,
-    title: <>{t('credit')}</>,
+    title: t('credit'),
     dataIndex: 'Credit',
     align: 'right',
     showTotal: true,
@@ -183,7 +183,7 @@ export const ReceivableColumn = (t: any, handleAccountCodeClick: any): AntColumn
 
   {
     width: 150,
-    title: <>{t('closing')}</>,
+    title: t('closing'),
     dataIndex: 'Closing',
     showTotal: true,
     align: 'right',
@@ -193,49 +193,49 @@ export const ReceivableColumn = (t: any, handleAccountCodeClick: any): AntColumn
   },
   {
     width: 150,
-    title: <>{t('last_bill_date')}</>,
+    title: t('last_bill_date'),
     dataIndex: 'LastBillDate',
     render: (_, { LastBillDate }) => formateDate(LastBillDate),
   },
   {
     width: 150,
-    title: <>{t('last_bills_amount')}</>,
+    title: t('last_bills_amount'),
     dataIndex: 'LastBillsAmount',
   },
   {
     width: 150,
-    title: <>{t('bill_days')}</>,
+    title: t('bill_days'),
     dataIndex: 'BillDays',
   },
   {
     width: 150,
-    title: <>{t('last_rcvd_amount')}</>,
+    title: t('last_rcvd_amount'),
     dataIndex: 'LastRcvdAmount',
   },
   {
     width: 120,
-    title: <>{t('rcvd_days')}</>,
+    title: t('rcvd_days'),
     dataIndex: 'RcvdDays',
   },
   {
     width: 120,
-    title: <>{t('city_name')}</>,
+    title: t('city_name'),
     dataIndex: 'CityName',
   },
   {
     width: 120,
-    title: <>{t('mobile_personal')}</>,
+    title: t('mobile_personal'),
     dataIndex: 'MobilePersonal',
   },
   {
     width: 120,
-    title: <>{t('title')}</>,
+    title: t('title'),
     dataIndex: 'Title',
   },
 ];
 export const FollowUpColumn = (t: any): AntColumnType<TFollowUp>[] => [
   // {
-  //   title: <>{t('sr#')}</>,
+  //   title: t('sr#'),
   //   dataIndex: '',
   //   width: 100,
 
@@ -243,7 +243,7 @@ export const FollowUpColumn = (t: any): AntColumnType<TFollowUp>[] => [
   // },
   {
     width: 100,
-    title: <>{t('account_title')}</>,
+    title: t('account_title'),
     dataIndex: 'AccountTitle',
 
     sortDirections: ['ascend', 'descend'],
@@ -251,13 +251,13 @@ export const FollowUpColumn = (t: any): AntColumnType<TFollowUp>[] => [
   },
   {
     width: 100,
-    title: <>{t('follow_date')}</>,
+    title: t('follow_date'),
     dataIndex: 'FollowUpDate',
     render: (_, { FollowUpDate }) => formateDate(FollowUpDate),
   },
   {
     width: 100,
-    title: <>{t('NF-Days')}</>,
+    title: t('NF-Days'),
     dataIndex: 'NF-Days',
   },
   {

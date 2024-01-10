@@ -66,7 +66,7 @@ export function SalesPaymentCard({ percentOfTotal, icon, backgroundColor, desc, 
   return (
     <div>
       <Row gutter={[16, 16]}>
-        <Col xl={23} xs={23} sm={23} md={10} lg={23} xxl={22}>
+        <Col xl={24} xs={23} sm={23} md={24} lg={24} xxl={24}>
           <Card
             hoverable={true}
             className="card-container-sale-payment"
@@ -82,11 +82,11 @@ export function SalesPaymentCard({ percentOfTotal, icon, backgroundColor, desc, 
               style={{
                 display: 'flex',
                 flexDirection: 'column',
-                marginTop: '-45%',
+                marginTop: '-40%',
               }}
               avatar={<Avatar size={70} src={icon}></Avatar>}
             ></Card.Meta>
-            <Col xl={18} xs={23} sm={23} md={10} lg={23} xxl={24} style={{ marginTop: '-10px' }}>
+            <Col xl={24} xs={23} sm={24} md={20} lg={23} xxl={24} style={{ marginTop: '10px' }}>
               <Title
                 level={5}
                 style={{
@@ -99,37 +99,37 @@ export function SalesPaymentCard({ percentOfTotal, icon, backgroundColor, desc, 
             </Col>
             <Text>
               <Col
-                xl={18}
+                xl={24}
                 xs={23}
                 sm={23}
-                md={10}
+                md={20}
                 lg={23}
                 xxl={22}
                 className=""
-                style={{ marginTop: '-50px', color: 'blue' }}
+                style={{ marginTop: '-60px', color: 'blue' }}
               >
                 <p> {t('amount')}</p>
               </Col>
               <b>
                 <Col
-                  xl={18}
+                  xl={24}
                   xs={23}
                   sm={23}
-                  md={10}
+                  md={20}
                   lg={23}
                   xxl={24}
                   className=""
-                  style={{ textAlign: 'center', marginTop: '-20xp' }}
+                  style={{ textAlign: 'center', marginTop: '20xp' }}
                 >
                   <p> {numberFormatter(Amount)}</p>
                 </Col>
               </b>
               <b>
                 <Col
-                  xl={20}
+                  xl={24}
                   xs={23}
                   sm={23}
-                  md={10}
+                  md={20}
                   lg={23}
                   xxl={24}
                   className=""
@@ -139,7 +139,7 @@ export function SalesPaymentCard({ percentOfTotal, icon, backgroundColor, desc, 
                 </Col>
               </b>
               <b>
-                <Col xl={18} xs={23} sm={23} md={10} lg={23} xxl={22} className="" style={{ textAlign: 'center' }}>
+                <Col xl={24} xs={23} sm={23} md={20} lg={23} xxl={24} className="" style={{ textAlign: 'center' }}>
                   <p> {numberFormatter(percentOfTotal)}</p>
                 </Col>
               </b>

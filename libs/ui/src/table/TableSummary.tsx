@@ -15,11 +15,19 @@ function TableSummary({ data, columns, filteredData }: TTableSummary) {
         const total = sumBy(dataToCalculate, (item) => item?.[dataIndex]);
         const average = meanBy(dataToCalculate, (item) => item?.[dataIndex]);
         const count = _.size(_.filter(dataToCalculate, (item) => item?.[dataIndex]));
-        
 
         return (
           <Table.Summary.Cell key={index + '' + dataIndex} index={index}>
-            <b>{col?.showTotal ? numberFormatter(total) : col?.showAverage ? numberFormatter(average) : col?.showCount ? numberFormatter(count) : null}</b>
+            <b style={{ display: 'flex', justifyContent: 'end', marginRight: '10%' }}>
+              {col?.showTotal
+                ? numberFormatter(total)
+                : col?.showAverage
+                ? numberFormatter(average)
+                : col?.showCount
+                ? numberFormatter(count)
+                : null}
+            </b>
+            {/* <b>{col?.showTotal ? numberFormatter(total) : col?.showAverage ? numberFormatter(average) : col?.showCount ? numberFormatter(count) : null}</b> */}
           </Table.Summary.Cell>
         );
       })}

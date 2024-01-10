@@ -89,7 +89,7 @@ function SalesAnalyticalCriteria({ refetch, form }: any) {
                 />
               </Col>
 
-              <Col xl={3} xs={10} sm={8} md={10} lg={5} xxl={3} className="btn-margin-top">
+              <Col xl={3} xs={10} sm={8} md={5} lg={5} xxl={3} className="btn-margin-top">
                 <AntButton
                   label={t('show')}
                   htmlType="submit"

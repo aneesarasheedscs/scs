@@ -6,30 +6,30 @@ import { Space } from 'antd';
 
 export const columnsCashBalance = (t: any): AntColumnType<TCashBalance>[] => [
   {
-    title: <>{t('sr#')}</>,
+    title: t('sr#'),
     dataIndex: '',
     width: 80,
     render: (_, __, index) => index + 1,
   },
   {
-    title: <> {t('type')}</>,
+    title: t('type'),
     dataIndex: 'DocumentTypeCode',
     width: 70,
   },
   {
-    title: <>{t('v.code')}</>,
+    title: t('v.code'),
     dataIndex: 'VoucherCode',
     width: 70,
   },
   {
-    title: <>{t('date')}</>,
+    title: t('date'),
     dataIndex: 'voucherdate',
     width: 120,
     render: (_, { voucherdate }) => formateDate(voucherdate),
   },
   {
     width: 120,
-    title: <>{t('amount')}</>,
+    title: t('amount'),
     dataIndex: 'DebitAmount',
     showTotal: true,
     render: (DebitAmount, record) => (
@@ -37,18 +37,18 @@ export const columnsCashBalance = (t: any): AntColumnType<TCashBalance>[] => [
     ),
   },
   {
-    title: <>{t('receive_from')}</>,
+    title: t('receive_from'),
     dataIndex: 'OffsetAccountTitle',
     width: 220,
   },
   {
-    title: <>{t('cash_account')}</>,
+    title: t('cash_account'),
     dataIndex: 'AccountTitle',
     width: 150,
   },
 
   {
-    title: <>{t('attachments')}</>,
+    title: t('attachments'),
     dataIndex: 'NoOfAttachments',
     width: 120,
   },
@@ -56,7 +56,7 @@ export const columnsCashBalance = (t: any): AntColumnType<TCashBalance>[] => [
 
 export const columnsCashPayment = (t: any): AntColumnType<TCashPayment>[] => [
   {
-    title: <>{t('sr#')}</>,
+    title: t('sr#'),
     dataIndex: '',
     width: 85,
 
@@ -64,30 +64,30 @@ export const columnsCashPayment = (t: any): AntColumnType<TCashPayment>[] => [
   },
   {
     width: 70,
-    title: <>{t('v.code')}</>,
+    title: t('v.code'),
     searchableDate: true,
     dataIndex: 'DocumentTypeCode',
   },
   {
     width: 70,
     // searchableInput: true,
-    title: <>{t('v.code')}</>,
+    title: t('v.code'),
     dataIndex: 'VoucherCode',
   },
   {
-    title: <>{t('date')}</>,
+    title: t('date'),
     dataIndex: 'voucherdate',
     width: 120,
     render: (_, { voucherdate }) => formateDate(voucherdate),
   },
 
   {
-    title: <>{t('paid_to')}</>,
+    title: t('paid_to'),
     dataIndex: 'OffsetAccountTitle',
     width: 150,
   },
   {
-    title: <>{t('amount')}</>,
+    title: t('amount'),
     dataIndex: 'DebitAmount',
     width: 150,
     showTotal: true,
@@ -107,7 +107,7 @@ export const columnsCashPayment = (t: any): AntColumnType<TCashPayment>[] => [
   },
 
   {
-    title: <>{t('attachments')}</>,
+    title: t('attachments'),
     dataIndex: 'NoOfAttachments',
     width: 120,
   },

@@ -7,10 +7,10 @@ import { TActivitySummary } from './types';
 
 export const Columns = (t: any, handleAccountCodeClick: any): AntColumnType<TActivitySummary>[] => {
   return [
-    { title: <>{t('sr#')}</>, dataIndex: '', width: 70, render: (_, __, index) => index + 1 },
+    { title: t('sr#'), dataIndex: '', width: 70, render: (_, __, index) => index + 1 },
     {
       width: 150,
-      title: <>{t('account_code')}</>,
+      title: t('account_code'),
       dataIndex: 'AccountCode',
       render: (_, { AccountCode, AccountId }) => (
         <>
@@ -21,14 +21,14 @@ export const Columns = (t: any, handleAccountCodeClick: any): AntColumnType<TAct
     {
       width: 300,
       searchableInput: true,
-      title: <>{t('account_title')}</>,
+      title: t('account_title'),
       dataIndex: 'AccountTitle',
       sortDirections: ['ascend', 'descend'],
       sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
     },
     {
       width: 200,
-      title: <>{t('opening')}</>,
+      title: t('opening'),
       dataIndex: 'Opening',
       showTotal: true,
       render: (Opening, recorde) => (
@@ -37,7 +37,7 @@ export const Columns = (t: any, handleAccountCodeClick: any): AntColumnType<TAct
     },
     {
       width: 200,
-      title: <>{t('debit')}</>,
+      title: t('debit'),
       dataIndex: 'Debit',
       showTotal: true,
       render: (Debit, recorde) => (
@@ -46,7 +46,7 @@ export const Columns = (t: any, handleAccountCodeClick: any): AntColumnType<TAct
     },
     {
       width: 200,
-      title: <>{t('credit')}</>,
+      title: t('credit'),
       dataIndex: 'Credit',
       showTotal: true,
       render: (Credit, recorde) => (
@@ -55,7 +55,7 @@ export const Columns = (t: any, handleAccountCodeClick: any): AntColumnType<TAct
     },
     {
       width: 200,
-      title: <>{t('closing')}</>,
+      title: t('closing'),
       dataIndex: 'Closing',
       showTotal: true,
       render: (Closing, record) => (

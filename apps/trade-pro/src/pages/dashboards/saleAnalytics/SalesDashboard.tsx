@@ -176,7 +176,7 @@ const SalesDashboard = () => {
               </Space>
             </Col>
 
-            <Col xl={18} xs={23} sm={23} md={10} lg={23} xxl={20} style={{ marginTop: '10px' }}>
+            <Col xl={18} xs={23} sm={23} md={13} lg={23} xxl={20} style={{ marginTop: '10px' }}>
               <Typography.Title
                 level={4}
                 style={{
@@ -192,8 +192,8 @@ const SalesDashboard = () => {
               >
                 {t('sales_payment_term')}
               </Typography.Title>
-              <Row style={{ border: '1px solid red' }}>
-                <Col xl={18} xs={23} sm={23} md={10} lg={23} xxl={10}>
+              <Row>
+                <Col xl={18} xs={23} sm={23} md={24} lg={23} xxl={12}>
                   {' '}
                   <Space direction="horizontal" className="space-vertical">
                     {map(filteredSalesPaymentTerms, (card: any, index: any) => (
@@ -213,7 +213,7 @@ const SalesDashboard = () => {
                   xl={18}
                   xs={23}
                   sm={23}
-                  md={10}
+                  md={24}
                   lg={23}
                   xxl={5}
                   style={{ marginLeft: '30px', marginTop: '15px', marginBottom: '15px' }}
@@ -239,14 +239,14 @@ const SalesDashboard = () => {
               </Typography.Title>
 
               <Row gutter={[24, 24]}>
-                <Col xl={18} xs={23} sm={23} md={10} lg={23} xxl={12} style={{ marginTop: '-5px', marginLeft: '2%' }}>
+                <Col xl={18} xs={23} sm={23} md={24} lg={23} xxl={12} style={{ marginTop: '-5px' }}>
                   <ParentCategoryChart data={data} />
                 </Col>
                 <Col
                   xl={{ span: 18, offset: 1 }}
                   xs={23}
                   sm={23}
-                  md={10}
+                  md={24}
                   lg={23}
                   xxl={11}
                   style={{ marginTop: '30px', marginLeft: '0%' }}
@@ -273,10 +273,10 @@ const SalesDashboard = () => {
                 {t('sales_by_items')}
               </Typography.Title>
               <Row>
-                <Col xxl={22} xl={24} style={{ marginTop: '-10px', marginLeft: '0%' }}>
+                <Col xxl={22} xl={24} md={24} xs={24} style={{ marginTop: '-10px', marginLeft: '0%' }}>
                   <SaleByItemChart data={data} />
                 </Col>
-                <Col xxl={18} xl={16} style={{ marginTop: '20px', marginLeft: '10%' }}>
+                <Col xxl={18} xl={16} md={24} xs={24} style={{ marginTop: '20px', marginLeft: '10%' }}>
                   <SaleByItemTable data={data} />
                 </Col>
               </Row>
@@ -298,10 +298,10 @@ const SalesDashboard = () => {
                 {t('sales-by-branch')}
               </Typography.Title>
               <Row>
-                <Col xl={11} style={{ marginTop: '0px', marginLeft: '-10%' }}>
+                <Col xl={11} xxl={11} xs={24} lg={24} md={24} style={{ marginTop: '0px', marginLeft: '-10%' }}>
                   <SaleByBranchChart2 data={data} />
                 </Col>
-                <Col xl={14} style={{ marginTop: '7%', marginLeft: '5%' }}>
+                <Col xl={14} xxl={14} xs={24} lg={24} md={24} style={{ marginTop: '7%', marginLeft: '2%' }}>
                   <SaleBybranchTable data={data} />
                 </Col>
               </Row>
