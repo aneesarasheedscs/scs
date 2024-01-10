@@ -1,4 +1,4 @@
-import { Card, Col, Row, Badge } from 'antd';
+import { Card, Col, Row, Badge, Image } from 'antd';
 import { SortAscendingOutlined, SortDescendingOutlined, HeartFilled } from '@ant-design/icons';
 import React, { useState } from 'react';
 import dayjs from 'dayjs';
@@ -139,18 +139,10 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
                           }}
                         >
                           <div>
-                            {/* <img className="Img" src={dataUrl} style={{ width: '6rem', height: '6rem' }}></img> */}
-                            {/* <img
+                            <Image
                               className="Img"
-                              src={`data:image/png;base64,${logoimage}`}
+                              src={'data:image/jpeg;base64,' + selectedCardData?.CompLogoImage}
                               style={{ width: '6rem', height: '6rem' }}
-                              // alt="Company Logo"
-                            /> */}
-                            <img
-                              className="Img"
-                              src={dataUrl}
-                              style={{ width: '6rem', height: '6rem' }}
-                              // alt="Company Logo"
                             />
                           </div>
                         </div>

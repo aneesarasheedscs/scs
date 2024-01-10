@@ -8,19 +8,18 @@ function PurchaseOrderStatus() {
   return (
     <>
       <Card style={{ marginBottom: 5 }}>
-        <Row gutter={10}>
+        <Row gutter={6}>
           {map(purchaseOrderStatus?.data?.Data?.Result, (heading, index) => (
             <Col xl={6} xs={6} key={index}>
               <Card
                 className="purchase-cards"
                 cover={
-                  <h3>
-                    <span>{heading.Activity}</span>
+                  <h3 style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span className="purchase_span">{heading.Activity}</span>
+                    <span className="purchase_span_status">{heading.OrderStatus}</span>
                   </h3>
                 }
-              >
-                <h3 style={{ fontSize: 20, textAlign: 'center' }}>{heading.OrderStatus}</h3>
-              </Card>
+              ></Card>
             </Col>
           ))}
         </Row>

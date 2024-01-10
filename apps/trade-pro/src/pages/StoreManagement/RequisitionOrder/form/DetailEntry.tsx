@@ -385,7 +385,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
 
   return (
     <>
-      <Row gutter={[10, 10]} style={{ marginTop: '-1%' }}>
+      <Row gutter={[10, 10]} style={{ marginTop: '0%' }}>
         <Col xs={24} sm={24} md={24} lg={{ span: 24 }} xl={{ span: 24 }}>
           <Card style={{ boxShadow: '2px 4px 12px 1px gray', paddingTop: '-15%' }}>
             <Form.List name="WsRmRequisitionPoDetailsList" initialValue={[initialValues]}>
@@ -403,7 +403,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         md={{ span: 12 }}
                         lg={{ span: 12 }}
                         xl={{ span: 8 }}
-                        xxl={{ span: 9 }}
+                        xxl={{ span: 8 }}
                         className="formfield"
                         style={{ marginTop: 15 }}
                       >
@@ -427,7 +427,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         md={{ span: 11 }}
                         lg={{ span: 11 }}
                         xl={{ span: 5 }}
-                        xxl={{ span: 5 }}
+                        xxl={{ span: 3 }}
                         className="formfield"
                         style={{ marginTop: 15 }}
                       >
@@ -453,7 +453,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                           <AntInput
                             bordered={false}
                             readOnly
-                            label={t('base_pack_uom')}
+                            label={t('pack_uom')}
                             formItemProps={{ ...field, name: [field.name, 'PackUom'] }}
                             disabled={disablefields}
                           />
@@ -466,7 +466,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         md={{ span: 11 }}
                         lg={{ span: 11 }}
                         xl={{ span: 4 }}
-                        xxl={{ span: 5 }}
+                        xxl={{ span: 4 }}
                         className="formfield"
                         style={{ marginTop: 15 }}
                       >
@@ -486,8 +486,8 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         sm={{ span: 20 }}
                         md={{ span: 12 }}
                         lg={{ span: 12 }}
-                        xl={{ span: 7 }}
-                        xxl={{ span: 7 }}
+                        xl={{ span: 8 }}
+                        xxl={{ span: 4 }}
                         className="formfield"
                         style={{ marginTop: 15 }}
                       >
@@ -506,8 +506,8 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         sm={{ span: 20 }}
                         md={{ span: 11 }}
                         lg={{ span: 11 }}
-                        xl={{ span: 7 }}
-                        xxl={{ span: 7 }}
+                        xl={{ span: 5 }}
+                        xxl={{ span: 4 }}
                         className="formfield"
                         style={{ marginTop: 15 }}
                       >
@@ -526,10 +526,10 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         sm={{ span: 20 }}
                         md={{ span: 12 }}
                         lg={{ span: 12 }}
-                        xl={{ span: 4 }}
+                        xl={{ span: 5 }}
                         xxl={{ span: 4 }}
                         className="formfield"
-                        style={{ marginTop: 15 }}
+                        style={{ marginTop: 15, marginLeft: '-1%' }}
                       >
                         <p>
                           <AntInputNumber
@@ -548,15 +548,15 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         md={{ span: 11 }}
                         lg={{ span: 11 }}
                         xl={{ span: 4 }}
-                        xxl={{ span: 5 }}
+                        xxl={{ span: 3 }}
                         className="formfield"
-                        style={{ marginTop: 15 }}
+                        style={{ marginTop: 15, marginLeft: '-1%' }}
                       >
                         <p>
                           <AntInputNumber
                             bordered={false}
                             readOnly
-                            label={t('request_amount')}
+                            label={t('amount')}
                             formItemProps={{ ...field, name: [field.name, 'ReqAmount'] }}
                             disabled={disablefields}
                           />
@@ -569,14 +569,23 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         md={{ span: 18 }}
                         lg={{ span: 18 }}
                         xl={{ span: 15 }}
-                        xxl={{ span: 14 }}
+                        xxl={{ span: 8 }}
                         className="formfield"
+                        style={{ marginTop: 15, marginLeft: '-1%' }}
                       >
-                        <AntInput
-                          bordered={false}
-                          label={t('remarks')}
-                          formItemProps={{ ...field, name: [field.name, 'RemarksDetail'] }}
-                        />
+                        <p>
+                          <AntInput
+                            bordered={false}
+                            label={t('remarks')}
+                            style={{
+                              borderBottom: '1px solid gray',
+                              width: '103%',
+                              borderRadius: '0px',
+                              marginTop: '0.6%',
+                            }}
+                            formItemProps={{ ...field, name: [field.name, 'RemarksDetail'] }}
+                          />
+                        </p>
                       </Col>
                       <Col
                         xs={{ span: 24 }}
@@ -584,7 +593,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         md={{ span: 4 }}
                         lg={{ span: 4 }}
                         xl={{ span: 8 }}
-                        xxl={{ span: 9 }}
+                        xxl={{ span: 4 }}
                       >
                         <Row style={{ marginTop: '0%' }} gutter={10}>
                           <Col
@@ -593,7 +602,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                             md={{ span: 20 }}
                             lg={{ span: 20 }}
                             xl={{ span: 6 }}
-                            xxl={4}
+                            xxl={7}
                           >
                             <AntButton
                               style={{ marginTop: 15 }}
@@ -607,7 +616,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                             md={{ span: 20 }}
                             lg={{ span: 20 }}
                             xl={{ span: 6 }}
-                            xxl={4}
+                            xxl={7}
                           >
                             <AntButton
                               ghost
@@ -630,14 +639,12 @@ const DynamicForm = ({ form }: TDynamicForm) => {
 
           <Row gutter={[16, 16]} style={{ marginTop: 10 }}>
             <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }}>
-              <Card style={{ boxShadow: '2px 4px 12px 1px gray', textAlign: 'left' }}>
-                <AntTable
-                  numberOfSkeletons={12}
-                  scroll={{ x: '', y: convertVhToPixels('20vh') }}
-                  data={tableData || []}
-                  columns={columns(t, handleDeleteRow, handleEditRow)}
-                />
-              </Card>
+              <AntTable
+                numberOfSkeletons={12}
+                scroll={{ x: '', y: convertVhToPixels('20vh') }}
+                data={tableData || []}
+                columns={columns(t, handleDeleteRow, handleEditRow)}
+              />
             </Col>
           </Row>
           <br />

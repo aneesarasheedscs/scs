@@ -117,8 +117,8 @@ const GdnRegisterTable = lazy(() => import('@tradePro/pages/SaleReports/goodsDis
 
 const EmployeeRegistration = lazy(() => import('@tradePro/pages/hmrs/employeeRegistration'));
 const AppMenu = lazy(() => import('@tradePro/pages/MainMenu'));
-const ShiftTimingDefine = lazy(() => import('@tradePro/pages/shift-timing-define/defineTiming'));
-const DutyRoasterForm = lazy(() => import('@tradePro/pages/HRM'));
+const ShiftTimingDefine = lazy(() => import('@tradePro/pages/hmrs/shiftTimingDefine'));
+const DutyRoaster = lazy(() => import('@tradePro/pages/hmrs/dutyRoaster'));
 const RoadMap = lazy(() => import('@tradePro/pages/roadMap'));
 const DefineDivision = lazy(() => import('@tradePro/pages/defineDivision'));
 
@@ -233,7 +233,7 @@ export const protectedRoutes: RouteObject[] = [
   { path: route.DEFINE_DIVISION, element: <DefineDivision /> },
   { path: route.SHIFT_TIMING_DEFINE, element: <ShiftTimingDefine /> },
   { path: route.DISTRICT, element: <RoadMap /> },
-  { path: route.DUTY_ROASTER, element: <DutyRoasterForm /> },
+  { path: route.DUTY_ROASTER, element: <DutyRoaster /> },
   { path: route.EMPLOYEE_REGISTRATION, element: <EmployeeRegistration /> },
 ];
 

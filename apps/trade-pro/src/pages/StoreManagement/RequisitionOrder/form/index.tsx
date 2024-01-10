@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import DocNumber from './DocNumber';
 import MainEntry from './MainEntry';
-import { AntButton } from '@tradePro/components';
+import { AntButton, AntDatePicker } from '@tradePro/components';
 import { Card, Col, Form, Input, Row, notification } from 'antd';
-import { SaveOutlined, SyncOutlined } from '@ant-design/icons';
+import { SaveOutlined, SyncOutlined, RedoOutlined, PrinterFilled, PaperClipOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
-import { isNumber, merge } from 'lodash';
 import DynamicForm from './DetailEntry';
 import dayjs from 'dayjs';
 import { useAddRequisitionOrder, useGetDocumentNumber, useUpdateRequisitionOrder } from '../quries';
@@ -25,6 +24,7 @@ function RequisitionOrderForm({
 }: TAddUpdateRecord) {
   const [form] = useForm<TRequisitionOrder>();
   const DocumentTypeId = 105;
+  const [printPreview, setPrintPreview] = useState(true);
 
   const { data, isError, refetch, isLoading, isSuccess } = useGetDocumentNumber(DocumentTypeId);
   const [delettableData, setDeleteTableData] = useAtom(deleteData);
@@ -32,9 +32,19 @@ function RequisitionOrderForm({
 
   const { t } = useTranslation();
   const [tableData, setTableData] = useAtom(addtableData);
-  const { mutate: addRequisitionOrder } = useAddRequisitionOrder(DocumentTypeId);
-  const { mutate: updateRequisitionOrder } = useUpdateRequisitionOrder(selectedRecordId, DocumentTypeId);
+  const {
+    mutate: addRequisitionOrder,
+    isSuccess: successAdd,
+    data: addRequisition,
+  } = useAddRequisitionOrder(DocumentTypeId);
+  const {
+    mutate: updateRequisitionOrder,
+    isSuccess: successUpdate,
+    data: updateRequistion,
+  } = useUpdateRequisitionOrder(selectedRecordId, DocumentTypeId);
   const onFinish = (values: TRequisitionOrder) => {
+    values.PrintPreview = printPreview;
+
     if (selectedRecordId) {
       const Ids = tableData?.map((item: any) => item.Id);
       console.log(Ids);
@@ -82,18 +92,26 @@ function RequisitionOrderForm({
       addRequisitionOrder(values);
       console.log(values);
     }
-    setTableData([]);
-    setSelectedRecordId(null);
-    setDeleteTableData([]);
-    setNewTableData([]);
+    if (successAdd && addRequisition?.data?.Status === true) {
+      setTableData([]);
+      setSelectedRecordId(null);
+      setDeleteTableData([]);
+      setNewTableData([]);
+      form.setFieldValue('DocDate', dayjs(new Date()));
+      form.setFieldValue('RemarksHeader', null);
+    }
+    if (successUpdate && updateRequistion?.data?.Status === true) {
+      setTableData([]);
+      setSelectedRecordId(null);
+      setDeleteTableData([]);
+      setNewTableData([]);
+      form.setFieldValue('DocDate', dayjs(new Date()));
+      form.setFieldValue('RemarksHeader', null);
+    }
   };
 
   useEffect(() => {
-    // if (isNumber(selectedRecordId)) {
-    //   refetchReqesition();
-    // }
     if (selectedRecordId) {
-      // refetchReqesition();
       setDeleteTableData([]);
     }
   }, [selectedRecordId]);
@@ -121,63 +139,83 @@ function RequisitionOrderForm({
   useEffect(() => {
     if (isSuccess) form.setFieldValue('DocNo', data?.data?.Data?.Result);
   }, [data, isSuccess]);
+  const handleButtonClick = () => {
+    setPrintPreview(!printPreview);
+    console.log(printPreview);
+  };
+
+  const handleResetForm = () => {
+    setSelectedRecordId(null);
+    setTableData([]);
+    refetch();
+    form.setFieldValue('DocDate', dayjs(new Date()));
+    form.setFieldValue('RemarksHeader', null);
+  };
   return (
     <>
       <Card>
         <Form form={form} onFinish={onFinish} layout="horizontal" style={{ marginBottom: 20 }}>
-          <Card className="grn-card">
-            <Row align="middle" justify="space-between" style={{ marginLeft: 10, marginRight: 60 }}>
-              <Col>
-                <Row gutter={10} align="middle">
-                  <Col style={{ fontSize: 18 }}> {t('document_no')}</Col>
+          <Row justify="space-between" style={{ marginLeft: 10, marginRight: 10 }}>
+            <Col xxl={8} xl={9} lg={12} style={{ marginTop: '0.5%' }}>
+              <Row gutter={10} align="middle" style={{ border: '' }} justify={'space-between'}>
+                <Col>
+                  <b style={{ fontSize: 18 }}> {t('document_no')}</b> &nbsp;
+                  <DocNumber
+                    isError={isError}
+                    refetch={refetch}
+                    isLoading={isLoading}
+                    data={isDataSuccess ? requisitionById?.data?.Data?.Result?.DocNo : data?.data?.Data?.Result}
+                  />
+                  <Form.Item name="DocNo" style={{ display: 'none' }}>
+                    <Input />
+                  </Form.Item>
+                </Col>
+                <Col xl={15} xxl={15} sm={18} lg={15} xs={23} md={15} className="formfield">
+                  <AntDatePicker autoFocus required name="DocDate" label={t('document_date')} bordered={false} />
+                </Col>
+              </Row>
+            </Col>
+
+            <Col
+              style={{
+                marginTop: '0%',
+              }}
+            >
+              <Form.Item>
+                <Row align="middle" gutter={10} style={{ marginTop: '1%' }}>
                   <Col>
-                    <DocNumber
-                      isError={isError}
-                      refetch={refetch}
-                      isLoading={isLoading}
-                      data={isDataSuccess ? requisitionById?.data?.Data?.Result?.DocNo : data?.data?.Data?.Result}
+                    <AntButton
+                      title="PrintPreview"
+                      onClick={handleButtonClick}
+                      icon={<PrinterFilled />}
+                      style={{ backgroundColor: printPreview ? 'lightgreen' : 'red' }}
                     />
-                    <Form.Item name="DocNo" style={{ display: 'none' }}>
-                      <Input />
-                    </Form.Item>
+                  </Col>
+                  <Col>
+                    <AntButton title="Attachment" label={'(0)'} icon={<PaperClipOutlined />} />
+                  </Col>
+
+                  <Col>
+                    <AntButton danger ghost label={t('reset')} onClick={handleResetForm} icon={<SyncOutlined />} />
+                  </Col>
+                  <Col>
+                    <AntButton danger ghost label={t('referesh')} icon={<RedoOutlined />} />
+                  </Col>
+                  <Col>
+                    <AntButton
+                      ghost
+                      label={selectedRecordId ? t('update') : t('save')}
+                      htmlType="submit"
+                      icon={<SaveOutlined />}
+                    />
                   </Col>
                 </Row>
-              </Col>
+              </Form.Item>
+            </Col>
+          </Row>
 
-              <Col>
-                <Form.Item>
-                  <Row align="middle" gutter={10}>
-                    <Col>
-                      <AntButton
-                        danger
-                        ghost
-                        // htmlType="reset"
-                        label={t('reset')}
-                        onClick={() => {
-                          setSelectedRecordId(null);
-                          setTableData([]);
-                          refetch();
-                        }}
-                        icon={<SyncOutlined />}
-                      />
-                    </Col>
-
-                    <Col>
-                      <AntButton
-                        ghost
-                        label={selectedRecordId ? t('update') : t('save')}
-                        htmlType="submit"
-                        icon={<SaveOutlined />}
-                      />
-                    </Col>
-                  </Row>
-                </Form.Item>
-              </Col>
-            </Row>
-
-            <MainEntry form={form} />
-            <DynamicForm form={form} />
-          </Card>
+          <MainEntry form={form} />
+          <DynamicForm form={form} />
         </Form>
       </Card>
     </>

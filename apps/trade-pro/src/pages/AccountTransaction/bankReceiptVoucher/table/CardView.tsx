@@ -131,7 +131,7 @@ const CardView: React.FC<{}> = () => {
                             <img
                               className="Img"
                               // src={voucherData?.data?.Data?.Result?.[0]?.CompLogoImage}
-                              src={'data:image/png;base64,' + selectedCardData?.CompLogoImage}
+                              src={selectedCardData?.CompLogoImage}
                               style={{ width: '6rem', height: '6rem' }}
                             ></img>
                           </div>

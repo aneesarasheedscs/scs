@@ -1,17 +1,8 @@
-// function EmployeeRegistration() {
-//   return <div>EmployeeRegistration</div>;
-// }
-
-// export default EmployeeRegistration;
-
 import React, { useState } from 'react';
 import { Tabs, theme } from 'antd';
-// import HistoryTable from './ItemHistoryTable';
-import FormFile from './Form';
-// import './style.scss';
 import { useTranslation } from 'react-i18next';
-import PurchaseInvoiceForm from './form copy';
-import EmployeeRegistrationForm from './form copy';
+import EmployeeRegistrationForm from './Form';
+import EmployeeHistory from './History';
 
 const { useToken } = theme;
 
@@ -26,8 +17,7 @@ function EmployeeRegistration() {
   return (
     <>
       <h2 className="form-heading" style={{ marginBottom: 5 }}>
-        {/* {t('define_item')} */}
-        Employee Registration
+        {t('employee_registration')}
       </h2>
 
       <Tabs
@@ -38,11 +28,10 @@ function EmployeeRegistration() {
         onChange={(key) => setActiveTab(key)}
       >
         <Tabs.TabPane key="1" tab={t('history')}>
-          {/* <HistoryTable setSelectedRecordId={setSelectedRecordId} setActiveTab={setActiveTab} /> */}
+          <EmployeeHistory />
         </Tabs.TabPane>
         <Tabs.TabPane key="2" tab={t('form')}>
-          {/* <EmployeeRegistrationForm /> */}
-          {/* <FormFile selectedRecordId={selectedRecordId} /> */}
+          <EmployeeRegistrationForm />
         </Tabs.TabPane>
       </Tabs>
     </>

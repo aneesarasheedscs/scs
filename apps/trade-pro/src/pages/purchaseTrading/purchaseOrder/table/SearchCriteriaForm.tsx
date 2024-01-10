@@ -105,7 +105,7 @@ function SearchCriteria() {
             <AntButton
               label={t('show')}
               htmlType="submit"
-              style={{ marginTop: 4 }}
+              style={{ marginTop: 2 }}
               isError={isPurchaseOrderError}
               isLoading={isPurchaseOrderLoading || isFetching}
             />

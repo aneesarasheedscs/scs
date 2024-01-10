@@ -13,7 +13,7 @@ export const detailColumns = (t?: any): AntColumnType<DataType>[] => [
   },
   {
     title: <>{t('job_lot')}</>,
-    width: 300,
+    width: 200,
     dataIndex: 'JobLotDescription',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
@@ -21,27 +21,29 @@ export const detailColumns = (t?: any): AntColumnType<DataType>[] => [
   },
   {
     title: <>{t('debit_amount')}</>,
-    width: 280,
+    width: 200,
     showTotal: true,
     dataIndex: 'DebitAmount',
     sorter: (a, b) => a.DebitAmount - b.DebitAmount,
     render: (_, { DebitAmount }) => (
-      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(DebitAmount)}</span>
+      <span style={{ display: 'flex', justifyContent: 'end', marginRight: '15%' }}>{numberFormatter(DebitAmount)}</span>
     ),
   },
   {
     title: <>{t('credit_amount')}</>,
-    width: 280,
+    width: 200,
     showTotal: true,
     dataIndex: 'CreditAmount',
     sorter: (a, b) => a.CreditAmount - b.CreditAmount,
     render: (_, { CreditAmount }) => (
-      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(CreditAmount)}</span>
+      <span style={{ display: 'flex', justifyContent: 'end', marginRight: '15%' }}>
+        {numberFormatter(CreditAmount)}
+      </span>
     ),
   },
   {
     title: <>{t('remarks')}</>,
-    width: 300,
+    width: 260,
     dataIndex: 'Comments',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],

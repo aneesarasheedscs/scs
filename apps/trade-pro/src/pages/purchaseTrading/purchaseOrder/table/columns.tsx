@@ -4,10 +4,14 @@ import { AntColumnType } from '@tradePro/globalTypes';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { Tooltip } from 'antd';
-import { EditFilled } from '@ant-design/icons';
 import { AntButton } from '@tradePro/components';
+import { EditFilled } from '@ant-design/icons';
 
-export const columns = (t?: any): AntColumnType<TPurchaseOrderHistory>[] => [
+export const columns = (
+  t?: any,
+  setSelectedRecordId?: any,
+  setActiveTab?: any
+): AntColumnType<TPurchaseOrderHistory>[] => [
   { title: <>{t('order_no')}</>, dataIndex: 'OrderNo', width: 150 },
   {
     width: 150,
@@ -47,7 +51,7 @@ export const columns = (t?: any): AntColumnType<TPurchaseOrderHistory>[] => [
     sorter: (a, b) => a.ItemName.localeCompare(b.ItemName),
   },
   {
-    title: <>{t('base_pack_uom')}</>,
+    title: <>{t('pack_uom')}</>,
     searchableInput: true,
     dataIndex: 'BaseUom',
     width: 180,
@@ -143,7 +147,7 @@ export const columns = (t?: any): AntColumnType<TPurchaseOrderHistory>[] => [
           type="text"
           icon={<EditFilled style={{ color: 'black' }} />}
           onClick={() => {
-            // setSelectedRecordId(record?.Id), setActiveTab('2');
+            setSelectedRecordId(record?.Id), setActiveTab('2');
           }}
         />
       </Tooltip>

@@ -66,9 +66,8 @@ const Tablefile: React.FC<{ selectedRecordId?: number | any; stockTransfer: any 
                 {t('amount')}
               </div>
             </div>
-
-            {mainDataSourc?.map((item: TWsRmStockTransferNotesDetailsList | any) => (
-              <div>
+            {mainDataSourc?.map((item: TWsRmStockTransferNotesDetailsList | any, index: number) => (
+              <div className={`table-data ${index % 2 === 0 ? '' : 'alternate'}`} key={index}>
                 <div className="table-Row">
                   <div
                     className="Account"

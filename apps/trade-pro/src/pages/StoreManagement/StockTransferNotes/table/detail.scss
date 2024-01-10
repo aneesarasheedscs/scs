@@ -8,6 +8,9 @@ $background-color-company_info: #e1e1e1;
   transition: all 0.8s linear;
   width: 150%;
 }
+.table-data:nth-child(odd) {
+  background-color: rgb(236, 234, 234); /* Change this color as needed */
+}
 .caption-value-wrape {
   padding: 0px 20px;
   display: flex;

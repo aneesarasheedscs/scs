@@ -37,9 +37,14 @@ function StockTransferTable({
           <h2 className="form-heading2">
             <Row gutter={10} style={{ display: 'flex' }}>
               <div style={{ display: 'flex' }}>
-                <AntButton onClick={toggleGridView} className="btn" label="Grid View" />
+                <AntButton onClick={toggleGridView} className="btn" label={t('grid_view')} />
 
-                <AntButton onClick={toggleCardView} className="btn" label="Card View" style={{ marginLeft: '2%' }} />
+                <AntButton
+                  onClick={toggleCardView}
+                  className="btn"
+                  label={t('card_view')}
+                  style={{ marginLeft: '2%' }}
+                />
               </div>
             </Row>
           </h2>

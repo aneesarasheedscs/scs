@@ -81,39 +81,55 @@ body {
 }
 //Purchase Order CSS***************************
 .purchase-cards h3 {
-  margin: 15px 0px 0px 5px;
+  // margin: 15px 0px 0px 5px;
+  padding: 0px 5px 0px 5px;
   height: 100%;
 }
 .purchase-cards {
   box-shadow: 4px 4px 12px 1px #cde4fd;
-  background: linear-gradient(to bottom right, var(--color-primary), #ffff);
+  // background: linear-gradient(to bottom right, var(--color-primary), #ffff);
   height: 100%;
+  padding: 3px;
   transition: transform 0.2s;
   color: #272799;
+  border-top-right-radius: 2pc;
+  border-top-left-radius: 2pc;
 }
 .purchase-cards:hover {
   transform: scale(1.03);
   box-shadow: 4px 4px 12px 2px #cde4fd;
-  background: linear-gradient(to bottom right, var(--color-primary), #ffff);
+  // background: linear-gradient(to bottom right, var(--color-primary), #ffff);
 }
 .purchase-cards h3 {
-  margin-top: 10px;
+  // margin-top: 10px;
+  border-radius: 5pc;
+  box-shadow: 2px 2px 12px 1px #ffff;
+  background: linear-gradient(to bottom right, var(--color-primary), #ffff);
 }
 
-.purchase-cards h3 span {
+.purchase_span {
+  color: white;
+  border-radius: 5px;
+  padding: 8px;
+  height: 100%;
+}
+.purchase_span_status {
   color: #272799;
   border-radius: 5px;
   padding: 8px;
   height: 100%;
-
-  background-color: #ffff;
-  box-shadow: 2px 2px 12px 1px #ffff;
 }
 
 .formfield {
   border-bottom: 1px solid gray;
   padding: 0px;
   height: 38px;
+}
+.formfield2 {
+  border-bottom: 1px solid gray;
+  padding: 0px;
+  height: 35px;
+  margin-top: 10px;
 }
 //Sales Analytics****************
 .sales-cards {

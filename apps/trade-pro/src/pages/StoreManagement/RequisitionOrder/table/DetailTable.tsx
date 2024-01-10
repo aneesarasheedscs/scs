@@ -15,7 +15,6 @@ function RequisitionOrderDetailTable({ requisitionDetail, isDataLoadingDetail, r
     <div>
       <Row style={{ marginTop: '0.1%' }}>
         <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }} xxl={24}>
-          {/* <Card style={{ boxShadow: '2px 4px 12px 1px gray', textAlign: 'left' }}> */}
           <h2 className="form-heading3" style={{ marginTop: 0 }}>
             {t('detail')}
           </h2>
@@ -28,7 +27,6 @@ function RequisitionOrderDetailTable({ requisitionDetail, isDataLoadingDetail, r
             columns={detailColumns(t)}
             style={{ marginTop: 0 }}
           />
-          {/* </Card> */}
         </Col>
       </Row>
     </div>

@@ -1,4 +1,4 @@
-import { EditFilled, EyeOutlined, DeleteOutlined, PrinterOutlined } from '@ant-design/icons';
+import { EditFilled, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { AntButton } from '@tradePro/components';
 import { Space, Tooltip } from 'antd';
@@ -17,7 +17,6 @@ export const columns = (
     width: 120,
     searchableInput: true,
     dataIndex: 'VoucherCode',
-    sortDirections: ['ascend', 'descend'],
   },
   {
     title: <>{t('type')}</>,
@@ -55,9 +54,7 @@ export const columns = (
     dataIndex: 'VoucherAmount',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.VoucherAmount - b.VoucherAmount,
-    render: (_, { VoucherAmount }) => (
-      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(VoucherAmount)}</span>
-    ),
+    render: (_, { VoucherAmount }) => numberFormatter(VoucherAmount),
   },
   {
     title: <>{t('remarks')}</>,
@@ -110,7 +107,7 @@ export const columns = (
         {IsApproved ? 'Approved' : 'Not Approved'}
       </Space>
     ),
-    width: 120,
+    width: 130,
   },
   {
     title: <>{t('no_of_attachment')}</>,
@@ -137,15 +134,12 @@ export const columns = (
           <Space>
             <AntButton
               type="text"
-              icon={<EyeOutlined style={{ color: 'blue' }} />}
+              icon={<EyeOutlined style={{ color: 'blue', marginLeft: 4 }} />}
               onClick={() => {
                 setSelectedRecordId(record.Id);
               }}
             />
           </Space>
-          <Tooltip title="Print">
-            <AntButton type="text" icon={<PrinterOutlined style={{ color: 'red' }} />} />
-          </Tooltip>
         </Tooltip>
       </>
     ),
@@ -183,10 +177,7 @@ export const column2 = (t: any, handleDeleteRow: any, handleEditRow: any): AntCo
     dataIndex: 'DebitAmount',
     showTotal: true,
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.DebitAmount - b.DebitAmount,
-    render: (_, { DebitAmount }) => (
-      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(DebitAmount)}</span>
-    ),
+    render: (_, { DebitAmount }) => <span>{numberFormatter(DebitAmount)}</span>,
   },
   {
     title: <>{t('remarks')}</>,
@@ -199,18 +190,19 @@ export const column2 = (t: any, handleDeleteRow: any, handleEditRow: any): AntCo
   {
     title: <>{t('action')}</>,
     width: 120,
-    render: (_, record) => (
+    render: (_, record, index) => (
       <Tooltip title="Actions">
         <Space>
           <AntButton
             type="text"
-            icon={<EditFilled style={{ color: 'blue' }} />}
-            onClick={() => handleEditRow(record)}
+            icon={<DeleteOutlined style={{ color: 'red' }} />}
+            onClick={() => handleDeleteRow(record, index)}
           />
+
           <AntButton
             type="text"
-            icon={<DeleteOutlined style={{ color: 'red' }} />}
-            onClick={() => handleDeleteRow(record)}
+            icon={<EditFilled style={{ color: 'blue' }} />}
+            onClick={() => handleEditRow(record, index)}
           />
         </Space>
       </Tooltip>

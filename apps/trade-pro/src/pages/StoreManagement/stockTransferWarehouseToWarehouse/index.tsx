@@ -27,7 +27,6 @@ function StockTransfer() {
   }, [isDataSuccess]);
   return (
     <>
-      {/* <h2 className="form-heading"> {t('stock_transfer_warehouse_to_warehouse')} </h2> */}
       <h2 className="" style={{ textAlign: 'center' }}>
         {t('stock_transfer_warehouse_to_warehouse')}{' '}
       </h2>

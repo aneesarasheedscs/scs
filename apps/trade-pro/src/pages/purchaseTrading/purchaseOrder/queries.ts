@@ -4,7 +4,7 @@ import { requestManager } from '@tradePro/configs/requestManager';
 import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 import { TPurchaseOrderEntry, TPurchaseOrderSearchCriteria } from './type';
 import { notification } from 'antd';
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 
 const userDetail = storedUserDetail();
 const financialYear = storedFinancialYear();
@@ -22,7 +22,20 @@ export const useGetPurchaseOrder = (enabled = true, params?: TPurchaseOrderSearc
         ...params,
       });
     },
-    { enabled }
+    {
+      onSuccess: (response: AxiosResponse) => {
+        queryClient.invalidateQueries('stock_transfer_notes');
+        if (response?.data && response?.data?.Status === false) {
+          notification.error({
+            message: 'Error',
+            description: response?.data?.Message || 'An error occurred.',
+          });
+        } else if (response?.data && response?.data?.Status === true) {
+          // const msg = 'Success';
+          // notification.success({ description: '', message: msg });
+        }
+      },
+    }
   );
 };
 //Get PurchaseOrderStatus
@@ -100,7 +113,7 @@ export const useUpdatePurchaseOrder = (Id?: number | null, params?: TPurchaseOrd
     (data: TPurchaseOrderEntry) => {
       return requestManager.post('/api/PurchaseOrder/Save', {
         ...data,
-        Id: 0,
+        Id: Id,
         DocumentTypeId: 41,
         OrganizationId: userDetail?.OrganizationId,
         CompanyId: userDetail?.CompanyId,

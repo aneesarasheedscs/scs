@@ -57,7 +57,7 @@ function DetailList({ form }: TDynamicForm) {
                         <Row>
                           <Form.Item name={[field.name, 'ItemStatus']} valuePropName="checked" initialValue={false}>
                             <Checkbox onChange={(e) => handleCheckboxChange(e.target.checked, field.name.toString())}>
-                              {t('Is Active')}
+                              {t('is_active')}
                             </Checkbox>
                           </Form.Item>
                         </Row>

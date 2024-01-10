@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-// import DiscountTypeForm from './form/discountTypeForm';
-// import DiscountTypeTable from './table/DiscountTypeHistory';
 import { Card } from 'antd';
 import { useTranslation } from 'react-i18next';
 import DiscountCategoryForm from './form/DiscountCategoryForm';
@@ -12,7 +10,7 @@ function DiscountCategory() {
   const { t } = useTranslation();
   return (
     <>
-      <h2 className="form-heading"> Discount Category </h2>
+      <h2 className="form-heading"> {t('discount_category')} </h2>
       <Card>
         <DiscountCategoryForm selectedRecordId={selectedRecordId} setSelectedRecordId={setSelectedRecordId} />
         <DiscountCategoryHistory setSelectedRecordId={setSelectedRecordId} />

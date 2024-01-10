@@ -1,29 +1,37 @@
 $background-color-invoice: #5a54f9;
 $background-color-company_info: #e1e1e1;
-:root {
-  --color-primary: #5a54f9;
-}
+
 .main-voucher-design {
-  border: 1px solid;
+  border: 1px solid black;
   overflow-y: auto;
   overflow-x: hidden;
   transition: all 0.8s linear;
   width: 150%;
 }
+.table-data:nth-child(odd) {
+  background-color: rgb(236, 234, 234); /* Change this color as needed */
+}
 .caption-value-wrape {
   padding: 0px 20px;
   display: flex;
+  // border: 1px solid red;
+
   .caption {
     color: $background-color-invoice;
     padding-right: 14px;
     font-size: 15px;
     font-weight: 600;
+    width: 50%;
+    // border: 1px solid blue;
+
     @media screen and (max-width: 1250px) {
       font-size: 11px;
     }
   }
   .value {
     color: black;
+    width: 100%;
+    // border: 1px solid blue;
     @media screen and (max-width: 1250px) {
       font-size: 11px;
     }
@@ -50,9 +58,12 @@ $background-color-company_info: #e1e1e1;
 .Wrapper {
   display: flex;
   justify-content: space-between;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 .Detail-wrape {
   padding: 10px;
+
   .detail-title {
     color: White;
     background-color: #5a54f9;
@@ -70,7 +81,6 @@ $background-color-company_info: #e1e1e1;
 
 .Table {
   padding: 0;
-  // border: 1px solid #5A54F9;
   transition: all 0.8s linear;
 
   .table-header {
@@ -79,7 +89,7 @@ $background-color-company_info: #e1e1e1;
     color: white;
     font-size: 16px;
     font-weight: 700;
-    background-color: #5a54f9;
+    background-color: #8a86f7;
 
     .show-hide-icon {
       display: block;
@@ -143,7 +153,8 @@ $background-color-company_info: #e1e1e1;
       }
     }
     .offset_Account {
-      width: 20%;
+      width: 50%;
+      // border: 1px solid red;
       @media screen and (max-width: 1250px) {
         font-size: 12px;
       }
@@ -219,12 +230,13 @@ $background-color-company_info: #e1e1e1;
       .values {
         display: flex;
         padding: 5px;
-        background-color: #5a54f9;
+        background-color: #8a86f7;
         font-size: 16px;
         color: white;
         font-weight: 600;
         .total-caption {
           width: 68%;
+          padding: 0.4%;
           @media screen and (max-width: 1250px) {
             font-size: 11px;
           }
@@ -268,32 +280,7 @@ $background-color-company_info: #e1e1e1;
     font-size: 13px;
   }
 }
-// table {
-//   font-family: arial, sans-serif;
-//   border-collapse: collapse;
-//   width: 100%;
-//   transition: all 0.8s linear;
-// }
-// th {
-//   background-color: #5A54F9b0;
-//   color: white;
-//   font-size: 16px;
-//   padding: 6px 9px;
-//   @media screen and (max-width: 1250px) {
-//     font-size: 12px;
-//   }
-// }
-// td {
-//   border: 1px solid #dddddd;
-//   text-align: left;
-//   padding: 8px;
-//   // white-space: nowrap;
-//   overflow-x: hidden;
 
-//   @media screen and (max-width: 1250px) {
-//     font-size: 12px;
-//   }
-// }
 .arrow-btn {
   color: brown;
   padding: 0;
@@ -307,46 +294,45 @@ $background-color-company_info: #e1e1e1;
     width: 421px;
     margin: 16px 11px;
     color: #121212;
-    border: 3px solid #5a54f9;
+    border: 2px solid #5a54f9;
     .calculate-wrape {
       display: flex;
       padding: 3px;
       justify-content: space-between;
       .total-caption {
-        font-size: 21px;
+        font-size: 18px;
         font-weight: 600;
         font-family: inherit;
         font-family: none;
       }
       .total-value {
-        font-size: 21px;
-        padding: 0px 20px;
-        // color: white;
+        font-size: 18px;
+        padding: 0px 0px;
+        color: #121212;
         font-weight: 570;
         font-family: fangsong;
       }
     }
     .grand-total {
-      background-color: #5a54f9;
-      color: white;
+      color: #5a54f9;
       padding: 6px 10px;
     }
   }
 }
 .Footer {
-  background-color: #5a54f9;
+  border: 2px solid #5a54f9;
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   .Thanks {
-    background-color: #5a54f9;
+    color: #5a54f9;
     font-size: 22px;
     padding: 0px 20px;
     font-weight: bold;
-    color: white;
     font-family: inherit;
     .heart-icon {
-      background-color: #5a54f9;
+      color: #5a54f9;
     }
     @media screen and (max-width: 1250px) {
       font-size: 28px;
@@ -354,7 +340,9 @@ $background-color-company_info: #e1e1e1;
   }
   .powered-by {
     padding: 12px;
-    color: white;
+    color: #5a54f9;
+    font-weight: bold;
+    font-size: 1rem;
   }
 }
 //**********************************

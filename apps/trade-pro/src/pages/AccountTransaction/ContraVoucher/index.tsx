@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import './style.scss';
 import ContraVoucherForm from './form';
 import { useState } from 'react';
-import ContraVoucherTable from './table/contraVoucherTable';
+import ContraTable from './table/contraTable';
 
 function ContraVoucher() {
   const { t } = useTranslation();
@@ -17,7 +17,7 @@ function ContraVoucher() {
   return (
     <>
       <Card style={{ background: 'transparent', marginLeft: '-1%', marginTop: '-2%' }}>
-        <h2 style={{ textAlign: 'center' }}>{t('contra_voucher')}</h2>
+        <h2 className="form-heading">{t('contra_voucher')}</h2>
         <Tabs
           type="card"
           size="large"
@@ -26,7 +26,7 @@ function ContraVoucher() {
           onChange={(key) => setActiveTab(key)}
         >
           <Tabs.TabPane key="1" tab={t('history')}>
-            <ContraVoucherTable setSelectedRecordId={setSelectedRecordId} setActiveTab={setActiveTab} />
+            <ContraTable setSelectedRecordId={setSelectedRecordId} setActiveTab={setActiveTab} />
           </Tabs.TabPane>
           <Tabs.TabPane key="2" tab={t('form')}>
             <ContraVoucherForm selectedRecordId={selectedRecordId} />

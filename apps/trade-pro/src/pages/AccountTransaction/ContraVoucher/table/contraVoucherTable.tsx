@@ -1,55 +1,35 @@
-import { AntButton, AntTable } from '@tradePro/components';
+import { AntTable } from '@tradePro/components';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { Card, Col, Row, theme } from 'antd';
 import { columns } from './columns';
 import { useTranslation } from 'react-i18next';
 import { useGetContraVoucherTable } from '../queries/queries';
-import { useState } from 'react';
-import CardView from './CardView';
-import './Card.scss';
-import './DetailTableFile.scss';
+
 function ContraVoucherTable({ setSelectedRecordId, setActiveTab }: TFrom) {
   const { t } = useTranslation();
   const { data, isError, isLoading } = useGetContraVoucherTable();
-  const [showComponent, setShowComponent] = useState(false);
+
   const {
     token: { colorPrimary },
   } = theme.useToken();
 
-  const toggleCardView = () => {
-    setShowComponent(true);
-  };
-  const toggleGridView = () => {
-    setShowComponent(false);
-  };
-
   return (
-    <>
+    <div>
       <Row style={{ marginTop: '0.5%' }}>
-        <Col span={24}>
-          <AntButton onClick={toggleCardView} className="btn" label={t('card_view')} />
-          <AntButton onClick={toggleGridView} className="btn" style={{ marginLeft: '1%' }} label={t('grid_view')} />
+        <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24, offset: 0 }}>
+          <Card style={{ boxShadow: '2px 4px 12px 1px gray', textAlign: 'left' }}>
+            <AntTable
+              isError={isError}
+              numberOfSkeletons={12}
+              isLoading={isLoading}
+              scroll={{ x: '', y: convertVhToPixels('62vh') }}
+              data={data?.data?.Data?.Result || []}
+              columns={columns(t, setSelectedRecordId, setActiveTab)}
+            />
+          </Card>
         </Col>
-        <br />
-        <br />
-        {showComponent ? (
-          <CardView />
-        ) : (
-          <Col>
-            <div>
-              <AntTable
-                isError={isError}
-                numberOfSkeletons={12}
-                isLoading={isLoading}
-                scroll={{ x: '', y: convertVhToPixels('62vh') }}
-                data={data?.data?.Data?.Result || []}
-                columns={columns(t, setSelectedRecordId, setActiveTab)}
-              />
-            </div>
-          </Col>
-        )}
       </Row>
-    </>
+    </div>
   );
 }
 

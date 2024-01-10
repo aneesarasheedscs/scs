@@ -31,29 +31,19 @@ function RequisitionOrderTable({
   };
   return (
     <div>
-      {/* <Row style={{ marginTop: '' }}>
-        <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }} xxl={24}>
-          <Card style={{ boxShadow: '2px 4px 12px 1px gray', textAlign: 'left' }}>
-            <AntTable
-              refetch={refetch}
-              isError={isError}
-              numberOfSkeletons={8}
-              isLoading={isLoading}
-              scroll={{ x: '', y: convertVhToPixels('30vh') }}
-              data={data?.data?.Data?.Result || []}
-              columns={columns(t, setSelectedRecordId, setActiveTab, setSelectedRecordIdforDetail)}
-            />
-          </Card>
-        </Col>
-      </Row> */}
       <Row style={{ marginTop: '' }}>
         <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }} xxl={24}>
           <h2 className="form-heading2">
             <Row gutter={10} style={{ display: 'flex' }}>
               <div style={{ display: 'flex' }}>
-                <AntButton onClick={toggleGridView} className="btn" label="Grid View" />
+                <AntButton onClick={toggleGridView} className="btn" label={t('grid_view')} />
 
-                <AntButton onClick={toggleCardView} className="btn" label="Card View" style={{ marginLeft: '2%' }} />
+                <AntButton
+                  onClick={toggleCardView}
+                  className="btn"
+                  label={t('card_view')}
+                  style={{ marginLeft: '2%' }}
+                />
               </div>
             </Row>
           </h2>

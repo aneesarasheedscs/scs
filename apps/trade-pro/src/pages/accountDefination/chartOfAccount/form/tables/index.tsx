@@ -63,7 +63,7 @@ function ChildAccountTable({ data, selectedRows, displayData }: AnotherComponent
       >
         {/* {title && <h3>{title}</h3>} */}
         <h3>
-          {t('child_account')} {t('of')} {displayData?.accountTitle} {t('level')} {displayData?.accountLevel}
+          {t('child_account_of')} {displayData?.accountTitle} {t('level')} {displayData?.accountLevel}
         </h3>
       </h4>
       <AntTable
@@ -121,7 +121,7 @@ export function ChildAccountTableforView({ data, selectedRows }: AnotherComponen
         <h3>
           {selectedRows && (
             <>
-              {t('child_account')} {t('of')} {selectedAccountTitle} {t('level')} {selectedAccountLevel}{' '}
+              {t('child_account_of')} {selectedAccountTitle} {t('level')} {selectedAccountLevel}{' '}
             </>
           )}
         </h3>

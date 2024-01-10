@@ -63,6 +63,8 @@
 
 .columns {
   border-left: 1px solid lightgray;
+  // width: 150% !important;
+  // max-height: 35%;
 }
 
 .row {
@@ -239,28 +241,4 @@
   color: black;
   font-weight: 500;
   text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.1);
-}
-
-@media screen and (min-width: 992px) and (max-width: 1200px) {
-  .remarks-heading {
-    margin-left: 1rem !important;
-  }
-}
-@media screen and (min-width: 768px) and (max-width: 992px) {
-  .remarks-heading {
-    margin-left: 0rem !important;
-  }
-}
-@media screen and (min-width: 576px) and (max-width: 768px) {
-  .remarks-heading {
-    margin-left: 0.5rem !important;
-  }
-}
-@media screen and (min-width: 481px) and (max-width: 575px) {
-  .row1 {
-    margin-left: -10% !important;
-  }
-  .remarks-heading {
-    margin-left: 0rem !important;
-  }
 }

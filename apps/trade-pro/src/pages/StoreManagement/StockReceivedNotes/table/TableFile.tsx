@@ -72,8 +72,8 @@ const Tablefile: React.FC<{ selectedRecordId?: number | null; historyData: any }
             </div>
           </div>
 
-          {DetailData?.map((item: TWsRmStockReceivedNotesDetailList | any) => (
-            <div>
+          {DetailData?.map((item: TWsRmStockReceivedNotesDetailList | any, index: number) => (
+            <div className={`table-data ${index % 2 === 0 ? '' : 'alternate'}`}>
               <div className="table-Row">
                 <div
                   className="Account"

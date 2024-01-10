@@ -1,7 +1,7 @@
 import { Table } from 'antd';
 import { numberFormatter } from './utils';
 import { ColumnType } from 'antd/es/table';
-import { map, meanBy, result, size, sumBy } from 'lodash';
+import { map, meanBy, size, sumBy } from 'lodash';
 import _ from 'lodash';
 
 function TableSummary({ data, columns, filteredData }: TTableSummary) {

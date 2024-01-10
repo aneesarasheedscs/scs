@@ -63,8 +63,6 @@ export type TContraDetailEntry = {
   IsTaxable: boolean;
   Comments: string;
   LineId: number;
-  AgainstAccount: string;
-  AccountCode: number;
 };
 export type TjobLot = {
   Id: number;

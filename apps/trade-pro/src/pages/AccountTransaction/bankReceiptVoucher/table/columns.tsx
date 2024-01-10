@@ -1,4 +1,4 @@
-import { EditFilled, PrinterOutlined, DeleteOutlined, EyeOutlined } from '@ant-design/icons';
+import { EditFilled, PrinterOutlined, DeleteOutlined } from '@ant-design/icons';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { AntButton } from '@tradePro/components';
 import { Space, Tooltip } from 'antd';
@@ -126,35 +126,20 @@ export const columns = (
   },
   {
     title: <>{t('action')}</>,
-    width: 150,
+    width: 100,
     render: (_, record) => (
-      <>
-        <Tooltip title="Edit">
-          <Space>
-            <AntButton
-              type="text"
-              icon={<EditFilled style={{ color: 'black' }} />}
-              onClick={() => {
-                setSelectedRecordId(record?.Id), setActiveTab('2');
-              }}
-            />
-          </Space>
-        </Tooltip>
-        <Tooltip title="View Detail">
-          <Space>
-            <AntButton
-              type="text"
-              icon={<EyeOutlined style={{ color: 'blue' }} />}
-              onClick={() => {
-                setSelectedRecordId(record.Id);
-              }}
-            />
-          </Space>
-        </Tooltip>
-        <Tooltip title="Print">
-          <AntButton type="text" icon={<PrinterOutlined style={{ color: 'red' }} />} />
-        </Tooltip>
-      </>
+      <Tooltip title="Actions">
+        <Space>
+          <AntButton
+            type="text"
+            icon={<EditFilled style={{ color: 'black' }} />}
+            onClick={() => {
+              setSelectedRecordId(record?.Id), setActiveTab('2');
+            }}
+          />
+          <AntButton type="text" icon={<PrinterOutlined style={{ color: 'red', marginLeft: '-1rem' }} />} />
+        </Space>
+      </Tooltip>
     ),
   },
 ];

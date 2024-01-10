@@ -127,7 +127,7 @@ export const columns = (
     width: 130,
     render: (_, record) => (
       <>
-        <Tooltip title="Edit">
+        <Tooltip title={t('edit')}>
           <Space>
             <AntButton
               type="text"
@@ -138,7 +138,7 @@ export const columns = (
             />
           </Space>
         </Tooltip>
-        <Tooltip title="View Detail">
+        <Tooltip title={t('detail')}>
           <Space>
             <AntButton
               type="text"

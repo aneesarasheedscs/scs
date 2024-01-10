@@ -42,6 +42,7 @@ export type TDetailPackUom = {
 export type TRequisitionOrder = {
   Id: number;
   DocumentTypeId: number;
+  PrintPreview: boolean;
   DocDate: string;
   DocNo: number;
   SourceLocationId: number; //Branch
@@ -102,4 +103,9 @@ export type TRequisitionOrderHistory = {
   ApprovedDate: Date | string;
   IsApproved: string;
   RemarksHeader: string;
+  CompLogoImage: string;
+
+  EntryUserProfileImageUrl: string;
+  ModifyUserProfileImageUrl: string;
+  ApprovalUserProfileImageUrl: string;
 };

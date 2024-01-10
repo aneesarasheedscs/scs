@@ -1,11 +1,10 @@
 import { AntButton, AntTable } from '@tradePro/components';
-import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { Card, Col, Row, message, notification, theme } from 'antd';
 import { columns } from './columns';
 import { useTranslation } from 'react-i18next';
 import { useGetDispatchedSTNLoad } from '../quries';
 import { useAtom } from 'jotai';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { selectedRowsAtom, addtableData } from '../form/Atom';
 import { ArrowDownOutlined } from '@ant-design/icons';
 
@@ -17,16 +16,8 @@ function ROLoadOrder({ handleClose, selectedRecordId }: TFrom) {
   } = theme.useToken();
 
   const [selectedRows, setSelectedRows] = useAtom(selectedRowsAtom);
-  // const [selectedRowsIds, setSelectedRowsIds] = useState<any[]>([]);
   const [tableData, setTableData] = useAtom(addtableData);
 
-  // const handleSelectAllUn = () => {
-  //   if (data?.data?.Data?.Result?.length === selectedRows.length) {
-  //     setSelectedRows([]);
-  //   } else {
-  //     setSelectedRows(map(data?.data?.Data?.Result));
-  //   }
-  // };
   console.log('checked', selectedRows);
   const e: any = [];
   console.log(e);
@@ -56,27 +47,6 @@ function ROLoadOrder({ handleClose, selectedRecordId }: TFrom) {
     }
     // setTableData(loaderDate);
   };
-  console.log(selectedRecordId);
-  console.log(tableData);
-  // const handleCheckboxChange = (recordId: number, checked: boolean) => {
-  //   setSelectedRowsIds((prevSelectedRowsIds: number[]) => {
-  //     if (checked) {
-  //       // Add the recordId if checked
-  //       return [...prevSelectedRowsIds, recordId];
-  //     } else {
-  //       // Remove the recordId if unchecked
-  //       return prevSelectedRowsIds.filter((id) => id !== recordId);
-  //     }
-  //   });
-  //  };
-
-  // const selectedRowsArray = data?.data?.Data?.Result.filter((row: any) => selectedRowsIds.includes(row.Id));
-  // console.log(selectedRowsArray);
-  // useEffect(() => {
-  //   if (selectedRowsArray) {
-  //     setSelectedRows(selectedRowsArray);
-  //   }
-  // }, [selectedRowsIds]);
 
   const [selectedRowKeys, setSelectedRowKeys] = React.useState<any>([]);
   const onSelectChange = (selectedRowKeys: any[], selectedRows: any) => {
@@ -123,7 +93,6 @@ function ROLoadOrder({ handleClose, selectedRecordId }: TFrom) {
               isError={isError}
               numberOfSkeletons={8}
               isLoading={isLoading}
-              // scroll={{ x: '', y: convertVhToPixels('30vh') }}
               scroll={{ x: 'max-content' }}
               data={data?.data?.Data?.Result || []}
               columns={columns(t)}
