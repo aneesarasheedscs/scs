@@ -136,7 +136,7 @@ const SalesDashboard = () => {
   const { t } = useTranslation();
 
   return (
-    <div style={{ backgroundColor: '#fff' }}>
+    <div style={{ backgroundColor: '#fff' }} className="scrollable-container">
       <Row gutter={[24, 24]}>
         <Col xl={24} xs={24} sm={23} md={24} lg={23} xxl={24}>
           <Typography.Title level={2} style={formHeading}>
@@ -144,7 +144,7 @@ const SalesDashboard = () => {
           </Typography.Title>
           <SalesAnalyticalCriteria refetch={refetch} form={form} />
           <Row gutter={[24, 24]}>
-            <Col xl={6} xs={23} sm={23} md={10} lg={23} xxl={4} style={{ marginTop: '10px' }}>
+            <Col xl={6} xs={24} sm={23} md={10} lg={23} xxl={4} style={{ marginTop: '10px' }}>
               <Typography.Title
                 level={4}
                 style={{
@@ -170,13 +170,13 @@ const SalesDashboard = () => {
                     desc={card.DescriptionTitle}
                     Amount={card.NetAmount}
                     backgroundColor={cardBackgroundColors[index % cardBackgroundColors.length]}
-                    icon={defaultIcons[index % defaultIcons2.length]} // Assign icons based on index
+                    icon={defaultIcons[index % defaultIcons2.length]}
                   />
                 ))}
               </Space>
             </Col>
 
-            <Col xl={18} xs={23} sm={23} md={13} lg={23} xxl={20} style={{ marginTop: '10px' }}>
+            <Col xl={18} xs={24} sm={23} md={13} lg={23} xxl={20} style={{ marginTop: '10px' }}>
               <Typography.Title
                 level={4}
                 style={{
@@ -193,7 +193,7 @@ const SalesDashboard = () => {
                 {t('sales_payment_term')}
               </Typography.Title>
               <Row>
-                <Col xl={18} xs={23} sm={23} md={24} lg={23} xxl={12}>
+                <Col xl={18} xs={24} sm={23} md={24} lg={23} xxl={12}>
                   {' '}
                   <Space direction="horizontal" className="space-vertical">
                     {map(filteredSalesPaymentTerms, (card: any, index: any) => (
@@ -216,7 +216,7 @@ const SalesDashboard = () => {
                   md={24}
                   lg={23}
                   xxl={5}
-                  style={{ marginLeft: '30px', marginTop: '15px', marginBottom: '15px' }}
+                  style={{ marginTop: '15px', marginBottom: '15px' }}
                 >
                   <SalesDashboardChart data={data} />
                 </Col>
@@ -248,8 +248,8 @@ const SalesDashboard = () => {
                   sm={23}
                   md={24}
                   lg={23}
-                  xxl={11}
-                  style={{ marginTop: '30px', marginLeft: '0%' }}
+                  xxl={10}
+                  style={{ marginTop: '30px' }}
                 >
                   <ParentCategoryTable data={data} />
                 </Col>
@@ -272,11 +272,11 @@ const SalesDashboard = () => {
               >
                 {t('sales_by_items')}
               </Typography.Title>
-              <Row>
-                <Col xxl={22} xl={24} md={24} xs={24} style={{ marginTop: '-10px', marginLeft: '0%' }}>
+              <Row justify={'center'}>
+                <Col xxl={22} xl={24} md={24} xs={24} style={{ marginTop: '-10px' }}>
                   <SaleByItemChart data={data} />
                 </Col>
-                <Col xxl={18} xl={16} md={24} xs={24} style={{ marginTop: '20px', marginLeft: '10%' }}>
+                <Col xxl={18} xl={16} md={24} xs={24} style={{ marginTop: '20px' }}>
                   <SaleByItemTable data={data} />
                 </Col>
               </Row>
@@ -298,10 +298,10 @@ const SalesDashboard = () => {
                 {t('sales-by-branch')}
               </Typography.Title>
               <Row>
-                <Col xl={11} xxl={11} xs={24} lg={24} md={24} style={{ marginTop: '0px', marginLeft: '-10%' }}>
+                <Col xl={11} xxl={9} xs={24} lg={24} md={24} style={{ marginTop: '0px' }}>
                   <SaleByBranchChart2 data={data} />
                 </Col>
-                <Col xl={14} xxl={14} xs={24} lg={24} md={24} style={{ marginTop: '7%', marginLeft: '2%' }}>
+                <Col xl={14} xxl={14} xs={24} lg={24} md={24} style={{ marginTop: '7%' }}>
                   <SaleBybranchTable data={data} />
                 </Col>
               </Row>

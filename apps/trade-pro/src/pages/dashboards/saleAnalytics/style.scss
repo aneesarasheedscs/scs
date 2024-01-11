@@ -75,3 +75,8 @@
     margin-top: 1%;
   }
 }
+.scrollable-container {
+  overflow-x: hidden; /* or overflow: scroll; */
+  max-height: 100%; /* Set a maximum height to prevent infinite scrolling */
+  overflow-y: hidden;
+}

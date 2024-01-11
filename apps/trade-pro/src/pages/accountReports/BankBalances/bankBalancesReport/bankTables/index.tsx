@@ -42,11 +42,11 @@ const BankPaymentTables: React.FC<{
 
   return (
     <>
-      <Col xl={22} style={{ marginLeft: '3%' }}>
+      <Col xl={22} xs={23} style={{ marginLeft: '3%' }}>
         <Divider />
       </Col>
       <Row gutter={[24, 24]}>
-        <Col xl={23} xs={24} md={24} className="" style={{ marginLeft: '2%' }}>
+        <Col xl={23} xs={23} md={24} className="" style={{ marginLeft: '2%' }}>
           <AntTable
             columns={BankBalancesSummaryBank(t, handleAccountCodeClick)}
             isError={IsSummaryError}
@@ -58,7 +58,7 @@ const BankPaymentTables: React.FC<{
       </Row>
 
       <Row gutter={[24, 24]} justify={'space-between'} style={{ marginLeft: 20, width: '97%' }}>
-        <Col xl={12} xs={24} md={12} className="">
+        <Col xl={12} xs={23} md={12} className="">
           <Title className="section-title" level={3}>
             {t('bank_receipt')}
           </Title>
@@ -70,7 +70,7 @@ const BankPaymentTables: React.FC<{
             scroll={{ y: convertVhToPixels('35vh') }}
           />
         </Col>
-        <Col xl={12} xs={24} md={12} className="">
+        <Col xl={12} xs={23} md={12} className="">
           <Title className="section-title" level={3}>
             {t('bank_payment')}
           </Title>

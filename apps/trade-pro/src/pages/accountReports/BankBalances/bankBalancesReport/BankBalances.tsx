@@ -108,8 +108,8 @@ const BankBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId
 
   return (
     <div className="cash-balances-container-bank">
-      <Row gutter={[24, 24]}>
-        <Col xs={24} md={12} lg={8} style={{ marginLeft: '15px' }}>
+      <Row gutter={[16, 16]}>
+        <Col xs={24} md={12} lg={8} style={{ marginLeft: 15, padding: 10 }}>
           <Text className="breadcrumbss">{t('account_reports')}</Text>
           <Text className="breadcrumbss">{'>'}</Text>
           <Text className="breadcrumbss" strong>
@@ -117,38 +117,36 @@ const BankBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId
           </Text>
         </Col>
       </Row>
-      <Row gutter={[24, 24]}>
-        <div>
-          <Col xs={24} md={24} lg={24}>
-            <Card className="bank-balances-card">
-              <Form form={form} onFinish={onFinish}>
-                <Row gutter={[4, 4]} justify={'space-around'}>
-                  <Col xxl={5} xl={4} className="formfield">
-                    <AntSelectDynamic
-                      bordered={false}
-                      label={t('date_type')}
-                      name="DateType"
-                      fieldLabel="DateType"
-                      fieldValue="Id"
-                      query={useGetDateType}
-                      onChange={(value) => handleDateChange(value)}
-                    />
-                  </Col>
-                  <Col xxl={5} xl={4} className="formfield">
-                    <AntDatePicker name="FromDate" bordered={false} label={t('from_date')} />
-                  </Col>
-                  <Col xxl={5} xl={4} className="formfield">
-                    <AntDatePicker name="ToDate" bordered={false} label={t('to_date')} />
-                  </Col>
+      <Row gutter={[16, 16]} justify={'space-around'}>
+        <Col xs={24} md={24} lg={24} xxl={23} xl={23} sm={23}>
+          <Card className="">
+            <Form form={form} onFinish={onFinish}>
+              <Row gutter={[4, 4]} justify={'space-around'}>
+                <Col xxl={6} xl={7} xs={24} sm={24} lg={9} className="formfield form-container">
+                  <AntSelectDynamic
+                    bordered={false}
+                    label={t('date_type')}
+                    name="DateType"
+                    fieldLabel="DateType"
+                    fieldValue="Id"
+                    query={useGetDateType}
+                    onChange={(value) => handleDateChange(value)}
+                  />
+                </Col>
+                <Col xxl={5} xl={6} xs={24} sm={12} lg={7} className="formfield form-container">
+                  <AntDatePicker name="FromDate" bordered={false} label={t('from_date')} />
+                </Col>
+                <Col xxl={5} xl={6} xs={24} sm={11} lg={7} className="formfield form-container">
+                  <AntDatePicker name="ToDate" bordered={false} label={t('to_date')} />
+                </Col>
 
-                  <Col xxl={2} xl={2}>
-                    <AntButton label={t('show')} htmlType="submit" isError={isError} isLoading={isLoading} />
-                  </Col>
-                </Row>
-              </Form>
-            </Card>
-          </Col>
-        </div>
+                <Col xxl={2} xl={3} xs={8} lg={5} className="btn-margin-top">
+                  <AntButton label={t('show')} htmlType="submit" isError={isError} isLoading={isLoading} />
+                </Col>
+              </Row>
+            </Form>
+          </Card>
+        </Col>
       </Row>
       <BankPaymentTables
         PaymentReceiptData={Bank_ReceiptPayment?.data?.Data?.Result}

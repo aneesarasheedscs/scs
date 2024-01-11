@@ -11,10 +11,10 @@ import {
 import { storedFinancialYear } from '@tradePro/utils/storageService';
 import { TtrialBalanceSelectedSearchCriteria } from './type';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
-import { useGetAccountTitle, useGetDateTypes, useGetTrialBalanceSelectedReport } from './queries';
+import { useGetAccountTitle, useGetCityName, useGetDateTypes, useGetTrialBalanceSelectedReport } from './queries';
 import '../style.scss';
 import { useTranslation } from 'react-i18next';
-import { useGetCityName } from '@tradePro/pages/Payables/queryOptions';
+
 const financialYear = storedFinancialYear();
 const { useForm, useWatch } = Form;
 
@@ -97,7 +97,7 @@ function CriteriaTrialBalanceSelected() {
               fieldValue="Id"
               fieldLabel="DateType"
               defaultValue={'5'}
-              label="Date Type"
+              label={t('date_type')}
               query={useGetDateTypes}
               onChange={(value) => handleDateChange(value)}
               name="DateType"
@@ -106,13 +106,13 @@ function CriteriaTrialBalanceSelected() {
 
           <Col xs={24} sm={12} md={12} className="form_field">
             <Form.Item name="FromDate" initialValue={FromDate}>
-              <AntDatePicker name="FromDate" label="From Date" bordered={false} />
+              <AntDatePicker name="FromDate" label={t('from_date')} bordered={false} />
             </Form.Item>
           </Col>
 
           <Col xs={24} sm={12} md={11} className="form_field" offset={1}>
             <Form.Item name="ToDate" initialValue={ToDate}>
-              <AntDatePicker name="ToDate" label="To Date" bordered={false} />
+              <AntDatePicker name="ToDate" label={t('to_date')} bordered={false} />
             </Form.Item>
           </Col>
 
@@ -140,14 +140,14 @@ function CriteriaTrialBalanceSelected() {
           <Col xs={12} sm={6} md={6}>
             <Form.Item name="ActionId">
               <Checkbox checked={getFieldValue('ActionId') === 1} onChange={onChangeIsActive}>
-                Is Active
+                {t('is_active')}
               </Checkbox>
             </Form.Item>
           </Col>
 
           <Col xs={8} sm={4} md={4}>
             <AntButton
-              label="Show"
+              label={t('show')}
               htmlType="submit"
               style={{ marginTop: 2 }}
               isError={isReportError}

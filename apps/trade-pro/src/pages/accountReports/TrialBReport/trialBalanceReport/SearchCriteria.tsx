@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useTransition } from 'react';
 
 import { Checkbox, Col, Form, Radio, Row } from 'antd';
 import dayjs from 'dayjs';
@@ -14,6 +14,7 @@ import { TrialBalanceSearchCriteria } from './type';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { useGetDateTypes, useGetLanguages, useGetTrialBalanceReport } from './queries';
 import '../style.scss';
+import { useTranslation } from 'react-i18next';
 
 const financialYear = storedFinancialYear();
 const { useForm, useWatch } = Form;
@@ -23,7 +24,7 @@ function searchCriteriaTrialBalanceReport() {
   const [form] = useForm<TrialBalanceSearchCriteria>();
   const formValues = useWatch<TrialBalanceSearchCriteria>([], form);
   const { setFieldValue, getFieldValue } = form;
-
+  const { t } = useTranslation();
   const {
     refetch,
     isFetching,
@@ -87,14 +88,14 @@ function searchCriteriaTrialBalanceReport() {
   return (
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
       <Form form={form} onFinish={onFinish} layout="inline" initialValues={formValues}>
-        <Row gutter={[10, 10]}>
-          <Col xs={24} sm={12} md={24} className="form_field">
+        <Row gutter={[16, 16]}>
+          <Col xs={22} sm={12} md={24} xxl={23} className="form_field form-container">
             <AntSelectDynamic
               bordered={false}
               fieldValue="Id"
               fieldLabel="DateType"
               defaultValue={'5'}
-              label="Date Type"
+              label={t('date_type')}
               query={useGetDateTypes}
               onChange={(value) => handleDateChange(value)}
               name="DateType"
@@ -108,47 +109,47 @@ function searchCriteriaTrialBalanceReport() {
           <Col xs={24} sm={12} md={11} className="form_field" offset={1}>
             <AntDatePicker defaultValue={ToDate} name="ToDate" label="To Date" bordered={false} />
           </Col> */}
-          <Col xs={24} sm={12} md={12} className="form_field">
+          <Col xs={24} sm={12} md={12} className="form_field form-container">
             <Form.Item name="FromDate" initialValue={FromDate}>
-              <AntDatePicker name="FromDate" label="From Date" bordered={false} />
+              <AntDatePicker name="FromDate" label={t('from_date')} bordered={false} />
             </Form.Item>
           </Col>
 
-          <Col xs={24} sm={12} md={11} className="form_field" offset={1}>
+          <Col xs={24} sm={12} md={11} className="form_field form-container" offset={1}>
             <Form.Item name="ToDate" initialValue={ToDate}>
-              <AntDatePicker name="ToDate" label="To Date" bordered={false} />
+              <AntDatePicker name="ToDate" label={t('to_date')} bordered={false} />
             </Form.Item>
           </Col>
 
-          <Col xs={24} sm={12} md={12} className="form_field">
-            <AntInputNumber name="Debit" label="cl-Debit" bordered={false} />
+          <Col xs={24} sm={12} md={12} className="form_field form-container">
+            <AntInputNumber name="Debit" label={t('cl_debit')} bordered={false} />
           </Col>
 
-          <Col xs={24} sm={12} md={11} className="form_field" offset={1}>
-            <AntInputNumber name="Credit" label="cl-Credit" bordered={false} />
+          <Col xs={24} sm={12} md={11} className="form_field form-container" offset={1}>
+            <AntInputNumber name="Credit" label={t('cl_credit')} bordered={false} />
           </Col>
 
-          <Col xs={24} sm={12} md={24} className="form_field">
+          <Col xs={24} sm={12} md={24} className="form_field form-container">
             <AntSelectDynamic
               bordered={false}
               fieldValue="Id"
               fieldLabel="LanguageDescription"
-              label="Language"
+              label={t('language')}
               query={useGetLanguages}
               name="LanguageId"
             />
           </Col>
 
           <Col xs={4} sm={6} md={6}>
-            <Form.Item name="ZeroBalanceType">
-              <Checkbox onChange={onChangeSkipZero}>Skip Zero</Checkbox>
+            <Form.Item name="ZeroBalanceType" className="form-container">
+              <Checkbox onChange={onChangeSkipZero}>{t('skip_zero')}</Checkbox>
             </Form.Item>
           </Col>
 
           <Col xs={4} sm={6} md={6}>
-            <Form.Item name="IsApproved">
+            <Form.Item name="IsApproved" className="form-container">
               <Checkbox checked={getFieldValue('IsApproved')} onChange={onChangeUnPost}>
-                Un Post
+                {t('un_post')}
               </Checkbox>
             </Form.Item>
           </Col>
@@ -169,9 +170,9 @@ function searchCriteriaTrialBalanceReport() {
             </Form.Item>
           </Col> */}
 
-          <Col xs={24} sm={24} md={8}>
+          <Col xs={24} sm={24} md={8} xxl={5} className="btn-margin-tops">
             <AntButton
-              label="Show"
+              label={t('show')}
               htmlType="submit"
               style={{ marginTop: 2 }}
               isError={isReportError}

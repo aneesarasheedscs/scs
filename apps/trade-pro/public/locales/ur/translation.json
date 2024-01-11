@@ -592,5 +592,15 @@
   "discount_category_name": "ڈسکاؤنٹ زمرہ کا نام",
   "allocate_brand_item_to_disc_type": "برانڈ آئٹم کو ڈسک کی قسم میں مختص کریں۔",
   "brand_item_name": "برانڈ آئٹم کا نام",
-  "brand_name": "برانڈ کا نام"
+  "brand_name": "برانڈ کا نام",
+  "four_columns": "چار ستون",
+  "six_columns": "چھے ستون",
+  "openng_dr": "اوپننگ ڈیبٹ",
+  "opening_cr": "اوپننگ کریڈٹ",
+  "closing_dr": "اختتامی ڈیبٹ",
+  "closing_cr": "اختتامی کریڈٹ",
+  "cl_debit": "اختتامی ڈیبٹ",
+  "cl_credit": "اختتامی کریڈٹ",
+  "skip_zero": "صفر چھوڑیں",
+  "un_post": "غیر منظور شدہ"
 }

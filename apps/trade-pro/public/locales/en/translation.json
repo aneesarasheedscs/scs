@@ -596,5 +596,15 @@
   "discount_category_name": "Discount Category Name",
   "allocate_brand_item_to_disc_type": "Allocate Brand Item To Disc Type",
   "brand_item_name": "Brand Item Name",
-  "brand_name": "Brand Name"
+  "brand_name": "Brand Name",
+  "four_columns": "Four Columns",
+  "six_columns": "Six Columns",
+  "openng_dr": "Opening Dr",
+  "opening_cr": "Opening Cr",
+  "closing_dr": "Closing Dr",
+  "closing_cr": "Closing Cr",
+  "cl_debit": "Cl Debit",
+  "cl_credit": "Cl Credit",
+  "skip_zero": "Skip Zero",
+  "un_post": "Un Post"
 }

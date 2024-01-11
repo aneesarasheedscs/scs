@@ -115,11 +115,12 @@ const ActivitySummaryReport: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; 
     <div style={{ backgroundColor: '#fff' }}>
       <Row>
         <Col
-          xs={2}
-          sm={4}
-          md={6}
-          lg={8}
+          xs={10}
+          sm={10}
+          md={12}
+          lg={12}
           xl={14}
+          xxl={16}
           style={{ display: 'flex', alignItems: 'center', alignContent: 'center', margin: '16px' }}
         >
           <h1 style={{ fontFamily: 'Poppins', fontSize: '19px', padding: '10px' }}>{t('acctivity_summary')}</h1>
@@ -130,16 +131,16 @@ const ActivitySummaryReport: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; 
         </Col>
       </Row>
       <Row justify={'space-around'}>
-        <Col>
-          <Card className="cash-balances-card">
+        <Col xxl={23} xl={23} sm={23} xs={23} lg={23}>
+          <Card>
             <Form
               form={form}
               initialValues={FromDateProp === undefined && ToDateProp === undefined ? { FromDate, ToDate } : undefined}
               onFinish={onFinish}
             >
               {/* <Row gutter={[24, { xs: 8, sm: 16, md: 24, lg: 32 }]} justify={'start'}> */}
-              <Row gutter={[4, 4]} justify={'space-around'}>
-                <Col xxl={5} xl={4} className="formfield">
+              <Row gutter={[16, 16]} justify={'space-around'}>
+                <Col xxl={5} xl={8} xs={24} sm={24} md={9} lg={23} className="formfield form-container">
                   <AntSelectDynamic
                     bordered={false}
                     fieldValue="Id"
@@ -151,18 +152,18 @@ const ActivitySummaryReport: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; 
                     name="DateType"
                   />
                 </Col>
-                <Col xxl={5} xl={4} className="formfield">
+                <Col xxl={5} xl={6} xs={12} md={6} lg={12} className="formfield form-container">
                   <AntDatePicker name="FromDate" bordered={false} label={t('from_date')} />
                 </Col>
-                <Col xxl={5} xl={4} className="formfield">
+                <Col xxl={5} xl={6} xs={11} md={6} lg={11} className="formfield form-container">
                   <AntDatePicker name="ToDate" bordered={false} label={t('to_date')} />
                 </Col>
-                <Col xxl={5} xl={4}>
+                <Col xxl={5} xl={8} xs={24} sm={12} lg={12} className="form-container">
                   <Form.Item name="ApprovedFilter">
                     <Checkbox onChange={onChangeUnPost}>{t('include_unposted_vochers')}</Checkbox>
                   </Form.Item>
                 </Col>
-                <Col xxl={2} xl={2}>
+                <Col xxl={2} xl={4} sm={6} className="btn-margin-top">
                   <AntButton
                     label={t('show')}
                     htmlType="submit"
@@ -177,8 +178,8 @@ const ActivitySummaryReport: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; 
       </Row>
 
       <div className="summary-table-container">
-        <Row gutter={[24, 24]}>
-          <Col xs={24} md={24} className="">
+        <Row gutter={[16, 16]}>
+          <Col xs={23} md={23} xxl={24} xl={23} lg={23} className="">
             <AntTable
               rowKey={'AccountId'}
               columns={Columns(t, handleAccountCodeClick)}

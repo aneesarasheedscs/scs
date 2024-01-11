@@ -7,7 +7,7 @@ import { TActivitySummary } from './types';
 
 export const Columns = (t: any, handleAccountCodeClick: any): AntColumnType<TActivitySummary>[] => {
   return [
-    { title: t('sr#'), dataIndex: '', width: 70, render: (_, __, index) => index + 1 },
+    { title: t('sr#'), dataIndex: '', width: 150, render: (_, __, index) => index + 1 },
     {
       width: 150,
       title: t('account_code'),
@@ -19,7 +19,7 @@ export const Columns = (t: any, handleAccountCodeClick: any): AntColumnType<TAct
       ),
     },
     {
-      width: 300,
+      width: 340,
       searchableInput: true,
       title: t('account_title'),
       dataIndex: 'AccountTitle',

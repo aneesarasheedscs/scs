@@ -31,7 +31,7 @@ function SalesDashboardCard({ title, value, icon, backgroundColor, desc, Amount 
           }}
           avatar={<Avatar size={70} src={icon}></Avatar>}
         ></Card.Meta>
-        <Col span={24} style={{ marginTop: '8px' }}>
+        <Col span={24} style={{ marginTop: '0px' }}>
           <Title level={5}>
             <p className="card-description"> {desc}</p>
           </Title>
@@ -46,7 +46,7 @@ function SalesDashboardCard({ title, value, icon, backgroundColor, desc, Amount 
             <p> {formateDate(value)}</p>
           </Col>
 
-          <Col className="" style={{ textAlign: 'center', marginTop: '-10px', fontSize: '15px' }}>
+          <Col className="" style={{ textAlign: 'center', marginTop: '-15px', fontSize: '15px' }}>
             <p> {t('amount')}</p>
           </Col>
           <b>
@@ -66,7 +66,7 @@ export function SalesPaymentCard({ percentOfTotal, icon, backgroundColor, desc, 
   return (
     <div>
       <Row gutter={[16, 16]}>
-        <Col xl={24} xs={23} sm={23} md={24} lg={24} xxl={24}>
+        <Col xl={24} xs={24} sm={23} md={24} lg={24} xxl={24}>
           <Card
             hoverable={true}
             className="card-container-sale-payment"

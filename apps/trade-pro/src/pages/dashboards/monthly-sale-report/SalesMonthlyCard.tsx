@@ -32,7 +32,7 @@ function MonthlySaleReportCard({ icon, backgroundColor, desc, Amount, percentOfT
               }}
               avatar={<Avatar size={70} src={icon}></Avatar>}
             ></Card.Meta>
-            <Col span={24} style={{ marginTop: '-10px' }}>
+            <Col xxl={24} xs={24} style={{ marginTop: '-10px' }}>
               <Title
                 level={5}
                 style={{
@@ -44,7 +44,7 @@ function MonthlySaleReportCard({ icon, backgroundColor, desc, Amount, percentOfT
               </Title>
             </Col>
             <Text>
-              <Col className="" style={{ marginTop: '-10px', color: 'blue' }}>
+              <Col xxl={24} xl={24} xs={24} className="" style={{ marginTop: '-10px', color: 'blue' }}>
                 <p> {t('Amount')}</p>
               </Col>
               <b>

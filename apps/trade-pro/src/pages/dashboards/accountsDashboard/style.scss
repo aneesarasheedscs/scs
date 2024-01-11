@@ -115,12 +115,8 @@ body {
     margin-top: 0%;
     height: 70px;
   }
-
-  .btn-margin-top {
-    margin-top: 8%;
-  }
 }
-@media only screen and (min-width: 500px) and (max-width: 991px) {
+@media only screen and (min-width: 700px) and (max-width: 991px) {
   .form-container {
     margin-top: 0%;
     height: 50px;
@@ -148,11 +144,11 @@ body {
 }
 
 @media only screen and (min-width: 900px) and (max-width: 1000px) {
-  // .form-container {
-  //   // margin-top: 0%;
-  //   height: 40px;
-  //   // padding: 10px;
-  // }
+  .form-container {
+    // margin-top: 0%;
+    height: 40px;
+    // padding: 10px;
+  }
   .btn-margin-top {
     margin-top: 2%;
   }
