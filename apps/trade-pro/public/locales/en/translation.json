@@ -606,5 +606,15 @@
   "cl_debit": "Cl Debit",
   "cl_credit": "Cl Credit",
   "skip_zero": "Skip Zero",
-  "un_post": "Un Post"
+  "un_post": "Un Post",
+  "profit_loss": "Profit Loss",
+  "net_sale": "Net Sale",
+  "cost_of_sale": "Cost Of Sale",
+  "gross_net": "Gross Net",
+  "taxation": "Taxation",
+  "financial_expense": "Financial Expense",
+  "operating_expense": "Operating Expense",
+  "non_operating_income": "Non Operating Income",
+  "other_expense": "Other Expense",
+  "administration_expense": "Administration Expense"
 }

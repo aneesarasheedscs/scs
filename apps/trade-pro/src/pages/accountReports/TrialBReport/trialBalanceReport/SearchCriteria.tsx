@@ -89,7 +89,7 @@ function searchCriteriaTrialBalanceReport() {
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
       <Form form={form} onFinish={onFinish} layout="inline" initialValues={formValues}>
         <Row gutter={[16, 16]}>
-          <Col xs={22} sm={12} md={24} xxl={23} className="form_field form-container">
+          <Col xs={24} sm={12} md={24} xxl={23} className="form_field">
             <AntSelectDynamic
               bordered={false}
               fieldValue="Id"
@@ -109,27 +109,29 @@ function searchCriteriaTrialBalanceReport() {
           <Col xs={24} sm={12} md={11} className="form_field" offset={1}>
             <AntDatePicker defaultValue={ToDate} name="ToDate" label="To Date" bordered={false} />
           </Col> */}
-          <Col xs={24} sm={12} md={12} className="form_field form-container">
-            <Form.Item name="FromDate" initialValue={FromDate}>
-              <AntDatePicker name="FromDate" label={t('from_date')} bordered={false} />
-            </Form.Item>
+          <Col xs={24} sm={12} md={12} className="form_field">
+            <p className="date_icon_width">
+              <Form.Item name="FromDate" initialValue={FromDate}>
+                <AntDatePicker name="FromDate" label={t('from_date')} bordered={false} />
+              </Form.Item>
+            </p>
           </Col>
 
-          <Col xs={24} sm={12} md={11} className="form_field form-container" offset={1}>
+          <Col xs={24} sm={12} md={11} className="form_field" offset={1}>
             <Form.Item name="ToDate" initialValue={ToDate}>
               <AntDatePicker name="ToDate" label={t('to_date')} bordered={false} />
             </Form.Item>
           </Col>
 
-          <Col xs={24} sm={12} md={12} className="form_field form-container">
+          <Col xs={24} sm={12} md={12} className="form_field ">
             <AntInputNumber name="Debit" label={t('cl_debit')} bordered={false} />
           </Col>
 
-          <Col xs={24} sm={12} md={11} className="form_field form-container" offset={1}>
+          <Col xs={24} sm={12} md={11} className="form_field " offset={1}>
             <AntInputNumber name="Credit" label={t('cl_credit')} bordered={false} />
           </Col>
 
-          <Col xs={24} sm={12} md={24} className="form_field form-container">
+          <Col xs={24} sm={12} md={24} className="form_field ">
             <AntSelectDynamic
               bordered={false}
               fieldValue="Id"
@@ -140,14 +142,14 @@ function searchCriteriaTrialBalanceReport() {
             />
           </Col>
 
-          <Col xs={4} sm={6} md={6}>
-            <Form.Item name="ZeroBalanceType" className="form-container">
+          <Col xs={12} sm={6} md={6}>
+            <Form.Item name="ZeroBalanceType" className="">
               <Checkbox onChange={onChangeSkipZero}>{t('skip_zero')}</Checkbox>
             </Form.Item>
           </Col>
 
-          <Col xs={4} sm={6} md={6}>
-            <Form.Item name="IsApproved" className="form-container">
+          <Col xs={12} sm={6} md={6}>
+            <Form.Item name="IsApproved" className="">
               <Checkbox checked={getFieldValue('IsApproved')} onChange={onChangeUnPost}>
                 {t('un_post')}
               </Checkbox>

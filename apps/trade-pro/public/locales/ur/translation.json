@@ -602,5 +602,15 @@
   "cl_debit": "اختتامی ڈیبٹ",
   "cl_credit": "اختتامی کریڈٹ",
   "skip_zero": "صفر چھوڑیں",
-  "un_post": "غیر منظور شدہ"
+  "un_post": "غیر منظور شدہ",
+  "profit_loss": "منافع یا زیان",
+  "net_sale": "صاف فروخت",
+  "cost_of_sale": "فروخت کی لاگت",
+  "gross_net": "کل نیٹ",
+  "taxation": "محصولاتی",
+  "financial_expense": "مالیہ اخراجات",
+  "operating_expense": "عملی اخراجات",
+  "non_operating_income": "غیر عملی آمدنی",
+  "other_expense": "دیگر اخراجات",
+  "administration_expense": "انتظامیہ اخراجات"
 }

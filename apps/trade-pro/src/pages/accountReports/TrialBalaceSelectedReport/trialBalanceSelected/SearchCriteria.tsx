@@ -1,13 +1,7 @@
 import React, { useState } from 'react';
 import { Checkbox, Col, Form, Row } from 'antd';
 import dayjs from 'dayjs';
-import {
-  AntButton,
-  AntDatePicker,
-  AntInputNumber,
-  AntSelectDynamic,
-  SearchCriteriaWrapper,
-} from '@tradePro/components';
+import { AntButton, AntDatePicker, AntSelectDynamic, SearchCriteriaWrapper } from '@tradePro/components';
 import { storedFinancialYear } from '@tradePro/utils/storageService';
 import { TtrialBalanceSelectedSearchCriteria } from './type';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
@@ -48,14 +42,6 @@ function CriteriaTrialBalanceSelected() {
     }
   };
 
-  // const onChangeUnPost = (e: CheckboxChangeEvent) => {
-  //   if (e.target.checked) {
-  //     setFieldValue('IsApproved', false);
-  //   } else {
-  //     setFieldValue('IsApproved', true);
-  //   }
-  // };
-
   const FromDate = dayjs(financialYear?.Start_Period);
   const ToDate = dayjs(financialYear?.End_Period);
 
@@ -92,22 +78,26 @@ function CriteriaTrialBalanceSelected() {
       <Form form={form} onFinish={onFinish} layout="inline" initialValues={formValues}>
         <Row gutter={[10, 10]}>
           <Col xs={24} sm={12} md={24} className="form_field">
-            <AntSelectDynamic
-              bordered={false}
-              fieldValue="Id"
-              fieldLabel="DateType"
-              defaultValue={'5'}
-              label={t('date_type')}
-              query={useGetDateTypes}
-              onChange={(value) => handleDateChange(value)}
-              name="DateType"
-            />
+            <p className="datetype_icon_width">
+              <AntSelectDynamic
+                bordered={false}
+                fieldValue="Id"
+                fieldLabel="DateType"
+                defaultValue={'5'}
+                label={t('date_type')}
+                query={useGetDateTypes}
+                onChange={(value) => handleDateChange(value)}
+                name="DateType"
+              />
+            </p>
           </Col>
 
           <Col xs={24} sm={12} md={12} className="form_field">
-            <Form.Item name="FromDate" initialValue={FromDate}>
-              <AntDatePicker name="FromDate" label={t('from_date')} bordered={false} />
-            </Form.Item>
+            <p className="date_icon_width">
+              <Form.Item name="FromDate" initialValue={FromDate}>
+                <AntDatePicker name="FromDate" label={t('from_date')} bordered={false} />
+              </Form.Item>
+            </p>
           </Col>
 
           <Col xs={24} sm={12} md={11} className="form_field" offset={1}>
@@ -117,14 +107,16 @@ function CriteriaTrialBalanceSelected() {
           </Col>
 
           <Col xs={24} sm={12} md={24} className="form_field">
-            <AntSelectDynamic
-              bordered={false}
-              label={t('account_title')}
-              name="GroupAccountId"
-              fieldValue="Id"
-              fieldLabel="AccountTitle"
-              query={useGetAccountTitle}
-            />
+            <p className="datetype_icon_width">
+              <AntSelectDynamic
+                bordered={false}
+                label={t('account_title')}
+                name="GroupAccountId"
+                fieldValue="Id"
+                fieldLabel="AccountTitle"
+                query={useGetAccountTitle}
+              />
+            </p>
           </Col>
           <Col xs={24} sm={12} md={24} className="form_field">
             <AntSelectDynamic

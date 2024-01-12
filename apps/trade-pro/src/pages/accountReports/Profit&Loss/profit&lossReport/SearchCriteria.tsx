@@ -29,34 +29,50 @@ function ProfitLossCriteria() {
     <div style={{ backgroundColor: '#fff' }}>
       <Row>
         <Col
-          xs={2}
+          xs={10}
           sm={4}
           md={6}
           lg={8}
           xl={14}
           style={{ display: 'flex', alignItems: 'center', alignContent: 'center', margin: '16px' }}
         >
-          <h1 style={{ fontFamily: 'Poppins', fontSize: '19px', padding: '0px' }}>{t('Profit Loss')} </h1>
+          <h1 style={{ fontFamily: 'Poppins', fontSize: '19px', padding: '0px' }}>{t('profit_loss')} </h1>
         </Col>
       </Row>
 
-      <Card style={{ width: '80vw', marginLeft: '50px', marginBottom: '15px' }}>
-        <Form form={form} onFinish={onFinish} initialValues={formValues}>
-          <Row gutter={16} style={{ marginTop: '15px', marginBottom: '-10px' }}>
-            <Col xl={4} className="form_fields ">
-              <AntDatePicker name="FromDate" bordered={false} label={t('from_date')} />
-            </Col>
+      <Row gutter={[16, 16]} justify={'start'}>
+        <Col xxl={12} xl={116} xs={18} sm={18} lg={18} style={{ marginLeft: 10 }}>
+          <Card>
+            <Form form={form} onFinish={onFinish} initialValues={formValues}>
+              <Row gutter={[16, 16]} justify={'start'}>
+                <Col xl={7} xxl={8} xs={24} md={12} className="form_fields form-container ">
+                  <AntDatePicker name="FromDate" bordered={false} label={t('from_date')} />
+                </Col>
 
-            <Col xl={4} className="form_fields " offset={1}>
-              <AntDatePicker name="ToDate" bordered={false} label={t('to_date')} />
-            </Col>
+                <Col
+                  xl={7}
+                  xxl={{ span: 8, offset: 1 }}
+                  xs={24}
+                  md={{ span: 11, offset: 1 }}
+                  className="form_fields form-container "
+                >
+                  <AntDatePicker name="ToDate" bordered={false} label={t('to_date')} />
+                </Col>
 
-            <Col>
-              <AntButton label={t('show')} htmlType="submit" isError={isError} isLoading={isLoading} />
-            </Col>
-          </Row>
-        </Form>
-      </Card>
+                <Col
+                  xxl={{ span: 4, offset: 1 }}
+                  xs={24}
+                  md={{ span: 10 }}
+                  xl={{ span: 3, offset: 1 }}
+                  className="btn-margin-top"
+                >
+                  <AntButton label={t('show')} htmlType="submit" isError={isError} isLoading={isLoading} />
+                </Col>
+              </Row>
+            </Form>
+          </Card>
+        </Col>
+      </Row>
       <ProfitLoss />
     </div>
   );

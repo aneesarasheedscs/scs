@@ -3,58 +3,18 @@
   padding: 0px;
   height: 40px;
 }
-@media only screen and (max-width: 870px) {
-  .form-container {
-    margin-top: 0%;
-    height: 35px;
+@media (max-width: 768px) {
+  .form_field {
+    display: flex;
+    justify-content: start;
+
     margin: 0;
   }
-}
-// @media only screen and (min-width: 700px) and (max-width: 991px) {
-//   .form-container {
-//     margin-top: 0%;
-//     height: 50px;
-//     padding: 10px;
-//   }
-//   .btn-margin-top {
-//     margin-top: 3%;
-//   }
-//   .custom-title1 {
-//     height: 6.5vh;
-//   }
-// }
-// @media only screen and (min-width: 800px) and (max-width: 991px) {
-//   .form-container {
-//     // margin-top: 0%;
-//     height: 40px;
-//     // padding: 10px;
-//   }
-//   .btn-margin-top {
-//     margin-top: 2%;
-//   }
-//   .custom-title1 {
-//     height: 6.5vh;
-//   }
-// }
 
-// @media only screen and (min-width: 900px) and (max-width: 1000px) {
-//   .form-container {
-//     // margin-top: 0%;
-//     height: 40px;
-//     // padding: 10px;
-//   }
-//   .btn-margin-top {
-//     margin-top: 2%;
-//   }
-//   // .custom-title1 {
-//   //   height: 7vh;
-//   // }
-// }
-// @media only screen and (min-width: 1100px) and (max-width: 1500px) {
-//   .btn-margin-top {
-//     margin-top: 1%;
-//   }
-//   // .custom-title1 {
-//   //   height: 7vh;
-//   // }
-// }
+  .date_icon_width {
+    width: 55%;
+  }
+  .datetype_icon_width {
+    width: 95%;
+  }
+}
