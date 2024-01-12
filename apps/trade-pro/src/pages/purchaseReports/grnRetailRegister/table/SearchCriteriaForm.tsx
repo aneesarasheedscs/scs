@@ -39,9 +39,11 @@ function SearchCriteria() {
   return (
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
       <Form form={form} onFinish={onFinish} layout="inline" initialValues={formValues}>
-        <Row gutter={[10, 10]} justify={'space-between'}>
+        <Row gutter={[10, 16]} justify={'space-between'}>
           <Col xs={24} sm={24} md={11} className="formfield">
-            <AntDatePicker name="FromDate" bordered={false} label="From Date" />
+            <p className="formfielddropdown">
+              <AntDatePicker name="FromDate" bordered={false} label="From Date" />
+            </p>
           </Col>
 
           <Col xs={24} sm={24} md={12} className="formfield">
@@ -57,14 +59,16 @@ function SearchCriteria() {
           </Col>
 
           <Col xs={24} sm={24} md={11} className="formfield">
-            <AntSelectDynamic
-              fieldValue="Id"
-              label="Supplier Name"
-              query={useGetSuppliers}
-              fieldLabel="CompanyName"
-              name="SupplierCustomerId"
-              bordered={false}
-            />
+            <p className="formfielddropdown">
+              <AntSelectDynamic
+                fieldValue="Id"
+                label="Supplier Name"
+                query={useGetSuppliers}
+                fieldLabel="CompanyName"
+                name="SupplierCustomerId"
+                bordered={false}
+              />
+            </p>
           </Col>
 
           <Col xs={24} sm={24} md={12} className="formfield">
@@ -80,14 +84,16 @@ function SearchCriteria() {
         </Row>
         <Row gutter={[10, 10]} justify={'space-between'} style={{ width: '100%', marginTop: 10 }}>
           <Col xs={24} sm={24} md={11} className="formfield">
-            <AntSelectDynamic
-              name="WareHouseId"
-              label="Warehouse Name"
-              fieldValue="Id"
-              fieldLabel="WareHouseName"
-              query={useGetWarehouseName}
-              bordered={false}
-            />
+            <p className="formfielddropdown">
+              <AntSelectDynamic
+                name="WareHouseId"
+                label="Warehouse Name"
+                fieldValue="Id"
+                fieldLabel="WareHouseName"
+                query={useGetWarehouseName}
+                bordered={false}
+              />
+            </p>
           </Col>
 
           <Col xs={24} sm={24} md={12} className="formfield">

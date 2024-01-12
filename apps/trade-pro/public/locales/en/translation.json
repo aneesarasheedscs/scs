@@ -582,5 +582,9 @@
   "discount_category_name": "Discount Category Name",
   "allocate_brand_item_to_disc_type": "Allocate Brand Item To Disc Type",
   "brand_item_name": "Brand Item Name",
-  "brand_name": "Brand Name"
+  "brand_name": "Brand Name",
+  "inventory_dashboard": "Inventory Dashboard",
+  "search": "Search",
+  "accounts_dashboard": "Accounts Dashboard",
+  "approval_dashboard": "Approval Dashboard"
 }

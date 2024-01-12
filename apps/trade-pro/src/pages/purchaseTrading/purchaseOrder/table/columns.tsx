@@ -12,10 +12,10 @@ export const columns = (
   setSelectedRecordId?: any,
   setActiveTab?: any
 ): AntColumnType<TPurchaseOrderHistory>[] => [
-  { title: <>{t('order_no')}</>, dataIndex: 'OrderNo', width: 150 },
+  { title: t('order_no'), dataIndex: 'OrderNo', width: 150 },
   {
     width: 150,
-    title: <>{t('order_date')}</>,
+    title: t('order_date'),
     searchableDate: true,
     dataIndex: 'OrderDate',
     sortDirections: ['ascend', 'descend'],
@@ -29,13 +29,13 @@ export const columns = (
   {
     width: 300,
     searchableInput: true,
-    title: <>{t('supplier_name')}</>,
+    title: t('supplier_name'),
     dataIndex: 'SupplierName',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.SupplierName.localeCompare(b.SupplierName),
   },
   {
-    title: <>{t('delivery_term')}</>,
+    title: t('delivery_term'),
     searchableInput: true,
     dataIndex: 'DeliveryTerm',
     sortDirections: ['ascend', 'descend'],
@@ -43,7 +43,7 @@ export const columns = (
     width: 180,
   },
   {
-    title: <>{t('item_name')}</>,
+    title: t('item_name'),
     dataIndex: 'ItemName',
     width: 350,
     searchableInput: true,
@@ -51,14 +51,14 @@ export const columns = (
     sorter: (a, b) => a.ItemName.localeCompare(b.ItemName),
   },
   {
-    title: <>{t('pack_uom')}</>,
+    title: t('pack_uom'),
     searchableInput: true,
     dataIndex: 'BaseUom',
     width: 180,
   },
   {
     width: 180,
-    title: <>{t('order_quantity')}</>,
+    title: t('order_quantity'),
     dataIndex: 'OrderQty',
     showTotal: true,
     sortDirections: ['ascend', 'descend'],
@@ -67,7 +67,7 @@ export const columns = (
   },
   {
     width: 180,
-    title: <>{t('received_quantity')}</>,
+    title: t('received_quantity'),
     dataIndex: 'ReceivedQty',
     showTotal: true,
     sortDirections: ['ascend', 'descend'],
@@ -76,7 +76,7 @@ export const columns = (
   },
   {
     width: 160,
-    title: <>{t('balance_quantity')}</>,
+    title: t('balance_quantity'),
     dataIndex: 'BalanceQty',
     showTotal: true,
     sortDirections: ['ascend', 'descend'],
@@ -86,7 +86,7 @@ export const columns = (
   {
     width: 160,
     showTotal: true,
-    title: <>{t('order_weight')}</>,
+    title: t('order_weight'),
     dataIndex: 'OrderWeight',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.OrderWeight - b.OrderWeight,
@@ -95,7 +95,7 @@ export const columns = (
   {
     width: 150,
     showTotal: true,
-    title: <>{t('received_weight')}</>,
+    title: t('received_weight'),
     dataIndex: 'ReceivedWeight',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.ReceivedWeight - b.ReceivedWeight,
@@ -105,7 +105,7 @@ export const columns = (
   {
     width: 180,
     showAverage: true,
-    title: <>{t('balance_weight')}</>,
+    title: t('balance_weight'),
     dataIndex: 'BalWeight',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.BalWeight - b.BalWeight,
@@ -113,7 +113,7 @@ export const columns = (
   },
   {
     width: 130,
-    title: <>{t('item_rate')}</>,
+    title: t('item_rate'),
     dataIndex: 'ItemRate',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.ItemRate - b.ItemRate,
@@ -121,7 +121,7 @@ export const columns = (
   },
   {
     width: 150,
-    title: <>{t('approved_date')}</>,
+    title: t('approved_date'),
     dataIndex: 'ApprovedDate',
     sortDirections: ['ascend', 'descend'],
     render: (_, { ApprovedDate }) => formateDate(ApprovedDate),
@@ -133,13 +133,13 @@ export const columns = (
   },
   {
     width: 150,
-    title: <>{t('order_expiry_date')}</>,
+    title: t('order_expiry_date'),
     dataIndex: 'OrderExpiryDate',
     render: (_, { OrderExpiryDate }) => formateDate(OrderExpiryDate),
   },
   {
     width: 100,
-    title: <>{t('action')} </>,
+    title: t('action'),
     dataIndex: '',
     render: (_, record) => (
       <Tooltip title={t('edit')}>

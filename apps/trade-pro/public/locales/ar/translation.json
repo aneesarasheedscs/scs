@@ -472,5 +472,8 @@
   "discount_category_name": "اسم فئة الخصم",
   "allocate_brand_item_to_disc_type": "تخصيص عنصر العلامة التجارية لنوع القرص",
   "brand_item_name": "اسم العنصر العلامة التجارية",
-  "brand_name": "اسم العلامة التجارية"
+  "brand_name": "اسم العلامة التجارية",
+  "inventory_dashboard": "لوحة معلومات المخزون",
+  "search": "يبحث",
+  "approval_dashboard": "لوحة الموافقة"
 }

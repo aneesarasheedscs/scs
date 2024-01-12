@@ -451,5 +451,8 @@
   "discount_category_name": "割引カテゴリ名",
   "allocate_brand_item_to_disc_type": "ブランドアイテムをディスクタイプに割り当てる",
   "brand_item_name": "ブランドアイテム名",
-  "brand_name": "ブランド名"
+  "brand_name": "ブランド名",
+  "inventory_dashboard": "インベントリダッシュボード",
+  "search": "検索",
+  "approval_dashboard": "承認ダッシュボード"
 }

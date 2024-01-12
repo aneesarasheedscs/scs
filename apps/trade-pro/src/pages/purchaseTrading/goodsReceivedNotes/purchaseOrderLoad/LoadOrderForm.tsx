@@ -12,6 +12,7 @@ const { useForm, useWatch } = Form;
 
 interface Props {
   handleLoadButtonClick: () => void;
+  handleClose: () => void;
 }
 
 function LoadOrderDetailForm({ handleLoadButtonClick }: Props) {

@@ -465,5 +465,8 @@
   "discount_category_name": "Nom de la catégorie de remise",
   "allocate_brand_item_to_disc_type": "Attribuer un article de marque au type de disque",
   "brand_item_name": "Nom de l'article de marque",
-  "brand_name": "Marque"
+  "brand_name": "Marque",
+  "inventory_dashboard": "Tableau de bord d'inventaire",
+  "search": "Recherche",
+  "approval_dashboard": "Tableau de bord d'approbation"
 }

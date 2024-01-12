@@ -451,5 +451,8 @@
   "discount_category_name": "할인 카테고리 이름",
   "allocate_brand_item_to_disc_type": "디스크 유형에 브랜드 항목 할당",
   "brand_item_name": "브랜드 품목 이름",
-  "brand_name": "상표명"
+  "brand_name": "상표명",
+  "inventory_dashboard": "재고 대시보드",
+  "search": "찾다",
+  "approval_dashboard": "승인 대시보드"
 }

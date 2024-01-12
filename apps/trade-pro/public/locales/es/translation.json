@@ -796,5 +796,7 @@
   "discount_category_name": "Nombre de la categoría de descuento",
   "allocate_brand_item_to_disc_type": "Asignar artículo de marca al tipo de disco",
   "brand_item_name": "Nombre del artículo de marca",
-  "brand_name": "Nombre de la marca"
+  "brand_name": "Nombre de la marca",
+  "inventory_dashboard": "Panel de inventario",
+  "approval_dashboard": "Panel de aprobación"
 }

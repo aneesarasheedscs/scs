@@ -32,7 +32,7 @@ function GRNDetailTable({
   console.log(selectedRows);
   return (
     <>
-      <h2 className="form-heading2"> GRN Detail</h2>
+      <h2 className="form-heading2"> Detail</h2>
       <AntTable
         refetch={refetch}
         isError={isError}
@@ -40,7 +40,7 @@ function GRNDetailTable({
         numberOfSkeletons={12}
         isLoading={isLoading || isFetching}
         data={selectedRows}
-        scroll={{ x: '', y: convertVhToPixels('30vh') }}
+        scroll={{ x: '', y: convertVhToPixels('20vh') }}
       />
     </>
   );

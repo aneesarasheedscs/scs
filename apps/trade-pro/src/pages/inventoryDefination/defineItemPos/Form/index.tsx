@@ -17,6 +17,7 @@ import {
   TDefineItemDataonUpdate,
   TItemCode,
 } from './types';
+import { AddButtonforItems } from './definitionScreens/AddButtonforItems';
 
 const { useToken } = theme;
 const { useForm, useWatch } = Form;
@@ -27,6 +28,10 @@ function ItemFormtoSave({ selectedRecordId }: any) {
   const { data, isError, isLoading } = getItemCode();
   const { token } = useToken();
   const [printPreview, setPrintPreview] = useState(true);
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const { mutate: addItem, isSuccess } = useSaveItemCategory();
   const { mutate: updateItem, isSuccess: isSuccessUpdate } = useUpdateItemCategory(selectedRecordId);
@@ -133,7 +138,9 @@ function ItemFormtoSave({ selectedRecordId }: any) {
                     />
                   </Col>
                   <Form.Item style={{ marginTop: 25, marginRight: 0 }}>
-                    <ItemCategory />
+                    <AddButtonforItems open={open} handleOpen={handleOpen} handleClose={handleClose}>
+                      <ItemCategory open={open} />
+                    </AddButtonforItems>
                   </Form.Item>
                 </Col>
                 <Col xl={{ span: 4 }} xs={{ span: 10 }} style={{ marginRight: 10 }}>

@@ -5,17 +5,17 @@ import { TGRNDetailTable, TGrnDetailTable } from '../../types';
 import { Checkbox, Space, Tooltip } from 'antd';
 
 export const columns = (t?: any, handleCheckboxChange?: any, selectedRows?: any): AntColumnType<TGrnDetailTable>[] => [
-  {
-    title: 'Select Item',
-    dataIndex: 'Id',
-    width: 100,
-    render: (_, record) => (
-      <Checkbox
-        onChange={(e) => handleCheckboxChange(record.OrderDetailId, e.target.checked)}
-        checked={selectedRows.includes(record.OrderDetailId)}
-      />
-    ),
-  },
+  // {
+  //   title: 'Select Item',
+  //   dataIndex: 'Id',
+  //   width: 100,
+  //   render: (_, record) => (
+  //     <Checkbox
+  //       onChange={(e) => handleCheckboxChange(record.OrderDetailId, e.target.checked)}
+  //       checked={selectedRows.includes(record.OrderDetailId)}
+  //     />
+  //   ),
+  // },
   { title: <>{t('order_no')}</>, dataIndex: 'DocNo', width: 110 },
   {
     width: 150,
@@ -60,17 +60,17 @@ export const Detailcolumns = (
   handleCheckboxChange?: any,
   selectedRows?: any
 ): AntColumnType<TGrnDetailTable>[] => [
-  {
-    title: 'Select Item',
-    dataIndex: 'Id',
-    width: 100,
-    render: (_, record) => (
-      <Checkbox
-        onChange={(e) => handleCheckboxChange(record.OrderDetailId, e.target.checked)}
-        checked={selectedRows.includes(record.OrderDetailId)}
-      />
-    ),
-  },
+  // {
+  //   title: 'Select Item',
+  //   dataIndex: 'Id',
+  //   width: 100,
+  //   render: (_, record) => (
+  //     <Checkbox
+  //       onChange={(e) => handleCheckboxChange(record.OrderDetailId, e.target.checked)}
+  //       checked={selectedRows.includes(record.OrderDetailId)}
+  //     />
+  //   ),
+  // },
   {
     title: <>{t('item_name')}</>,
     dataIndex: 'ItemName',

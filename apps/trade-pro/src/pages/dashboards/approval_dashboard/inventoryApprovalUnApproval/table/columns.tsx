@@ -4,7 +4,7 @@ import { AntButton } from '@tradePro/components';
 import { Space, Tooltip } from 'antd';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import { TRequisitionOrderHistory } from '../types';
+import { TRequisitionOrderforApprovalHistory } from '../types';
 import dayjs from 'dayjs';
 
 export const columns = (
@@ -12,9 +12,9 @@ export const columns = (
   setSelectedRecordId?: any,
   setActiveTab?: any,
   setSelectedRecordIdforDetail?: any
-): AntColumnType<TRequisitionOrderHistory>[] => [
+): AntColumnType<TRequisitionOrderforApprovalHistory>[] => [
   {
-    title: t('doc_no'),
+    title: <>{t('doc_no')}</>,
     dataIndex: 'DocNo',
     searchableInput: true,
     width: 120,
@@ -22,11 +22,11 @@ export const columns = (
     sorter: (a, b) => a.DocNo - b.DocNo,
   },
   {
-    title: t('doc_date'),
+    title: <>{t('doc_date')}</>,
     dataIndex: 'DocDate',
     searchableDate: true,
     render: (_, { DocDate }) => formateDate(DocDate),
-    width: 140,
+    width: 130,
     sorter: (a, b) => {
       const dateA = dayjs(a.DocDate);
       const dateB = dayjs(b.DocDate);
@@ -34,7 +34,7 @@ export const columns = (
     },
   },
   {
-    title: t('location_from'),
+    title: <>{t('location_from')}</>,
     dataIndex: 'LocationFrom',
     width: 280,
     searchableInput: true,
@@ -42,7 +42,7 @@ export const columns = (
     sorter: (a, b) => a.EntryUser.localeCompare(b.EntryUser),
   },
   {
-    title: t('location_to'),
+    title: <>{t('location_to')}</>,
     dataIndex: 'LocationTo',
     width: 280,
     searchableInput: true,
@@ -50,7 +50,7 @@ export const columns = (
     sorter: (a, b) => a.EntryUser.localeCompare(b.EntryUser),
   },
   {
-    title: t('request_status'),
+    title: <>{t('request_status')}</>,
     dataIndex: 'RequestStatus',
     width: 170,
     searchableInput: true,
@@ -58,7 +58,7 @@ export const columns = (
     sorter: (a, b) => a.EntryUser.localeCompare(b.EntryUser),
   },
   {
-    title: t('entry_user'),
+    title: <>{t('entry_user')}</>,
     dataIndex: 'EntryUser',
     width: 150,
     searchableInput: true,
@@ -66,7 +66,7 @@ export const columns = (
     sorter: (a, b) => a.EntryUser.localeCompare(b.EntryUser),
   },
   {
-    title: t('entry_date'),
+    title: <>{t('entry_date')}</>,
     dataIndex: 'EntryDate',
     searchableDate: true,
     render: (_, { EntryDate }) => formateDate(EntryDate),
@@ -78,7 +78,7 @@ export const columns = (
     },
   },
   {
-    title: t('modify_user'),
+    title: <>{t('modify_user')}</>,
     dataIndex: 'ModifyUser',
     width: 150,
     searchableInput: true,
@@ -86,7 +86,7 @@ export const columns = (
     // sorter: (a, b) => a.ModifyUser.localeCompare(b.ModifyUser),
   },
   {
-    title: t('modify_date'),
+    title: <>{t('modify_date')}</>,
     searchableDate: true,
     dataIndex: 'ModifyDate',
     render: (_, { ModifyDate }) => formateDate(ModifyDate),
@@ -98,7 +98,7 @@ export const columns = (
     },
   },
   {
-    title: t('approved_user'),
+    title: <>{t('approved_user')}</>,
     dataIndex: 'ApprovedUser',
     width: 180,
     searchableInput: true,
@@ -106,7 +106,7 @@ export const columns = (
     // sorter: (a, b) => a.ApprovedUser.localeCompare(b.ApprovedUser),
   },
   {
-    title: t('approved_date'),
+    title: <>{t('approved_date')}</>,
     searchableDate: true,
     dataIndex: 'ApprovedDate',
     render: (_, { ApprovedDate }) => formateDate(ApprovedDate),
@@ -118,17 +118,19 @@ export const columns = (
     },
   },
   {
-    title: t('is_approved'),
+    title: <>{t('is_approved')}</>,
     dataIndex: 'IsApproved',
     width: 120,
+    // searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     render: (IsApproved) => (
       <Space
         style={{
           color: IsApproved === 'Approved' ? 'lightgreen' : 'red',
+          // color: 'white',
           borderRadius: '5px',
           fontWeight: 'bold',
-          width: '95%',
+          width: '90%',
           paddingLeft: 8,
           border: '1px ridge white',
           boxShadow: ' rgba(0, 0, 0, 0.35) 0px 5px 15px',
@@ -141,27 +143,28 @@ export const columns = (
         {IsApproved === 'Approved' ? 'Approved' : 'Not Approved'}
       </Space>
     ),
+    // sorter: (a, b) => a.ApprovalStatus.localeCompare(b.ApprovalStatus),
   },
 
   {
-    title: t('remarks'),
+    title: <>{t('remarks')}</>,
     dataIndex: 'RemarksHeader',
-    width: 150,
+    width: 180,
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.RemarksHeader.localeCompare(b.RemarksHeader),
   },
   {
-    title: t('attachment'),
-    dataIndex: '',
+    title: <>{t('attachment')}</>,
+    dataIndex: 'NoofAttachments',
     width: 150,
   },
   {
-    title: t('action'),
-    width: 120,
+    title: <>{t('action')}</>,
+    width: 130,
     render: (_, record) => (
       <>
-        <Tooltip title={t('edit')}>
+        <Tooltip title="Edit">
           <Space>
             <AntButton
               type="text"
@@ -172,7 +175,7 @@ export const columns = (
             />
           </Space>
         </Tooltip>
-        <Tooltip title={t('detail')}>
+        <Tooltip title="View Detail">
           <Space>
             <AntButton
               type="text"

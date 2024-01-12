@@ -465,5 +465,8 @@
   "discount_category_name": "折扣类别名称",
   "allocate_brand_item_to_disc_type": "将品牌项目分配给光盘类型",
   "brand_item_name": "品牌 商品名称",
-  "brand_name": "品牌"
+  "brand_name": "品牌",
+  "inventory_dashboard": "库存仪表板",
+  "search": "搜索",
+  "approval_dashboard": "审批仪表板"
 }

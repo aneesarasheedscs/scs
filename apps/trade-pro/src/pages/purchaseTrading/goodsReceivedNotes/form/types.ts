@@ -1,4 +1,5 @@
 export type TGRNDetailTableAdd = {
+  PrintPreview: boolean;
   OrganizationId: number;
   CompanyId: number;
   BranchesId: number;

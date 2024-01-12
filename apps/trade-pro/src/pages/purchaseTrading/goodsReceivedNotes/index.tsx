@@ -15,6 +15,7 @@ function GoodsReveivedNotes() {
   const [activeTab, setActiveTab] = useState('1');
   const [showGRNDetailTable, setShowGRNDetailTable] = useState(false);
   const [selectedRows, setSelectedRows] = useAtom(selectedRowsAtom);
+  const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
 
   const { data: loadOrderData, refetch, isError, isLoading, isFetching } = useGRNPurchaseOrderLoadTable();
 
@@ -27,9 +28,10 @@ function GoodsReveivedNotes() {
     );
 
     setShowGRNDetailTable(true);
-    setSelectedRows(selectedData);
-    setActiveTab('2');
+    // setSelectedRows(selectedData);
+    // setActiveTab('2');
   };
+  console.log(selectedRows);
   return (
     <>
       <h2 className="form-heading"> {t('goods_received_notes')} </h2>
@@ -53,18 +55,20 @@ function GoodsReveivedNotes() {
         </TabPane>
         <TabPane tab={t('form')} key="2">
           <GRNDetailForm
+            selectedRecordId={selectedRecordId}
             selectedRows={selectedRows}
             showGRNDetailTable={showGRNDetailTable}
             handleLoadOrderButtonClick={handleLoadOrderButtonClick}
+            handleLoadButtonClick={handleLoadButtonClick}
             refetch={refetch}
             isError={isError}
             isLoading={isLoading}
             isFetching={isFetching}
           />
         </TabPane>
-        <TabPane tab={t('purchase_order_load')} key="3">
+        {/* <TabPane tab={t('purchase_order_load')} key="3">
           <LoadOrderDetailForm handleLoadButtonClick={handleLoadButtonClick} />
-        </TabPane>
+        </TabPane> */}
       </Tabs>
     </>
   );
