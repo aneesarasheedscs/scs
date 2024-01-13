@@ -9,18 +9,18 @@ function handleRowClick(AccountId: number) {
 
 export const SixColumnsTrialBalanceReport = (t: any): AntColumnType<TrialBalanceSixCol>[] => [
   {
-    title: <>{t('account_code')}</>,
+    title: t('account_code'),
     dataIndex: 'AccountCode',
-    width: 200,
+    width: 150,
     render: (_, { AccountCode, AccountId }) => <a onClick={() => handleRowClick(AccountId)}>{AccountCode}</a>,
   },
   {
-    title: <>{t('account_title')}</>,
+    title: t('account_title'),
     dataIndex: 'AccountTitle',
     width: 200,
   },
   {
-    title: <>{t('Opening Dr')}</>,
+    title: t('opening_dr'),
     showTotal: true,
     dataIndex: 'OpeningDr',
     width: 200,
@@ -30,7 +30,7 @@ export const SixColumnsTrialBalanceReport = (t: any): AntColumnType<TrialBalance
     ),
   },
   {
-    title: <>{t('Opening Cr')}</>,
+    title: t('opening_cr'),
     showTotal: true,
     dataIndex: 'OpeningCr',
     width: 200,
@@ -41,7 +41,7 @@ export const SixColumnsTrialBalanceReport = (t: any): AntColumnType<TrialBalance
   },
 
   {
-    title: <>{t('debit')}</>,
+    title: t('debit'),
     dataIndex: 'Debit',
     showTotal: true,
     width: 200,
@@ -51,7 +51,7 @@ export const SixColumnsTrialBalanceReport = (t: any): AntColumnType<TrialBalance
     ),
   },
   {
-    title: <>{t('credit')}</>,
+    title: t('credit'),
     dataIndex: 'Credit',
     showTotal: true,
     width: 200,
@@ -61,7 +61,7 @@ export const SixColumnsTrialBalanceReport = (t: any): AntColumnType<TrialBalance
   },
 
   {
-    title: <>{t('Closing Cr')}</>,
+    title: t('closing_cr'),
     dataIndex: 'ClosingCr',
     showTotal: true,
     width: 200,
@@ -70,7 +70,7 @@ export const SixColumnsTrialBalanceReport = (t: any): AntColumnType<TrialBalance
     ),
   },
   {
-    title: <>{t('Closing Dr')}</>,
+    title: t('closing_dr'),
     dataIndex: 'ClosingDr',
     showTotal: true,
     width: 200,
@@ -82,25 +82,25 @@ export const SixColumnsTrialBalanceReport = (t: any): AntColumnType<TrialBalance
 
 export const FourColumnsTrialBalanceReport = (t: any): AntColumnType<TrialBalanceHistory>[] => [
   // {
-  //   title: <>{t('sr#')}</>,
+  //   title: t('sr#'),
   //   dataIndex: '',
   //   width: 100,
   //   render: (_, __, index) => index + 1,
   // },
 
   {
-    title: <>{t('account_code')}</>,
+    title: t('account_code'),
     dataIndex: 'AccountCode',
     width: 200,
     render: (_, { AccountCode, AccountId }) => <a onClick={() => handleRowClick(AccountId)}>{AccountCode}</a>,
   },
   {
-    title: <>{t('account_title')}</>,
+    title: t('account_title'),
     dataIndex: 'AccountTitle',
     width: 250,
   },
   {
-    title: <>{t('opening')}</>,
+    title: t('opening'),
     showTotal: true,
     dataIndex: 'Opening',
     width: 300,
@@ -111,7 +111,7 @@ export const FourColumnsTrialBalanceReport = (t: any): AntColumnType<TrialBalanc
   },
 
   {
-    title: <>{t('debit')}</>,
+    title: t('debit'),
     dataIndex: 'Debit',
     showTotal: true,
     width: 200,
@@ -121,7 +121,7 @@ export const FourColumnsTrialBalanceReport = (t: any): AntColumnType<TrialBalanc
     ),
   },
   {
-    title: <>{t('credit')}</>,
+    title: t('credit'),
     dataIndex: 'Credit',
     showTotal: true,
     width: 200,
@@ -131,7 +131,7 @@ export const FourColumnsTrialBalanceReport = (t: any): AntColumnType<TrialBalanc
   },
 
   {
-    title: <>{t('closing')}</>,
+    title: t('closing'),
     dataIndex: 'Closing',
     showTotal: true,
     width: 200,

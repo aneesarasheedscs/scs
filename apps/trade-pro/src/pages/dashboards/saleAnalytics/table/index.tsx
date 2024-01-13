@@ -11,10 +11,11 @@ const ParentCategoryTable = ({ data }: any) => {
     <>
       {/* <Typography.Text>Recent Sales</Typography.Text> */}
       <Table
+        style={{ marginLeft: '3em' }}
         dataSource={filteredParentCategory}
         columns={[
           {
-            title: <>{t('par_category')}</>,
+            title: t('par_category'),
             width: 200,
 
             dataIndex: 'ParentCategory',
@@ -26,12 +27,12 @@ const ParentCategoryTable = ({ data }: any) => {
             ),
           },
           {
-            title: <>{t('net_weight')}</>,
+            title: t('net_weight'),
             width: '170px',
             dataIndex: 'NetWeight',
           },
           {
-            title: <>{t('net_amount')}</>,
+            title: t('net_amount'),
             width: '170px',
             dataIndex: 'NetAmount',
             render: (NetAmount, record) => (
@@ -41,13 +42,13 @@ const ParentCategoryTable = ({ data }: any) => {
             ),
           },
           {
-            title: <>{t('%_of_total_weight')}</>,
+            title: t('%_of_total_weight'),
             width: '150px',
             dataIndex: 'PrcntOfTotalWeight',
           },
 
           {
-            title: <>{t('%_of_total_amount')}</>,
+            title: t('%_of_total_amount'),
             width: '170px',
             dataIndex: 'PrcntOfTotalAmount',
           },
@@ -71,7 +72,7 @@ export const SaleByDateTable = () => {
         dataSource={filteredSalesByItem}
         columns={[
           {
-            title: <>{t('par_category')}</>,
+            title: t('par_category'),
             width: '120px',
             dataIndex: 'ParentCategory',
             render: (_, { ParentCategory }) => (
@@ -82,17 +83,17 @@ export const SaleByDateTable = () => {
             ),
           },
           {
-            title: <>{t('item_type')}</>,
+            title: t('item_type'),
             width: '135px',
             dataIndex: 'ItemType',
           },
           {
-            title: <>{t('net_weight')}</>,
+            title: t('net_weight'),
             width: '105px',
             dataIndex: 'NetWeight',
           },
           {
-            title: <>{t('net_amount')}</>,
+            title: t('net_amount'),
             width: '130px',
             dataIndex: 'NetAmount',
             render: (NetAmount, record) => (
@@ -102,13 +103,13 @@ export const SaleByDateTable = () => {
             ),
           },
           {
-            title: <>{t('%_of_total_weight')}</>,
+            title: t('%_of_total_weight'),
             width: '137px',
             dataIndex: 'PrcntOfTotalWeight',
           },
 
           {
-            title: <>{t('%_of_total_amount')}</>,
+            title: t('%_of_total_amount'),
             width: '136px',
             dataIndex: 'PrcntOfTotalAmount',
           },
@@ -131,7 +132,7 @@ export const SaleByItemTable = ({ data }: any) => {
         dataSource={filteredSalesByItem}
         columns={[
           {
-            title: <>{t('par_category')}</>,
+            title: t('par_category'),
             width: '120px',
             dataIndex: 'ParentCategory',
             render: (_, { ParentCategory }) => (
@@ -142,17 +143,17 @@ export const SaleByItemTable = ({ data }: any) => {
             ),
           },
           {
-            title: <>{t('item_type')}</>,
+            title: t('item_type'),
             width: '135px',
             dataIndex: 'ItemType',
           },
           {
-            title: <>{t('net_weight')}</>,
+            title: t('net_weight'),
             width: '105px',
             dataIndex: 'NetWeight',
           },
           {
-            title: <>{t('net_amount')}</>,
+            title: t('net_amount'),
             width: '130px',
             dataIndex: 'NetAmount',
             render: (NetAmount, record) => (
@@ -162,13 +163,13 @@ export const SaleByItemTable = ({ data }: any) => {
             ),
           },
           {
-            title: <>{t('%_of_total_weight')}</>,
+            title: t('%_of_total_weight'),
             width: '137px',
             dataIndex: 'PrcntOfTotalWeight',
           },
 
           {
-            title: <>{t('%_of_total_amount')}</>,
+            title: t('%_of_total_amount'),
             width: '136px',
             dataIndex: 'PrcntOfTotalAmount',
           },
@@ -248,13 +249,13 @@ export const SaleBybranchTable = ({ data }: any) => {
         dataSource={filteredSalesByBranch}
         columns={[
           {
-            title: <>{t('branch')}</>,
+            title: t('branch'),
             width: 280,
             dataIndex: 'Branch',
           },
 
           {
-            title: <>{t('net_amount')}</>,
+            title: t('net_amount'),
             width: 107,
             dataIndex: 'NetAmount',
             render: (NetAmount, record) => (
@@ -264,14 +265,14 @@ export const SaleBybranchTable = ({ data }: any) => {
             ),
           },
           {
-            title: <>{t('%_of_total_weight')}</>,
-            width: 136,
+            title: t('%_of_total_weight'),
+            width: 180,
             dataIndex: 'PrcntOfTotalWeight',
           },
 
           {
-            title: <>{t('%_of_total_amount')}</>,
-            width: 136,
+            title: t('%_of_total_amount'),
+            width: 180,
             dataIndex: 'PrcntOfTotalAmount',
           },
         ]}

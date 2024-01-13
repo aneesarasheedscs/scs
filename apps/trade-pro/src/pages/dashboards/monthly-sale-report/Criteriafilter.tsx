@@ -55,61 +55,62 @@ function MonthlySaleCriteria() {
   }, []);
   const monthsArray = generateMonthsArray();
   return (
-    <Row>
-      <Card style={{ width: '100vw', height: '100px' }}>
-        <Form form={form} onFinish={onFinish}>
-          <Row gutter={16} justify={'space-between'}>
-            <Col xl={5} className="formfield" offset={1}>
-              <AntSelectDynamic
-                className="formfield"
-                bordered={false}
-                label={t('month')}
-                fieldLabel="ReferenceName"
-                fieldValue="Id"
-                options={monthsArray}
-                onChange={(value) => handleMonthChange(value)}
-              />
-              <AntDatePicker name="FromDate" bordered={false} label="" style={{ visibility: 'hidden' }} />
-              <AntDatePicker name="ToDate" bordered={false} label="" style={{ visibility: 'hidden' }} />
-            </Col>
-            <Col xl={6} className="formfield">
-              <AntSelectDynamic
-                bordered={false}
-                label={t('companies')}
-                name="Companies"
-                fieldLabel="CompName"
-                fieldValue="Id"
-                query={useGetMasterBranchByUserId}
-              />
-            </Col>
-            <Col xl={2} className="formfield">
-              <AntInput bordered={false} label={t('count')} name="NoOfRecords" />
-            </Col>
-            <Col xl={3}>
-              <Radio.Group
-                onChange={(e) => {
-                  form.setFieldsValue({ ReqType: e.target.value });
-                }}
-                defaultValue={'Top'}
-              >
-                <Radio value={'Top'}> {t('top')}</Radio>
-                <Radio value={'Bottom'}> {t('bottom')}</Radio>
-              </Radio.Group>
-              <AntInput label="" name="ReqType" type="hidden" />
-            </Col>
+    <Row gutter={[16, 16]}>
+      <Col xxl={24} xl={24} xs={23} lg={24} sm={24} md={23}>
+        <Card>
+          <Form form={form} onFinish={onFinish}>
+            <Row gutter={[16, 16]} justify={'space-around'} align="top">
+              <Col xl={6} xs={24} sm={23} md={12} lg={23} xxl={4} className="formfield form-container">
+                <AntSelectDynamic
+                  bordered={false}
+                  label={t('month')}
+                  fieldLabel="ReferenceName"
+                  fieldValue="Id"
+                  options={monthsArray}
+                  onChange={(value) => handleMonthChange(value)}
+                />
+                <AntDatePicker name="FromDate" bordered={false} label="" style={{ visibility: 'hidden' }} />
+                <AntDatePicker name="ToDate" bordered={false} label="" style={{ visibility: 'hidden' }} />
+              </Col>
+              <Col xxl={6} md={10} xl={9} xs={24} className="formfield form-container">
+                <AntSelectDynamic
+                  bordered={false}
+                  label={t('companies')}
+                  name="Companies"
+                  fieldLabel="CompName"
+                  fieldValue="Id"
+                  query={useGetMasterBranchByUserId}
+                />
+              </Col>
+              <Col xl={3} xxl={2} xs={24} md={10} className="formfield form-container">
+                <AntInput bordered={false} label={t('count')} name="NoOfRecords" />
+              </Col>
+              <Col xl={5} xxl={3} style={{ marginTop: 10, height: '2vh' }}>
+                <Radio.Group
+                  onChange={(e) => {
+                    form.setFieldsValue({ ReqType: e.target.value });
+                  }}
+                  defaultValue={'Top'}
+                >
+                  <Radio value={'Top'}> {t('top')}</Radio>
+                  <Radio value={'Bottom'}> {t('bottom')}</Radio>
+                </Radio.Group>
+                <AntInput label="" name="ReqType" type="hidden" />
+              </Col>
 
-            <Col xl={2}>
-              <AntButton
-                style={{ marginLeft: '-10px' }}
-                label={t('show')}
-                htmlType="submit"
-                isError={isError}
-                isLoading={isLoading}
-              />
-            </Col>
-          </Row>
-        </Form>
-      </Card>
+              <Col xl={3} xxl={2} className="btn-margin-top">
+                <AntButton
+                  // style={{ marginLeft: '-10px' }}
+                  label={t('show')}
+                  htmlType="submit"
+                  isError={isError}
+                  isLoading={isLoading}
+                />
+              </Col>
+            </Row>
+          </Form>
+        </Card>
+      </Col>
     </Row>
   );
 }

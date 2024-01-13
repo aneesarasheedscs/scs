@@ -9,35 +9,35 @@ function handleRowClick(AccountId: number) {
 
 export const CommonTrialBalanceSelectedHistoryColumns = (t: any): AntColumnType<TtrialBalanceSelectedHistory>[] => [
   // {
-  //   title: <>{t('sr#')}</>,
+  //   title: t('sr#'),
   //   dataIndex: '',
   //   width: 100,
   //   render: (_, __, index) => index + 1,
   // },
   {
-    title: <>{t('class_name')}</>,
+    title: t('class_name'),
     width: 120,
     dataIndex: 'ClassName',
     searchableInput: true,
   },
   {
-    title: <>{t('account_level')}</>,
+    title: t('account_level'),
     width: 120,
     dataIndex: 'AcLevel',
   },
   {
-    title: <>{t('account_type')}</>,
+    title: t('account_type'),
     width: 200,
     dataIndex: 'AccountType',
   },
   {
-    title: <>{t('account_code')}</>,
+    title: t('account_code'),
     dataIndex: 'AccountCode',
     width: 120,
     render: (_, { AccountCode, AccountId }) => <a onClick={() => handleRowClick(AccountId)}>{AccountCode}</a>,
   },
   {
-    title: <>{t('account_title')}</>,
+    title: t('account_title'),
     width: 180,
     dataIndex: 'AccountTitle',
   },
@@ -46,7 +46,7 @@ export const FourTrialBalanceSelectedHistoryColumns = (t: any): AntColumnType<Tt
   ...(CommonTrialBalanceSelectedHistoryColumns(t) as AntColumnType<TtrialBalanceSelectedHistory>[]),
 
   {
-    title: <>{t('opening')}</>,
+    title: t('opening'),
     width: 200,
     dataIndex: 'Opening',
     showTotal: true,
@@ -55,7 +55,7 @@ export const FourTrialBalanceSelectedHistoryColumns = (t: any): AntColumnType<Tt
     ),
   },
   {
-    title: <>{t('debit')}</>,
+    title: t('debit'),
     width: 200,
     dataIndex: 'Debit',
     showTotal: true,
@@ -64,7 +64,7 @@ export const FourTrialBalanceSelectedHistoryColumns = (t: any): AntColumnType<Tt
     ),
   },
   {
-    title: <>{t('credit')}</>,
+    title: t('credit'),
     width: 200,
     dataIndex: 'Credit',
     showTotal: true,
@@ -73,7 +73,7 @@ export const FourTrialBalanceSelectedHistoryColumns = (t: any): AntColumnType<Tt
     ),
   },
   {
-    title: <>{t('closing')}</>,
+    title: t('closing'),
     width: 200,
     dataIndex: 'Closing',
     showTotal: true,
@@ -87,7 +87,7 @@ export const SixTrialBalanceSelectedHistoryColumns = (t: any): AntColumnType<Ttr
   ...(CommonTrialBalanceSelectedHistoryColumns(t) as AntColumnType<TtrialBalanceSelectedHistory>[]),
 
   {
-    title: <>{t('Opening Dr')}</>,
+    title: t('opening_dr'),
     width: 200,
     dataIndex: 'OpeningDr',
     showTotal: true,
@@ -96,7 +96,7 @@ export const SixTrialBalanceSelectedHistoryColumns = (t: any): AntColumnType<Ttr
     ),
   },
   {
-    title: <>{t('Opening Cr')}</>,
+    title: t('opening_cr'),
     width: 200,
     dataIndex: 'OpeningCr',
     showTotal: true,
@@ -105,7 +105,7 @@ export const SixTrialBalanceSelectedHistoryColumns = (t: any): AntColumnType<Ttr
     ),
   },
   {
-    title: <>{t('debit')}</>,
+    title: t('debit'),
     width: 200,
     dataIndex: 'Debit',
     showTotal: true,
@@ -114,7 +114,7 @@ export const SixTrialBalanceSelectedHistoryColumns = (t: any): AntColumnType<Ttr
     ),
   },
   {
-    title: <>{t('credit')}</>,
+    title: t('credit'),
     width: 200,
     dataIndex: 'Credit',
     showTotal: true,
@@ -123,7 +123,7 @@ export const SixTrialBalanceSelectedHistoryColumns = (t: any): AntColumnType<Ttr
     ),
   },
   {
-    title: <>{t('Closing Dr')}</>,
+    title: t('closing_dr'),
     width: 200,
     dataIndex: 'ClosingDr',
     showTotal: true,
@@ -132,7 +132,7 @@ export const SixTrialBalanceSelectedHistoryColumns = (t: any): AntColumnType<Ttr
     ),
   },
   {
-    title: <>{t('Closing Cr')}</>,
+    title: t('closing_cr'),
     width: 200,
     dataIndex: 'ClosingCr',
     showTotal: true,

@@ -4,7 +4,7 @@
   height: 38px;
 }
 .summary-table-container {
-  max-width: 1500px;
+  max-width: 1550px;
   margin: 0 auto;
   // padding: 20px;
   font-family: 'Arial', sans-serif;
@@ -24,4 +24,19 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5); /* Adjust the transparency as needed */
   z-index: 999; /* Ensure the overlay appears above other content */
+}
+.cash-balances-card {
+  width: 80vw;
+  margin-left: 40px;
+  margin-top: 15px;
+}
+@media (max-width: 768px) {
+  .form-container {
+    margin-top: 0%;
+    height: 70px;
+  }
+
+  .btn-margin-top {
+    margin-top: 8%;
+  }
 }

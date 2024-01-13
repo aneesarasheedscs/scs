@@ -33,7 +33,7 @@ const SaleByDateChart = () => {
   ];
 
   return (
-    <Col span={24}>
+    <Col xxl={24}>
       <ReactECharts
         option={{
           title: {},

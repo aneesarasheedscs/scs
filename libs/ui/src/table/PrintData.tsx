@@ -12,7 +12,7 @@ function PrintData({
   columns,
   disabled,
   filteredData,
-  options = { show: true, enabled: true, settings: { unit: 'mm', format: 'a1', orientation: 'p' } },
+  options = { show: true, enabled: true, settings: { unit: 'mm', format: 'a4', orientation: 'p' } },
 }: TPrintData) {
   if (!options?.show) return null;
 
@@ -40,8 +40,11 @@ function PrintData({
     new Promise<void>((resolve) => {
       const doc = new jsPDF(options?.settings);
 
+      // const columnStyles: any = map(columns, (column, index) => ({
+      //   [index]: { cellWidth: doc.getTextWidth(column?.title) + 2 },
+      // }));
       const columnStyles: any = map(columns, (column, index) => ({
-        [index]: { cellWidth: doc.getTextWidth(column?.title) + 2 },
+        [index]: { cellWidth: 50 },
       }));
 
       const formattedData = formateDatesInData(data);

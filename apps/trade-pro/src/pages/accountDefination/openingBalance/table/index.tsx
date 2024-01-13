@@ -26,7 +26,7 @@ const OpeningBalanceTable = () => {
   return (
     <div>
       <Row>
-        <Col xs={{ span: 24, offset: 1 }} lg={{ span: 22 }} style={{ marginTop: '10px', marginLeft: '3%' }}>
+        <Col xs={{ span: 23 }} lg={{ span: 23 }} style={{ marginTop: '10px', marginLeft: '3%' }}>
           <AntTable
             columns={OpeningBalanceColumns(t, handleEditButtonClick)}
             data={data?.data?.Data?.Result || []}
@@ -36,14 +36,14 @@ const OpeningBalanceTable = () => {
           />
         </Col>
 
-        <Col xs={24} lg={12} style={{ marginTop: '10px' }}>
+        {/* <Col xs={24} lg={12} style={{ marginTop: '10px' }}>
           <AntTable
             columns={OpeningBalanceColumns(t, handleEditButtonClick)} // Define columns for the other table
             data={selectedRows || []}
             isError={isError}
             isLoading={isLoading}
           />
-        </Col>
+        </Col> */}
       </Row>
     </div>
   );

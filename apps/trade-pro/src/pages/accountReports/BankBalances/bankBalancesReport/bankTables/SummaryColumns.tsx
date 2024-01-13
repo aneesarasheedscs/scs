@@ -10,7 +10,7 @@ export const BankBalancesSummaryBank = (
   handleAccountCodeClick: any
 ): AntColumnType<TCashAndBankBalancesSummary>[] => [
   {
-    title: <>{t('sr#')}</>,
+    title: t('sr#'),
     dataIndex: '',
     width: 150,
 
@@ -18,7 +18,7 @@ export const BankBalancesSummaryBank = (
   },
   {
     width: 150,
-    title: <>{t('account_code')}</>,
+    title: t('account_code'),
     dataIndex: 'AccountCode',
     render: (_, { AccountCode, AccountId }) => (
       <>
@@ -28,7 +28,7 @@ export const BankBalancesSummaryBank = (
   },
   {
     width: 150,
-    title: <>{t('account_title')}</>,
+    title: t('account_title'),
     searchableInput: true,
     dataIndex: 'AccountTitle',
 
@@ -47,7 +47,7 @@ export const BankBalancesSummaryBank = (
   },
   {
     width: 150,
-    title: <>{t('current_credit')}</>,
+    title: t('current_credit'),
     searchableDate: true,
     showTotal: true,
     dataIndex: 'CurrCredit',
@@ -58,7 +58,7 @@ export const BankBalancesSummaryBank = (
   },
   {
     width: 150,
-    title: <>{t('current_debit')}</>,
+    title: t('current_debit'),
     showTotal: true,
     searchableDate: true,
     dataIndex: 'CurrDebit',
@@ -69,7 +69,7 @@ export const BankBalancesSummaryBank = (
   },
   {
     width: 150,
-    title: <>{t('closing')}</>,
+    title: t('closing'),
     showTotal: true,
     searchableDate: true,
     dataIndex: 'Closing',
@@ -79,7 +79,7 @@ export const BankBalancesSummaryBank = (
     ),
   },
   {
-    title: <>{t('action')}</>,
+    title: t('action'),
     dataIndex: '',
     render: (_, record) => (
       <Space>

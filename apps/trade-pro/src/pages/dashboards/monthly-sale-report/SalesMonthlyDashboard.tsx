@@ -142,16 +142,16 @@ const MontlySaleReportDashbord = () => {
   const { t } = useTranslation();
 
   return (
-    <div style={{ backgroundColor: '#fff', padding: '10px' }}>
+    <div style={{ backgroundColor: '#fff' }}>
       <Typography.Title level={2} style={formHeading}>
         {t('monthly_sale_report')}
       </Typography.Title>
       <MonthlySaleCriteria />
       <Row gutter={[24, 24]}>
-        <Col xl={24} style={{ marginTop: '10px' }}>
+        <Col xxl={24} xl={24} xs={24} style={{ marginTop: '10px' }}>
           <Row>
-            <Col xl={12} style={{ marginLeft: '6%' }}>
-              <Space direction="horizontal">
+            <Col xl={12} xxl={9} xs={24}>
+              <Space direction="horizontal" className="space-vertical">
                 {map(filteredMonthlyTable, (card: any, index: any) => (
                   <MonthlySaleReportCard
                     key={index}
@@ -165,11 +165,11 @@ const MontlySaleReportDashbord = () => {
                 ))}
               </Space>
             </Col>
-            <Col style={{ marginLeft: '-14%' }}>
+            <Col xxl={5} xl={5} xs={24} md={23} style={{ marginLeft: '3%' }}>
               {' '}
               <SalesDashboardChart data={data} />
             </Col>
-            <Col xl={4}>
+            <Col xl={4} xxl={4} xs={24}>
               <Space direction="horizontal">
                 {map(filteredAvgSaleTable1, (card: any, index: any) => (
                   <SalesAvgCard
@@ -210,10 +210,10 @@ const MontlySaleReportDashbord = () => {
           </Row>
 
           <Row>
-            <Col span={13} style={{ marginTop: '5%', marginLeft: '10%' }}>
+            <Col xxl={12} xs={23} style={{ marginTop: '1%' }}>
               <ParentCategoryChart />
             </Col>
-            <Col span={11} style={{ marginTop: '5%', marginLeft: '-15%' }}>
+            <Col xxl={11} xs={23} style={{ marginTop: '1%' }}>
               <ParentCategoryTable />
             </Col>
           </Row>
@@ -234,11 +234,11 @@ const MontlySaleReportDashbord = () => {
           >
             {t('sale_date')}
           </Typography.Title>
-          <Row>
-            <Col xl={20} style={{ marginTop: '-10px' }}>
+          <Row justify={'center'}>
+            <Col xl={20} xxl={20} xs={23} style={{ marginTop: '-10px' }}>
               <SaleByDateChart />
             </Col>
-            <Col xl={9} style={{ marginTop: '20px', marginLeft: '30%' }}>
+            <Col xl={9} xxl={9} xs={23} style={{ marginTop: '20px' }}>
               <SaleByDateTable />
             </Col>
           </Row>
@@ -260,10 +260,10 @@ const MontlySaleReportDashbord = () => {
             {t('sales_by_items')}
           </Typography.Title>
           <Row>
-            <Col xl={12} style={{ marginTop: '-10px', marginLeft: '-2%' }}>
+            <Col xl={12} xxl={12} xs={23} style={{ marginTop: '-10px' }}>
               <SaleByItemChart />
             </Col>
-            <Col xl={12} style={{ marginTop: '20px', marginLeft: '-2%' }}>
+            <Col xl={12} xxl={11} xs={23} style={{ marginTop: '20px' }}>
               <SaleByItemTable />
             </Col>
           </Row>
@@ -285,10 +285,10 @@ const MontlySaleReportDashbord = () => {
             {t('sales-by-branch')}
           </Typography.Title>
           <Row>
-            <Col xl={11} style={{ marginTop: '20px', marginLeft: '-2%' }}>
+            <Col xl={11} xxl={11} xs={23} style={{ marginTop: '20px' }}>
               <SaleByBranchesChart />
             </Col>
-            <Col xl={13} style={{ marginTop: '7%', marginLeft: '-2%' }}>
+            <Col xl={13} xxl={13} xs={23} style={{ marginTop: '7%' }}>
               <SaleBybranchTable />
             </Col>
           </Row>

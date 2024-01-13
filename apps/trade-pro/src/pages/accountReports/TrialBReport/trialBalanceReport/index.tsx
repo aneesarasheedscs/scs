@@ -17,6 +17,7 @@ function TrialBalanceReport({}) {
   const handleColumnChange = (e: any) => {
     setSelectedColumnss(e.target.value);
   };
+
   return (
     <div style={{ backgroundColor: '#fff' }}>
       {/* <Row>
@@ -36,8 +37,8 @@ function TrialBalanceReport({}) {
         {/* <Radio.Button value="four">Four Columns</Radio.Button>
         <Radio.Button value="six">Six Columns</Radio.Button> */}
         {/* 2nd way */}
-        <Radio value="four">Four Columns</Radio>
-        <Radio value="six">Six Columns</Radio>
+        <Radio value="four"> {t('four_columns')}</Radio>
+        <Radio value="six">{t('six_columns')}</Radio>
       </Radio.Group>
       <AntTable
         key={selectedColumnss}

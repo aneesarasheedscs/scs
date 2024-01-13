@@ -95,6 +95,8 @@ const ChequeBookForm = lazy(() => import('@tradePro/pages/accountDefination/cheq
 const AccountAllocation = lazy(
   () => import('@tradePro/pages/accountDefination/accountAllocationForm/accoutAllocation')
 );
+const OpeningBalance = lazy(() => import('@tradePro/pages/accountDefination/openingBalance'));
+
 //Account Transaction
 const ContraVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/ContraVoucher'));
 const ExpenseVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/ExpenseVoucher'));
@@ -134,6 +136,7 @@ export const protectedRoutes: RouteObject[] = [
   { path: route.CHART_ACCOUNT, element: <ChartOfAccount /> },
   { path: route.CHEQUE_BOOK_REGISTRATION, element: <ChequeBookForm /> },
   { path: route.ACCOUNT_ALLOCATION, element: <AccountAllocation /> },
+  { path: route.OPENING_BALANCE, element: <OpeningBalance /> },
 
   //Account Tranaction
   { path: route.CONTRA_VOUCHER, element: <ContraVoucher /> },

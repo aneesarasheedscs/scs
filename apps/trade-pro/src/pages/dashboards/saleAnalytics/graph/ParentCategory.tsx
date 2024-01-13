@@ -51,7 +51,7 @@ const ParentCategoryChart = ({ data }: any) => {
 
   return (
     <Col span={24}>
-      <ReactECharts option={option} style={{ width: '30vw' }} />
+      <ReactECharts option={option} style={{ width: '40vw' }} />
     </Col>
   );
 };

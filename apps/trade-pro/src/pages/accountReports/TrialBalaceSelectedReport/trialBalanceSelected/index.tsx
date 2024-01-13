@@ -6,7 +6,6 @@ import { TtrialBalanceSelectedHistory } from './type';
 import { useGetTrialBalanceSelectedReport } from './queries';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
-
 import { FourTrialBalanceSelectedHistoryColumns, SixTrialBalanceSelectedHistoryColumns } from './columns';
 
 const { Text } = Typography;
@@ -32,8 +31,8 @@ function TrialBalanceSelectedReport() {
         </Col>
       </Row>
       <Radio.Group value={selectedColumns} onChange={handleColumnChange} style={{ marginLeft: '10px' }}>
-        <Radio value="four">four Columns</Radio>
-        <Radio value="six">Six Columns</Radio>
+        <Radio value="four">{t('four_columns')}</Radio>
+        <Radio value="six">{t('six_columns')}</Radio>
       </Radio.Group>
       <AntTable
         key={selectedColumns}

@@ -94,7 +94,7 @@ function CriteriaTrialBalanceSelected() {
               fieldValue="Id"
               fieldLabel="DateType"
               defaultValue={'5'}
-              label="Date Type"
+              label={t('date_type')}
               query={useGetDateTypes}
               onChange={(value) => handleDateChange(value)}
               name="DateType"
@@ -102,19 +102,21 @@ function CriteriaTrialBalanceSelected() {
           </Col>
 
           <Col xs={24} sm={12} md={12} className="form_field">
-            <AntDatePicker defaultValue={FromDate} name="FromDate" label="From Date" bordered={false} />
+            <p className="date_icon_width">
+              <AntDatePicker defaultValue={FromDate} name="FromDate" label={t('from_date')} bordered={false} />
+            </p>
           </Col>
 
           <Col xs={24} sm={12} md={11} className="form_field" offset={1}>
-            <AntDatePicker defaultValue={ToDate} name="ToDate" label="To Date" bordered={false} />
+            <AntDatePicker defaultValue={ToDate} name="ToDate" label={t('to_date')} bordered={false} />
           </Col>
 
           <Col xs={24} sm={12} md={12} className="form_field">
-            <AntInputNumber name="Debit" label="cl-Debit" bordered={false} />
+            <AntInputNumber name="Debit" label={t('cl_debit')} bordered={false} />
           </Col>
 
           <Col xs={24} sm={12} md={11} className="form_field" offset={1}>
-            <AntInputNumber name="Credit" label="cl-Credit" bordered={false} />
+            <AntInputNumber name="Credit" label={t('cl_credit')} bordered={false} />
           </Col>
 
           <Col xs={24} sm={12} md={24} className="form_field">
@@ -141,7 +143,7 @@ function CriteriaTrialBalanceSelected() {
           <Col xs={12} sm={6} md={6}>
             <Form.Item name="ZeroBalanceType">
               <Checkbox checked={getFieldValue('ZeroBalanceType')} onChange={onChangeSkipZero}>
-                Is Active
+                {t('is_active')}
               </Checkbox>
             </Form.Item>
           </Col>
@@ -149,14 +151,14 @@ function CriteriaTrialBalanceSelected() {
           <Col xs={12} sm={6} md={6}>
             <Form.Item name="IsApproved">
               <Checkbox checked={getFieldValue('IsApproved')} onChange={onChangeUnPost}>
-                Un Post
+                {t('un_post')}
               </Checkbox>
             </Form.Item>
           </Col>
 
           <Col xs={24} sm={24} md={8}>
             <AntButton
-              label="Show"
+              label={t('show')}
               htmlType="submit"
               style={{ marginTop: 2 }}
               isError={isReportError}

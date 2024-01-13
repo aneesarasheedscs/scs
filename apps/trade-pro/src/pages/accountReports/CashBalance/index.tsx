@@ -109,8 +109,8 @@ const CashBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId
 
   return (
     <div className="cash-balances-container-cash">
-      <Row gutter={[24, 24]}>
-        <Col xs={24} md={12} lg={8} style={{ marginLeft: '15px' }}>
+      <Row gutter={[16, 16]}>
+        <Col xs={24} md={12} lg={8} style={{ marginLeft: '15px', padding: '10px' }}>
           <Text className="breadcrumbs">{t('account_reports')}</Text>
           <Text className="breadcrumbs">{'>'}</Text>
           <Text className="breadcrumbs" strong>
@@ -118,49 +118,37 @@ const CashBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId
           </Text>
         </Col>
       </Row>
-      <Row gutter={[24, 24]}>
-        <div>
-          <Col xs={24} md={24} lg={24}>
-            <Card className="cash-balances-card">
-              <Form form={form} onFinish={onFinish}>
-                <Row gutter={16} justify={'space-evenly'}>
-                  <Col xl={4} className="formfield">
-                    <AntSelectDynamic
-                      bordered={false}
-                      label={t('date_type')}
-                      name="DateType"
-                      fieldLabel="DateType"
-                      fieldValue="Id"
-                      defaultValue={FromDateProp !== undefined ? undefined : '5'}
-                      query={useGetDateType}
-                      onChange={(value) => handleDateChange(value)}
-                    />
-                  </Col>
-                  <Col xl={4} className="formfield">
-                    <AntDatePicker name="FromDate" bordered={false} label={t('from_date')} />
-                  </Col>
-                  <Col xl={4} className="formfield">
-                    <AntDatePicker name="ToDate" bordered={false} label={t('to_date')} />
-                  </Col>
-                  {/* <Col xl={6} className="formfield">
-                    <AntSelectDynamic
-                      bordered={false}
-                      label={t('master_branch')}
-                      name="MasterBranch"
-                      fieldLabel="CompName"
-                      fieldValue="Id"
-                      query={useGetMasterBranchByUserId}
-                    />
-                  </Col> */}
+      <Row gutter={[16, 16]} justify={'space-around'}>
+        <Col xs={23} md={24} lg={24} xxl={23}>
+          <Card className="">
+            <Form form={form} onFinish={onFinish}>
+              <Row gutter={[16, 16]} justify={'space-around'}>
+                <Col xxl={6} xl={7} xs={24} sm={24} className="formfield form-container">
+                  <AntSelectDynamic
+                    bordered={false}
+                    label={t('date_type')}
+                    name="DateType"
+                    fieldLabel="DateType"
+                    fieldValue="Id"
+                    defaultValue={FromDateProp !== undefined ? undefined : '5'}
+                    query={useGetDateType}
+                    onChange={(value) => handleDateChange(value)}
+                  />
+                </Col>
+                <Col xxl={5} xl={6} xs={24} sm={12} className="formfield form-container">
+                  <AntDatePicker name="FromDate" bordered={false} label={t('from_date')} />
+                </Col>
+                <Col xxl={5} xl={5} xs={24} sm={11} className="formfield form-container">
+                  <AntDatePicker name="ToDate" bordered={false} label={t('to_date')} />
+                </Col>
 
-                  <Col xl={2}>
-                    <AntButton label={t('show')} htmlType="submit" isError={isError} isLoading={isLoading} />
-                  </Col>
-                </Row>
-              </Form>
-            </Card>
-          </Col>
-        </div>
+                <Col xxl={2} xl={3} xs={12} sm={8} className="btn-margin-top">
+                  <AntButton label={t('show')} htmlType="submit" isError={isError} isLoading={isLoading} />
+                </Col>
+              </Row>
+            </Form>
+          </Card>
+        </Col>
       </Row>
 
       <CashReceiptPaymentTables

@@ -6,27 +6,6 @@ import { TtrialBalanceSelectedSearchCriteria } from './type';
 const userDetail = storedUserDetail();
 const FinancialYear = storedFinancialYear();
 
-// export const useGetAccountTitle = () => {
-//   const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
-//   return useQuery(
-//     'account-title',
-//     () => {
-//       return requestManager.get('api/ChartofAccount/ReadAllParentGroupAccount', {
-//         params: {
-//           OrganizationId: userDetail?.OrganizationId,
-//           CompanyId: userDetail?.CompanyId,
-//           BranchesId: userDetail?.BranchesId,
-//           FinancialYearId: FinancialYear?.Id,
-//           ApprovedFilter: true,
-//           IsApproved: true,
-//           ActionId: 1,
-//           languageId: 0,
-//         },
-//       });
-//     },
-//     { cacheTime: userDetail?.expires_in }
-//   );
-// };
 
 export const useGetAccountTitle = () => {
   const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');

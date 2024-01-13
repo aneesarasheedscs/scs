@@ -68,13 +68,14 @@ const OpeningBalance = ({ selectedRecordId }: any) => {
   }
   return (
     <div style={{ background: '#fff' }}>
-      <Row>
+      <Row gutter={[16, 16]}>
         <Col
-          xs={2}
-          sm={4}
-          md={6}
-          lg={8}
-          xl={14}
+          xs={10}
+          sm={10}
+          md={11}
+          lg={11}
+          xl={11}
+          xxl={13}
           style={{ display: 'flex', alignItems: 'center', alignContent: 'center', margin: '16px' }}
         >
           <h1 style={{ fontFamily: 'Poppins', fontSize: '19px', padding: '10px' }}>{t('opening_balance')}</h1>
@@ -85,12 +86,12 @@ const OpeningBalance = ({ selectedRecordId }: any) => {
         </Col>
       </Row>
 
-      <Row gutter={[24, 24]}>
-        <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-          <Card style={{ width: '60vw', marginLeft: '50px' }}>
+      <Row justify={'space-around'}>
+        <Col xxl={23} xs={23} sm={23} md={23} lg={23} xl={23}>
+          <Card>
             <Form onFinish={onFinish} form={form}>
-              <Row gutter={16} justify={'start'}>
-                <Col xs={24} sm={12} md={12} lg={12} xl={8} className="formfield">
+              <Row gutter={[16, 16]} justify={'space-around'}>
+                <Col xl={10} xs={24} sm={24} md={12} lg={12} xxl={7} className="formfield form-container">
                   <AntSelectDynamic
                     bordered={false}
                     label={t('account_title')}
@@ -101,10 +102,10 @@ const OpeningBalance = ({ selectedRecordId }: any) => {
                     onSelectChange={(obj) => handleItemChange(obj, 'AccountTitle')}
                   />
                 </Col>
-                <Col xs={24} sm={12} md={12} lg={12} xl={5} className="formfield" offset={1}>
+                <Col xs={24} sm={12} md={6} lg={6} xl={5} xxl={4} className="formfield form-container">
                   <AntInput label={t('debit_amount')} name="DebitAmount" bordered={false} />
                 </Col>
-                <Col xs={24} sm={12} md={12} lg={12} xl={5} className="formfield" offset={1}>
+                <Col xs={24} sm={11} md={5} lg={5} xl={5} xxl={4} className="formfield form-container">
                   <AntInput label={t('credit_amount')} name="CreditAmount" bordered={false} />
                 </Col>
                 {/* 
@@ -112,16 +113,15 @@ const OpeningBalance = ({ selectedRecordId }: any) => {
                   <AntInput label={t('credit_amount')} name="AccountTitle2" bordered={false} />
                 </Col> */}
 
-                <Col xs={24} sm={12} md={12} lg={12} xl={3}>
+                <Col xs={10} sm={8} md={5} lg={5} xl={3} xxl={2} className="btn-margin-top">
                   <AntButton label={t('add')} htmlType="submit" />
                 </Col>
               </Row>
             </Form>
           </Card>
         </Col>
-
-        {/* Add more Col components for other content */}
       </Row>
+
       <OpeningBalanceTable />
     </div>
   );

@@ -27,6 +27,7 @@ function TableSummary({ data, columns, filteredData }: TTableSummary) {
                 ? numberFormatter(count)
                 : null}
             </b>
+            {/* <b>{col?.showTotal ? numberFormatter(total) : col?.showAverage ? numberFormatter(average) : col?.showCount ? numberFormatter(count) : null}</b> */}
           </Table.Summary.Cell>
         );
       })}

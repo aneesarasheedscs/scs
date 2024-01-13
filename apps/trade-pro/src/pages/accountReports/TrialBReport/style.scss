@@ -3,3 +3,18 @@
   padding: 0px;
   height: 40px;
 }
+@media (max-width: 768px) {
+  .form_field {
+    display: flex;
+    justify-content: start;
+
+    margin: 0;
+  }
+
+  .date_icon_width {
+    width: 55%;
+  }
+  .datetype_icon_width {
+    width: 95%;
+  }
+}

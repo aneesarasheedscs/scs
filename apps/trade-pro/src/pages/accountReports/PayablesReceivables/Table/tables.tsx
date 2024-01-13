@@ -21,7 +21,7 @@ const PayablesReceivablesTable: React.FC<{
     <>
       <Divider className="divider" />
       <Row gutter={[24, 24]}>
-        <Col xs={24} md={24} className="summary-card">
+        <Col xs={24} md={24} className="">
           <AntTable
             columns={
               AccountClassId == 3

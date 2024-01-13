@@ -36,11 +36,15 @@ function DownloadExcel({
     setLoading(true);
 
     new Promise<void>((resolve) => {
-      const csvHeader = map(columns, (column) => column.title).join(',');
+      // const csvHeader = map(columns, (column) => column.title).join(',');
+      const csvHeader = map(columns, (column) => `${column.title}             `).join(',');
 
       const formattedData = formateDatesInData(data);
 
-      const csvContent = map(formattedData, (record) => map(columns, (column) => record[column?.dataIndex]).join(','));
+      const csvContent = map(formattedData, (record) =>
+        map(columns, (column) => `${record[column?.dataIndex]}            `).join(',')
+      );
+      // map(columns, (column) => record[column?.dataIndex]).join(','));
 
       const csvData = [csvHeader, ...csvContent].join('\n');
 
