@@ -4,7 +4,7 @@ import { TWsRmRequisitionPoDetailsList } from '../types';
 
 export const detailColumns = (t?: any): AntColumnType<TWsRmRequisitionPoDetailsList>[] => [
   {
-    title: <>{t('item_name')}</>,
+    title: t('item_name'),
     width: 400,
     searchableInput: true,
     dataIndex: 'ItemName',
@@ -12,7 +12,7 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmRequisitionPoDetailsL
     sorter: (a, b) => a.ItemName.localeCompare(b.ItemName),
   },
   {
-    title: <>{t('item_qty')}</>,
+    title: t('item_qty'),
     width: 150,
     showTotal: true,
     dataIndex: 'ReqQty',
@@ -23,7 +23,7 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmRequisitionPoDetailsL
     ),
   },
   {
-    title: <>{t('pack_uom')}</>,
+    title: t('pack_uom'),
     width: 150,
     searchableInput: true,
     dataIndex: 'PackUom',
@@ -31,7 +31,7 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmRequisitionPoDetailsL
     sorter: (a, b) => a.PackUom.localeCompare(b.PackUom),
   },
   {
-    title: <>{t('weight')}</>,
+    title: t('weight'),
     width: 150,
     showTotal: true,
     dataIndex: 'BillWeight',
@@ -42,7 +42,7 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmRequisitionPoDetailsL
     ),
   },
   {
-    title: <>{t('item_rate')}</>,
+    title: t('item_rate'),
     width: 150,
     showTotal: true,
     dataIndex: 'ReqRate',
@@ -53,7 +53,7 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmRequisitionPoDetailsL
     ),
   },
   {
-    title: <>{t('amount')}</>,
+    title: t('amount'),
     width: 150,
     showTotal: true,
     dataIndex: 'ReqAmount',
@@ -65,7 +65,7 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmRequisitionPoDetailsL
   },
 
   {
-    title: <>{t('remarks')}</>,
+    title: t('remarks'),
     width: 420,
     dataIndex: 'RemarksDetail',
     searchableInput: true,

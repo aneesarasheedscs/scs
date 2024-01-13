@@ -526,7 +526,6 @@
   "credit_balance": "Credit Balance",
   "select": "Select",
   "debit_balance": "Debit Balance",
-
   "account_definition": "Account Definition",
   "grid_view": "Grid View",
   "card_view": "Card View",
@@ -620,5 +619,16 @@
   "operating_expense": "Operating Expense",
   "non_operating_income": "Non Operating Income",
   "other_expense": "Other Expense",
-  "administration_expense": "Administration Expense"
+  "administration_expense": "Administration Expense",
+  "definitions": "Definitions",
+  "customer_discount_policy": "Customer Discount Policy",
+  "effected_date": "Effected Date",
+  "allocate_discount_item_to_discount_type": "Allocate Discount Item to Discount Type",
+  "discount_type_name": "Discount Type Name",
+  "discount_item_name": "Discount Item Name",
+  "factory_weight": "Factory Weight",
+  "party_weight": "Party Weight",
+  "diff_weight": "Diff Weight",
+  "transporter_name": "",
+  "freight_amount": "Freight Amount"
 }

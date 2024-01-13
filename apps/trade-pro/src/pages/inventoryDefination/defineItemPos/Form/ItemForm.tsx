@@ -2,7 +2,7 @@ import './style.scss';
 import { map } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import ItemBaseUOM from './definitionScreens/BaseUom';
-import { Card, Checkbox, Col, Form, FormInstance, Row, theme } from 'antd';
+import { Card, Checkbox, Col, Form, FormInstance, Modal, Row, theme } from 'antd';
 import ItemBaseScheduleUOM from './definitionScreens/BaseScheduleUnit';
 import {
   getItemCGSAccount,
@@ -11,15 +11,23 @@ import {
   getItemSaleGLAccount,
   getItemUOM,
 } from './queryOptions';
-import { AntInput, AntSelectDynamic, AntInputNumber } from '@tradePro/components';
+import { AntInput, AntSelectDynamic, AntInputNumber, AntButton } from '@tradePro/components';
 import DetailList from './DetailList';
 import { useState } from 'react';
+import { PlusOutlined } from '@ant-design/icons';
 
 const { useToken } = theme;
 
 function FormFile({ form }: TDynamicForm) {
   const { setFields, getFieldValue } = form;
 
+  const [open, setOpen] = useState(false);
+  const [openItemSchudleUnit, setOpenItemSchudleUnit] = useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleOpenItemSchduleUnit = () => setOpenItemSchudleUnit(true);
+  const handleClose = () => setOpen(false);
+  const handleCloseItemSchduleUnit = () => setOpenItemSchudleUnit(false);
   const { token } = useToken();
   const [equivalent, setEquivalent] = useState<number>(0);
   const [rateEquivalent, setRateEquivalent] = useState<number>(0);
@@ -125,7 +133,10 @@ function FormFile({ form }: TDynamicForm) {
                   </Form.Item>
                 </Col>
                 <Form.Item style={{ marginTop: 25, marginRight: 15 }}>
-                  <ItemBaseUOM />
+                  <AntButton icon={<PlusOutlined />} label="" onClick={handleOpen} />
+                  <Modal open={open} onCancel={handleClose} footer={null} width={1200}>
+                    <ItemBaseUOM open={open} />
+                  </Modal>
                 </Form.Item>
               </Col>
               <Col xl={{ span: 7 }} xs={{ span: 10 }} className="column">
@@ -150,7 +161,10 @@ function FormFile({ form }: TDynamicForm) {
                   </Form.Item>
                 </Col>
                 <Form.Item style={{ marginTop: 25, marginRight: 15 }}>
-                  <ItemBaseScheduleUOM />
+                  <AntButton icon={<PlusOutlined />} label="" onClick={handleOpenItemSchduleUnit} />
+                  <Modal open={openItemSchudleUnit} onCancel={handleCloseItemSchduleUnit} footer={null} width={1200}>
+                    <ItemBaseScheduleUOM openItemSchudleUnit={openItemSchudleUnit} />
+                  </Modal>
                 </Form.Item>
               </Col>
 

@@ -14,7 +14,7 @@ export const columns = (
   setSelectedRecordIdforDetail?: any
 ): AntColumnType<TStockReceivedNoteHistory>[] => [
   {
-    title: <>{t('doc_no')}</>,
+    title: t('doc_no'),
     dataIndex: 'DocNo',
     searchableInput: true,
     width: 120,
@@ -22,7 +22,7 @@ export const columns = (
     sorter: (a, b) => a.DocNo - b.DocNo,
   },
   {
-    title: <>{t('doc_date')}</>,
+    title: t('doc_date'),
     dataIndex: 'DocDate',
     searchableDate: true,
     render: (_, { DocDate }) => formateDate(DocDate),
@@ -34,7 +34,7 @@ export const columns = (
     },
   },
   {
-    title: <>{t('location_from')}</>,
+    title: t('location_from'),
     dataIndex: 'DispatchedFrom',
     width: 250,
     searchableInput: true,
@@ -42,7 +42,7 @@ export const columns = (
     sorter: (a, b) => a.DispatchedFrom.localeCompare(b.DispatchedFrom),
   },
   {
-    title: <>{t('location_to')}</>,
+    title: t('location_to'),
     dataIndex: 'DispactchedTo',
     width: 280,
     searchableInput: true,
@@ -50,7 +50,7 @@ export const columns = (
     sorter: (a, b) => a.DispactchedTo.localeCompare(b.DispactchedTo),
   },
   {
-    title: <>{t('request_status')}</>,
+    title: t('request_status'),
     dataIndex: 'RequestStatus',
     width: 170,
     searchableInput: true,
@@ -58,7 +58,7 @@ export const columns = (
     sorter: (a, b) => a.RequestStatus.localeCompare(b.RequestStatus),
   },
   {
-    title: <>{t('total_qty')}</>,
+    title: t('total_qty'),
     width: 110,
     showTotal: true,
     dataIndex: 'TotalReceivedQty',
@@ -71,7 +71,7 @@ export const columns = (
     ),
   },
   {
-    title: <>{t('total_amount')}</>,
+    title: t('total_amount'),
     width: 140,
     dataIndex: 'TotalReceivedAmount',
     showTotal: true,
@@ -85,7 +85,7 @@ export const columns = (
   },
 
   {
-    title: <>{t('entry_user')}</>,
+    title: t('entry_user'),
     dataIndex: 'EntryUser',
     width: 150,
     searchableInput: true,
@@ -93,7 +93,7 @@ export const columns = (
     sorter: (a, b) => a.EntryUser.localeCompare(b.EntryUser),
   },
   {
-    title: <>{t('entry_date')}</>,
+    title: t('entry_date'),
     dataIndex: 'EntryDate',
     width: 140,
     searchableDate: true,
@@ -107,7 +107,7 @@ export const columns = (
   },
 
   {
-    title: <>{t('remarks')}</>,
+    title: t('remarks'),
     dataIndex: 'RemarksHeader',
     width: 180,
     searchableInput: true,
@@ -115,14 +115,14 @@ export const columns = (
     sorter: (a, b) => a.RemarksHeader.localeCompare(b.RemarksHeader),
   },
   {
-    title: <>{t('attachment')}</>,
+    title: t('attachment'),
     dataIndex: 'NoOfAttachments',
     width: 150,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.NoOfAttachments - b.NoOfAttachments,
   },
   {
-    title: <>{t('action')}</>,
+    title: t('action'),
     width: 130,
     render: (_, record) => (
       <>

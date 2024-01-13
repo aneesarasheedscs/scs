@@ -11,7 +11,7 @@ export const columns = (
   handleEditRow: any
 ): AntColumnType<TWsRmRequisitionPoDetailsList>[] => [
   {
-    title: <>{t('item_name')}</>,
+    title: t('item_name'),
     width: 320,
     searchableInput: true,
     dataIndex: 'ItemName',
@@ -19,7 +19,7 @@ export const columns = (
     sorter: (a, b) => a.ItemName.localeCompare(b.ItemName),
   },
   {
-    title: <>{t('item_qty')}</>,
+    title: t('item_qty'),
     width: 150,
     showTotal: true,
     dataIndex: 'ReqQty',
@@ -30,7 +30,7 @@ export const columns = (
     ),
   },
   {
-    title: <>{t('pack_uom')}</>,
+    title: t('pack_uom'),
     width: 160,
     searchableInput: true,
     dataIndex: 'PackUom',
@@ -38,7 +38,7 @@ export const columns = (
     sorter: (a, b) => a.PackUom.localeCompare(b.PackUom),
   },
   {
-    title: <>{t('weight')}</>,
+    title: t('weight'),
     width: 150,
     showTotal: true,
     dataIndex: 'BillWeight',
@@ -49,7 +49,7 @@ export const columns = (
     ),
   },
   {
-    title: <>{t('item_price')}</>,
+    title: t('item_price'),
     width: 150,
     showTotal: true,
     dataIndex: 'ReqRate',
@@ -60,7 +60,7 @@ export const columns = (
     ),
   },
   {
-    title: <>{t('amount')}</>,
+    title: t('amount'),
     width: 150,
     showTotal: true,
     dataIndex: 'ReqAmount',
@@ -72,7 +72,7 @@ export const columns = (
   },
 
   {
-    title: <>{t('remarks')}</>,
+    title: t('remarks'),
     width: 220,
     dataIndex: 'RemarksDetail',
     searchableInput: true,
@@ -80,7 +80,7 @@ export const columns = (
     sorter: (a, b) => a.RemarksDetail.localeCompare(b.RemarksDetail),
   },
   {
-    title: <>{t('action')}</>,
+    title: t('action'),
     width: 120,
     render: (_, record) => (
       <>

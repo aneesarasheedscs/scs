@@ -468,5 +468,17 @@
   "brand_name": "Marque",
   "inventory_dashboard": "Tableau de bord d'inventaire",
   "search": "Recherche",
-  "approval_dashboard": "Tableau de bord d'approbation"
+  "approval_dashboard": "Tableau de bord d'approbation",
+  "definitions": "Définitions",
+  "item_uom": "UdM de l'article",
+  "item_schedule_uom": "Calendrier UdM de l'article",
+  "customer_discount_policy": "Politique de remise client",
+  "effected_date": "Date d'effet",
+  "allocate_discount_item_to_discount_type": "Attribuer un article de remise au type de remise",
+  "discount_type_name": "Nom du type de remise",
+  "discount_item_name": "Nom de l'article en promotion",
+  "factory_weight": "Poids d'usine",
+  "party_weight": "Poids du groupe",
+  "diff_weight": "Différence de poids",
+  "freight_amount": "Montant du fret"
 }

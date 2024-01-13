@@ -468,5 +468,17 @@
   "brand_name": "品牌",
   "inventory_dashboard": "库存仪表板",
   "search": "搜索",
-  "approval_dashboard": "审批仪表板"
+  "approval_dashboard": "审批仪表板",
+  "definitions": "定义",
+  "item_uom": "项目计量单位",
+  "item_schedule_uom": "项目计量单位表",
+  "customer_discount_policy": "客户折扣政策",
+  "effected_date": "生效日期",
+  "allocate_discount_item_to_discount_type": "将折扣项目分配给折扣类型",
+  "discount_type_name": "折扣类型名称",
+  "discount_item_name": "折扣商品名称",
+  "factory_weight": "出厂重量",
+  "party_weight": "派对重量",
+  "diff_weight": "重量差",
+  "freight_amount": "运费金额"
 }

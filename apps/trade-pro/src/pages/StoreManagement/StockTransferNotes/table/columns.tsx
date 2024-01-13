@@ -14,7 +14,7 @@ export const columns = (
   setSelectedRecordIdforDetail?: any
 ): AntColumnType<TStockTransferNotesHistory>[] => [
   {
-    title: <>{t('doc_no')}</>,
+    title: t('doc_no'),
     dataIndex: 'DocNo',
     searchableInput: true,
     width: 120,
@@ -22,7 +22,7 @@ export const columns = (
     sorter: (a, b) => a.DocNo - b.DocNo,
   },
   {
-    title: <>{t('doc_date')}</>,
+    title: t('doc_date'),
     dataIndex: 'DocDate',
     searchableDate: true,
     render: (_, { DocDate }) => formateDate(DocDate),
@@ -34,7 +34,7 @@ export const columns = (
     },
   },
   {
-    title: <>{t('location_from')}</>,
+    title: t('location_from'),
     dataIndex: 'LocationFrom',
     width: 250,
     searchableInput: true,
@@ -42,7 +42,7 @@ export const columns = (
     sorter: (a, b) => a.LocationFrom.localeCompare(b.LocationFrom),
   },
   {
-    title: <>{t('location_to')}</>,
+    title: t('location_to'),
     dataIndex: 'LocationTo',
     width: 280,
     searchableInput: true,
@@ -50,7 +50,7 @@ export const columns = (
     sorter: (a, b) => a.LocationTo.localeCompare(b.LocationTo),
   },
   {
-    title: <>{t('request_status')}</>,
+    title: t('request_status'),
     dataIndex: 'RequestStatus',
     width: 170,
     searchableInput: true,
@@ -58,7 +58,7 @@ export const columns = (
     sorter: (a, b) => a.RequestStatus.localeCompare(b.RequestStatus),
   },
   {
-    title: <>{t('issued_qty')}</>,
+    title: t('issued_qty'),
     width: 110,
     showTotal: true,
     dataIndex: 'IssuedQty',
@@ -69,7 +69,7 @@ export const columns = (
     ),
   },
   {
-    title: <>{t('issued_amount')}</>,
+    title: t('issued_amount'),
     width: 150,
     dataIndex: 'IssuedAmount',
     showTotal: true,
@@ -82,7 +82,7 @@ export const columns = (
     ),
   },
   {
-    title: <>{t('received_no')}</>,
+    title: t('received_no'),
     width: 150,
     searchableInput: true,
     dataIndex: 'ReceivedNo',
@@ -93,7 +93,7 @@ export const columns = (
     ),
   },
   {
-    title: <>{t('is_reffered')}</>,
+    title: t('is_reffered'),
     searchableInput: true,
     dataIndex: 'IsReffered',
     width: 150,
@@ -101,7 +101,7 @@ export const columns = (
     sorter: (a, b) => a.IsReffered.localeCompare(b.IsReffered),
   },
   {
-    title: <>{t('entry_user')}</>,
+    title: t('entry_user'),
     dataIndex: 'EntryUser',
     width: 180,
     searchableInput: true,
@@ -110,7 +110,7 @@ export const columns = (
   },
 
   {
-    title: <>{t('remarks')}</>,
+    title: t('remarks'),
     dataIndex: 'RemarksHeader',
     width: 180,
     searchableInput: true,
@@ -118,12 +118,12 @@ export const columns = (
     sorter: (a, b) => a.RemarksHeader.localeCompare(b.RemarksHeader),
   },
   {
-    title: <>{t('attachment')}</>,
+    title: t('attachment'),
     dataIndex: '',
     width: 150,
   },
   {
-    title: <>{t('action')}</>,
+    title: t('action'),
     width: 130,
     render: (_, record) => (
       <>

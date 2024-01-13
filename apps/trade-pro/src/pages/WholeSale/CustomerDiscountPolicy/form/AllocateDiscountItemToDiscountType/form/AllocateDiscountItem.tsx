@@ -53,11 +53,14 @@ function AllocateDiscountItem({ selectedRecordId2, setSelectedRecordId2 }: TAddU
     }
   }, [isDataSuccess]);
   console.log(selectedRecordId2);
+  const handleResetForm = () => {
+    setSelectedRecordId2(null);
+  };
   return (
     <>
       <Form form={form} layout="horizontal" onFinish={handleFinish} initialValues={{ remember: true }}>
-        <Row gutter={[10, 10]} style={{ marginLeft: '3%' }}>
-          <Col xs={24} sm={24} md={{ span: 11, offset: 0 }} className="formfield">
+        <Row gutter={[10, 10]} style={{ marginLeft: '1%' }} justify={'space-between'}>
+          <Col xs={24} sm={24} md={8} xxl={6} className="formfield">
             <AntSelectDynamic
               required
               bordered={false}
@@ -69,7 +72,7 @@ function AllocateDiscountItem({ selectedRecordId2, setSelectedRecordId2 }: TAddU
             />
           </Col>
 
-          <Col xs={24} sm={24} md={{ span: 11, offset: 1 }} className="formfield">
+          <Col xs={24} sm={24} md={8} xxl={8} className="formfield">
             <AntSelectDynamic
               required
               bordered={false}
@@ -80,7 +83,7 @@ function AllocateDiscountItem({ selectedRecordId2, setSelectedRecordId2 }: TAddU
               query={useGetCustomerDetailPolicyDiscountTypeModalSelect}
             />
           </Col>
-          <Col>
+          <Col xxl={3}>
             <label>
               <Form.Item name="IsActive" valuePropName="checked" initialValue={true}>
                 <Checkbox onChange={(e) => handleCheckboxChange(e.target.checked, 'IsActive')}>
@@ -90,23 +93,30 @@ function AllocateDiscountItem({ selectedRecordId2, setSelectedRecordId2 }: TAddU
             </label>
           </Col>
 
-          <Col xs={24} sm={24} md={4}>
-            <AntButton
-              style={{ marginTop: 20, marginRight: 0 }}
-              danger
-              ghost
-              htmlType="reset"
-              label={t('reset')}
-              icon={<SyncOutlined />}
-            />
-          </Col>
-          <Col xs={24} sm={24} md={4}>
-            <AntButton
-              label={isNumber(selectedRecordId2) ? t('update') : t('save')}
-              icon={<SaveOutlined />}
-              htmlType="submit"
-              style={{ marginTop: 20, marginRight: 0 }}
-            />
+          <Col xs={24} sm={24} md={8} lg={8} xxl={4} style={{ display: 'flex', flexDirection: 'row' }}>
+            <Form.Item>
+              <Row align="middle" gutter={10} style={{ marginTop: '0%' }}>
+                <Col span={12}>
+                  <AntButton
+                    danger
+                    ghost
+                    htmlType="reset"
+                    onClick={handleResetForm}
+                    label={t('reset')}
+                    icon={<SyncOutlined />}
+                  />
+                </Col>
+
+                <Col span={12}>
+                  <AntButton
+                    ghost
+                    label={isNumber(selectedRecordId2) ? t('update') : t('save')}
+                    htmlType="submit"
+                    icon={<SaveOutlined />}
+                  />
+                </Col>
+              </Row>
+            </Form.Item>
           </Col>
         </Row>
       </Form>

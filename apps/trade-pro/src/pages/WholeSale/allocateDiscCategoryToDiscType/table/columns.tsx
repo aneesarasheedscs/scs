@@ -11,7 +11,7 @@ export const columns = (
   setSelectedRecordId?: any
 ): AntColumnType<TAllocateDiscCategoryToDiscTypeHistory>[] => [
   {
-    title: <>{t('discount_name')} </>,
+    title: t('discount_name'),
     dataIndex: 'DiscountCategory',
     width: 300,
     searchableInput: true,
@@ -22,7 +22,7 @@ export const columns = (
   {
     width: 200,
     searchableInput: true,
-    title: <>{t('discount_type')} </>,
+    title: t('discount_type'),
     dataIndex: 'DiscountType',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.DiscountType.localeCompare(b.DiscountType),
@@ -30,7 +30,7 @@ export const columns = (
   {
     width: 200,
     searchableInput: true,
-    title: <>{t('entry_user')} </>,
+    title: t('entry_user'),
     dataIndex: 'EntryUser',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.EntryUser.localeCompare(b.EntryUser),
@@ -38,7 +38,7 @@ export const columns = (
   {
     width: 180,
     searchableDate: true,
-    title: <>{t('entry_date')} </>,
+    title: t('entry_date'),
     dataIndex: 'TypeDescription',
     sortDirections: ['ascend', 'descend'],
     render: (_, { EntryDate }) => formateDate(EntryDate),
@@ -51,7 +51,7 @@ export const columns = (
   {
     width: 150,
     searchableInput: true,
-    title: <>{t('is_active')} </>,
+    title: t('is_active'),
     dataIndex: 'IsActive',
     sortDirections: ['ascend', 'descend'],
     // sorter: (a, b) => a.IsActive.localeCompare(b.IsActive),
@@ -59,7 +59,7 @@ export const columns = (
 
   {
     width: 100,
-    title: <>{t('action')} </>,
+    title: t('action'),
     dataIndex: '',
     render: (_, record) => (
       <Tooltip title="Edit">

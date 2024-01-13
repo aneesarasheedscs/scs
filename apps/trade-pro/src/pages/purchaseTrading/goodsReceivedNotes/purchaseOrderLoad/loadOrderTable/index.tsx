@@ -100,7 +100,7 @@ function GRNLoadOrderTable() {
           <AntTable
             refetch={refetch}
             isError={isError}
-            columns={Detailcolumns(t, handleCheckboxChange, selectedRows)}
+            columns={Detailcolumns(t)}
             numberOfSkeletons={12}
             isLoading={isLoading || isFetching}
             data={data?.data?.Data?.Result || []}

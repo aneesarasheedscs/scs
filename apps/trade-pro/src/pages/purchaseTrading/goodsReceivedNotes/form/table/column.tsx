@@ -8,16 +8,16 @@ import { TGrnDetailTable } from '../../types';
 import { useGetCityName, useGetJobLot, useGetWareHouseName } from '../../queryOptions';
 
 export const columns = (t?: any, selectFieldValues?: any, onSelectChange?: any): AntColumnType<TGrnDetailTable>[] => [
-  { title: <>{t('order_no')}</>, dataIndex: 'DocNo', width: 110 },
+  { title: t('order_no'), dataIndex: 'DocNo', width: 110 },
   {
     width: 150,
-    title: <>{t('order_date')}</>,
+    title: t('order_date'),
     searchableDate: true,
     dataIndex: 'DocDate',
     render: (_, { DocDate }) => formateDate(DocDate),
   },
   {
-    title: <>{t('item_name')}</>,
+    title: t('item_name'),
     dataIndex: 'ItemName',
     width: 300,
     searchableInput: true,
@@ -26,7 +26,7 @@ export const columns = (t?: any, selectFieldValues?: any, onSelectChange?: any):
   },
 
   {
-    title: <>{t('base_pack_uom')}</>,
+    title: t('base_pack_uom'),
     dataIndex: 'PackUom',
     width: 150,
     sortDirections: ['ascend', 'descend'],
@@ -34,20 +34,20 @@ export const columns = (t?: any, selectFieldValues?: any, onSelectChange?: any):
   },
   {
     width: 150,
-    title: <>{t('item_quantity')}</>,
+    title: t('item_quantity'),
     dataIndex: 'ItemQty',
     render: (_, { ItemQty }) => numberFormatter(ItemQty),
   },
   {
     width: 160,
-    title: <>{t('gross_weight')}</>,
+    title: t('gross_weight'),
     dataIndex: 'GrossWeight',
     // render: (_, { GrossWeight }) => numberFormatter(GrossWeight),
   },
 
   {
     width: 180,
-    title: <>{t('add_less_weight')}</>,
+    title: t('add_less_weight'),
     dataIndex: 'AddLessWeight',
     render: () => (
       <>
@@ -59,12 +59,12 @@ export const columns = (t?: any, selectFieldValues?: any, onSelectChange?: any):
   },
   {
     width: 160,
-    title: <>{t('net_weight')}</>,
+    title: t('net_weight'),
     dataIndex: 'NetWeight',
     render: (_, { NetWeight }) => numberFormatter(NetWeight),
   },
   {
-    title: <>{t('job_lot')}</>,
+    title: t('job_lot'),
     dataIndex: 'JobLotCode',
     width: 180,
     render: () => (
@@ -84,7 +84,7 @@ export const columns = (t?: any, selectFieldValues?: any, onSelectChange?: any):
     ),
   },
   {
-    title: <>{t('ware_house_name')}</>,
+    title: t('ware_house_name'),
     dataIndex: 'WareHouseCode',
     width: 200,
     render: () => (
@@ -106,7 +106,7 @@ export const columns = (t?: any, selectFieldValues?: any, onSelectChange?: any):
 
   {
     width: 180,
-    title: <>{t('city_name')}</>,
+    title: t('city_name'),
     dataIndex: 'CityName',
     render: (_, record) => (
       <>
@@ -135,12 +135,12 @@ export const columns = (t?: any, selectFieldValues?: any, onSelectChange?: any):
 
   {
     width: 160,
-    title: <>{t('remarks-detail')}</>,
+    title: t('remarks-detail'),
     dataIndex: 'RemarksHeader',
   },
   {
     width: 150,
-    title: <>{t('action')} </>,
+    title: t('action'),
     dataIndex: 'Remarks',
 
     render: (_, record) => (

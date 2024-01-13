@@ -8,7 +8,7 @@ import { formateDate } from '@tradePro/utils/formateDate';
 
 export const columns = (t?: any, setSelectedRecordId?: any): AntColumnType<TDiscountType>[] => [
   {
-    title: <>{t('sr')} </>,
+    title: t('sr'),
     dataIndex: 'Id',
     width: 100,
     searchableInput: true,
@@ -16,7 +16,7 @@ export const columns = (t?: any, setSelectedRecordId?: any): AntColumnType<TDisc
     sorter: (a, b) => a.Id.localeCompare(b.Id),
   },
   {
-    title: <>{t('type_code')} </>,
+    title: t('type_code'),
     dataIndex: 'DiscountTypeCode',
     width: 200,
     searchableInput: true,
@@ -27,7 +27,7 @@ export const columns = (t?: any, setSelectedRecordId?: any): AntColumnType<TDisc
   {
     width: 200,
     searchableInput: true,
-    title: <>{t('description')} </>,
+    title: t('description'),
     dataIndex: 'Description',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.Description.localeCompare(b.Description),
@@ -35,7 +35,7 @@ export const columns = (t?: any, setSelectedRecordId?: any): AntColumnType<TDisc
   {
     width: 200,
     searchableInput: true,
-    title: <>{t('entry_user')} </>,
+    title: t('entry_user'),
     dataIndex: 'EntryUser',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.EntryUser.localeCompare(b.EntryUser),
@@ -43,7 +43,7 @@ export const columns = (t?: any, setSelectedRecordId?: any): AntColumnType<TDisc
   {
     width: 180,
     searchableDate: true,
-    title: <>{t('entry_date')} </>,
+    title: t('entry_date'),
     dataIndex: 'EntryDate',
     sortDirections: ['ascend', 'descend'],
     render: (_, { EntryDate }) => formateDate(EntryDate),
@@ -56,7 +56,7 @@ export const columns = (t?: any, setSelectedRecordId?: any): AntColumnType<TDisc
   {
     width: 150,
     searchableInput: true,
-    title: <>{t('is_active')} </>,
+    title: t('is_active'),
     dataIndex: 'IsActive',
     sortDirections: ['ascend', 'descend'],
     // // sorter: (a, b) => a.IsActive.localeCompare(b.IsActive),
@@ -64,7 +64,7 @@ export const columns = (t?: any, setSelectedRecordId?: any): AntColumnType<TDisc
 
   {
     width: 100,
-    title: <>{t('action')} </>,
+    title: t('action'),
     dataIndex: 'Id',
     render: (_, record) => (
       <Tooltip title="Edit">

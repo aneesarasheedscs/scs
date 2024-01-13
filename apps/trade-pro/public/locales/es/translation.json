@@ -798,5 +798,17 @@
   "brand_item_name": "Nombre del artículo de marca",
   "brand_name": "Nombre de la marca",
   "inventory_dashboard": "Panel de inventario",
-  "approval_dashboard": "Panel de aprobación"
+  "approval_dashboard": "Panel de aprobación",
+  "definitions": "Definiciones",
+  "item_uom": "Unidad de medida del artículo",
+  "item_schedule_uom": "Lista de unidades de medida del artículo",
+  "customer_discount_policy": "Política de descuento para clientes",
+  "effected_date": "Fecha de efecto",
+  "allocate_discount_item_to_discount_type": "Asignar artículo de descuento al tipo de descuento",
+  "discount_type_name": "Nombre del tipo de descuento",
+  "discount_item_name": "Nombre del artículo de descuento",
+  "factory_weight": "Peso de fábrica",
+  "party_weight": "Peso del partido",
+  "diff_weight": "Peso de diferencia",
+  "freight_amount": "Cantidad de carga"
 }

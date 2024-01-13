@@ -4,9 +4,9 @@ import { EditFilled } from '@ant-design/icons';
 import { AntButton } from '@tradePro/components';
 
 export const columns = (setSelectedRecordId?: any, t?: any): AntColumnType<TItemTypeHistory>[] => [
-  { title: <>{t('serial_no')} </>, dataIndex: 'Id', width: 100 },
+  { title: t('serial_no'), dataIndex: 'Id', width: 100 },
   {
-    title: <>{t('code')} </>,
+    title: t('code'),
     dataIndex: 'TypeCode',
     width: 300,
     searchableInput: true,
@@ -17,7 +17,7 @@ export const columns = (setSelectedRecordId?: any, t?: any): AntColumnType<TItem
   {
     width: 300,
     searchableInput: true,
-    title: <>{t('item_description')} </>,
+    title: t('item_description'),
     dataIndex: 'TypeDescription',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.TypeDescription.localeCompare(b.TypeDescription),
@@ -25,7 +25,7 @@ export const columns = (setSelectedRecordId?: any, t?: any): AntColumnType<TItem
   {
     width: 300,
     searchableInput: true,
-    title: <>{t('item_type')} </>,
+    title: t('item_type'),
     dataIndex: 'TypeDescription',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.TypeDescription.localeCompare(b.TypeDescription),
@@ -33,7 +33,7 @@ export const columns = (setSelectedRecordId?: any, t?: any): AntColumnType<TItem
 
   {
     width: 100,
-    title: <>{t('action')} </>,
+    title: t('action'),
     dataIndex: '',
     render: (_, record) => (
       <Tooltip title="Edit">

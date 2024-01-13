@@ -4,7 +4,7 @@ import { TWsRmStockReceivedNotesDetailList } from '../types';
 
 export const detailColumns = (t?: any): AntColumnType<TWsRmStockReceivedNotesDetailList>[] => [
   {
-    title: <>{t('item_name')}</>,
+    title: t('item_name'),
     width: 360,
     searchableInput: true,
     dataIndex: 'ItemName',
@@ -12,7 +12,7 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmStockReceivedNotesDet
     sorter: (a, b) => a.ItemName.localeCompare(b.ItemName),
   },
   {
-    title: <>{t('rec_qty')}</>,
+    title: t('rec_qty'),
     width: 120,
     showTotal: true,
 
@@ -24,7 +24,7 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmStockReceivedNotesDet
     ),
   },
   {
-    title: <>{t('pack_uom')}</>,
+    title: t('pack_uom'),
     width: 140,
     searchableInput: true,
     dataIndex: 'UOMCode',
@@ -32,7 +32,7 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmStockReceivedNotesDet
     sorter: (a, b) => a.UOMCode.localeCompare(b.UOMCode),
   },
   {
-    title: <>{t('weight')}</>,
+    title: t('weight'),
     width: 120,
     showTotal: true,
 
@@ -44,7 +44,7 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmStockReceivedNotesDet
     ),
   },
   {
-    title: <>{t('rec_rate')}</>,
+    title: t('rec_rate'),
     width: 130,
     showTotal: true,
     dataIndex: 'ReceivedRate',
@@ -58,7 +58,7 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmStockReceivedNotesDet
     ),
   },
   {
-    title: <>{t('rec_amount')}</>,
+    title: t('rec_amount'),
     width: 140,
     showTotal: true,
     dataIndex: 'ReceivedAmount',
@@ -72,7 +72,7 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmStockReceivedNotesDet
     ),
   },
   {
-    title: <>{t('expense')}</>,
+    title: t('expense'),
     width: 110,
     showTotal: true,
 
@@ -86,7 +86,7 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmStockReceivedNotesDet
     ),
   },
   {
-    title: <>{t('net_amount')}</>,
+    title: t('net_amount'),
     width: 140,
     showTotal: true,
 
@@ -101,7 +101,7 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmStockReceivedNotesDet
   },
 
   {
-    title: <>{t('remarks')}</>,
+    title: t('remarks'),
     width: 300,
     dataIndex: 'RemarksDetail',
     searchableInput: true,

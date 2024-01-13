@@ -44,7 +44,7 @@ function ItemCategory({ open }: Props) {
   const { data: filterPurchase } = getItemPurchaseGLAccount();
   const { data: filterSale } = getItemSaleGLAccount();
 
-  const [selectedRecordId, setSelectedRecordId] = useState<number>();
+  const [selectedRecordId, setSelectedRecordId] = useState<number | any>();
 
   const { mutate: addItemCategory } = useAddItemCategory();
   const { mutate: updateItemCategory, isSuccess } = useUpdateItemCategory(selectedRecordId);
@@ -76,15 +76,20 @@ function ItemCategory({ open }: Props) {
       form.setFieldsValue(data?.data?.Data?.Result);
     }
   }, [isDataSuccess]);
-
+  const handleResetForm = () => {
+    setSelectedRecordId(null);
+  };
+  const handleCheckboxChange = (isChecked: boolean, fieldName: string) => {
+    form.setFieldsValue({
+      [fieldName]: isChecked,
+    });
+  };
   return (
     <>
-      {/* <AddButtonforItems open={open} handleOpen={handleOpen} handleClose={handleClose}> */}
       <h4>
-        {' '}
         {open ? (
           <>
-            Definitions
+            {t('definitions')}
             <Divider></Divider>
           </>
         ) : (
@@ -172,18 +177,27 @@ function ItemCategory({ open }: Props) {
                 query={getItemCGSAccount}
               />
             </Col>
-            <Col xs={4} sm={4} md={2} style={{ marginTop: -10 }}>
-              <Row justify={'space-around'}>
-                <span style={{ marginTop: 5 }}> {t('status')} </span>
-
-                <Checkbox name="Status" />
+            <Col xs={4} sm={4} md={2} style={{ marginTop: 5 }}>
+              <Row style={{ marginTop: 25 }} justify={'start'}>
+                <Form.Item name="UOMStatus" valuePropName="checked" initialValue={false}>
+                  <Checkbox onChange={(e) => handleCheckboxChange(e.target.checked, 'UOMStatus')}>
+                    {t('status')}
+                  </Checkbox>
+                </Form.Item>
               </Row>
             </Col>
             <Col xs={24} sm={24} md={10} style={{ display: 'flex', flexDirection: 'row' }}>
               <Form.Item>
                 <Row align="middle" gutter={10}>
                   <Col>
-                    <AntButton danger ghost htmlType="reset" label={t('reset')} icon={<SyncOutlined />} />
+                    <AntButton
+                      danger
+                      ghost
+                      htmlType="reset"
+                      onClick={handleResetForm}
+                      label={t('reset')}
+                      icon={<SyncOutlined />}
+                    />
                   </Col>
                   {open ? (
                     <>

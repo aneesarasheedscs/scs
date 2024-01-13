@@ -16,7 +16,9 @@ function CustomerDiscountPolicy() {
   return (
     <>
       <Card style={{ background: 'transparent', marginLeft: '-1%', marginTop: '-2%' }}>
-        <h2 className="form-heading">{t('customer_discount_policy')}</h2>
+        <h2 className="" style={{ textAlign: 'center' }}>
+          {t('customer_discount_policy')}
+        </h2>
         <MainForm selectedRecordId={selectedRecordId} />
         <CustomerDiscountPolicyTable setSelectedRecordId={setSelectedRecordId} />
       </Card>

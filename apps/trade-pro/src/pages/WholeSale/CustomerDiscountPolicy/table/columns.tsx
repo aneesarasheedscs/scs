@@ -7,13 +7,13 @@ import { TCustomerDiscountPolicyHistory } from '../types';
 
 export const columns = (t: any, setSelectedRecordId?: any): AntColumnType<TCustomerDiscountPolicyHistory>[] => [
   {
-    title: <>{t('effected_date')}</>,
+    title: t('effected_date'),
     width: 250,
     dataIndex: 'EffectedDate',
     render: (_, { EffectedDate }) => formateDate(EffectedDate),
   },
   {
-    title: <>{t('customer_name')}</>,
+    title: t('customer_name'),
     width: 250,
     searchableInput: true,
     dataIndex: 'CustomerName',
@@ -21,7 +21,7 @@ export const columns = (t: any, setSelectedRecordId?: any): AntColumnType<TCusto
     render: (_, { CustomerName }) => formateDate(CustomerName),
   },
   {
-    title: <>{t('discount_type')}</>,
+    title: t('discount_type'),
     width: 200,
     searchableInput: true,
     dataIndex: 'DiscountType',
@@ -29,7 +29,7 @@ export const columns = (t: any, setSelectedRecordId?: any): AntColumnType<TCusto
     sorter: (a, b) => a.DiscountType.localeCompare(b.DiscountType),
   },
   {
-    title: <>{t('discount_item')}</>,
+    title: t('discount_item'),
     width: 200,
     dataIndex: 'DiscountItem',
     searchableInput: true,
@@ -37,21 +37,21 @@ export const columns = (t: any, setSelectedRecordId?: any): AntColumnType<TCusto
     sorter: (a, b) => a.DiscountItem.localeCompare(b.DiscountItem),
   },
   {
-    title: <>{t('discount_percentage')}</>,
+    title: t('discount_percentage'),
     width: 200,
     dataIndex: 'Discount%',
     searchableInput: true,
     sorter: (a, b) => (a['Discount%'] as string).localeCompare(b['Discount%'] as string),
   },
   {
-    title: <>{t('is_active')}</>,
+    title: t('is_active'),
     width: 200,
     dataIndex: 'IsActive',
     searchableInput: true,
     render: (isActive) => (isActive ? 'True' : 'False'),
   },
   {
-    title: <>{t('action')}</>,
+    title: t('action'),
     width: 150,
     render: (_, record) => (
       <Tooltip title="Edit">

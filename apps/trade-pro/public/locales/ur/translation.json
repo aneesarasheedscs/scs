@@ -522,7 +522,6 @@
   "credit_balance": "کریڈٹ بیلنس",
   "select": "منتخب کریں",
   "debit_balance": "ڈیبٹ بیلنس",
-
   "account_definition": "اکاؤنٹ ڈیفنیشن",
   "grid_view": "جالی دار نظارہ",
   "card_view": "کارڈ ویو",
@@ -615,5 +614,16 @@
   "operating_expense": "عملی اخراجات",
   "non_operating_income": "غیر عملی آمدنی",
   "other_expense": "دیگر اخراجات",
-  "administration_expense": "انتظامیہ اخراجات"
+  "administration_expense": "انتظامیہ اخراجات",
+  "definitions": "تعریفیں",
+  "item_schedule_uom": "آئٹم UOM شیڈول",
+  "customer_discount_policy": "کسٹمر ڈسکاؤنٹ پالیسی",
+  "effected_date": "متاثر ہونے کی تاریخ",
+  "allocate_discount_item_to_discount_type": "ڈسکاؤنٹ کی قسم کو ڈسکاؤنٹ آئٹم مختص کریں۔",
+  "discount_type_name": "ڈسکاؤنٹ قسم کا نام",
+  "discount_item_name": "ڈسکاؤنٹ آئٹم کا نام",
+  "factory_weight": "فیکٹری وزن",
+  "party_weight": "پارٹی کا وزن",
+  "diff_weight": "فرق وزن",
+  "freight_amount": "مال برداری کی رقم"
 }

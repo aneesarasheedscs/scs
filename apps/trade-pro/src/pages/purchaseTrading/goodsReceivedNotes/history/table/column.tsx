@@ -7,17 +7,17 @@ import { EditFilled, PrinterOutlined } from '@ant-design/icons';
 import { TGRNDetailTable } from '../../types';
 
 export const columns = (t: any): AntColumnType<TGRNDetailTable>[] => [
-  { title: <>{t('document_date')}</>, dataIndex: 'DocNo', width: 150 },
+  { title: t('document_date'), dataIndex: 'DocNo', width: 150 },
   {
     width: 150,
-    title: <>{t('document_no')}</>,
+    title: t('document_no'),
     searchableDate: true,
     dataIndex: 'DocDate',
     render: (_, { DocDate }) => formateDate(DocDate),
   },
 
   {
-    title: <>{t('supplier_name')}</>,
+    title: t('supplier_name'),
     dataIndex: 'SupplierName',
     width: 250,
     searchableInput: true,
@@ -25,71 +25,71 @@ export const columns = (t: any): AntColumnType<TGRNDetailTable>[] => [
     sorter: (a, b) => a.SupplierName.localeCompare(b.SupplierName),
   },
   {
-    title: <>{t('delivery_term')}</>,
+    title: t('delivery_term'),
     dataIndex: 'DeliveryTerm',
     width: 300,
   },
   {
-    title: <>{t('gp_no')}</>,
+    title: t('gp_no'),
     dataIndex: 'GpSrNo',
     width: 200,
     render: (_, { GpSrNo }) => numberFormatter(GpSrNo),
   },
   {
-    title: <>{t('vehicle_no')}</>,
+    title: t('vehicle_no'),
     dataIndex: 'VehicleNo',
     width: 150,
   },
   {
-    title: <>{t('bilty_no')}</>,
+    title: t('bilty_no'),
     dataIndex: 'BiltyNo',
     width: 150,
   },
   {
     width: 150,
-    title: <>{t('factory_weight')}</>,
+    title: t('factory_weight'),
     dataIndex: 'FactoryWeight',
     render: (_, { FactoryWeight }) => numberFormatter(FactoryWeight),
   },
 
   {
     width: 160,
-    title: <>{t('party_weight')}</>,
+    title: t('party_weight'),
     dataIndex: 'PartyWeight',
     render: (_, { PartyWeight }) => numberFormatter(PartyWeight),
   },
   {
     width: 140,
-    title: <>{t('diff_weight')}</>,
+    title: t('diff_weight'),
     dataIndex: 'DiffWeight',
     render: (_, { DiffWeight }) => numberFormatter(DiffWeight),
   },
 
   {
     width: 140,
-    title: <>{t('vehicle_no')}</>,
+    title: t('vehicle_no'),
     dataIndex: 'VehicleNo',
   },
   {
     width: 140,
-    title: <>{t('transporter_name')}</>,
+    title: t('transporter'),
     dataIndex: 'TransporterName',
   },
 
   {
     width: 130,
-    title: <>{t('freight_amount')}</>,
+    title: t('freight_amount'),
     dataIndex: 'FreightAmount',
     render: (_, { FreightAmount }) => numberFormatter(FreightAmount),
   },
   {
     width: 130,
-    title: <>{t('remarks_header')}</>,
+    title: t('remarks_header'),
     dataIndex: 'RemarksHeader',
   },
   {
     width: 120,
-    title: <>{t('action')} </>,
+    title: t('action'),
     dataIndex: '',
     render: (_, record) => (
       <>

@@ -5,9 +5,9 @@ import { AntButton } from '@tradePro/components';
 import { TItemHistoryTable } from '../../../type';
 
 export const columns = (setSelectedRecordId?: any, t?: any): AntColumnType<TItemScheduleUOMHistory>[] => [
-  { title: <>{t('serial_no')} </>, dataIndex: 'Id', width: 100 },
+  { title: t('serial_no'), dataIndex: 'Id', width: 100 },
   {
-    title: <>{t('item_name')} </>,
+    title: t('item_name'),
     dataIndex: 'ItemName',
     width: 350,
     searchableInput: true,
@@ -15,7 +15,7 @@ export const columns = (setSelectedRecordId?: any, t?: any): AntColumnType<TItem
     sorter: (a, b) => a.ItemName.localeCompare(b.ItemName),
   },
   {
-    title: <>{t('schedule_unit')}</>,
+    title: t('schedule_unit'),
     dataIndex: 'UOMDescription',
     width: 200,
     searchableInput: true,
@@ -23,13 +23,13 @@ export const columns = (setSelectedRecordId?: any, t?: any): AntColumnType<TItem
     sorter: (a, b) => a.UOMDescription.localeCompare(b.UOMDescription),
   },
   {
-    width: 180,
-    title: <>{t('equivalent')}</>,
+    width: 170,
+    title: t('equivalent'),
     dataIndex: 'Equivalent',
   },
   {
     width: 160,
-    title: <>{t('base_pack_uom')}</>,
+    title: t('pack_uom'),
     dataIndex: 'BaseRateUom',
     render: (BaseRateUom, record) => (
       <Tooltip title="Status">
@@ -40,7 +40,7 @@ export const columns = (setSelectedRecordId?: any, t?: any): AntColumnType<TItem
 
   {
     width: 100,
-    title: <>{t('action')}</>,
+    title: t('action'),
     dataIndex: '',
     render: (_, record) => (
       <Tooltip title={t('edit')}>

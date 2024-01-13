@@ -8,7 +8,7 @@ export function AddButtonforItems({ open, children, handleOpen, handleClose }: T
   return (
     <>
       <AntButton label={t('allocate_discount_item_to_discount_type')} onClick={handleOpen} />
-      <Modal open={open} onCancel={handleClose} footer={null} width={800}>
+      <Modal open={open} onCancel={handleClose} footer={null} width={1150}>
         {children}
       </Modal>
     </>

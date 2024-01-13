@@ -2,6 +2,9 @@ import { lazy } from 'react';
 import { route } from './constant';
 import { RouteObject } from 'react-router-dom';
 
+const open = false;
+const openItemType = false;
+const openItemSchudleUnit = false;
 const GeneralLedgerReport = lazy(() => import('@tradePro/pages/accountReports/GeneralLedger'));
 const PurchaseActivity = lazy(() => import('@tradePro/pages/purchaseReports/purchaseActivityReport'));
 const SalesActivity = lazy(() => import('@tradePro/pages/SaleReports/salesActivityReport'));
@@ -114,7 +117,6 @@ const SaleOrderRegisterTable = lazy(
   () => import('@tradePro/pages/SaleReports/sale_order_register/saleOrderRegisterTable')
 );
 const GdnRegisterTable = lazy(() => import('@tradePro/pages/SaleReports/goodsDispatchNotesRegister/gdntable'));
-
 const EmployeeRegistration = lazy(() => import('@tradePro/pages/hmrs/employeeRegistration'));
 const AppMenu = lazy(() => import('@tradePro/pages/MainMenu'));
 const ShiftTimingDefine = lazy(() => import('@tradePro/pages/hmrs/shiftTimingDefine'));
@@ -180,10 +182,10 @@ export const protectedRoutes: RouteObject[] = [
   { path: route.DEFINE_ITEM_HISTORY, element: <PosDefineItem /> },
   { path: route.DEFINE_WAREHOUSE, element: <DefineWareHouse /> },
   { path: route.DEFINE_JOBLOTS, element: <DefineJobLots /> },
-  { path: route.ITEM_CATEGORY, element: <ItemCategory /> },
-  { path: route.ITEM_TYPE, element: <ItemType /> },
-  { path: route.UOM_DEFINE, element: <ItemBaseUOM /> },
-  { path: route.UOM_SCHEDULE, element: <ItemBaseScheduleUOM /> },
+  { path: route.ITEM_CATEGORY, element: <ItemCategory open={open} /> },
+  { path: route.ITEM_TYPE, element: <ItemType openItemType={openItemType} /> },
+  { path: route.UOM_DEFINE, element: <ItemBaseUOM open={open} /> },
+  { path: route.UOM_SCHEDULE, element: <ItemBaseScheduleUOM openItemSchudleUnit={openItemSchudleUnit} /> },
   { path: route.DISCOUNT_CATEGORY, element: <DiscountCategory /> },
   { path: route.DISCOUNT_TYPE, element: <DiscountTypes /> },
   { path: route.ALLOCATE_DISC_CATEGORY_TODISC_TYPE, element: <AllocateDiscCategoryToDiscType /> },
@@ -225,9 +227,9 @@ export const protectedRoutes: RouteObject[] = [
   { path: route.STOCK_TRANSFER_WAREHOUSE, element: <StockTransfer /> },
   { path: route.STOCK_TRANSFER_NOTE_DIRECT, element: <StockTransferNoteDirect /> },
 
-  { path: route.STOCK_TRANSFER_NOTE, element: <ItemBaseScheduleUOM /> },
-  { path: route.STOCK_RECEIVING_NOTE, element: <ItemBaseScheduleUOM /> },
-  { path: route.STOCK_ADJUSTMENT, element: <ItemBaseScheduleUOM /> },
+  // { path: route.STOCK_TRANSFER_NOTE, element: <ItemBaseScheduleUOM /> },
+  // { path: route.STOCK_RECEIVING_NOTE, element: <ItemBaseScheduleUOM /> },
+  // { path: route.STOCK_ADJUSTMENT, element: <ItemBaseScheduleUOM /> },
 
   //Hrm + system Utilities
   { path: route.DEFINE_DIVISION, element: <DefineDivision /> },

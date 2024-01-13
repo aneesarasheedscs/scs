@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 export const columns = (t: any): AntColumnType<TDispatchedSTNLoadHistory>[] => {
   return [
     {
-      title: <>{t('doc_no')}</>,
+      title: t('doc_no'),
       dataIndex: 'DocNo',
       searchableInput: true,
       width: 110,
@@ -15,7 +15,7 @@ export const columns = (t: any): AntColumnType<TDispatchedSTNLoadHistory>[] => {
       sorter: (a, b) => a.DocNo - b.DocNo,
     },
     {
-      title: <>{t('doc_date')}</>,
+      title: t('doc_date'),
       dataIndex: 'DocDate',
       searchableDate: true,
       render: (_, { DocDate }) => formateDate(DocDate),
@@ -27,7 +27,7 @@ export const columns = (t: any): AntColumnType<TDispatchedSTNLoadHistory>[] => {
       },
     },
     {
-      title: <>{t('location_from')}</>,
+      title: t('location_from'),
       dataIndex: 'SourceLocation',
       width: 240,
       searchableInput: true,
@@ -35,7 +35,7 @@ export const columns = (t: any): AntColumnType<TDispatchedSTNLoadHistory>[] => {
       sorter: (a, b) => a.SourceLocation.localeCompare(b.SourceLocation),
     },
     {
-      title: <>{t('location_to')}</>,
+      title: t('location_to'),
       dataIndex: 'DestinationLocation',
       width: 260,
       searchableInput: true,
@@ -43,7 +43,7 @@ export const columns = (t: any): AntColumnType<TDispatchedSTNLoadHistory>[] => {
       sorter: (a, b) => a.DestinationLocation.localeCompare(b.DestinationLocation),
     },
     {
-      title: <>{t('item_name')}</>,
+      title: t('item_name'),
       dataIndex: 'ItemName',
       width: 300,
       searchableInput: true,
@@ -51,7 +51,7 @@ export const columns = (t: any): AntColumnType<TDispatchedSTNLoadHistory>[] => {
       sorter: (a, b) => a.ItemName.localeCompare(b.ItemName),
     },
     {
-      title: <>{t('pack_uom')}</>,
+      title: t('pack_uom'),
       dataIndex: 'UOMCode',
       width: 140,
       searchableInput: true,
@@ -59,7 +59,7 @@ export const columns = (t: any): AntColumnType<TDispatchedSTNLoadHistory>[] => {
       sorter: (a, b) => a.UOMCode.localeCompare(b.UOMCode),
     },
     {
-      title: <>{t('issued_qty')}</>,
+      title: t('issued_qty'),
       dataIndex: 'IssuedQty',
       searchableInput: true,
       showTotal: true,
@@ -71,7 +71,7 @@ export const columns = (t: any): AntColumnType<TDispatchedSTNLoadHistory>[] => {
       ),
     },
     {
-      title: <>{t('issued_rate')}</>,
+      title: t('issued_rate'),
       searchableInput: true,
       dataIndex: 'IssuedRate',
       width: 140,
@@ -87,7 +87,7 @@ export const columns = (t: any): AntColumnType<TDispatchedSTNLoadHistory>[] => {
     },
     {
       searchableInput: true,
-      title: <>{t('issued_weight')}</>,
+      title: t('issued_weight'),
       dataIndex: 'BillWeight',
       width: 150,
       showTotal: true,
@@ -100,7 +100,7 @@ export const columns = (t: any): AntColumnType<TDispatchedSTNLoadHistory>[] => {
       ),
     },
     {
-      title: <>{t('stock_weight')}</>,
+      title: t('stock_weight'),
       searchableInput: true,
       dataIndex: 'StockWeight',
       width: 150,
@@ -114,7 +114,7 @@ export const columns = (t: any): AntColumnType<TDispatchedSTNLoadHistory>[] => {
       ),
     },
     {
-      title: <>{t('issued_amount')}</>,
+      title: t('issued_amount'),
       dataIndex: 'IssuedAmount',
       width: 160,
       showTotal: true,
@@ -129,7 +129,7 @@ export const columns = (t: any): AntColumnType<TDispatchedSTNLoadHistory>[] => {
     },
 
     {
-      title: <>{t('remarks_header')}</>,
+      title: t('remarks_header'),
       dataIndex: 'RemarksHeader',
       width: 200,
       searchableInput: true,

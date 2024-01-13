@@ -7,7 +7,7 @@ import { TLoadORderHistory, TWsRmStockReceivedNotesExpensesList } from '../types
 
 export const columns = (t: any, handleDeleteRow: any, handleEditRow: any): AntColumnType<TLoadORderHistory>[] => [
   {
-    title: <>{t('stn')}#</>,
+    title: t('stn'),
     width: 100,
     dataIndex: 'TransferNo',
     searchableInput: true,
@@ -29,7 +29,7 @@ export const columns = (t: any, handleDeleteRow: any, handleEditRow: any): AntCo
     },
   },
   {
-    title: <>{t('warehouse_name')}</>,
+    title: t('warehouse_name'),
     width: 200,
     searchableInput: true,
     dataIndex: 'WareHouseName',
@@ -37,7 +37,7 @@ export const columns = (t: any, handleDeleteRow: any, handleEditRow: any): AntCo
     sorter: (a, b) => a.WareHouseName.localeCompare(b.WareHouseName),
   },
   {
-    title: <>{t('item_name')}</>,
+    title: t('item_name'),
     width: 320,
     searchableInput: true,
     dataIndex: 'ItemName',
@@ -45,7 +45,7 @@ export const columns = (t: any, handleDeleteRow: any, handleEditRow: any): AntCo
     sorter: (a, b) => a.ItemName.localeCompare(b.ItemName),
   },
   {
-    title: <>{t('issued_qty')}</>,
+    title: t('issued_qty'),
     width: 130,
     showTotal: true,
     dataIndex: 'IssuedQuantity',
@@ -58,7 +58,7 @@ export const columns = (t: any, handleDeleteRow: any, handleEditRow: any): AntCo
     ),
   },
   {
-    title: <>{t('rec_qty')}</>,
+    title: t('rec_qty'),
     width: 100,
     showTotal: true,
     dataIndex: 'ReceivedQty',
@@ -69,7 +69,7 @@ export const columns = (t: any, handleDeleteRow: any, handleEditRow: any): AntCo
     ),
   },
   {
-    title: <>{t('available_stock')}</>,
+    title: t('available_stock'),
     width: 130,
     showTotal: true,
     dataIndex: 'AvailableStock',
@@ -82,7 +82,7 @@ export const columns = (t: any, handleDeleteRow: any, handleEditRow: any): AntCo
     ),
   },
   {
-    title: <>{t('pack_uom')}</>,
+    title: t('pack_uom'),
     width: 150,
     searchableInput: true,
     dataIndex: 'UOMCode',
@@ -90,7 +90,7 @@ export const columns = (t: any, handleDeleteRow: any, handleEditRow: any): AntCo
     sorter: (a, b) => a.UOMCode.localeCompare(b.UOMCode),
   },
   {
-    title: <>{t('weight')}</>,
+    title: t('weight'),
     width: 100,
     showTotal: true,
     dataIndex: 'StockWeight',
@@ -101,7 +101,7 @@ export const columns = (t: any, handleDeleteRow: any, handleEditRow: any): AntCo
     ),
   },
   {
-    title: <>{t('available_weight')}</>,
+    title: t('available_weight'),
     width: 140,
     showTotal: true,
     dataIndex: 'AvailableWeight',
@@ -114,7 +114,7 @@ export const columns = (t: any, handleDeleteRow: any, handleEditRow: any): AntCo
     ),
   },
   {
-    title: <>{t('item_rate')}</>,
+    title: t('item_rate'),
     width: 100,
     showTotal: true,
     dataIndex: 'ReceivedRate',
@@ -127,7 +127,7 @@ export const columns = (t: any, handleDeleteRow: any, handleEditRow: any): AntCo
     ),
   },
   {
-    title: <>{t('average_rate')}</>,
+    title: t('average_rate'),
     width: 150,
     showTotal: true,
     dataIndex: 'AvgRate',
@@ -138,7 +138,7 @@ export const columns = (t: any, handleDeleteRow: any, handleEditRow: any): AntCo
     ),
   },
   {
-    title: <>{t('rec_amount')}</>,
+    title: t('rec_amount'),
     width: 130,
     showTotal: true,
     dataIndex: 'ReceivedAmount',
@@ -167,7 +167,7 @@ export const columns = (t: any, handleDeleteRow: any, handleEditRow: any): AntCo
     ),
   },
   {
-    title: <>{t('expense')}</>,
+    title: t('expense'),
     width: 130,
     showTotal: true,
     dataIndex: 'ExpenseAmount',
@@ -181,7 +181,7 @@ export const columns = (t: any, handleDeleteRow: any, handleEditRow: any): AntCo
   },
 
   {
-    title: <>{t('net_amount')}</>,
+    title: t('net_amount'),
     width: 130,
     showTotal: true,
     dataIndex: 'ItemNetAmount',
@@ -210,7 +210,7 @@ export const columns = (t: any, handleDeleteRow: any, handleEditRow: any): AntCo
   },
 
   {
-    title: <>{t('remarks')}</>,
+    title: t('remarks'),
     width: 220,
     dataIndex: 'RemarksDetail',
     searchableInput: true,
@@ -218,7 +218,7 @@ export const columns = (t: any, handleDeleteRow: any, handleEditRow: any): AntCo
     sorter: (a, b) => a.RemarksDetail.localeCompare(b.RemarksDetail),
   },
   {
-    title: <>{t('action')}</>,
+    title: t('action'),
     width: 120,
     render: (_, record) => (
       <>
@@ -250,7 +250,7 @@ export const expenseColumns = (
   handleEditRow: any
 ): AntColumnType<TWsRmStockReceivedNotesExpensesList>[] => [
   {
-    title: <>{t('other_item_name')}</>,
+    title: t('other_item_name'),
     width: 400,
     searchableInput: true,
     dataIndex: 'OtherItemName',
@@ -258,7 +258,7 @@ export const expenseColumns = (
     sorter: (a, b) => a.OtherItemName.localeCompare(b.OtherItemName),
   },
   {
-    title: <>{t('qty')}</>,
+    title: t('qty'),
     width: 200,
     showTotal: true,
     dataIndex: 'Qty',
@@ -270,7 +270,7 @@ export const expenseColumns = (
   },
 
   {
-    title: <>{t('rate')}</>,
+    title: t('rate'),
     width: 200,
     showTotal: true,
     dataIndex: 'Rate',
@@ -282,7 +282,7 @@ export const expenseColumns = (
   },
 
   {
-    title: <>{t('amount')}</>,
+    title: t('amount'),
     width: 200,
     showTotal: true,
     dataIndex: 'Amount',
@@ -293,7 +293,7 @@ export const expenseColumns = (
   },
 
   {
-    title: <>{t('remarks')}</>,
+    title: t('remarks'),
     width: 380,
     dataIndex: 'Remarks',
     searchableInput: true,
@@ -301,7 +301,7 @@ export const expenseColumns = (
     sorter: (a, b) => a.Remarks.localeCompare(b.Remarks),
   },
   {
-    title: <>{t('action')}</>,
+    title: t('action'),
     width: 150,
     render: (_, record) => (
       <>

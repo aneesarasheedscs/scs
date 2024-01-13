@@ -158,6 +158,7 @@ export type TAddItemCategory = {
   ItemClassGroupId: number;
   CategoryCode: string;
   CategoryDescription: string;
+  UOMStatus: boolean;
 };
 export type TAddItemCategoryonUpdate = {
   CategoryStatus: boolean;
@@ -180,4 +181,5 @@ export type TAddItemCategoryonUpdate = {
   ItemClassGroupId: number;
   CategoryCode: string;
   CategoryDescription: string;
+  UOMStatus: boolean;
 };
