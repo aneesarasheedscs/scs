@@ -48,12 +48,6 @@ function SearchCriteriaForm() {
     refetch().then(() => handleClose());
   };
 
-  const formfield = {
-    borderBottom: '1px solid gray',
-    padding: '0px',
-    height: '40px',
-  };
-
   useEffect(() => {
     form.setFields([{ name: 'DueDateTo', value: dayjs(new Date()) }]);
   }, []);
@@ -62,7 +56,7 @@ function SearchCriteriaForm() {
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
       <Form form={form} onFinish={onFinish} layout="inline" initialValues={{ ActionId: 1, formValues }}>
         <Row gutter={[10, 10]} justify={'space-between'}>
-          <Col xs={24} sm={24} md={24} style={formfield}>
+          <Col xs={24} sm={24} md={24} className="formfield">
             <AntSelectDynamic
               required
               mode="multiple"
@@ -75,7 +69,7 @@ function SearchCriteriaForm() {
             />
           </Col>
 
-          <Col xs={24} sm={24} md={24} style={formfield}>
+          <Col xs={24} sm={24} md={24} className="formfield">
             <AntSelectDynamic
               mode="multiple"
               name="SelectedAccountIds"
@@ -90,19 +84,21 @@ function SearchCriteriaForm() {
             />
           </Col>
 
-          <Col xs={12} sm={12} md={14} style={formfield}>
-            <AntDatePicker name="DueDateTo" label={t('due_date_to')} required bordered={false} />
+          <Col xs={24} sm={12} md={14} className="formfield">
+            <p className="minWidth">
+              <AntDatePicker name="DueDateTo" label={t('due_date_to')} required bordered={false} />
+            </p>
           </Col>
 
-          <Col xs={12} sm={12} md={14} style={formfield}>
+          <Col xs={24} sm={12} md={14} className="formfield">
             <AntInputNumber name="FromDocNo" label={t('balance_from')} bordered={false} />
           </Col>
 
-          <Col xs={12} sm={12} md={14} style={formfield}>
+          <Col xs={24} sm={12} md={14} className="formfield">
             <AntInputNumber name="ToDocNo" label={t('balance_to')} bordered={false} />
           </Col>
 
-          <Col xs={12} sm={12} md={6}>
+          <Col xs={24} sm={12} md={6}>
             <AntButton
               label={t('show')}
               htmlType="submit"

@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import { requestManager } from '@tradePro/configs/requestManager';
 import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
-import { TAccountPayablesBetweenPeriodSearchCriteria, TAccountPayablesSearchCriteria } from '../table/types';
+import { TAccountPayablesBetweenPeriodSearchCriteria, TAccountPayablesSearchCriteria } from './table/types';
 
 const userDetail = storedUserDetail();
 const financialYear = storedFinancialYear();
@@ -14,14 +14,18 @@ const [BranchesId, CompanyId, OrganizationId] = [
 
 const params = { CompanyId, OrganizationId };
 
-export const useGetAccountPayablesTable = (enabled = true, params?: TAccountPayablesSearchCriteria) => {
+export const useGetAccountPayablesTable = (enabled = false, params?: TAccountPayablesSearchCriteria) => {
   return useQuery(
     'AccountPayables-history',
     () => {
       return requestManager.post('/api/AccountsReports/DueByDatePayables', {
         OrganizationId: userDetail?.OrganizationId,
         CompanyId: userDetail?.CompanyId,
-        LanguageId: 0,
+        Ids: params?.SelectedIds.toString(),
+        // AccountIds:
+        //   params?.SelectedAccountIds !== undefined && params?.SelectedAccountIds !== null
+        //     ? params?.SelectedAccountIds?.toString()
+        //     : null,
 
         ...params,
       });
@@ -30,16 +34,15 @@ export const useGetAccountPayablesTable = (enabled = true, params?: TAccountPaya
   );
 };
 
-export const useGetAccountPayablesBetweenPeriodTable = (
-  enabled = true,
-  params?: TAccountPayablesBetweenPeriodSearchCriteria
-) => {
+export const useGetAccountPayablesBetweenPeriodTable = (enabled = false, params?: TAccountPayablesSearchCriteria) => {
   return useQuery(
     'AccountPayablesBetweenPeriod-history',
     () => {
       return requestManager.post('/api/AccountsReports/AccountsPayablesByDueDateBetweenPeriod', {
         OrganizationId: userDetail?.OrganizationId,
         CompanyId: userDetail?.CompanyId,
+        // Ids: params?.SelectedIds.toString(),
+        LanguageId: 0,
         ...params,
       });
     },

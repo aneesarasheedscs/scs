@@ -9,6 +9,9 @@ export type TAccountPayablesSearchCriteria = {
   ToDocNo: number;
   LanguageId: number;
   ActionId: number;
+  SelectedIds: string;
+  SelectedAccountIds: string;
+  AccountIdss: string;
 };
 
 type ReportCriteria = {
@@ -37,6 +40,10 @@ export type TAccountPayablesBetweenPeriodSearchCriteria = {
   Ids: string;
   FromDocNo: number;
   ToDocNo: number;
+  SelectedIds: string;
+  LanguageId: number;
+  ActionId: number;
+  SelectedAccountIds: string;
 };
 
 export type ReportCriteriaBetweenPeriod = {
@@ -53,4 +60,11 @@ export type TAccountPayablesBetweenPeriodTable = {
   Opening: number;
   Debit: number;
   Credit: number;
+
+  // OtherLanguageTitle: string;
+  // DueDays: number;
+  // DueDate: string;
+  // DebitAmount: number;
+  // CreditAmount: number;
+  // DueAmount: number;
 };

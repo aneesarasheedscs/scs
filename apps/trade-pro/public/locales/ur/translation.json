@@ -612,5 +612,6 @@
   "operating_expense": "عملی اخراجات",
   "non_operating_income": "غیر عملی آمدنی",
   "other_expense": "دیگر اخراجات",
-  "administration_expense": "انتظامیہ اخراجات"
+  "administration_expense": "انتظامیہ اخراجات",
+  "account_receivables_by_due_date": "وصولات حساب بحرانی کے مطابق"
 }

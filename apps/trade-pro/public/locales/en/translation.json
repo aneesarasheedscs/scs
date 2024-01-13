@@ -616,5 +616,6 @@
   "operating_expense": "Operating Expense",
   "non_operating_income": "Non Operating Income",
   "other_expense": "Other Expense",
-  "administration_expense": "Administration Expense"
+  "administration_expense": "Administration Expense",
+  "account_receivables_by_due_date": "Account Receivables By Due Date"
 }
