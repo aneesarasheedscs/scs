@@ -15,22 +15,16 @@ function CustomerDiscountPolicyTable({ setSelectedRecordId }: TFrom) {
 
   return (
     <>
-      <Row style={{ marginTop: '0.5%' }}>
+      <Row style={{ marginTop: '0.3%' }}>
         <Col span={24}>
-          <h2 className="form-heading" style={{ margin: '0.7% 0' }}>
-            {t('history')}
-          </h2>
-
-          <Card style={{ boxShadow: '2px 4px 12px 1px gray', textAlign: 'left' }}>
-            <AntTable
-              isError={isError}
-              numberOfSkeletons={8}
-              isLoading={isLoading}
-              scroll={{ x: '', y: convertVhToPixels('34vh') }}
-              data={data?.data?.Data?.Result || []}
-              columns={columns(t, setSelectedRecordId)}
-            />
-          </Card>
+          <AntTable
+            isError={isError}
+            numberOfSkeletons={8}
+            isLoading={isLoading}
+            scroll={{ x: '', y: convertVhToPixels('34vh') }}
+            data={data?.data?.Data?.Result || []}
+            columns={columns(t, setSelectedRecordId)}
+          />
         </Col>
       </Row>
     </>

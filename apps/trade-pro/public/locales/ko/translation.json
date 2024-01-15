@@ -451,5 +451,20 @@
   "discount_category_name": "할인 카테고리 이름",
   "allocate_brand_item_to_disc_type": "디스크 유형에 브랜드 항목 할당",
   "brand_item_name": "브랜드 품목 이름",
-  "brand_name": "상표명"
+  "brand_name": "상표명",
+  "inventory_dashboard": "재고 대시보드",
+  "search": "찾다",
+  "approval_dashboard": "승인 대시보드",
+  "definitions": "정의",
+  "item_uom": "품목 UOM",
+  "item_schedule_uom": "품목 UOM 스케줄",
+  "customer_discount_policy": "고객 할인 정책",
+  "effected_date": "발효일",
+  "allocate_discount_item_to_discount_type": "할인 유형에 할인 항목 할당",
+  "discount_type_name": "할인 유형 이름",
+  "discount_item_name": "할인 품목명",
+  "factory_weight": "공장 중량",
+  "party_weight": "당 무게",
+  "diff_weight": "차이 가중치",
+  "freight_amount": "운임"
 }

@@ -522,7 +522,6 @@
   "credit_balance": "کریڈٹ بیلنس",
   "select": "منتخب کریں",
   "debit_balance": "ڈیبٹ بیلنس",
-
   "account_definition": "اکاؤنٹ ڈیفنیشن",
   "grid_view": "جالی دار نظارہ",
   "card_view": "کارڈ ویو",
@@ -593,6 +592,9 @@
   "allocate_brand_item_to_disc_type": "برانڈ آئٹم کو ڈسک کی قسم میں مختص کریں۔",
   "brand_item_name": "برانڈ آئٹم کا نام",
   "brand_name": "برانڈ کا نام",
+  "inventory_dashboard": "انوینٹری ڈیش بورڈ",
+  "search": "تلاش کریں۔",
+  "approval_dashboard": "منظوری کا ڈیش بورڈ",
   "four_columns": "چار ستون",
   "six_columns": "چھے ستون",
   "openng_dr": "اوپننگ ڈیبٹ",
@@ -613,5 +615,16 @@
   "non_operating_income": "غیر عملی آمدنی",
   "other_expense": "دیگر اخراجات",
   "administration_expense": "انتظامیہ اخراجات",
-  "account_receivables_by_due_date": "وصولات حساب بحرانی کے مطابق"
+  "account_receivables_by_due_date": "وصولات حساب بحرانی کے مطابق",
+  "definitions": "تعریفیں",
+  "item_schedule_uom": "آئٹم UOM شیڈول",
+  "customer_discount_policy": "کسٹمر ڈسکاؤنٹ پالیسی",
+  "effected_date": "متاثر ہونے کی تاریخ",
+  "allocate_discount_item_to_discount_type": "ڈسکاؤنٹ کی قسم کو ڈسکاؤنٹ آئٹم مختص کریں۔",
+  "discount_type_name": "ڈسکاؤنٹ قسم کا نام",
+  "discount_item_name": "ڈسکاؤنٹ آئٹم کا نام",
+  "factory_weight": "فیکٹری وزن",
+  "party_weight": "پارٹی کا وزن",
+  "diff_weight": "فرق وزن",
+  "freight_amount": "مال برداری کی رقم"
 }

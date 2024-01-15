@@ -14,7 +14,7 @@ export const columns = (
   setSelectedRecordIdforDetail?: any
 ): AntColumnType<TRequisitionOrderHistory>[] => [
   {
-    title: <>{t('doc_no')}</>,
+    title: t('doc_no'),
     dataIndex: 'DocNo',
     searchableInput: true,
     width: 120,
@@ -22,7 +22,7 @@ export const columns = (
     sorter: (a, b) => a.DocNo - b.DocNo,
   },
   {
-    title: <>{t('doc_date')}</>,
+    title: t('doc_date'),
     dataIndex: 'DocDate',
     searchableDate: true,
     render: (_, { DocDate }) => formateDate(DocDate),
@@ -34,7 +34,7 @@ export const columns = (
     },
   },
   {
-    title: <>{t('location_from')}</>,
+    title: t('location_from'),
     dataIndex: 'LocationFrom',
     width: 280,
     searchableInput: true,
@@ -42,7 +42,7 @@ export const columns = (
     sorter: (a, b) => a.EntryUser.localeCompare(b.EntryUser),
   },
   {
-    title: <>{t('location_to')}</>,
+    title: t('location_to'),
     dataIndex: 'LocationTo',
     width: 280,
     searchableInput: true,
@@ -50,7 +50,7 @@ export const columns = (
     sorter: (a, b) => a.EntryUser.localeCompare(b.EntryUser),
   },
   {
-    title: <>{t('request_status')}</>,
+    title: t('request_status'),
     dataIndex: 'RequestStatus',
     width: 170,
     searchableInput: true,
@@ -58,7 +58,7 @@ export const columns = (
     sorter: (a, b) => a.EntryUser.localeCompare(b.EntryUser),
   },
   {
-    title: <>{t('entry_user')}</>,
+    title: t('entry_user'),
     dataIndex: 'EntryUser',
     width: 150,
     searchableInput: true,
@@ -66,7 +66,7 @@ export const columns = (
     sorter: (a, b) => a.EntryUser.localeCompare(b.EntryUser),
   },
   {
-    title: <>{t('entry_date')}</>,
+    title: t('entry_date'),
     dataIndex: 'EntryDate',
     searchableDate: true,
     render: (_, { EntryDate }) => formateDate(EntryDate),
@@ -78,7 +78,7 @@ export const columns = (
     },
   },
   {
-    title: <>{t('modify_user')}</>,
+    title: t('modify_user'),
     dataIndex: 'ModifyUser',
     width: 150,
     searchableInput: true,
@@ -86,7 +86,7 @@ export const columns = (
     // sorter: (a, b) => a.ModifyUser.localeCompare(b.ModifyUser),
   },
   {
-    title: <>{t('modify_date')}</>,
+    title: t('modify_date'),
     searchableDate: true,
     dataIndex: 'ModifyDate',
     render: (_, { ModifyDate }) => formateDate(ModifyDate),
@@ -98,7 +98,7 @@ export const columns = (
     },
   },
   {
-    title: <>{t('approved_user')}</>,
+    title: t('approved_user'),
     dataIndex: 'ApprovedUser',
     width: 180,
     searchableInput: true,
@@ -106,7 +106,7 @@ export const columns = (
     // sorter: (a, b) => a.ApprovedUser.localeCompare(b.ApprovedUser),
   },
   {
-    title: <>{t('approved_date')}</>,
+    title: t('approved_date'),
     searchableDate: true,
     dataIndex: 'ApprovedDate',
     render: (_, { ApprovedDate }) => formateDate(ApprovedDate),
@@ -118,7 +118,7 @@ export const columns = (
     },
   },
   {
-    title: <>{t('is_approved')}</>,
+    title: t('is_approved'),
     dataIndex: 'IsApproved',
     width: 120,
     sortDirections: ['ascend', 'descend'],
@@ -144,7 +144,7 @@ export const columns = (
   },
 
   {
-    title: <>{t('remarks')}</>,
+    title: t('remarks'),
     dataIndex: 'RemarksHeader',
     width: 150,
     searchableInput: true,
@@ -152,16 +152,16 @@ export const columns = (
     sorter: (a, b) => a.RemarksHeader.localeCompare(b.RemarksHeader),
   },
   {
-    title: <>{t('attachment')}</>,
+    title: t('attachment'),
     dataIndex: '',
     width: 150,
   },
   {
-    title: <>{t('action')}</>,
+    title: t('action'),
     width: 120,
     render: (_, record) => (
       <>
-        <Tooltip title="Edit">
+        <Tooltip title={t('edit')}>
           <Space>
             <AntButton
               type="text"
@@ -172,7 +172,7 @@ export const columns = (
             />
           </Space>
         </Tooltip>
-        <Tooltip title="View Detail">
+        <Tooltip title={t('detail')}>
           <Space>
             <AntButton
               type="text"

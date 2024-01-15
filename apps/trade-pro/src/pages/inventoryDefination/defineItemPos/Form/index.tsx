@@ -4,10 +4,17 @@ import { useTranslation } from 'react-i18next';
 import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import ItemType from './definitionScreens/ItemType';
-import { Card, Col, Form, Input, Row, theme } from 'antd';
+import { Card, Col, Form, Input, Modal, Row, theme } from 'antd';
 import ItemCategory from './definitionScreens/ItemCategory';
 import { useGetItemById, useSaveItemCategory, useUpdateItemCategory } from './querieSave';
-import { SyncOutlined, SaveOutlined, PrinterFilled, PaperClipOutlined, RedoOutlined } from '@ant-design/icons';
+import {
+  SyncOutlined,
+  SaveOutlined,
+  PrinterFilled,
+  PaperClipOutlined,
+  RedoOutlined,
+  PlusOutlined,
+} from '@ant-design/icons';
 import { AntButton, AntInputNumber, AntSelectDynamic } from '@tradePro/components';
 import { getItemCategory, getItemClass, getItemCode, getItemType } from './queryOptions';
 import {
@@ -17,6 +24,7 @@ import {
   TDefineItemDataonUpdate,
   TItemCode,
 } from './types';
+import { AddButtonforItems } from './definitionScreens/AddButtonforItems';
 
 const { useToken } = theme;
 const { useForm, useWatch } = Form;
@@ -27,6 +35,13 @@ function ItemFormtoSave({ selectedRecordId }: any) {
   const { data, isError, isLoading } = getItemCode();
   const { token } = useToken();
   const [printPreview, setPrintPreview] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [openItemType, setOpenItemType] = useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleOpenItemType = () => setOpenItemType(true);
+  const handleClose = () => setOpen(false);
+  const handleCloseItemType = () => setOpenItemType(false);
 
   const { mutate: addItem, isSuccess } = useSaveItemCategory();
   const { mutate: updateItem, isSuccess: isSuccessUpdate } = useUpdateItemCategory(selectedRecordId);
@@ -57,6 +72,7 @@ function ItemFormtoSave({ selectedRecordId }: any) {
     console.log(printPreview);
   };
   const handleResetForm = () => {};
+  const someCondition = 'Item';
   return (
     <>
       <Card>
@@ -133,7 +149,13 @@ function ItemFormtoSave({ selectedRecordId }: any) {
                     />
                   </Col>
                   <Form.Item style={{ marginTop: 25, marginRight: 0 }}>
-                    <ItemCategory />
+                    {/* <AddButtonforItems open={open} handleOpen={handleOpen} handleClose={handleClose}>
+                      <ItemCategory open={open} />
+                    </AddButtonforItems> */}
+                    <AntButton icon={<PlusOutlined />} label="" onClick={handleOpen} />
+                    <Modal open={open} onCancel={handleClose} footer={null} width={1200}>
+                      <ItemCategory open={open} />
+                    </Modal>
                   </Form.Item>
                 </Col>
                 <Col xl={{ span: 4 }} xs={{ span: 10 }} style={{ marginRight: 10 }}>
@@ -163,7 +185,13 @@ function ItemFormtoSave({ selectedRecordId }: any) {
                     />
                   </Col>
                   <Form.Item style={{ marginTop: 25, marginRight: 10 }}>
-                    <ItemType></ItemType>
+                    {/* <AddButtonforItems open={open} handleOpen={handleOpen} handleClose={handleClose}>
+                      <ItemType open={open} />
+                    </AddButtonforItems> */}
+                    <AntButton icon={<PlusOutlined />} label="" onClick={handleOpenItemType} />
+                    <Modal open={openItemType} onCancel={handleCloseItemType} footer={null} width={1200}>
+                      <ItemType openItemType={openItemType} />
+                    </Modal>
                   </Form.Item>
                 </Col>
               </Row>

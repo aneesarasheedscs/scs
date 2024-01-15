@@ -425,15 +425,14 @@ const DynamicForm = ({ form }: TDynamicForm) => {
         {(fields, { add, remove }) => (
           <>
             {fields.map((field) => (
-                  <Card style={{  boxShadow: '2px 4px 12px 1px gray',marginTop:'20px' }}>
-
-              <div
-                key={field.key}
-                className="form-list-container"
-                style={{ display: 'flex', justifyContent: 'space-between' }}
-              >
-                <Row gutter={[16, 16]} justify={'space-between'}>
-                {/* <h6
+              <Card style={{ boxShadow: '2px 4px 12px 1px gray', marginTop: '20px' }}>
+                <div
+                  key={field.key}
+                  className="form-list-container"
+                  style={{ display: 'flex', justifyContent: 'space-between' }}
+                >
+                  <Row gutter={[16, 16]} justify={'space-between'}>
+                    {/* <h6
         style={{
           fontFamily: 'times-roman',
           fontSize: '20px',
@@ -450,136 +449,136 @@ const DynamicForm = ({ form }: TDynamicForm) => {
             {' '}
             <DownOutlined />
           </Button> */}
-      {/* </h6>  */}
-                  <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={7} className="formfields">
-                    <AntSelectDynamic
-                      bordered={false}
-                      required
-                      fieldValue="Id"
-                      label="Item Name"
-                      fieldLabel="ItemName"
-                      query={useGetItemsWithBaseUom}
-                      name={[field.name, 'OrderItemId']}
-                      onSelectChange={(obj) => handleItemChange(obj, field.name)}
-                    />
-                  </Col>
+                    {/* </h6>  */}
+                    <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={7} className="formfields">
+                      <AntSelectDynamic
+                        bordered={false}
+                        required
+                        fieldValue="Id"
+                        label="Item Name"
+                        fieldLabel="ItemName"
+                        query={useGetItemsWithBaseUom}
+                        name={[field.name, 'OrderItemId']}
+                        onSelectChange={(obj) => handleItemChange(obj, field.name)}
+                      />
+                    </Col>
 
-                  <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={4} className="formfields">
-                    <AntSelectDynamic
-                      bordered={false}
-                      fieldValue="Id"
-                      label="Price Schedule"
-                      fieldLabel="EffectedDate"
-                      query={() => useGetPriceSchedule(formValues?.[0]?.OrderItemId)}
-                      name={[field.name, 'ItemPriceSchudleId']}
-                      onChange={(itemPrice) => handleItemPriceChange(itemPrice, field.name)}
-                      onSelectChange={(obj) => handleItemsChange(obj, field.name)}
-                    />
-                  </Col>
+                    <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={4} className="formfields">
+                      <AntSelectDynamic
+                        bordered={false}
+                        fieldValue="Id"
+                        label="Price Schedule"
+                        fieldLabel="EffectedDate"
+                        query={() => useGetPriceSchedule(formValues?.[0]?.OrderItemId)}
+                        name={[field.name, 'ItemPriceSchudleId']}
+                        onChange={(itemPrice) => handleItemPriceChange(itemPrice, field.name)}
+                        onSelectChange={(obj) => handleItemsChange(obj, field.name)}
+                      />
+                    </Col>
 
-                  <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={4} className="formfields">
-                    <AntInput
-                      bordered={false}
-                      required={validation}
-                      readOnly
-                      label="Base UOM"
-                      formItemProps={{ ...field, name: [field.name, 'UOMCode'] }}
-                    />
-                  </Col>
+                    <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={4} className="formfields">
+                      <AntInput
+                        bordered={false}
+                        required={validation}
+                        readOnly
+                        label="Base UOM"
+                        formItemProps={{ ...field, name: [field.name, 'UOMCode'] }}
+                      />
+                    </Col>
 
-                  <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={3} className="formfields">
-                    <AntInputNumber
-                      bordered={false}
-                      required
-                      label="Qty"
-                      onChange={(itemQty) => handleItemQtyChange(itemQty !== undefined ? itemQty : null, field.name)}
-                      formItemProps={{ ...field, name: [field.name, 'OrderItemQty'] }}
-                    />
-                  </Col>
+                    <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={3} className="formfields">
+                      <AntInputNumber
+                        bordered={false}
+                        required
+                        label="Qty"
+                        onChange={(itemQty) => handleItemQtyChange(itemQty !== undefined ? itemQty : null, field.name)}
+                        formItemProps={{ ...field, name: [field.name, 'OrderItemQty'] }}
+                      />
+                    </Col>
 
-                  <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={4} className="formfields">
-                    <AntInputNumber
-                      bordered={false}
-                      required
-                      readOnly
-                      label="Weight"
-                      formItemProps={{ ...field, name: [field.name, 'NetWeight'] }}
-                    />
-                  </Col>
+                    <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={4} className="formfields">
+                      <AntInputNumber
+                        bordered={false}
+                        required
+                        readOnly
+                        label="Weight"
+                        formItemProps={{ ...field, name: [field.name, 'NetWeight'] }}
+                      />
+                    </Col>
 
-                  <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={7} className="formfields">
-                    <AntInputNumber
-                      bordered={false}
-                      readOnly
-                      label="Item Price"
-                      formItemProps={{ ...field, name: [field.name, 'BagPrice'] }}
+                    <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={7} className="formfields">
+                      <AntInputNumber
+                        bordered={false}
+                        readOnly
+                        label="Item Price"
+                        formItemProps={{ ...field, name: [field.name, 'BagPrice'] }}
 
-                      // formItemProps={{ ...field, name: [field.name, 'BagPrice'] }}
-                      // formItemProps={{ ...field, name: [field.name, 'BagPrice'] }}
-                    />
-                  </Col>
+                        // formItemProps={{ ...field, name: [field.name, 'BagPrice'] }}
+                        // formItemProps={{ ...field, name: [field.name, 'BagPrice'] }}
+                      />
+                    </Col>
 
-                  <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={4} className="formfields">
-                    <AntInputNumber
-                      bordered={false}
-                      readOnly
-                      label="Disc Rate"
-                      formItemProps={{ ...field, name: [field.name, 'ScheduleDesc'] }}
+                    <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={4} className="formfields">
+                      <AntInputNumber
+                        bordered={false}
+                        readOnly
+                        label="Disc Rate"
+                        formItemProps={{ ...field, name: [field.name, 'ScheduleDesc'] }}
 
-                      // query={useGetDiscountRate(formValues?.CompanyId)}
-                      // onChange={(itemPrice) => handleItemPriceChange(itemPrice, field.name)}
-                    />
-                  </Col>
-                  <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={4} className="formfields">
-                    <AntInputNumber
-                      bordered={false}
-                      required
-                      label="Add/Less"
-                      formItemProps={{ ...field, name: [field.name, 'RateAddLess'] }}
-                      onChange={(addLess) => handleAddLessChange(addLess, field.name)}
-                    />
-                  </Col>
-                  <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={3} className="formfields">
-                    <AntInputNumber
-                      bordered={false}
-                      required
-                      readOnly
-                      label="Net Rate"
-                      formItemProps={{ ...field, name: [field.name, 'RetailRate'] }}
-                      onChange={(netRate) => handleNetRateChange(netRate, field.name)}
-                    />
-                  </Col>
+                        // query={useGetDiscountRate(formValues?.CompanyId)}
+                        // onChange={(itemPrice) => handleItemPriceChange(itemPrice, field.name)}
+                      />
+                    </Col>
+                    <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={4} className="formfields">
+                      <AntInputNumber
+                        bordered={false}
+                        required
+                        label="Add/Less"
+                        formItemProps={{ ...field, name: [field.name, 'RateAddLess'] }}
+                        onChange={(addLess) => handleAddLessChange(addLess, field.name)}
+                      />
+                    </Col>
+                    <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={3} className="formfields">
+                      <AntInputNumber
+                        bordered={false}
+                        required
+                        readOnly
+                        label="Net Rate"
+                        formItemProps={{ ...field, name: [field.name, 'RetailRate'] }}
+                        onChange={(netRate) => handleNetRateChange(netRate, field.name)}
+                      />
+                    </Col>
 
-                  <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={4} className="formfields">
-                    <AntSelectDynamic
-                      bordered={false}
-                      required
-                      fieldValue="Id"
-                      label="Rate UOM"
-                      fieldLabel="UOMCode"
-                      name={[field.name, 'RateUomNo']}
-                      query={useGetUomByItemId(formValues?.[field.name]?.OrderItemId)}
-                      onSelectChange={(obj) => handleRateUOMChange(obj, field.name)}
-                    />
-                  </Col>
+                    <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={4} className="formfields">
+                      <AntSelectDynamic
+                        bordered={false}
+                        required
+                        fieldValue="Id"
+                        label="Rate UOM"
+                        fieldLabel="UOMCode"
+                        name={[field.name, 'RateUomNo']}
+                        query={useGetUomByItemId(formValues?.[field.name]?.OrderItemId)}
+                        onSelectChange={(obj) => handleRateUOMChange(obj, field.name)}
+                      />
+                    </Col>
 
-                  <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={7} className="formfields">
-                    <AntInputNumber
-                      bordered={false}
-                      required
-                      readOnly
-                      label="Amount"
-                      formItemProps={{ ...field, name: [field.name, 'Amount'] }}
-                    />
-                  </Col>
-                  <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={14} className="formfields">
-                    <AntInput
-                      label="Remarks"
-                      formItemProps={{ ...field, name: [field.name, 'OrderRemarks'] }}
-                      bordered={false}
-                    />
-                  </Col>
-                  {/* <Col xs={24} sm={24} md={24} lg={24} xl={3}>
+                    <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={7} className="formfields">
+                      <AntInputNumber
+                        bordered={false}
+                        required
+                        readOnly
+                        label="Amount"
+                        formItemProps={{ ...field, name: [field.name, 'Amount'] }}
+                      />
+                    </Col>
+                    <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={14} className="formfields">
+                      <AntInput
+                        label="Remarks"
+                        formItemProps={{ ...field, name: [field.name, 'OrderRemarks'] }}
+                        bordered={false}
+                      />
+                    </Col>
+                    {/* <Col xs={24} sm={24} md={24} lg={24} xl={3}>
                     <Row>
                       <Col>
                         <AntButton
@@ -589,17 +588,17 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                           // isLoading={isFromToDateLoading}
                         />
                       </Col> */}
-                  <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={2}>
-                    <AntButton
-                      className="add"
-                      onClick={isEditMode ? handleUpdateToTable : handleAddToTable}
-                      label={isEditMode ? <>{t('update')}</> : <>{t('add')}</>}
-                    />
-                  </Col>
-                </Row>
-                {/* </Row>
+                    <Col xs={12} sm={12} md={8} lg={6} xl={3} xxl={2}>
+                      <AntButton
+                        className="add"
+                        onClick={isEditMode ? handleUpdateToTable : handleAddToTable}
+                        label={isEditMode ? <>{t('update')}</> : <>{t('add')}</>}
+                      />
+                    </Col>
+                  </Row>
+                  {/* </Row>
                   </Col> */}
-              </div>
+                </div>
               </Card>
             ))}
           </>
@@ -616,17 +615,17 @@ const DynamicForm = ({ form }: TDynamicForm) => {
         scroll={{ x: '', y: convertVhToPixels('18vh') }}
       /> */}
       <Row gutter={[10, 10]}>
-<Col>
- 
-<AntTable
-          // refetch={addRefetch}
-          // isError={addisError}
-          columns={saleOrderFormcolumns(t, handleDeleteRow, handleEditRow)}
-          numberOfSkeletons={12}
-          // isLoading={addisLoading}
-          data={tableData || []}
-          scroll={{ x: '', y: convertVhToPixels('15vh') }}
-        /></Col>
+        <Col>
+          <AntTable
+            // refetch={addRefetch}
+            // isError={addisError}
+            columns={saleOrderFormcolumns(t, handleDeleteRow, handleEditRow)}
+            numberOfSkeletons={12}
+            // isLoading={addisLoading}
+            data={tableData || []}
+            scroll={{ x: '', y: convertVhToPixels('15vh') }}
+          />
+        </Col>
       </Row>
     </Row>
   );

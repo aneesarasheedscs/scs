@@ -98,6 +98,7 @@ function MainForm({ selectedRecordId }: TAddUpdateRecord) {
                   </Col>
                   <Col>
                     <AntButton
+                      ghost
                       label={selectedRecordId ? t('update') : t('save')}
                       icon={<SaveOutlined />}
                       htmlType="submit"

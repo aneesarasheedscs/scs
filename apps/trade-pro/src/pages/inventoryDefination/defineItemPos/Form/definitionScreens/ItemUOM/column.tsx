@@ -2,12 +2,11 @@ import { AntColumnType } from '@tradePro/globalTypes';
 import { Button, Checkbox, Popconfirm, Space, Tooltip } from 'antd';
 import { EditFilled } from '@ant-design/icons';
 import { AntButton } from '@tradePro/components';
-import { TItemHistoryTable } from '../../../type';
 
 export const columns = (setSelectedRecordId?: any, t?: any): AntColumnType<TItemUOMHistory>[] => [
-  { title: <>{t('serial_no')} </>, dataIndex: 'Id', width: 100 },
+  { title: t('serial_no'), dataIndex: 'Id', width: 100 },
   {
-    title: <>{t('code')}</>,
+    title: t('code'),
     dataIndex: 'UOMCode',
     width: 300,
     searchableInput: true,
@@ -16,13 +15,13 @@ export const columns = (setSelectedRecordId?: any, t?: any): AntColumnType<TItem
   },
   {
     width: 300,
-    title: <>{t('equivalent')} </>,
+    title: t('equivalent'),
     dataIndex: 'Equivalent',
     sortDirections: ['ascend', 'descend'],
   },
   {
     width: 300,
-    title: <>{t('status')} </>,
+    title: t('status'),
     dataIndex: 'UOMStatus',
     render: (UOMStatus, record) => (
       <Tooltip title="Status">
@@ -32,8 +31,8 @@ export const columns = (setSelectedRecordId?: any, t?: any): AntColumnType<TItem
   },
 
   {
-    width: 100,
-    title: <>{t('action')} </>,
+    width: 80,
+    title: t('action'),
     dataIndex: '',
     render: (_, record) => (
       <Tooltip title="Edit">

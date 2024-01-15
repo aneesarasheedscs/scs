@@ -16,6 +16,10 @@ export type TGRNDetailTable = {
   RemarksHeader: string;
   EntryDate: Date;
   EntryUser: string;
+
+  CompLogoImage: string;
+  EntryUserProfileImageUrl: string;
+  ModifyUserProfileImageUrl: string;
 };
 export type TGrnDetailTable = {
   Id: number;

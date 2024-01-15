@@ -1,18 +1,30 @@
-import { AntButton, AntTable } from '@tradePro/components';
-import { Card, Col, Form, Input, Row } from 'antd';
-import { useTranslation } from 'react-i18next';
-import { SaveOutlined, SyncOutlined, ExportOutlined } from '@ant-design/icons';
 import MainForm from './MainForm';
-import { useEffect, useState } from 'react';
-import { useGetDocumentNumber } from '../queryOptions';
 import DocNumber from './DocNumber';
 import GRNDetailTable from './table';
-import { useAddGoodsRecievedNotes } from './query';
+import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
 import { TGRNDetailTableAdd } from './types';
+import { useTranslation } from 'react-i18next';
+import { useAddGoodsRecievedNotes } from './query';
+import { Card, Col, Form, Input, Modal, Row } from 'antd';
+import { useGetDocumentNumber } from '../queryOptions';
+import { AntButton, AntDatePicker, AntTable } from '@tradePro/components';
+
+import {
+  SaveOutlined,
+  SyncOutlined,
+  ExportOutlined,
+  RedoOutlined,
+  PaperClipOutlined,
+  PrinterFilled,
+} from '@ant-design/icons';
+import LoadOrderDetailForm from '../purchaseOrderLoad/LoadOrderForm';
 
 const { useForm } = Form;
 interface Props {
+  selectedRecordId: any;
   handleLoadOrderButtonClick: (selectedRows: any) => void;
+  handleLoadButtonClick: () => void;
   showGRNDetailTable: any;
   selectedRows: any;
   isError: any;
@@ -20,15 +32,7 @@ interface Props {
   isFetching: any;
   refetch: any;
 }
-function GRNDetailForm({
-  showGRNDetailTable,
-  selectedRows,
-  refetch,
-  isError,
-  isLoading,
-  isFetching,
-  handleLoadOrderButtonClick,
-}: Props) {
+function GRNDetailForm({ selectedRecordId, selectedRows, refetch, isError, isLoading, isFetching }: Props) {
   const [form] = useForm<TGRNDetailTableAdd>();
   const { t } = useTranslation();
   const {
@@ -39,10 +43,19 @@ function GRNDetailForm({
     isLoading: isLoadingDoc,
   } = useGetDocumentNumber();
   const { mutate } = useAddGoodsRecievedNotes();
+  const [printPreview, setPrintPreview] = useState(true);
+  const { setFields, getFieldValue } = form;
+  setFields([{ name: 'DocDate', value: dayjs(new Date()) }]);
+
   useEffect(() => {
     if (isSuccess) form.setFieldValue('DocNo', data?.data?.Data?.Result);
   }, [data, isSuccess]);
 
+  const [open, setOpen] = useState(false);
+  const [showGRNDetailTable, setShowGRNDetailTable] = useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const [selectFieldValues, setSelectFieldValues] = useState({
     WarehouseId: '',
     JobLotId: '',
@@ -63,6 +76,8 @@ function GRNDetailForm({
   };
 
   const onFinish = (values: TGRNDetailTableAdd) => {
+    values.PrintPreview = printPreview;
+
     // console.log(values);
     // mutate(values);
     const updatedInvGrnDetail = tableData.map((rowData: any) => ({
@@ -81,68 +96,100 @@ function GRNDetailForm({
     // mutate(updatedValues);
   };
 
-  const handleLoadButtonClick3 = () => {
-    handleLoadOrderButtonClick(selectedRows);
+  const handleLoadButtonClick = () => {
+    setShowGRNDetailTable(true);
+    handleClose();
+  };
+
+  const handleButtonClick = () => {
+    setPrintPreview(!printPreview);
+    console.log(printPreview);
+  };
+  const handleResetForm = () => {
+    // setSelectedRecordId(null);
+    // setTableData(null);
+    refetch();
+    form.setFieldValue('DocDate', dayjs(new Date()));
+    form.setFieldValue('RemarksHeader', null);
   };
   return (
     <>
       <Card>
         <Form form={form} onFinish={onFinish} layout="horizontal" style={{ marginBottom: 25 }}>
-          <Card className="grn-card">
-            <Row align="middle" justify="space-between" style={{ marginLeft: 10, marginRight: 60 }}>
-              <Col>
-                <Row gutter={10} align="middle">
-                  <Col style={{ fontSize: 18 }}> {t('document_no')}</Col>
+          <Row justify="space-between" style={{ marginLeft: 10, marginRight: 10 }}>
+            <Col xxl={8} xl={10} lg={17} sm={20} xs={24} style={{ marginTop: '0.5%' }}>
+              <Row gutter={10} align="middle" style={{ border: '' }} justify={'space-between'}>
+                <Col>
+                  <b style={{ fontSize: 18 }}> {t('document_no')}</b> &nbsp;
+                  <DocNumber
+                    isError={isError}
+                    refetch={refetch}
+                    isLoading={isLoading}
+                    data={data?.data?.Data?.Result}
+                  />
+                  <Form.Item name="DocNo" style={{ display: 'none' }}>
+                    <Input />
+                  </Form.Item>
+                </Col>
+                <Col xl={15} xxl={15} sm={15} lg={15} xs={20} md={15} className="formfield">
+                  <AntDatePicker autoFocus required name="DocDate" label={t('document_date')} bordered={false} />
+                </Col>
+              </Row>
+            </Col>
+
+            <Col
+              style={{
+                marginTop: '0%',
+              }}
+            >
+              <Form.Item>
+                <Row align="middle" gutter={10} style={{ marginTop: '1%', border: '' }}>
                   <Col>
-                    <DocNumber
-                      isError={isErrorDoc}
-                      refetch={refetchDocNo}
-                      isLoading={isLoadingDoc}
-                      data={data?.data?.Data?.Result}
+                    <AntButton
+                      title="PrintPreview"
+                      onClick={handleButtonClick}
+                      icon={<PrinterFilled />}
+                      style={{ backgroundColor: printPreview ? 'lightgreen' : 'red' }}
                     />
-                    <Form.Item name="DocNo" style={{ display: 'none' }}>
-                      <Input />
-                    </Form.Item>
                   </Col>
+                  <Col>
+                    <AntButton title="Attachment" label={'(0)'} icon={<PaperClipOutlined />} />
+                  </Col>
+
+                  <Col>
+                    <AntButton danger ghost label={t('reset')} onClick={handleResetForm} icon={<SyncOutlined />} />
+                  </Col>
+                  <Col>
+                    <AntButton danger ghost label={t('referesh')} icon={<RedoOutlined />} />
+                  </Col>
+                  <Col>
+                    <AntButton
+                      ghost
+                      label={selectedRecordId ? t('update') : t('save')}
+                      htmlType="submit"
+                      icon={<SaveOutlined />}
+                    />
+                  </Col>
+                  <Col>
+                    <AntButton
+                      title={t('load_order')}
+                      ghost
+                      label={t('load_order')}
+                      icon={<ExportOutlined />}
+                      onClick={handleOpen}
+                    />
+                  </Col>
+                  {
+                    <Modal open={open} onCancel={handleClose} footer={null} width={1600}>
+                      <LoadOrderDetailForm handleLoadButtonClick={handleLoadButtonClick} handleClose={handleClose} />
+                    </Modal>
+                  }
                 </Row>
-              </Col>
-
-              <Col>
-                <Form.Item>
-                  <Row align="middle" gutter={10}>
-                    <Col>
-                      <AntButton danger ghost htmlType="reset" label={t('reset')} icon={<SyncOutlined />} />
-                    </Col>
-                    <Col>
-                      <AntButton label={t('save_and_more')} htmlType="submit" />
-                    </Col>
-                    <Col>
-                      <AntButton ghost label={t('save')} htmlType="submit" icon={<SaveOutlined />} />
-                    </Col>
-                    <Col>
-                      <AntButton
-                        ghost
-                        label={t('load_order')}
-                        icon={<ExportOutlined />}
-                        style={{ width: '150px' }}
-                        onClick={handleLoadButtonClick3}
-                      />
-                    </Col>
-                  </Row>
-                </Form.Item>
-              </Col>
-            </Row>
-
-            <MainForm form={form} />
-          </Card>
+              </Form.Item>
+            </Col>
+          </Row>
+          <MainForm form={form} />
           {showGRNDetailTable && (
-            // <GRNDetailTable
-            //   selectedRows={selectedRows}
-            //   refetch={refetch}
-            //   isError={isError}
-            //   isFetching={isFetching}
-            //   isLoading={isLoading}
-            // />
             <GRNDetailTable
               selectedRows={selectedRows}
               refetch={refetch}

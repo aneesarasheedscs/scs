@@ -236,6 +236,16 @@ body {
   height: 8%;
   box-shadow: 2px 2px 10px 1px lightgray;
 }
+@media screen and (max-width: 575px) and (min-width: 200px) {
+  .formfield {
+    display: flex;
+    justify-content: start;
+    margin: 0px;
+  }
+  .formfielddropdown {
+    width: 54%;
+  }
+}
 @media screen and (max-width: 1153px) and (min-width: 965px) {
   .salesComaprisonCard {
     margin-top: 10px;

@@ -7,6 +7,7 @@ import { AntButton } from '@tradePro/components';
 import { useTranslation } from 'react-i18next';
 import VoucherModal from './voucher_ApprovalUnApproval/voucherModal';
 import { ApprovalModal } from './approvalModal';
+import InventoryModal from './inventoryApprovalUnApproval/InventoryModal';
 
 const Search = Input.Search;
 const { Title } = Typography;
@@ -37,15 +38,21 @@ const Approval_dashboard: React.FC = () => {
 
   const [activeAccountCard, setActiveAccountCard] = useState<number | undefined>(undefined);
   const [activeInventoryCard, setActiveInventoryCard] = useState<number | null>(null);
+  const [activeInventoryCardDesc, setActiveInventoryCardDesc] = useState<string>('');
+  const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
+  const [showComponent, setShowComponent] = useState(false);
 
+  const [activeTab, setActiveTab] = useState<string>('1');
   const handleVisibilityOfAccountModal = (cardId: number) => {
     setActiveAccountCard(cardId);
   };
 
-  const handleVisibilityOfInventoryModal = (cardId: number) => {
+  const handleVisibilityOfInventoryModal = (cardId: number, cardDescription: string) => {
     setActiveInventoryCard(cardId);
+    setActiveInventoryCardDesc(cardDescription);
+    setActiveTab('1');
   };
-
+  console.log(activeInventoryCard);
   const [searchQuery, setSearchQuery] = useState('');
   const [search, setSearch] = useState('');
 
@@ -92,13 +99,13 @@ const Approval_dashboard: React.FC = () => {
                 padding: 9,
                 borderRadius: '1%',
                 marginLeft: '2px',
-                height: '60vh',
+                height: '100%',
               }}
             >
               {Account?.data?.Data?.Result.filter((card: any) =>
                 card.VoucherType.toLowerCase().includes(searchQuery.toLowerCase())
               ).map((filteredCard: any) => (
-                <Col xs={24} xl={8} key={filteredCard.TypeID}>
+                <Col xs={24} xl={8} key={filteredCard.TypeID} style={{ marginTop: '2%' }}>
                   <Card
                     style={gridStyle}
                     className="singleCard"
@@ -108,7 +115,7 @@ const Approval_dashboard: React.FC = () => {
                       {filteredCard.Count}
                     </Tag>
                     <p style={{ display: 'none' }}> {filteredCard.DocumentTypeId}</p>
-                    <h3 style={{ marginTop: '2%' }}>{filteredCard.VoucherType}</h3>
+                    <h3 style={{ marginTop: '1%' }}>{filteredCard.VoucherType}</h3>
                     <EyeFilled />
                   </Card>
                 </Col>
@@ -127,23 +134,23 @@ const Approval_dashboard: React.FC = () => {
               </Col>
             </Row>
             <Row
-              gutter={[16, 16]}
+              gutter={[16, 0]}
               style={{
                 backgroundColor: '#f1f1f1',
                 padding: 9,
                 borderRadius: '1%',
                 marginLeft: '2px',
-                height: '60vh',
+                height: '100%',
               }}
             >
               {Inventory?.data?.Data?.Result.filter((filteredCard: any) =>
                 filteredCard.Description.toLowerCase().includes(search.toLowerCase())
               ).map((card: any) => (
-                <Col xs={24} xl={8} key={card.TypeID}>
+                <Col xs={24} xl={8} key={card.TypeID} style={{ marginTop: '2%' }}>
                   <Card
                     style={gridStyle}
                     className="singleCard"
-                    onClick={() => handleVisibilityOfInventoryModal(card.TypeID)}
+                    onClick={() => handleVisibilityOfInventoryModal(card.TypeID, card.Description)}
                   >
                     <Tag id="ribbon" color="#5A54F9">
                       {card.Count}
@@ -160,13 +167,29 @@ const Approval_dashboard: React.FC = () => {
           <Modal
             width={1700}
             key={card.TypeID}
-            bodyStyle={{ maxHeight: '80vh', overflowY: 'auto' }}
+            bodyStyle={{ maxHeight: '85vh', overflowY: 'auto' }}
             title
             open={card.TypeID === activeInventoryCard}
-            onCancel={() => setActiveInventoryCard(null)}
+            onCancel={() => {
+              setActiveInventoryCard(null);
+              setSelectedRecordId(null);
+              setShowComponent(false);
+            }}
             footer={null}
           >
-            <Divider />
+            {activeInventoryCard === 42 ? (
+              <InventoryModal
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+                selectedRecordId={selectedRecordId}
+                setSelectedRecordId={setSelectedRecordId}
+                cardTitle={activeInventoryCardDesc}
+                approvalId={activeInventoryCard}
+                appRovalUnApproval={false}
+                showComponent={showComponent}
+                setShowComponent={setShowComponent}
+              />
+            ) : null}
           </Modal>
         ))}
 
@@ -178,7 +201,6 @@ const Approval_dashboard: React.FC = () => {
         >
           {activeAccountCard === null ? null : (
             <div className="">
-              {/* send false For Approval */}
               <VoucherModal approvalId={activeAccountCard} appRovalUnApproval={false} />
             </div>
           )}

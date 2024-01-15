@@ -7,16 +7,16 @@ import { EditFilled, DeleteOutlined } from '@ant-design/icons';
 import { TGrnDetailTable } from '../../types';
 
 export const GRNDetailColumn = (t?: any): AntColumnType<TGrnDetailTable>[] => [
-  { title: <>{t('order_no')}</>, dataIndex: 'DocNo', width: 110 },
+  { title: t('order_no'), dataIndex: 'DocNo', width: 110 },
   {
     width: 150,
-    title: <>{t('order_date')}</>,
+    title: t('order_date'),
     searchableDate: true,
     dataIndex: 'DocDate',
     render: (_, { DocDate }) => formateDate(DocDate),
   },
   {
-    title: <>{t('item_name')}</>,
+    title: t('item_name'),
     dataIndex: 'ItemName',
     width: 300,
     searchableInput: true,
@@ -25,7 +25,7 @@ export const GRNDetailColumn = (t?: any): AntColumnType<TGrnDetailTable>[] => [
   },
 
   {
-    title: <>{t('base_pack_uom')}</>,
+    title: t('base_pack_uom'),
     dataIndex: 'PackUom',
     width: 150,
     sortDirections: ['ascend', 'descend'],
@@ -33,53 +33,53 @@ export const GRNDetailColumn = (t?: any): AntColumnType<TGrnDetailTable>[] => [
   },
   {
     width: 150,
-    title: <>{t('item_quantity')}</>,
+    title: t('item_quantity'),
     dataIndex: 'ItemQty',
     render: (_, { ItemQty }) => numberFormatter(ItemQty),
   },
   {
     width: 160,
-    title: <>{t('gross_weight')}</>,
+    title: t('gross_weight'),
     dataIndex: 'GrossWeight',
     // render: (_, { GrossWeight }) => numberFormatter(GrossWeight),
   },
 
   {
     width: 180,
-    title: <>{t('add_less_weight')}</>,
+    title: t('add_less_weight'),
     dataIndex: 'AddLessWeight',
   },
   {
     width: 160,
-    title: <>{t('net_weight')}</>,
+    title: t('net_weight'),
     dataIndex: 'NetWeight',
     render: (_, { NetWeight }) => numberFormatter(NetWeight),
   },
   {
-    title: <>{t('job_lot')}</>,
+    title: t('job_lot'),
     dataIndex: 'JobLotCode',
     width: 180,
   },
   {
-    title: <>{t('ware_house_name')}</>,
+    title: t('ware_house_name'),
     dataIndex: 'WareHouseCode',
     width: 200,
   },
 
   {
     width: 180,
-    title: <>{t('city_name')}</>,
+    title: t('city_name'),
     dataIndex: 'Code',
   },
 
   {
     width: 160,
-    title: <>{t('remarks-detail')}</>,
+    title: t('remarks-detail'),
     dataIndex: 'RemarksHeader',
   },
   {
     width: 120,
-    title: <>{t('action')} </>,
+    title: t('action'),
     dataIndex: 'Remarks',
 
     render: (_, record) => (
