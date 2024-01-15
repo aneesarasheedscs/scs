@@ -630,5 +630,8 @@
   "party_weight": "Party Weight",
   "diff_weight": "Diff Weight",
   "transporter_name": "",
-  "freight_amount": "Freight Amount"
+  "freight_amount": "Freight Amount",
+  "source_location": "Source Location",
+  "destination_location": "Destination Location",
+  "available_qty": "Available Qty"
 }

@@ -1,4 +1,4 @@
-import { Form, FormInstance, Tabs, theme } from 'antd';
+import { Col, Form, FormInstance, Row, Tabs, theme } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import '../style.scss';
@@ -16,23 +16,27 @@ const TabsPortion = ({ form }: TDynamicForm) => {
 
   return (
     <>
-      <Tabs
-        type="card"
-        size="large"
-        activeKey={activeTab}
-        className="tabs-margin-bottom-0"
-        onChange={(key) => setActiveTab(key)}
-      >
-        <Tabs.TabPane key="1" tab={t('detail_entry')}>
-          <DynamicForm
-            form={form}
-            //  Amount={amounts}
-          />
-        </Tabs.TabPane>
-        <Tabs.TabPane key="2" tab={t('expense_grid')}>
-          <ExpenseGridEntry form={form} />
-        </Tabs.TabPane>
-      </Tabs>
+      <Row style={{ marginTop: '0.5%' }}>
+        <Col>
+          <Tabs
+            type="card"
+            size="large"
+            activeKey={activeTab}
+            className="tabs-margin-bottom-0"
+            onChange={(key) => setActiveTab(key)}
+          >
+            <Tabs.TabPane key="1" tab={t('detail')}>
+              <DynamicForm
+                form={form}
+                //  Amount={amounts}
+              />
+            </Tabs.TabPane>
+            <Tabs.TabPane key="2" tab={t('expense')}>
+              <ExpenseGridEntry form={form} />
+            </Tabs.TabPane>
+          </Tabs>
+        </Col>
+      </Row>
     </>
   );
 };

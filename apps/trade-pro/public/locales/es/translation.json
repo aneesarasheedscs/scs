@@ -810,5 +810,8 @@
   "factory_weight": "Peso de fábrica",
   "party_weight": "Peso del partido",
   "diff_weight": "Peso de diferencia",
-  "freight_amount": "Cantidad de carga"
+  "freight_amount": "Cantidad de carga",
+  "source_location": "Ubicación de origen",
+  "destination_location": "Ubicación de destino",
+  "available_qty": "Cantidad disponible"
 }

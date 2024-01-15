@@ -487,5 +487,8 @@
   "factory_weight": "وزن المصنع",
   "party_weight": "وزن الحزب",
   "diff_weight": "فرق الوزن",
-  "freight_amount": "كمية الشحن"
+  "freight_amount": "كمية الشحن",
+  "source_location": "موقع المصدر",
+  "destination_location": "موقع وجهة",
+  "available_qty": "الكمية المتوفرة"
 }

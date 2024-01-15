@@ -223,11 +223,26 @@ const DynamicForm = ({ form }: TDynamicForm) => {
     form.setFieldValue(['WsRmStockTransferNotesDetailsList', 0, 'IssuedAmount'], null);
     form.setFieldValue(['WsRmStockTransferNotesDetailsList', 0, 'RemarksDetail'], null);
   };
-
+  const handleResetForm = () => {
+    form.setFieldValue(['WsRmStockTransferNotesDetailsList', 0, 'WarehouseId'], null);
+    form.setFieldValue(['WsRmStockTransferNotesDetailsList', 0, 'ItemId'], null);
+    form.setFieldValue(['WsRmStockTransferNotesDetailsList', 0, 'ItemQty'], null);
+    form.setFieldValue(['WsRmStockTransferNotesDetailsList', 0, 'UOMCode'], null);
+    form.setFieldValue(['WsRmStockTransferNotesDetailsList', 0, 'ItemUomId'], null);
+    form.setFieldValue(['WsRmStockTransferNotesDetailsList', 0, 'NetWeight'], null);
+    form.setFieldValue(['WsRmStockTransferNotesDetailsList', 0, 'IssuedQty'], null);
+    form.setFieldValue(['WsRmStockTransferNotesDetailsList', 0, 'BalQty'], null);
+    form.setFieldValue(['WsRmStockTransferNotesDetailsList', 0, 'BalWeight'], null);
+    form.setFieldValue(['WsRmStockTransferNotesDetailsList', 0, 'BillWeight'], null);
+    form.setFieldValue(['WsRmStockTransferNotesDetailsList', 0, 'IssuedRate'], null);
+    form.setFieldValue(['WsRmStockTransferNotesDetailsList', 0, 'ExpenseAmount'], null);
+    form.setFieldValue(['WsRmStockTransferNotesDetailsList', 0, 'IssuedAmount'], null);
+    form.setFieldValue(['WsRmStockTransferNotesDetailsList', 0, 'RemarksDetail'], null);
+  };
   const handleDeleteRow = (record: any) => {
-    console.log(record)
+    console.log(record);
     setTableData((prevData: any[]) => {
-      console.log(prevData)
+      console.log(prevData);
       const updatedData = prevData.filter((item: any) => item.LineId !== record.LineId);
       console.log('New tableData:', updatedData);
       return updatedData;
@@ -340,7 +355,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
     }
   };
 
-  const handleItemRateChange = (itemRate: number | string | null, index: number) => { };
+  const handleItemRateChange = (itemRate: number | string | null, index: number) => {};
   // const calculateAmount2 = (itemQty: number, itemRate: number) => {
   //   return itemQty * itemRate;
   // };
@@ -445,20 +460,25 @@ const DynamicForm = ({ form }: TDynamicForm) => {
 
   return (
     <>
-      <Row gutter={[16, 16]} style={{ marginTop: '1%' }}>
+      <Row gutter={[16, 16]} style={{ marginTop: '0.2%' }}>
         <Col xs={24} sm={24} md={24} lg={{ span: 24 }} xl={{ span: 24 }}>
-          <Card style={{ boxShadow: '2px 4px 12px 1px gray', paddingBottom: '1%' }}>
+          <Card style={{ boxShadow: '2px 4px 12px 1px gray', paddingBottom: '0%' }}>
             <Form.List name="WsRmStockTransferNotesDetailsList" initialValue={[initialValues]}>
-              {(fields, { }) => (
+              {(fields, {}) => (
                 <>
                   {fields.map((field) => (
-                    <div key={field.key} className="form-list-container">
+                    <div
+                      key={field.key}
+                      className="form-list-container"
+                      style={{ display: 'flex', justifyContent: 'space-between', marginTop: -10 }}
+                    >
                       <Col
-                        xs={{ span: 23, offset: 0 }}
-                        sm={{ span: 21, offset: 1 }}
-                        md={{ span: 11, offset: 0 }}
-                        lg={{ span: 11, offset: 0 }}
-                        xl={{ span: 6, offset: 0 }}
+                        xs={{ span: 24 }}
+                        sm={{ span: 21 }}
+                        md={{ span: 11 }}
+                        lg={{ span: 11 }}
+                        xl={{ span: 6 }}
+                        xxl={{ span: 4 }}
                         className="formfield"
                       >
                         <AntSelectDynamic
@@ -472,11 +492,12 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         />
                       </Col>
                       <Col
-                        xs={{ span: 23, offset: 0 }}
-                        sm={{ span: 21, offset: 1 }}
-                        md={{ span: 11, offset: 1 }}
-                        lg={{ span: 11, offset: 1 }}
-                        xl={{ span: 6, offset: 1 }}
+                        xs={{ span: 24 }}
+                        sm={{ span: 21 }}
+                        md={{ span: 12 }}
+                        lg={{ span: 12 }}
+                        xl={{ span: 8 }}
+                        xxl={{ span: 7 }}
                         className="formfield"
                       >
                         <AntSelectDynamic
@@ -491,12 +512,13 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                       </Col>
 
                       <Col
-                        xs={{ span: 23, offset: 0 }}
-                        sm={{ span: 21, offset: 1 }}
-                        md={{ span: 11, offset: 0 }}
-                        lg={{ span: 11, offset: 0 }}
-                        xl={{ span: 4, offset: 1 }}
-                        className="formfield pack"
+                        xs={{ span: 24 }}
+                        sm={{ span: 21 }}
+                        md={{ span: 11 }}
+                        lg={{ span: 11 }}
+                        xl={{ span: 4 }}
+                        xxl={{ span: 3 }}
+                        className="formfield"
                       >
                         <AntInput
                           readOnly
@@ -507,12 +529,13 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                       </Col>
 
                       <Col
-                        xs={{ span: 23, offset: 0 }}
-                        sm={{ span: 21, offset: 1 }}
-                        md={{ span: 11, offset: 1 }}
-                        lg={{ span: 11, offset: 1 }}
-                        xl={{ span: 4, offset: 1 }}
-                        className="formfield qty"
+                        xs={{ span: 24 }}
+                        sm={{ span: 21 }}
+                        md={{ span: 12 }}
+                        lg={{ span: 12 }}
+                        xl={{ span: 4 }}
+                        xxl={{ span: 3 }}
+                        className="formfield"
                       >
                         <AntInputNumber
                           bordered={false}
@@ -523,13 +546,32 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                       </Col>
 
                       <Col
-                        xs={{ span: 23, offset: 0 }}
-                        sm={{ span: 21, offset: 1 }}
-                        md={{ span: 11, offset: 0 }}
-                        lg={{ span: 11, offset: 0 }}
-                        xl={{ span: 5, offset: 0 }}
+                        xs={{ span: 24 }}
+                        sm={{ span: 21 }}
+                        md={{ span: 11 }}
+                        lg={{ span: 11 }}
+                        xl={{ span: 6 }}
+                        xxl={{ span: 5 }}
                         className="formfield"
-                        style={{ marginTop: '0.8rem' }}
+                        // style={{ marginTop: '0.8rem' }}
+                      >
+                        <AntInputNumber
+                          disabled
+                          bordered={false}
+                          label={t('available_qty')}
+                          formItemProps={{ ...field, name: [field.name, 'IssuedQty'] }}
+                        />
+                      </Col>
+
+                      <Col
+                        xs={{ span: 24 }}
+                        sm={{ span: 21 }}
+                        md={{ span: 12 }}
+                        lg={{ span: 12 }}
+                        xl={{ span: 3 }}
+                        xxl={{ span: 4 }}
+                        className="formfield"
+                        // style={{ marginTop: '0.8rem' }}
                       >
                         <AntInputNumber
                           readOnly
@@ -541,30 +583,14 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                       </Col>
 
                       <Col
-                        xs={{ span: 23, offset: 0 }}
-                        sm={{ span: 21, offset: 1 }}
-                        md={{ span: 11, offset: 1 }}
-                        lg={{ span: 11, offset: 1 }}
-                        xl={{ span: 5, offset: 1 }}
+                        xs={{ span: 24 }}
+                        sm={{ span: 21 }}
+                        md={{ span: 11 }}
+                        lg={{ span: 11 }}
+                        xl={{ span: 5 }}
+                        xxl={{ span: 4 }}
                         className="formfield"
-                        style={{ marginTop: '0.8rem' }}
-                      >
-                        <AntInputNumber
-                          disabled
-                          bordered={false}
-                          label={t('available_qty')}
-                          formItemProps={{ ...field, name: [field.name, 'IssuedQty'] }}
-                        />
-                      </Col>
-
-                      <Col
-                        xs={{ span: 23, offset: 0 }}
-                        sm={{ span: 21, offset: 1 }}
-                        md={{ span: 11, offset: 0 }}
-                        lg={{ span: 11, offset: 0 }}
-                        xl={{ span: 5, offset: 1 }}
-                        className="formfield"
-                        style={{ marginTop: '0.8rem' }}
+                        style={{ marginTop: '', marginLeft: '-1%' }}
                       >
                         <AntInputNumber
                           disabled
@@ -578,13 +604,14 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                       </Col>
 
                       <Col
-                        xs={{ span: 23, offset: 0 }}
-                        sm={{ span: 21, offset: 1 }}
-                        md={{ span: 11, offset: 1 }}
-                        lg={{ span: 11, offset: 1 }}
-                        xl={{ span: 5, offset: 1 }}
+                        xs={{ span: 24 }}
+                        sm={{ span: 21 }}
+                        md={{ span: 12 }}
+                        lg={{ span: 12 }}
+                        xl={{ span: 4 }}
+                        xxl={{ span: 3 }}
                         className="formfield"
-                        style={{ marginTop: '0.8rem' }}
+                        style={{ marginTop: '', marginLeft: '-1.5%' }}
                       >
                         <AntInputNumber
                           readOnly
@@ -596,13 +623,14 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                       </Col>
 
                       <Col
-                        xs={{ span: 23, offset: 0 }}
-                        sm={{ span: 21, offset: 1 }}
-                        md={{ span: 11, offset: 0 }}
-                        lg={{ span: 11, offset: 0 }}
-                        xl={{ span: 6, offset: 0 }}
+                        xs={{ span: 24 }}
+                        sm={{ span: 21 }}
+                        md={{ span: 11 }}
+                        lg={{ span: 11 }}
+                        xl={{ span: 4 }}
+                        xxl={{ span: 3 }}
                         className="formfield"
-                        style={{ marginTop: '0.8rem' }}
+                        style={{ marginTop: '', marginLeft: '0%' }}
                       >
                         <AntInputNumber
                           readOnly
@@ -613,19 +641,65 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                       </Col>
 
                       <Col
-                        xs={{ span: 23, offset: 0 }}
-                        sm={{ span: 21, offset: 1 }}
-                        md={{ span: 11, offset: 1 }}
-                        lg={{ span: 11, offset: 1 }}
-                        xl={{ span: 12, offset: 1 }}
-                        className="formfield remarks"
-                        style={{ marginTop: '0.8rem' }}
+                        xs={{ span: 24 }}
+                        sm={{ span: 21 }}
+                        md={{ span: 12 }}
+                        lg={{ span: 12 }}
+                        xl={{ span: 14 }}
+                        xxl={{ span: 8 }}
+                        className="formfield"
+                        style={{ marginTop: '', marginRight: '1.5%' }}
                       >
                         <AntInput
                           bordered={false}
                           label={t('remarks')}
                           formItemProps={{ ...field, name: [field.name, 'RemarksDetail'] }}
                         />
+                      </Col>
+
+                      <Col
+                        xs={{ span: 12 }}
+                        sm={{ span: 12 }}
+                        md={{ span: 12 }}
+                        lg={{ span: 11 }}
+                        xl={{ span: 9 }}
+                        xxl={{ span: 12 }}
+                        style={{ marginTop: '0.8rem' }}
+                      >
+                        <Row style={{ marginTop: '0%' }} gutter={10}>
+                          <Col
+                            xs={{ span: 12 }}
+                            sm={{ span: 8 }}
+                            md={{ span: 8 }}
+                            lg={{ span: 8 }}
+                            xl={{ span: 6 }}
+                            xxl={3}
+                          >
+                            <AntButton
+                              style={{ marginTop: 15 }}
+                              onClick={isEditMode ? handleUpdateToTable : handleAddToTable}
+                              label={isEditMode ? t('update') : t('add')}
+                            ></AntButton>
+                          </Col>
+                          <Col
+                            xs={{ span: 12 }}
+                            sm={{ span: 8 }}
+                            md={{ span: 8 }}
+                            lg={{ span: 8 }}
+                            xl={{ span: 6 }}
+                            xxl={3}
+                          >
+                            <AntButton
+                              ghost
+                              style={{ marginTop: 15 }}
+                              onClick={() => {
+                                handleResetForm();
+                                setIsEditMode(false);
+                              }}
+                              label={t('cancel')}
+                            ></AntButton>
+                          </Col>
+                        </Row>
                       </Col>
                       <AntInput
                         bordered={false}
@@ -694,37 +768,23 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         formItemProps={{ ...field, name: [field.name, 'RemarksDetail'] }}
                         style={{ display: 'none' }}
                       />
-                      <Col
-                        xs={{ span: 10, offset: 2 }}
-                        sm={{ span: 5, offset: 8 }}
-                        md={{ span: 3, offset: 7 }}
-                        lg={{ span: 5, offset: 7 }}
-                        xl={{ span: 1, offset: 0 }}
-                        style={{ marginTop: '0.8rem' }}
-                      >
-                        <AntButton
-                          className="add"
-                          onClick={isEditMode ? handleUpdateToTable : handleAddToTable}
-                          label={isEditMode ? <>{t('update')}</> : <>{t('add')}</>}
-                        />
-                      </Col>
                     </div>
                   ))}
                 </>
               )}
             </Form.List>
           </Card>
+          {/* <br /> */}
+          {/* <h2 className="form-heading">{t('detail')}</h2> */}
           <br />
-          <h2 className="form-heading">{t('detail')}</h2>
-          <br />
-          <Card style={{ boxShadow: '2px 4px 12px 1px gray', textAlign: 'left' }}>
-            <AntTable
-              numberOfSkeletons={12}
-              scroll={{ x: '', y: convertVhToPixels('15vh') }}
-              data={tableData || []}
-              columns={column2(t, handleDeleteRow, handleEditRow)}
-            />
-          </Card>
+          {/* <Card style={{ boxShadow: '2px 4px 12px 1px gray', textAlign: 'left' }}> */}
+          <AntTable
+            numberOfSkeletons={12}
+            scroll={{ x: '', y: convertVhToPixels('15vh') }}
+            data={tableData || []}
+            columns={column2(t, handleDeleteRow, handleEditRow)}
+          />
+          {/* </Card> */}
         </Col>
       </Row>
     </>

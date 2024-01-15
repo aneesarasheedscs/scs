@@ -15,18 +15,18 @@ function StockTransferNoteTable({ setSelectedRecordId, setActiveTab }: TFrom) {
 
   return (
     <>
-      <Row style={{ marginTop: '0.5%' }}>
+      <Row style={{ marginTop: '0%' }}>
         <Col span={24}>
-          <Card style={{ boxShadow: '2px 4px 12px 1px gray', textAlign: 'left' }}>
-            <AntTable
-              isError={isError}
-              numberOfSkeletons={8}
-              isLoading={isLoading}
-              scroll={{ x: '', y: convertVhToPixels('62vh') }}
-              data={data?.data?.Data?.Result || []}
-              columns={columns(t, setSelectedRecordId, setActiveTab)}
-            />
-          </Card>
+          {/* <Card style={{ boxShadow: '2px 4px 12px 1px gray', textAlign: 'left' }}> */}
+          <AntTable
+            isError={isError}
+            numberOfSkeletons={8}
+            isLoading={isLoading}
+            scroll={{ x: '', y: convertVhToPixels('62vh') }}
+            data={data?.data?.Data?.Result || []}
+            columns={columns(t, setSelectedRecordId, setActiveTab)}
+          />
+          {/* </Card> */}
         </Col>
       </Row>
     </>

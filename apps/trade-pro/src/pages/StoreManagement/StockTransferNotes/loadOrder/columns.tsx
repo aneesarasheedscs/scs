@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 export const columns = (t: any): AntColumnType<TLoadORderHistory>[] => {
   return [
     {
-      title: <>{t('order_no')}</>,
+      title: t('order_no'),
       dataIndex: 'OrderNo',
       searchableInput: true,
       width: 130,
@@ -14,7 +14,7 @@ export const columns = (t: any): AntColumnType<TLoadORderHistory>[] => {
       sorter: (a, b) => a.OrderNo - b.OrderNo,
     },
     {
-      title: <>{t('order_date')}</>,
+      title: t('order_date'),
       dataIndex: 'OrderDate',
       searchableDate: true,
       render: (_, { OrderDate }) => formateDate(OrderDate),
@@ -26,7 +26,7 @@ export const columns = (t: any): AntColumnType<TLoadORderHistory>[] => {
       },
     },
     {
-      title: <>{t('location_from')}</>,
+      title: t('location_from'),
       dataIndex: 'SourceLocation',
       width: 250,
       searchableInput: true,
@@ -34,7 +34,7 @@ export const columns = (t: any): AntColumnType<TLoadORderHistory>[] => {
       sorter: (a, b) => a.SourceLocation.localeCompare(b.SourceLocation),
     },
     {
-      title: <>{t('location_to')}</>,
+      title: t('location_to'),
       dataIndex: 'DestinationLocation',
       width: 280,
       searchableInput: true,
@@ -42,7 +42,7 @@ export const columns = (t: any): AntColumnType<TLoadORderHistory>[] => {
       sorter: (a, b) => a.DestinationLocation.localeCompare(b.DestinationLocation),
     },
     {
-      title: <>{t('item_name')}</>,
+      title: t('item_name'),
       dataIndex: 'ItemName',
       width: 250,
       searchableInput: true,
@@ -50,7 +50,7 @@ export const columns = (t: any): AntColumnType<TLoadORderHistory>[] => {
       sorter: (a, b) => a.ItemName.localeCompare(b.ItemName),
     },
     {
-      title: <>{t('pack_uom')}</>,
+      title: t('pack_uom'),
       dataIndex: 'PackUom',
       width: 150,
       searchableInput: true,
@@ -58,7 +58,7 @@ export const columns = (t: any): AntColumnType<TLoadORderHistory>[] => {
       sorter: (a, b) => a.PackUom.localeCompare(b.PackUom),
     },
     {
-      title: <>{t('req_qty')}</>,
+      title: t('req_qty'),
       dataIndex: 'ReqQty',
       searchableDate: true,
       sortDirections: ['ascend', 'descend'],
@@ -66,7 +66,7 @@ export const columns = (t: any): AntColumnType<TLoadORderHistory>[] => {
       width: 150,
     },
     {
-      title: <>{t('approved_qty')}</>,
+      title: t('approved_qty'),
       dataIndex: 'ApprovedQty',
       width: 150,
       searchableInput: true,
@@ -74,7 +74,7 @@ export const columns = (t: any): AntColumnType<TLoadORderHistory>[] => {
       sorter: (a, b) => a.ApprovedQty - b.ApprovedQty,
     },
     {
-      title: <>{t('req_rate')}</>,
+      title: t('req_rate'),
       searchableDate: true,
       dataIndex: 'ReqRate',
       width: 150,
@@ -83,14 +83,14 @@ export const columns = (t: any): AntColumnType<TLoadORderHistory>[] => {
     },
     {
       searchableInput: true,
-      title: <>{t('req_weight')}</>,
+      title: t('req_weight'),
       dataIndex: 'ReqWeight',
       width: 180,
       sortDirections: ['ascend', 'descend'],
       sorter: (a, b) => a.ReqWeight - b.ReqWeight,
     },
     {
-      title: <>{t('stock_weight')}</>,
+      title: t('stock_weight'),
       searchableDate: true,
       dataIndex: 'StockWeight',
       width: 150,
@@ -98,7 +98,7 @@ export const columns = (t: any): AntColumnType<TLoadORderHistory>[] => {
       sorter: (a, b) => a.StockWeight - b.StockWeight,
     },
     {
-      title: <>{t('req_amount')}</>,
+      title: t('req_amount'),
       dataIndex: 'ReqAmount',
       width: 180,
       searchableInput: true,
@@ -107,7 +107,7 @@ export const columns = (t: any): AntColumnType<TLoadORderHistory>[] => {
     },
 
     {
-      title: <>{t('remarks')}</>,
+      title: t('remarks'),
       dataIndex: 'RemarksHeader',
       width: 150,
       searchableInput: true,
@@ -115,7 +115,7 @@ export const columns = (t: any): AntColumnType<TLoadORderHistory>[] => {
       sorter: (a, b) => a.RemarksHeader.localeCompare(b.RemarksHeader),
     },
     {
-      title: <>{t('attachment')}</>,
+      title: t('attachment'),
       dataIndex: '',
       width: 150,
     },

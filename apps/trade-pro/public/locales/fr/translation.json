@@ -480,5 +480,8 @@
   "factory_weight": "Poids d'usine",
   "party_weight": "Poids du groupe",
   "diff_weight": "Différence de poids",
-  "freight_amount": "Montant du fret"
+  "freight_amount": "Montant du fret",
+  "source_location": "Emplacement de la source",
+  "destination_location": "Lieu de destination",
+  "available_qty": "quantité disponible"
 }

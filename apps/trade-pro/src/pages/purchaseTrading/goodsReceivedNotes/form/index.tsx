@@ -19,10 +19,12 @@ import {
   PrinterFilled,
 } from '@ant-design/icons';
 import LoadOrderDetailForm from '../purchaseOrderLoad/LoadOrderForm';
+import { useGetGRNById } from '../query';
 
 const { useForm } = Form;
 interface Props {
   selectedRecordId: any;
+  setSelectedRecordId: (id: number | null) => void;
   handleLoadOrderButtonClick: (selectedRows: any) => void;
   handleLoadButtonClick: () => void;
   showGRNDetailTable: any;
@@ -32,7 +34,15 @@ interface Props {
   isFetching: any;
   refetch: any;
 }
-function GRNDetailForm({ selectedRecordId, selectedRows, refetch, isError, isLoading, isFetching }: Props) {
+function GRNDetailForm({
+  selectedRecordId,
+  setSelectedRecordId,
+  selectedRows,
+  refetch,
+  isError,
+  isLoading,
+  isFetching,
+}: Props) {
   const [form] = useForm<TGRNDetailTableAdd>();
   const { t } = useTranslation();
   const {
@@ -45,7 +55,7 @@ function GRNDetailForm({ selectedRecordId, selectedRows, refetch, isError, isLoa
   const { mutate } = useAddGoodsRecievedNotes();
   const [printPreview, setPrintPreview] = useState(true);
   const { setFields, getFieldValue } = form;
-  setFields([{ name: 'DocDate', value: dayjs(new Date()) }]);
+  form.setFieldValue('DocDate', dayjs(new Date()));
 
   useEffect(() => {
     if (isSuccess) form.setFieldValue('DocNo', data?.data?.Data?.Result);
@@ -53,7 +63,12 @@ function GRNDetailForm({ selectedRecordId, selectedRows, refetch, isError, isLoa
 
   const [open, setOpen] = useState(false);
   const [showGRNDetailTable, setShowGRNDetailTable] = useState(false);
-
+  const {
+    data: GRNById,
+    refetch: refetchGRN,
+    isSuccess: isDataSuccess,
+    isLoading: isDataLoading,
+  } = useGetGRNById(selectedRecordId);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [selectFieldValues, setSelectFieldValues] = useState({
@@ -75,6 +90,17 @@ function GRNDetailForm({ selectedRecordId, selectedRows, refetch, isError, isLoa
     setTableData(newData);
   };
 
+  useEffect(() => {
+    if (selectedRecordId) {
+      refetchGRN();
+    }
+  }, [selectedRecordId]);
+  useEffect(() => {
+    if (isDataSuccess) {
+      form.setFieldsValue(GRNById?.data?.Data?.Result);
+      form.setFieldValue('DocDate', dayjs(GRNById?.data?.Data?.Result?.DocDate));
+    }
+  }, [isDataSuccess, !isDataLoading, selectedRecordId]);
   const onFinish = (values: TGRNDetailTableAdd) => {
     values.PrintPreview = printPreview;
 
@@ -106,11 +132,9 @@ function GRNDetailForm({ selectedRecordId, selectedRows, refetch, isError, isLoa
     console.log(printPreview);
   };
   const handleResetForm = () => {
-    // setSelectedRecordId(null);
-    // setTableData(null);
+    setSelectedRecordId(null);
     refetch();
     form.setFieldValue('DocDate', dayjs(new Date()));
-    form.setFieldValue('RemarksHeader', null);
   };
   return (
     <>
@@ -125,7 +149,7 @@ function GRNDetailForm({ selectedRecordId, selectedRows, refetch, isError, isLoa
                     isError={isError}
                     refetch={refetch}
                     isLoading={isLoading}
-                    data={data?.data?.Data?.Result}
+                    data={isDataSuccess ? GRNById?.data?.Data?.Result?.DocNo : data?.data?.Data?.Result}
                   />
                   <Form.Item name="DocNo" style={{ display: 'none' }}>
                     <Input />
@@ -157,7 +181,14 @@ function GRNDetailForm({ selectedRecordId, selectedRows, refetch, isError, isLoa
                   </Col>
 
                   <Col>
-                    <AntButton danger ghost label={t('reset')} onClick={handleResetForm} icon={<SyncOutlined />} />
+                    <AntButton
+                      danger
+                      ghost
+                      htmlType="reset"
+                      label={t('reset')}
+                      onClick={handleResetForm}
+                      icon={<SyncOutlined />}
+                    />
                   </Col>
                   <Col>
                     <AntButton danger ghost label={t('referesh')} icon={<RedoOutlined />} />
@@ -189,19 +220,19 @@ function GRNDetailForm({ selectedRecordId, selectedRows, refetch, isError, isLoa
             </Col>
           </Row>
           <MainForm form={form} />
-          {showGRNDetailTable && (
-            <GRNDetailTable
-              selectedRows={selectedRows}
-              refetch={refetch}
-              isError={isError}
-              isFetching={isFetching}
-              isLoading={isLoading}
-              onTableDataChange={handleTableDataChange}
-              selectFieldValues={selectFieldValues}
-              onSelectFieldChange={handleSelectFieldChange}
-            />
-          )}
         </Form>
+        {showGRNDetailTable && (
+          <GRNDetailTable
+            selectedRows={selectedRows}
+            refetch={refetch}
+            isError={isError}
+            isFetching={isFetching}
+            isLoading={isLoading}
+            onTableDataChange={handleTableDataChange}
+            selectFieldValues={selectFieldValues}
+            onSelectFieldChange={handleSelectFieldChange}
+          />
+        )}
       </Card>
     </>
   );

@@ -4,7 +4,7 @@ import { TWsRmStockTransferNotesDetailsList } from '../types';
 
 export const detailColumns = (t?: any): AntColumnType<TWsRmStockTransferNotesDetailsList>[] => [
   {
-    title: <>{t('item_name')}</>,
+    title: t('item_name'),
     width: 380,
     searchableInput: true,
     dataIndex: 'ItemName',
@@ -12,7 +12,7 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmStockTransferNotesDet
     sorter: (a, b) => a.ItemName.localeCompare(b.ItemName),
   },
   {
-    title: <>{t('issued_qty')}</>,
+    title: t('issued_qty'),
     width: 100,
     showTotal: true,
     dataIndex: 'IssuedQty',
@@ -23,7 +23,7 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmStockTransferNotesDet
     ),
   },
   {
-    title: <>{t('pack_uom')}</>,
+    title: t('pack_uom'),
     width: 140,
     searchableInput: true,
     dataIndex: 'UOMCode',
@@ -31,7 +31,7 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmStockTransferNotesDet
     sorter: (a, b) => a.UOMCode.localeCompare(b.UOMCode),
   },
   {
-    title: <>{t('weight')}</>,
+    title: t('weight'),
     width: 100,
     showTotal: true,
     dataIndex: 'BillWeight',
@@ -42,7 +42,7 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmStockTransferNotesDet
     ),
   },
   {
-    title: <>{t('item_rate')}</>,
+    title: t('item_rate'),
     width: 120,
     showTotal: true,
     dataIndex: 'IssuedRate',
@@ -53,7 +53,7 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmStockTransferNotesDet
     ),
   },
   {
-    title: <>{t('issued_amount')}</>,
+    title: t('issued_amount'),
     width: 150,
     showTotal: true,
     dataIndex: 'IssuedAmount',
@@ -66,7 +66,7 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmStockTransferNotesDet
     ),
   },
   {
-    title: <>{t('expense')}</>,
+    title: t('expense'),
     width: 110,
     showTotal: true,
     dataIndex: 'ExpenseAmount',
@@ -79,7 +79,7 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmStockTransferNotesDet
     ),
   },
   {
-    title: <>{t('net_amount')}</>,
+    title: t('net_amount'),
     width: 120,
     showTotal: true,
     dataIndex: 'ItemNetAmount',
@@ -93,7 +93,7 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmStockTransferNotesDet
   },
 
   {
-    title: <>{t('remarks')}</>,
+    title: t('remarks'),
     width: 350,
     dataIndex: 'RemarksDetail',
     searchableInput: true,

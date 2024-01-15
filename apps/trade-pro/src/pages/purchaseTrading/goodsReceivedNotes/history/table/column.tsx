@@ -1,12 +1,12 @@
 import { AntColumnType } from '@tradePro/globalTypes';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import { Tooltip } from 'antd';
+import { Space, Tooltip } from 'antd';
 import { AntButton } from '@tradePro/components';
-import { EditFilled, PrinterOutlined } from '@ant-design/icons';
+import { EditFilled, EyeOutlined } from '@ant-design/icons';
 import { TGRNDetailTable } from '../../types';
 
-export const columns = (t: any): AntColumnType<TGRNDetailTable>[] => [
+export const columns = (t?: any, setActiveTab?: any, setSelectedRecordId?: any): AntColumnType<TGRNDetailTable>[] => [
   { title: t('document_date'), dataIndex: 'DocNo', width: 150 },
   {
     width: 150,
@@ -94,14 +94,30 @@ export const columns = (t: any): AntColumnType<TGRNDetailTable>[] => [
     render: (_, record) => (
       <>
         <Tooltip title={t('edit')}>
-          <AntButton
-            type="text"
-            icon={<EditFilled style={{ color: 'black' }} />}
-            // onClick={() => setSelectedRecordId(record?.Id)}
-          />
+          <Space>
+            <AntButton
+              type="text"
+              icon={<EditFilled style={{ color: 'black' }} />}
+              onClick={() => {
+                setSelectedRecordId(record?.Id), setActiveTab('2');
+              }}
+            />
+          </Space>
         </Tooltip>
-        <Tooltip title={t('print')}>
-          <AntButton type="text" icon={<PrinterOutlined style={{ color: 'blue' }} />} />
+        <Tooltip title={t('detail')}>
+          <Space>
+            <AntButton
+              type="text"
+              icon={
+                <EyeOutlined
+                  style={{ color: 'blue', marginLeft: 4 }}
+                  onClick={() => {
+                    // setSelectedRecordIdforDetail(record?.Id);
+                  }}
+                />
+              }
+            />
+          </Space>
         </Tooltip>
       </>
     ),

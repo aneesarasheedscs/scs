@@ -480,5 +480,8 @@
   "factory_weight": "出厂重量",
   "party_weight": "派对重量",
   "diff_weight": "重量差",
-  "freight_amount": "运费金额"
+  "freight_amount": "运费金额",
+  "source_location": "源位置",
+  "destination_location": "目的地位置",
+  "available_qty": "可用数量"
 }

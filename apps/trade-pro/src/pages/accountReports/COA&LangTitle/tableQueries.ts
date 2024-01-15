@@ -14,6 +14,7 @@ export const useChartOfReporttableQuery = (enabled = true, params?: TChartOfAcco
           OrganizationId: userDetail?.OrganizationId,
           CompanyId: userDetail?.CompanyId,
           IsApproved: true,
+          ...params,
         },
       });
     },
