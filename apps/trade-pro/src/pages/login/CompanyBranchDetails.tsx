@@ -65,6 +65,20 @@ function CompanyBranchDetails() {
     }
   };
 
+  useEffect(() => {
+    if (isSuccess) {
+      setcompanyList(CompanyData?.data?.Data?.Result);
+
+      // Set default value for "Company" field if there is a single record
+      if (companyList.length === 1) {
+        form.setFieldsValue({
+          CompanyId: companyList[0].CompanyId,
+        });
+        setheadOffice(companyList[0]?.IsHeadOffice);
+      }
+    }
+  }, [isSuccess, companyList, form]);
+
   return (
     <CardWrapper>
       <Form form={form} layout="vertical">

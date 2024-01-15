@@ -1,0 +1,14 @@
+.formfield {
+  border-bottom: '1px solid gray';
+  padding: '0px';
+  height: '40px';
+}
+@media (max-width: 768px) {
+  .formfield {
+    display: flex;
+    justify-content: start;
+  }
+  .minWidth {
+    width: 50%;
+  }
+}

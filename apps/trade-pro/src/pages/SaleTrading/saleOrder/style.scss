@@ -1,6 +1,13 @@
 .formfields {
-    border-bottom: 1px solid gray;
-    padding: 0px;
-    height: 30px;
+  border-bottom: 1px solid gray;
+  padding: 0px;
+  height: 30px;
+}
+
+@media only screen and (max-width: 870px) {
+  .docDate_Width {
+    display: flex;
+    justify-content: start;
+    width: 60vw;
   }
-  
+}

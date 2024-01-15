@@ -26,12 +26,12 @@ const AccountDashboardCards: React.FC<{ Data: any; FromdateProp?: Date; TodatePr
 
   return (
     <div>
-      <Row gutter={[16, 16]} justify={'center'}>
-        <Col xxl={20} xs={24} sm={24} md={24} lg={23} xl={20}>
+      <Row gutter={[16, 16]} justify={'space-between'}>
+        <Col xxl={24} xs={24} sm={24} md={24} lg={23} xl={20}>
           <div className="card-main-container">
-            <Row gutter={[8, 16]} justify="center">
+            <Row gutter={[16, 16]} justify="center">
               {Data?.map((card: any, index: number) => (
-                <Col xxl={8} xs={24} sm={12} md={12} lg={12} xl={12} key={index}>
+                <Col xxl={7} xs={22} sm={22} md={11} lg={11} xl={11} key={index}>
                   <Card
                     hoverable
                     className="card-container"
@@ -40,12 +40,12 @@ const AccountDashboardCards: React.FC<{ Data: any; FromdateProp?: Date; TodatePr
                       border: `1px solid ${colorPrimary}`,
                     }}
                   >
-                    <div className="custom-div" style={{ background: colorPrimary }}>
-                      <Title level={4} className="custom-title">
-                        {/* {getIconForCard(card.Id)} */}
-                        <ExportOutlined style={{ color: '#fff' }} />
+                    {/* <div className="custom-div" style={{ background: colorPrimary }}>
+                      <Title level={4} className="custom-title"> */}
+                    {/* {getIconForCard(card.Id)} */}
+                    {/* <ExportOutlined style={{ color: '#fff' }} />
                       </Title>
-                    </div>
+                    </div> */}
                     <Col xxl={24} xs={24} sm={24} md={24} lg={24} xl={23}>
                       <Title
                         level={5}
@@ -90,7 +90,7 @@ const AccountDashboardCards: React.FC<{ Data: any; FromdateProp?: Date; TodatePr
                         <p
                           onClick={() => setSelectedCardData(card)}
                           style={{ textAlign: 'center' }}
-                          className="card-description"
+                          className="card-description card-info"
                         >
                           {t('open_more_info')} <ArrowRightOutlined />
                         </p>

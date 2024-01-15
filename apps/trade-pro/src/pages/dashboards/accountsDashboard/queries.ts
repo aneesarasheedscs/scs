@@ -18,7 +18,7 @@ export const useGetDateType = () => {
   );
 };
 
-export const useGetAccountDashboardData = (enabled = false, ActivityId: number, params: TAccountDashboardCriteria) => {
+export const useGetAccountDashboardData = (enabled = true, ActivityId: number, params: TAccountDashboardCriteria) => {
   const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
   const financialYear: any = JSON.parse(localStorage.getItem('financialYear') || '{}');
   return useQuery(
@@ -34,7 +34,7 @@ export const useGetAccountDashboardData = (enabled = false, ActivityId: number, 
             ? params.CompanyIds?.toString()
             : ''
           : userDetail?.CompanyId.toString(),
-        FromDate: params.FromDate,
+        FromDate: params.FromDate ,
         ToDate: params.ToDate,
         ReqType: params.ReqType !== undefined && params.ReqType !== null ? params.ReqType : '',
       });

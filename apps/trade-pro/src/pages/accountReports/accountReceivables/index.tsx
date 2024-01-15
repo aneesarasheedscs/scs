@@ -1,5 +1,6 @@
 import { Card, theme } from 'antd';
 import AccountReceivablesTable from './table';
+import './style.scss';
 
 function AccountReceivables() {
   const {
@@ -8,9 +9,9 @@ function AccountReceivables() {
 
   return (
     <>
-      <Card style={{ background: 'transparent' }}>
+      <div style={{ background: '#fff' }}>
         <AccountReceivablesTable />
-      </Card>
+      </div>
     </>
   );
 }

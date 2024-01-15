@@ -10,6 +10,7 @@ export type TAccountReceivablesSearchCriteria = {
 
   SelectedIds: string;
   SelectedAccountIds: string;
+
 };
 
 export type AccountReceivables = {
