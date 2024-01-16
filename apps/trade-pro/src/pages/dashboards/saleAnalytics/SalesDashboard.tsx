@@ -25,6 +25,7 @@ import { TSalesDashboardCriteria } from './types';
 // Default icons to be used if API data doesn't provide specific icons
 const defaultIcons2 = [
   <LineChartOutlined
+    className=""
     style={{
       color: '#fff',
       backgroundColor: 'rgba(33, 189, 175, 0.8)',

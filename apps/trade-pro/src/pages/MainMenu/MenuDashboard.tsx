@@ -1,8 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useTransition } from 'react';
 import { Card, Row, Col, Typography, Modal, Button, Tabs, Radio, Space, Input } from 'antd';
 import { HeartFilled, ExportOutlined, LayoutFilled, BankFilled, AudioOutlined } from '@ant-design/icons';
 import { Routes, Route, useNavigate, Link, useLocation } from 'react-router-dom';
 import type { RadioChangeEvent } from 'antd';
+import {
+  ExperimentOutlined,
+  AccountBookOutlined,
+  DollarOutlined,
+  DashboardOutlined,
+  SafetyCertificateOutlined,
+  TransactionOutlined,
+  FileDoneOutlined,
+  ShoppingOutlined,
+  LineChartOutlined,
+  FileTextOutlined,
+  ShopOutlined,
+  AppstoreOutlined,
+  FileOutlined,
+  SettingOutlined,
+} from '@ant-design/icons';
 
 const { useToken } = theme;
 
@@ -15,6 +31,8 @@ import File from './File';
 import { useGetMenu } from '@tradePro/components/layout/queries';
 import { groupBy, map, size } from 'lodash';
 import { TSideMenu } from '@tradePro/components/layout/types';
+import { useTranslation } from 'react-i18next';
+import { AntButton } from '@tradePro/components';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -36,6 +54,7 @@ const { Title, Text } = Typography;
 export default function MenuDashboard() {
   const [tabPosition, setTabPosition] = useState<TabPosition>('left');
   const { data: Menu, isError: isMenu, isLoading: isLoadingMenu, isSuccess } = useGetMenu();
+  const { t } = useTranslation();
 
   const changeTabPosition = (e: RadioChangeEvent) => {
     setTabPosition(e.target.value);
@@ -80,133 +99,138 @@ export default function MenuDashboard() {
         };
       });
     }
+
     return [];
   };
+
+  const childrenLengths = map(list, (item) => item.children.length);
+
+  // Now 'childrenLengths' contains the lengths of the 'children' arrays for each item in the 'list' array
+  console.log('chi', childrenLengths);
+
+  console.log(list?.[0]?.children.length);
+
   const { TabPane } = Tabs;
+  const defaultIcons = [
+    <DashboardOutlined />,
+    <AccountBookOutlined />,
+    <TransactionOutlined />,
+    <FileDoneOutlined />,
+    <ShoppingOutlined />,
+    <FileTextOutlined />,
+    <ShopOutlined />,
+    <FileOutlined />,
+    <AppstoreOutlined />,
+    <FileTextOutlined />,
+    <FileTextOutlined />,
+
+    <AppstoreOutlined />,
+    <DollarOutlined />,
+    <SettingOutlined />,
+  ];
+
   return (
     <div>
-      <Row gutter={[24, 24]} style={{ border: '1px solid red' }}>
-        <Col>
+      <Row gutter={[16, 16]}>
+        <Col xxl={24} xs={23}>
           <Row
-            gutter={[16, 16]}
-            justify={'space-evenly'}
+            gutter={[10, 10]}
             style={{
               border: `1px solid ${colorPrimary}`,
               borderTopRightRadius: 10,
               borderTopLeftRadius: 10,
+              width: '100%',
             }}
           >
             <Col
               xs={24}
               sm={24}
+              md={24}
               xl={24}
               xxl={24}
-              md={24}
-              style={{
-                padding: '10px',
-                backgroundColor: colorPrimary,
-                borderTopRightRadius: 10,
-                color: 'white',
-                borderTopLeftRadius: 10,
-              }}
+              className="formHeading"
+              style={{ backgroundColor: colorPrimary }}
             >
-              <h2 style={{ fontFamily: 'Poppins' }}>
-                APP MODULES{' '}
-                <span style={{ marginLeft: '55%' }}>
-                  <span className="btn-span">
-                    <Button
-                      className="btn-hover color-9"
-                      style={{
-                        textDecoration: 'none',
-                        border: '1px solid #fff',
-                        backgroundColor: '#fff',
-                      }}
-                    >
-                      Screen_Wise
-                    </Button>
-                    <Button className="btn-hover color-9" style={{ textDecoration: 'none', border: '1px solid #fff' }}>
-                      Module_Wise
-                    </Button>
-                  </span>
-                  <Search placeholder="search" onSearch={onSearch} style={{ width: 200, marginLeft: '45px' }} />
-                </span>
-              </h2>
+              <Row gutter={[16, 16]}>
+                <Col xxl={24} xs={24} xl={24} md={24} className="headerstyle" style={{}}>
+                  <Col xxl={13} xl={10} md={5} className="module-heading">
+                    <h2>{t('app_modules')}</h2>
+                  </Col>
+                  <Row gutter={[16, 16]} justify={'space-evenly'}>
+                    <Col xxl={7} xl={11} className="">
+                      <AntButton className="btn-hover color-9" label={t('module_wise')} />
+                    </Col>
+                    <Col xxl={4} xl={12} className="">
+                      <AntButton
+                        className="btn-hover color-9"
+                        label={t('module_wise')}
+                        style={{ textDecoration: 'none', border: '1px solid #fff' }}
+                      />
+                    </Col>
+                  </Row>
+
+                  <Col xxl={4} xl={6} className="menu-search-bar">
+                    <p className="searchBarSize">
+                      <Search
+                        className="searchBarSize"
+                        placeholder="search"
+                        onSearch={onSearch}
+                        style={{ width: 200 }}
+                      />
+                    </p>
+                  </Col>
+                </Col>
+              </Row>
             </Col>
-            {map(
-              list,
-              ({ ModuleDescription, ModuleTypeId, IconUrl }: TSideMenu & { children: TSideMenu[] }, index: number) => (
-                <Card
-                  hoverable
-                  onClick={showModal}
-                  className="container"
-                  style={{
-                    height: 160,
-                    width: '13vw',
-
-                    marginTop: '30px',
-                    margin: '10px',
-                    border: `1px solid ${colorPrimary}`,
-
-                    marginLeft: 20,
-
-                    marginBottom: 10,
-                    boxShadow: 'inset: 20px 20px 2px ',
-                  }}
-                >
-                  {' '}
-                  <div
-                    className=""
-                    style={{
-                      backgroundColor: colorPrimary,
-                      color: '#fff',
-                      fontSize: '17px',
-                      fontWeight: 600,
-                      height: 40,
-
-                      borderRadius: '63% 37% 53% 47% / 0% 0% 100% 100% ',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      marginBottom: 0,
-                      position: 'absolute',
-                      top: '0px',
-                      left: '0px',
-                      width: '100%',
-                    }}
-                  >
-                    <Title level={4} style={{ color: '#fff', fontWeight: 700, margin: 5 }}>
-                      {ModuleTypeId}
-                    </Title>
-                  </div>
-                  <br></br>
-                  <div
-                    style={{
-                      color: colorPrimary,
-                      // backgroundColor: 'rgba(0,255,0,0.25)',
-                      borderRadius: 20,
-                      padding: 8,
-                      margin: 0,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '2.5rem',
-                    }}
-                  >
-                    {<LayoutFilled />}
-                  </div>
-                  <Text
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      margin: 0,
-                    }}
-                  >
-                    {ModuleDescription}
-                  </Text>
-                </Card>
-              )
-            )}
+            <Col xxl={24} xs={23} sm={23} md={24} lg={24} xl={24} style={{ marginLeft: '-1%' }}>
+              <Row justify={'center'} gutter={10} style={{ marginLeft: '' }}>
+                {map(list, ({ ModuleDescription }: TSideMenu & { children: TSideMenu[] }, index: number) => (
+                  <Col xs={24} xxl={4} sm={12} md={11} lg={6}>
+                    <Card
+                      hoverable
+                      onClick={showModal}
+                      className="container_menuCard"
+                      style={{
+                        border: `1px solid ${colorPrimary}`,
+                      }}
+                      cover={<></>}
+                    >
+                      {' '}
+                      <div
+                        className="menuCard_div"
+                        style={{
+                          backgroundColor: colorPrimary,
+                        }}
+                      >
+                        <Title level={4} style={{ color: '#fff', fontWeight: 700, margin: 5 }}>
+                          {childrenLengths[index % childrenLengths.length]}
+                        </Title>
+                      </div>
+                      <br></br>
+                      <div
+                        className="menu_icon_div"
+                        style={{
+                          color: colorPrimary,
+                          // backgroundColor: 'rgba(0,255,0,0.25)',
+                        }}
+                      >
+                        {defaultIcons[index % defaultIcons.length]}
+                      </div>
+                      <Text
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          margin: 0,
+                        }}
+                      >
+                        {ModuleDescription}
+                      </Text>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+            </Col>
 
             <Modal
               title="Dashboards"
