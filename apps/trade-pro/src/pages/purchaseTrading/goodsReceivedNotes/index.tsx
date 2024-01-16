@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import TabPane from 'antd/es/tabs/TabPane';
 import GRNDetailForm from './form';
-import { useGRNPurchaseOrderLoadTable } from './query';
+import { useGRNPurchaseOrderLoadTable, useGetGRNById } from './query';
 import GRNHistoryTable from './history/table';
 import { useAtom } from 'jotai';
 import { selectedRowsAtom } from './purchaseOrderLoad/loadOrderTable/Atom';
@@ -44,7 +44,7 @@ function GoodsReveivedNotes() {
         onChange={(key) => setActiveTab(key)}
       >
         <TabPane tab={t('history')} key="1">
-          <GRNHistoryTable />
+          <GRNHistoryTable setActiveTab={setActiveTab} setSelectedRecordId={setSelectedRecordId} />
           <GRNDetailLoadOrderTable
             loadOrderData={loadOrderData}
             refetch={refetch}
@@ -56,6 +56,7 @@ function GoodsReveivedNotes() {
         <TabPane tab={t('form')} key="2">
           <GRNDetailForm
             selectedRecordId={selectedRecordId}
+            setSelectedRecordId={setSelectedRecordId}
             selectedRows={selectedRows}
             showGRNDetailTable={showGRNDetailTable}
             handleLoadOrderButtonClick={handleLoadOrderButtonClick}
@@ -66,9 +67,6 @@ function GoodsReveivedNotes() {
             isFetching={isFetching}
           />
         </TabPane>
-        {/* <TabPane tab={t('purchase_order_load')} key="3">
-          <LoadOrderDetailForm handleLoadButtonClick={handleLoadButtonClick} />
-        </TabPane> */}
       </Tabs>
     </>
   );

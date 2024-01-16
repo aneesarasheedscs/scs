@@ -41,126 +41,86 @@ function MainEntry({ form }: TDynamicForm) {
 
   return (
     <>
-      <Row gutter={[10, 10]} style={{ marginTop: '-2%' }}>
-        <Col span={24}>
-          <Card style={{ boxShadow: '2px 4px 12px 1px gray' }}>
-            <Form.Item>
-              <div className="form-list-container">
-                <Col
-                  xs={{ span: 24, offset: 0 }}
-                  sm={{ span: 21, offset: 1 }}
-                  md={{ span: 11, offset: 0 }}
-                  lg={{ span: 11, offset: 0 }}
-                  xl={{ span: 7, offset: 0 }}
-                  style={{ marginBottom: '1%' }}
-                  className="formfield date"
-                >
-                  <AntDatePicker bordered={false} name="DocDate" label={t('document_date')} />
-                </Col>
-                <Col
-                  xs={{ span: 24, offset: 0 }}
-                  sm={{ span: 21, offset: 1 }}
-                  md={{ span: 11, offset: 1 }}
-                  lg={{ span: 11, offset: 1 }}
-                  xl={{ span: 7, offset: 1 }}
-                  style={{ marginBottom: '1%' }}
-                  className="formfield balance"
-                >
-                  <AntSelectDynamic
-                    disabled
-                    bordered={false}
-                    label={t('source_location')}
-                    fieldValue="Id"
-                    fieldLabel="CompName"
-                    name="SourceLocationId"
-                    options={map(source, (item: any) => ({
-                      value: item.Id,
-                      label: item.CompName,
-                    }))}
-                  />
-                  <Modal
-                    width={250}
-                    title="Error"
-                    visible={isErrorModalVisible}
-                    onOk={handleOk}
-                    centered
-                    closable={false}
-                  >
-                    <p style={{ color: 'red' }}>{t('sourcelocation_and_destinationlocation_cant_be_same')}</p>
-                  </Modal>
-                </Col>
-                <Col
-                  xs={{ span: 24, offset: 0 }}
-                  sm={{ span: 21, offset: 1 }}
-                  md={{ span: 11, offset: 0 }}
-                  lg={{ span: 11, offset: 0 }}
-                  xl={{ span: 7, offset: 1 }}
-                  style={{ marginBottom: '1%' }}
-                  className="formfield"
-                >
-                  <AntSelectDynamic
-                    bordered={false}
-                    label={t('dest_location')}
-                    fieldValue="Id"
-                    fieldLabel="CompName"
-                    name="DestinationLocationId"
-                    query={useGetDestinationLocationSelect}
-                    onChange={handleSubmit}
-                  />
-                </Col>
+      <Card style={{ boxShadow: '2px 4px 12px 1px gray' }}>
+        <Row gutter={[10, 10]} justify={'space-between'}>
+          <Col
+            xs={{ span: 24 }}
+            sm={{ span: 21 }}
+            md={{ span: 11 }}
+            lg={{ span: 11 }}
+            xl={{ span: 8 }}
+            style={{ marginBottom: '0%' }}
+            className="formfield"
+          >
+            <AntSelectDynamic
+              disabled
+              bordered={false}
+              label={t('source_location')}
+              fieldValue="Id"
+              fieldLabel="CompName"
+              name="SourceLocationId"
+              options={map(source, (item: any) => ({
+                value: item.Id,
+                label: item.CompName,
+              }))}
+            />
+            <Modal width={250} title="Error" visible={isErrorModalVisible} onOk={handleOk} centered closable={false}>
+              <p style={{ color: 'red' }}>{t('sourcelocation_and_destinationlocation_cant_be_same')}</p>
+            </Modal>
+          </Col>
+          <Col
+            xs={{ span: 24 }}
+            sm={{ span: 21 }}
+            md={{ span: 11 }}
+            lg={{ span: 11 }}
+            xl={{ span: 8 }}
+            style={{ marginBottom: '0%' }}
+            className="formfield"
+          >
+            <AntSelectDynamic
+              bordered={false}
+              label={t('destination_location')}
+              fieldValue="Id"
+              fieldLabel="CompName"
+              name="DestinationLocationId"
+              query={useGetDestinationLocationSelect}
+              onChange={handleSubmit}
+            />
+          </Col>
 
-                <Col
-                  xs={{ span: 24, offset: 0 }}
-                  sm={{ span: 21, offset: 1 }}
-                  md={{ span: 11, offset: 1 }}
-                  lg={{ span: 11, offset: 1 }}
-                  xl={{ span: 7, offset: 0 }}
-                  className="formfield status"
-                >
-                  <AntSelectDynamic
-                    disabled
-                    value={defaultStatus}
-                    bordered={false}
-                    label={t('request_status')}
-                    fieldValue="Id"
-                    fieldLabel="status"
-                    name="ReqStatus"
-                    query={useGetRequestStatusSelect}
-                  />
-                </Col>
-                <Col
-                  xs={{ span: 24, offset: 0 }}
-                  sm={{ span: 21, offset: 1 }}
-                  md={{ span: 23, offset: 0 }}
-                  lg={{ span: 23, offset: 0 }}
-                  xl={{ span: 15, offset: 1 }}
-                  className="formfield"
-                >
-                  <AntInput bordered={false} name="RemarksHeader" label={t('remarks')} />
-                </Col>
-
-                <Col
-                  xs={{ span: 18, offset: 0 }}
-                  sm={{ span: 22, offset: 1 }}
-                  md={{ span: 22, offset: 0 }}
-                  lg={{ span: 24, offset: 0 }}
-                  xl={{ span: 10, offset: 0 }}
-                  style={{ marginTop: '1%', marginBottom: '-2%' }}
-                  className="checkbox"
-                >
-                  <label>
-                    <Form.Item name="IsApproved" valuePropName="checked" initialValue={true}>
-                      <Checkbox onChange={(e) => handleCheckboxChange(e.target.checked, 'IsApproved')}>
-                        {t('print_preview')}
-                      </Checkbox>
-                    </Form.Item>
-                  </label>
-                </Col>
-              </div>
-            </Form.Item>{' '}
-          </Card>
-        </Col>
-      </Row>
+          <Col
+            xs={{ span: 24 }}
+            sm={{ span: 21 }}
+            md={{ span: 11 }}
+            lg={{ span: 11 }}
+            xl={{ span: 7 }}
+            className="formfield status"
+          >
+            <AntSelectDynamic
+              disabled
+              value={defaultStatus}
+              bordered={false}
+              label={t('request_status')}
+              fieldValue="Id"
+              fieldLabel="status"
+              name="ReqStatus"
+              query={useGetRequestStatusSelect}
+            />
+          </Col>
+          <Col
+            xs={{ span: 24 }}
+            sm={{ span: 21 }}
+            md={{ span: 23 }}
+            lg={{ span: 23 }}
+            xl={{ span: 16 }}
+            className="formfield"
+          >
+            <p className="remarksFieldinStockDirect">
+              <AntInput bordered={false} name="RemarksHeader" label={t('remarks')} />
+            </p>
+          </Col>
+        </Row>
+      </Card>
     </>
   );
 }

@@ -1,10 +1,9 @@
 import React from 'react';
-import { TCOAReportHistory } from './type';
 import ChartOfAccountReport from './COAsearchCriteria';
 import { useChartOfReporttableQuery } from './tableQueries';
 import { ChartOfAccountColumn } from './colomns';
-import { AntTable } from '@scs/ui';
-// import { AntTable } from '@tradePro/components';
+// import { AntTable } from '@scs/ui';
+import { AntTable } from '@tradePro/components';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 
 const ChartOfAccountReportTable = () => {

@@ -51,18 +51,21 @@ export const useGetVoucherNo = () => {
 };
 
 // //   Select Fields Query
-
+interface TSourceLocation {
+  Id: number;
+  // Add other properties based on your response data structure
+}
 export const useGetSourceSelect = () => {
   return useQuery('Source-Select', GetSourceSelect, {
     cacheTime: userDetail?.expires_in,
   });
 };
-const GetSourceSelect: QueryFunction<AxiosResponse<any, any>> = async () => {
+const GetSourceSelect: QueryFunction<AxiosResponse<TSourceLocation[]>> = async () => {
   const response = await requestManager.get('/api/Company/GetAlldt', {
     params: { ...params, OrgCompanyTypeId: userDetail?.OrganizationId },
   });
   const rawData = response.data?.Data.Result;
-  const source = rawData.filter((item: any) => item.Id == userDetail?.CompanyId);
+  const source = rawData.filter((item: TSourceLocation) => item.Id == userDetail?.CompanyId);
   return source;
 };
 

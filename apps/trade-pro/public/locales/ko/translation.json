@@ -466,5 +466,8 @@
   "factory_weight": "공장 중량",
   "party_weight": "당 무게",
   "diff_weight": "차이 가중치",
-  "freight_amount": "운임"
+  "freight_amount": "운임",
+  "source_location": "소스 위치",
+  "destination_location": "목적지 위치",
+  "available_qty": "사용 가능한 수량"
 }

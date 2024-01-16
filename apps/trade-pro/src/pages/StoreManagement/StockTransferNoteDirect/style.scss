@@ -10,7 +10,11 @@
 }
 
 // Responsiveness
-
+.remarksFieldinStockDirect {
+  border-bottom: 1px solid gray;
+  height: 38px;
+  width: 104%;
+}
 @media screen and (min-width: 992px) and (max-width: 1200px) {
   .status {
     margin-top: -1%;

@@ -105,7 +105,13 @@ const ExpenseGridEntry = ({ form }: TDynamicForm) => {
     form.setFieldValue(['WsRmStockTransferNotesExpensesList', 0, 'Amount'], null);
     form.setFieldValue(['WsRmStockTransferNotesExpensesList', 0, 'Remarks'], null);
   };
-
+  const handleResetForm = () => {
+    form.setFieldValue(['WsRmStockTransferNotesExpensesList', 0, 'ItemId'], null);
+    form.setFieldValue(['WsRmStockTransferNotesExpensesList', 0, 'Qty'], null);
+    form.setFieldValue(['WsRmStockTransferNotesExpensesList', 0, 'Rate'], null);
+    form.setFieldValue(['WsRmStockTransferNotesExpensesList', 0, 'Amount'], null);
+    form.setFieldValue(['WsRmStockTransferNotesExpensesList', 0, 'Remarks'], null);
+  };
   const handleDeleteRow = (record: any) => {
     setTableData2((prevData: any[]) => {
       const updatedData = prevData.filter((item: any) => item.ItemId !== record.ItemId);
@@ -159,22 +165,27 @@ const ExpenseGridEntry = ({ form }: TDynamicForm) => {
 
   return (
     <>
-      <br />
-      <h2 className="form-heading">{t('other_items_expense_grid')}</h2>
-      <Row gutter={[16, 16]} style={{ marginTop: '1%' }}>
+      {/* <br /> */}
+      {/* <h2 className="form-heading">{t('other_items_expense_grid')}</h2> */}
+      <Row gutter={[16, 16]} style={{ marginTop: '0.2%' }}>
         <Col xs={24} sm={24} md={24} lg={{ span: 24 }} xl={{ span: 24 }}>
-          <Card style={{ boxShadow: '2px 4px 12px 1px gray', paddingBottom: '1%' }}>
+          <Card style={{ boxShadow: '2px 4px 12px 1px gray', paddingBottom: '0%' }}>
             <Form.List name="WsRmStockTransferNotesExpensesList" initialValue={[initialValues]}>
               {(fields, {}) => (
                 <>
                   {fields.map((field) => (
-                    <div key={field.key} className="form-list-container">
+                    <div
+                      key={field.key}
+                      className="form-list-container"
+                      style={{ display: 'flex', justifyContent: 'space-between', marginTop: -10 }}
+                    >
                       <Col
-                        xs={{ span: 23, offset: 0 }}
-                        sm={{ span: 21, offset: 1 }}
-                        md={{ span: 11, offset: 0 }}
-                        lg={{ span: 11, offset: 0 }}
-                        xl={{ span: 6, offset: 0 }}
+                        xs={{ span: 23 }}
+                        sm={{ span: 21 }}
+                        md={{ span: 11 }}
+                        lg={{ span: 11 }}
+                        xl={{ span: 7 }}
+                        xxl={{ span: 5 }}
                         className="formfield"
                       >
                         <AntSelectDynamic
@@ -189,11 +200,12 @@ const ExpenseGridEntry = ({ form }: TDynamicForm) => {
                       </Col>
 
                       <Col
-                        xs={{ span: 23, offset: 0 }}
-                        sm={{ span: 21, offset: 1 }}
-                        md={{ span: 11, offset: 1 }}
-                        lg={{ span: 11, offset: 1 }}
-                        xl={{ span: 4, offset: 1 }}
+                        xs={{ span: 23 }}
+                        sm={{ span: 21 }}
+                        md={{ span: 11 }}
+                        lg={{ span: 11 }}
+                        xl={{ span: 4 }}
+                        xxl={{ span: 3 }}
                         className="formfield"
                       >
                         <AntInputNumber
@@ -204,11 +216,12 @@ const ExpenseGridEntry = ({ form }: TDynamicForm) => {
                       </Col>
 
                       <Col
-                        xs={{ span: 23, offset: 0 }}
-                        sm={{ span: 21, offset: 1 }}
-                        md={{ span: 11, offset: 0 }}
-                        lg={{ span: 11, offset: 0 }}
-                        xl={{ span: 5, offset: 1 }}
+                        xs={{ span: 23 }}
+                        sm={{ span: 21 }}
+                        md={{ span: 11 }}
+                        lg={{ span: 11 }}
+                        xl={{ span: 5 }}
+                        xxl={{ span: 3 }}
                         className="formfield rate"
                       >
                         <AntInputNumber
@@ -220,11 +233,12 @@ const ExpenseGridEntry = ({ form }: TDynamicForm) => {
                       </Col>
 
                       <Col
-                        xs={{ span: 23, offset: 0 }}
-                        sm={{ span: 21, offset: 1 }}
-                        md={{ span: 11, offset: 1 }}
-                        lg={{ span: 11, offset: 1 }}
-                        xl={{ span: 5, offset: 1 }}
+                        xs={{ span: 23 }}
+                        sm={{ span: 21 }}
+                        md={{ span: 11 }}
+                        lg={{ span: 11 }}
+                        xl={{ span: 5 }}
+                        xxl={{ span: 3 }}
                         className="formfield amount"
                       >
                         <AntInputNumber
@@ -236,13 +250,14 @@ const ExpenseGridEntry = ({ form }: TDynamicForm) => {
                       </Col>
 
                       <Col
-                        xs={{ span: 23, offset: 0 }}
-                        sm={{ span: 21, offset: 1 }}
-                        md={{ span: 19, offset: 0 }}
-                        lg={{ span: 16, offset: 0 }}
-                        xl={{ span: 15, offset: 0 }}
+                        xs={{ span: 23 }}
+                        sm={{ span: 21 }}
+                        md={{ span: 24 }}
+                        lg={{ span: 24 }}
+                        xl={{ span: 12 }}
+                        xxl={{ span: 6 }}
                         className="formfield"
-                        style={{ marginTop: '0.8rem' }}
+                        // style={{ marginTop: '0.8rem' }}
                       >
                         <AntInput
                           bordered={false}
@@ -250,68 +265,97 @@ const ExpenseGridEntry = ({ form }: TDynamicForm) => {
                           formItemProps={{ ...field, name: [field.name, 'Remarks'] }}
                         />
                       </Col>
+
+                      <Col
+                        xs={{ span: 12 }}
+                        sm={{ span: 12 }}
+                        md={{ span: 5 }}
+                        lg={{ span: 5 }}
+                        xl={{ span: 3 }}
+                        xxl={{ span: 3 }}
+                      >
+                        <Row style={{ marginTop: '0%' }} gutter={10}>
+                          <Col
+                            xs={{ span: 12 }}
+                            sm={{ span: 8 }}
+                            md={{ span: 12 }}
+                            lg={{ span: 12 }}
+                            xl={{ span: 11 }}
+                            xxl={12}
+                          >
+                            <AntButton
+                              style={{ marginTop: 15 }}
+                              onClick={isEditMode ? handleUpdateToTable : handleAddToTable}
+                              label={isEditMode ? t('update') : t('add')}
+                            ></AntButton>
+                          </Col>
+                          <Col
+                            xs={{ span: 12 }}
+                            sm={{ span: 8 }}
+                            md={{ span: 12 }}
+                            lg={{ span: 12 }}
+                            xl={{ span: 13 }}
+                            xxl={12}
+                          >
+                            <AntButton
+                              ghost
+                              style={{ marginTop: 15 }}
+                              onClick={() => {
+                                handleResetForm();
+                                setIsEditMode(false);
+                              }}
+                              label={t('cancel')}
+                            ></AntButton>
+                          </Col>
+                        </Row>
+                      </Col>
                       <AntInput
                         bordered={false}
                         label={''}
                         formItemProps={{ ...field, name: [field.name, 'OtherItemName'] }}
-                        style={{ display: 'none' }}
+                        style={{ display: 'none', visibility: 'hidden' }}
                       />
                       <AntInput
                         bordered={false}
                         label={''}
                         formItemProps={{ ...field, name: [field.name, 'Qty'] }}
-                        style={{ display: 'none' }}
+                        style={{ display: 'none', visibility: 'hidden' }}
                       />
                       <AntInput
                         bordered={false}
                         label={''}
                         formItemProps={{ ...field, name: [field.name, 'Rate'] }}
-                        style={{ display: 'none' }}
+                        style={{ display: 'none', visibility: 'hidden' }}
                       />
                       <AntInput
                         bordered={false}
                         label={''}
                         formItemProps={{ ...field, name: [field.name, 'Amount'] }}
-                        style={{ display: 'none' }}
+                        style={{ display: 'none', visibility: 'hidden' }}
                       />
                       <AntInput
                         bordered={false}
                         label={''}
                         formItemProps={{ ...field, name: [field.name, 'Remarks'] }}
-                        style={{ display: 'none' }}
+                        style={{ display: 'none', visibility: 'hidden' }}
                       />
-
-                      <Col
-                        xs={{ span: 10, offset: 3 }}
-                        sm={{ span: 5, offset: 10 }}
-                        md={{ span: 3, offset: 0 }}
-                        lg={{ span: 7, offset: 0 }}
-                        xl={{ span: 2, offset: 0 }}
-                        style={{ marginTop: '0.8rem' }}
-                      >
-                        <AntButton
-                          className="add"
-                          onClick={isEditMode ? handleUpdateToTable : handleAddToTable}
-                          label={isEditMode ? <>{t('update')}</> : <>{t('add')}</>}
-                        ></AntButton>
-                      </Col>
                     </div>
                   ))}
                 </>
               )}
             </Form.List>
           </Card>
+          {/* <br /> */}
+          {/* <h2 className="form-heading">{t('detail')}</h2> */}
           <br />
-          <h2 className="form-heading">{t('detail')}</h2>
-          <br />
-          <Card style={{ boxShadow: '2px 4px 12px 1px gray', textAlign: 'left' }}>
-            <AntTable
-              numberOfSkeletons={12}
-              scroll={{ x: '', y: convertVhToPixels('15vh') }}
-              data={tableData2 || []}
-              columns={column3(t, handleDeleteRow, handleEditRow)}
-            />
-          </Card>
+          {/* <Card style={{ boxShadow: '2px 4px 12px 1px gray', textAlign: 'left' }}> */}
+          <AntTable
+            numberOfSkeletons={12}
+            scroll={{ x: '', y: convertVhToPixels('15vh') }}
+            data={tableData2 || []}
+            columns={column3(t, handleDeleteRow, handleEditRow)}
+          />
+          {/* </Card> */}
         </Col>
       </Row>
     </>

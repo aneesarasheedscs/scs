@@ -29,7 +29,10 @@ function StockTransferNoteDirect() {
             <StockTransferNoteTable setSelectedRecordId={setSelectedRecordId} setActiveTab={setActiveTab} />
           </Tabs.TabPane>
           <Tabs.TabPane key="2" tab={t('form')}>
-            <StockTransferNoteDirectForm selectedRecordId={selectedRecordId} />
+            <StockTransferNoteDirectForm
+              selectedRecordId={selectedRecordId}
+              setSelectedRecordId={setSelectedRecordId}
+            />
           </Tabs.TabPane>
         </Tabs>
       </Card>

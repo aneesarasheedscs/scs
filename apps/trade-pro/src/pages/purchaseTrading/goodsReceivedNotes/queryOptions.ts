@@ -17,12 +17,9 @@ export const useGetDocumentNumber = () => {
   return useQuery(
     'document-number',
     () => {
-      return requestManager.get(
-        '/api/InvGrn/GenerateCode?OrganizationId=2&CompanyId=2&BranchesId=2&DocumentTypeId=46&FinancialYearId=2',
-        {
-          params: { ...params, BranchesId, DocumentTypeId: 46, FinancialYearId: financialYear?.Id },
-        }
-      );
+      return requestManager.get('/api/InvGrn/GenerateCode', {
+        params: { ...params, BranchesId, DocumentTypeId: 46, FinancialYearId: financialYear?.Id },
+      });
     },
     { cacheTime: 5000 }
   );
@@ -30,7 +27,7 @@ export const useGetDocumentNumber = () => {
 
 export const useGetSuppliersforGRN = () => {
   return useQuery('supplier-customer-GRN', () => {
-    return requestManager.get('/api/SupplierCustomer/GetforComboBinding?OrganizationId=2&CompanyId=2', {
+    return requestManager.get('/api/SupplierCustomer/GetforComboBinding', {
       params,
     });
   });
@@ -44,7 +41,7 @@ export const useGetVehicleType = () => {
 //Transporter
 export const useGetTransporters = () => {
   return useQuery('transporters', () => {
-    return requestManager.get('/api/COAAllocation/GetAll?OrganizationId=2&CompanyId=2', { params });
+    return requestManager.get('/api/COAAllocation/GetAll', { params });
   });
 };
 //Delivery Term

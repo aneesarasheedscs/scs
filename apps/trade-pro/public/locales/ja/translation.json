@@ -466,5 +466,8 @@
   "factory_weight": "工場出荷時の重量",
   "party_weight": "パーティの重量",
   "diff_weight": "差の重み",
-  "freight_amount": "運賃額"
+  "freight_amount": "運賃額",
+  "source_location": "ソースの場所",
+  "destination_location": "目的地の場所",
+  "available_qty": "利用可能数量"
 }

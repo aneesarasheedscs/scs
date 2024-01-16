@@ -84,6 +84,7 @@ function CompanyBranchDetails() {
       <Form form={form} layout="vertical">
         <Form.Item label="Company" name="CompanyId">
           <Select
+            size="large"
             allowClear
             onChange={handleCompanyChange}
             style={{ width: '100%' }}

@@ -11,7 +11,7 @@ export const columns = (
   handleEditRow: any
 ): AntColumnType<TWsRmWareHouseToWareHouseStocTransferDetailList>[] => [
   {
-    title: <>{t('item_name')}</>,
+    title: t('item_name'),
     width: 250,
     searchableInput: true,
     dataIndex: 'ItemName',
@@ -19,7 +19,7 @@ export const columns = (
     sorter: (a, b) => a.ItemName.localeCompare(b.ItemName),
   },
   {
-    title: <>{t('ware_house_from')}</>,
+    title: t('ware_house_from'),
     width: 200,
     searchableInput: true,
     dataIndex: 'WarehouseFromName',
@@ -27,7 +27,7 @@ export const columns = (
     sorter: (a, b) => a.WarehouseFromName.localeCompare(b.WarehouseFromName),
   },
   {
-    title: <>{t('item_qty')}</>,
+    title: t('item_qty'),
     width: 150,
     showTotal: true,
     dataIndex: 'NetWeight',
@@ -38,7 +38,7 @@ export const columns = (
     ),
   },
   {
-    title: <>{t('pack_uom')}</>,
+    title: t('pack_uom'),
     width: 130,
     searchableInput: true,
     dataIndex: 'ItemUomCode',
@@ -46,7 +46,7 @@ export const columns = (
     sorter: (a, b) => a.ItemUomCode.localeCompare(b.ItemUomCode),
   },
   {
-    title: <>{t('weight')}</>,
+    title: t('weight'),
     width: 130,
     showTotal: true,
     dataIndex: 'NetWeight',
@@ -57,7 +57,7 @@ export const columns = (
     ),
   },
   {
-    title: <>{t('item_rate')}</>,
+    title: t('item_rate'),
     width: 130,
     dataIndex: 'ItemRate',
     sortDirections: ['ascend', 'descend'],
@@ -67,7 +67,7 @@ export const columns = (
     ),
   },
   {
-    title: <>{t('item_amount')}</>,
+    title: t('item_amount'),
     width: 130,
     showTotal: true,
     dataIndex: 'ItemAmount',
@@ -78,7 +78,7 @@ export const columns = (
     ),
   },
   {
-    title: <>{t('ware_house_to')}</>,
+    title: t('ware_house_to'),
     width: 150,
     dataIndex: 'WarehouseToName',
     searchableInput: true,
@@ -86,7 +86,7 @@ export const columns = (
     sorter: (a, b) => a.WarehouseToName.localeCompare(b.WarehouseToName),
   },
   {
-    title: <>{t('remarks')}</>,
+    title: t('remarks'),
     width: 150,
     dataIndex: 'RemarksDetail',
     searchableInput: true,
@@ -94,7 +94,7 @@ export const columns = (
     sorter: (a, b) => a.RemarksDetail.localeCompare(b.RemarksDetail),
   },
   {
-    title: <>{t('action')}</>,
+    title: t('action'),
     width: 120,
     render: (_, record) => (
       <>

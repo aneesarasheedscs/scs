@@ -626,5 +626,8 @@
   "factory_weight": "فیکٹری وزن",
   "party_weight": "پارٹی کا وزن",
   "diff_weight": "فرق وزن",
-  "freight_amount": "مال برداری کی رقم"
+  "freight_amount": "مال برداری کی رقم",
+  "source_location": "ماخذ کا مقام",
+  "destination_location": "منزل کا مقام",
+  "available_qty": "دستیاب مقدار"
 }
