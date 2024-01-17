@@ -6,7 +6,7 @@ import { useGRNPurchaseOrderLoadTable } from '../../query';
 import { Col, Row } from 'antd';
 import { useEffect, useState } from 'react';
 import { useAtom } from 'jotai';
-import { selectedRowsAtom } from './Atom';
+import { addtableData, selectedRowsAtom } from './Atom';
 import { GRNDetailColumn } from './grnDetailColumn';
 
 function GRNLoadOrderTable() {
@@ -15,6 +15,8 @@ function GRNLoadOrderTable() {
 
   const [selectedRows, setSelectedRows] = useAtom(selectedRowsAtom);
   const [selectedRowKeys, setSelectedRowKeys] = useState<any[]>([]);
+  const [tableData, setTableData] = useAtom(addtableData);
+
   console.log(selectedRows);
   const handleCheckboxChange2 = (recordId: number, checked: boolean) => {
     if (checked) {
@@ -62,6 +64,7 @@ function GRNLoadOrderTable() {
   useEffect(() => {
     if (selectedRows) {
       setSelectedRows(selectedRows);
+      setTableData(selectedRows);
     }
   }, [selectedRows, selectedRowKeys]);
   const onSelectChange = (selectedRowKeys: any[], selectedRows: any) => {

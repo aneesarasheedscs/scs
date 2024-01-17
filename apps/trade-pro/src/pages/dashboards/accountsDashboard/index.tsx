@@ -67,10 +67,11 @@ const AccountDashboard: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; Compa
       form.setFieldValue('FromDate', dayjs(FromDateProp));
       form.setFieldValue('ToDate', dayjs(ToDateProp));
     } else {
-      setFieldValue('FromDate', FromDate);
-      setFieldValue('ToDate', ToDate);
+      setFieldValue('FromDate', dayjs(new Date()));
+      setFieldValue('ToDate', dayjs(new Date()));
+      setFieldValue('DateType', '1');
     }
-  }, []);
+  }, [form]);
 
   const formHeading = {
     fontFamily: 'Times New Roman',
@@ -109,9 +110,9 @@ const AccountDashboard: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; Compa
                     <AntSelectDynamic
                       bordered={false}
                       label={t('date_type')}
+                      fieldValue="Id"
                       name="DateType"
                       fieldLabel="DateType"
-                      fieldValue="Id"
                       query={useGetDateType}
                       onChange={(value) => handleDateChange(value)}
                     />

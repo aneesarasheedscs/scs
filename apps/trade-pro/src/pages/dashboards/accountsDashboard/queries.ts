@@ -34,8 +34,8 @@ export const useGetAccountDashboardData = (enabled = true, ActivityId: number, p
             ? params.CompanyIds?.toString()
             : ''
           : userDetail?.CompanyId.toString(),
-        FromDate: params.FromDate ,
-        ToDate: params.ToDate,
+        FromDate: new Date(),
+        ToDate: new Date(),
         ReqType: params.ReqType !== undefined && params.ReqType !== null ? params.ReqType : '',
       });
     },

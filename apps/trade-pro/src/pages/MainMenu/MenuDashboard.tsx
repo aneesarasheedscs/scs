@@ -84,7 +84,7 @@ export default function MenuDashboard() {
   };
   const { TabPane } = Tabs;
   return (
-    <div>
+    <>
       <Row gutter={[24, 24]} style={{ border: '1px solid red' }}>
         <Col>
           <Row
@@ -282,6 +282,6 @@ export default function MenuDashboard() {
         </Col>
       </Row>
       {/* <h1 style={{textAlign:'center',fontSize:'35px'}}> ∈ccountBook <sup>Cloud ERP</sup></h1> */}
-    </div>
+    </>
   );
 }

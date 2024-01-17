@@ -13,25 +13,25 @@ import GRNDetailLoadOrderTable from './history/detailTable/DetailTable';
 function GoodsReveivedNotes() {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState('1');
-  const [showGRNDetailTable, setShowGRNDetailTable] = useState(false);
-  const [selectedRows, setSelectedRows] = useAtom(selectedRowsAtom);
+  // const [showGRNDetailTable, setShowGRNDetailTable] = useState(false);
+  // const [selectedRows, setSelectedRows] = useAtom(selectedRowsAtom);
   const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
 
   const { data: loadOrderData, refetch, isError, isLoading, isFetching } = useGRNPurchaseOrderLoadTable();
 
-  const handleLoadOrderButtonClick = (selectedData: any) => {
-    setActiveTab('1');
-  };
-  const handleLoadButtonClick = () => {
-    const selectedData = loadOrderData?.data?.Data?.Result.filter((row: any) =>
-      selectedRows.includes(row.OrderDetailId)
-    );
+  // const handleLoadOrderButtonClick = (selectedData: any) => {
+  //   setActiveTab('1');
+  // };
+  // const handleLoadButtonClick = () => {
+  //   // const selectedData = loadOrderData?.data?.Data?.Result.filter((row: any) =>
+  //   //   selectedRows.includes(row.OrderDetailId)
+  //   // );
 
-    setShowGRNDetailTable(true);
-    // setSelectedRows(selectedData);
-    // setActiveTab('2');
-  };
-  console.log(selectedRows);
+  //   // setShowGRNDetailTable(true);
+  //   // setSelectedRows(selectedData);
+  //   // setActiveTab('2');
+  // };
+  // console.log(selectedRows);
   return (
     <>
       <h2 className="form-heading"> {t('goods_received_notes')} </h2>
@@ -57,10 +57,10 @@ function GoodsReveivedNotes() {
           <GRNDetailForm
             selectedRecordId={selectedRecordId}
             setSelectedRecordId={setSelectedRecordId}
-            selectedRows={selectedRows}
-            showGRNDetailTable={showGRNDetailTable}
-            handleLoadOrderButtonClick={handleLoadOrderButtonClick}
-            handleLoadButtonClick={handleLoadButtonClick}
+            // selectedRows={selectedRows}
+            // showGRNDetailTable={showGRNDetailTable}
+            // handleLoadOrderButtonClick={handleLoadOrderButtonClick}
+            // handleLoadButtonClick={handleLoadButtonClick}
             refetch={refetch}
             isError={isError}
             isLoading={isLoading}

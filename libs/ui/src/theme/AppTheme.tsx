@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { ConfigProvider } from 'antd';
-
-export function AppTheme({ children, colorPrimary = '#00a148' }: TAppTheme) {
+// Secondary #006640
+export function AppTheme({ children, colorPrimary = '#25A7DF' }: TAppTheme) {
   return <ConfigProvider theme={{ token: { colorPrimary, borderRadius: 5 } }}>{children}</ConfigProvider>;
 }
 

@@ -1,5 +1,5 @@
 import './style.scss';
-import { Form, Select } from 'antd';
+import { Col, Form, Row, Select } from 'antd';
 import { map, merge } from 'lodash';
 import CardWrapper from './CardWrapper';
 import { useEffect, useState } from 'react';
@@ -19,13 +19,14 @@ function CompanyBranchDetails() {
   const [financialYearObj, setFinancialYearObj] = useState();
   const [headOffice, setheadOffice] = useState<boolean | undefined>();
 
-  const { data: CompanyData, isSuccess } = useGetCompany();
+  const { data: CompanyData, isSuccess, isLoading } = useGetCompany();
   const handleFinancialChange = (selectedObject: any) => {
     console.log(selectedObject);
     if (selectedObject !== null && selectedObject !== undefined) setFinancialYearObj(selectedObject);
     else {
       form.validateFields();
     }
+    console.log(selectedObject);
   };
 
   useEffect(() => {
@@ -34,11 +35,23 @@ function CompanyBranchDetails() {
   }, []);
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && !isLoading) {
       setcompanyList(CompanyData?.data?.Data?.Result);
+      form.setFieldsValue({
+        BranchId: 2,
+      });
     }
+    // if (year === false) {
+    //   form.setFieldsValue({
+    //     FinancialYearId: 2,
+    //   });
+    // } else if (year === true) {
+    //   form.setFieldsValue({
+    //     // FinancialYearId: 0,
+    //   });
+    // }
     CompanyData;
-  });
+  }, [isSuccess, !isLoading]);
   // const handleCompanyChange = (obj: Company) => {
   //   console.log(obj);
   //   if (obj !== null && obj !== undefined) {
@@ -84,7 +97,7 @@ function CompanyBranchDetails() {
       <Form form={form} layout="vertical">
         <Form.Item label="Company" name="CompanyId">
           <Select
-            size="large"
+            size="middle"
             allowClear
             onChange={handleCompanyChange}
             style={{ width: '100%' }}
@@ -96,7 +109,7 @@ function CompanyBranchDetails() {
         </Form.Item>
         <AntSelectDynamic
           required
-          size="large"
+          size="middle"
           label="Branch"
           name="BranchId"
           fieldValue="BranchId"
@@ -105,7 +118,7 @@ function CompanyBranchDetails() {
         />
         <AntSelectDynamic
           required
-          size="large"
+          size="middle"
           fieldValue="Id"
           name="FinancialYearId"
           label="Financial Year"
@@ -114,7 +127,11 @@ function CompanyBranchDetails() {
           query={useGetFinancialYear(formValues?.CompanyId)}
         />
         <Form.Item>
-          <AntButton size="large" label="Submit" htmlType="submit" onClick={handleSubmit} />
+          <Row justify={'center'}>
+            <Col span={4}>
+              <AntButton size="large" className="btnColor" label="Submit" htmlType="submit" onClick={handleSubmit} />
+            </Col>
+          </Row>
         </Form.Item>
       </Form>
     </CardWrapper>

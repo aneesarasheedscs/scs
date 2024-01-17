@@ -20,15 +20,17 @@ import {
 } from '@ant-design/icons';
 import LoadOrderDetailForm from '../purchaseOrderLoad/LoadOrderForm';
 import { useGetGRNById } from '../query';
+import { useAtom } from 'jotai';
+import { addtableData } from '../purchaseOrderLoad/loadOrderTable/Atom';
 
 const { useForm } = Form;
 interface Props {
   selectedRecordId: any;
   setSelectedRecordId: (id: number | null) => void;
-  handleLoadOrderButtonClick: (selectedRows: any) => void;
-  handleLoadButtonClick: () => void;
-  showGRNDetailTable: any;
-  selectedRows: any;
+  // handleLoadOrderButtonClick: (selectedRows: any) => void;
+  // handleLoadButtonClick: () => void;
+  // showGRNDetailTable: any;
+  // selectedRows: any;
   isError: any;
   isLoading: any;
   isFetching: any;
@@ -37,7 +39,7 @@ interface Props {
 function GRNDetailForm({
   selectedRecordId,
   setSelectedRecordId,
-  selectedRows,
+  // selectedRows,
   refetch,
   isError,
   isLoading,
@@ -56,6 +58,7 @@ function GRNDetailForm({
   const [printPreview, setPrintPreview] = useState(true);
   const { setFields, getFieldValue } = form;
   form.setFieldValue('DocDate', dayjs(new Date()));
+  const [tableData, setTableData] = useAtom(addtableData);
 
   useEffect(() => {
     if (isSuccess) form.setFieldValue('DocNo', data?.data?.Data?.Result);
@@ -77,7 +80,7 @@ function GRNDetailForm({
     AreaCity: '',
   });
 
-  const [tableData, setTableData] = useState([]);
+  // const [tableData, setTableData] = useState([]);
 
   const handleSelectFieldChange = (fieldName: string, value: string) => {
     setSelectFieldValues({
@@ -87,7 +90,7 @@ function GRNDetailForm({
   };
 
   const handleTableDataChange = (newData: any) => {
-    setTableData(newData);
+    // setTableData(newData);
   };
 
   useEffect(() => {
@@ -106,19 +109,19 @@ function GRNDetailForm({
 
     // console.log(values);
     // mutate(values);
-    const updatedInvGrnDetail = tableData.map((rowData: any) => ({
-      ...rowData,
-      WarehouseId: selectFieldValues.WarehouseId,
-      JobLotId: selectFieldValues.JobLotId,
-      AreaCity: selectFieldValues.AreaCity,
-    }));
+    // const updatedInvGrnDetail = tableData.map((rowData: any) => ({
+    //   ...rowData,
+    //   WarehouseId: selectFieldValues.WarehouseId,
+    //   JobLotId: selectFieldValues.JobLotId,
+    //   AreaCity: selectFieldValues.AreaCity,
+    // }));
 
-    const updatedValues = {
+    const invGrnDetailData = {
       ...values,
-      invGrnDetail: updatedInvGrnDetail,
+      invGrnDetail: tableData,
     };
 
-    console.log(updatedValues);
+    console.log('invGrnDetailData', invGrnDetailData);
     // mutate(updatedValues);
   };
 
@@ -223,8 +226,8 @@ function GRNDetailForm({
         </Form>
         {showGRNDetailTable && (
           <GRNDetailTable
-            selectedRows={selectedRows}
-            refetch={refetch}
+            // selectedRows={selectedRows}
+            // refetch={refetch}
             isError={isError}
             isFetching={isFetching}
             isLoading={isLoading}

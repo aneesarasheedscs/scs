@@ -1,11 +1,16 @@
 .login-container {
-    min-height: 100vh;
-    flex-direction: column !important;
+  min-height: 100vh;
+  flex-direction: column !important;
+  //   border: 5px solid blue;
+  background-image: url('./Images//Login\ Background\ Image.jpg');
+  background-repeat: no-repeat;
 }
 
 .login-card {
-    width: 100%;
-    padding: 25px 0px 0px 0px;
-    box-shadow: 0px 3px 6px #00000029;
+  width: 100%;
+  padding: 25px 0px 0px 0px;
+  box-shadow: 0px 3px 6px #00000029;
 }
-
+.btnColor {
+  background-color: #25a7df;
+}
