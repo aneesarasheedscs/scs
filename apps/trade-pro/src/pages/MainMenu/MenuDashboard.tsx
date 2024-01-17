@@ -171,12 +171,7 @@ export default function MenuDashboard() {
 
                   <Col xxl={4} xl={6} className="menu-search-bar">
                     <p className="searchBarSize">
-                      <Search
-                        className="searchBarSize"
-                        placeholder="search"
-                        onSearch={onSearch}
-                        style={{ width: 200 }}
-                      />
+                      <Search placeholder="search" onSearch={onSearch} style={{ width: 200 }} />
                     </p>
                   </Col>
                 </Col>
@@ -193,7 +188,6 @@ export default function MenuDashboard() {
                       style={{
                         border: `1px solid ${colorPrimary}`,
                       }}
-                      cover={<></>}
                     >
                       {' '}
                       <div
@@ -216,16 +210,18 @@ export default function MenuDashboard() {
                       >
                         {defaultIcons[index % defaultIcons.length]}
                       </div>
-                      <Text
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          margin: 0,
-                        }}
-                      >
-                        {ModuleDescription}
-                      </Text>
+                      <p className="menu_desc">
+                        <Text
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginTop: -20,
+                          }}
+                        >
+                          {ModuleDescription}
+                        </Text>
+                      </p>
                     </Card>
                   </Col>
                 ))}

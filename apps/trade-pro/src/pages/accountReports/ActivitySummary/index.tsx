@@ -124,10 +124,10 @@ const ActivitySummaryReport: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; 
           style={{ display: 'flex', alignItems: 'center', alignContent: 'center', margin: '16px' }}
         >
           <h1 style={{ fontFamily: 'Poppins', fontSize: '19px', padding: '10px' }}>{t('acctivity_summary')}</h1>
-          <span style={{ position: 'relative', left: '115%' }}>
+          {/* <span style={{ position: 'relative', left: '115%' }}>
             {' '}
             <b> {t('activity')}</b> &#9654; {t('summary')}
-          </span>
+          </span> */}
         </Col>
       </Row>
       <Row justify={'space-around'}>

@@ -27,15 +27,14 @@ const AccountDashboardCards: React.FC<{ Data: any; FromdateProp?: Date; TodatePr
   return (
     <div>
       <Row gutter={[16, 16]} justify={'space-between'}>
-        <Col xxl={24} xs={24} sm={24} md={24} lg={23} xl={20}>
+        <Col xxl={24} xs={24} sm={24} md={24} lg={22} xl={20}>
           <div className="card-main-container">
             <Row gutter={[16, 16]} justify="center">
               {Data?.map((card: any, index: number) => (
-                <Col xxl={7} xs={22} sm={22} md={11} lg={11} xl={11} key={index}>
+                <Col xxl={7} xs={22} sm={22} md={11} lg={10} xl={8} key={index}>
                   <Card
                     hoverable
                     className="card-container"
-                    cover={<></>}
                     style={{
                       border: `1px solid ${colorPrimary}`,
                     }}
@@ -66,11 +65,11 @@ const AccountDashboardCards: React.FC<{ Data: any; FromdateProp?: Date; TodatePr
                           <p> {numberFormatter(card.Opening)}</p>
                         </Col>
                         <Col className="card-content">
-                          <p> {t('current_credit')}</p>
+                          <p> {t('current_dr')}</p>
                           <p> {numberFormatter(card.CurrDr)}</p>
                         </Col>
                         <Col className="card-content">
-                          <p> {t('current_debit')}</p>
+                          <p> {t('current_cr')}</p>
                           <p> {numberFormatter(card.CurrCr)}</p>
                         </Col>
                         <Col className="card-content">

@@ -629,5 +629,8 @@
   "freight_amount": "مال برداری کی رقم",
   "source_location": "ماخذ کا مقام",
   "destination_location": "منزل کا مقام",
-  "available_qty": "دستیاب مقدار"
+  "available_qty": "دستیاب مقدار",
+  "accounts_dashboards": "اکاؤنٹس ڈیش بورڈ",
+  "current_cr": "موجودہ جمع",
+  "current_dr": "موجودہ ڈیبٹ"
 }
