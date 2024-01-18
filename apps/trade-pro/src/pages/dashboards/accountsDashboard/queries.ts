@@ -32,11 +32,13 @@ export const useGetAccountDashboardData = (enabled = true, ActivityId: number, p
         CompanyIds: userDetail?.IsHeadOffice
           ? params.CompanyIds !== undefined && params.CompanyIds !== null
             ? params.CompanyIds?.toString()
-            : ''
+            : '2'
           : userDetail?.CompanyId.toString(),
-        FromDate: params.FromDate ,
-        ToDate: params.ToDate,
+        FromDate: new Date(),
+        ToDate: new Date(),
+        DateType:'1',
         ReqType: params.ReqType !== undefined && params.ReqType !== null ? params.ReqType : '',
+        ...params,
       });
     },
     { enabled }

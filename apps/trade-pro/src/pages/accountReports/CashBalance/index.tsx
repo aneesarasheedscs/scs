@@ -109,57 +109,57 @@ const CashBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId
 
   return (
     <div className="cash-balances-container-cash">
-      <Row gutter={[16, 16]}>
-        <Col xs={24} md={12} lg={8} style={{ marginLeft: '15px', padding: '10px' }}>
-          <Text className="breadcrumbs">{t('account_reports')}</Text>
-          <Text className="breadcrumbs">{'>'}</Text>
-          <Text className="breadcrumbs" strong>
-            {t('cash_balances')}
-          </Text>
+      <Row>
+        <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16} className="forms-heading-container">
+          <h1 style={{ fontFamily: 'Poppins', fontSize: '19px', padding: '10px' }}>{t('cash_balances')}</h1>
         </Col>
       </Row>
-      <Row gutter={[16, 16]} justify={'space-around'}>
-        <Col xs={23} md={24} lg={24} xxl={23}>
-          <Card className="">
-            <Form form={form} onFinish={onFinish}>
-              <Row gutter={[16, 16]} justify={'space-around'}>
-                <Col xxl={6} xl={7} xs={24} sm={24} className="formfield form-container">
-                  <AntSelectDynamic
-                    bordered={false}
-                    label={t('date_type')}
-                    name="DateType"
-                    fieldLabel="DateType"
-                    fieldValue="Id"
-                    defaultValue={FromDateProp !== undefined ? undefined : '5'}
-                    query={useGetDateType}
-                    onChange={(value) => handleDateChange(value)}
-                  />
-                </Col>
-                <Col xxl={5} xl={6} xs={24} sm={12} className="formfield form-container">
-                  <AntDatePicker name="FromDate" bordered={false} label={t('from_date')} />
-                </Col>
-                <Col xxl={5} xl={5} xs={24} sm={11} className="formfield form-container">
-                  <AntDatePicker name="ToDate" bordered={false} label={t('to_date')} />
-                </Col>
+      <Col xxl={23} style={{ marginLeft: '40px' }}>
+        <Row gutter={[16, 16]} justify={'space-around'}>
+          <Col xs={23} md={24} lg={24} xxl={23}>
+            <Card className="">
+              <Form form={form} onFinish={onFinish}>
+                <Col xxl={16}>
+                  <Row gutter={[16, 16]} justify={'space-between'}>
+                    <Col xxl={7} xl={7} xs={24} sm={24} className="formfield form-container">
+                      <AntSelectDynamic
+                        bordered={false}
+                        label={t('date_type')}
+                        name="DateType"
+                        fieldLabel="DateType"
+                        fieldValue="Id"
+                        defaultValue={FromDateProp !== undefined ? undefined : '5'}
+                        query={useGetDateType}
+                        onChange={(value) => handleDateChange(value)}
+                      />
+                    </Col>
+                    <Col xxl={6} xl={6} xs={24} sm={12} className="formfield form-container">
+                      <AntDatePicker name="FromDate" bordered={false} label={t('from_date')} />
+                    </Col>
+                    <Col xxl={6} xl={5} xs={24} sm={11} className="formfield form-container">
+                      <AntDatePicker name="ToDate" bordered={false} label={t('to_date')} />
+                    </Col>
 
-                <Col xxl={2} xl={3} xs={12} sm={8} className="btn-margin-top">
-                  <AntButton label={t('show')} htmlType="submit" isError={isError} isLoading={isLoading} />
+                    <Col xxl={3} xl={3} xs={12} sm={8} className="btn-margin-top">
+                      <AntButton label={t('show')} htmlType="submit" isError={isError} isLoading={isLoading} />
+                    </Col>
+                  </Row>
                 </Col>
-              </Row>
-            </Form>
-          </Card>
-        </Col>
-      </Row>
+              </Form>
+            </Card>
+          </Col>
+        </Row>
 
-      <CashReceiptPaymentTables
-        PaymentReceiptData={Cash_ReceiptPayment?.data?.Data?.Result}
-        SummaryData={CashSummaryData?.data?.Data?.Result}
-        IsSummaryError={isSummaryError}
-        IsSummaryLoading={isSummaryLoading}
-        IsCashPaymentError={isError}
-        IsCashPaymentLoading={isLoading}
-        handleAccountCodeClick={handleAccountCodeClick}
-      />
+        <CashReceiptPaymentTables
+          PaymentReceiptData={Cash_ReceiptPayment?.data?.Data?.Result}
+          SummaryData={CashSummaryData?.data?.Data?.Result}
+          IsSummaryError={isSummaryError}
+          IsSummaryLoading={isSummaryLoading}
+          IsCashPaymentError={isError}
+          IsCashPaymentLoading={isLoading}
+          handleAccountCodeClick={handleAccountCodeClick}
+        />
+      </Col>
 
       <Modal
         width={1800}

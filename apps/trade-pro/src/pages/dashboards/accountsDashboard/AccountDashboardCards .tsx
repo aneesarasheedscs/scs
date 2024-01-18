@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Col, Row, Typography, Card, Modal, theme } from 'antd';
-import { ArrowRightOutlined, SmileOutlined, HeartOutlined, LikeOutlined, ExportOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined } from '@ant-design/icons';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { useTranslation } from 'react-i18next';
 import ActivitySummaryReport from '@tradePro/pages/accountReports/ActivitySummary';
@@ -105,6 +105,7 @@ const AccountDashboardCards: React.FC<{ Data: any; FromdateProp?: Date; TodatePr
       {UserDetail?.IsHeadOffice == false && (
         <Modal
           width={1700}
+          // width={selectedCardData?.SortingNo === 1? 1620 :1700}
           key={selectedCardData?.Id}
           open={selectedCardData !== undefined}
           onCancel={() => setSelectedCardData(undefined)}

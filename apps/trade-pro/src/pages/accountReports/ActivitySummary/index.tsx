@@ -29,6 +29,11 @@ const ActivitySummaryReport: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; 
 
   const [SelectedAccount, setSelectedAccount] = useState<number | undefined>(undefined);
 
+  const [isInputFocused, setIsInputFocused] = useState(false);
+  const [isInputFocusedFromDate, setIsInputFocusedFromDate] = useState(false);
+  const [isInputFocusedToDate, setIsInputFocusedToDate] = useState(false);
+  const [isInputFocusedCompanyName, setIsInputFocusedCompanyName] = useState(false);
+
   useEffect(() => {
     if (FromDateProp !== undefined && ToDateProp !== undefined) {
       form.setFieldValue('FromDate', dayjs(FromDateProp));
@@ -44,6 +49,7 @@ const ActivitySummaryReport: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; 
     ToDate: ToDateProp,
     ApprovedFilter: '',
     IsApproved: true,
+    // DateType:''
   });
 
   const {
@@ -101,7 +107,44 @@ const ActivitySummaryReport: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; 
     }
     setFieldValue('FromDate', dayjs(fromDate));
     setFieldValue('ToDate', dayjs(toDate));
+    setIsInputFocused(true);
   };
+
+  //handle form float label
+  const handleFromDateChange = () => {
+    setIsInputFocusedFromDate(true);
+  };
+  const handleToDateChange = () => {
+    setIsInputFocusedToDate(true);
+  };
+
+  const DateType = form.getFieldValue('DateType');
+  const FromDateSelect = form.getFieldValue('FromDate');
+  const ToDateSelect = form.getFieldValue('ToDate');
+  const CompanyNameSelect = form.getFieldValue('CompanyIds');
+
+  useEffect(() => {
+    if (!DateType) {
+      setIsInputFocused(false);
+    } else {
+      setIsInputFocused(true);
+    }
+    if (!FromDateSelect) {
+      setIsInputFocusedFromDate(false);
+    } else {
+      setIsInputFocusedFromDate(true);
+    }
+    if (!ToDateSelect) {
+      setIsInputFocusedToDate(false);
+    } else {
+      setIsInputFocusedToDate(true);
+    }
+    if (!CompanyNameSelect) {
+      setIsInputFocusedCompanyName(true);
+    } else {
+      setIsInputFocusedCompanyName(false);
+    }
+  }, [!DateType, !FromDateSelect, !ToDateSelect]);
 
   const onChangeUnPost = (e: CheckboxChangeEvent) => {
     if (e.target.checked) {
@@ -114,15 +157,7 @@ const ActivitySummaryReport: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; 
   return (
     <div style={{ backgroundColor: '#fff' }}>
       <Row>
-        <Col
-          xs={10}
-          sm={10}
-          md={12}
-          lg={12}
-          xl={14}
-          xxl={16}
-          style={{ display: 'flex', alignItems: 'center', alignContent: 'center', margin: '16px' }}
-        >
+        <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16} className="forms-heading-container">
           <h1 style={{ fontFamily: 'Poppins', fontSize: '19px', padding: '10px' }}>{t('acctivity_summary')}</h1>
           {/* <span style={{ position: 'relative', left: '115%' }}>
             {' '}
@@ -130,55 +165,74 @@ const ActivitySummaryReport: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; 
           </span> */}
         </Col>
       </Row>
+      {/* <Col xxl={24}> */}
       <Row justify={'space-around'}>
-        <Col xxl={23} xl={23} sm={23} xs={23} lg={23}>
+        <Col xxl={24} xl={23} sm={23} xs={23} lg={23}>
           <Card>
             <Form
               form={form}
               initialValues={FromDateProp === undefined && ToDateProp === undefined ? { FromDate, ToDate } : undefined}
               onFinish={onFinish}
             >
-              {/* <Row gutter={[24, { xs: 8, sm: 16, md: 24, lg: 32 }]} justify={'start'}> */}
-              <Row gutter={[16, 16]} justify={'space-around'}>
-                <Col xxl={5} xl={8} xs={24} sm={24} md={9} lg={23} className="formfield form-container">
-                  <AntSelectDynamic
-                    bordered={false}
-                    fieldValue="Id"
-                    fieldLabel="DateType"
-                    defaultValue={FromDateProp !== undefined ? undefined : '5'}
-                    label={t('date_type')}
-                    query={useGetDateTypes}
-                    onSelectChange={(obj) => handleDateChange(obj.Id)}
-                    name="DateType"
-                  />
-                </Col>
-                <Col xxl={5} xl={6} xs={12} md={6} lg={12} className="formfield form-container">
-                  <AntDatePicker name="FromDate" bordered={false} label={t('from_date')} />
-                </Col>
-                <Col xxl={5} xl={6} xs={11} md={6} lg={11} className="formfield form-container">
-                  <AntDatePicker name="ToDate" bordered={false} label={t('to_date')} />
-                </Col>
-                <Col xxl={5} xl={8} xs={24} sm={12} lg={12} className="form-container">
-                  <Form.Item name="ApprovedFilter">
-                    <Checkbox onChange={onChangeUnPost}>{t('include_unposted_vochers')}</Checkbox>
-                  </Form.Item>
-                </Col>
-                <Col xxl={2} xl={4} sm={6} className="btn-margin-top">
-                  <AntButton
-                    label={t('show')}
-                    htmlType="submit"
-                    isError={isActivitySummaryError}
-                    isLoading={isActivitySummaryLoading || isFetching}
-                  />
-                </Col>
-              </Row>
+              {/* <Row justify={'space-around'}>
+        <Col xxl={23} xs={23} sm={23} md={23} lg={23} xl={23}> */}
+
+              <Col xxl={23}>
+                <Row gutter={[16, 16]} justify={'space-between'}>
+                  <Col xxl={5} xl={8} xs={24} sm={24} md={9} lg={6} className="formfield form-container">
+                    <p className={isInputFocused ? 'focused-label' : 'focused2'}>{t('date_type')}</p>
+
+                    <AntSelectDynamic
+                      className={isInputFocused ? 'focused2' : 'focused'}
+                      bordered={false}
+                      fieldValue="Id"
+                      fieldLabel="DateType"
+                      defaultValue={FromDateProp !== undefined ? undefined : '5'}
+                      label={t('')}
+                      query={useGetDateTypes}
+                      onSelectChange={(obj) => handleDateChange(obj.Id)}
+                      name="DateType"
+                    />
+                  </Col>
+                  <Col xxl={5} xl={6} xs={12} md={6} lg={6} className="formfield form-container">
+                    <AntDatePicker
+                      name="FromDate"
+                      bordered={false}
+                      label={t('from_date')}
+                      onChange={() => handleFromDateChange()}
+                    />
+                  </Col>
+                  <Col xxl={5} xl={6} xs={11} md={6} lg={5} className="formfield form-container">
+                    <AntDatePicker
+                      name="ToDate"
+                      bordered={false}
+                      label={t('to_date')}
+                      onChange={() => handleToDateChange()}
+                    />
+                  </Col>
+                  <Col xxl={5} xl={8} xs={24} sm={12} lg={5} className="form-container btn-margin-top">
+                    <Form.Item name="ApprovedFilter">
+                      <Checkbox onChange={onChangeUnPost}>{t('include_unposted_vochers')}</Checkbox>
+                    </Form.Item>
+                  </Col>
+                  <Col xxl={2} xl={4} sm={6} lg={4} className="btn-margin-top">
+                    <AntButton
+                      label={t('show')}
+                      htmlType="submit"
+                      isError={isActivitySummaryError}
+                      isLoading={isActivitySummaryLoading || isFetching}
+                    />
+                  </Col>
+                </Row>
+              </Col>
             </Form>
           </Card>
         </Col>
       </Row>
+      {/* </Col> */}
 
       <div className="summary-table-container">
-        <Row gutter={[16, 16]}>
+        <Row gutter={[16, 16]} justify={'center'}>
           <Col xs={23} md={23} xxl={24} xl={23} lg={23} className="">
             <AntTable
               rowKey={'AccountId'}
@@ -186,7 +240,7 @@ const ActivitySummaryReport: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; 
               data={ActivitySummary?.data?.Data?.Result || []}
               isError={isActivitySummaryError}
               isLoading={isActivitySummaryLoading}
-              scroll={{ y: convertVhToPixels('50vh') }}
+              scroll={{ y: convertVhToPixels('35vh') }}
             />
           </Col>
         </Row>

@@ -130,9 +130,9 @@ export default function MenuDashboard() {
   ];
 
   return (
-    <div>
-      <Row gutter={[16, 16]}>
-        <Col xxl={24} xs={23}>
+    <>
+      <Row gutter={[24, 24]} >
+        <Col>
           <Row
             gutter={[10, 10]}
             style={{
@@ -156,7 +156,7 @@ export default function MenuDashboard() {
                   <Col xxl={13} xl={10} md={5} className="module-heading">
                     <h2>{t('app_modules')}</h2>
                   </Col>
-                  <Row gutter={[16, 16]} justify={'space-evenly'}>
+                  {/* <Row gutter={[16, 16]} justify={'space-evenly'}>
                     <Col xxl={7} xl={11} className="">
                       <AntButton className="btn-hover color-9" label={t('module_wise')} />
                     </Col>
@@ -167,7 +167,7 @@ export default function MenuDashboard() {
                         style={{ textDecoration: 'none', border: '1px solid #fff' }}
                       />
                     </Col>
-                  </Row>
+                  </Row> */}
 
                   <Col xxl={4} xl={6} className="menu-search-bar">
                     <p className="searchBarSize">
@@ -302,6 +302,6 @@ export default function MenuDashboard() {
         </Col>
       </Row>
       {/* <h1 style={{textAlign:'center',fontSize:'35px'}}> ∈ccountBook <sup>Cloud ERP</sup></h1> */}
-    </div>
+    </>
   );
 }

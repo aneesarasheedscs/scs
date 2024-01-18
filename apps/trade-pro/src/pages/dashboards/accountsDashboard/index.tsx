@@ -70,6 +70,8 @@ const AccountDashboard: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; Compa
     setFieldValue('ToDate', dayjs(toDate));
     setIsInputFocused(true);
   };
+
+  //handle form float label
   const handleFromDateChange = () => {
     setIsInputFocusedFromDate(true);
   };
@@ -91,32 +93,36 @@ const AccountDashboard: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; Compa
       form.setFieldValue('FromDate', dayjs(FromDateProp));
       form.setFieldValue('ToDate', dayjs(ToDateProp));
     } else {
-      setFieldValue('FromDate', FromDate);
-      setFieldValue('ToDate', ToDate);
+      setFieldValue('FromDate', dayjs(new Date()));
+      setFieldValue('ToDate', dayjs(new Date()));
+      setFieldValue('DateType', '1');
+      // setFieldValue('FromDate', FromDate);
+      // setFieldValue('ToDate', ToDate);
     }
+  }, [form]);
 
+  useEffect(() => {
     if (!DateType) {
+      setIsInputFocused(false);
+    } else {
       setIsInputFocused(true);
     }
     if (!FromDateSelect) {
+      setIsInputFocusedFromDate(false);
+    } else {
       setIsInputFocusedFromDate(true);
     }
     if (!ToDateSelect) {
+      setIsInputFocusedToDate(false);
+    } else {
       setIsInputFocusedToDate(true);
     }
     if (!CompanyNameSelect) {
       setIsInputFocusedCompanyName(true);
+    } else {
+      setIsInputFocusedCompanyName(false);
     }
-  }, [form, !DateType, !FromDateSelect, !ToDateSelect, !CompanyNameSelect]);
-
-  const formHeading = {
-    fontFamily: 'Times New Roman',
-    // borderRadius: '5px',
-    // padding: '5px',
-    // boxShadow: '2px 4px 12px 1px lightgray',
-    marginBottom: '7px',
-    fontSize: '1.8rem',
-  };
+  }, [!DateType, !FromDateSelect, !ToDateSelect, !CompanyNameSelect]);
 
   return (
     <div style={{ backgroundColor: '#fff' }}>
@@ -128,7 +134,8 @@ const AccountDashboard: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; Compa
           lg={12}
           xl={14}
           xxl={16}
-          style={{ display: 'flex', alignItems: 'center', alignContent: 'center', margin: '16px' }}
+          className='forms-heading-container'
+       
         >
           <h1 style={{ fontFamily: 'Poppins', fontSize: '19px', padding: '10px' }}>{t('accounts_dashboard')}</h1>
         </Col>
@@ -139,8 +146,9 @@ const AccountDashboard: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; Compa
           <p className="media-query-forCard">
             <Card>
               <Form form={form} onFinish={onFinish}>
-                <Row gutter={16} justify={'space-between'}>
-                  <Col xl={8} xs={24} sm={23} md={8} lg={8} xxl={4} className="formfield form-container">
+           <Col xxl={20}>
+           <Row gutter={16} justify={'space-between'} >
+                  <Col xl={8} xs={24} sm={23} md={8} lg={8} xxl={5} className="formfield form-container">
                     <p className={isInputFocused ? 'focused-label' : 'focused2'}>{t('date_type')}</p>
                     <AntSelectDynamic
                       className={isInputFocused ? 'focused2' : 'focused'}
@@ -178,13 +186,13 @@ const AccountDashboard: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; Compa
                   <Col xl={11} xs={24} sm={20} md={15} lg={14} xxl={6} className="formfield form-container">
                     <p className={isInputFocusedCompanyName ? 'focused-label' : 'focused2'}>{t('companyName')}</p>
                     <AntSelectDynamic
+                      name="CompanyIds"
                       bordered={false}
                       mode={UserDetail?.IsHeadOffice ? 'multiple' : undefined}
                       disabled={UserDetail?.IsHeadOffice === false}
                       defaultValue={UserDetail?.IsHeadOffice == false ? UserDetail?.CompanyId : undefined}
                       // label={t('companyName')}
                       label={t('')}
-                      name="CompanyIds"
                       fieldLabel="CompName"
                       fieldValue="Id"
                       query={useGetCompanies}
@@ -193,24 +201,23 @@ const AccountDashboard: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; Compa
                     />
                   </Col>
 
-                  <Col xl={2} xs={6} sm={4} md={3} lg={4} xxl={2} className="btn-margin-top">
+                  <Col xl={3} xs={6} sm={4} md={3} lg={4} xxl={2} className="btn-margin-top" >
                     <AntButton label={t('show')} htmlType="submit" isError={isError} isLoading={isLoading} />
                   </Col>
-                  <Col xs={24} sm={12} md={12} lg={4} xl={2} className="btn-margin-top">
+                  {/* <Col xs={24} sm={12} md={12} lg={4} xl={2} className="btn-margin-top">
                     <AntButton
                       danger
                       ghost
-                      htmlType="reset"
-                      // onClick={() => {
-                      // form.resetFields();
-                      //   // setSelectedRows([]);
-                      //   // setIsInputFocusedFromDate(false);
-                      // }}
+                      // htmlType="reset"
+                      onClick={() => {
+                        handleReset();
+                      }}
                       label={t('reset')}
                       icon={<SyncOutlined />}
                     />
-                  </Col>
+                  </Col> */}
                 </Row>
+           </Col>
               </Form>
             </Card>
           </p>

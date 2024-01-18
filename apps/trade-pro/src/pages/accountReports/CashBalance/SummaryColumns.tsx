@@ -8,15 +8,15 @@ export const CashBalancesSummaryCash = (
   t: any,
   handleAccountCodeClick: any
 ): AntColumnType<TCashAndBankBalancesSummary>[] => [
+  // {
+  //   title: t('sr#'),
+  //   dataIndex: '',
+  //   width: 150,
+  //   fixed: 'left',
+  //   render: (_, __, index) => index + 1,
+  // },
   {
-    title: t('sr#'),
-    dataIndex: '',
-    width: 150,
-    fixed: 'left',
-    render: (_, __, index) => index + 1,
-  },
-  {
-    width: 150,
+    width: 180,
     title: t('account_code'),
     dataIndex: 'AccountCode',
     render: (_, { AccountCode, AccountId }) => (
@@ -26,7 +26,7 @@ export const CashBalancesSummaryCash = (
     ),
   },
   {
-    width: 150,
+    width: 250,
     title: t('account_title'),
     searchableDate: true,
     dataIndex: 'AccountTitle',
@@ -74,35 +74,35 @@ export const CashBalancesSummaryCash = (
       <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(Closing)}</Space>
     ),
   },
-  {
-    title: t('action'),
-    dataIndex: '',
-    render: (_, record) => (
-      <Space>
-        <Tooltip title="Approve">
-          <CheckSquareFilled
-            style={{
-              fontSize: 18,
-              cursor: 'pointer',
-              color: '#5A54F9',
-              boxShadow:
-                'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset',
-            }}
-          />
-        </Tooltip>
-        <Tooltip title="Voucher-Slip">
-          <PrinterFilled
-            style={{
-              fontSize: 18,
-              cursor: 'pointer',
-              color: '#F37DAA',
-              boxShadow:
-                'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset',
-            }}
-          />
-        </Tooltip>
-      </Space>
-    ),
-    width: 100,
-  },
+  // {
+  //   title: t('action'),
+  //   dataIndex: '',
+  //   render: (_, record) => (
+  //     <Space>
+  //       <Tooltip title="Approve">
+  //         <CheckSquareFilled
+  //           style={{
+  //             fontSize: 18,
+  //             cursor: 'pointer',
+  //             color: '#5A54F9',
+  //             boxShadow:
+  //               'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset',
+  //           }}
+  //         />
+  //       </Tooltip>
+  //       <Tooltip title="Voucher-Slip">
+  //         <PrinterFilled
+  //           style={{
+  //             fontSize: 18,
+  //             cursor: 'pointer',
+  //             color: '#F37DAA',
+  //             boxShadow:
+  //               'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset',
+  //           }}
+  //         />
+  //       </Tooltip>
+  //     </Space>
+  //   ),
+  //   width: 100,
+  // },
 ];
