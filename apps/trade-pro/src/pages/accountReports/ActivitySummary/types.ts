@@ -1,6 +1,6 @@
 export type TActivitySummary = {
   AccountId: number;
-  AccountCode: number;
+  AccountCode: number ;
   AccountTitle: string;
   Opening: number;
   Closing: number;
@@ -13,4 +13,5 @@ export type Tfilter = {
   ToDate?: Date;
   ApprovedFilter: string;
   IsApproved: boolean;
+  // DateType:string
 };

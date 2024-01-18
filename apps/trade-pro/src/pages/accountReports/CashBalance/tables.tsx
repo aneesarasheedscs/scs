@@ -54,8 +54,8 @@ const CashReceiptPaymentTables: React.FC<{
 
   return (
     <>
-      <Col xl={22} style={{ marginLeft: '3%' }}>
-        <Divider />
+      <Col xl={22} style={{ marginLeft: '3%', marginBottom: '0.5%' }}>
+        {/* <Divider /> */}
       </Col>
       <Row gutter={[24, 24]}>
         <Col xl={23} xs={23} md={24} style={{ marginLeft: '2%' }}>
@@ -73,7 +73,7 @@ const CashReceiptPaymentTables: React.FC<{
 
       <Row gutter={[24, 24]} justify={'space-between'} style={{ marginLeft: 20, width: '97%' }}>
         <Col xl={12} xs={23} md={12} className="">
-          <Title className="section-title" level={3}>
+          <Title className="section-title" level={4}>
             {t('cash_receipt')}
           </Title>
 
@@ -86,7 +86,7 @@ const CashReceiptPaymentTables: React.FC<{
           />
         </Col>
         <Col xl={12} xs={23} md={12} className="">
-          <Title className="section-title" level={3}>
+          <Title className="section-title" level={4}>
             {t('cash_payment')}
           </Title>
           <AntTable
@@ -94,7 +94,7 @@ const CashReceiptPaymentTables: React.FC<{
             data={filteredTableData2 || []}
             isError={IsCashPaymentError}
             isLoading={IsCashPaymentLoading}
-            scroll={{ y: convertVhToPixels('38vh') }}
+            scroll={{ y: convertVhToPixels('34vh') }}
           />
         </Col>
       </Row>

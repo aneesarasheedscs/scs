@@ -131,8 +131,8 @@ export default function MenuDashboard() {
 
   return (
     <>
-      <Row gutter={[24, 24]} style={{}}>
-        <Col span={24}>
+      <Row gutter={[24, 24]}>
+        <Col>
           <Row
             gutter={[10, 10]}
             style={{
@@ -156,7 +156,7 @@ export default function MenuDashboard() {
                   <Col xxl={13} xl={10} md={5} className="module-heading">
                     <h2>{t('app_modules')}</h2>
                   </Col>
-                  <Row gutter={[16, 16]} justify={'space-evenly'}>
+                  {/* <Row gutter={[16, 16]} justify={'space-evenly'}>
                     <Col xxl={7} xl={11} className="">
                       <AntButton className="btn-hover color-9" label={t('module_wise')} />
                     </Col>
@@ -167,16 +167,11 @@ export default function MenuDashboard() {
                         style={{ textDecoration: 'none', border: '1px solid #fff' }}
                       />
                     </Col>
-                  </Row>
+                  </Row> */}
 
                   <Col xxl={4} xl={6} className="menu-search-bar">
                     <p className="searchBarSize">
-                      <Search
-                        className="searchBarSize"
-                        placeholder="search"
-                        onSearch={onSearch}
-                        style={{ width: 200 }}
-                      />
+                      <Search placeholder="search" onSearch={onSearch} style={{ width: 200 }} />
                     </p>
                   </Col>
                 </Col>
@@ -193,7 +188,6 @@ export default function MenuDashboard() {
                       style={{
                         border: `1px solid ${colorPrimary}`,
                       }}
-                      cover={<></>}
                     >
                       {' '}
                       <div
@@ -216,16 +210,18 @@ export default function MenuDashboard() {
                       >
                         {defaultIcons[index % defaultIcons.length]}
                       </div>
-                      <Text
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          margin: 0,
-                        }}
-                      >
-                        {ModuleDescription}
-                      </Text>
+                      <p className="menu_desc">
+                        <Text
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginTop: -20,
+                          }}
+                        >
+                          {ModuleDescription}
+                        </Text>
+                      </p>
                     </Card>
                   </Col>
                 ))}

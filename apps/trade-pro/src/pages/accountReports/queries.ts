@@ -3,6 +3,7 @@ import { requestManager } from '@tradePro/configs/requestManager';
 import { Tfilter } from './ActivitySummary/types';
 import { TVoucherReportCriterias, TrialBalanceSearchCriteria } from './types';
 import { TAccountDashboardCriteria } from './CashBalance';
+import dayjs from 'dayjs'
 
 //Activity Summary
 export const useGetActivitySummary = (enabled = false, CompanyId?: number, params?: Tfilter) => {
@@ -17,6 +18,8 @@ export const useGetActivitySummary = (enabled = false, CompanyId?: number, param
         FinancialYearId: FinancialYear?.Id,
         IsApproved: params?.ApprovedFilter == 'All' ? false : true,
         ...params,
+        // FromDate:dayjs(new Date()),
+        // ToDate:dayjs(new Date())
       });
     },
     { enabled }
