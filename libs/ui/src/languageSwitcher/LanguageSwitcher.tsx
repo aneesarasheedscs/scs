@@ -34,8 +34,15 @@ export function LanguageSwitcher() {
     <Select
       size="large"
       value={language}
+      bordered={false}
       defaultValue={language}
-      style={{ width: '100%' }}
+      style={{
+        width: '100%',
+        borderLeft: '1px solid lightblue',
+        height: '70%',
+        top: '-3px',
+        left: '0px',
+      }}
       onChange={handleChangeLocale}
     >
       {map(languages, ({ value, label, flag }) => (

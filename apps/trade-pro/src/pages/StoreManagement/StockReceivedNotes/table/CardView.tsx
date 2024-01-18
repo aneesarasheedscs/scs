@@ -33,7 +33,7 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
   const [records, setRecords] = useState<TStockReceivedNoteHistory>();
   const [selectedCardData, setSelectedCardData] = useState<TStockReceivedNoteHistory>();
   console.log(selectedCardData);
-  const totalRecords = data?.data?.Data?.Result.length || 0;
+  const totalRecords = data?.data?.Data?.Result?.length || 0;
   const userDetail = storedUserDetail();
   const selectedRecordId = selectedCardData?.Id;
   console.log(selectedRecordId);

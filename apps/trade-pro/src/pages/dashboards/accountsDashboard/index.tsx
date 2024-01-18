@@ -75,9 +75,6 @@ const AccountDashboard: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; Compa
 
   const formHeading = {
     fontFamily: 'Times New Roman',
-    // borderRadius: '5px',
-    // padding: '5px',
-    // boxShadow: '2px 4px 12px 1px lightgray',
     marginBottom: '7px',
     fontSize: '1.8rem',
   };
@@ -91,7 +88,7 @@ const AccountDashboard: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; Compa
           md={24}
           lg={24}
           xl={24}
-          xxl={24}
+          xxl={23}
           style={{ display: 'flex', alignItems: 'center', alignContent: 'center', margin: '16px' }}
         >
           <p className="media-query-forHeading" style={formHeading}>
@@ -99,7 +96,6 @@ const AccountDashboard: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; Compa
           </p>
         </Col>
       </Row>
-
       <Row justify={'space-around'}>
         <Col xxl={23} xs={23} sm={23} md={23} lg={23} xl={23}>
           <p className="media-query-forCard">

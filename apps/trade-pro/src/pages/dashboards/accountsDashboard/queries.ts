@@ -37,6 +37,7 @@ export const useGetAccountDashboardData = (enabled = true, ActivityId: number, p
         FromDate: new Date(),
         ToDate: new Date(),
         ReqType: params.ReqType !== undefined && params.ReqType !== null ? params.ReqType : '',
+        ...params,
       });
     },
     { enabled }

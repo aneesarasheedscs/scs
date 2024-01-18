@@ -1,5 +1,6 @@
 .chartAccounts {
-  box-shadow: 0px 8px 32px 0 rgb(0, 0, 255, 0.33);
+  box-shadow: 2px 2px 12px 0px #99e0ff;
+
   backdrop-filter: blur(3px);
   width: auto;
   border-radius: 5px;
@@ -9,7 +10,7 @@
   transition: duration-700 ease-in-out;
 }
 .chartAccounts:hover {
-  box-shadow: 2px 2px 12px 0px rgba(0, 0, 232, 0.405);
+  box-shadow: 2px 8px 22px 1px #99e0ff;
 }
 .childTables0 {
   border: 1px ridge white;
