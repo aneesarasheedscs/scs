@@ -16,7 +16,7 @@ export const route = {
   CHART_ACCOUNT: '/define-chart-of-account',
   CHEQUE_BOOK_REGISTRATION: '/cheque-book-registration',
   ACCOUNT_ALLOCATION: '/Account-Allocation',
-  OPENING_BALANCE:'/opening-balance',
+  OPENING_BALANCE: '/opening-balance',
   //Account Transactions
   CASH_RECEIPT_VOUCHER: '/cash-receipt-voucher',
   BANK_RECEIPT_VOUCHER: '/bank-receipt-voucher',
@@ -68,6 +68,8 @@ export const route = {
   PURCHASE_ORDER_RETAIL_REGISTER: '/purchase-order-retail-register',
   GRN_RETAIL_REGISTER: '/grn-retail-register',
   PURCHASE_REPORT_ACTIVITY_WISE: '/purchase-report',
+  //All Reports
+  ALL_REPORTS: '/all_reports',
 
   //Stock Reports
   STOCK_REPORT_WITH_VALUE: '/stock-report-with-values-retail',

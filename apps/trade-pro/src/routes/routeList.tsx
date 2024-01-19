@@ -29,6 +29,8 @@ const AddTaxType = lazy(() => import('@tradePro/pages/Taxation/AddTaxType/form')
 const AddTaxSheduleScreen = lazy(() => import('@tradePro/pages/Taxation/AddTaxShedule/form'));
 const ItemTaxSheduleScreen = lazy(() => import('@tradePro/pages/Taxation/ItemTaxShedule/form'));
 
+const AllReports = lazy(() => import('@tradePro/pages/Reports'));
+
 // Store Management
 const StockTransfer = lazy(() => import('@tradePro/pages/StoreManagement/stockTransferWarehouseToWarehouse'));
 const StockTransferNoteDirect = lazy(() => import('@tradePro/pages/StoreManagement/StockTransferNoteDirect'));
@@ -209,6 +211,8 @@ export const protectedRoutes: RouteObject[] = [
   //Sale Trading
   { path: route.SALE_ORDER, element: <SaleOrder /> },
   { path: route.SALE_INVOICE_DIRECT, element: <SaleInvoiceDirect /> },
+  //ALL Reports
+  { path: route.ALL_REPORTS, element: <AllReports /> },
 
   //Sale Reports
   { path: route.SALE_ORDER_REGISTER, element: <SaleOrderRegisterTable /> },

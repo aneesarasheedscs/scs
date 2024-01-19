@@ -1,4 +1,4 @@
-import { Menu, Result } from 'antd';
+import { Menu, Result, Row } from 'antd';
 import { TSideMenu } from './types';
 import { useGetMenu } from './queries';
 import { groupBy, map, size } from 'lodash';
@@ -24,7 +24,7 @@ function SideMenu({ setCollapsed }: any) {
   const { data, isError, refetch, isSuccess, isLoading } = useGetMenu();
 
   const [list, setList] = useState<any[]>([]);
-
+  const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
   useEffect(() => {
     if (isSuccess) {
       const filteredReports = data?.data?.Data?.Result?.filter(
@@ -33,6 +33,7 @@ function SideMenu({ setCollapsed }: any) {
       setList(menuList(filteredReports));
     }
   }, [data, isSuccess]);
+  console.log(list);
   const defaultIcons = [
     // <DashboardOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />,
     <AccountBookOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />,
@@ -68,15 +69,16 @@ function SideMenu({ setCollapsed }: any) {
       </div>
     );
   }
+
   const menuList = (data: TSideMenu[]) => {
     if (size(data) > 0) {
       const groupedData = groupBy(data, (item) => `${item.ModuleID}-${item.ModuleDescription}`);
 
-      const additionalItem: TSideMenu = {
-        ModuleID: 0, // You may need to adjust the ID based on your data structure
-        ModuleDescription: 'Reports', // Adjust the description accordingly
-        ScreenAlias: 'Reports', // Adjust the alias accordingly
-        ModuleTypeId: 1, // Adjust the type accordingly
+      const additionalItem: TSideMenu | any = {
+        ModuleID: 0,
+        ModuleDescription: 'Reports',
+        ScreenAlias: 'Reports',
+        ModuleTypeId: 1,
       };
 
       return [
@@ -87,13 +89,12 @@ function SideMenu({ setCollapsed }: any) {
             ...firstItem,
           };
         }),
-        { children: [additionalItem], ...additionalItem },
+        { ...additionalItem },
       ];
     }
 
     return [];
   };
-
   // const menuList = (data: TSideMenu[]) => {
   //   if (size(data) > 0) {
   //     const groupedData = groupBy(data, (item) => `${item.ModuleID}-${item.ModuleDescription}`);
@@ -109,35 +110,48 @@ function SideMenu({ setCollapsed }: any) {
 
   //   return [];
   // };
+  const filteredList = list.filter((item) => item.ModuleDescription !== 'Reports');
 
   return (
     <>
       <Menu mode="inline" style={{ paddingTop: 10, height: '100%' }}>
-        {map(list, ({ ModuleDescription, children }: TSideMenu & { children: TSideMenu[] }, index: number) => (
+        {map(filteredList, ({ ModuleDescription, children }: TSideMenu & { children: TSideMenu[] }, index: number) => (
           <Menu.SubMenu
             key={index}
             title={
-              <h4 style={{ color: 'gray' }} onClick={() => setCollapsed(true)}>
-                {defaultIcons[index % defaultIcons.length]}
-                <span> &nbsp;{ModuleDescription}</span>
-              </h4>
+              <Row className="menus">
+                <h4 className="menu-item-title" style={{ color: 'gray' }} onClick={() => setCollapsed(true)}>
+                  {defaultIcons[index % defaultIcons.length]}
+                  <span> &nbsp;{ModuleDescription}</span>
+                </h4>
+              </Row>
             }
           >
             {map(children, ({ ScreenAlias }, i) => {
               const path = ScreenAlias?.toLowerCase()?.replace(/ /g, '-');
               return (
-                <Menu.Item key={i} className={path === pathname ? 'ant-menu-item-active ant-menu-item-selected' : ''}>
+                // <Menu.Item key={i} className={path === pathname ? 'ant-menu-item-active ant-menu-item-selected' : ''}>
+                <Menu.Item key={i} className={`menu-item ${path === pathname ? 'active' : ''}`}>
                   <Link to={path}>
-                    {' '}
                     <h5 style={{ color: 'gray', marginLeft: '0%' }}>
                       &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {ScreenAlias}
-                    </h5>{' '}
+                    </h5>
                   </Link>
                 </Menu.Item>
               );
             })}
           </Menu.SubMenu>
         ))}
+        {list.some((item) => item.ModuleDescription === 'Reports') && (
+          <Menu.Item key="reports" className="menu-item-title">
+            <Link to="/all_reports">
+              <h4 className="menu-item-heading" style={{ color: 'gray' }}>
+                <FileTextOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />
+                <span> &nbsp;Reports</span>
+              </h4>
+            </Link>
+          </Menu.Item>
+        )}
       </Menu>
     </>
   );
