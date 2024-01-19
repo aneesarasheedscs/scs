@@ -13,8 +13,10 @@ const { Title, Text } = Typography;
 const { useToken } = theme;
 const UserDetail = storedUserDetail();
 
-const BankBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId?: number }> = (props) => {
-  const { FromDateProp, ToDateProp, CompanyId } = props;
+const BankBalances: React.FC<{ DateType?: string; FromDateProp?: Date; ToDateProp?: Date; CompanyId?: number }> = (
+  props
+) => {
+  const { FromDateProp, ToDateProp, CompanyId, DateType } = props;
   const { t } = useTranslation();
   const [form] = useForm<TAccountDashboardCriteria>();
   const { setFieldValue, getFieldValue } = form;
@@ -30,11 +32,12 @@ const BankBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId
     if (FromDateProp !== undefined && ToDateProp !== undefined) {
       form.setFieldValue('FromDate', dayjs(FromDateProp));
       form.setFieldValue('ToDate', dayjs(ToDateProp));
+      form.setFieldValue('DateType', DateType);
     } else {
       setFieldValue('FromDate', FromDate);
       setFieldValue('ToDate', ToDate);
     }
-  }, []);
+  }, [form, DateType]);
 
   const {
     data: Bank_ReceiptPayment,
@@ -108,16 +111,12 @@ const BankBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId
 
   return (
     <div className="cash-balances-container-bank">
-      <Row gutter={[16, 16]}>
-        <Col xs={24} md={12} lg={8} style={{ marginLeft: 15, padding: 10 }}>
-          <Text className="breadcrumbss">{t('account_reports')}</Text>
-          <Text className="breadcrumbss">{'>'}</Text>
-          <Text className="breadcrumbss" strong>
-            {t('bank_balances')}
-          </Text>
+      <Row>
+        <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16} className="forms-heading-container">
+          <h1 style={{ fontFamily: 'Poppins', fontSize: '19px', padding: '10px' }}>{t('bank_balances')}</h1>
         </Col>
       </Row>
-      <Row gutter={[16, 16]} justify={'space-around'}>
+      {/* <Row gutter={[16, 16]} justify={'space-around'}>
         <Col xs={24} md={24} lg={24} xxl={23} xl={23} sm={23}>
           <Card className="">
             <Form form={form} onFinish={onFinish}>
@@ -147,16 +146,54 @@ const BankBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId
             </Form>
           </Card>
         </Col>
-      </Row>
-      <BankPaymentTables
-        PaymentReceiptData={Bank_ReceiptPayment?.data?.Data?.Result}
-        SummaryData={BankSummaryData?.data?.Data?.Result}
-        IsSummaryError={isSummaryError}
-        IsSummaryLoading={isSummaryLoading}
-        IsReceiptPaymentError={isError}
-        IsReceiptPaymentLoading={isLoading}
-        handleAccountCodeClick={handleAccountCodeClick}
-      />
+      </Row> */}
+      <Col style={{ overflowX: 'hidden' }}>
+        <Row gutter={[16, 16]} justify={'space-around'}>
+          <Col xs={23} md={24} lg={24} xxl={23}>
+            <Card className="">
+              <Form form={form} onFinish={onFinish}>
+                <Col xxl={16} xl={22} lg={24} md={24} sm={24}>
+                  <Row gutter={[16, 16]} justify={'space-between'}>
+                    <Col xxl={7} xl={6} lg={7} md={7} xs={24} sm={24} className="formfield form-container">
+                      <AntSelectDynamic
+                        bordered={false}
+                        label={t('date_type')}
+                        name="DateType"
+                        fieldLabel="DateType"
+                        fieldValue="Id"
+                        defaultValue={FromDateProp !== undefined ? undefined : '5'}
+                        query={useGetDateType}
+                        onChange={(value) => handleDateChange(value)}
+                      />
+                    </Col>
+                    <Col xxl={6} xl={6} lg={7} md={7} xs={24} sm={12} className="formfield form-container">
+                      <AntDatePicker name="FromDate" bordered={false} label={t('from_date')} />
+                    </Col>
+                    <Col xxl={6} xl={6} lg={6} md={6} xs={24} sm={11} className="formfield form-container">
+                      <AntDatePicker name="ToDate" bordered={false} label={t('to_date')} />
+                    </Col>
+
+                    <Col xxl={3} xl={3} lg={3} md={3} xs={12} sm={7} className="btn-margin-top">
+                      <AntButton label={t('show')} htmlType="submit" isError={isError} isLoading={isLoading} />
+                    </Col>
+                  </Row>
+                </Col>
+              </Form>
+            </Card>
+          </Col>
+        </Row>
+
+        <BankPaymentTables
+          PaymentReceiptData={Bank_ReceiptPayment?.data?.Data?.Result}
+          SummaryData={BankSummaryData?.data?.Data?.Result}
+          IsSummaryError={isSummaryError}
+          IsSummaryLoading={isSummaryLoading}
+          IsReceiptPaymentError={isError}
+          IsReceiptPaymentLoading={isLoading}
+          handleAccountCodeClick={handleAccountCodeClick}
+        />
+      </Col>
+
       <Modal
         width={1800}
         key={SelectedAccount}
@@ -184,4 +221,5 @@ export default BankBalances;
 export type TAccountDashboardCriteria = {
   FromDate?: Date;
   ToDate?: Date;
+  DateType?: string;
 };

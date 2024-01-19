@@ -127,16 +127,7 @@ const AccountDashboard: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; Compa
   return (
     <div style={{ backgroundColor: '#fff' }}>
       <Row>
-        <Col
-          xs={10}
-          sm={10}
-          md={12}
-          lg={12}
-          xl={14}
-          xxl={16}
-          className='forms-heading-container'
-       
-        >
+        <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16} className="forms-heading-container">
           <h1 style={{ fontFamily: 'Poppins', fontSize: '19px', padding: '10px' }}>{t('accounts_dashboard')}</h1>
         </Col>
       </Row>
@@ -144,67 +135,67 @@ const AccountDashboard: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; Compa
       <Row justify={'space-around'}>
         <Col xxl={23} xs={23} sm={23} md={23} lg={23} xl={23}>
           <p className="media-query-forCard">
-            <Card>
+            <Card style={{ marginTop: '-10px' }}>
               <Form form={form} onFinish={onFinish}>
-           <Col xxl={20}>
-           <Row gutter={16} justify={'space-between'} >
-                  <Col xl={8} xs={24} sm={23} md={8} lg={8} xxl={5} className="formfield form-container">
-                    <p className={isInputFocused ? 'focused-label' : 'focused2'}>{t('date_type')}</p>
-                    <AntSelectDynamic
-                      className={isInputFocused ? 'focused2' : 'focused'}
-                      bordered={false}
-                      label=""
-                      name="DateType"
-                      fieldLabel="DateType"
-                      fieldValue="Id"
-                      query={useGetDateType}
-                      onChange={(value) => handleDateChange(value)}
-                    />
-                  </Col>
-                  <Col xl={8} xs={24} sm={12} md={8} lg={8} xxl={4} className="formfield form-container">
-                    <p className={isInputFocusedFromDate ? 'focused-label' : 'focused2'}>{t('from_date')}</p>
-                    <AntDatePicker
-                      className={isInputFocusedFromDate ? 'focused2' : 'focused'}
-                      name="FromDate"
-                      bordered={false}
-                      label={t('')}
-                      placeholder=""
-                      onChange={() => handleFromDateChange()}
-                    />
-                  </Col>
-                  <Col xl={7} xs={24} sm={11} md={7} lg={7} xxl={4} className="formfield form-container">
-                    <p className={isInputFocusedToDate ? 'focused-label' : 'focused2'}>{t('to_date')}</p>
-                    <AntDatePicker
-                      className={isInputFocusedToDate ? 'focused2' : 'focused'}
-                      name="ToDate"
-                      bordered={false}
-                      label={t('')}
-                      placeholder=""
-                      onChange={() => handleToDateChange()}
-                    />
-                  </Col>
-                  <Col xl={11} xs={24} sm={20} md={15} lg={14} xxl={6} className="formfield form-container">
-                    <p className={isInputFocusedCompanyName ? 'focused-label' : 'focused2'}>{t('companyName')}</p>
-                    <AntSelectDynamic
-                      name="CompanyIds"
-                      bordered={false}
-                      mode={UserDetail?.IsHeadOffice ? 'multiple' : undefined}
-                      disabled={UserDetail?.IsHeadOffice === false}
-                      defaultValue={UserDetail?.IsHeadOffice == false ? UserDetail?.CompanyId : undefined}
-                      // label={t('companyName')}
-                      label={t('')}
-                      fieldLabel="CompName"
-                      fieldValue="Id"
-                      query={useGetCompanies}
-                      className={isInputFocusedCompanyName ? 'focused2' : 'focused'}
-                      onChange={() => handleCompanyNameChange()}
-                    />
-                  </Col>
+                <Col xxl={20}>
+                  <Row gutter={16} justify={'space-between'}>
+                    <Col xl={8} xs={24} sm={23} md={8} lg={8} xxl={5} className="formfield form-container">
+                      <p className={isInputFocused ? 'focused-label' : 'focused2'}>{t('date_type')}</p>
+                      <AntSelectDynamic
+                        className={isInputFocused ? 'focused2' : 'focused'}
+                        bordered={false}
+                        label=""
+                        name="DateType"
+                        fieldLabel="DateType"
+                        fieldValue="Id"
+                        query={useGetDateType}
+                        onChange={(value) => handleDateChange(value)}
+                      />
+                    </Col>
+                    <Col xl={8} xs={24} sm={12} md={8} lg={8} xxl={4} className="formfield form-container">
+                      <p className={isInputFocusedFromDate ? 'focused-label' : 'focused2'}>{t('from_date')}</p>
+                      <AntDatePicker
+                        className={isInputFocusedFromDate ? 'focused2' : 'focused'}
+                        name="FromDate"
+                        bordered={false}
+                        label={t('')}
+                        placeholder=""
+                        onChange={() => handleFromDateChange()}
+                      />
+                    </Col>
+                    <Col xl={7} xs={24} sm={11} md={7} lg={7} xxl={4} className="formfield form-container">
+                      <p className={isInputFocusedToDate ? 'focused-label' : 'focused2'}>{t('to_date')}</p>
+                      <AntDatePicker
+                        className={isInputFocusedToDate ? 'focused2' : 'focused'}
+                        name="ToDate"
+                        bordered={false}
+                        label={t('')}
+                        placeholder=""
+                        onChange={() => handleToDateChange()}
+                      />
+                    </Col>
+                    <Col xl={11} xs={24} sm={20} md={15} lg={14} xxl={6} className="formfield form-container">
+                      <p className={isInputFocusedCompanyName ? 'focused-label' : 'focused2'}>{t('companyName')}</p>
+                      <AntSelectDynamic
+                        name="CompanyIds"
+                        bordered={false}
+                        mode={UserDetail?.IsHeadOffice ? 'multiple' : undefined}
+                        disabled={UserDetail?.IsHeadOffice === false}
+                        defaultValue={UserDetail?.IsHeadOffice == false ? UserDetail?.CompanyId : undefined}
+                        // label={t('companyName')}
+                        label={t('')}
+                        fieldLabel="CompName"
+                        fieldValue="Id"
+                        query={useGetCompanies}
+                        className={isInputFocusedCompanyName ? 'focused2' : 'focused'}
+                        onChange={() => handleCompanyNameChange()}
+                      />
+                    </Col>
 
-                  <Col xl={3} xs={6} sm={4} md={3} lg={4} xxl={2} className="btn-margin-top" >
-                    <AntButton label={t('show')} htmlType="submit" isError={isError} isLoading={isLoading} />
-                  </Col>
-                  {/* <Col xs={24} sm={12} md={12} lg={4} xl={2} className="btn-margin-top">
+                    <Col xl={3} xs={6} sm={4} md={3} lg={4} xxl={2} className="btn-margin-top">
+                      <AntButton label={t('show')} htmlType="submit" isError={isError} isLoading={isLoading} />
+                    </Col>
+                    {/* <Col xs={24} sm={12} md={12} lg={4} xl={2} className="btn-margin-top">
                     <AntButton
                       danger
                       ghost
@@ -216,8 +207,8 @@ const AccountDashboard: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; Compa
                       icon={<SyncOutlined />}
                     />
                   </Col> */}
-                </Row>
-           </Col>
+                  </Row>
+                </Col>
               </Form>
             </Card>
           </p>
@@ -228,6 +219,7 @@ const AccountDashboard: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; Compa
         <Col xxl={24} sm={24} md={24}>
           <AccountDashboardCards
             Data={data?.data?.Data?.Result}
+            DateType={DateType}
             FromdateProp={getFieldValue('FromDate')}
             TodateProp={getFieldValue('ToDate')}
             Companies={form.getFieldValue('CompanyIds')?.toString()}
