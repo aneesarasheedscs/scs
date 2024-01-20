@@ -19,4 +19,16 @@ export type TSideMenu = {
   ModuleDescription: string;
   ModelMenuControllName: string;
   MenuControllName: null | string;
+  ScreenDescription: string;
+  RouteUrl: string;
+};
+
+export type TAddtoFavoriteScreens = {
+  ScreenName: string;
+  ScreenId: number;
+  ScreenTitle: string;
+  ScreenRoute: string;
+  TargetUrl: string;
+  ModuleTypeId: number;
+  ScreenDescription: string;
 };

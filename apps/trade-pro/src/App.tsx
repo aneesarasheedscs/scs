@@ -10,6 +10,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 
 function App() {
   const [colorPrimary] = useAtom(colorPrimaryAtom);
+  // const [colorSecondary] = useAtom(secondryPrimaryAtom);
 
   return (
     <AppTheme colorPrimary={colorPrimary}>

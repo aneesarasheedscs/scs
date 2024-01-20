@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import DocNumber from './DocNumber';
 import MainEntry from './MainEntry';
 import { AntButton, AntDatePicker } from '@tradePro/components';
-import { Card, Col, Form, Input, Row, notification } from 'antd';
+import { Badge, Card, Col, Form, Input, Row, notification, theme } from 'antd';
 import { SaveOutlined, SyncOutlined, RedoOutlined, PrinterFilled, PaperClipOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import DynamicForm from './DetailEntry';
@@ -188,11 +188,17 @@ function RequisitionOrderForm({
                       title="PrintPreview"
                       onClick={handleButtonClick}
                       icon={<PrinterFilled />}
-                      style={{ backgroundColor: printPreview ? 'lightgreen' : 'red' }}
+                      style={{ backgroundColor: printPreview ? '#21E298' : 'red' }}
                     />
                   </Col>
                   <Col>
-                    <AntButton title="Attachment" label={'(0)'} icon={<PaperClipOutlined />} />
+                    <Badge count={1}>
+                      <AntButton
+                        style={{ backgroundColor: '#FFAF0C' }}
+                        title="Attachment"
+                        icon={<PaperClipOutlined />}
+                      />
+                    </Badge>
                   </Col>
 
                   <Col>

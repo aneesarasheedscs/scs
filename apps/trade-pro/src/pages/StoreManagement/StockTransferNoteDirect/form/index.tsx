@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AntButton, AntDatePicker } from '@tradePro/components';
-import { Card, Col, Form, Input, Row } from 'antd';
+import { Badge, Card, Col, Form, Input, Row } from 'antd';
 import '../style.scss';
 import { SaveOutlined, SyncOutlined, PrinterFilled, PaperClipOutlined, RedoOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
@@ -119,7 +119,9 @@ function StockTransferNoteDirectForm({ selectedRecordId, setSelectedRecordId }: 
                   />
                 </Col>
                 <Col>
-                  <AntButton title="Attachment" label={'(0)'} icon={<PaperClipOutlined />} />
+                  <Badge count={'1'}>
+                    <AntButton style={{ backgroundColor: '#FFAF0C' }} title="Attachment" icon={<PaperClipOutlined />} />
+                  </Badge>{' '}
                 </Col>
 
                 <Col>

@@ -8,7 +8,7 @@ export const columns = (setSelectedRecordId?: any, t?: any): AntColumnType<TItem
   {
     title: t('code'),
     dataIndex: 'TypeCode',
-    width: 300,
+    width: 260,
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.TypeCode.localeCompare(b.TypeCode),
