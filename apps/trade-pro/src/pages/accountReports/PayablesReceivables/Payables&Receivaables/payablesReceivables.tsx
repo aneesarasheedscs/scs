@@ -172,10 +172,10 @@ const PayablesReceivables: React.FC<{
 
   return (
     <div className="cash-balances-container">
-      <Row gutter={[24, 24]}>
+      {/* <Row gutter={[24, 24]}>
         <Col xs={24} md={12} lg={8} xl={23} style={{ marginLeft: '15px', display: 'flex', alignItems: 'end' }}>
           <Text className="breadcrumb">{t('account_reports')}</Text>
-          <Text className="breadcrumb">{'>'}</Text>
+          <Text className="breadcrumb">{' >'}</Text>
           <div
             style={{
               flex: 1,
@@ -192,9 +192,9 @@ const PayablesReceivables: React.FC<{
             </Text>
           </div>
         </Col>
-      </Row>
+      </Row> */}
 
-      <Row style={{ marginTop: '20px', marginLeft: '10px' }}>
+      <Row style={{ marginTop: '1%', marginLeft: '10px' }}>
         <div>
           <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
             <Form name="basic" form={form} onFinish={onFinish} layout="inline">
@@ -326,13 +326,13 @@ const PayablesReceivables: React.FC<{
       />
 
       <Modal
-        width={1800}
+        width={1300}
         key={SelectedAccount}
         open={SelectedAccount !== undefined}
         onCancel={() => setSelectedAccount(undefined)}
         destroyOnClose={true}
         footer={null}
-        bodyStyle={{ maxHeight: '80vh', overflowY: 'auto' }}
+        bodyStyle={{ maxHeight: '80vh', overflowY: 'auto', paddingRight: '20px', marginRight: '20px' }}
       >
         <div style={{ maxHeight: '100%', overflowY: 'auto' }}>
           <GeneralLedgerReport

@@ -131,7 +131,7 @@ export default function MenuDashboard() {
 
   return (
     <>
-      <Row gutter={[24, 24]} style={{ width: '100%' }}>
+      <Row gutter={[24, 24]}>
         <Col span={24}>
           <Row
             gutter={[10, 10]}

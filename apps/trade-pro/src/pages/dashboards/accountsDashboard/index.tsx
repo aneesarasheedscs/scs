@@ -11,8 +11,6 @@ import './style.scss';
 import { useEffect, useState } from 'react';
 import { useAtom } from 'jotai';
 
-import { ArrowRightOutlined, SyncOutlined } from '@ant-design/icons';
-
 const { useForm, useWatch } = Form;
 const AccountDashboard: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId?: number }> = (props) => {
   const { FromDateProp, ToDateProp, CompanyId } = props;
@@ -134,11 +132,11 @@ const AccountDashboard: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; Compa
       <Row justify={'space-around'}>
         <Col xxl={23} xs={23} sm={23} md={23} lg={23} xl={23}>
           <p className="media-query-forCard">
-            <Card>
+            <Card style={{ marginTop: '-10px' }}>
               <Form form={form} onFinish={onFinish}>
-                <Col xxl={20}>
+                <Col xxl={16}>
                   <Row gutter={16} justify={'space-between'}>
-                    <Col xl={8} xs={24} sm={23} md={8} lg={8} xxl={5} className="formfield form-container">
+                    <Col xl={7} xs={24} sm={23} md={8} lg={8} xxl={4} className="formfield form-container">
                       <p className={isInputFocused ? 'focused-label' : 'focused2'}>{t('date_type')}</p>
                       <AntSelectDynamic
                         className={isInputFocused ? 'focused2' : 'focused'}
@@ -173,7 +171,7 @@ const AccountDashboard: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; Compa
                         onChange={() => handleToDateChange()}
                       />
                     </Col>
-                    <Col xl={11} xs={24} sm={20} md={15} lg={14} xxl={6} className="formfield form-container">
+                    <Col xl={11} xs={24} sm={20} md={15} lg={14} xxl={7} className="formfield form-container">
                       <p className={isInputFocusedCompanyName ? 'focused-label' : 'focused2'}>{t('companyName')}</p>
                       <AntSelectDynamic
                         name="CompanyIds"
@@ -191,7 +189,7 @@ const AccountDashboard: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; Compa
                       />
                     </Col>
 
-                    <Col xl={3} xs={6} sm={4} md={3} lg={4} xxl={2} className="btn-margin-top">
+                    <Col xl={3} xs={6} sm={4} md={3} lg={4} xxl={3} className="btn-margin-top">
                       <AntButton label={t('show')} htmlType="submit" isError={isError} isLoading={isLoading} />
                     </Col>
                     {/* <Col xs={24} sm={12} md={12} lg={4} xl={2} className="btn-margin-top">
@@ -218,6 +216,7 @@ const AccountDashboard: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; Compa
         <Col xxl={24} sm={24} md={24}>
           <AccountDashboardCards
             Data={data?.data?.Data?.Result}
+            DateType={DateType}
             FromdateProp={getFieldValue('FromDate')}
             TodateProp={getFieldValue('ToDate')}
             Companies={form.getFieldValue('CompanyIds')?.toString()}

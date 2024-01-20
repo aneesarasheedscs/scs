@@ -18,22 +18,24 @@ export const columnsCashBalance = (t: any): AntColumnType<TCashBalance>[] => [
   {
     title: t('date'),
     dataIndex: 'voucherdate',
-    width: 150,
+    width: 120,
     render: (_, { voucherdate }) => formateDate(voucherdate),
+  },
+
+  {
+    title: t('receive_from'),
+    dataIndex: 'OffsetAccountTitle',
+    width: 150,
   },
   {
     width: 150,
     title: t('amount'),
     showTotal: true,
+    fixed: 'right',
     dataIndex: 'DebitAmount',
     render: (DebitAmount, record) => (
       <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(DebitAmount)}</Space>
     ),
-  },
-  {
-    title: t('receive_from'),
-    dataIndex: 'OffsetAccountTitle',
-    width: 220,
   },
   {
     title: t('cash_account'),
@@ -50,7 +52,7 @@ export const columnsCashBalance = (t: any): AntColumnType<TCashBalance>[] => [
 
 export const columnsCashPayment = (t: any): AntColumnType<TCashPayment>[] => [
   {
-    width: 100,
+    width: 110,
     title: t('type'),
     searchableDate: true,
     dataIndex: 'DocumentTypeCode',
@@ -64,7 +66,7 @@ export const columnsCashPayment = (t: any): AntColumnType<TCashPayment>[] => [
   {
     title: t('date'),
     dataIndex: 'voucherdate',
-    width: 120,
+    width: 130,
     render: (_, { voucherdate }) => formateDate(voucherdate),
   },
 
@@ -76,7 +78,7 @@ export const columnsCashPayment = (t: any): AntColumnType<TCashPayment>[] => [
   {
     title: t('amount'),
     dataIndex: 'DebitAmount',
-    width: 140,
+    width: 110,
     showTotal: true,
     render: (DebitAmount, record) => {
       const numericDebitAmount = parseFloat(DebitAmount);

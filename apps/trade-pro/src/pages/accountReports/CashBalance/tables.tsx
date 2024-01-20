@@ -59,6 +59,9 @@ const CashReceiptPaymentTables: React.FC<{
       </Col>
       <Row gutter={[24, 24]}>
         <Col xl={23} xs={23} md={24} style={{ marginLeft: '2%' }}>
+          <Title className="section-title" level={4}>
+            {t('summary')}
+          </Title>
           <AntTable
             rowKey={'AccountId'}
             // rowSelection={rowSelection}

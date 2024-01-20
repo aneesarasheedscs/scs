@@ -18,8 +18,10 @@ const FinancialYear = storedFinancialYear();
 const FromDate = dayjs(FinancialYear?.Start_Period);
 const ToDate = dayjs(FinancialYear?.End_Period);
 
-const CashBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId?: number }> = (props) => {
-  const { FromDateProp, ToDateProp, CompanyId } = props;
+const CashBalances: React.FC<{ DateType?: string; FromDateProp?: Date; ToDateProp?: Date; CompanyId?: number }> = (
+  props
+) => {
+  const { FromDateProp, ToDateProp, CompanyId, DateType } = props;
   const { t } = useTranslation();
   const [form] = useForm<TAccountDashboardCriteria>();
   const formvalues = useWatch<TAccountDashboardCriteria>([], form);
@@ -29,12 +31,13 @@ const CashBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId
     if (FromDateProp !== undefined && ToDateProp !== undefined) {
       form.setFieldValue('FromDate', dayjs(FromDateProp));
       form.setFieldValue('ToDate', dayjs(ToDateProp));
+      form.setFieldValue('DateType', DateType);
     } else {
       setFieldValue('FromDate', FromDate);
       setFieldValue('ToDate', ToDate);
     }
-  }, []);
-
+  }, [form, DateType]);
+  console.log('DateType', DateType);
   const [formState, setformState] = useState<TAccountDashboardCriteria>({ FromDate: FromDateProp, ToDate: ToDateProp });
 
   const {
@@ -114,14 +117,14 @@ const CashBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId
           <h1 style={{ fontFamily: 'Poppins', fontSize: '19px', padding: '10px' }}>{t('cash_balances')}</h1>
         </Col>
       </Row>
-      <Col xxl={23} style={{ marginLeft: '40px' }}>
+      <Col style={{ overflowX: 'hidden' }}>
         <Row gutter={[16, 16]} justify={'space-around'}>
           <Col xs={23} md={24} lg={24} xxl={23}>
             <Card className="">
               <Form form={form} onFinish={onFinish}>
-                <Col xxl={16}>
+                <Col xxl={16} xl={22} lg={24} md={24} sm={24}>
                   <Row gutter={[16, 16]} justify={'space-between'}>
-                    <Col xxl={7} xl={7} xs={24} sm={24} className="formfield form-container">
+                    <Col xxl={7} xl={7} lg={9} md={10} xs={24} sm={24} className="formfield form-container">
                       <AntSelectDynamic
                         bordered={false}
                         label={t('date_type')}
@@ -133,14 +136,14 @@ const CashBalances: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId
                         onChange={(value) => handleDateChange(value)}
                       />
                     </Col>
-                    <Col xxl={6} xl={6} xs={24} sm={12} className="formfield form-container">
+                    <Col xxl={6} xl={6} lg={8} md={7} xs={24} sm={12} className="formfield form-container">
                       <AntDatePicker name="FromDate" bordered={false} label={t('from_date')} />
                     </Col>
-                    <Col xxl={6} xl={5} xs={24} sm={11} className="formfield form-container">
+                    <Col xxl={6} xl={6} lg={6} md={6} xs={24} sm={11} className="formfield form-container">
                       <AntDatePicker name="ToDate" bordered={false} label={t('to_date')} />
                     </Col>
 
-                    <Col xxl={3} xl={3} xs={12} sm={8} className="btn-margin-top">
+                    <Col xxl={3} xl={3} lg={3} md={3} xs={12} sm={7} className="btn-margin-top">
                       <AntButton label={t('show')} htmlType="submit" isError={isError} isLoading={isLoading} />
                     </Col>
                   </Row>
@@ -187,4 +190,5 @@ export default CashBalances;
 export type TAccountDashboardCriteria = {
   FromDate?: Date;
   ToDate?: Date;
+  DateType?: string;
 };

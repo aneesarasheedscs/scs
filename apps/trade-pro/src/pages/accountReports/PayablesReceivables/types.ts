@@ -5,6 +5,7 @@ export type Tpayables = {
   AccountTitle: string;
   Opening: number;
   Debit: number;
+  Credit:number;
   Closing: number;
   LastBillDate: Date;
   LastBillAmount: number;
@@ -14,6 +15,10 @@ export type Tpayables = {
   CityName: string;
   MobilePersonal: number;
   Title: string;
+  LastBillsAmount:number;
+  LastRcvdAmount:number;
+  RcvdDays:number;
+  
 };
 export type Treceivable = {
   AccountTitle3rd: string;
@@ -29,6 +34,10 @@ export type Treceivable = {
   CityName: string;
   MobilePersonal: number;
   Title: string;
+  lvl03_Title:string;
+  LastBillsAmount:number;
+  Credit:number;
+  LastRcvdAmount:number
 };
 
 export type TAddFollowUp = {

@@ -42,11 +42,14 @@ const BankPaymentTables: React.FC<{
 
   return (
     <>
-      <Col xl={22} xs={23} style={{ marginLeft: '3%' }}>
-        <Divider />
+      <Col xl={22} style={{ marginLeft: '3%', marginBottom: '0.5%' }}>
+        {/* <Divider /> */}
       </Col>
       <Row gutter={[24, 24]}>
         <Col xl={23} xs={23} md={24} className="" style={{ marginLeft: '2%' }}>
+          <Title className="section-title" level={4}>
+            {t('summary')}
+          </Title>
           <AntTable
             columns={BankBalancesSummaryBank(t, handleAccountCodeClick)}
             isError={IsSummaryError}

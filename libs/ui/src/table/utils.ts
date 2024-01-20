@@ -1,19 +1,33 @@
 import dayjs from 'dayjs';
 import { forEach, isNil, map } from 'lodash';
 
+// export const numberFormatter = (number: number) => {
+//   if (isNil(number)) return '';
+
+//   const decimalPlaces = Number.isInteger(number) ? 0 : 2;
+
+//   const formatter = new Intl.NumberFormat('default', {
+//     minimumFractionDigits: decimalPlaces,
+//     maximumFractionDigits: decimalPlaces,
+//     useGrouping: true,
+//   });
+
+//   return formatter.format(number);
+// };
+
+
+
 export const numberFormatter = (number: number) => {
   if (isNil(number)) return '';
 
-  const decimalPlaces = Number.isInteger(number) ? 0 : 2;
-
-  const formatter = new Intl.NumberFormat('default', {
-    minimumFractionDigits: decimalPlaces,
-    maximumFractionDigits: decimalPlaces,
+  const formattedNumber = new Intl.NumberFormat('default', {
     useGrouping: true,
-  });
+  }).format(Math.floor(number));
 
-  return formatter.format(number);
+  return parseFloat(formattedNumber) < 0 ? `(${formattedNumber?.replace('-', '')})` : formattedNumber;
 };
+
+
 
 export const formateDate = (date: string | Date) => {
   if (isNil(date)) return '';

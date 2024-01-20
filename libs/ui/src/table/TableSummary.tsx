@@ -18,7 +18,7 @@ function TableSummary({ data, columns, filteredData }: TTableSummary) {
 
         return (
           <Table.Summary.Cell key={index + '' + dataIndex} index={index}>
-            <b style={{ display: 'flex', justifyContent: 'end', marginRight: '10%' }}>
+            <b style={{ display: 'flex', justifyContent: 'end', marginRight: '6.5%' }}>
               {col?.showTotal
                 ? numberFormatter(total)
                 : col?.showAverage

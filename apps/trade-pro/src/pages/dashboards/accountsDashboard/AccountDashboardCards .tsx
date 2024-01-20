@@ -13,12 +13,13 @@ import CompanyWiseDataPopUp from './CompanyWiseDataPopup';
 const { Title, Text } = Typography;
 const { useToken } = theme;
 
-const AccountDashboardCards: React.FC<{ Data: any; FromdateProp?: Date; TodateProp?: Date; Companies?: string }> = ({
-  Data,
-  FromdateProp,
-  TodateProp,
-  Companies,
-}) => {
+const AccountDashboardCards: React.FC<{
+  Data: any;
+  DateType?: string;
+  FromdateProp?: Date;
+  TodateProp?: Date;
+  Companies?: string;
+}> = ({ Data, DateType, FromdateProp, TodateProp, Companies }) => {
   const { t } = useTranslation();
   const UserDetail = storedUserDetail();
   const colorPrimary = useToken().token.colorPrimary;
@@ -26,15 +27,15 @@ const AccountDashboardCards: React.FC<{ Data: any; FromdateProp?: Date; TodatePr
 
   return (
     <div>
-      <Row gutter={[16, 16]} justify={'space-between'}>
-        <Col xxl={24} xs={24} sm={24} md={24} lg={22} xl={20}>
-          <div className="card-main-container">
-            <Row gutter={[16, 16]} justify="center">
+      <Row gutter={[10, 10]} justify={'space-between'}>
+        <Col xxl={23} xs={24} sm={24} md={24} lg={22} xl={20}>
+          <div className="">
+            <Row gutter={[10, 0]} justify="center">
               {Data?.map((card: any, index: number) => (
-                <Col xxl={7} xs={22} sm={22} md={11} lg={10} xl={8} key={index}>
+                <Col xxl={6} xs={22} sm={22} md={11} lg={8} xl={8} key={index}>
                   <Card
                     hoverable
-                    className="card-container"
+                    className="card-container-accountD"
                     style={{
                       border: `1px solid ${colorPrimary}`,
                     }}
@@ -81,7 +82,7 @@ const AccountDashboardCards: React.FC<{ Data: any; FromdateProp?: Date; TodatePr
                     <Col span={24}>
                       <Title
                         level={5}
-                        // className="custom-title-info"
+                        className="custom-title-info"
                         style={{
                           backgroundColor: colorPrimary,
                         }}
@@ -110,21 +111,21 @@ const AccountDashboardCards: React.FC<{ Data: any; FromdateProp?: Date; TodatePr
           open={selectedCardData !== undefined}
           onCancel={() => setSelectedCardData(undefined)}
           footer={null}
-          bodyStyle={{ maxHeight: '80vh', overflowY: 'auto' }}
+          bodyStyle={{ maxHeight: '80vh', overflowY: 'auto', paddingRight: '20px', marginRight: '20px' }}
         >
           {selectedCardData?.SortingNo == 1 && (
             <div style={{ maxHeight: '100%', overflowY: 'auto' }}>
-              <ActivitySummaryReport FromDateProp={FromdateProp} ToDateProp={TodateProp} />
+              <ActivitySummaryReport DateType={DateType} FromDateProp={FromdateProp} ToDateProp={TodateProp} />
             </div>
           )}
           {selectedCardData?.SortingNo == 2 && (
             <div style={{ maxHeight: '100%', overflowY: 'auto' }}>
-              <CashBalances FromDateProp={FromdateProp} ToDateProp={TodateProp} />
+              <CashBalances DateType={DateType} FromDateProp={FromdateProp} ToDateProp={TodateProp} />
             </div>
           )}
           {selectedCardData?.SortingNo == 3 && (
             <div style={{ maxHeight: '100%', overflowY: 'auto' }}>
-              <BankBalances FromDateProp={FromdateProp} ToDateProp={TodateProp} />
+              <BankBalances DateType={DateType} FromDateProp={FromdateProp} ToDateProp={TodateProp} />
             </div>
           )}
           {selectedCardData?.SortingNo == 6 && (
