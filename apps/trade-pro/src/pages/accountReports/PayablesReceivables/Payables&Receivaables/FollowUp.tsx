@@ -19,12 +19,6 @@ const FollowUp = () => {
   } = theme.useToken();
   return (
     <div className="cash-balances-container">
-      <Row gutter={[24, 24]}>
-        <Col xs={24} md={12} lg={8} style={{ marginLeft: '15px' }}>
-          <Text className="breadcrumb">{t('account_follow_up')}</Text>
-        </Col>
-      </Row>
-
       <HeaderSection />
       <FollowUpTable />
     </div>

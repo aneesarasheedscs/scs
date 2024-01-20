@@ -27,21 +27,8 @@ function HeaderSection() {
     <div style={{ backgroundColor: '#fff' }}>
       <Card style={{ width: '80vw', marginLeft: '3px', marginTop: '15px' }}>
         <Form form={form} onFinish={onFinish}>
-          <Col style={{ marginTop: '15px' }}>
-            <Form.Item>
-              <Row align="middle" gutter={10}>
-                <Col>
-                  <AntButton danger ghost htmlType="reset" label="Reset" icon={<SyncOutlined />} />
-                </Col>
-
-                <Col>
-                  <AntButton ghost label="Save" htmlType="submit" icon={<SaveOutlined />} />
-                </Col>
-              </Row>
-            </Form.Item>
-          </Col>
-          <Row gutter={[16, 16]} justify={'space-between'}>
-            <Col xl={7} className="formfield">
+          <Row gutter={[10, 0]} justify={'space-between'}>
+            <Col xl={9} className="formfield">
               <AntSelectDynamic
                 bordered={false}
                 label={t('account_title')}
@@ -60,8 +47,21 @@ function HeaderSection() {
             <Col xl={4} className="formfield">
               <AntDatePicker name="PromiseDate" bordered={false} label={t('promise-date')} />
             </Col>
-            <Col xl={12} className="formfield">
+            <Col xl={9} className="formfield">
               <AntInput bordered={false} label={t('Comment Detail')} size="large" />
+            </Col>
+            <Col xxl={14} style={{ marginTop: '10px' }}>
+              <Form.Item>
+                <Row align="middle" gutter={10}>
+                  <Col>
+                    <AntButton danger ghost htmlType="reset" label="Reset" icon={<SyncOutlined />} />
+                  </Col>
+
+                  <Col>
+                    <AntButton ghost label="Save" htmlType="submit" icon={<SaveOutlined />} />
+                  </Col>
+                </Row>
+              </Form.Item>
             </Col>
           </Row>
         </Form>

@@ -22,7 +22,7 @@ export const Columns = (t: any, handleAccountCodeClick: any): AntColumnType<TAct
     },
 
     {
-      width: 320,
+      width: 300,
       searchableInput: true,
       title: t('account_title'),
       dataIndex: 'AccountTitle',
@@ -30,52 +30,56 @@ export const Columns = (t: any, handleAccountCodeClick: any): AntColumnType<TAct
       sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
     },
     {
-      width: 250,
+      width: 260,
       title: t('opening'),
       dataIndex: 'Opening',
-
+      align: 'right',
       sortDirections: ['ascend', 'descend'],
       sorter: (a, b) => a.Opening - b.Opening,
       showTotal: true,
       render: (Opening, recorde) => (
-        <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}> {numberFormatter(Opening)}</Space>
+        <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '2px' }}>
+          {' '}
+          {numberFormatter(Opening)}
+        </Space>
       ),
     },
     {
-      width: 250,
+      width: 260,
       title: t('debit'),
       dataIndex: 'Debit',
-
+      align: 'right',
       sortDirections: ['ascend', 'descend'],
       sorter: (a, b) => a.Debit - b.Debit,
       showTotal: true,
       render: (Debit, recorde) => (
-        <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}> {numberFormatter(Debit)}</Space>
+        <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '2px' }}> {numberFormatter(Debit)}</Space>
       ),
     },
     {
-      width: 250,
+      width: 260,
       title: t('credit'),
       dataIndex: 'Credit',
-
+      align: 'right',
       sortDirections: ['ascend', 'descend'],
       sorter: (a, b) => a.Credit - b.Credit,
       showTotal: true,
       render: (Credit, recorde) => (
-        <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}> {numberFormatter(Credit)}</Space>
+        <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '2px' }}> {numberFormatter(Credit)}</Space>
       ),
     },
     {
       width: 230,
       title: t('closing'),
       dataIndex: 'Closing',
+      align: 'right',
       // searchableInput: true, //due to this number formatter is not working at a time we can have one thing
       sortDirections: ['ascend', 'descend'],
       sorter: (a, b) => a.Closing - b.Closing,
       showTotal: true,
       //  render: (closing, record) => numberFormatter(closing),
       render: (Closing, record) => (
-        <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(Closing)}</Space>
+        <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '2px' }}>{numberFormatter(Closing)}</Space>
       ),
     },
   ];

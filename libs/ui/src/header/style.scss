@@ -12,78 +12,79 @@
 }
 
 .headerLogoutBtn {
-  border: 1px solid lightblue;
+  border-left: 1px solid lightblue;
   border-radius: 3%;
   width: 100%;
   text-align: center;
-  height: 85% !important;
-  // background-color: lightblue;
+  height: 86% !important;
   overflow: hidden;
 }
-.uploadbtn {
-  margin-top: -120%;
-  margin-left: -20%;
+.headerBellIcon {
+  border-left: 1px solid lightblue;
+  border-radius: 3%;
+  width: 100%;
+  text-align: center;
+  height: 86% !important;
+  padding-left: 10px;
 }
+
 .userInformation {
-  margin-left: 20%;
+  margin-left: 0%;
 }
-.logoimageInheader {
-  margin-top: 37%;
-  width: 65%;
-  height: 55%;
+.ant-dropdown-menu-item:hover {
+  // background-color: rgba(177, 255, 177, 0.63) !important;
+  background-color: #006640 !important;
+  color: white !important;
 }
-
-@media screen and (max-width: 1600px) and (min-width: 1400px) {
-  .logoimageInheader {
-    margin-top: 55%;
-    width: 70%;
-    height: 55%;
-  }
+.ant-dropdown-menu-item-danger:hover {
+  background-color: rgb(255, 57, 57) !important;
+  color: white; /* Set the text color to white for better visibility */
 }
-@media screen and (max-width: 1400px) and (min-width: 1280px) {
-  .logoimageInheader {
-    margin-top: 30%;
-    width: 70%;
-    height: 55%;
+@media screen and (max-width: 1200px) and (min-width: 1024px) {
+  .companyInformation {
+    font-size: 11px;
   }
 }
-@media screen and (max-width: 1270px) and (min-width: 1024px) {
-  .logoimageInheader {
-    margin-top: 27%;
-    width: 70%;
-    height: 55%;
-  }
-  .uploadbtn {
-    margin-top: -160%;
-  }
-}
-@media screen and (max-width: 844px) and (min-width: 696px) {
-  .uploadbtn {
-    margin-top: -180%;
-    margin-left: -50%;
-  }
-
-  .logoimageInheader {
-    margin-top: 27%;
-    width: 70%;
-    height: 55%;
-  }
+@media screen and (max-width: 977px) and (min-width: 844px) {
   .companyInformation {
     font-size: 10px;
-    margin-left: 10%;
+  }
+}
+
+@media screen and (max-width: 844px) and (min-width: 696px) {
+  .headerSections {
+    font-size: 10px;
+    width: 105%;
+  }
+  .companyInformation {
+    font-size: 12px;
+    padding-bottom: 10px;
+    margin-left: 2%;
   }
 }
 @media screen and (max-width: 696px) and (min-width: 200px) {
-  .uploadbtn {
-    margin-top: -240%;
-  }
   .userInformation {
-    // margin-left: 25%;
     visibility: hidden;
     display: none;
   }
   .companyInformation {
-    font-size: 8px;
+    font-size: 12px;
     margin-left: 15%;
+  }
+  .headerLogoutBtn {
+    border: 1px solid lightblue;
+    border-radius: 3%;
+    width: 100%;
+    text-align: center;
+    height: 86% !important;
+    overflow: hidden;
+  }
+  .headerBellIcon {
+    border: 1px solid lightblue;
+    border-radius: 3%;
+    width: 100%;
+    text-align: center;
+    height: 86% !important;
+    padding-left: 10px;
   }
 }

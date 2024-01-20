@@ -68,55 +68,45 @@ const OpeningBalance = ({ selectedRecordId }: any) => {
   }
   return (
     <div style={{ background: '#fff' }}>
-      <Row gutter={[16, 16]}>
-        <Col
-          xs={10}
-          sm={10}
-          md={11}
-          lg={11}
-          xl={11}
-          xxl={13}
-          style={{ display: 'flex', alignItems: 'center', alignContent: 'center', margin: '16px' }}
-        >
+      <Row>
+        <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16} className="forms-heading-container">
           <h1 style={{ fontFamily: 'Poppins', fontSize: '19px', padding: '10px' }}>{t('opening_balance')}</h1>
-          <span style={{ position: 'relative', left: '120%' }}>
-            {' '}
-            <b> {t('account_definition')}</b> &#9654; {t('opening_balance')}
-          </span>
         </Col>
       </Row>
 
       <Row justify={'space-around'}>
-        <Col xxl={23} xs={23} sm={23} md={23} lg={23} xl={23}>
+        <Col xxl={23} xl={23} sm={23} xs={23} lg={23}>
           <Card>
             <Form onFinish={onFinish} form={form}>
-              <Row gutter={[16, 16]} justify={'space-around'}>
-                <Col xl={10} xs={24} sm={24} md={12} lg={12} xxl={7} className="formfield form-container">
-                  <AntSelectDynamic
-                    bordered={false}
-                    label={t('account_title')}
-                    name="AccountTitle"
-                    fieldLabel="AccountTitle"
-                    fieldValue="Id"
-                    query={useGetOpenBalanceHistory}
-                    onSelectChange={(obj) => handleItemChange(obj, 'AccountTitle')}
-                  />
-                </Col>
-                <Col xs={24} sm={12} md={6} lg={6} xl={5} xxl={4} className="formfield form-container">
-                  <AntInput label={t('debit_amount')} name="DebitAmount" bordered={false} />
-                </Col>
-                <Col xs={24} sm={11} md={5} lg={5} xl={5} xxl={4} className="formfield form-container">
-                  <AntInput label={t('credit_amount')} name="CreditAmount" bordered={false} />
-                </Col>
-                {/* 
+              <Col xxl={15} xl={24} lg={24} xs={24}>
+                <Row gutter={[16, 16]} justify={'space-between'}>
+                  <Col xl={10} xs={24} sm={24} md={12} lg={12} xxl={11} className="formfield form-container">
+                    <AntSelectDynamic
+                      bordered={false}
+                      label={t('account_title')}
+                      name="AccountTitle"
+                      fieldLabel="AccountTitle"
+                      fieldValue="Id"
+                      query={useGetOpenBalanceHistory}
+                      onSelectChange={(obj) => handleItemChange(obj, 'AccountTitle')}
+                    />
+                  </Col>
+                  <Col xs={24} sm={12} md={6} lg={6} xl={5} xxl={4} className="formfield form-container">
+                    <AntInput label={t('debit_amount')} name="DebitAmount" bordered={false} />
+                  </Col>
+                  <Col xs={24} sm={11} md={5} lg={5} xl={5} xxl={4} className="formfield form-container">
+                    <AntInput label={t('credit_amount')} name="CreditAmount" bordered={false} />
+                  </Col>
+                  {/* 
                 <Col xs={24} sm={12} md={12} lg={12} xl={5} className="formfield" offset={1}>
                   <AntInput label={t('credit_amount')} name="AccountTitle2" bordered={false} />
                 </Col> */}
 
-                <Col xs={10} sm={8} md={5} lg={5} xl={3} xxl={2} className="btn-margin-top">
-                  <AntButton label={t('add')} htmlType="submit" />
-                </Col>
-              </Row>
+                  <Col xs={10} sm={8} md={5} lg={5} xl={3} xxl={3} className="btn-margin-top">
+                    <AntButton label={t('add')} htmlType="submit" />
+                  </Col>
+                </Row>
+              </Col>
             </Form>
           </Card>
         </Col>

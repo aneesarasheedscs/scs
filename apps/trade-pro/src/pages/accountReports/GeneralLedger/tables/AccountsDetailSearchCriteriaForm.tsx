@@ -86,7 +86,7 @@ const AccountsDetailSearchCriteriaForm: React.FC<{
             <AntDatePicker bordered={false} name="ToDate" label="To Date" />
           </Col>
 
-          <Col span={8} className="formfield">
+          <Col span={11} className="formfield">
             <AntSelectDynamic
               required
               bordered={false}
@@ -111,9 +111,9 @@ const AccountsDetailSearchCriteriaForm: React.FC<{
             <Form.Item name="ReportType" label="Report Type">
               <Radio.Group defaultValue={'1'}>
                 <Space direction="horizontal">
-                  <Radio value="1">Detail</Radio>
-                  <Radio value="2">SummaryI</Radio>
-                  <Radio value="3">SummaryII</Radio>
+                  <Radio value="1">{t('detail')}</Radio>
+                  <Radio value="2">{t('summary_I')}</Radio>
+                  <Radio value="3">{t('summary_II')}</Radio>
                 </Space>
               </Radio.Group>
             </Form.Item>
@@ -125,7 +125,7 @@ const AccountsDetailSearchCriteriaForm: React.FC<{
           </Col>
         </Row>
         <Row align="middle" justify="end" gutter={[10, 10]}>
-          <Col xs={5} sm={5} md={5}>
+          <Col xs={5} sm={5} md={5} xxl={3}>
             <AntButton label="Show" htmlType="submit" style={{ marginTop: 15 }} />
           </Col>
         </Row>

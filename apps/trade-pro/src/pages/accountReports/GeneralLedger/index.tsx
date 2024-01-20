@@ -125,14 +125,18 @@ const GeneralLedgerReport: React.FC<{
 
   return (
     <Card style={{ marginLeft: '-1%', marginTop: '-2%' }}>
-      <Row gutter={[16, 16]}>
+      {/* <Row gutter={[16, 16]}>
         <Col span={24}>
           <h2 style={{ boxShadow: '2px 4px 12px 1px gray' }} className="form-heading">
             {t('general_ledger')}
           </h2>
         </Col>
+      </Row> */}
+      <Row>
+        <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16} className="forms-heading-container">
+          <h1 style={{ fontFamily: 'Poppins', fontSize: '19px', padding: '10px' }}>{t('general_ledger')}</h1>
+        </Col>
       </Row>
-      <br />
 
       <Col xs={15} sm={10} md={6} lg={5} xxl={4}>
         {' '}
@@ -142,7 +146,7 @@ const GeneralLedgerReport: React.FC<{
           handleFormStateChange={handleFormStateChange}
         />
       </Col>
-      <br />
+      {/* <br /> */}
 
       {showAccountDetailCard && (
         <Col
@@ -170,7 +174,7 @@ const GeneralLedgerReport: React.FC<{
               numberOfSkeletons={12}
               isLoading={detailDataLoading}
               data={detailData?.data?.Data?.Result || []}
-              scroll={{ x: '', y: convertVhToPixels('40vh') }}
+              scroll={{ x: '', y: convertVhToPixels('27vh') }}
             />
           )}
           {formState !== undefined && formState?.ReportType == 2 && (
@@ -180,7 +184,7 @@ const GeneralLedgerReport: React.FC<{
               numberOfSkeletons={12}
               isLoading={summary1DataLoading}
               data={summary1Data?.data?.Data?.Result || []}
-              scroll={{ x: '', y: convertVhToPixels('40vh') }}
+              scroll={{ x: '', y: convertVhToPixels('27vh') }}
             />
           )}
           {formState !== undefined && formState?.ReportType == 3 && (
@@ -190,7 +194,7 @@ const GeneralLedgerReport: React.FC<{
               numberOfSkeletons={12}
               isLoading={summary2DataLoading}
               data={summary2Data?.data?.Data?.Result || []}
-              scroll={{ x: '', y: convertVhToPixels('40vh') }}
+              scroll={{ x: '', y: convertVhToPixels('27vh') }}
             />
           )}
         </Col>

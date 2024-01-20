@@ -160,7 +160,7 @@ const ActivitySummaryReport: React.FC<{
     <div style={{ backgroundColor: '#fff' }}>
       <Row>
         <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16} className="forms-heading-container">
-          <h1 style={{ fontFamily: 'Poppins', fontSize: '19px', padding: '10px' }}>{t('acctivity_summary')}</h1>
+          <h1 className="report_heading">{t('acctivity_summary')}</h1>
           {/* <span style={{ position: 'relative', left: '115%' }}>
             {' '}
             <b> {t('activity')}</b> &#9654; {t('summary')}
@@ -179,9 +179,9 @@ const ActivitySummaryReport: React.FC<{
               {/* <Row justify={'space-around'}>
         <Col xxl={23} xs={23} sm={23} md={23} lg={23} xl={23}> */}
 
-              <Col xxl={22} xl={24} lg={24} xs={24}>
+              <Col xxl={18} xl={24} lg={24} xs={24}>
                 <Row gutter={[16, 16]} justify={'space-between'}>
-                  <Col xxl={6} xl={6} xs={24} sm={24} md={9} lg={8} className="formfield form-container">
+                  <Col xxl={5} xl={6} xs={24} sm={24} md={9} lg={8} className="formfield form-container">
                     {/* <p className={isInputFocused ? 'focused-label' : 'focused2'}>{t('date_type')}</p> */}
 
                     <AntSelectDynamic
@@ -199,7 +199,7 @@ const ActivitySummaryReport: React.FC<{
                   <Col xxl={5} xl={6} xs={12} md={6} lg={8} className="formfield form-container">
                     <AntDatePicker name="FromDate" bordered={false} label={t('from_date')} />
                   </Col>
-                  <Col xxl={4} xl={5} xs={11} md={6} lg={7} className="formfield form-container">
+                  <Col xxl={5} xl={5} xs={11} md={6} lg={7} className="formfield form-container">
                     <AntDatePicker name="ToDate" bordered={false} label={t('to_date')} />
                   </Col>
                   <Col
@@ -215,7 +215,7 @@ const ActivitySummaryReport: React.FC<{
                       <Checkbox onChange={onChangeUnPost}>{t('include_unposted_vochers')}</Checkbox>
                     </Form.Item>
                   </Col>
-                  <Col xxl={2} xl={3} sm={6} lg={5} className="btn-margin-top">
+                  <Col xxl={2} xl={3} sm={6} lg={4} className="btn-margin-top">
                     <AntButton
                       label={t('show')}
                       htmlType="submit"
@@ -233,7 +233,7 @@ const ActivitySummaryReport: React.FC<{
 
       <div className="summary-table-container">
         <Row gutter={[16, 16]} justify={'center'}>
-          <Col xs={23} md={23} xxl={24} xl={23} lg={23} className="">
+          <Col xs={23} md={23} xxl={23} xl={23} lg={23} className="">
             <AntTable
               rowKey={'AccountId'}
               columns={Columns(t, handleAccountCodeClick)}

@@ -19,7 +19,7 @@ const PayablesReceivablesTable: React.FC<{
   const { AccountClassId, Data, IsError, IsLoading, handleAccountCodeClick } = props;
   return (
     <>
-      <Divider className="divider" />
+      <Divider className="divider" style={{ marginTop: '10px' }} />
       <Row gutter={[24, 24]}>
         <Col xs={24} md={24} className="">
           <AntTable
@@ -31,7 +31,8 @@ const PayablesReceivablesTable: React.FC<{
             isError={IsError}
             isLoading={IsLoading}
             data={Data || []}
-            scroll={{ x: '', y: convertVhToPixels('62vh') }}
+            scroll={{ x: '', y: convertVhToPixels('40vh') }}
+            numberOfSkeletons={10}
           />
         </Col>
       </Row>

@@ -154,7 +154,7 @@ const BankBalances: React.FC<{ DateType?: string; FromDateProp?: Date; ToDatePro
               <Form form={form} onFinish={onFinish}>
                 <Col xxl={16} xl={22} lg={24} md={24} sm={24}>
                   <Row gutter={[16, 16]} justify={'space-between'}>
-                    <Col xxl={7} xl={6} lg={7} md={7} xs={24} sm={24} className="formfield form-container">
+                    <Col xxl={7} xl={7} lg={9} md={7} xs={24} sm={24} className="formfield form-container">
                       <AntSelectDynamic
                         bordered={false}
                         label={t('date_type')}
@@ -166,7 +166,7 @@ const BankBalances: React.FC<{ DateType?: string; FromDateProp?: Date; ToDatePro
                         onChange={(value) => handleDateChange(value)}
                       />
                     </Col>
-                    <Col xxl={6} xl={6} lg={7} md={7} xs={24} sm={12} className="formfield form-container">
+                    <Col xxl={6} xl={6} lg={8} md={7} xs={24} sm={12} className="formfield form-container">
                       <AntDatePicker name="FromDate" bordered={false} label={t('from_date')} />
                     </Col>
                     <Col xxl={6} xl={6} lg={6} md={6} xs={24} sm={11} className="formfield form-container">
@@ -195,7 +195,7 @@ const BankBalances: React.FC<{ DateType?: string; FromDateProp?: Date; ToDatePro
       </Col>
 
       <Modal
-        width={1800}
+        width={1700}
         key={SelectedAccount}
         open={SelectedAccount !== undefined}
         onCancel={() => setSelectedAccount(undefined)}

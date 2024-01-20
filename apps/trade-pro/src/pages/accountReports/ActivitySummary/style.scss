@@ -1,14 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+boyd {
+  font-family: 'Poppins' !important;
+}
+
 .formsfield {
   border-bottom: 1px solid gray;
   padding: 0px;
   height: 38px;
 }
 .summary-table-container {
-  max-width: 1550px;
-  margin: 0 auto;
-  // padding: 20px;
-  font-family: 'Arial', sans-serif;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 .summary-table-card {
   padding: 20px;
@@ -46,4 +47,9 @@
   align-content: center;
   margin: 16px;
   // display: 'flex', alignItems: 'center', alignContent: 'center', margin: '16px'
+}
+.report_heading {
+  font-family: Poppins !important;
+  font-size: 19px;
+  padding: 10px;
 }
