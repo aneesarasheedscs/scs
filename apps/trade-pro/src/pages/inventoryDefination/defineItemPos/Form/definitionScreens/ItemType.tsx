@@ -73,22 +73,44 @@ function ItemType({ openItemType }: Props) {
           style={{ width: '100%' }}
         >
           <Row gutter={[10, 10]}>
-            <Col xs={24} sm={24} md={6} xl={5} xxl={5}>
-              <AntInput name="TypeCode" label={t('code')} />
-            </Col>
-            <Col xs={24} sm={24} md={8} xl={5} xxl={6}>
-              <AntInput name="TypeDescription" label={t('item_description')} />
-            </Col>
+            {openItemType ? (
+              <>
+                <Col xs={24} sm={24} md={6} xl={5} xxl={5}>
+                  <AntInput name="TypeCode" label={t('code')} />
+                </Col>
+                <Col xs={24} sm={24} md={8} xl={5} xxl={6}>
+                  <AntInput name="TypeDescription" label={t('item_description')} />
+                </Col>
+                <Col xs={24} sm={24} md={7} xl={6} xxl={6}>
+                  <AntSelectDynamic
+                    fieldValue="Id"
+                    name="TypeDescription"
+                    label={t('item_type')}
+                    fieldLabel="TypeDescription"
+                    query={getItemType}
+                  />
+                </Col>
+              </>
+            ) : (
+              <>
+                <Col xs={24} sm={24} md={6} xl={5} xxl={4}>
+                  <AntInput name="TypeCode" label={t('code')} />
+                </Col>
+                <Col xs={24} sm={24} md={8} xl={5} xxl={5}>
+                  <AntInput name="TypeDescription" label={t('item_description')} />
+                </Col>
+                <Col xs={24} sm={24} md={7} xl={6} xxl={5}>
+                  <AntSelectDynamic
+                    fieldValue="Id"
+                    name="TypeDescription"
+                    label={t('item_type')}
+                    fieldLabel="TypeDescription"
+                    query={getItemType}
+                  />
+                </Col>
+              </>
+            )}
 
-            <Col xs={24} sm={24} md={7} xl={6} xxl={6}>
-              <AntSelectDynamic
-                fieldValue="Id"
-                name="TypeDescription"
-                label={t('item_type')}
-                fieldLabel="TypeDescription"
-                query={getItemType}
-              />
-            </Col>
             <Col xs={24} sm={24} md={10} xl={7} xxl={7} style={{ display: 'flex', flexDirection: 'row' }}>
               <Form.Item>
                 {openItemType ? (
@@ -148,8 +170,12 @@ function ItemType({ openItemType }: Props) {
             </Col>
           </Row>
         </Form>
+        <ItemTypeTable
+          openItemType={openItemType}
+          selectedRecordId={selectedRecordId}
+          setSelectedRecordId={setSelectedRecordId}
+        />
       </Card>
-      <ItemTypeTable selectedRecordId={selectedRecordId} setSelectedRecordId={setSelectedRecordId} />
     </>
   );
 }

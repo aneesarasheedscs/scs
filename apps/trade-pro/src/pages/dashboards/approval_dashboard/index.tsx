@@ -13,7 +13,7 @@ const Search = Input.Search;
 const { Title } = Typography;
 
 const gridStyle: React.CSSProperties = {
-  width: '100%',
+  width: '95%',
   textAlign: 'center',
   height: '150px',
 };
@@ -62,7 +62,7 @@ const Approval_dashboard: React.FC = () => {
         direction="vertical"
         style={{
           width: '100%',
-          height: '80vh',
+          height: '85vh',
           background: '#fff',
         }}
         size={[0, 20]}
@@ -78,11 +78,11 @@ const Approval_dashboard: React.FC = () => {
           </Col>
         </Row>
 
-        <Row style={{ width: '100%', height: '100%', gap: '2%' }}>
-          <Col span={11}>
+        <Row gutter={[16, 40]} style={{ width: '100%', height: '100%', paddingLeft: '1%' }}>
+          <Col xxl={11} xs={24} sm={24} md={12} lg={12} xl={12}>
             <Row align="middle" className="AccountHeading">
-              <Col xs={24} sm={12}>
-                <h3>{t('accounts_dashboard')}</h3>
+              <Col xs={24} sm={12} xl={12} lg={12}>
+                <h3 style={{ fontSize: '18px' }}>{t('accounts_dashboard')}</h3>
               </Col>
               <Col xs={24} sm={12}>
                 <div style={{ float: 'right' }}>
@@ -94,40 +94,39 @@ const Approval_dashboard: React.FC = () => {
                 </div>
               </Col>
             </Row>
-            <Row
-              gutter={[10, 0]}
-              style={{
-                backgroundColor: '#f1f1f1',
-                padding: 7,
-                borderRadius: '1%',
-                marginLeft: '2px',
-                height: '100%',
-              }}
-            >
+            <Row gutter={[2, 16]} className="approvalcardsstyle">
               {Account?.data?.Data?.Result.filter((card: any) =>
                 card.VoucherType.toLowerCase().includes(searchQuery.toLowerCase())
               ).map((filteredCard: any) => (
-                <Col xs={24} xl={8} key={filteredCard.TypeID} style={{ marginTop: '1%' }}>
+                <Col
+                  xs={24}
+                  xl={11}
+                  xxl={8}
+                  lg={12}
+                  md={12}
+                  sm={12}
+                  key={filteredCard.TypeID}
+                  style={{ marginTop: '0%' }}
+                >
                   <Card
                     style={gridStyle}
                     className="singleCard"
                     onClick={() => handleVisibilityOfAccountModal(filteredCard.TypeID)}
-                  >
-                    <Tag id="ribbon" color="#21E298">
-                      {filteredCard.Count}
-                    </Tag>
-                    <p style={{ display: 'none' }}> {filteredCard.DocumentTypeId}</p>
-                    <h3 style={{ marginTop: '1%' }}>{filteredCard.VoucherType}</h3>
-                    <EyeFilled />
-                  </Card>
+                    cover={
+                      <>
+                        <h2 className="accountsdashboardcounts">{filteredCard.Count}</h2>
+                        <h3 className="accountsdashboarddescription">{filteredCard.VoucherType}</h3>
+                      </>
+                    }
+                  ></Card>
                 </Col>
               ))}
             </Row>
           </Col>
-          <Col span={11}>
+          <Col xxl={11} xs={24} sm={24} md={11} lg={11} xl={11}>
             <Row align="middle" className="AccountHeading">
-              <Col xs={24} sm={12}>
-                <h3>{t('inventory_dashboard')}</h3>
+              <Col xs={24} sm={12} xl={12} lg={12}>
+                <h3 style={{ fontSize: '18px' }}>{t('inventory_dashboard')}</h3>
               </Col>
               <Col xs={24} sm={12}>
                 <div style={{ float: 'right' }}>
@@ -135,31 +134,22 @@ const Approval_dashboard: React.FC = () => {
                 </div>
               </Col>
             </Row>
-            <Row
-              gutter={[16, 0]}
-              style={{
-                backgroundColor: '#f1f1f1',
-                padding: 9,
-                borderRadius: '1%',
-                marginLeft: '2px',
-                height: '100%',
-              }}
-            >
+            <Row gutter={[2, 4]} className="approvalcardsstyle">
               {Inventory?.data?.Data?.Result.filter((filteredCard: any) =>
                 filteredCard.Description.toLowerCase().includes(search.toLowerCase())
               ).map((card: any) => (
-                <Col xs={24} xl={8} key={card.TypeID} style={{ marginTop: '1%' }}>
+                <Col xs={24} xl={11} lg={12} md={12} xxl={8} sm={12} key={card.TypeID} style={{ marginTop: '0%' }}>
                   <Card
                     style={gridStyle}
                     className="singleCard"
                     onClick={() => handleVisibilityOfInventoryModal(card.TypeID, card.Description)}
-                  >
-                    <Tag id="ribbon" color="#21E298">
-                      {card.Count}
-                    </Tag>
-                    <h3>{card.Description}</h3>
-                    <EyeFilled />
-                  </Card>
+                    cover={
+                      <>
+                        <h3 className="accountsdashboardcounts">{card.Count}</h3>
+                        <h3 className="accountsdashboarddescription">{card.Description}</h3>
+                      </>
+                    }
+                  ></Card>
                 </Col>
               ))}
             </Row>

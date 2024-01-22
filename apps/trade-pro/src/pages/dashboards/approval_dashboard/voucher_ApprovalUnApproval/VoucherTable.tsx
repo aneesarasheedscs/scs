@@ -13,7 +13,18 @@ const VoucherTable: React.FC<{
   approvalUnApproval: boolean;
   dataSource: any;
   ForRevision?: boolean;
-}> = ({ documentTypeId, approvalUnApproval, dataSource, ForRevision }) => {
+  VouchersRefetch?: any;
+  VouchersLoading?: any;
+  isFetching?: any;
+}> = ({
+  documentTypeId,
+  approvalUnApproval,
+  dataSource,
+  ForRevision,
+  VouchersRefetch,
+  VouchersLoading,
+  isFetching,
+}) => {
   const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
   const { t } = useTranslation();
   const { mutate: Approve, isError, isSuccess, error: ErrorMesg } = useApproveVouchers(documentTypeId);
@@ -122,12 +133,16 @@ const VoucherTable: React.FC<{
         ) : null}
       </div>
       <AntTable
-        // scroll={{ x: 'max-content', y: convertVhToPixels('50vh') }}
+        style={{ border: '', height: '500px', overflowY: 'scroll' }}
+        // scroll={{ x: 'max-content', y: convertVhToPixels('45vh') }}
         rowKey={'VoucherHeadId'}
         rowSelection={rowSelection}
         columns={columns(t)}
         data={dataSource || []}
+        isLoading={VouchersLoading || isFetching}
+        refetch={VouchersRefetch}
         scroll={{ x: 'max-content' }}
+        numberOfSkeletons={8}
         // searchCriteriaForm={
         //   <div style={{ float: 'right' }}>
         //     <Tooltip placement="top" title="Approved Selected Vouchers">

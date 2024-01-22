@@ -14,7 +14,7 @@ import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { Checkbox, Space, Tooltip } from 'antd';
 import dayjs from 'dayjs';
 
-import { PrinterFilled, CheckSquareFilled } from '@ant-design/icons';
+import { PrinterFilled, CheckSquareFilled, PrinterTwoTone } from '@ant-design/icons';
 
 export const columns = (t: any): AntColumnType<VoucherApprovalHistory>[] => [
   {
@@ -58,14 +58,19 @@ export const columns = (t: any): AntColumnType<VoucherApprovalHistory>[] => [
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.HeaderAccountTitle.localeCompare(b.HeaderAccountTitle),
-    width: 170,
+    width: 250,
   },
   {
+    align: 'right',
     title: <>{t('voucher_amount')}</>,
     dataIndex: 'VoucherAmount',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.VoucherAmount - b.VoucherAmount,
-    render: (_, { VoucherAmount }) => <span style={{ marginLeft: '55%' }}>{numberFormatter(VoucherAmount)}</span>,
+    render: (_, { VoucherAmount }) => (
+      <span style={{ display: 'flex', justifyContent: 'end', marginRight: '6%' }}>
+        {numberFormatter(VoucherAmount)}
+      </span>
+    ),
     showTotal: true,
     width: 180,
   },
@@ -73,20 +78,24 @@ export const columns = (t: any): AntColumnType<VoucherApprovalHistory>[] => [
     title: <>{t('cheque_no')}</>,
     dataIndex: 'ChequeNo',
     searchableInput: true,
-    // sortDirections: ['ascend', 'descend'],
-    // sorter: (a, b) => a.ChequeNo - b.ChequeNo,
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.ChequeNo - b.ChequeNo,
+    render: (_, { ChequeNo }) => (
+      <span style={{ display: 'flex', justifyContent: 'end', marginRight: '6%' }}>{numberFormatter(ChequeNo)}</span>
+    ),
     width: 150,
   },
   {
     title: <>{t('cheque_date')}</>,
+    searchableDate: true,
     dataIndex: 'ChequeDate',
     sortDirections: ['ascend', 'descend'],
-    // sorter: (a, b) => {
-    //   const dateA = dayjs(a.ChequeDate);
-    //   const dateB = dayjs(b.ChequeDate);
-    //   return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
-    // },
-    // render: (_, { ChequeDate }) => formateDate(ChequeDate),
+    sorter: (a, b) => {
+      const dateA = dayjs(a.ChequeDate);
+      const dateB = dayjs(b.ChequeDate);
+      return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
+    },
+    render: (_, { ChequeDate }) => formateDate(ChequeDate),
     width: 150,
   },
   {
@@ -118,7 +127,7 @@ export const columns = (t: any): AntColumnType<VoucherApprovalHistory>[] => [
     dataIndex: 'Remarks',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.Remarks.localeCompare(b.Remarks),
-    width: 150,
+    width: 180,
   },
   {
     title: <>{t('status')}</>,
@@ -126,36 +135,41 @@ export const columns = (t: any): AntColumnType<VoucherApprovalHistory>[] => [
     render: (IsApproved) => (
       <Space
         style={{
-          backgroundColor: IsApproved ? '#00A148' : '#f37daa',
-          color: 'white',
+          color: IsApproved ? '#00A148' : 'red',
+          // color: 'white',
           borderRadius: '5px',
-          width: '95%',
+          width: '98%',
+          height: '75%',
+          fontSize: 14,
+          fontWeight: 'bolder',
           paddingLeft: 8,
           border: '1px ridge white',
-          boxShadow: ' rgba(0, 0, 0, 0.35) 0px 5px 15px',
+          // boxShadow: ' rgba(0, 0, 0, 0.35) 2px 5px 10px',
           position: 'absolute',
-          top: 8,
+          top: 5,
           left: 0,
         }}
       >
         {IsApproved ? 'Approved' : 'Not Approved'}
       </Space>
     ),
-    width: 130,
+    width: 120,
   },
   {
+    align: 'center',
     title: <>{t('action')}</>,
-    dataIndex: '',
+    dataIndex: 'Actions',
     render: (_, record) => (
-      <Space>
+      <Space style={{ display: 'flex', justifyContent: 'center' }}>
         <Tooltip title="Voucher-Slip">
-          <PrinterFilled
+          <PrinterTwoTone
             style={{
               fontSize: 18,
               cursor: 'pointer',
-              color: '#f37daa',
-              boxShadow:
-                'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset',
+
+              // color: 'blue',
+              // boxShadow:
+              // 'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset',
             }}
           />
         </Tooltip>

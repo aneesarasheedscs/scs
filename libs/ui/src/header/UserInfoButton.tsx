@@ -92,7 +92,7 @@ function UserInfoButton() {
 
   return (
     <>
-      <Dropdown menu={{ items }} overlayStyle={{ border: '2px solid #006640', borderRadius: '5%', width: '10%' }}>
+      <Dropdown menu={{ items }} overlayStyle={{ border: '2px solid #006640', borderRadius: '5%', marginRight: '-2%' }}>
         <a onClick={(e) => e.preventDefault()}>
           <Row gutter={0} className="headerLogoutBtn">
             {/* <Col xxl={5} xl={5} lg={5} md={5} sm={5} xs={5}>

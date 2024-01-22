@@ -634,5 +634,9 @@
   "current_cr": "موجودہ جمع",
   "current_dr": "موجودہ ڈیبٹ",
   "v_code": "وچر کوڈ",
-  "report": "رپورٹ"
+  "report": "رپورٹ",
+  "pending_for_approval": "منظوری کے لیے زیر التواء",
+  "unapproved_vouchers": "غیر منظور شدہ واؤچرز",
+  "approved_vouchers": "منظور شدہ واؤچرز",
+  "pending_for_revision": "نظرثانی کے لیے زیر التواء"
 }

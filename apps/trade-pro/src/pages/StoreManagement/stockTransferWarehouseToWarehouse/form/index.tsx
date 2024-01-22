@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import DocNumber from './DocNumber';
 import MainEntry from './MainEntry';
 import { AntButton } from '@tradePro/components';
-import { Card, Col, Form, Input, Row, Tooltip, notification } from 'antd';
+import { Badge, Card, Col, Form, Input, Row, Tooltip, notification } from 'antd';
 import { SaveOutlined, SyncOutlined, RedoOutlined, UploadOutlined, PaperClipOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { isNumber } from 'lodash';
@@ -146,7 +146,13 @@ function StockTransferForm({
                 <Row align="middle" gutter={10}>
                   <Tooltip title="Attachment">
                     <Col>
-                      <AntButton label={t('')} icon={<PaperClipOutlined />} />
+                      <Badge count={'1'}>
+                        <AntButton
+                          style={{ backgroundColor: '#FFAF0C' }}
+                          title="Attachment"
+                          icon={<PaperClipOutlined />}
+                        />
+                      </Badge>{' '}
                     </Col>
                   </Tooltip>
                   <Col>

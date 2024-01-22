@@ -483,5 +483,9 @@
   "freight_amount": "运费金额",
   "source_location": "源位置",
   "destination_location": "目的地位置",
-  "available_qty": "可用数量"
+  "available_qty": "可用数量",
+  "pending_for_approval": "等待批准",
+  "unapproved_vouchers": "未经批准的优惠券",
+  "approved_vouchers": "批准的优惠券",
+  "pending_for_revision": "待修改"
 }

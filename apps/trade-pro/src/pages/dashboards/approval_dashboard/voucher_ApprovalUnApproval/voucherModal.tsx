@@ -34,6 +34,7 @@ const VoucherModal: React.FC<{ approvalId: number | undefined; appRovalUnApprova
     data: Data,
     isError: VouchersError,
     refetch: VouchersRefetch,
+    isFetching,
     isSuccess: VouchersSucess,
     isLoading: VouchersLoading,
   } = useGetVouchersModernHistoryHeaderData(documentTypeId.toString(), 0, true, 'Not All', appRovalUnApproval);
@@ -87,10 +88,7 @@ const VoucherModal: React.FC<{ approvalId: number | undefined; appRovalUnApprova
               <>
                 <Row align="middle" className="col">
                   <Col xs={24} sm={12}>
-                    <h2>
-                      {' '}
-                      {appRovalUnApproval ? `${t('vouchers_for_unapproval')}` : `${t('vouchers_for_approval')}`}{' '}
-                    </h2>
+                    <h2> {appRovalUnApproval ? `${t('approved_vouchers')}` : `${t('unapproved_vouchers')}`} </h2>
                   </Col>
                   <Col xs={24} sm={12}>
                     <div style={{ float: 'right' }}>
@@ -111,6 +109,9 @@ const VoucherModal: React.FC<{ approvalId: number | undefined; appRovalUnApprova
                       documentTypeId={documentTypeId}
                       approvalUnApproval={appRovalUnApproval}
                       dataSource={filteredData}
+                      VouchersRefetch={VouchersRefetch}
+                      VouchersLoading={VouchersLoading}
+                      isFetching={isFetching}
                     />
                   )}
                 </div>
@@ -124,10 +125,7 @@ const VoucherModal: React.FC<{ approvalId: number | undefined; appRovalUnApprova
               <>
                 <Row align="middle" className="">
                   <Col xs={24} sm={12}>
-                    <h2>
-                      {' '}
-                      {appRovalUnApproval ? `${t('vouchers_for_unapproval')}` : `${t('vouchers_for_approval')}`}{' '}
-                    </h2>
+                    <h2> {appRovalUnApproval ? `${t('approved_vouchers')}` : `${t('unapproved_vouchers')}`} </h2>
                   </Col>
                   <Col xs={24} sm={12}>
                     <div style={{ float: 'right' }}>
