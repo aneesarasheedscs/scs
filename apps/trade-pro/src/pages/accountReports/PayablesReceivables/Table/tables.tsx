@@ -13,10 +13,11 @@ const PayablesReceivablesTable: React.FC<{
   Data?: any;
   IsError?: boolean;
   IsLoading?: boolean;
+  refetch?: boolean;
   handleAccountCodeClick: any;
 }> = (props) => {
   const { t } = useTranslation();
-  const { AccountClassId, Data, IsError, IsLoading, handleAccountCodeClick } = props;
+  const { AccountClassId, Data, IsError, IsLoading, refetch, handleAccountCodeClick } = props;
   return (
     <>
       <Divider className="divider" style={{ marginTop: '10px' }} />

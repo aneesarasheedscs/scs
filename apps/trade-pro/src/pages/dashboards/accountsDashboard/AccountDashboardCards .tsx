@@ -24,7 +24,11 @@ const AccountDashboardCards: React.FC<{
   const UserDetail = storedUserDetail();
   const colorPrimary = useToken().token.colorPrimary;
   const [selectedCardData, setSelectedCardData] = useState<any>();
+  const [columnWidth, setColumnWidth] = useState(false);
 
+  // const [open, setOpen] = useState(false);
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
   return (
     <div>
       <Row gutter={[10, 10]} justify={'space-between'}>
@@ -88,7 +92,10 @@ const AccountDashboardCards: React.FC<{
                         }}
                       >
                         <p
-                          onClick={() => setSelectedCardData(card)}
+                          onClick={() => {
+                            setSelectedCardData(card);
+                            setColumnWidth(true);
+                          }}
                           style={{ textAlign: 'center' }}
                           className="card-description card-info"
                         >
@@ -115,7 +122,12 @@ const AccountDashboardCards: React.FC<{
         >
           {selectedCardData?.SortingNo == 1 && (
             <div style={{ maxHeight: '100%', overflowY: 'auto' }}>
-              <ActivitySummaryReport DateType={DateType} FromDateProp={FromdateProp} ToDateProp={TodateProp} />
+              <ActivitySummaryReport
+                columnWidth={columnWidth}
+                DateType={DateType}
+                FromDateProp={FromdateProp}
+                ToDateProp={TodateProp}
+              />
             </div>
           )}
           {selectedCardData?.SortingNo == 2 && (

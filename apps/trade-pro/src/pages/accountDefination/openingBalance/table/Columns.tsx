@@ -2,7 +2,8 @@ import { AntColumnType } from '@tradePro/globalTypes';
 import { OpeningBalanceTypes } from '../types';
 import { Space } from 'antd';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import { AntButton } from '@scs/ui';
+import { AntButton } from '@tradePro/components';
+import { EditFilled } from '@ant-design/icons';
 
 export const OpeningBalanceColumns = (t: any, handleEditButtonChange: any): AntColumnType<OpeningBalanceTypes>[] => [
   {
@@ -19,7 +20,7 @@ export const OpeningBalanceColumns = (t: any, handleEditButtonChange: any): AntC
     dataIndex: 'AccountType',
   },
   {
-    width: 290,
+    width: 300,
     title: t('parent_account_title'),
     searchableDate: true,
     dataIndex: 'ParentAccountTitle',
@@ -54,9 +55,16 @@ export const OpeningBalanceColumns = (t: any, handleEditButtonChange: any): AntC
     ),
   },
   {
-    title: t('select'),
+    title: t('action'),
     dataIndex: 'Id',
     width: 120,
-    render: (_, record) => <AntButton onClick={(e) => handleEditButtonChange(record)} label={t('edit')} size="small" />,
+    render: (_, record) => (
+      <AntButton
+        onClick={(e) => handleEditButtonChange(record)}
+        // label={t('edit')}
+        size="small"
+        icon={<EditFilled style={{ color: 'black' }} />}
+      />
+    ),
   },
 ];

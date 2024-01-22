@@ -11,7 +11,7 @@ import { selectedRowsAtom } from './Atom';
 const OpeningBalanceTable = () => {
   const [selectedRows, setSelectedRows] = useAtom(selectedRowsAtom);
   const { t } = useTranslation();
-  const { data, isError, isLoading, isFetched } = useGetOpenBalanceHistory();
+  const { data, isError, isLoading, refetch } = useGetOpenBalanceHistory();
 
   const handleEditButtonClick = (record: any) => {
     // const selectedRow = data?.data?.Data?.Result.find((row: any) => row.Id === recordId);
@@ -33,6 +33,7 @@ const OpeningBalanceTable = () => {
             scroll={{ x: '', y: convertVhToPixels('55vh') }}
             isError={isError}
             isLoading={isLoading}
+            refetch={refetch}
           />
         </Col>
 

@@ -190,6 +190,8 @@ const BankBalances: React.FC<{ DateType?: string; FromDateProp?: Date; ToDatePro
           IsSummaryLoading={isSummaryLoading}
           IsReceiptPaymentError={isError}
           IsReceiptPaymentLoading={isLoading}
+          RefetchSummary={RefetchSummary}
+          refetch={refetch}
           handleAccountCodeClick={handleAccountCodeClick}
         />
       </Col>
