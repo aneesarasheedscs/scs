@@ -813,5 +813,9 @@
   "freight_amount": "Cantidad de carga",
   "source_location": "Ubicación de origen",
   "destination_location": "Ubicación de destino",
-  "available_qty": "Cantidad disponible"
+  "available_qty": "Cantidad disponible",
+  "pending_for_approval": "Pendiente de aprobación",
+  "unapproved_vouchers": "Vales no aprobados",
+  "approved_vouchers": "Vales aprobados",
+  "pending_for_revision": "Pendiente de revisión"
 }

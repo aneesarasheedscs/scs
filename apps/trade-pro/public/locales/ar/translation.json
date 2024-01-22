@@ -490,5 +490,9 @@
   "freight_amount": "كمية الشحن",
   "source_location": "موقع المصدر",
   "destination_location": "موقع وجهة",
-  "available_qty": "الكمية المتوفرة"
+  "available_qty": "الكمية المتوفرة",
+  "pending_for_approval": "في انتظار لموافقة",
+  "unapproved_vouchers": "القسائم غير المعتمدة",
+  "approved_vouchers": "القسائم المعتمدة",
+  "pending_for_revision": "في انتظار المراجعة"
 }

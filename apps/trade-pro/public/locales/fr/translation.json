@@ -483,5 +483,9 @@
   "freight_amount": "Montant du fret",
   "source_location": "Emplacement de la source",
   "destination_location": "Lieu de destination",
-  "available_qty": "quantité disponible"
+  "available_qty": "quantité disponible",
+  "pending_for_approval": "En attente d'approbation",
+  "unapproved_vouchers": "Bons non approuvés",
+  "approved_vouchers": "Bons approuvés",
+  "pending_for_revision": "En attente de révision"
 }

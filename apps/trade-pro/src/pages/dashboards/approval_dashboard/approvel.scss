@@ -1,12 +1,26 @@
 :root {
   --color-primary: #25a7df;
 }
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Change this to the color you want for the track */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888; /* Change this to the color you want for the thumb */
+  border-radius: 6px;
+}
 .AccountHeading {
   // background: linear-gradient(-45deg, #d8f1fc, #25a7df);
   padding: 10px;
   height: 50px;
   border-radius: 0.5rem;
   width: 100%;
+  background-color: #fff;
   // box-shadow: rgba(131, 130, 130, 0.45) 0px 10px 20px 0px;
   border: 1px solid #ececec;
   // margin-bottom: 2%;
@@ -16,7 +30,9 @@
   padding: 10px;
   border: 1px solid #ebebeb;
   border-radius: 5px;
-  height: 35rem;
+  background-color: #fff;
+  // height: 35rem;
+  height: 100%;
 }
 .singleCard:hover {
   // color: white;
@@ -24,6 +40,7 @@
   // border: 2px solid white;
   // background-size: 400% 400%;
   // animation: gradient 15s ease infinite;
+  cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 10px 45px;
   // box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
   //   rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,

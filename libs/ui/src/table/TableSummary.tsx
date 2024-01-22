@@ -6,7 +6,7 @@ import _ from 'lodash';
 
 function TableSummary({ data, columns, filteredData }: TTableSummary) {
   return (
-    <Table.Summary.Row>
+    <Table.Summary.Row style={{}}>
       {map(columns, (col: AntColumnType<any>, index: any) => {
         const dataIndex = col?.dataIndex as string;
 

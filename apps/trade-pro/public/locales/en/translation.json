@@ -391,7 +391,7 @@
   "doc_type": "Doc Type",
   "off_set_account": "Off Set Account",
   "comments": "Comments",
-  "cheque_date": "chequedate",
+  "cheque_date": "Cheque Date",
   "no_of_attachments": "Attachments",
   "running_balance": "Running Balance",
   "remarks": "Remarks",
@@ -639,5 +639,9 @@
   "current_cr": "Current Cr",
   "current_dr": "Current Dr",
   "v_code": "V.Code",
-  "report": "Report"
+  "report": "Report",
+  "pending_for_approval": "Pending for Approval",
+  "unapproved_vouchers": "UnApproved Vouchers",
+  "approved_vouchers": "Approved Vouchers",
+  "pending_for_revision": "Pending for Revision"
 }

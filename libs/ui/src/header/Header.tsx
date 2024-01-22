@@ -73,7 +73,7 @@ export function AppHeader({ appLogo, sideMenu, languageSwitcher }: TAppHeader) {
                   <NotificationButton />
                 </p>
               </Col>
-              <Col xxl={6} xl={5} lg={5} md={5} sm={6} xs={24}>
+              <Col xxl={5} xl={5} lg={5} md={5} sm={6} xs={24}>
                 <UserInfoButton />
               </Col>
             </Row>

@@ -62,7 +62,7 @@ const Approval_dashboard: React.FC = () => {
         direction="vertical"
         style={{
           width: '100%',
-          height: '80vh',
+          height: '85vh',
           background: '#fff',
         }}
         size={[0, 20]}
@@ -78,7 +78,7 @@ const Approval_dashboard: React.FC = () => {
           </Col>
         </Row>
 
-        <Row style={{ width: '100%', height: '100%', gap: '2%', paddingLeft: '1%' }}>
+        <Row gutter={[16, 40]} style={{ width: '100%', height: '100%', paddingLeft: '1%' }}>
           <Col xxl={11} xs={24} sm={24} md={12} lg={12} xl={12}>
             <Row align="middle" className="AccountHeading">
               <Col xs={24} sm={12} xl={12} lg={12}>
@@ -94,7 +94,7 @@ const Approval_dashboard: React.FC = () => {
                 </div>
               </Col>
             </Row>
-            <Row gutter={[2, 4]} className="approvalcardsstyle">
+            <Row gutter={[2, 16]} className="approvalcardsstyle">
               {Account?.data?.Data?.Result.filter((card: any) =>
                 card.VoucherType.toLowerCase().includes(searchQuery.toLowerCase())
               ).map((filteredCard: any) => (
@@ -125,7 +125,7 @@ const Approval_dashboard: React.FC = () => {
           </Col>
           <Col xxl={11} xs={24} sm={24} md={11} lg={11} xl={11}>
             <Row align="middle" className="AccountHeading">
-              <Col xs={24} sm={12}>
+              <Col xs={24} sm={12} xl={12} lg={12}>
                 <h3 style={{ fontSize: '18px' }}>{t('inventory_dashboard')}</h3>
               </Col>
               <Col xs={24} sm={12}>

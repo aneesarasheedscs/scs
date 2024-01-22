@@ -9,6 +9,7 @@ import { useAddFavoriteScreens } from './query';
 
 function FilteredReports({ data, isSuccess, isLoading }: any) {
   const [list, setList] = useState<TSideMenu[]>([]);
+  const [reportData, setReportData] = useState<boolean>(false);
   const [screenData, setScreenData] = useState<TAddtoFavoriteScreens | any>({
     ScreenName: '',
     ScreenId: undefined,
@@ -72,13 +73,22 @@ function FilteredReports({ data, isSuccess, isLoading }: any) {
       ModuleTypeId: ModuleTypeId,
       ScreenDescription: ScreenDescription,
     });
-    if (ScreenName === undefined && ScreenTitle === undefined && ScreenId === undefined && ModuleTypeId === undefined) {
-      const msg = 'Something went wrong';
-      notification.error({ description: '', message: msg as string });
-    } else {
-      mutate(screenData);
-    }
+    setReportData(true);
+    // if (ScreenName === undefined && ScreenTitle === undefined && ScreenId === undefined && ModuleTypeId === undefined) {
+    //   const msg = 'Something went wrong';
+    //   notification.error({ description: '', message: msg as string });
+    // } else {
+    //   mutate(screenData);
+    // }
   };
+  useEffect(() => {
+    if (reportData === true) {
+      mutate(screenData);
+      console.log('mutate');
+    } else {
+      console.log('no mutate');
+    }
+  }, [reportData, screenData]);
   console.log(screenData);
 
   return (

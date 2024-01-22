@@ -32,7 +32,7 @@ export type VoucherApprovalHistory = {
   HeaderAccountTitle: string;
   VoucherAmount: number;
   PayTitle: string;
-  ChequeNo: string;
+  ChequeNo: number;
   ChequeDate: Date;
   ActionTypeId: boolean;
   IsApproved: boolean;

@@ -469,5 +469,9 @@
   "freight_amount": "운임",
   "source_location": "소스 위치",
   "destination_location": "목적지 위치",
-  "available_qty": "사용 가능한 수량"
+  "available_qty": "사용 가능한 수량",
+  "pending_for_approval": "승인 대기 중",
+  "unapproved_vouchers": "승인되지 않은 바우처",
+  "approved_vouchers": "승인된 바우처",
+  "pending_for_revision": "개정 대기 중"
 }
