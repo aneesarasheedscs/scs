@@ -640,5 +640,6 @@
   "approved_vouchers": "منظور شدہ واؤچرز",
   "pending_for_revision": "نظرثانی کے لیے زیر التواء",
   "offset_account": "آفسیٹ اکاؤنٹ",
-  "payee_title": "وصول کنندہ کا عنوان"
+  "payee_title": "وصول کنندہ کا عنوان",
+  "account_allocation": "کاؤنٹ تخصیص"
 }

@@ -107,34 +107,6 @@ const PayablesReceivables: React.FC<{
     setFieldValue('ToDate', dayjs(toDate));
   };
 
-  // const handleChange = (value: string[]) => {
-  //   let statusList: string = '';
-  //   for (let index = 0; index < value.length; index++) {
-  //     statusList += value[index] + ',';
-  //   }
-  //   if (statusList.length > 0) {
-  //     setFieldValue('status', statusList);
-  //   } else {
-  //     setFieldValue('status', '');
-  //   }
-  //   console.log(`selected ${statusList}`);
-  // };
-
-  // const onChangeOnlyCreditAmount = (e: CheckboxChangeEvent) => {
-  //   if (e.target.checked) {
-  //     setFieldValue('OnlyCreditAmountAction', true);
-  //   } else {
-  //     setFieldValue('OnlyCreditAmountAction', false);
-  //   }
-  // };
-  // const onChangeOnlyDebitAmount = (e: CheckboxChangeEvent) => {
-  //   if (e.target.checked) {
-  //     setFieldValue('OnlyDebitAmountAction', true);
-  //   } else {
-  //     setFieldValue('OnlyDebitAmountAction', false);
-  //   }
-  // };
-
   const onChangeTradeParties = (e: CheckboxChangeEvent) => {
     if (e.target.checked) {
       if (AccountClassId == 2) setFieldValue('ReportTypeId', 2); // For Sale
@@ -145,14 +117,6 @@ const PayablesReceivables: React.FC<{
       setFieldValue('ReportTypeId', 0);
     }
   };
-
-  // const onChangeApprovedTransactions = (e: CheckboxChangeEvent) => {
-  //   if (e.target.checked) {
-  //     setFieldValue('IsApproved', true);
-  //   } else {
-  //     setFieldValue('IsApproved', false);
-  //   }
-  // };
 
   useEffect(() => {
     if (formState.FromDate !== undefined && formState.ToDate != undefined) {
@@ -322,6 +286,7 @@ const PayablesReceivables: React.FC<{
         Data={dataSource?.data?.Data?.Result}
         IsError={isError}
         IsLoading={isLoading}
+        // refetch={refetch}
         handleAccountCodeClick={handleAccountCodeClick}
       />
 

@@ -18,6 +18,8 @@ const CashReceiptPaymentTables: React.FC<{
   IsSummaryError: boolean;
   IsSummaryLoading: boolean;
   handleAccountCodeClick: any;
+  refetch: any;
+  RefetchSummary: any;
 }> = (props) => {
   const {
     PaymentReceiptData,
@@ -27,6 +29,8 @@ const CashReceiptPaymentTables: React.FC<{
     IsSummaryError,
     IsSummaryLoading,
     handleAccountCodeClick,
+    RefetchSummary,
+    refetch,
   } = props;
   const { t } = useTranslation();
 
@@ -64,12 +68,12 @@ const CashReceiptPaymentTables: React.FC<{
           </Title>
           <AntTable
             rowKey={'AccountId'}
-            // rowSelection={rowSelection}
             columns={CashBalancesSummaryCash(t, handleAccountCodeClick)}
             isError={IsSummaryError}
             isLoading={IsSummaryLoading}
             data={SummaryData || []}
             scroll={{ x: 'max-content' }}
+            refetch={RefetchSummary}
           />
         </Col>
       </Row>
@@ -86,6 +90,7 @@ const CashReceiptPaymentTables: React.FC<{
             isError={IsCashPaymentError}
             isLoading={IsCashPaymentLoading}
             scroll={{ y: convertVhToPixels('35vh') }}
+            refetch={refetch}
           />
         </Col>
         <Col xl={12} xs={23} md={12} className="">
@@ -97,6 +102,7 @@ const CashReceiptPaymentTables: React.FC<{
             data={filteredTableData2 || []}
             isError={IsCashPaymentError}
             isLoading={IsCashPaymentLoading}
+            refetch={refetch}
             scroll={{ y: convertVhToPixels('34vh') }}
           />
         </Col>

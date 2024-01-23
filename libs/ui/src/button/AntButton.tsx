@@ -2,14 +2,7 @@ import './style.scss';
 import { ReactNode } from 'react';
 import { Button, ButtonProps } from 'antd';
 
-export function AntButton({
-  label,
-  isError,
-  isLoading,
-  fullWidth = true,
-  type = 'primary',
-  ...restProps
-}: TAntButton) {
+export function AntButton({ label, isError, isLoading, fullWidth = true, type = 'primary', ...restProps }: TAntButton) {
   const loading = isError ? false : isLoading;
   return (
     <Button
@@ -28,4 +21,5 @@ type TAntButton = {
   isError?: boolean;
   fullWidth?: boolean;
   isLoading?: boolean;
+  refetch?: boolean;
 } & ButtonProps;

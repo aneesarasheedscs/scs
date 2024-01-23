@@ -21,6 +21,8 @@ const BankPaymentTables: React.FC<{
   IsSummaryError: boolean;
   IsSummaryLoading: boolean;
   handleAccountCodeClick: any;
+  RefetchSummary: any;
+  refetch: any;
 }> = (props) => {
   const {
     PaymentReceiptData,
@@ -30,6 +32,8 @@ const BankPaymentTables: React.FC<{
     IsSummaryError,
     IsSummaryLoading,
     handleAccountCodeClick,
+    RefetchSummary,
+    refetch,
   } = props;
   const { t } = useTranslation();
 
@@ -56,6 +60,7 @@ const BankPaymentTables: React.FC<{
             isLoading={IsSummaryLoading}
             data={SummaryData || []}
             scroll={{ x: 'max-content' }}
+            refetch={RefetchSummary}
           />
         </Col>
       </Row>
@@ -71,6 +76,7 @@ const BankPaymentTables: React.FC<{
             isError={IsReceiptPaymentError}
             isLoading={IsReceiptPaymentLoading}
             scroll={{ y: convertVhToPixels('35vh') }}
+            refetch={refetch}
           />
         </Col>
         <Col xl={12} xs={23} md={12} className="">
@@ -83,6 +89,7 @@ const BankPaymentTables: React.FC<{
             isError={IsReceiptPaymentError}
             isLoading={IsReceiptPaymentLoading}
             scroll={{ y: convertVhToPixels('35vh') }}
+            refetch={refetch}
           />
         </Col>
       </Row>

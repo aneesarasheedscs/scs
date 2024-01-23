@@ -47,4 +47,6 @@ export type TaddOpeningBalance = {
   PostUser: number;
   YearObCredit: number;
   YearObDebit: number;
+  CreditAmount:number;
+  DebitAmount:number
 };

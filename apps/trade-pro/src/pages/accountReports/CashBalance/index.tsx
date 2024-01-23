@@ -160,6 +160,8 @@ const CashBalances: React.FC<{ DateType?: string; FromDateProp?: Date; ToDatePro
           IsSummaryLoading={isSummaryLoading}
           IsCashPaymentError={isError}
           IsCashPaymentLoading={isLoading}
+          RefetchSummary={RefetchSummary}
+          refetch={refetch}
           handleAccountCodeClick={handleAccountCodeClick}
         />
       </Col>

@@ -13,7 +13,7 @@ import { useAtom } from 'jotai';
 
 const { useForm, useWatch } = Form;
 const AccountDashboard: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId?: number }> = (props) => {
-  const { FromDateProp, ToDateProp, CompanyId } = props;
+  const { FromDateProp, ToDateProp } = props;
   const [form] = useForm<TAccountDashboardCriteria>();
 
   const formvalues = useWatch<TAccountDashboardCriteria>([], form);

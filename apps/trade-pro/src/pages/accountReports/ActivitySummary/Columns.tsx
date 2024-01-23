@@ -5,11 +5,11 @@ import { Space } from 'antd';
 import { TActivitySummary } from './types';
 // import CustomModal from './customModal';
 
-export const Columns = (t: any, handleAccountCodeClick: any): AntColumnType<TActivitySummary>[] => {
+export const Columns = (t: any, handleAccountCodeClick: any, columnWidth: any): AntColumnType<TActivitySummary>[] => {
   return [
     // { title: t('sr#'), dataIndex: '', width: 150, render: (_, __, index) => index + 1 },
     {
-      width: 200,
+      width: 150,
       title: t('account_code'),
       dataIndex: 'AccountCode',
       sortDirections: ['ascend', 'descend'],
@@ -22,7 +22,7 @@ export const Columns = (t: any, handleAccountCodeClick: any): AntColumnType<TAct
     },
 
     {
-      width: 300,
+      width: columnWidth ? 330 : 350,
       searchableInput: true,
       title: t('account_title'),
       dataIndex: 'AccountTitle',
@@ -30,7 +30,7 @@ export const Columns = (t: any, handleAccountCodeClick: any): AntColumnType<TAct
       sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
     },
     {
-      width: 260,
+      width: 250,
       title: t('opening'),
       dataIndex: 'Opening',
       align: 'right',
@@ -38,14 +38,11 @@ export const Columns = (t: any, handleAccountCodeClick: any): AntColumnType<TAct
       sorter: (a, b) => a.Opening - b.Opening,
       showTotal: true,
       render: (Opening, recorde) => (
-        <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '2px' }}>
-          {' '}
-          {numberFormatter(Opening)}
-        </Space>
+        <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '0%' }}> {numberFormatter(Opening)}</Space>
       ),
     },
     {
-      width: 260,
+      width: 250,
       title: t('debit'),
       dataIndex: 'Debit',
       align: 'right',
@@ -53,7 +50,7 @@ export const Columns = (t: any, handleAccountCodeClick: any): AntColumnType<TAct
       sorter: (a, b) => a.Debit - b.Debit,
       showTotal: true,
       render: (Debit, recorde) => (
-        <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '2px' }}> {numberFormatter(Debit)}</Space>
+        <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '0%' }}> {numberFormatter(Debit)}</Space>
       ),
     },
     {
@@ -65,11 +62,11 @@ export const Columns = (t: any, handleAccountCodeClick: any): AntColumnType<TAct
       sorter: (a, b) => a.Credit - b.Credit,
       showTotal: true,
       render: (Credit, recorde) => (
-        <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '2px' }}> {numberFormatter(Credit)}</Space>
+        <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '0%' }}> {numberFormatter(Credit)}</Space>
       ),
     },
     {
-      width: 230,
+      width: 260,
       title: t('closing'),
       dataIndex: 'Closing',
       align: 'right',
@@ -79,7 +76,7 @@ export const Columns = (t: any, handleAccountCodeClick: any): AntColumnType<TAct
       showTotal: true,
       //  render: (closing, record) => numberFormatter(closing),
       render: (Closing, record) => (
-        <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '2px' }}>{numberFormatter(Closing)}</Space>
+        <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '8%' }}>{numberFormatter(Closing)}</Space>
       ),
     },
   ];

@@ -645,5 +645,6 @@
   "approved_vouchers": "Approved Vouchers",
   "pending_for_revision": "Pending for Revision",
   "offset_account": "Offset Account",
-  "payee_title": "Payee Title"
+  "payee_title": "Payee Title",
+  "account_allocation": "Account Allocation"
 }
