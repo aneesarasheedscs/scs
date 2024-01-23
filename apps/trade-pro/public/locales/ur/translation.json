@@ -638,5 +638,6 @@
   "pending_for_approval": "منظوری کے لیے زیر التواء",
   "unapproved_vouchers": "غیر منظور شدہ واؤچرز",
   "approved_vouchers": "منظور شدہ واؤچرز",
-  "pending_for_revision": "نظرثانی کے لیے زیر التواء"
+  "pending_for_revision": "نظرثانی کے لیے زیر التواء",
+  "account_allocation": "کاؤنٹ تخصیص"
 }

@@ -9,7 +9,7 @@ import { queryClient } from '@scs/configs';
 const userDetail = storedUserDetail();
 const financialYear = storedFinancialYear();
 
-export const useGetOpeningBalanceATitle = (enabled = true, Id: number | null) => {
+export const useGetByIdOpeningBalnce = (enabled = true, Id?: number | null) => {
   return useQuery(
     ['account-titlee', Id],
     () => {
@@ -30,6 +30,7 @@ export const useGetOpenBalanceHistory = (enabled = true) => {
   return useQuery(
     'openingBalance',
     () => {
+      
       return requestManager.get('/api/AccountsOpeningBalances/GetByOrganizationCompanyId', {
         params: {
           OrganizationId: userDetail?.OrganizationId,
@@ -44,7 +45,8 @@ export const useGetOpenBalanceHistory = (enabled = true) => {
 
 export const useAddOpeningBalance = (params?: TaddOpeningBalance) => {
   return useMutation(
-    'openingBalance',
+    'openingBalanceSave',
+    
     (data: TaddOpeningBalance) => {
       let dataToSubmit = {};
       // const userDetail = storedUserDetail();
@@ -68,8 +70,9 @@ export const useAddOpeningBalance = (params?: TaddOpeningBalance) => {
     },
     {
       onSuccess: () => {
+
         queryClient.invalidateQueries('openingBalance');
-        const msg = 'Record added successfully!';
+        const msg = 'Record Save successfully!';
         notification.success({ description: '', message: msg });
       },
       onError: (error: AxiosError) => {
@@ -83,7 +86,7 @@ export const useAddOpeningBalance = (params?: TaddOpeningBalance) => {
 export const useUpdateOpeningBalance = (Id?: number | null, ChartOfAccountId?: number, params?: TaddOpeningBalance) => {
   console.log(Id);
   return useMutation(
-    'openingBalance',
+    'openingBalanceUpdate',
     (data: TaddOpeningBalance) => {
       let dataToSubmit = {};
       const userDetail = storedUserDetail();
@@ -108,6 +111,7 @@ export const useUpdateOpeningBalance = (Id?: number | null, ChartOfAccountId?: n
     },
     {
       onSuccess: () => {
+        console.log('Update mutation succeeded');
         queryClient.invalidateQueries('openingBalance');
         const msg = 'Record updated successfully!';
         notification.success({ description: '', message: msg });

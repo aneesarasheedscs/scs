@@ -5,7 +5,7 @@ import AccountAllocation from './accoutAllocation';
 const AccountAllocationReport = () => {
   const { t } = useTranslation();
   return (
-    <div style={{ background: '#fff' }}>
+    <div>
       <AccountAllocation />
     </div>
   );

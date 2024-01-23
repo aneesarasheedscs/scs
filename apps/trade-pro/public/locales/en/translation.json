@@ -643,5 +643,6 @@
   "pending_for_approval": "Pending for Approval",
   "unapproved_vouchers": "UnApproved Vouchers",
   "approved_vouchers": "Approved Vouchers",
-  "pending_for_revision": "Pending for Revision"
+  "pending_for_revision": "Pending for Revision",
+  "account_allocation": "Account Allocation"
 }

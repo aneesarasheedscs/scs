@@ -25,8 +25,8 @@ const OpeningBalanceTable = () => {
 
   return (
     <div>
-      <Row>
-        <Col xs={{ span: 23 }} lg={{ span: 23 }} style={{ marginTop: '10px' }}>
+      <Row justify={'space-around'}>
+        <Col xxl={23} xl={23} xs={23} lg={23} sm={23} md={23} style={{ marginTop: '10px' }}>
           <AntTable
             columns={OpeningBalanceColumns(t, handleEditButtonClick)}
             data={data?.data?.Data?.Result || []}
@@ -36,15 +36,6 @@ const OpeningBalanceTable = () => {
             refetch={refetch}
           />
         </Col>
-
-        {/* <Col xs={24} lg={12} style={{ marginTop: '10px' }}>
-          <AntTable
-            columns={OpeningBalanceColumns(t, handleEditButtonClick)} // Define columns for the other table
-            data={selectedRows || []}
-            isError={isError}
-            isLoading={isLoading}
-          />
-        </Col> */}
       </Row>
     </div>
   );

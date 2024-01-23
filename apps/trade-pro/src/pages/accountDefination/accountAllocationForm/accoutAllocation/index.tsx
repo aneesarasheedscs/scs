@@ -50,27 +50,16 @@ const AccountAllocation = () => {
   }, [isSuccess, isLoading]);
 
   return (
-    <div style={{ background: '#fff', marginTop: '-20px', marginLeft: '-5px' }}>
+    <div style={{ background: '#fff' }}>
       <Row>
-        <Col
-          xs={2}
-          sm={4}
-          md={6}
-          lg={8}
-          xl={14}
-          style={{ display: 'flex', alignItems: 'center', alignContent: 'center', margin: '16px' }}
-        >
-          <h1 style={{ fontFamily: 'Poppins', fontSize: '19px', padding: '10px' }}>{t('account_allocation')} </h1>
-          <span style={{ position: 'relative', left: '115%' }}>
-            {' '}
-            <b> {t('account_definition')}</b> &#9654; {t('account_allocation')}
-          </span>
+        <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16} className="forms-heading-container">
+          <h1 className="report_heading">{t('account_allocation')} </h1>
         </Col>
       </Row>
 
       <Row gutter={[24, 24]}>
         <Col xs={24} sm={12} md={8} lg={6} xl={24}>
-          <Card style={{ width: '50vw', marginLeft: '50px', marginTop: '-10px' }}>
+          <Card style={{ width: '50vw' }}>
             <Form onFinish={onFinish} form={form}>
               <Row gutter={16} justify={'start'}>
                 <Col xs={24} sm={12} md={12} lg={12} xl={10} className="formfield">
