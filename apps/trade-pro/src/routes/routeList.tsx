@@ -91,6 +91,7 @@ const PurchaseInvoiceAgainstGrn = lazy(() => import('@tradePro/pages/purchaseTra
 const PurchaseOrderRetailRegister = lazy(() => import('@tradePro/pages/purchaseReports/purchaseOrderRetailRegister'));
 
 //Inventory Definition
+const ItemAllocationForm = lazy(() => import('@tradePro/pages/inventoryDefination/itemAllocationForm'));
 const PosDefineItem = lazy(() => import('@tradePro/pages/inventoryDefination/defineItemPos'));
 const DefineJobLots = lazy(() => import('@tradePro/pages/inventoryDefination/defineJobLots'));
 const DefineWareHouse = lazy(() => import('@tradePro/pages/inventoryDefination/defineWareHouse'));
@@ -181,6 +182,7 @@ export const protectedRoutes: RouteObject[] = [
   { path: route.INVENTORY_EVALUATION_LEDGER, element: <InventoryEvaluationItemLedger /> },
 
   // Inventory Definintion
+  { path: route.ITEM_ALLOCATION_FORM, element: <ItemAllocationForm /> },
   { path: route.DEFINE_ITEM_HISTORY, element: <PosDefineItem /> },
   { path: route.DEFINE_WAREHOUSE, element: <DefineWareHouse /> },
   { path: route.DEFINE_JOBLOTS, element: <DefineJobLots /> },

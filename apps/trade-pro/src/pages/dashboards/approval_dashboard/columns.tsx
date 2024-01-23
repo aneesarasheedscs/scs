@@ -14,11 +14,42 @@ import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { Checkbox, Space, Tooltip } from 'antd';
 import dayjs from 'dayjs';
 
-import { PrinterFilled, CheckSquareFilled, PrinterTwoTone } from '@ant-design/icons';
+import { PrinterTwoTone } from '@ant-design/icons';
 
-export const columns = (t: any): AntColumnType<VoucherApprovalHistory>[] => [
+export const columns = (
+  t?: any,
+  handleCheckboxChange?: any,
+  selectedRowKeys?: any,
+  handleSelectAllRecords?: any
+): AntColumnType<VoucherApprovalHistory>[] => [
   {
-    width: 80,
+    title: (
+      <Checkbox
+        onChange={(e) => {
+          if (e.target.checked) {
+            console.log('select all');
+            handleSelectAllRecords(e.target.checked);
+          } else {
+            console.log('un select all');
+            handleSelectAllRecords(e.target.checked);
+          }
+        }}
+        name="IsActive"
+        style={{ marginLeft: '10px' }}
+      />
+    ),
+    dataIndex: 'VoucherHeadId',
+    width: 60,
+    render: (_, record) => (
+      <Checkbox
+        name="IsActive"
+        onChange={(e) => handleCheckboxChange(record, e.target.checked)}
+        checked={selectedRowKeys?.includes(record.VoucherHeadId)}
+      />
+    ),
+  },
+  {
+    width: 60,
     title: <>{t('sr')}</>,
     dataIndex: 'RecordNo',
     showCount: true,
@@ -67,7 +98,7 @@ export const columns = (t: any): AntColumnType<VoucherApprovalHistory>[] => [
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.VoucherAmount - b.VoucherAmount,
     render: (_, { VoucherAmount }) => (
-      <span style={{ display: 'flex', justifyContent: 'end', marginRight: '6%' }}>
+      <span style={{ display: 'flex', justifyContent: 'end', marginRight: '1%' }}>
         {numberFormatter(VoucherAmount)}
       </span>
     ),
@@ -106,22 +137,7 @@ export const columns = (t: any): AntColumnType<VoucherApprovalHistory>[] => [
     sorter: (a, b) => a.EntryUserName.localeCompare(b.EntryUserName),
     width: 160,
   },
-  // {
-  //   title: <>{t('pay_title')}</>,
-  //   dataIndex: 'PayTitle',
-  //   searchableInput: true,
-  //   sortDirections: ['ascend', 'descend'],
-  //   sorter: (a, b) => a.PayTitle.localeCompare(b.PayTitle),
-  //   width: 170,
-  // },
-  // {
-  //   title: <>{t('no of attachments')}</>,
-  //   dataIndex: 'NoOfAttachments',
-  //   sortDirections: ['ascend', 'descend'],
-  //   sorter: (a, b) => a.NoOfAttachments - b.NoOfAttachments,
 
-  //   width: 190,
-  // },
   {
     title: <>{t('remarks')}</>,
     dataIndex: 'Remarks',
@@ -136,7 +152,7 @@ export const columns = (t: any): AntColumnType<VoucherApprovalHistory>[] => [
       <Space
         style={{
           color: IsApproved ? '#00A148' : 'red',
-          // color: 'white',
+
           borderRadius: '5px',
           width: '98%',
           height: '75%',
@@ -144,7 +160,6 @@ export const columns = (t: any): AntColumnType<VoucherApprovalHistory>[] => [
           fontWeight: 'bolder',
           paddingLeft: 8,
           border: '1px ridge white',
-          // boxShadow: ' rgba(0, 0, 0, 0.35) 2px 5px 10px',
           position: 'absolute',
           top: 5,
           left: 0,
@@ -166,10 +181,6 @@ export const columns = (t: any): AntColumnType<VoucherApprovalHistory>[] => [
             style={{
               fontSize: 18,
               cursor: 'pointer',
-
-              // color: 'blue',
-              // boxShadow:
-              // 'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset',
             }}
           />
         </Tooltip>

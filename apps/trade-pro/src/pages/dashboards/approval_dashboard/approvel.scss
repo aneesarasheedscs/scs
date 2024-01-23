@@ -140,24 +140,23 @@
   display: none;
 }
 
-.list-items2 {
-  color: #fff;
-  font-weight: bold;
-  font-size: 14px;
-  padding: 3px;
-  border-radius: 3px;
-  margin-top: 10px;
-  cursor: pointer;
-}
+// .list-items2 {
+//   color: #fff;
+//   font-weight: bold;
+//   font-size: 14px;
+//   padding: 3px;
+//   border-radius: 3px;
+//   cursor: pointer;
+// }
 .list-item1 {
   font-weight: bold;
-  color: #5a54f9;
+  color: var(--color-primary);
   font-size: 16px;
 }
 
 .filter {
   color: #fff;
-  background: #5a54f9;
+  background: var(--color-primary);
   position: absolute;
   right: 35px;
   top: 13px;
@@ -194,7 +193,7 @@
 .cash {
   text-align: center;
   width: 147%;
-  border: 2px groove #5a54f9;
+  border: 2px groove var(--color-primary);
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
   margin: 10px;
 }
@@ -217,6 +216,11 @@
   position: absolute;
   right: 4%;
   font-weight: bold;
+}
+.list-items2 {
+  font-size: 16px !important;
+  text-align: center;
+  margin-top: -1% !important;
 }
 .list-item4 {
   color: green;

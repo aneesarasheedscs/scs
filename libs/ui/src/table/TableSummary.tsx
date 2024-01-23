@@ -18,14 +18,18 @@ function TableSummary({ data, columns, filteredData }: TTableSummary) {
 
         return (
           <Table.Summary.Cell key={index + '' + dataIndex} index={index}>
-            <b style={{ display: 'flex', justifyContent: 'end', marginRight: '6.5%' }}>
-              {col?.showTotal
-                ? numberFormatter(total)
-                : col?.showAverage
-                ? numberFormatter(average)
-                : col?.showCount
-                ? numberFormatter(count)
-                : null}
+            <b>
+              {col?.showTotal ? (
+                <span style={{ display: 'flex', justifyContent: 'end', marginRight: '4.5%' }}>
+                  {numberFormatter(total)}
+                </span>
+              ) : col?.showAverage ? (
+                numberFormatter(average)
+              ) : col?.showCount ? (
+                <span style={{ display: 'flex', justifyContent: 'center', marginLeft: '-30%' }}>
+                  {numberFormatter(count)}
+                </span>
+              ) : null}
             </b>
             {/* <b>{col?.showTotal ? numberFormatter(total) : col?.showAverage ? numberFormatter(average) : col?.showCount ? numberFormatter(count) : null}</b> */}
           </Table.Summary.Cell>

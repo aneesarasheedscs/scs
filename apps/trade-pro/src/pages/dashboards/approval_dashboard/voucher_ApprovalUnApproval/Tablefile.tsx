@@ -4,8 +4,10 @@ import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { Row, Col, Space } from 'antd';
 import { useTranslation } from 'react-i18next';
 import './Approval.scss';
+import dayjs from 'dayjs';
 import { VoucherHistory_Detail, VouchersModernHistory } from '../type';
 import { PlusSquareOutlined, MinusSquareOutlined, HeartFilled } from '@ant-design/icons';
+import { formateDate } from '@tradePro/utils/formateDate';
 
 const Tablefile: React.FC<{ voucherHeadId?: number; documentTypeId: number }> = ({ voucherHeadId, documentTypeId }) => {
   const { t } = useTranslation();
@@ -16,7 +18,6 @@ const Tablefile: React.FC<{ voucherHeadId?: number; documentTypeId: number }> = 
     isSuccess: DetailSuccess,
   } = useGetVouchersModernHistoryByHeaderId(voucherHeadId, documentTypeId.toString());
 
-  
   let GeneralLedgerLinkVisible = true;
   const voucherData = DetailData?.data?.Data?.Result; // Replace with your actual data array
   const [mainDataSource, setMainDataSource] = useState<VouchersModernHistory>();
@@ -100,32 +101,32 @@ const Tablefile: React.FC<{ voucherHeadId?: number; documentTypeId: number }> = 
     }
   };
 
-  const [ExpandedFlag, setExpandedFlag] = useState(false);
+  // const [ExpandedFlag, setExpandedFlag] = useState(false);
 
-  const ExpandSpecificDetail = (data: any) => {
-    data.IsDetailExpanded = !data.IsDetailExpanded;
-    setExpandedFlag(false);
-    for (let i = 0; i < voucherData?.VoucherHistoryDetail?.length; i++) {
-      if (voucherData.VoucherHistoryDetail[i].IsDetailExpanded == true) {
-        setExpandedFlag(true);
-        break;
-      }
-    }
-  };
+  // const ExpandSpecificDetail = (data: any) => {
+  //   data.IsDetailExpanded = !data.IsDetailExpanded;
+  //   setExpandedFlag(false);
+  //   for (let i = 0; i < voucherData?.VoucherHistoryDetail?.length; i++) {
+  //     if (voucherData.VoucherHistoryDetail[i].IsDetailExpanded == true) {
+  //       setExpandedFlag(true);
+  //       break;
+  //     }
+  //   }
+  // };
 
-  const ExpandAllDetails = () => {
-    setExpandedFlag(false);
-    for (let i = 0; i < voucherData?.VoucherHistoryDetail?.length; i++) {
-      if (voucherData.VoucherHistoryDetail[i].IsDetailExpanded == true) {
-        setExpandedFlag(true);
-        break;
-      }
-    }
-    let Action = ExpandedFlag == false ? true : false;
-    for (let i = 0; i < voucherData?.VoucherHistoryDetail?.length; i++) {
-      voucherData.VoucherHistoryDetail[i].IsDetailExpanded = Action;
-    }
-  };
+  // const ExpandAllDetails = () => {
+  //   setExpandedFlag(false);
+  //   for (let i = 0; i < voucherData?.VoucherHistoryDetail?.length; i++) {
+  //     if (voucherData.VoucherHistoryDetail[i].IsDetailExpanded == true) {
+  //       setExpandedFlag(true);
+  //       break;
+  //     }
+  //   }
+  //   let Action = ExpandedFlag == false ? true : false;
+  //   for (let i = 0; i < voucherData?.VoucherHistoryDetail?.length; i++) {
+  //     voucherData.VoucherHistoryDetail[i].IsDetailExpanded = Action;
+  //   }
+  // };
 
   return (
     <div>
@@ -196,6 +197,8 @@ const Tablefile: React.FC<{ voucherHeadId?: number; documentTypeId: number }> = 
             <div className="totals-wrape">
               <div className="values">
                 <div className="total-caption">Detail Total</div>
+                <div className="Debit"></div>
+                <div className="Debit"></div>
                 <div className="Debit">{totalDebit > 0 ? numberFormatter(totalDebit) : 0}</div>
                 <div className="Credit">{totalCredit > 0 ? numberFormatter(totalCredit) : 0}</div>
               </div>
@@ -237,14 +240,71 @@ const Tablefile: React.FC<{ voucherHeadId?: number; documentTypeId: number }> = 
           </Col>
         </Row>
       )}
-      <div className="grand-total-wrape">
-        <div className="grand-totals">
-          <div className="calculate-wrape grand-total">
-            <div className="total-caption">Voucher Amount</div>
-            <div className="total-value">{numberFormatter(voucherData?.VoucherHistoryHeader?.VoucherAmount)}</div>
+
+      <Row gutter={[10, 10]}>
+        <Col
+          span={4}
+          style={{
+            display: 'flex',
+            textAlignLast: 'center',
+            flexDirection: 'column',
+            marginTop: '2%',
+          }}
+        >
+          <div style={{ color: '', fontWeight: 'bold' }}>{t('prepared_by')}:</div>
+          <div>
+            <img className="Img" src={mainDataSource?.VoucherHistoryHeader?.EntryUserProfileImageUrl}></img>
           </div>
-        </div>
-      </div>
+          <div>
+            <p>{mainDataSource?.VoucherHistoryHeader?.EntryUserName}</p>
+            <p>{formateDate(voucherData?.VoucherHistoryHeader?.EntryDate)}</p>
+          </div>
+        </Col>
+        <Col
+          span={5}
+          style={{
+            display: 'flex',
+            textAlignLast: 'center',
+            flexDirection: 'column',
+            marginTop: '2%',
+          }}
+        >
+          <div style={{ color: '', fontWeight: 'bold' }}>{t('approved_by')}:</div>
+          <div>
+            <img className="Img" src={mainDataSource?.VoucherHistoryHeader?.ApprovalUserProfileImageUrl}></img>
+          </div>
+          <p>{mainDataSource?.VoucherHistoryHeader?.ApprovalUserName}</p>
+          <p>{formateDate(voucherData?.VoucherHistoryHeader?.ApprovedDate)}</p>
+        </Col>
+        <Col
+          span={6}
+          style={{
+            display: 'flex',
+            textAlignLast: 'center',
+            flexDirection: 'column',
+            marginTop: '2%',
+          }}
+        >
+          <div style={{ color: '', fontWeight: 'bold' }}>{t('modify_user')}:</div>
+          <div>
+            <img className="Img" src={mainDataSource?.VoucherHistoryHeader?.ModifyUserProfileImageUrl}></img>
+          </div>
+          <div>
+            <p>{mainDataSource?.VoucherHistoryHeader?.ModifyUserName}</p>
+            <p>{formateDate(voucherData?.VoucherHistoryHeader?.ModifyDate)}</p>
+          </div>
+        </Col>
+        <Col span={9}>
+          <div className="grand-total-wrape">
+            <div className="grand-totals">
+              <div className="calculate-wrape grand-total">
+                <div className="total-caption">Voucher Amount</div>
+                <div className="total-value">{numberFormatter(voucherData?.VoucherHistoryHeader?.VoucherAmount)}</div>
+              </div>
+            </div>
+          </div>
+        </Col>
+      </Row>
       <div className="Footer">
         <div className="Thanks">
           Thank You{' '}

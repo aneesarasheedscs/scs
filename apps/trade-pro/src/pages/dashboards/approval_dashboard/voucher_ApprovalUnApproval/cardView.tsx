@@ -1,6 +1,7 @@
-import { Card, Col, Row, Badge } from 'antd';
+import { Card, Col, Row, Badge, Image } from 'antd';
 import { SortAscendingOutlined, SortDescendingOutlined, CaretDownOutlined } from '@ant-design/icons';
 import '../approvel.scss';
+import './Approval.scss';
 import Search from 'antd/es/input/Search';
 import React, { useEffect, useState } from 'react';
 import Tablefile from './Tablefile';
@@ -20,6 +21,7 @@ import { VouchersHistory_Header, VouchersModernHistory } from '../type';
 import ToolTipToShowUserData from './tooltop';
 import VouchersNotesPopup from './Notes';
 import { colorPrimaryAtom } from '@tradePro/globalAtoms';
+import { useTranslation } from 'react-i18next';
 
 const CardView: React.FC<{
   documentTypeId: number;
@@ -33,12 +35,12 @@ const CardView: React.FC<{
   const [mainDataSource, setMainDataSource] = useState<VouchersModernHistory[]>([]);
   const [selectedCardData, setSelectedCardData] = useState<VouchersHistory_Header>();
   const [NotesPopupVisible, setNotesPopupVisible] = useState(false);
-
+  const { t } = useTranslation();
   const {
     data: NotesData,
     isSuccess: NotesSuccess,
     isLoading: NotesLoading,
-    refetch: NotesHistoryRefetch
+    refetch: NotesHistoryRefetch,
   } = useVouchersRemarksByApprovalUser_History(documentTypeId, selectedCardData?.VoucherHeadId);
 
   const { data: NotesbyApprovalPerson, refetch: SingleNotesRefetch } = useNotesByApprovalPerson_ReadAsSingleString(
@@ -233,20 +235,19 @@ const CardView: React.FC<{
     });
   };
 
-  const HandleFilterCriteriaData = () => {};
   return (
     <div>
       <Row className="row1">
-        <Col lg={{ span: 8 }} sm={{ span: 24 }} className="columns">
+        <Col lg={{ span: 7 }} sm={{ span: 24 }} className="columns">
           <Row className="col" align="middle">
             <Search onChange={(e) => handleSearch(e.target.value)} placeholder="Filter" />
           </Row>
-          <div style={{ textAlign: 'center' }}>
+          {/* <div style={{ textAlign: 'center' }}>
             {' '}
             <CaretDownOutlined onClick={toggleContent} />
             Filters
-          </div>
-          {showContent && (
+          </div> */}
+          {/* {showContent && (
             <div
               style={{
                 marginTop: '2%',
@@ -257,19 +258,19 @@ const CardView: React.FC<{
             >
               <FormFilter data={mainDataSource} handleFilterCriteria={HandleFilterCriteriaData} />
             </div>
-          )}
+          )} */}
           <Row className="row" style={{ fontSize: 14, fontWeight: '700' }}>
             <Col lg={{ span: 6 }} md={{ span: 6 }} sm={{ span: 6 }} className="column">
-              Voucher# <SortAscendingOutlined /> <SortDescendingOutlined />
+              Voucher # <SortAscendingOutlined /> <SortDescendingOutlined />
             </Col>
-            <Col lg={{ span: 6 }} md={{ span: 6 }} sm={{ span: 6 }} className="column">
-              V.Date <SortAscendingOutlined /> <SortDescendingOutlined />
+            <Col lg={{ span: 7 }} md={{ span: 6 }} sm={{ span: 6 }} className="column">
+              Voucher Date <SortAscendingOutlined /> <SortDescendingOutlined />
             </Col>
-            <Col lg={{ span: 6 }} md={{ span: 6 }} sm={{ span: 6 }} className="column">
+            <Col lg={{ span: 5 }} md={{ span: 6 }} sm={{ span: 6 }} className="column">
               Account
               <SortAscendingOutlined /> <SortDescendingOutlined />
             </Col>
-            <Col lg={{ span: 6 }} md={{ span: 6 }} sm={{ span: 6 }} className="column">
+            <Col lg={{ span: 5 }} md={{ span: 6 }} sm={{ span: 6 }} className="column">
               Amount <SortAscendingOutlined /> <SortDescendingOutlined />
             </Col>
           </Row>
@@ -292,21 +293,24 @@ const CardView: React.FC<{
                       HighLightCard(card, event);
                     }}
                   >
-                    <Row justify={'space-between'}>
-                      <p className="list-item1">{card.VoucherHistoryHeader.VoucherCode}</p>
+                    <Row justify={'space-between'} style={{ marginTop: '-3%' }}>
+                      <p className="list-item1">
+                        {card.VoucherHistoryHeader.VoucherCode}&nbsp; &nbsp; &nbsp;
+                        {card.VoucherHistoryHeader.DocumentType}
+                      </p>
                       <h3>{formateDate(card.VoucherHistoryHeader.VoucherDate)}</h3>
                     </Row>
                     <h3>{card.VoucherHistoryHeader.HeaderAccountTitle}</h3>
-                    <span
+                    <p
                       className="list-items2"
                       style={{
-                        background: card.VoucherHistoryHeader.IsApproved ? '#f37daa' : 'red',
+                        color: card.VoucherHistoryHeader.IsApproved ? '#f37daa' : 'red',
                       }}
                     >
                       {card.VoucherHistoryHeader.IsApproved ? 'Approved' : 'Not Approved'}
-                    </span>
+                    </p>
                     <Row justify={'space-between'}>
-                      <p className="list-item1">{card.VoucherHistoryHeader.DocumentType}</p>
+                      <h3>{card.VoucherHistoryHeader.Remarks}</h3>
                       <h3>{numberFormatter(card.VoucherHistoryHeader.VoucherAmount)}</h3>
                     </Row>
                   </Card>
@@ -316,7 +320,151 @@ const CardView: React.FC<{
           </div>
           <h3 style={{ textAlign: 'center' }}>Total Records:{numberFormatter(totalRecords)} </h3>
         </Col>
-        <Col lg={{ span: 16 }} sm={{ span: 24 }} className="columns">
+        {selectedCardData && (
+          <Col lg={{ span: 17 }} sm={{ span: 24 }} className="columns">
+            <Buttons
+              SelectedDocumentsCount={SelectedDocumentsCount}
+              ApproveSelectedVouchers={handleApproveSelectedVouchers}
+              ForRevision={ForRevision}
+              VoucherNotesByApprovalPersonVisible={true}
+              handlVoucherNotesButtonClick={handlVoucherNotesButtonClick}
+            />
+            <Row align="middle">
+              <Col xs={16} sm={16} className="columns">
+                <div className="main-voucher-design" id="Rice_Invoice_Main_Box">
+                  <div className="row">
+                    <Row>
+                      <Col
+                        xs={{ span: 6 }}
+                        sm={{ span: 5 }}
+                        md={{ span: 4 }}
+                        lg={{ span: 6 }}
+                        xl={{ span: 4 }}
+                        xxl={{ span: 3 }}
+                      >
+                        <div
+                          style={{
+                            fontSize: '1.5rem',
+                            color: 'green',
+                            fontWeight: 'bold',
+                            textAlign: 'left',
+                          }}
+                        >
+                          <div>
+                            <Image
+                              className="Img"
+                              src={'data:image/jpeg;base64,' + selectedCardData?.CompLogoImage}
+                              style={{ width: '6rem', height: '6rem' }}
+                            />
+                          </div>
+                        </div>
+                      </Col>
+                      <Col
+                        xs={{ span: 18 }}
+                        sm={{ span: 19 }}
+                        md={{ span: 20 }}
+                        lg={{ span: 18 }}
+                        xl={{ span: 20 }}
+                        xxl={{ span: 20 }}
+                      >
+                        <div>
+                          <div className="">
+                            <div style={{ fontSize: '1.5rem', color: 'green', textAlign: 'left' }}>
+                              {userDetail?.CompanyName}
+                            </div>
+                            <div style={{ fontSize: '1.1rem', color: 'green', textAlign: 'left' }}>
+                              {userDetail?.CompanyAddress}
+                            </div>
+                            <div style={{ fontSize: '0.8rem', color: 'green', textAlign: 'left' }}>
+                              {userDetail?.CellNo}
+                            </div>
+                          </div>
+                        </div>
+                      </Col>
+                    </Row>
+                  </div>
+
+                  <div className="Wrapper" style={{ marginTop: '0.5%' }}>
+                    <Col span={8}>
+                      <div className="">
+                        <div className="caption-value-wrape">
+                          <div className="caption">{t('voucher_no')}:</div>
+                          <div className="value">{selectedCardData?.RecordNo}</div>
+                        </div>
+                        <div className="caption-value-wrape">
+                          <div className="caption">{t('voucher_type')}:</div>
+                          <div className="value">{selectedCardData?.DocumentType}</div>
+                        </div>
+
+                        <div className="caption-value-wrape">
+                          <div className="caption">{t('cheque no')}:</div>
+                          <div className="value">{selectedCardData?.VoucherCode}</div>
+                        </div>
+
+                        <div className="caption-value-wrape">
+                          <div className="caption">{t('pay_title')}:</div>
+                          <div className="value">{selectedCardData?.PayTitle}</div>
+                        </div>
+
+                        <div className="caption-value-wrape">
+                          <div className="caption">{t('remarks')}:</div>
+                          <div className="value">
+                            <div>{selectedCardData?.Remarks}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </Col>
+                    <Col span={9}>
+                      <Row align={'middle'} style={{ height: '60%' }}>
+                        <h2 className="headerAccountTitle">{selectedCardData?.HeaderAccountTitle}</h2>
+                      </Row>
+                    </Col>
+                    <Col span={8}>
+                      <div className="">
+                        <div
+                          style={{ display: 'flex', justifyContent: 'space-between' }}
+                          className="caption-value-wrape"
+                        >
+                          <div className="caption">{t('voucher_date')}:</div>
+                          <div className="value">
+                            {selectedCardData ? dayjs(selectedCardData.VoucherDate).format('YYYY-MM-DD') : ''}
+                          </div>
+                        </div>
+                        <div
+                          style={{ display: 'flex', justifyContent: 'space-between' }}
+                          className="caption-value-wrape"
+                        >
+                          <div className="caption">{t('voucher_code')}:</div>
+                          <div className="value">{selectedCardData?.VoucherCode}</div>
+                        </div>
+                        <div
+                          style={{ display: 'flex', justifyContent: 'space-between' }}
+                          className="caption-value-wrape"
+                        >
+                          <div className="caption">{t('cheque_date')}:</div>
+                          <div className="value">
+                            {selectedCardData ? dayjs(selectedCardData.ChequeDate).format('YYYY-MM-DD') : ''}
+                          </div>
+                        </div>
+                        <div
+                          style={{ display: 'flex', justifyContent: 'space-between' }}
+                          className="caption-value-wrape"
+                        >
+                          <div className="caption">{t('total_amount')}:</div>
+                          <div className="value">
+                            {selectedCardData?.VoucherAmount > 0 ? numberFormatter(selectedCardData?.VoucherAmount) : 0}
+                          </div>
+                        </div>
+                      </div>
+                    </Col>
+                  </div>
+                  <Tablefile voucherHeadId={selectedCardData?.VoucherHeadId} documentTypeId={documentTypeId} />
+                </div>
+              </Col>
+            </Row>
+          </Col>
+        )}
+        {/* <Col lg={{ span: 16 }} sm={{ span: 24 }} className="columns">
           <Buttons
             SelectedDocumentsCount={SelectedDocumentsCount}
             ApproveSelectedVouchers={handleApproveSelectedVouchers}
@@ -443,7 +591,7 @@ const CardView: React.FC<{
               </Col>
             </Row>
           )}
-        </Col>
+        </Col> */}
       </Row>
 
       <VouchersNotesPopup

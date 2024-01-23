@@ -494,5 +494,7 @@
   "pending_for_approval": "في انتظار لموافقة",
   "unapproved_vouchers": "القسائم غير المعتمدة",
   "approved_vouchers": "القسائم المعتمدة",
-  "pending_for_revision": "في انتظار المراجعة"
+  "pending_for_revision": "في انتظار المراجعة",
+  "offset_account": "تعويض حساب",
+  "payee_title": "عنوان المستفيد"
 }

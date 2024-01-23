@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from 'react-query';
 import { requestManager } from '@tradePro/configs/requestManager';
 import { notification } from 'antd';
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { queryClient } from '@scs/configs';
 
 export const useAccount = () => {
@@ -132,9 +132,18 @@ export const useApproveVouchers = (documentTypeId?: number) => {
       return requestManager.post('/api/Voucher/UpdateStatusandIsapprovedByVoucherId', dataToSubmit);
     },
     {
-      onSuccess: () => {
+      onSuccess: (response: AxiosResponse) => {
         queryClient.invalidateQueries(['Modern-history-Header', documentTypeId?.toString()]);
         queryClient.invalidateQueries('vouchers-Approval');
+        if (response?.data && response?.data?.Status === false) {
+          notification.error({
+            message: 'Error',
+            description: response?.data?.Message || 'An error occurred.',
+          });
+        } else if (response?.data && response?.data?.Status === true) {
+          const msg = 'Record Approved successfully!';
+          notification.success({ description: '', message: msg });
+        }
       },
       onError: (error: AxiosError) => {
         const msg = error.response?.data || 'Something went wrong';

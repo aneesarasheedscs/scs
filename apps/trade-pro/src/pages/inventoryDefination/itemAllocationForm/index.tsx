@@ -1,6 +1,6 @@
 import './style.scss';
 import ItemAllocation from './itemAllocation';
-import CheckboxTable from '../at';
+// import CheckboxTable from '../at';
 
 const ItemAllocationForm = () => {
   return (

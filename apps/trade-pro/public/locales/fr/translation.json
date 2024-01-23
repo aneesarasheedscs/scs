@@ -487,5 +487,7 @@
   "pending_for_approval": "En attente d'approbation",
   "unapproved_vouchers": "Bons non approuvés",
   "approved_vouchers": "Bons approuvés",
-  "pending_for_revision": "En attente de révision"
+  "pending_for_revision": "En attente de révision",
+  "offset_account": "Compte de compensation",
+  "payee_title": "Titre du bénéficiaire"
 }

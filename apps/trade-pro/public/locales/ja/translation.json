@@ -2,5 +2,7 @@
   "unapproved_vouchers": "未承認のクーポン",
   "approved_vouchers": "承認済みのクーポン",
   "pending_for_revision": "改訂待ち",
-  "cheque_date": "日付を確認する"
+  "cheque_date": "日付を確認する",
+  "offset_account": "相殺口座",
+  "payee_title": "受取人のタイトル"
 }

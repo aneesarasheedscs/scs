@@ -118,6 +118,7 @@ export type VouchersModernHistory = {
 };
 
 export type VouchersHistory_Header = {
+  RecordNo: number;
   VoucherHeadId: number;
   DocumentTypeId: number;
   DocumentTypeDescription: string;
@@ -134,13 +135,15 @@ export type VouchersHistory_Header = {
   AttachmentsCount: number;
   EntryUserName: string;
   EntryUser: number;
-  EntryDate: Date;
+  EntryDate: string;
   ModifyUserName: string;
   ModifyUser: number;
   ModifyDate: Date;
   ApprovalUserName: string;
+  ApprovedDate: Date;
   PostUser: number;
   PostDate: Date;
+  CompLogoImage: string;
   EntryUserProfileImageUrl: string;
   ModifyUserProfileImageUrl: string;
   ApprovalUserProfileImageUrl: string;

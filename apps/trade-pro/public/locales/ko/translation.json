@@ -473,5 +473,7 @@
   "pending_for_approval": "승인 대기 중",
   "unapproved_vouchers": "승인되지 않은 바우처",
   "approved_vouchers": "승인된 바우처",
-  "pending_for_revision": "개정 대기 중"
+  "pending_for_revision": "개정 대기 중",
+  "offset_account": "상계 계정",
+  "payee_title": "수취인 이름"
 }
