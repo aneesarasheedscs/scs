@@ -475,5 +475,12 @@
   "approved_vouchers": "승인된 바우처",
   "pending_for_revision": "개정 대기 중",
   "offset_account": "상계 계정",
-  "payee_title": "수취인 이름"
+  "payee_title": "수취인 이름",
+  "wht_against_account": "WHT_계정 반대",
+  "detail_total": "세부 합계",
+  "wht_account": "무슨 계정",
+  "tax_type": "세금 유형",
+  "tax": "세",
+  "tax_amount": "세금",
+  "accounts_dashboard": "계정 대시보드"
 }

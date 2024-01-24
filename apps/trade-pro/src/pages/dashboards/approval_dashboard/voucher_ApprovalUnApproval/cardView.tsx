@@ -35,6 +35,8 @@ const CardView: React.FC<{
   const [mainDataSource, setMainDataSource] = useState<VouchersModernHistory[]>([]);
   const [selectedCardData, setSelectedCardData] = useState<VouchersHistory_Header>();
   const [NotesPopupVisible, setNotesPopupVisible] = useState(false);
+  const [records, setRecords] = useState<VouchersModernHistory[]>([]);
+
   const { t } = useTranslation();
   const {
     data: NotesData,
@@ -96,19 +98,15 @@ const CardView: React.FC<{
         });
       }
       setMainDataSource(updatedMainDataSource);
+      setRecords(updatedMainDataSource);
     }
   }, [dataSource]);
 
-  const [records, setRecords] = useState(String);
-  // const totalRecords = Data?.data?.Data?.Result.length || 0;
   const totalRecords = dataSource.length || 0;
   const [showContent, setShowContent] = useState(false);
   const [SelectedDocumentsCount, setSelectedDocumentsCount] = useState(0);
   const [TooltipVisible, setTooltipVisible] = useState(false);
   const [SelectedVouchersData, setSelectedVouchersData] = useState<any>([]);
-  const toggleContent = () => {
-    setShowContent(!showContent);
-  };
 
   // interface UserInfoForVouchersHistory {
   //   TargetId: string;
@@ -155,16 +153,75 @@ const CardView: React.FC<{
   //   }
   //   console.log('Data modify Send to Tooltip: ', UserInfoDataForTooltip);
   // };
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | undefined>(undefined);
+  const [sortOrderDocDate, setSortOrderDocDate] = useState<'asc' | 'desc' | undefined>(undefined);
+  const [sortAccount, setSortAccount] = useState<'asc' | 'desc' | undefined>(undefined);
+  const [sortOrderAmount, setSortOrderAmount] = useState<'asc' | 'desc' | undefined>(undefined);
 
-  const handleSearch = (value: string) => {
-    // You can perform any additional logic here
-    setRecords(value);
+  const handleSearch = (value: any) => {
+    console.log(value);
+    const trimmedValue = value.trim();
+    const filteredRecords = mainDataSource?.filter((record: VouchersModernHistory) => {
+      return record.VoucherHistoryHeader.HeaderAccountTitle.toLowerCase().includes(trimmedValue.toLowerCase());
+    });
+    console.log(filteredRecords);
+    setRecords(filteredRecords || []);
+    if (!filteredRecords || filteredRecords.length === 0) {
+      setRecords([]);
+      console.log('No matching records found');
+    }
   };
+  //Sort Voucher No
+  const handleSortVoucherNo = () => {
+    const newSortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+    setSortOrder(newSortOrder);
 
-  // useEffect(() => {
-  //   console.log('Count: ', SelectedDocumentsCount);
-  //   console.log('Data: ', SelectedVouchersData);
-  // }, [SelectedDocumentsCount, SelectedVouchersData]);
+    const sortedRecords = [...(records || [])].sort((a, b) => {
+      const comparison = sortOrder === 'asc' ? 1 : -1;
+      return a.VoucherHistoryHeader.RecordNo > b.VoucherHistoryHeader.RecordNo ? comparison : -comparison;
+    });
+
+    setRecords(sortedRecords);
+    console.log('sorting', sortedRecords);
+  };
+  //Sort Voucher Date
+  const handleSortVoucherDate = () => {
+    const newSortOrder = sortOrderDocDate === 'asc' ? 'desc' : 'asc';
+    setSortOrderDocDate(newSortOrder);
+
+    const sortedRecords = [...(records || [])].sort((a, b) => {
+      const comparison = sortOrderDocDate === 'asc' ? 1 : -1;
+      return a.VoucherHistoryHeader.VoucherDate > b.VoucherHistoryHeader.VoucherDate ? comparison : -comparison;
+    });
+
+    setRecords(sortedRecords);
+  };
+  // Sort Account
+  const handleSortAccountTitle = () => {
+    const newSortOrder = sortAccount === 'asc' ? 'desc' : 'asc';
+    setSortAccount(newSortOrder);
+
+    const sortedRecords = [...(records || [])].sort((a, b) => {
+      const entryUserA = a.VoucherHistoryHeader.HeaderAccountTitle.toLowerCase();
+      const entryUserB = b.VoucherHistoryHeader.HeaderAccountTitle.toLowerCase();
+
+      return newSortOrder === 'asc' ? entryUserA.localeCompare(entryUserB) : entryUserB.localeCompare(entryUserA);
+    });
+    console.log(sortedRecords);
+    setRecords(sortedRecords);
+  };
+  // Sort Amount
+  const handleSortAmount = () => {
+    const newSortOrder = sortOrderAmount === 'asc' ? 'desc' : 'asc';
+    setSortOrderAmount(newSortOrder);
+
+    const sortedRecords = [...(records || [])].sort((a, b) => {
+      const comparison = newSortOrder === 'asc' ? 1 : -1;
+      return a.VoucherHistoryHeader.VoucherAmount > b.VoucherHistoryHeader.VoucherAmount ? comparison : -comparison;
+    });
+
+    setRecords(sortedRecords);
+  };
 
   const HighLightCard = (data: VouchersModernHistory, event: React.MouseEvent<HTMLDivElement>) => {
     let newData: any = [];
@@ -260,18 +317,23 @@ const CardView: React.FC<{
             </div>
           )} */}
           <Row className="row" style={{ fontSize: 14, fontWeight: '700' }}>
-            <Col lg={{ span: 6 }} md={{ span: 6 }} sm={{ span: 6 }} className="column">
-              Voucher # <SortAscendingOutlined /> <SortDescendingOutlined />
+            <Col lg={{ span: 7 }} md={{ span: 6 }} sm={{ span: 6 }} className="column">
+              {t('voucher_no')}# <SortAscendingOutlined onClick={() => handleSortVoucherNo()} />{' '}
+              <SortDescendingOutlined onClick={() => handleSortVoucherNo()} />
             </Col>
             <Col lg={{ span: 7 }} md={{ span: 6 }} sm={{ span: 6 }} className="column">
-              Voucher Date <SortAscendingOutlined /> <SortDescendingOutlined />
+              {t('voucher_date')}
+              <SortAscendingOutlined onClick={() => handleSortVoucherDate()} />{' '}
+              <SortDescendingOutlined onClick={() => handleSortVoucherDate()} />
             </Col>
             <Col lg={{ span: 5 }} md={{ span: 6 }} sm={{ span: 6 }} className="column">
-              Account
-              <SortAscendingOutlined /> <SortDescendingOutlined />
+              {t('account')}
+              <SortAscendingOutlined onClick={() => handleSortAccountTitle()} />{' '}
+              <SortDescendingOutlined onClick={() => handleSortAccountTitle()} />
             </Col>
             <Col lg={{ span: 5 }} md={{ span: 6 }} sm={{ span: 6 }} className="column">
-              Amount <SortAscendingOutlined /> <SortDescendingOutlined />
+              {t('amount')} <SortAscendingOutlined onClick={() => handleSortAmount()} />{' '}
+              <SortDescendingOutlined onClick={() => handleSortAmount()} />
             </Col>
           </Row>
           <div style={{ backgroundColor: ' #d6d6e7', maxHeight: 'calc(114vh - 200px)', overflowY: 'auto' }}>
@@ -282,8 +344,8 @@ const CardView: React.FC<{
                 width: '99%',
               }}
             >
-              {mainDataSource?.map((card: VouchersModernHistory) => (
-                <Col lg={24} sm={24} xs={24} md={24} key={card.VoucherHistoryHeader.VoucherHeadId}>
+              {records?.map((card: VouchersModernHistory) => (
+                <Col lg={24} sm={24} xs={24} md={24} key={card?.VoucherHistoryHeader?.VoucherHeadId}>
                   <Card
                     className="singleCard"
                     key={card?.VoucherHistoryHeader?.VoucherHeadId}
@@ -295,30 +357,33 @@ const CardView: React.FC<{
                   >
                     <Row justify={'space-between'} style={{ marginTop: '-3%' }}>
                       <p className="list-item1">
-                        {card.VoucherHistoryHeader.VoucherCode}&nbsp; &nbsp; &nbsp;
-                        {card.VoucherHistoryHeader.DocumentType}
+                        {card?.VoucherHistoryHeader?.VoucherCode}&nbsp; &nbsp; &nbsp;
+                        {card?.VoucherHistoryHeader?.DocumentType}
                       </p>
-                      <h3>{formateDate(card.VoucherHistoryHeader.VoucherDate)}</h3>
+                      <h3>{formateDate(card?.VoucherHistoryHeader?.VoucherDate)}</h3>
                     </Row>
-                    <h3>{card.VoucherHistoryHeader.HeaderAccountTitle}</h3>
+                    <h3>{card?.VoucherHistoryHeader?.HeaderAccountTitle}</h3>
                     <p
                       className="list-items2"
                       style={{
-                        color: card.VoucherHistoryHeader.IsApproved ? '#f37daa' : 'red',
+                        color: card?.VoucherHistoryHeader?.IsApproved ? '#f37daa' : 'red',
                       }}
                     >
-                      {card.VoucherHistoryHeader.IsApproved ? 'Approved' : 'Not Approved'}
+                      {card?.VoucherHistoryHeader?.IsApproved ? 'Approved' : 'Not Approved'}
                     </p>
                     <Row justify={'space-between'}>
-                      <h3>{card.VoucherHistoryHeader.Remarks}</h3>
-                      <h3>{numberFormatter(card.VoucherHistoryHeader.VoucherAmount)}</h3>
+                      <h3>{card?.VoucherHistoryHeader?.Remarks}</h3>
+                      <h3>{numberFormatter(card?.VoucherHistoryHeader?.VoucherAmount)}</h3>
                     </Row>
                   </Card>
                 </Col>
               ))}
             </Row>
           </div>
-          <h3 style={{ textAlign: 'center' }}>Total Records:{numberFormatter(totalRecords)} </h3>
+          <h3 style={{ textAlign: 'center' }}>
+            {' '}
+            {t('total_records')}:{numberFormatter(totalRecords)}{' '}
+          </h3>
         </Col>
         {selectedCardData && (
           <Col lg={{ span: 17 }} sm={{ span: 24 }} className="columns">
@@ -369,10 +434,10 @@ const CardView: React.FC<{
                       >
                         <div>
                           <div className="">
-                            <div style={{ fontSize: '1.5rem', color: 'green', textAlign: 'left' }}>
+                            <div style={{ fontSize: '1.5rem', color: 'green', textAlign: 'left', fontWeight: 'bold' }}>
                               {userDetail?.CompanyName}
                             </div>
-                            <div style={{ fontSize: '1.1rem', color: 'green', textAlign: 'left' }}>
+                            <div style={{ fontSize: '1rem', color: 'green', textAlign: 'left' }}>
                               {userDetail?.CompanyAddress}
                             </div>
                             <div style={{ fontSize: '0.8rem', color: 'green', textAlign: 'left' }}>

@@ -819,5 +819,12 @@
   "approved_vouchers": "Vales aprobados",
   "pending_for_revision": "Pendiente de revisión",
   "offset_account": "Cuenta de compensación",
-  "payee_title": "Título del beneficiario"
+  "payee_title": "Título del beneficiario",
+  "wht_against_account": "WHT_Contra cuenta",
+  "detail_total": "Detalle Total",
+  "wht_account": "cuenta blanca",
+  "tax_type": "Tipo de impuesto",
+  "tax": "Impuesto",
+  "tax_amount": "Importe del impuesto",
+  "accounts_dashboard": "Panel de cuentas"
 }

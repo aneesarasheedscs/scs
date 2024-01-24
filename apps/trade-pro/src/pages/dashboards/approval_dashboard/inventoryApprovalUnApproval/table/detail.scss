@@ -17,7 +17,7 @@ $background-color-company_info: #e1e1e1;
   // border: 1px solid red;
 
   .caption {
-    color: $background-color-invoice;
+    color: black;
     padding-right: 0px;
     font-size: 15px;
     font-weight: 600;
@@ -132,7 +132,7 @@ $background-color-company_info: #e1e1e1;
     }
   }
   .table-Row {
-    padding: 7px;
+    padding: 4px;
     display: flex;
     .show-hide-icon {
       display: block;
@@ -175,21 +175,21 @@ $background-color-company_info: #e1e1e1;
     }
   }
   .detail-table-row {
-    width: 96%;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
-    margin-bottom: 7px;
+    // border-left: 1px solid black;
+    // border-right: 1px solid black;
+    // border-bottom: 1px solid black;
+    // margin-bottom: 5px;
     .Detail-remarks {
       width: 100%;
       display: flex;
       padding: 0px 0px;
       .caption {
-        color: $background-color-invoice;
+        color: black;
         font-size: 14px;
-        padding: 0px 11px;
+        padding: 0px 5px;
         font-weight: bold;
         @media screen and (max-width: 1250px) {
           font-size: 14px;
@@ -198,6 +198,7 @@ $background-color-company_info: #e1e1e1;
       .value {
         font-size: 12px;
         margin-top: 3px;
+        margin-left: 5px;
         @media screen and (max-width: 1250px) {
           font-size: 12px;
           margin-top: 2px;
@@ -368,7 +369,8 @@ $background-color-company_info: #e1e1e1;
   border: 1px solid $background-color-invoice;
 }
 .Wht-Title {
-  font-size: 17px;
+  font-size: 18px;
+  font-weight: bold;
   color: $background-color-invoice;
 }
 .Wht-Value {

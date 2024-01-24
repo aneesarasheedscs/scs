@@ -42,6 +42,7 @@ const VoucherTable: React.FC<{
   const [popupType, setpopupType] = useState('');
   const [popupMesg, setpopupMesg] = useState('');
   const [popupTitle, setpopupTitle] = useState('');
+  const [actionTypeId, setActionTypeId] = useState<boolean>(false);
 
   const onSelectChange = (selectedRowKeys: any[], selectedRows: any) => {
     console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -57,11 +58,13 @@ const VoucherTable: React.FC<{
   const handleRecordsForApprove = () => {
     setConfirmationMesg("Are You Sure To approve Record's");
     setConfirmPopupVisibility(true);
+    setActionTypeId(false);
   };
 
   const handleRecordsForRevision = () => {
     setConfirmationMesg('Do You want to Mark Selected Documents For Revision');
     setConfirmPopupVisibility(true);
+    setActionTypeId(true);
   };
 
   let ApproveData: any = [];
@@ -74,7 +77,7 @@ const VoucherTable: React.FC<{
         Id: selectedRows[i].VoucherHeadId,
         PostDate: new Date(),
         EntryUser: userDetail?.UserId,
-        ActionTypeId: false, // false For Approve ,, true for revision
+        ActionTypeId: actionTypeId, // false For Approve ,, true for revision
         ReqType: approvalUnApproval == false ? 'AP' : 'UP',
       });
     }
@@ -83,23 +86,23 @@ const VoucherTable: React.FC<{
     console.log(ApproveData);
   };
 
-  let DataForRevision: any = [];
-  const ReviseRecords = () => {
-    DataForRevision.AllApprovalLists = [];
-    for (let i = 0; i < selectedRows?.length; i++) {
-      ApproveData?.AllApprovalLists.push({
-        OrganizationId: userDetail?.OrganizationId,
-        CompanyId: userDetail?.CompanyId,
-        Id: selectedRows[i].VoucherHeadId,
-        PostDate: new Date(),
-        EntryUser: userDetail?.UserId,
-        ActionTypeId: true, // false For Approve ,, true for revision
-        ReqType: approvalUnApproval == false ? 'AP' : 'UP',
-      });
-    }
-    console.log(DataForRevision);
-    Approve(DataForRevision);
-  };
+  // let DataForRevision: any = [];
+  // const ReviseRecords = () => {
+  //   DataForRevision.AllApprovalLists = [];
+  //   for (let i = 0; i < selectedRows?.length; i++) {
+  //     ApproveData?.AllApprovalLists.push({
+  //       OrganizationId: userDetail?.OrganizationId,
+  //       CompanyId: userDetail?.CompanyId,
+  //       Id: selectedRows[i].VoucherHeadId,
+  //       PostDate: new Date(),
+  //       EntryUser: userDetail?.UserId,
+  //       ActionTypeId: true, // false For Approve ,, true for revision
+  //       ReqType: approvalUnApproval == false ? 'AP' : 'UP',
+  //     });
+  //   }
+  //   console.log(DataForRevision);
+  //   Approve(DataForRevision);
+  // };
 
   useEffect(() => {
     // if (isSuccess) {
@@ -212,13 +215,13 @@ const VoucherTable: React.FC<{
         // }
         // <ApproveRecordButtonOnTable SelectedCount={SelectedRowsLength} ApproveRecords={ApproveRecords}
       /> */}
-      <CustomPopup
+      {/* <CustomPopup
         type={popupType}
         title={popupTitle}
         message={popupMesg}
         visibility={popupVisibility}
         onOk={() => setpopupVisibility(false)}
-      ></CustomPopup>
+      ></CustomPopup> */}
 
       <CustomPopup
         type={'confirmation'}

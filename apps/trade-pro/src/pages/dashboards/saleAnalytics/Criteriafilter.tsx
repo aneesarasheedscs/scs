@@ -58,46 +58,55 @@ function SalesAnalyticalCriteria({ refetch, form }: any) {
   return (
     <Row gutter={[16, 16]}>
       <Col xxl={24} xl={24} xs={23} lg={24} sm={24} md={24}>
+        <h2 style={{ padding: 10, marginLeft: 6 }}>{t('sales_analytical_dashboard')}</h2>
+
         <Card>
           <Form form={form} onFinish={onFinish} initialValues={formValues}>
-            <Row gutter={16} justify={'space-around'}>
-              <Col xl={7} xs={24} sm={23} md={10} lg={23} xxl={4} className="formfield form-container">
-                <AntSelectDynamic
-                  bordered={false}
-                  label={t('date_type')}
-                  name="DateType"
-                  fieldLabel="DateType"
-                  fieldValue="Id"
-                  query={useGetDateType}
-                  onChange={(value) => handleDateChange(value)}
-                />
-              </Col>
-              <Col xl={6} xs={24} sm={12} md={10} lg={23} xxl={4} className="formfield form-container">
-                <AntDatePicker name="FromDate" bordered={false} label={t('from_date')} />
-              </Col>
-              <Col xl={6} xs={24} sm={11} md={10} lg={23} xxl={4} className="formfield form-container">
-                <AntDatePicker name="ToDate" bordered={false} label={t('to_date')} />
-              </Col>
-              <Col xl={18} xs={24} sm={23} md={10} lg={23} xxl={5} className="formfield form-container">
-                <AntSelectDynamic
-                  bordered={false}
-                  label={t('master_branch')}
-                  name="MasterBranch"
-                  fieldLabel="CompName"
-                  fieldValue="Id"
-                  query={useGetMasterBranchByUserId}
-                />
-              </Col>
+            <Col xxl={20} xl={20} lg={24} md={24} sm={24} xs={24}>
+              <Row gutter={10} justify={'space-between'} style={{ width: '100%' }}>
+                <Col xl={8} xs={24} sm={23} md={12} lg={12} xxl={5} className="formfield form-container">
+                  <AntSelectDynamic
+                    bordered={false}
+                    label={t('date_type')}
+                    name="DateType"
+                    fieldLabel="DateType"
+                    fieldValue="Id"
+                    query={useGetDateType}
+                    onChange={(value) => handleDateChange(value)}
+                  />
+                </Col>
+                <Col xl={7} xs={24} sm={12} md={11} lg={11} xxl={4} className="formfield form-container">
+                  <AntDatePicker name="FromDate" bordered={false} label={t('from_date')} />
+                </Col>
+                <Col xl={8} xs={24} sm={11} md={12} lg={12} xxl={4} className="formfield form-container">
+                  <AntDatePicker name="ToDate" bordered={false} label={t('to_date')} />
+                </Col>
+                <Col xl={16} xs={24} sm={23} md={11} lg={11} xxl={7} className="formfield form-container">
+                  <AntSelectDynamic
+                    bordered={false}
+                    label={t('master_branch')}
+                    name="MasterBranch"
+                    fieldLabel="CompName"
+                    fieldValue="Id"
+                    query={useGetMasterBranchByUserId}
+                  />
+                </Col>
 
-              <Col xl={3} xs={10} sm={8} md={5} lg={5} xxl={3} className="btn-margin-top">
-                <AntButton
-                  label={t('show')}
-                  htmlType="submit"
-                  // isError={isFromToDateError}
-                  // isLoading={isFromToDateLoading}
-                />
-              </Col>
-            </Row>
+                <Col xl={8} xs={8} sm={5} md={3} lg={3} xxl={2} style={{ display: 'flex', justifyContent: 'start' }}>
+                  <Row>
+                    <Col span={24}>
+                      <AntButton
+                        label={t('show')}
+                        htmlType="submit"
+                        style={{ marginTop: 5 }}
+                        // isError={isFromToDateError}
+                        // isLoading={isFromToDateLoading}
+                      />
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+            </Col>
           </Form>
         </Card>
       </Col>

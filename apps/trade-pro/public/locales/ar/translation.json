@@ -496,5 +496,12 @@
   "approved_vouchers": "القسائم المعتمدة",
   "pending_for_revision": "في انتظار المراجعة",
   "offset_account": "تعويض حساب",
-  "payee_title": "عنوان المستفيد"
+  "payee_title": "عنوان المستفيد",
+  "wht_against_account": "WHT_ضد الحساب",
+  "detail_total": "التفاصيل الإجمالية",
+  "wht_account": "حساب وايت",
+  "tax_type": "نوع الضريبة",
+  "tax": "ضريبة",
+  "tax_amount": "قيمة الضريبة",
+  "accounts_dashboard": "لوحة تحكم الحسابات"
 }

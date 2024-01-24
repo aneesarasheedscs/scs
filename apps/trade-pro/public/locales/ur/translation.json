@@ -641,5 +641,12 @@
   "pending_for_revision": "نظرثانی کے لیے زیر التواء",
   "offset_account": "آفسیٹ اکاؤنٹ",
   "payee_title": "وصول کنندہ کا عنوان",
-  "account_allocation": "کاؤنٹ تخصیص"
+  "account_allocation": "کاؤنٹ تخصیص",
+  "wht_against_account": "WHT_Against اکاؤنٹ",
+  "detail_total": "تفصیل کل",
+  "wht_account": "کیا اکاؤنٹ",
+  "tax_type": "ٹیکس کی قسم",
+  "tax": "ٹیکس",
+  "tax_amount": "ٹیکس کی رقم",
+  "accounts_dashboard": "اکاؤنٹس ڈیش بورڈ"
 }

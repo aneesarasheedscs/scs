@@ -23,6 +23,7 @@ export const columns = (
   handleSelectAllRecords?: any
 ): AntColumnType<VoucherApprovalHistory>[] => [
   {
+    // fixed: 'left',
     title: (
       <Checkbox
         onChange={(e) => {
@@ -47,15 +48,15 @@ export const columns = (
         checked={selectedRowKeys?.includes(record.VoucherHeadId)}
       />
     ),
-  },
-  {
-    width: 60,
-    title: <>{t('sr')}</>,
-    dataIndex: 'RecordNo',
     showCount: true,
   },
   {
-    title: <>{t('code')}</>,
+    width: 60,
+    title: t('sr'),
+    dataIndex: 'RecordNo',
+  },
+  {
+    title: t('code'),
     dataIndex: 'VoucherCode',
     render: (_, { VoucherCode }) => numberFormatter(VoucherCode),
     width: 80,
@@ -63,7 +64,7 @@ export const columns = (
     sorter: (a, b) => a.VoucherCode - b.VoucherCode,
   },
   {
-    title: <>{t('type')}</>,
+    title: t('type'),
     dataIndex: 'DocumentType',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
@@ -71,7 +72,7 @@ export const columns = (
     width: 100,
   },
   {
-    title: <>{t('voucher_date')}</>,
+    title: t('voucher_date'),
     dataIndex: 'VoucherDate',
     searchableDate: true,
     width: 150,
@@ -84,7 +85,7 @@ export const columns = (
     },
   },
   {
-    title: <>{t('account_title')}</>,
+    title: t('account_title'),
     dataIndex: 'HeaderAccountTitle',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
@@ -93,7 +94,7 @@ export const columns = (
   },
   {
     align: 'right',
-    title: <>{t('voucher_amount')}</>,
+    title: t('voucher_amount'),
     dataIndex: 'VoucherAmount',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.VoucherAmount - b.VoucherAmount,
@@ -106,7 +107,7 @@ export const columns = (
     width: 180,
   },
   {
-    title: <>{t('cheque_no')}</>,
+    title: t('cheque_no'),
     dataIndex: 'ChequeNo',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
@@ -117,7 +118,7 @@ export const columns = (
     width: 150,
   },
   {
-    title: <>{t('cheque_date')}</>,
+    title: t('cheque_date'),
     searchableDate: true,
     dataIndex: 'ChequeDate',
     sortDirections: ['ascend', 'descend'],
@@ -130,7 +131,7 @@ export const columns = (
     width: 150,
   },
   {
-    title: <>{t('entry_user')}</>,
+    title: t('entry_user'),
     dataIndex: 'EntryUserName',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
@@ -139,14 +140,14 @@ export const columns = (
   },
 
   {
-    title: <>{t('remarks')}</>,
+    title: t('remarks'),
     dataIndex: 'Remarks',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.Remarks.localeCompare(b.Remarks),
     width: 180,
   },
   {
-    title: <>{t('status')}</>,
+    title: t('status'),
     dataIndex: 'IsApproved',
     render: (IsApproved) => (
       <Space
@@ -172,7 +173,7 @@ export const columns = (
   },
   {
     align: 'center',
-    title: <>{t('action')}</>,
+    title: t('action'),
     dataIndex: 'Actions',
     render: (_, record) => (
       <Space style={{ display: 'flex', justifyContent: 'center' }}>
@@ -192,7 +193,7 @@ export const columns = (
 
 export const columnss = (t: any): AntColumnType<CashInHand>[] => [
   {
-    title: <>{t('account_title')}</>,
+    title: t('account_title'),
     dataIndex: 'AccountTitle',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
@@ -201,13 +202,14 @@ export const columnss = (t: any): AntColumnType<CashInHand>[] => [
   },
 
   {
-    title: <>{t('offset_account')}</>,
+    title: t('offset_account'),
     dataIndex: 'OffsetAccount',
 
     width: 150,
   },
   {
-    title: <div style={{ textAlign: 'right' }}>{t('debit_amount')}</div>,
+    align: 'right',
+    title: t('debit_amount'),
     dataIndex: 'DebitAmount',
     render: (_, { DebitAmount }) => (
       <Space style={{ display: 'flex', justifyContent: 'flex-end', marginRight: 0 }}>
@@ -217,7 +219,8 @@ export const columnss = (t: any): AntColumnType<CashInHand>[] => [
     width: 100,
   },
   {
-    title: <div style={{ textAlign: 'right' }}>{t('credit_amount')}</div>,
+    align: 'right',
+    title: t('credit_amount'),
     dataIndex: 'CreditAmount',
     render: (_, { CreditAmount }) => (
       <div style={{ textAlign: 'right', paddingRight: 'px' }}>{numberFormatter(CreditAmount)}</div>

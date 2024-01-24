@@ -140,23 +140,38 @@ const SalesDashboard = () => {
     <div style={{ backgroundColor: '#fff' }} className="scrollable-container">
       <Row gutter={[24, 24]}>
         <Col xl={24} xs={24} sm={23} md={24} lg={23} xxl={24}>
-          <Typography.Title level={2} style={formHeading}>
+          {/* <Typography.Title level={2} style={formHeading}>
             {t('sales_analytical_dashboard')}
-          </Typography.Title>
+          </Typography.Title> */}
           <SalesAnalyticalCriteria refetch={refetch} form={form} />
-          <Row gutter={[24, 24]}>
-            <Col xl={6} xs={24} sm={23} md={10} lg={23} xxl={4} style={{ marginTop: '10px' }}>
+          <Row gutter={[4, 4]} style={{ marginLeft: 1 }}>
+            <Col
+              xl={6}
+              xs={24}
+              sm={23}
+              md={10}
+              lg={23}
+              xxl={4}
+              style={{
+                marginTop: '10px',
+                // border: '1px solid red',
+                borderRadius: '5px',
+
+                boxShadow: '2px 4px 12px 1px lightgray',
+              }}
+            >
               <Typography.Title
                 level={4}
                 style={{
-                  fontFamily: 'Times New Roman',
-                  borderRadius: '5px',
+                  // fontFamily: 'Times New Roman',
+                  // borderRadius: '5px',
                   padding: '5px',
-                  boxShadow: '2px 4px 12px 1px lightgray',
+                  // boxShadow: '2px 4px 12px 1px lightgray',
                   marginBottom: '7px',
                   fontSize: '1.3rem',
                   textAlign: 'center',
                   color: 'blueviolet',
+                  borderBottom: '1px  solid lightgray',
                 }}
               >
                 {t('current_statistics')}

@@ -489,5 +489,12 @@
   "approved_vouchers": "Bons approuvés",
   "pending_for_revision": "En attente de révision",
   "offset_account": "Compte de compensation",
-  "payee_title": "Titre du bénéficiaire"
+  "payee_title": "Titre du bénéficiaire",
+  "wht_against_account": "WHT_Contre le compte",
+  "detail_total": "Détail Total",
+  "wht_account": "Quel compte",
+  "tax_type": "Type de taxe",
+  "tax": "Impôt",
+  "tax_amount": "Montant de la taxe",
+  "accounts_dashboard": "Tableau de bord des comptes"
 }

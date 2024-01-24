@@ -489,5 +489,12 @@
   "approved_vouchers": "批准的优惠券",
   "pending_for_revision": "待修改",
   "offset_account": "抵销账户",
-  "payee_title": "收款人名称"
+  "payee_title": "收款人名称",
+  "wht_against_account": "WHT_针对账户",
+  "detail_total": "详细 总计",
+  "wht_account": "账户名称",
+  "tax_type": "税种",
+  "tax": "税",
+  "tax_amount": "税额",
+  "accounts_dashboard": "账户仪表板"
 }
