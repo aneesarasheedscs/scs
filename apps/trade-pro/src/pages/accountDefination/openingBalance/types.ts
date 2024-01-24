@@ -9,15 +9,18 @@ export type OpeningBalanceTypes = {
 export type OpeningBalanceCriteriaTypes = {
   Id: number;
   AccountTitle: string;
-  DebitAmount: number;
-  CreditAmount: number;
-  ChartOfAccountId: number;
+ 
+  YearObCredit: number;
+  YearObDebit: number;
+  ChartofAccountId: number
   DebitBalance: number;
   CreditBalance: number;
   BeforeDebit: number;
   BeforeCredit: number;
   AccountType: string;
   ParentAccountTitle: string;
+
+  
 };
 export type TopeningBalanceHistory = {
   Id: string;
@@ -47,6 +50,5 @@ export type TaddOpeningBalance = {
   PostUser: number;
   YearObCredit: number;
   YearObDebit: number;
-  CreditAmount:number;
-  DebitAmount:number
+  Account: string
 };
