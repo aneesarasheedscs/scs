@@ -3,7 +3,7 @@ import OpeningBalance from './openingBalance';
 
 const OpeningBalanceReport = () => {
   return (
-    <div style={{ background: '#fff' }}>
+    <div>
       <OpeningBalance />
     </div>
   );

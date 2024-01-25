@@ -1,4 +1,4 @@
-import { AntButton, AntInput, AntInputNumber, AntSelectDynamic, AntTable } from '@tradePro/components';
+import { AntButton, AntInputNumber, AntSelectDynamic, AntTable } from '@tradePro/components';
 import { Card, Col, Form, Row, notification } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { SyncOutlined, SaveOutlined } from '@ant-design/icons';
@@ -56,38 +56,58 @@ const OpeningBalance = ({}: TupdateOpeningBalance) => {
   const { data, isError, isLoading, isSuccess } = useGetByIdOpeningBalnce(false, selectedRecordId);
   const { mutate: addData } = useAddOpeningBalance();
   const { mutate: updateData, isSuccess: isSuccessUpdate } = useUpdateOpeningBalance(selectedRecordId);
+
   const ChartOfAccountTitle = form.getFieldValue('ChartOfAccountTitle');
   const ChartOfAccountId = form.getFieldValue('ChartOfAccountId');
+  const YearObDebit = form.getFieldValue('YearObDebit');
+  const YearObCredit = form.getFieldValue('YearObCredit');
   console.log(ChartOfAccountId);
   const Id = form.getFieldValue('Id');
 
   const onFinish = (values: TaddOpeningBalance) => {
-    // console.log(values);
+    console.log('onFinish function called');
     values.ChartOfAccountId = ChartOfAccountId;
     values.ChartOfAccountTitle = ChartOfAccountTitle;
     values.Id = Id;
-    const { YearObDebit, YearObCredit } = values;
+
+    const { YearObCredit, YearObDebit } = values;
+
+    if (YearObDebit > 0) {
+      values.YearObCredit = 0;
+    } else if (YearObCredit > 0) {
+      values.YearObDebit = 0;
+    } else if (YearObDebit > 0 && YearObCredit > 0) {
+      const msg = 'Both DebitBalance and CreditBalance cannot be greater than 0 at the same time!';
+      notification.error({
+        message: 'Error',
+        description: msg,
+      });
+      return;
+    }
 
     console.log('Form values:', values);
-
-    // if ((!isNaN(YearObDebit) && !isNaN(YearObCredit)) || (isNaN(YearObDebit) && isNaN(YearObCredit))) {
-    //   // If both YearObDebit and YearObCredit are filled or both are not filled
-    //   console.log('No validation required');
-    // } else if (!isNaN(YearObDebit)) {
-    //   // If only YearObDebit is filled, set YearObCredit to 0
-    //   YearObCredit === 0;
-    // } else if (!isNaN(YearObCredit)) {
-    //   // If only YearObCredit is filled, set YearObDebit to 0
-    //   YearObDebit === 0;
-    // }
 
     if (selectedRecordId) {
       updateData(values);
     } else {
       addData(values);
     }
-    setSelectedRecordId(null);
+    form.resetFields();
   };
+
+  useEffect(() => {
+    if (YearObDebit > 0) {
+      form.setFieldsValue({ YearObCredit: 0 });
+    } else if (YearObCredit > 0) {
+      form.setFieldsValue({ YearObDebit: 0 });
+    } else if (YearObDebit > 0 && YearObCredit > 0) {
+      const msg = 'Both DebitBalance and CreditBalance cannot be greater than 0 at the same time!';
+      notification.error({
+        message: 'Error',
+        description: msg,
+      });
+    }
+  }, [form, YearObDebit, YearObCredit]);
 
   const handleItemChange = (obj: OpeningBalanceCriteriaTypes, index: string) => {
     // setSelectedRecordId(obj.Id);
@@ -155,8 +175,8 @@ const OpeningBalance = ({}: TupdateOpeningBalance) => {
   return (
     <div style={{ background: '#fff' }}>
       <Row>
-        <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16} className="forms-heading-container">
-          <h1 className="report_heading">{t('opening_balance')}</h1>
+        <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16}>
+          <h1 className="report_headings">{t('opening_balance')}</h1>
         </Col>
       </Row>
 
@@ -194,14 +214,7 @@ const OpeningBalance = ({}: TupdateOpeningBalance) => {
                       onChange={(event) => handleCreditAmountChange(event, 'YearObCredit')}
                     />
                   </Col>
-                  {/* 
-                <Col xs={24} sm={12} md={12} lg={12} xl={5} className="formfield" offset={1}>
-                  <AntInput label={t('credit_amount')} name="AccountTitle2" bordered={false} />
-                </Col> */}
-                  {/* 
-                  <Col xs={10} sm={8} md={5} lg={5} xl={3} xxl={2} className="btn-margin-top">
-                    <AntButton label={t('save')} htmlType="submit" icon={<SaveOutlined />} />
-                  </Col> */}
+
                   <Col xs={10} sm={8} md={5} lg={5} xl={3} xxl={3} className="btn-margin-top">
                     <AntButton
                       label={selectedRecordId ? t('update') : t('save')}
@@ -229,8 +242,9 @@ const OpeningBalance = ({}: TupdateOpeningBalance) => {
           </Card>
         </Col>
       </Row>
+      <br></br>
       <Row justify={'space-around'}>
-        <Col xxl={23} xl={23} xs={23} lg={23} sm={23} md={23} style={{ marginTop: '10px' }}>
+        <Col xxl={23} xl={23} xs={23} lg={23} sm={23} md={23} style={{}}>
           <AntTable
             columns={OpeningBalanceColumns(t, handleEditButtonClick)}
             data={openingBalanceData?.data?.Data?.Result || []}

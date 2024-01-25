@@ -9,6 +9,7 @@ export const AccountAllocationColumns = (t: any): AntColumnType<AccountAllocatio
     render: (_text, _record, _index) => {
       return <Checkbox />;
     },
+    showCount: true,
   },
 
   {

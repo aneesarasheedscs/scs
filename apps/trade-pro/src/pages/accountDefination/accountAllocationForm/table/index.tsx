@@ -125,6 +125,7 @@ const AccountAllocationTable = ({
           />
         );
       },
+      showCount: true,
     },
     {
       width: 160,
@@ -143,7 +144,7 @@ const AccountAllocationTable = ({
   return (
     <div>
       <Row>
-        <Col xs={24} sm={20} lg={9} style={{ marginTop: '10px', marginLeft: '3%' }}>
+        <Col xs={24} sm={20} lg={9} style={{ marginTop: '10px', marginLeft: '2%' }}>
           <h2
             className="tableHead"
             style={{
@@ -151,12 +152,16 @@ const AccountAllocationTable = ({
               width: '100%',
               display: 'flex',
               justifyContent: 'space-between',
+              padding: '10px',
             }}
           >
-            <p style={{ marginLeft: '25%' }}> {t('pending_accounts_for_allocation')}</p>
+            <p style={{ marginLeft: '23%', color: '#fff' }}> {t('pending_accounts_for_allocation')}</p>
             <p>
               <Tooltip title="To Allocate Accounts">
-                <CheckCircleFilled style={{ fontSize: '25px' }} onClick={openAllocatePopup} />
+                <CheckCircleFilled
+                  style={{ fontSize: '25px', color: '#fff', marginLeft: '-25%' }}
+                  onClick={openAllocatePopup}
+                />
               </Tooltip>
 
               <Modal
@@ -176,7 +181,7 @@ const AccountAllocationTable = ({
             data={allocatedData?.data?.Data?.Result || []}
             isLoading={tableLoading || isFetching}
             isError={isError}
-            scroll={{ x: '', y: convertVhToPixels('56vh') }}
+            scroll={{ x: '', y: convertVhToPixels('52vh') }}
             numberOfSkeletons={12}
           />
         </Col>
@@ -189,12 +194,16 @@ const AccountAllocationTable = ({
               backgroundColor: colorPrimary,
               display: 'flex',
               justifyContent: 'space-between',
+              padding: '10px',
             }}
           >
-            <p style={{ marginLeft: '30%' }}> {t('allocated_accounts')}</p>
+            <p style={{ marginLeft: '30%', color: '#fff' }}> {t('allocated_accounts')}</p>
             <p>
               <Tooltip title="Un-Allocate Accounts">
-                <CloseCircleFilled style={{ fontSize: '25px' }} onClick={openUnAllocatePopup} />
+                <CloseCircleFilled
+                  style={{ fontSize: '25px', color: '#fff', marginLeft: '-25%' }}
+                  onClick={openUnAllocatePopup}
+                />
               </Tooltip>
               <Modal
                 title="Un Allocate Accounts"
@@ -213,7 +222,7 @@ const AccountAllocationTable = ({
             isLoading={tableLoadingunallocated || isFetchingunallocated}
             refetch={unallocatedrefetch}
             numberOfSkeletons={12}
-            scroll={{ x: '', y: convertVhToPixels('56vh') }}
+            scroll={{ x: '', y: convertVhToPixels('52vh') }}
           />
         </Col>
       </Row>

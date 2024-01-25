@@ -644,5 +644,9 @@
   "unapproved_vouchers": "UnApproved Vouchers",
   "approved_vouchers": "Approved Vouchers",
   "pending_for_revision": "Pending for Revision",
-  "account_allocation": "Account Allocation"
+  "account_allocation": "Account Allocation",
+  "financial_year": "Financial Year",
+  "pending_accounts_for_allocation": "Pending Accounts For Allocation",
+  "to_company": "To Company",
+  "allocated_accounts": "Allocated Accounts"
 }

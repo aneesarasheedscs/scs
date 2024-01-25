@@ -639,5 +639,9 @@
   "unapproved_vouchers": "غیر منظور شدہ واؤچرز",
   "approved_vouchers": "منظور شدہ واؤچرز",
   "pending_for_revision": "نظرثانی کے لیے زیر التواء",
-  "account_allocation": "کاؤنٹ تخصیص"
+  "account_allocation": "کاؤنٹ تخصیص",
+  "account_allocations": "اکاؤنٹ تشکیل",
+  "financial_year": "مالی سال",
+  "pending_accounts_for_allocation": "تشکیل کے لئے زیر تعلیم اکاؤنٹس",
+  "to_company": "کمپنی کو"
 }
