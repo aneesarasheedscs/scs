@@ -482,5 +482,6 @@
   "tax_type": "세금 유형",
   "tax": "세",
   "tax_amount": "세금",
-  "accounts_dashboard": "계정 대시보드"
+  "accounts_dashboard": "계정 대시보드",
+  "sales-by-branch": "지점별 매출"
 }

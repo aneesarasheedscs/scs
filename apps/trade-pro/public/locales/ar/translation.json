@@ -503,5 +503,6 @@
   "tax_type": "نوع الضريبة",
   "tax": "ضريبة",
   "tax_amount": "قيمة الضريبة",
-  "accounts_dashboard": "لوحة تحكم الحسابات"
+  "accounts_dashboard": "لوحة تحكم الحسابات",
+  "sales-by-branch": "المبيعات حسب الفرع"
 }

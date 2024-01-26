@@ -652,5 +652,6 @@
   "wht_account": "Wht Account",
   "tax_type": "Tax Type",
   "tax": "Tax",
-  "tax_amount": "Tax Amount"
+  "tax_amount": "Tax Amount",
+  "sales-by-branch": "Sales By Branch"
 }

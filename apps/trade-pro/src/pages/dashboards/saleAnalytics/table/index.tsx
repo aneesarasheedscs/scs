@@ -11,12 +11,12 @@ const ParentCategoryTable = ({ data }: any) => {
     <>
       {/* <Typography.Text>Recent Sales</Typography.Text> */}
       <Table
-        style={{ marginLeft: '3em' }}
+        style={{ marginLeft: '1em' }}
         dataSource={filteredParentCategory}
         columns={[
           {
             title: t('par_category'),
-            width: 200,
+            width: 250,
 
             dataIndex: 'ParentCategory',
             render: (_, { ParentCategory }) => (
@@ -43,7 +43,7 @@ const ParentCategoryTable = ({ data }: any) => {
           },
           {
             title: t('%_of_total_weight'),
-            width: '150px',
+            width: '200px',
             dataIndex: 'PrcntOfTotalWeight',
           },
 

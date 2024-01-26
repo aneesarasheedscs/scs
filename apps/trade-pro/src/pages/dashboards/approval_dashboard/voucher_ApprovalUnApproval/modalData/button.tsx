@@ -27,10 +27,20 @@ const Buttons: React.FC<{
     // <div>
     <Row className="col" style={{ width: '100%' }}>
       <Col xs={21} sm={21}>
-        <AntButton title="Print" icon={<PrinterFilled />} className="btn" />
+        <AntButton
+          title="Print"
+          icon={<PrinterFilled style={{ fontSize: 20 }} />}
+          style={{ border: '1px solid #f0f0f0' }}
+          className=""
+          ghost
+        />
         <Tooltip placement="top" title="Attachment">
           <Badge count={'1'}>
-            <AntButton icon={<LinkOutlined style={{ fontSize: 17 }} />} className="attachment" />
+            <AntButton
+              ghost
+              icon={<LinkOutlined style={{ color: '#ffaf0c', fontSize: 20, fontWeight: 'bold' }} />}
+              className="attachment"
+            />
           </Badge>
         </Tooltip>
       </Col>
@@ -59,7 +69,9 @@ const Buttons: React.FC<{
           <Badge count={`${SelectedDocumentsCount}`}>
             <Tooltip placement="top" title="Approved Selected Vouchers">
               <AntButton
-                icon={<FileProtectOutlined style={{ fontSize: 17 }} />}
+                ghost
+                style={{ border: '1px solid #f0f0f0' }}
+                icon={<FileProtectOutlined style={{ fontSize: 20 }} />}
                 className="btn"
                 onClick={() => ApproveSelectedVouchers(false)}
                 // label={`${SelectedDocumentsCount}`}
@@ -70,7 +82,8 @@ const Buttons: React.FC<{
           <Tooltip placement="top" title="Make For Revision">
             <Badge count={`${SelectedDocumentsCount}`}>
               <AntButton
-                icon={<EditFilled style={{ color: '#fff', fontSize: 17 }} />}
+                ghost
+                icon={<EditFilled style={{ color: 'green', fontSize: 20 }} />}
                 className="btn_for_revision"
                 onClick={() => ApproveSelectedVouchers(true)}
                 // label={`${SelectedDocumentsCount}`}
@@ -80,7 +93,13 @@ const Buttons: React.FC<{
 
           {VoucherNotesByApprovalPersonVisible && (
             <Tooltip placement="top" title="Take Notes">
-              <AntButton className="btn" icon={<FileTextOutlined />} onClick={() => handlVoucherNotesButtonClick()} />
+              <AntButton
+                className="btn"
+                ghost
+                style={{ border: '1px solid #f0f0f0' }}
+                icon={<FileTextOutlined style={{ fontSize: 20 }} />}
+                onClick={() => handlVoucherNotesButtonClick()}
+              />
             </Tooltip>
           )}
           {/* <Tooltip placement="top" title="General Ledger Of Header Account">

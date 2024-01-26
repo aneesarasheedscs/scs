@@ -496,5 +496,6 @@
   "tax_type": "Type de taxe",
   "tax": "Impôt",
   "tax_amount": "Montant de la taxe",
-  "accounts_dashboard": "Tableau de bord des comptes"
+  "accounts_dashboard": "Tableau de bord des comptes",
+  "sales-by-branch": "Ventes par succursale"
 }

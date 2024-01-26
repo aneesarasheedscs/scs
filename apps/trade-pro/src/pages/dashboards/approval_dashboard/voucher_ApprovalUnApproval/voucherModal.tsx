@@ -1,4 +1,4 @@
-import { Col, Row, Tabs } from 'antd';
+import { Col, Row, Tabs, theme } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { AntButton } from '@scs/ui';
 import CardView from './cardView';
@@ -16,6 +16,9 @@ const VoucherModal: React.FC<{ approvalId: number | undefined; appRovalUnApprova
   const [filteredData, setfilteredData] = useState([]);
 
   const { t } = useTranslation();
+  const {
+    token: { colorPrimary },
+  } = theme.useToken();
 
   useEffect(() => {
     if (approvalId === 0) setdocumentTypeId(1);
@@ -92,8 +95,26 @@ const VoucherModal: React.FC<{ approvalId: number | undefined; appRovalUnApprova
                   </Col>
                   <Col xs={24} sm={12}>
                     <div style={{ float: 'right' }}>
-                      <AntButton onClick={toggleGridView} className="btn" label={t('grid_view')} />
-                      <AntButton onClick={toggleCardView} className="btn" label={t('card_view')} />
+                      <AntButton
+                        onClick={toggleGridView}
+                        style={{
+                          background: showComponent ? '' : '#fff',
+                          color: showComponent ? '' : `${colorPrimary}`,
+                          border: showComponent ? '' : `1px solid ${colorPrimary}`,
+                        }}
+                        className="btn"
+                        label={t('grid_view')}
+                      />
+                      <AntButton
+                        onClick={toggleCardView}
+                        style={{
+                          background: showComponent ? '#fff' : '',
+                          color: showComponent ? `${colorPrimary}` : '',
+                          border: showComponent ? `1px solid ${colorPrimary}` : '',
+                        }}
+                        className="btn"
+                        label={t('card_view')}
+                      />
                     </div>
                   </Col>
                 </Row>

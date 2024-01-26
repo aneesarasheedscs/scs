@@ -826,5 +826,6 @@
   "tax_type": "Tipo de impuesto",
   "tax": "Impuesto",
   "tax_amount": "Importe del impuesto",
-  "accounts_dashboard": "Panel de cuentas"
+  "accounts_dashboard": "Panel de cuentas",
+  "sales-by-branch": "Ventas por sucursal"
 }

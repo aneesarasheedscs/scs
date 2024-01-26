@@ -496,5 +496,6 @@
   "tax_type": "税种",
   "tax": "税",
   "tax_amount": "税额",
-  "accounts_dashboard": "账户仪表板"
+  "accounts_dashboard": "账户仪表板",
+  "sales-by-branch": "分店销售额"
 }

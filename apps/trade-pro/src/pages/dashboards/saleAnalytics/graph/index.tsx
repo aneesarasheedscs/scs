@@ -53,7 +53,7 @@ const SalesDashboardChart = ({ data }: any) => {
 
   return (
     <Col xxl={24} xl={24} md={20} xs={24} lg={24}>
-      <ReactECharts option={option} style={{ width: '40vw' }} />
+      <ReactECharts option={option} style={{ width: '100%' }} />
     </Col>
   );
 };

@@ -17,7 +17,7 @@ const ParentCategoryChart = ({ data }: any) => {
   const { t } = useTranslation();
   const option = {
     title: {
-      text: 'Parent Category',
+      // text: 'Parent Category',
       // subtext: 'Fake Data',
       left: 'center',
     },
@@ -51,7 +51,7 @@ const ParentCategoryChart = ({ data }: any) => {
 
   return (
     <Col span={24}>
-      <ReactECharts option={option} style={{ width: '40vw' }} />
+      <ReactECharts option={option} style={{ width: '40vw', height: '260px' }} />
     </Col>
   );
 };
