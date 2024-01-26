@@ -19,3 +19,12 @@
   padding: 8px;
   text-align: center;
 }
+@media only screen and (max-width: 870px) {
+  .form-container {
+    margin-top: 0%;
+    height: 60px;
+  }
+  .btn-margin-top {
+    margin-top: 3%;
+  }
+}

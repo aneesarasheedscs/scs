@@ -15,6 +15,7 @@ import { useEffect } from 'react';
 import { SyncOutlined } from '@ant-design/icons';
 import { useAtom } from 'jotai';
 import { selectedRowsAtom } from '../table/Atom';
+import '../style.scss';
 
 const { useForm } = Form;
 
@@ -53,7 +54,7 @@ const AccountAllocation = () => {
   return (
     <div style={{ background: '#fff' }}>
       <Row>
-        <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16}>
+        <Col xs={23} sm={10} md={23} lg={12} xl={14} xxl={16}>
           <h1 style={{ fontFamily: 'Poppins', fontSize: '19px', padding: '10px', marginLeft: '24px' }}>
             {t('account_allocation')}{' '}
           </h1>
@@ -62,50 +63,52 @@ const AccountAllocation = () => {
 
       <Col xxl={14}>
         <Row justify={'space-around'}>
-          <Col xxl={23} xl={23} sm={23} xs={23} lg={23}>
+          <Col xxl={23} xl={23} sm={23} xs={23} lg={23} md={23}>
             <Card style={{ marginLeft: '10px' }}>
               <Form onFinish={onFinish} form={form}>
-                <Row gutter={16} justify={'space-between'}>
-                  <Col xs={24} sm={12} md={12} lg={12} xl={10} xxl={11} className="formfield">
-                    <AntSelectDynamic
-                      bordered={false}
-                      label={t('to_company')}
-                      name="CompCode"
-                      fieldLabel="CompName"
-                      fieldValue="Id"
-                      query={useGetAccountAllocationComp}
-                      onSelectChange={(obj) => handleItemChange(obj, 'CompCode')}
-                    />
-                  </Col>
-                  <Col xs={24} sm={12} md={12} lg={12} xl={6} xxl={7} className="formfield">
-                    <AntSelectDynamic
-                      bordered={false}
-                      label={t('financial_year')}
-                      name="FinancialYearCode"
-                      fieldLabel="FinancialYearCode"
-                      fieldValue="Id"
-                      query={useGetFinancialYear(Id)}
-                    />
-                  </Col>
+                <Col lg={24}>
+                  <Row gutter={16} justify={'space-between'}>
+                    <Col xs={23} sm={23} md={15} lg={13} xl={10} xxl={11} className="formfield form-container">
+                      <AntSelectDynamic
+                        bordered={false}
+                        label={t('to_company')}
+                        name="CompCode"
+                        fieldLabel="CompName"
+                        fieldValue="Id"
+                        query={useGetAccountAllocationComp}
+                        onSelectChange={(obj) => handleItemChange(obj, 'CompCode')}
+                      />
+                    </Col>
+                    <Col xs={23} sm={23} md={8} lg={6} xl={6} xxl={7} className="formfield form-container">
+                      <AntSelectDynamic
+                        bordered={false}
+                        label={t('financial_year')}
+                        name="FinancialYearCode"
+                        fieldLabel="FinancialYearCode"
+                        fieldValue="Id"
+                        query={useGetFinancialYear(Id)}
+                      />
+                    </Col>
 
-                  {/* <Col xs={24} sm={12} md={12} lg={12} xl={2} offset={1}>
+                    {/* <Col xs={24} sm={12} md={12} lg={12} xl={2} offset={1}>
                   <AntButton label={t('add')} htmlType="submit" />
                 </Col> */}
 
-                  <Col xs={24} sm={12} md={12} lg={12} xl={4} offset={1}>
-                    <AntButton
-                      danger
-                      ghost
-                      htmlType="reset"
-                      onClick={() => {
-                        form.resetFields();
-                        setSelectedRows([]);
-                      }}
-                      label={t('reset')}
-                      icon={<SyncOutlined />}
-                    />
-                  </Col>
-                </Row>
+                    <Col xs={10} sm={7} md={6} lg={4} xl={4} className="btn-margin-top">
+                      <AntButton
+                        danger
+                        ghost
+                        htmlType="reset"
+                        onClick={() => {
+                          form.resetFields();
+                          setSelectedRows([]);
+                        }}
+                        label={t('reset')}
+                        icon={<SyncOutlined />}
+                      />
+                    </Col>
+                  </Row>
+                </Col>
               </Form>
             </Card>
           </Col>
