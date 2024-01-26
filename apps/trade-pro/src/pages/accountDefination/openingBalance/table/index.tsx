@@ -34,6 +34,7 @@ const OpeningBalanceTable = () => {
             isError={isError}
             isLoading={isLoading}
             refetch={refetch}
+            numberOfSkeletons={12}
           />
         </Col>
       </Row>

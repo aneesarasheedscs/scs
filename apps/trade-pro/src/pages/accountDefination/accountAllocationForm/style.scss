@@ -10,13 +10,21 @@
   margin: 16px;
 }
 .report_heading {
-  font-family: Poppins;
+  font-family: Poppins !important;
   font-size: 19px;
   padding: 10px;
-  border: 10px solid red;
 }
 .tableHead {
   color: #fff;
   padding: 8px;
   text-align: center;
+}
+@media only screen and (max-width: 870px) {
+  .form-container {
+    margin-top: 0%;
+    height: 60px;
+  }
+  .btn-margin-top {
+    margin-top: 3%;
+  }
 }

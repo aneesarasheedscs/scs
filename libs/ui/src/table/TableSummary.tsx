@@ -33,6 +33,9 @@ function TableSummary({ data, columns, filteredData }: TTableSummary) {
                     width: '7rem',
                   }}
                 >
+                // <span style={{ display: 'flex', justifyContent: 'center', marginLeft: '-30%' }}>
+                <span style={{ display: 'flex', justifyContent: 'start', marginLeft: '' }}>
+                  {/* Total No of Records: {numberFormatter(count)} */}
                   Records: {numberFormatter(count)}
                 </span>
               ) : null}

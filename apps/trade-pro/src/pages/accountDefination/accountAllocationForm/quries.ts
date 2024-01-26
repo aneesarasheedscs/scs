@@ -125,7 +125,7 @@ export const useAddAllocationAccounts = (params?: TAddCOAAllocation) => {
         BranchId: userDetail?.BranchesId,
         FinancialYearId: financialYear?.Id,
         EntryUser: userDetail?.UserId,
-        ChartOfAccountId: 21754,
+        // ChartOfAccountId: 21754,
         IsActive: true,
         ...params,
       };
