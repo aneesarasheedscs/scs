@@ -20,7 +20,7 @@ const SalesDashboardChart = ({ data }: any) => {
 
   const option = {
     title: {
-      text: 'Cash & Credit Sale',
+      text: 'Cash & Credit Sales',
       // subtext: 'Fake Data',
       left: 'center',
     },

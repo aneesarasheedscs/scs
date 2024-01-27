@@ -56,11 +56,11 @@ function SalesAnalyticalCriteria({ refetch, form }: any) {
   };
 
   return (
-    <Row gutter={[16, 16]}>
+    <Row gutter={[6, 6]} justify={'center'}>
       <Col xxl={24} xl={24} xs={23} lg={24} sm={24} md={24}>
         <h2 style={{ padding: 10, marginLeft: 6 }}>{t('sales_analytical_dashboard')}</h2>
 
-        <Card>
+        <Card style={{ width: '97%', marginLeft: '1.5%', boxShadow: '2px 2px 10px 0px gray' }} hoverable>
           <Form form={form} onFinish={onFinish} initialValues={formValues}>
             <Col xxl={20} xl={20} lg={24} md={24} sm={24} xs={24}>
               <Row gutter={10} justify={'space-between'} style={{ width: '100%' }}>

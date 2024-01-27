@@ -504,5 +504,6 @@
   "tax": "ضريبة",
   "tax_amount": "قيمة الضريبة",
   "accounts_dashboard": "لوحة تحكم الحسابات",
-  "sales-by-branch": "المبيعات حسب الفرع"
+  "sales_by_branch": "المبيعات حسب الفرع",
+  "graph_view": "عرض الرسم البياني"
 }

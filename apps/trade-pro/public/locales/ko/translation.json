@@ -483,5 +483,6 @@
   "tax": "세",
   "tax_amount": "세금",
   "accounts_dashboard": "계정 대시보드",
-  "sales-by-branch": "지점별 매출"
+  "sales_by_branch": "지점별 매출",
+  "graph_view": "그래프 보기"
 }

@@ -12,5 +12,6 @@
   "tax": "税",
   "tax_amount": "課税額",
   "accounts_dashboard": "アカウントダッシュボード",
-  "sales-by-branch": "支店別売上高"
+  "sales_by_branch": "支店別売上高",
+  "graph_view": "グラフビュー"
 }

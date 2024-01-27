@@ -461,7 +461,6 @@
   "parent_category": "پیرنٹ کیٹیگری",
   "cash_&_credit_sale": "نقد اور اسقاطی فروخت",
   "sales_by_items": "آئٹمز کے ذریعے فروخت",
-  "sales-by-branch": "شاخوں کی طرف سے فروخت",
   "sale_date": "فروخت کی تاریخ",
   "%_of_total": "کل کا %",
   "shift_location": "شفٹ مقام",
@@ -652,5 +651,7 @@
   "account_allocations": "اکاؤنٹ تشکیل",
   "financial_year": "مالی سال",
   "pending_accounts_for_allocation": "تشکیل کے لئے زیر تعلیم اکاؤنٹس",
-  "to_company": "کمپنی کو"
+  "to_company": "کمپنی کو",
+  "sales_by_branch": "برانچ کے ذریعہ فروخت",
+  "graph_view": "گراف ویو"
 }

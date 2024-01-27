@@ -32,7 +32,7 @@ const ParentCategoryChart = ({ data }: any) => {
       {
         name: 'Access From',
         type: 'pie',
-        radius: '50%',
+        radius: '70%',
         data: [
           { value: `${ParentCategoryAmount}`, name: `${ParentCategoryDesc}` },
           { value: `${ParentCategoryAmount2}`, name: `${ParentCategoryDesc2}` },
@@ -51,7 +51,7 @@ const ParentCategoryChart = ({ data }: any) => {
 
   return (
     <Col span={24}>
-      <ReactECharts option={option} style={{ width: '40vw', height: '260px' }} />
+      <ReactECharts option={option} style={{ width: '50vw', height: '250px' }} />
     </Col>
   );
 };

@@ -177,6 +177,7 @@ const MyChartComponent = ({ filteredCurrentStaticsforTitles, cardBackgroundColor
         areaStyle: {
           color: lineColor,
         },
+
         emphasis: {
           focus: 'series',
         },

@@ -44,10 +44,10 @@ const SaleByBranchChart = ({ data }: any) => {
             right: 'center',
           },
           grid: {
-            top: '15%',
+            top: '10%',
             left: '10%',
             right: '10%',
-            bottom: '15%',
+            bottom: '10%',
             containLabel: true,
           },
 
@@ -78,7 +78,7 @@ const SaleByBranchChart = ({ data }: any) => {
             },
           ],
         }}
-        style={{ height: '280px' }}
+        style={{ height: '250px' }}
       />
     </Col>
   );

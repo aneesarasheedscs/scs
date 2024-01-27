@@ -282,7 +282,7 @@ const MontlySaleReportDashbord = () => {
               color: 'purple',
             }}
           >
-            {t('sales-by-branch')}
+            {t('sales_by_branch')}
           </Typography.Title>
           <Row>
             <Col xl={11} xxl={11} xs={23} style={{ marginTop: '20px' }}>

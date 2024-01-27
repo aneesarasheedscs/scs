@@ -30,7 +30,7 @@ function SalesDashboardCard({ title, value, icon, backgroundColor, desc, Amount,
           borderBottom: `6px solid ${backgroundColor}`,
 
           textAlign: 'center',
-          height: '15rem',
+          height: '12rem',
           boxShadow: 'rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px',
         }}
         cover={
@@ -42,17 +42,17 @@ function SalesDashboardCard({ title, value, icon, backgroundColor, desc, Amount,
             </Col>
             <Text>
               <Col className="card-content" span={24}>
-                <p>
+                <p style={{ paddingLeft: 5 }}>
                   <h5> {t('from_date')}</h5>
                   <p className="from_date"> {formateDate(title)}</p>
                 </p>
-                <p>
+                <p style={{ paddingRight: 5 }}>
                   <h5> {t('to_date')}</h5>
                   <p className="from_date"> {formateDate(value)}</p>
                 </p>
               </Col>
             </Text>
-            <Col className="" style={{ marginTop: '-15px', border: '' }} span={24}>
+            <Col className="" style={{ marginTop: '-20%' }} span={24}>
               {chart}
             </Col>
           </>
@@ -89,6 +89,8 @@ export function SalesPaymentCard({ percentOfTotal, icon, backgroundColor, desc, 
               avatar={<Avatar size={70} src={icon}></Avatar>}
             ></Card.Meta> */}
             <Col xl={24} xs={23} sm={24} md={20} lg={23} xxl={24} style={{ marginTop: '10px' }}>
+              <h2> ${numberFormatter(Amount)}</h2>
+
               <Title
                 level={5}
                 style={{
@@ -100,7 +102,7 @@ export function SalesPaymentCard({ percentOfTotal, icon, backgroundColor, desc, 
               </Title>
             </Col>
             <Text>
-              <Col
+              {/* <Col
                 xl={24}
                 xs={23}
                 sm={23}
@@ -108,11 +110,11 @@ export function SalesPaymentCard({ percentOfTotal, icon, backgroundColor, desc, 
                 lg={23}
                 xxl={22}
                 className=""
-                style={{ marginTop: '-60px', color: 'blue' }}
+                // style={{ marginTop: '-60px', color: 'blue' }}
               >
                 <p> {t('amount')}</p>
-              </Col>
-              <b>
+              </Col> */}
+              {/* <b>
                 <Col
                   xl={24}
                   xs={23}
@@ -125,26 +127,17 @@ export function SalesPaymentCard({ percentOfTotal, icon, backgroundColor, desc, 
                 >
                   <p> {numberFormatter(Amount)}</p>
                 </Col>
-              </b>
+              </b> */}
               <b>
-                <Col
-                  xl={24}
-                  xs={23}
-                  sm={23}
-                  md={20}
-                  lg={23}
-                  xxl={24}
-                  className=""
-                  style={{ marginTop: '-5px', color: 'crimson' }}
-                >
-                  <p> {t('Percent Of Total')}</p>
+                <Col xl={24} xs={23} sm={23} md={20} lg={23} xxl={24} style={{ marginTop: '-5px', color: 'crimson' }}>
+                  <p> {numberFormatter(percentOfTotal)}%</p>
                 </Col>
               </b>
-              <b>
+              {/* <b>
                 <Col xl={24} xs={23} sm={23} md={20} lg={23} xxl={24} className="" style={{ textAlign: 'center' }}>
                   <p> {numberFormatter(percentOfTotal)}</p>
                 </Col>
-              </b>
+              </b> */}
             </Text>
           </Card>
         </Col>
