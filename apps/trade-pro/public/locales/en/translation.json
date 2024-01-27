@@ -648,5 +648,6 @@
   "financial_year": "Financial Year",
   "pending_accounts_for_allocation": "Pending Accounts For Allocation",
   "to_company": "To Company",
-  "allocated_accounts": "Allocated Accounts"
+  "allocated_accounts": "Allocated Accounts",
+  "item_allocation": "Item Allocation"
 }

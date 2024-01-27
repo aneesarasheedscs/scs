@@ -127,7 +127,7 @@ const ItemAllocationTable = ({
   return (
     <div>
       <Row>
-        <Col xs={22} sm={20} lg={15} xl={8} style={{ marginTop: '10px', marginLeft: '3%' }}>
+        <Col xs={22} sm={20} lg={15} xl={8} style={{ marginTop: '10px', marginLeft: '2%' }}>
           <h2
             className="tableHead"
             style={{
