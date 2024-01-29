@@ -498,5 +498,9 @@
   "tax_amount": "Montant de la taxe",
   "accounts_dashboard": "Tableau de bord des comptes",
   "sales_by_branch": "Ventes par succursale",
-  "graph_view": "Vue graphique"
+  "graph_view": "Vue graphique",
+  "sales_by_payment_term": "Ventes par condition de paiement",
+  "sales_by_parent_category": "Ventes par catégorie parent",
+  "sales_by_days": "",
+  "sales_by_dates": "Ventes par dates"
 }

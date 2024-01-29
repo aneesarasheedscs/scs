@@ -56,11 +56,13 @@ function MonthlySaleCriteria() {
   const monthsArray = generateMonthsArray();
   return (
     <Row gutter={[16, 16]}>
-      <Col xxl={24} xl={24} xs={23} lg={24} sm={24} md={23}>
-        <Card>
+      <Col xxl={24} xl={24} xs={24} lg={24} sm={24} md={23}>
+        <h2 style={{ padding: 10, marginLeft: 6 }}>{t('monthly_sale_report')}</h2>
+
+        <Card style={{ width: '97%', marginLeft: '1.5%', boxShadow: '2px 2px 10px 0px gray' }} hoverable>
           <Form form={form} onFinish={onFinish}>
-            <Row gutter={[16, 16]} justify={'space-around'} align="top">
-              <Col xl={6} xs={24} sm={23} md={12} lg={23} xxl={4} className="formfield form-container">
+            <Row gutter={[6, 6]} justify={'space-between'} align="top">
+              <Col xl={6} xs={24} sm={11} md={11} lg={11} xxl={4} className="formfield form-container">
                 <AntSelectDynamic
                   bordered={false}
                   label={t('month')}
@@ -72,20 +74,20 @@ function MonthlySaleCriteria() {
                 <AntDatePicker name="FromDate" bordered={false} label="" style={{ visibility: 'hidden' }} />
                 <AntDatePicker name="ToDate" bordered={false} label="" style={{ visibility: 'hidden' }} />
               </Col>
-              <Col xxl={6} md={10} xl={9} xs={24} className="formfield form-container">
+              <Col xxl={6} md={12} lg={12} sm={12} xl={9} xs={24} className="formfield form-container">
                 <AntSelectDynamic
                   bordered={false}
                   label={t('companies')}
-                  name="Companies"
+                  name="BranchIds"
                   fieldLabel="CompName"
                   fieldValue="Id"
                   query={useGetMasterBranchByUserId}
                 />
               </Col>
-              <Col xl={3} xxl={2} xs={24} md={10} className="formfield form-container">
+              <Col xl={3} xxl={2} xs={24} sm={11} md={11} lg={11} className="formfield form-container">
                 <AntInput bordered={false} label={t('count')} name="NoOfRecords" />
               </Col>
-              <Col xl={5} xxl={3} style={{ marginTop: 10, height: '2vh' }}>
+              <Col xl={5} xxl={3} lg={9} sm={6} xs={24} md={9} style={{ marginTop: 10, height: '2vh' }}>
                 <Radio.Group
                   onChange={(e) => {
                     form.setFieldsValue({ ReqType: e.target.value });
@@ -98,14 +100,18 @@ function MonthlySaleCriteria() {
                 <AntInput label="" name="ReqType" type="hidden" />
               </Col>
 
-              <Col xl={3} xxl={2} className="btn-margin-top">
-                <AntButton
-                  // style={{ marginLeft: '-10px' }}
-                  label={t('show')}
-                  htmlType="submit"
-                  isError={isError}
-                  isLoading={isLoading}
-                />
+              <Col xl={7} xxl={7} md={2} lg={2} sm={3} xs={24} style={{ display: 'flex', justifyContent: 'start' }}>
+                <Row>
+                  <Col span={24}>
+                    <AntButton
+                      style={{ marginTop: '5px' }}
+                      label={t('show')}
+                      htmlType="submit"
+                      isError={isError}
+                      isLoading={isLoading}
+                    />
+                  </Col>
+                </Row>
               </Col>
             </Row>
           </Form>

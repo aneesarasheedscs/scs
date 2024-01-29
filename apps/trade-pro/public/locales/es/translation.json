@@ -828,5 +828,9 @@
   "tax_amount": "Importe del impuesto",
   "accounts_dashboard": "Panel de cuentas",
   "sales_by_branch": "Ventas por sucursal",
-  "graph_view": "Vista gráfica"
+  "graph_view": "Vista gráfica",
+  "sales_by_payment_term": "Ventas por plazo de pago",
+  "sales_by_parent_category": "Ventas por categoría principal",
+  "sales_by_days": "Ventas por días",
+  "sales_by_dates": "Ventas por fechas"
 }

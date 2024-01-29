@@ -2,8 +2,8 @@ import { Col } from 'antd';
 import ReactECharts from 'echarts-for-react';
 import { useGetMonthlySalesDashboard } from '../queries';
 
-const ParentCategoryChart = () => {
-  const { data } = useGetMonthlySalesDashboard();
+const ParentCategoryChart = ({ data }: any) => {
+  // const { data } = useGetMonthlySalesDashboard();
 
   // Filtered data arrays
   const filteredParentCategory = data?.data?.Data?.Result.Table5.filter(
@@ -32,8 +32,8 @@ const ParentCategoryChart = () => {
 
   const option = {
     title: {
-      text: 'Parent Category',
-      left: 'center',
+      // text: 'Parent Category',
+      // left: 'center',
     },
     tooltip: {
       trigger: 'item',
@@ -64,8 +64,8 @@ const ParentCategoryChart = () => {
   };
 
   return (
-    <Col span={24}>
-      <ReactECharts option={option} style={{ width: '30vw' }} />
+    <Col span={24} style={{ display: 'flex', justifyContent: 'center' }}>
+      <ReactECharts option={option} style={{ width: '40vw', marginBottom: '-5%' }} />
     </Col>
   );
 };

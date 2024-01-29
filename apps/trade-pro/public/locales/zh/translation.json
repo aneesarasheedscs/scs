@@ -498,5 +498,9 @@
   "tax_amount": "税额",
   "accounts_dashboard": "账户仪表板",
   "sales_by_branch": "分店销售额",
-  "graph_view": "图表视图"
+  "graph_view": "图表视图",
+  "sales_by_payment_term": "按付款方式销售",
+  "sales_by_parent_category": "按父类别划分的销售额",
+  "sales_by_days": "按天销售",
+  "sales_by_dates": "按日期销售"
 }

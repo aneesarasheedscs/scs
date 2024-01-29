@@ -8,7 +8,7 @@ import { useState } from 'react';
 import dayjs from 'dayjs';
 import { storedFinancialYear } from '@tradePro/utils/storageService';
 const { useForm, useWatch } = Form;
-function SalesAnalyticalCriteria({ refetch, form }: any) {
+function SalesAnalyticalCriteria({ refetch, form, isError, isLoading }: any) {
   const { t } = useTranslation();
   // const [form] = useForm<TSalesDashboardCriteria>();
   const formValues = useWatch<TSalesDashboardCriteria>([], form);
@@ -58,7 +58,7 @@ function SalesAnalyticalCriteria({ refetch, form }: any) {
   return (
     <Row gutter={[6, 6]} justify={'center'}>
       <Col xxl={24} xl={24} xs={23} lg={24} sm={24} md={24}>
-        <h2 style={{ padding: 10, marginLeft: 6 }}>{t('sales_analytical_dashboard')}</h2>
+        <h2 style={{ padding: 10, marginLeft: '1%' }}>{t('sales_analytical_dashboard')}</h2>
 
         <Card style={{ width: '97%', marginLeft: '1.5%', boxShadow: '2px 2px 10px 0px gray' }} hoverable>
           <Form form={form} onFinish={onFinish} initialValues={formValues}>
@@ -85,7 +85,7 @@ function SalesAnalyticalCriteria({ refetch, form }: any) {
                   <AntSelectDynamic
                     bordered={false}
                     label={t('master_branch')}
-                    name="MasterBranch"
+                    name="BranchIds"
                     fieldLabel="CompName"
                     fieldValue="Id"
                     query={useGetMasterBranchByUserId}
@@ -99,8 +99,8 @@ function SalesAnalyticalCriteria({ refetch, form }: any) {
                         label={t('show')}
                         htmlType="submit"
                         style={{ marginTop: 5 }}
-                        // isError={isFromToDateError}
-                        // isLoading={isFromToDateLoading}
+                        isError={isError}
+                        isLoading={isLoading}
                       />
                     </Col>
                   </Row>

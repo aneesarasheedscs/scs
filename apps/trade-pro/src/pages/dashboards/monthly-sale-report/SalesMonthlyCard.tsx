@@ -11,32 +11,34 @@ function MonthlySaleReportCard({ icon, backgroundColor, desc, Amount, percentOfT
 
   return (
     <>
-      <Row gutter={[16, 16]}>
-        <Col xxl={24} xs={24}>
+      <Row gutter={[0, 0]} style={{ marginLeft: '-1%' }}>
+        <Col span={24}>
           <Card
             hoverable={true}
-            className="card-container-sale-payment "
+            className="card-container-sale-payment"
             style={{
-              marginTop: '20px',
+              marginTop: '10px',
               backgroundColor: backgroundColor,
               border: '1px solid white',
               textAlign: 'center',
               boxShadow: 'rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px',
             }}
           >
-            <Card.Meta
+            {/* <Card.Meta
               style={{
                 display: 'flex',
                 flexDirection: 'column',
                 marginTop: '-40%',
               }}
               avatar={<Avatar size={70} src={icon}></Avatar>}
-            ></Card.Meta>
-            <Col xxl={24} xs={24} style={{ marginTop: '-10px' }}>
+            ></Card.Meta> */}
+            <Col xxl={24} xs={24} style={{ marginTop: '10px' }}>
+              <h2> {numberFormatter(Amount)}</h2>
+
               <Title
                 level={5}
                 style={{
-                  fontSize: '17px',
+                  fontSize: '16px',
                   color: 'green',
                 }}
               >
@@ -44,15 +46,15 @@ function MonthlySaleReportCard({ icon, backgroundColor, desc, Amount, percentOfT
               </Title>
             </Col>
             <Text>
-              <Col xxl={24} xl={24} xs={24} className="" style={{ marginTop: '-10px', color: 'blue' }}>
+              {/* <Col xxl={24} xl={24} xs={24} className="" style={{ marginTop: '0px', color: 'blue' }}>
                 <p> {t('Amount')}</p>
-              </Col>
-              <b>
-                <Col className="" style={{ textAlign: 'center', marginTop: '-20xp' }}>
+              </Col> */}
+              {/* <b>
+                <Col className="" style={{ textAlign: 'center', marginTop: '' }}>
                   <p> {numberFormatter(Amount)}</p>
                 </Col>
-              </b>
-              <b>
+              </b> */}
+              {/* <b>
                 <Col className="" style={{ marginTop: '-5px', color: 'crimson' }}>
                   <p> {t('% Of Total')}</p>
                 </Col>
@@ -60,6 +62,11 @@ function MonthlySaleReportCard({ icon, backgroundColor, desc, Amount, percentOfT
               <b>
                 <Col className="" style={{ textAlign: 'center' }}>
                   <p> {numberFormatter(percentOfTotal)}</p>
+                </Col>
+              </b> */}
+              <b>
+                <Col xl={24} xs={23} sm={23} md={24} lg={23} xxl={24} style={{ marginTop: '-5px', color: 'crimson' }}>
+                  <p> {numberFormatter(percentOfTotal)}%</p>
                 </Col>
               </b>
             </Text>
@@ -79,22 +86,24 @@ export function SalesAvgCard({ icon, backgroundColor, desc, Amount }: any) {
         hoverable={true}
         className="card-container-sale-payment"
         style={{
-          marginTop: '20px',
+          marginTop: '10px',
           backgroundColor: backgroundColor,
           border: '1px solid white',
           textAlign: 'center',
           boxShadow: 'rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px',
         }}
       >
-        <Card.Meta
+        {/* <Card.Meta
           style={{
             display: 'flex',
             flexDirection: 'column',
             marginTop: '-40%',
           }}
           avatar={<Avatar size={70} src={icon}></Avatar>}
-        ></Card.Meta>
-        <Col span={24} style={{ marginTop: '-10px' }}>
+        ></Card.Meta> */}
+        <Col span={24} style={{ marginTop: '10px' }}>
+          <h2> {numberFormatter(Amount)}0</h2>
+
           <Title
             level={5}
             style={{
@@ -105,16 +114,16 @@ export function SalesAvgCard({ icon, backgroundColor, desc, Amount }: any) {
             <p className="card-description"> {desc}</p>
           </Title>
         </Col>
-        <Text>
+        {/* <Text>
           <Col className="" style={{ marginTop: '-10px', color: 'blue' }}>
             <p> {t('sale_amount')}</p>
           </Col>
           <b>
             <Col className="" style={{ textAlign: 'center', marginTop: '-20xp' }}>
-              <p> {numberFormatter(Amount)}</p>
+              <p> {numberFormatter(Amount)}00</p>
             </Col>
           </b>
-        </Text>
+        </Text> */}
       </Card>
     </>
   );

@@ -8,12 +8,12 @@ const ParentCategoryChart = ({ data }: any) => {
   );
   const filteredParentCategory2 = data?.data?.Data?.Result.Table2.filter((item: any) => item.ParentCategory === 'Rice');
 
-  console.log(filteredParentCategory?.[0].NetAmount);
-  const ParentCategoryAmount = filteredParentCategory?.[0].NetAmount;
-  const ParentCategoryDesc = filteredParentCategory?.[0].ParentCategory;
+  console.log(filteredParentCategory?.[0]?.NetAmount);
+  const ParentCategoryAmount = filteredParentCategory?.[0]?.NetAmount;
+  const ParentCategoryDesc = filteredParentCategory?.[0]?.ParentCategory;
 
-  const ParentCategoryAmount2 = filteredParentCategory2?.[0].NetAmount;
-  const ParentCategoryDesc2 = filteredParentCategory2?.[0].ParentCategory;
+  const ParentCategoryAmount2 = filteredParentCategory2?.[0]?.NetAmount;
+  const ParentCategoryDesc2 = filteredParentCategory2?.[0]?.ParentCategory;
   const { t } = useTranslation();
   const option = {
     title: {

@@ -2,8 +2,8 @@ import { Col } from 'antd';
 import React from 'react';
 import ReactECharts from 'echarts-for-react';
 import { useGetMonthlySalesDashboard } from '../queries';
-const SaleByDateChart = () => {
-  const { data } = useGetMonthlySalesDashboard();
+const SaleByDateChart = ({ data }: any) => {
+  // const { data } = useGetMonthlySalesDashboard();
 
   const SaleByDate = data?.data?.Data?.Result.Table4.map((item: any) => {
     // Convert the date string to a JavaScript Date object
@@ -51,8 +51,8 @@ const SaleByDateChart = () => {
             right: 'center',
           },
           grid: {
-            top: '15%',
-            left: '25%',
+            top: '10%',
+            left: '10%',
             right: '10%',
             bottom: '15%',
             containLabel: true,

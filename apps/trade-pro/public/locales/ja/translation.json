@@ -13,5 +13,9 @@
   "tax_amount": "課税額",
   "accounts_dashboard": "アカウントダッシュボード",
   "sales_by_branch": "支店別売上高",
-  "graph_view": "グラフビュー"
+  "graph_view": "グラフビュー",
+  "sales_by_payment_term": "支払い期間別の売上",
+  "sales_by_parent_category": "親カテゴリー別の売上高",
+  "sales_by_days": "日別売上高",
+  "sales_by_dates": "販売日別"
 }

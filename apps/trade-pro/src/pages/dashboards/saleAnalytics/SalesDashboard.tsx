@@ -127,7 +127,7 @@ const { useForm, useWatch } = Form;
 const SalesDashboard = () => {
   const [form] = useForm<TSalesDashboardCriteria>();
   const formValues = useWatch<TSalesDashboardCriteria>([], form);
-  const { data, refetch } = usePostSalesAnalyticsDashboard(true, [form.getFieldsValue()]);
+  const { data, refetch, isLoading, isError } = usePostSalesAnalyticsDashboard(true, form.getFieldsValue());
   const [activeTab, setActiveTab] = useState<string>('1');
   const [activeTab2, setActiveTab2] = useState<string>('1');
   const [activeTab3, setActiveTab3] = useState<string>('1');
@@ -186,7 +186,7 @@ const SalesDashboard = () => {
     <div style={{ backgroundColor: '#fff' }} className="scrollable-container">
       <Row gutter={[10, 10]} style={{}}>
         <Col xl={24} xs={24} sm={23} md={24} lg={23} xxl={24}>
-          <SalesAnalyticalCriteria refetch={refetch} form={form} />
+          <SalesAnalyticalCriteria refetch={refetch} form={form} isError={isError} isLoading={isLoading} />
           <Row gutter={[20, 4]} style={{ marginLeft: 3 }} justify={'space-evenly'}>
             <Col
               xl={6}
@@ -217,18 +217,22 @@ const SalesDashboard = () => {
               </h2>
 
               <Space direction="vertical" style={{ border: '', width: '100%' }}>
-                {map(filteredCurrentStatics, (card: any, index: any) => (
-                  <SalesDashboardCard
-                    key={index}
-                    title={card.StartDate}
-                    value={card.EndDate}
-                    desc={card.DescriptionTitle}
-                    Amount={card.NetAmount}
-                    backgroundColor={cardBackgroundColors[index % cardBackgroundColors.length]}
-                    icon={defaultIcons[index % defaultIcons2.length]}
-                    chart={defaultGraphs[index % defaultGraphs.length]}
-                  />
-                ))}
+                <Row gutter={[10, 10]}>
+                  {map(filteredCurrentStatics, (card: any, index: any) => (
+                    <Col lg={12} xl={24} xxl={24} md={22} sm={12} xs={24}>
+                      <SalesDashboardCard
+                        key={index}
+                        title={card.StartDate}
+                        value={card.EndDate}
+                        desc={card.DescriptionTitle}
+                        Amount={card.NetAmount}
+                        backgroundColor={cardBackgroundColors[index % cardBackgroundColors.length]}
+                        icon={defaultIcons[index % defaultIcons2.length]}
+                        chart={defaultGraphs[index % defaultGraphs.length]}
+                      />
+                    </Col>
+                  ))}
+                </Row>
               </Space>
             </Col>
             <Col
@@ -258,10 +262,10 @@ const SalesDashboard = () => {
                         borderBottom: '1px  solid lightgray',
                       }}
                     >
-                      {t('sales_payment_term')}
+                      {t('sales_by_payment_term')}
                     </h2>{' '}
                     <Row style={{ display: 'flex' }} justify={'space-between'}>
-                      <Col xl={18} xs={24} sm={23} md={24} lg={23} xxl={12}>
+                      <Col xl={18} xs={24} sm={24} md={24} lg={23} xxl={12}>
                         <Space direction="horizontal" className="space-vertical">
                           {map(filteredSalesPaymentTerms, (card: any, index: any) => (
                             <SalesPaymentCard
@@ -278,7 +282,7 @@ const SalesDashboard = () => {
                       </Col>
 
                       <Col
-                        xl={18}
+                        xl={21}
                         xs={23}
                         sm={23}
                         md={24}
@@ -307,7 +311,7 @@ const SalesDashboard = () => {
                         borderBottom: '1px  solid lightgray',
                       }}
                     >
-                      {t('parent_category')}
+                      {t('sales_by_parent_category')}
                     </h2>
                     <Tabs
                       type="card"

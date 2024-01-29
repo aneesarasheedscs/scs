@@ -2,8 +2,8 @@ import { Col } from 'antd';
 import React from 'react';
 import ReactECharts from 'echarts-for-react';
 import { useGetMonthlySalesDashboard } from '../queries';
-const SaleByBranchesChart = () => {
-  const { data } = useGetMonthlySalesDashboard();
+const SaleByBranchesChart = ({ data }: any) => {
+  // const { data } = useGetMonthlySalesDashboard();
 
   const SaleBranch = data?.data?.Data?.Result.Table7.map((item: any) => item.Branch);
   const SaleBranchNetAmount = data?.data?.Data?.Result.Table7.map((item: any) => item.NetAmount);
@@ -45,8 +45,8 @@ const SaleByBranchesChart = () => {
             right: 'center',
           },
           grid: {
-            top: '15%',
-            left: '25%',
+            top: '10%',
+            left: '10%',
             right: '10%',
             bottom: '15%',
             containLabel: true,

@@ -62,7 +62,6 @@ const MyChartComponent = ({ filteredCurrentStaticsforTitles, cardBackgroundColor
           ]),
         },
         areaStyle: {
-          // Add gradient to the area
           //   color: '#fff',
           color: new echarts.graphic.LinearGradient(0, 0, 1, 1, [
             { offset: 1, color: lineColor }, // Start color

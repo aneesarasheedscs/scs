@@ -10,13 +10,13 @@ const SalesDashboardChart = ({ data }: any) => {
     (item: any) => item.DescriptionTitle === 'Credit Sales'
   );
 
-  console.log(filteredSalesPaymentTerms?.[0].NetAmount);
-  const CashSaleAmount = filteredSalesPaymentTerms?.[0].NetAmount;
-  const CashSaleDesc = filteredSalesPaymentTerms?.[0].DescriptionTitle;
+  // console.log(filteredSalesPaymentTerms?.[0].NetAmount);
+  const CashSaleAmount = filteredSalesPaymentTerms?.[0]?.NetAmount;
+  const CashSaleDesc = filteredSalesPaymentTerms?.[0]?.DescriptionTitle;
   // const cashSaleAmount = (filteredSalesPaymentTerms, 'NetAmount');
 
-  const CreditSaleAmount = filteredSalesPaymentTerms2?.[0].NetAmount;
-  const CreditSaleDesc = filteredSalesPaymentTerms2?.[0].DescriptionTitle;
+  const CreditSaleAmount = filteredSalesPaymentTerms2?.[0]?.NetAmount;
+  const CreditSaleDesc = filteredSalesPaymentTerms2?.[0]?.DescriptionTitle;
 
   const option = {
     title: {
