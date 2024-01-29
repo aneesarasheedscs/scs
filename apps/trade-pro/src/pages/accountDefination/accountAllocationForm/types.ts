@@ -1,10 +1,6 @@
 import exp from 'constants';
 
-export type AccountAllocationTypes = {
-  Id: number;
-  AccountCode: string;
-  AccountTitle: string;
-};
+
 
 export type TAccountAllocationFilter = {
   Id: number;
@@ -12,6 +8,22 @@ export type TAccountAllocationFilter = {
   FinancialYear: number;
 };
 
+
+
+export type AccountAllocationTypes = {
+  OrganizationId: number;
+  CompanyId: number;
+  BranchId: number;
+  FinancialYearId: number;
+  EntryUserId: number;
+  ChartofAccountId: number;
+  AccountTitle: string;
+  GLPageNo: string;
+  IsActive: boolean;
+  Id: number;
+  DocumentTypeId: number;
+  AccountTypeId: number;
+};
 export type TaddAllocatedAccounts = {
   OrganizationId: number; // user account OrganizationId
   CompanyId: number; // Selected Company
@@ -59,5 +71,19 @@ export type TAddCOAAllocation = {
   AccountTypeId: number;
   EntryUserId: number;
   FinancialYearId: number;
-  COAAllocationlist: TAddCOAAllocation[];
+  COAAllocationlist: TAddCOAAllocationList[];
+};
+export type TAddCOAAllocationList = {
+  IsActive: boolean;
+  ChartofAccountId: number;
+  CompanyId: number;
+  Id: number;
+  BranchId: number;
+  GLPageNo: string;
+  AccountTitle: string;
+  OrganizationId: number;
+  DocumentTypeId: number;
+  AccountTypeId: number;
+  EntryUserId: number;
+  FinancialYearId: number;
 };

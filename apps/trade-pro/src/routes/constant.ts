@@ -17,6 +17,7 @@ export const route = {
   CHEQUE_BOOK_REGISTRATION: '/cheque-book-registration',
   ACCOUNT_ALLOCATION: '/Account-Allocation',
   OPENING_BALANCE: '/opening-balance',
+  POS_ITEM_ALLOCATION:'/pos-item-allocation',
   //Account Transactions
   CASH_RECEIPT_VOUCHER: '/cash-receipt-voucher',
   BANK_RECEIPT_VOUCHER: '/bank-receipt-voucher',

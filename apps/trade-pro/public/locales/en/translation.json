@@ -652,5 +652,6 @@
   "sales_by_payment_term": "Sales By Payment Term",
   "sales_by_parent_category": "Sales By Parent Category",
   "sales_by_days": "Sales By Days",
-  "sales_by_dates": "Sales By Dates"
+  "sales_by_dates": "Sales By Dates",
+  "item_allocation": "Item Allocation"
 }

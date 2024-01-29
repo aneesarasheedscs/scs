@@ -1,6 +1,8 @@
 import { lazy } from 'react';
 import { route } from './constant';
 import { RouteObject } from 'react-router-dom';
+import ItemAllocation from '@tradePro/pages/inventoryDefination/itemAllocationForm/itemAllocation';
+import ItemAllocationForm from '@tradePro/pages/inventoryDefination/itemAllocationForm';
 
 const open = false;
 const openItemType = false;
@@ -101,6 +103,7 @@ const ChequeBookForm = lazy(() => import('@tradePro/pages/accountDefination/cheq
 const AccountAllocation = lazy(
   () => import('@tradePro/pages/accountDefination/accountAllocationForm/accoutAllocation')
 );
+const PosItemAllocation = lazy(() => import('@tradePro/pages/inventoryDefination/itemAllocationForm'));
 const OpeningBalance = lazy(() => import('@tradePro/pages/accountDefination/openingBalance'));
 
 //Account Transaction
@@ -195,7 +198,7 @@ export const protectedRoutes: RouteObject[] = [
   { path: route.ALLOCATE_DISC_CATEGORY_TODISC_TYPE, element: <AllocateDiscCategoryToDiscType /> },
   { path: route.ALLOCATE_BRAND_ITEM_TO_DISC_TYPE, element: <AllocateBrandItemtoDiscountType /> },
   { path: route.CUSTOMER_DISCOUNT_POLICY, element: <CustomerDiscountPolicy /> },
-
+  { path: route.POS_ITEM_ALLOCATION, element: <ItemAllocationForm /> },
   { path: route.DISCOUNT_POLICY_FOR_PARTY, element: <ItemBaseScheduleUOM /> },
   { path: route.SALE_PRICING_SCHEDULE, element: <ItemBaseScheduleUOM /> },
 
@@ -213,6 +216,7 @@ export const protectedRoutes: RouteObject[] = [
   //Sale Trading
   { path: route.SALE_ORDER, element: <SaleOrder /> },
   { path: route.SALE_INVOICE_DIRECT, element: <SaleInvoiceDirect /> },
+
   //ALL Reports
   { path: route.ALL_REPORTS, element: <AllReports /> },
 

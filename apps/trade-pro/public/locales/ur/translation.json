@@ -656,5 +656,6 @@
   "sales_by_payment_term": "ادائیگی کی مدت کے ذریعہ فروخت",
   "sales_by_parent_category": "پیرنٹ کیٹیگری کے حساب سے سیلز",
   "sales_by_days": "دنوں کی طرف سے فروخت",
-  "sales_by_dates": "تاریخوں کے حساب سے فروخت"
+  "sales_by_dates": "تاریخوں کے حساب سے فروخت",
+  "item_allocation": "اشیاء کی تفویض"
 }

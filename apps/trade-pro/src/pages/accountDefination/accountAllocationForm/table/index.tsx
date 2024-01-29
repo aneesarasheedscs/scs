@@ -1,13 +1,13 @@
 import { AntTable } from '@scs/ui';
-import { Col, Modal, Row, Tooltip, notification, theme } from 'antd';
+import { Col, Modal, Row, Tooltip, message, notification, theme } from 'antd';
 import { AccountAllocationColumns } from './Columns';
 import { useTranslation } from 'react-i18next';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
-import { useAddAllocationAccounts } from '../quries';
+import { useAddAllocationAccounts, useGetDeAllocationAccounts } from '../quries';
 import { useAtom } from 'jotai';
-import { selectedRowsAtom } from './Atom';
+import { selectedRowsAtom, selectedRowsforAllocated } from './Atom';
 import { AccountAllocationTypes, TAddCOAAllocation } from '../types';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { Checkbox } from 'antd';
@@ -15,6 +15,7 @@ import { error } from 'console';
 const { useToken } = theme;
 
 const AccountAllocationTable = ({
+  CompanyId,
   allocatedData,
   tableLoading,
   isError,
@@ -28,70 +29,26 @@ const AccountAllocationTable = ({
 }: any) => {
   const [selectedRows, setSelectedRows] = useAtom(selectedRowsAtom);
   const [selected, setSelected] = useState<any>([]);
-  const [selectedAllRows, setSelectedAllRows] = useState(false);
-  const [AllocatedData, setAllocatedDate] = useState<any[]>([]);
+  const [selectRowforAllocated, setSelectRowforAllocated] = useAtom(selectedRowsforAllocated);
 
-  const { mutate: addData } = useAddAllocationAccounts();
+  const [selectedAllRows, setSelectedAllRows] = useState(false);
+  // const [AllocatedData, setAllocatedDate] = useState<any[]>([]);
 
   const [isAllocatePopupVisible, setAllocatePopupVisible] = useState(false);
   const [isUnAllocatePopupVisible, setUnAllocatePopupVisible] = useState(false);
+  // const Id = selectRowforAllocated?.[0]?.Id;
+
   const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
+  const [selectedRowKeysForUnAllocate, setSelectedRowKeysForUnAllocate] = useState<number[]>([]);
+  const { mutate: addData } = useAddAllocationAccounts(true, CompanyId);
+  const Id = selectedRowKeysForUnAllocate?.toString();
+  const { refetch: getAccountDeAllocated, data: deAllocate } = useGetDeAllocationAccounts(false, Id);
 
-  const openAllocatePopup = (values: any) => {
-    if (selectedRows?.length > 0 == false) {
-      const msg = 'select the Account first To Allocate';
-      notification.error({
-        message: '',
-        description: msg,
-      });
-      // setAllocatePopupVisible(true);
-    } else {
-      let data: TAddCOAAllocation = {
-        COAAllocationlist: [],
-        IsActive: false,
-        ChartofAccountId: 0,
-        CompanyId: 0,
-        Id: 0,
-        BranchId: 0,
-        GLPageNo: '',
-        AccountTitle: '',
-        OrganizationId: 0,
-        DocumentTypeId: 0,
-        AccountTypeId: 0,
-        EntryUserId: 0,
-        FinancialYearId: 0,
-      };
-      data.COAAllocationlist = [];
+  // console.log(addData);
 
-      for (let i = 0; i < selectedRows.length; i++) {
-        data.COAAllocationlist.push({
-          OrganizationId: 2,
-          CompanyId: 0,
-          BranchId: 0,
-          DocumentTypeId: 0,
-          FinancialYearId: 0,
-          EntryUserId: 0,
-          ChartofAccountId: selectedRows[i].ChartofAccountId,
-          AccountTitle: selectedRows[i].AccountTitle,
-          IsActive: true,
-          GLPageNo: '',
-          Id: 0,
-          AccountTypeId: 0,
-          COAAllocationlist: [],
-        });
-        const msg = 'Acount Allocated Successfully';
-        notification.success({
-          description: msg,
-          message: '',
-        });
-        console.log(data);
-      }
-    }
-    setAllocatedDate((prevSelectedRows) => [...prevSelectedRows, ...selectedRows]);
-  };
-  console.log(AllocatedData);
+  // console.log(AllocatedData);
   useEffect(() => {
-    setAllocatedDate(unallocatedData?.data?.Data?.Result);
+    // setAllocatedDate(unallocatedData?.data?.Data?.Result);
     if (selectedAllRows) {
       const allRowKeys = allocatedData?.data?.Data?.Result.map((record: any) => record.Id);
       setSelectedRowKeys((prevSelectedKeys) => [...new Set([...prevSelectedKeys, ...allRowKeys])]);
@@ -103,15 +60,16 @@ const AccountAllocationTable = ({
 
     if (selectedAllRows) {
       const allRowKeys = unallocatedData?.data?.Data?.Result.map((record: any) => record.Id);
-      setSelectedRowKeys((prevSelectedKeys) => [...new Set([...prevSelectedKeys, ...allRowKeys])]);
-      setSelectedRows(allocatedData?.data?.Data?.Result);
+      setSelectedRowKeysForUnAllocate((prevSelectedKeys) => [...new Set([...prevSelectedKeys, ...allRowKeys])]);
+      setSelectRowforAllocated(unallocatedData?.data?.Data?.Result);
     } else {
-      setSelectedRows([]);
-      setSelectedRowKeys([]);
+      setSelectRowforAllocated([]);
+      setSelectedRowKeysForUnAllocate([]);
     }
-  }, [selectedAllRows, unallocatedData]);
+  }, [selectedAllRows]);
 
-  console.log('allocatedData', allocatedData);
+  console.log('selectRowforAllocated', selectRowforAllocated);
+  console.log('selectedRowKeysForUnAllocate', selectedRowKeysForUnAllocate);
 
   const handleSelectAllRecords = (checked?: boolean) => {
     if (checked) {
@@ -132,12 +90,12 @@ const AccountAllocationTable = ({
       unallocatedrefetch();
       setSelectedAllRows(true);
       const allRowKeys = unallocatedData?.data?.Data?.Result.map((record: any) => record.Id);
-      setSelectedRowKeys((prevSelectedKeys) => [...new Set([...prevSelectedKeys, ...allRowKeys])]);
-      setSelectedRows((prevSelectedRows) => [...prevSelectedRows, ...unallocatedData]);
+      setSelectedRowKeysForUnAllocate((prevSelectedKeys) => [...new Set([...prevSelectedKeys, ...allRowKeys])]);
+      setSelectRowforAllocated((prevSelectedRows) => [...prevSelectedRows, ...unallocatedData]);
     } else {
       setSelectedAllRows(false);
-      setSelectedRowKeys([]);
-      setSelectedRows([]);
+      setSelectedRowKeysForUnAllocate([]);
+      setSelectRowforAllocated([]);
     }
   };
 
@@ -145,6 +103,7 @@ const AccountAllocationTable = ({
     console.log(checked);
     if (checked) {
       refetch();
+
       console.log(`selectedRowKeys: ${record.Id}`, 'selectedRows: ', record);
       setSelectedRows((prevSelectedKeys) => [...prevSelectedKeys, record]);
       setSelectedRowKeys((prevSelectedKeys) => [...prevSelectedKeys, record.Id]);
@@ -159,31 +118,55 @@ const AccountAllocationTable = ({
     console.log(checked);
     if (checked) {
       unallocatedrefetch();
+
       console.log(`selectedRowKeys: ${record.Id}`, 'selectedRows: ', record);
-      setSelectedRows((prevSelectedKeys) => [...prevSelectedKeys, record]);
-      setSelectedRowKeys((prevSelectedKeys) => [...prevSelectedKeys, record.Id]);
+      setSelectRowforAllocated((prevSelectedKeys) => [...prevSelectedKeys, record]);
+      setSelectedRowKeysForUnAllocate((prevSelectedKeys) => [...prevSelectedKeys, record.Id]);
     } else {
       unallocatedrefetch();
-      setSelectedRowKeys((prevSelectedKeys) => prevSelectedKeys.filter((key) => key !== record.Id));
-      setSelectedRows((prevSelectedKeys) => prevSelectedKeys.filter((row) => row !== record));
+
+      setSelectedRowKeysForUnAllocate((prevSelectedKeys) => prevSelectedKeys.filter((key) => key !== record.Id));
+      setSelectRowforAllocated((prevSelectedKeys) => prevSelectedKeys.filter((row) => row !== record));
     }
   };
 
   console.log('Selected Rows', selectedRows);
   console.log('Selected RowKeys', selectedRowKeys);
 
-  const openUnAllocatePopup = (values: any) => {
-    setUnAllocatePopupVisible(true);
-  };
+  const openAllocatePopup = () => {
+    if (selectedRows.length > 0) {
+      const combinedData = selectedRows.map((item) => ({
+        ...item,
+        IsActive: true,
+      }));
 
-  const closeAllocatePopup = () => {
-    setAllocatePopupVisible(false);
-  };
+      addData(combinedData);
+    } else {
+      // message.error('Please select row to allocate item.');
+      const msg = 'Please Select Account to Allocate!';
+      notification.error({ description: '', message: msg });
+    }
 
-  const closeUnAllocatePopup = () => {
-    setUnAllocatePopupVisible(false);
+    // handleDeleteRow(selectedRows);
   };
+  const openUnAllocatePopup = () => {
+    if (selectRowforAllocated?.length > 0) {
+      const combinedData = selectRowforAllocated.map((item) => ({
+        ...item,
+      }));
+      console.log(combinedData);
+      getAccountDeAllocated();
+    } else {
+      // message.error('Please select row to Unallocate item.');
 
+      const msg = 'Please Select Account to Unallocate!';
+      notification.error({ description: '', message: msg });
+
+      // }
+      // handleDeleteRowUn(selectRowforAllocated);
+      // getItemdeAllocated();
+    }
+  };
   const { t } = useTranslation();
 
   const {
@@ -263,8 +246,8 @@ const AccountAllocationTable = ({
               <Modal
                 title="Allocate Accounts"
                 visible={isAllocatePopupVisible}
-                onOk={closeAllocatePopup}
-                onCancel={closeAllocatePopup}
+                // onOk={closeAllocatePopup}
+                // onCancel={closeAllocatePopup}
               >
                 {/* Content for the Allocate Accounts popup */}
                 checked the row's first
@@ -311,8 +294,8 @@ const AccountAllocationTable = ({
               <Modal
                 title="Un Allocate Accounts"
                 visible={isUnAllocatePopupVisible}
-                onOk={closeUnAllocatePopup}
-                onCancel={closeUnAllocatePopup}
+                // onOk={closeUnAllocatePopup}
+                // onCancel={closeUnAllocatePopup}
               >
                 Checked The Rows First
               </Modal>
@@ -321,11 +304,11 @@ const AccountAllocationTable = ({
           <AntTable
             columns={AccountAllocationColumns(
               t,
-              selectedRowKeys,
-              handleCheckboxChangeForAllocation,
-              handleSelectAllRecordsForAllocation
+              selectedRowKeysForUnAllocate,
+              handleSelectAllRecordsForAllocation,
+              handleCheckboxChangeForAllocation
             )}
-            data={AllocatedData || []}
+            data={unallocatedData?.data?.Data?.Result || []}
             isError={isErrorunallocated}
             isLoading={tableLoadingunallocated || isFetchingunallocated}
             refetch={unallocatedrefetch}

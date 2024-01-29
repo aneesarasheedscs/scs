@@ -3,9 +3,9 @@ import { Checkbox } from 'antd';
 import { AccountAllocationTypes } from '../types';
 export const AccountAllocationColumns = (
   t: any,
+  selectedRowKeysForUnAllocate: any,
   handleSelectAllRecordsForAllocation: any,
-  handleCheckboxChangeForAllocation: any,
-  selectedRowKeys: any
+  handleCheckboxChangeForAllocation: any
 ): AntColumnType<AccountAllocationTypes>[] => [
   // {
   //   width: 100,
@@ -38,7 +38,7 @@ export const AccountAllocationColumns = (
       <Checkbox
         name="IsActive"
         onChange={(e) => handleCheckboxChangeForAllocation(record, e.target.checked)}
-        // checked={selectedRowKeys?.includes(record.Id)}
+        checked={selectedRowKeysForUnAllocate?.includes(record.Id)}
       />
     ),
     showCount: true,

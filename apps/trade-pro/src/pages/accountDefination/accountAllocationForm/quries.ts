@@ -3,8 +3,8 @@ import { requestManager } from '@tradePro/configs/requestManager';
 import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 import { queryClient } from '@scs/configs';
 import { notification } from 'antd';
-import { AxiosError } from 'axios';
-import { TAddCOAAllocation } from './types';
+import { AxiosError, AxiosResponse } from 'axios';
+import { TAddCOAAllocation, TAddCOAAllocationList } from './types';
 
 const userDetail = storedUserDetail();
 const financialYear = storedFinancialYear();
@@ -40,6 +40,7 @@ export const useGetOpenBalanceHistory = () => {
   });
 };
 
+
 export const useGetAccountAllocationComp = () => {
   return useQuery('account-allocation', () => {
     return requestManager.get('/api/Company/GetAlldt', {
@@ -64,7 +65,41 @@ export const useGetFinancialYear = (Id?: number | null) => () => {
     { enabled: !!Id }
   );
 };
-
+export const useGetDeAllocationAccounts = (enabled?: false, AccountIds?: number | null | any) => {
+  return useQuery(['accounts-deallocation', AccountIds], () => {
+    return requestManager.get(
+      '/api/COAAllocation/DeAllocateAccounts',
+      {
+        params: {
+          
+          CompanyId: userDetail?.CompanyId,
+          AccountIds: AccountIds
+        },
+        
+      }
+       
+    );
+  },   { enabled: false,
+    onSuccess: (response: AxiosResponse) => {
+      queryClient.invalidateQueries('Allocated_Accounts');
+      queryClient.invalidateQueries('UnAllocated_Accounts');
+      if (response?.data && response?.data?.Status === false) {
+        notification.error({
+          message: 'Error',
+          description: response?.data?.Message || 'An error occurred.',
+        });
+      } else if (response?.data && response?.data?.Status === true) {
+        const msg = 'Record UnAllocated successfully!';
+        notification.success({ description: '', message: msg });
+      }
+    },
+    onError: (error: AxiosError) => {
+      const msg = error.response?.data || 'Something went wrong';
+      notification.error({ description: '', message: msg as string });
+    
+  }
+  });
+};
 export const useGetFinancialYearOnLeave = (Id?: number | null) => {
   return useQuery(
     ['financial-year', Id],
@@ -80,7 +115,7 @@ export const useGetFinancialYearOnLeave = (Id?: number | null) => {
   );
 };
 
-export const useGetPendingAccountForAllocation = (enabled = true, Id: number) => {
+export const useGetUnAllocationAccounts = (enabled = true, Id: number) => {
   return useQuery(
     ['UnAllocated_Accounts', Id],
     () => {
@@ -112,69 +147,131 @@ export const useGetAllocatedAccounts = (enabled = true, Id: number) => {
   );
 };
 
-export const useAddAllocationAccounts = (params?: TAddCOAAllocation) => {
+export const useAddAllocationAccounts = (enable?: true, companyId?: number) => {
   return useMutation(
-    'openingBalance',
-    (data: TAddCOAAllocation) => {
+    'add_account_allocation',
+    (data: TAddCOAAllocationList[]) => {
       let dataToSubmit = {};
 
       dataToSubmit = {
-        ...data,
-        OrganizationId: userDetail?.OrganizationId,
-        CompanyId: userDetail?.CompanyId,
-        BranchId: userDetail?.BranchesId,
-        FinancialYearId: financialYear?.Id,
-        EntryUser: userDetail?.UserId,
-        // ChartOfAccountId: 21754,
-        IsActive: true,
-        ...params,
+        COAAllocationlist: [
+          ...data.map((item) => ({
+            ...item,
+            IsActive: true,
+            OrganizationId: userDetail?.OrganizationId,
+            BranchId: financialYear?.Id,
+            CompanyId: companyId,
+            EntryUserId: userDetail?.UserId,
+            GLPageNo: '',
+          })),
+        ],
+        // ...params,
       };
       return requestManager.post('/api/COAAllocation/Save', dataToSubmit);
     },
     {
-      onSuccess: () => {
-        queryClient.invalidateQueries('openingBalance');
-        const msg = 'Record added successfully!';
-        notification.success({ description: '', message: msg });
-      },
-      onError: (error: AxiosError) => {
-        const msg = error.response?.data || 'Something went wrong';
-        notification.error({ description: '', message: msg as string });
-      },
+      // onSuccess: () => {
+      //   queryClient.invalidateQueries('UnAllocated_Accounts');
+      //   const msg = 'Record Allocated successfully!';
+      //   notification.success({ description: '', message: msg });
+      // },
+      // onError: (error: AxiosError) => {
+      //   const msg = error.response?.data || 'Something went wrong';
+      //   notification.error({ description: '', message: msg as string });
+      // },
+      
+        onSuccess: (response: AxiosResponse) => {
+          queryClient.invalidateQueries('Allocated_Accounts');
+          queryClient.invalidateQueries('UnAllocated_Accounts');
+          if (response?.data && response?.data?.Status === false) {
+            notification.error({
+              message: 'Error',
+              description: response?.data?.Message || 'An error occurred.',
+            });
+          } else if (response?.data && response?.data?.Status === true) {
+            const msg = 'Record Allocated successfully!';
+            notification.success({ description: '', message: msg });
+          }
+        },
+        onError: (error: AxiosError) => {
+          const msg = error.response?.data || 'Something went wrong';
+          notification.error({ description: '', message: msg as string });
+        
+      }
     }
   );
 };
 
-export const useUpdateAllocationAccounts = (
-  Id?: number | null,
-  ChartOfAccountId?: number,
-  params?: TAddCOAAllocation
-) => {
-  console.log(Id);
+export const useGetDeAllocationAccountss = (enable?: false, companyId?: number, ) => {
   return useMutation(
-    'openingBalance',
-    (data: TAddCOAAllocation) => {
+    ['deAllocate-account-unallocated'],
+    (data: TAddCOAAllocationList[] ) => {
       let dataToSubmit = {};
-      const userDetail = storedUserDetail();
+
       dataToSubmit = {
-        ...data,
-        OrganizationId: userDetail?.OrganizationId,
-        CompanyId: userDetail?.CompanyId,
-        BranchId: userDetail?.BranchesId,
-        FinancialYearId: financialYear?.Id,
-        EntryUser: userDetail?.UserId,
-        ChartOfAccountId: 21754,
-        IsActive: true,
-        ...params,
+        COAAllocationlist: [
+          ...data.map((item) => ({
+            ...item,
+            IsActive: false,
+            OrganizationId: userDetail?.OrganizationId,
+            BranchId: financialYear?.Id,
+            CompanyId: companyId,
+            EntryUserId: userDetail?.UserId,
+            // ChartofAccountId:ChartofAccountId
+            // ...data.map((id)=>{id.ChartofAccountId})
+            // GLPageNo: '',
+          })),
+        ],
+        // ...params,
       };
       return requestManager.post('/api/COAAllocation/Save', dataToSubmit);
     },
     {
+        onSuccess: (response: AxiosResponse) => {
+          queryClient.invalidateQueries('Allocated_Accounts');
+          queryClient.invalidateQueries('UnAllocated_Accounts');
+          if (response?.data && response?.data?.Status === false) {
+            notification.error({
+              message: 'Error',
+              description: response?.data?.Message || 'An error occurred.',
+            });
+          } else if (response?.data && response?.data?.Status === true) {
+            const msg = 'Record UnAllocated successfully!';
+            notification.success({ description: '', message: msg });
+          }
+        },
+        onError: (error: AxiosError) => {
+          const msg = error.response?.data || 'Something went wrong';
+          notification.error({ description: '', message: msg as string });
+        
+      }
+    }
+  );
+};
+
+
+export const useGetDeAllocationAccountsss = (enabled = false, Id?: number, CompanyId?: number) => {
+  return useQuery(
+    ['account-unallocated', Id],
+    () => {
+      return requestManager.get('/api/COAAllocation/DeAllocateAccounts', {
+        params: {
+          CompanyId: CompanyId,
+          AccountIds: Id,
+        },
+      });
+    },
+    {
+      enabled: false,
+
       onSuccess: () => {
-        queryClient.invalidateQueries('openingBalance');
-        const msg = 'Record updated successfully!';
+        queryClient.invalidateQueries('Allocated_Accounts');
+        queryClient.invalidateQueries('UnAllocated_Accounts');
+        const msg = 'Record DeAllocated successfully!';
+
         notification.success({ description: '', message: msg });
       },
+
       onError: (error: AxiosError) => {
         const msg = error.response?.data || 'Something went wrong';
         notification.error({ description: '', message: msg as string });

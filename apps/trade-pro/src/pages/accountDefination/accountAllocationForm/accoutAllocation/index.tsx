@@ -5,8 +5,8 @@ import {
   useGetAccountAllocationComp,
   useGetFinancialYear,
   useGetFinancialYearOnLeave,
-  useGetPendingAccountForAllocation,
   useGetAllocatedAccounts,
+  useGetUnAllocationAccounts,
 } from '../quries';
 import AccountAllocationTable from '../table';
 import { useWatch } from 'antd/es/form/Form';
@@ -23,6 +23,8 @@ const AccountAllocation = () => {
   const [form] = useForm<TaddAllocatedAccounts>();
   const formValues = useWatch<TaddAllocatedAccounts>([], form);
   const [selectedRows, setSelectedRows] = useAtom(selectedRowsAtom);
+
+  const CompanyId = form?.getFieldValue('CompCode');
   const onFinish = () => {};
   const Id = form?.getFieldValue('CompCode');
   const { data, isLoading, isSuccess } = useGetFinancialYearOnLeave(Id);
@@ -33,7 +35,7 @@ const AccountAllocation = () => {
     isError,
     isLoading: tableLoading,
     isFetching,
-  } = useGetPendingAccountForAllocation(true, Id);
+  } = useGetUnAllocationAccounts(true, Id);
   const {
     data: unallocatedData,
     refetch: unallocatedrefetch,
@@ -117,6 +119,7 @@ const AccountAllocation = () => {
         </Row>
       </Col>
       <AccountAllocationTable
+        CompanyId={CompanyId}
         allocatedData={allocatedData}
         tableLoading={tableLoading}
         isError={isError}
