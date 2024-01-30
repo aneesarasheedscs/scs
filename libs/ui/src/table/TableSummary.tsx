@@ -3,8 +3,10 @@ import { numberFormatter } from './utils';
 import { ColumnType } from 'antd/es/table';
 import { map, meanBy, size, sumBy } from 'lodash';
 import _ from 'lodash';
+import { useTranslation } from 'react-i18next';
 
 function TableSummary({ data, columns, filteredData }: TTableSummary) {
+  const { t } = useTranslation();
   return (
     <Table.Summary.Row style={{}}>
       {map(columns, (col: AntColumnType<any>, index: any) => {
@@ -38,7 +40,7 @@ function TableSummary({ data, columns, filteredData }: TTableSummary) {
                 // <span style={{ display: 'flex', justifyContent: 'center', marginLeft: '-30%' }}>
                 <span style={{ display: 'flex', justifyContent: 'start', marginLeft: '' }}>
                   {/* Total No of Records: {numberFormatter(count)} */}
-                  Records: {numberFormatter(count)}
+                  {t('records')}: {numberFormatter(count)}
                 </span>
               ) : null}
             </b>

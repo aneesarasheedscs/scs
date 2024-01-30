@@ -3,3 +3,5 @@ import { ItemAllocationTypes } from '../types';
 
 export const selectedRowsAtom = atom<ItemAllocationTypes[]>([]);
 export const selectedRowsforAllocated = atom<ItemAllocationTypes[]>([]);
+
+// export const selectedRowsforAllocated = atom<AccountAllocationTypes[]>([]);

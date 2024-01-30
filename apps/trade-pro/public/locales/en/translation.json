@@ -649,5 +649,14 @@
   "pending_accounts_for_allocation": "Pending Accounts For Allocation",
   "to_company": "To Company",
   "allocated_accounts": "Allocated Accounts",
-  "item_allocation": "Item Allocation"
+  "item_allocation": "Item Allocation",
+  "allocated_items": "Allocated Items",
+  "un_allocated_items": "Un Allocated Items",
+  "company_name": "Company Name",
+  "records": "Records",
+  "coa_title": "COA Title",
+  "note_title": "Note Title",
+  "language_id": "Language Id",
+  "language_name": "Language Name",
+  "account_title_other_lingo": "Account Title Other Lingo"
 }

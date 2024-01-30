@@ -1,51 +1,44 @@
 import { AntColumnType } from '@tradePro/globalTypes';
 import { ItemAllocationTypes } from '../types';
 import { Checkbox } from 'antd';
-import { useState } from 'react';
 
 export const PendingItemsForAllocationColumns = (
   t: any,
-  setSelectedRows: any,
-  handleRowSelection: (record: any) => void,
-  handleSelectAllUn: any,
-  allocatedData: any,
-  selectedRows: any
+  handleCheckboxChange: any,
+  selectedRowKeys: any,
+  handleSelectAllRecords: any
 ): AntColumnType<ItemAllocationTypes>[] => {
-  const [selectAllChecked, setSelectAllChecked] = useState(false);
-  const [selectAllChecked2, setSelectAllChecked2] = useState(false);
-
   return [
     {
       title: (
         <Checkbox
           onChange={(e) => {
-            setSelectAllChecked(e.target.checked);
-            setSelectAllChecked2(e.target.checked);
             if (e.target.checked) {
-              handleSelectAllUn();
+              console.log('select all');
+              handleSelectAllRecords(e.target.checked);
             } else {
-              setSelectedRows([]);
+              console.log('un select all');
+              handleSelectAllRecords(e.target.checked);
             }
           }}
           name="IsActive"
           style={{ marginLeft: '10px' }}
         />
       ),
-      dataIndex: 'IsActive',
+      dataIndex: 'Id',
       width: 100,
-      render: (text: string, record: any) => (
+      render: (_, record) => (
         <Checkbox
           name="IsActive"
-          onChange={(e) => {
-            setSelectAllChecked2(e.target.checked), handleRowSelection(record);
-          }}
-          // checked={selectAllChecked2}
+          onChange={(e) => handleCheckboxChange(record, e.target.checked)}
+          checked={selectedRowKeys?.includes(record.Id)}
         />
       ),
+      showCount: true,
     },
     {
       width: 370,
-      title: <>{t('item_name')}</>,
+      title: t('item_name'),
       searchableInput: true,
       dataIndex: 'ItemName',
     },
@@ -54,49 +47,43 @@ export const PendingItemsForAllocationColumns = (
 
 export const ItemsAllocationColumns = (
   t: any,
-  setSelectRowforAllocated: any,
-  handleRowSelectionforAllocated: (record: any) => void,
-  handleSelectAll: any,
-  unallocatedData: any,
-  selectedRows: any
+  selectedRowKeysForUnAllocate: any,
+  handleSelectAllRecordsForAllocation: any,
+  handleCheckboxChangeForAllocation: any
 ): AntColumnType<ItemAllocationTypes>[] => {
-  const [selectAllChecked, setSelectAllChecked] = useState(false);
-  const [selectAllChecked2, setSelectAllChecked2] = useState(false);
   return [
     {
       title: (
         <Checkbox
           onChange={(e) => {
-            setSelectAllChecked(e.target.checked);
-            setSelectAllChecked2(e.target.checked);
             if (e.target.checked) {
-              handleSelectAll();
+              console.log('select all');
+              handleSelectAllRecordsForAllocation(e.target.checked);
             } else {
-              setSelectRowforAllocated([]);
+              console.log('un select all');
+              handleSelectAllRecordsForAllocation(e.target.checked);
             }
           }}
-          // checked={unallocatedData?.data?.Data?.Result?.length === selectedRows.length}
+          name="IsActive"
           style={{ marginLeft: '10px' }}
         />
       ),
-      dataIndex: 'IsActive',
+      dataIndex: 'Id',
       width: 100,
-      render: (text: string, record: any) => (
+      render: (_, record) => (
         <Checkbox
           name="IsActive"
-          // onChange={() => handleRowSelection(record)}
-          onChange={(e) => {
-            setSelectAllChecked2(e.target.checked), handleRowSelectionforAllocated(record);
-          }}
-          // checked={selectedRows.includes(record.Id) ? true : false}
+          onChange={(e) => handleCheckboxChangeForAllocation(record, e.target.checked)}
+          checked={selectedRowKeysForUnAllocate?.includes(record.Id)}
         />
       ),
+      showCount: true,
     },
 
     {
       width: 370,
       searchableInput: true,
-      title: <>{t('item_name')}</>,
+      title: t('item_name'),
 
       dataIndex: 'ItemName',
     },

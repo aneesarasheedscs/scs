@@ -45,7 +45,6 @@ const AccountAllocationTable = ({
   const { refetch: getAccountDeAllocated, data: deAllocate } = useGetDeAllocationAccounts(false, Id);
 
   // console.log(addData);
-
   // console.log(AllocatedData);
   useEffect(() => {
     // setAllocatedDate(unallocatedData?.data?.Data?.Result);
@@ -124,7 +123,6 @@ const AccountAllocationTable = ({
       setSelectedRowKeysForUnAllocate((prevSelectedKeys) => [...prevSelectedKeys, record.Id]);
     } else {
       unallocatedrefetch();
-
       setSelectedRowKeysForUnAllocate((prevSelectedKeys) => prevSelectedKeys.filter((key) => key !== record.Id));
       setSelectRowforAllocated((prevSelectedKeys) => prevSelectedKeys.filter((row) => row !== record));
     }
@@ -142,13 +140,11 @@ const AccountAllocationTable = ({
 
       addData(combinedData);
     } else {
-      // message.error('Please select row to allocate item.');
       const msg = 'Please Select Account to Allocate!';
       notification.error({ description: '', message: msg });
     }
-
-    // handleDeleteRow(selectedRows);
   };
+
   const openUnAllocatePopup = () => {
     if (selectRowforAllocated?.length > 0) {
       const combinedData = selectRowforAllocated.map((item) => ({
@@ -157,16 +153,11 @@ const AccountAllocationTable = ({
       console.log(combinedData);
       getAccountDeAllocated();
     } else {
-      // message.error('Please select row to Unallocate item.');
-
       const msg = 'Please Select Account to Unallocate!';
       notification.error({ description: '', message: msg });
-
-      // }
-      // handleDeleteRowUn(selectRowforAllocated);
-      // getItemdeAllocated();
     }
   };
+
   const { t } = useTranslation();
 
   const {

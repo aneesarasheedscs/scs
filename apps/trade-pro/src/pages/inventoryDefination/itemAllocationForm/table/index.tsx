@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { AntTable } from '@scs/ui';
-import { Col, Row, Tooltip, message, theme } from 'antd';
+import { Col, Row, Tooltip, notification, theme } from 'antd';
 import { ItemsAllocationColumns, PendingItemsForAllocationColumns } from './Columns';
 import { useTranslation } from 'react-i18next';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons';
-import { useAddAllocationItems, useGetDeAllocationItems } from '../quries';
-import { map } from 'lodash';
+import { useAddAllocationItems, useGetDeAllocationAccounts } from '../quries';
 import { useAtom } from 'jotai';
 import { selectedRowsAtom, selectedRowsforAllocated } from './Atom';
 import { ItemAllocationTypes } from '../types';
-
-const { useToken } = theme;
 
 const ItemAllocationTable = ({
   CompanyId,
@@ -29,11 +26,15 @@ const ItemAllocationTable = ({
   const [selectedRows, setSelectedRows] = useAtom(selectedRowsAtom);
   const [selectRowforAllocated, setSelectRowforAllocated] = useAtom(selectedRowsforAllocated);
   const { mutate: addData } = useAddAllocationItems(true, CompanyId);
-  const ItemId = selectRowforAllocated?.[0]?.ItemId;
-  const { refetch: getItemdeAllocated } = useGetDeAllocationItems(true, ItemId);
+  const ItemId = selectRowforAllocated?.[0]?.Id;
+  const { refetch: getItemdeAllocated } = useGetDeAllocationAccounts(false, ItemId);
   const [data, setData] = useState<any>(true);
   const [tableData, setTableData] = useState<ItemAllocationTypes[]>([]);
 
+  const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
+  const [selectedRowKeysForUnAllocate, setSelectedRowKeysForUnAllocate] = useState<number[]>([]);
+  const [selectedAllRows, setSelectedAllRows] = useState(false);
+  console.log(selectRowforAllocated);
   const { t } = useTranslation();
   const {
     token: { colorPrimary },
@@ -49,85 +50,108 @@ const ItemAllocationTable = ({
 
       addData(combinedData);
     } else {
-      message.error('Please select row to allocate item.');
+      const msg = 'Please Select Account to Allocate!';
+      notification.error({ description: '', message: msg });
     }
-    handleDeleteRow(selectedRows);
   };
 
-  // selectRowforAllocated?.[0]?.ItemId;
-
   const openUnAllocatePopup = () => {
-    getItemdeAllocated();
+    // getItemdeAllocated();
     if (selectRowforAllocated?.length > 0) {
       const combinedData = selectRowforAllocated.map((item) => ({
         ...item,
         IsActive: true,
         GLPageNo: '',
       }));
-      // AddData?.data?.Data?.Result?.(combinedData);
+      getItemdeAllocated();
     } else {
-      message.error('Please select row to Unallocate item.');
+      const msg = 'Please select Account to Unallocate item!';
+      notification.error({ description: '', message: msg });
     }
-    handleDeleteRowUn(selectRowforAllocated);
-    getItemdeAllocated();
   };
 
-  const handleSelectAllUn = () => {
-    if (allocatedData?.data?.Data?.Result?.length === selectedRows.length) {
+  const handleCheckboxChange = (record: any, checked: boolean) => {
+    console.log(checked);
+    if (checked) {
+      refetch();
+
+      console.log(`selectedRowKeys: ${record.Id}`, 'selectedRows: ', record);
+      setSelectedRows((prevSelectedKeys) => [...prevSelectedKeys, record]);
+      setSelectedRowKeys((prevSelectedKeys) => [...prevSelectedKeys, record.Id]);
+    } else {
+      refetch();
+      setSelectedRowKeys((prevSelectedKeys) => prevSelectedKeys.filter((key) => key !== record.Id));
+      setSelectedRows((prevSelectedKeys) => prevSelectedKeys.filter((row) => row !== record));
+    }
+  };
+
+  const handleSelectAllRecords = (checked?: boolean) => {
+    if (checked) {
+      // refetch();
+      setSelectedAllRows(true);
+      const allRowKeys = allocatedData?.data?.Data?.Result.map((record: any) => record.Id);
+      setSelectedRowKeys((prevSelectedKeys) => [...new Set([...prevSelectedKeys, ...allRowKeys])]);
+      setSelectedRows((prevSelectedRows) => [...prevSelectedRows, ...allocatedData]);
+    } else {
+      setSelectedAllRows(false);
+      setSelectedRowKeys([]);
       setSelectedRows([]);
-    } else {
-      setSelectedRows(map(allocatedData?.data?.Data?.Result, 'Id'));
     }
   };
-
-  const handleSelectAll = () => {
-    if (unallocatedData?.data?.Data?.Result?.length === selectedRows.length) {
+  console.log(selectedRows);
+  const handleSelectAllRecordsForAllocation = (checked?: boolean) => {
+    if (checked) {
+      // unallocatedrefetch();
+      setSelectedAllRows(true);
+      const allRowKeys = unallocatedData?.data?.Data?.Result.map((record: any) => record.Id);
+      setSelectedRowKeysForUnAllocate((prevSelectedKeys) => [...new Set([...prevSelectedKeys, ...allRowKeys])]);
+      setSelectRowforAllocated((prevSelectedRows) => [...prevSelectedRows, ...unallocatedData]);
+    } else {
+      setSelectedAllRows(false);
+      setSelectedRowKeysForUnAllocate([]);
       setSelectRowforAllocated([]);
-    } else {
-      setSelectRowforAllocated(map(unallocatedData?.data?.Data?.Result, 'Id'));
     }
   };
 
-  const handleDeleteRowUn = (selectedRowsToDelete: ItemAllocationTypes[]) => {
-    const updatedData = unallocatedData?.data?.Data?.Result?.filter((row: ItemAllocationTypes) => {
-      return !selectedRowsToDelete.some((selectedRow) => selectedRow.Id === row.Id);
-    });
+  const handleCheckboxChangeForAllocation = (record: any, checked: boolean) => {
+    console.log(checked);
+    if (checked) {
+      unallocatedrefetch();
 
-    setData(false);
-    setTableData(updatedData);
-    console.log('Updated Data', updatedData);
+      console.log(`selectedRowKeyforallocate: ${record.Id}`, 'selectedRowsforAllocate: ', record);
+      setSelectRowforAllocated((prevSelectedKeys) => [...prevSelectedKeys, record]);
+      setSelectedRowKeysForUnAllocate((prevSelectedKeys) => [...prevSelectedKeys, record.Id]);
+    } else {
+      unallocatedrefetch();
+      setSelectedRowKeysForUnAllocate((prevSelectedKeys) => prevSelectedKeys.filter((key) => key !== record.Id));
+      setSelectRowforAllocated((prevSelectedKeys) => prevSelectedKeys.filter((row) => row !== record));
+    }
   };
-
-  const handleRowSelection = (row: ItemAllocationTypes) => {
-    setSelectedRows((prevSelectedRows: ItemAllocationTypes[]) => [...prevSelectedRows, row]);
-
-    // checked={selectedRows.includes(record.Id) ? true : false
-  };
-  const handleRowSelectionforAllocated = (row: ItemAllocationTypes) => {
-    setSelectRowforAllocated((prevSelectedRows: ItemAllocationTypes[]) => [...prevSelectedRows, row]);
-    // checked={selectedRows.includes(record.Id) ? true : false
-  };
-
-  const handleDeleteRow = (selectedRowsToDelete: ItemAllocationTypes[]) => {
-    const updatedData = allocatedData?.data?.Data?.Result?.filter((row: ItemAllocationTypes) => {
-      return !selectedRowsToDelete.some((selectedRow) => selectedRow.Id === row.Id);
-    });
-    setData(false);
-    setTableData(updatedData);
-    console.log('Updated Data', updatedData);
-  };
-
-  // console.log(tableData);
 
   useEffect(() => {
-    console.log('Selected Rows multiple:', selectedRows);
-    console.log('Selected Rows multiple for Allocated:', selectRowforAllocated);
-  }, [selectedRows, selectRowforAllocated]);
+    if (selectedAllRows) {
+      const allRowKeys = allocatedData?.data?.Data?.Result.map((record: any) => record.Id);
+      setSelectedRowKeys((prevSelectedKeys) => [...new Set([...prevSelectedKeys, ...allRowKeys])]);
+      setSelectedRows(allocatedData?.data?.Data?.Result);
+    } else {
+      setSelectedRows([]);
+      setSelectedRowKeys([]);
+    }
+
+    if (selectedAllRows) {
+      const allRowKeys = unallocatedData?.data?.Data?.Result.map((record: any) => record.Id);
+      setSelectedRowKeysForUnAllocate((prevSelectedKeys) => [...new Set([...prevSelectedKeys, ...allRowKeys])]);
+      setSelectRowforAllocated(unallocatedData?.data?.Data?.Result);
+    } else {
+      setSelectRowforAllocated([]);
+      setSelectedRowKeysForUnAllocate([]);
+    }
+  }, [selectedAllRows]);
 
   return (
-    <div>
+    <div style={{ marginLeft: 30 }}>
       <Row>
-        <Col xs={22} sm={20} lg={15} xl={8} style={{ marginTop: '10px', marginLeft: '2%' }}>
+        <Col xs={22} sm={20} lg={15} xl={11} xxl={8} style={{ marginTop: '10px' }}>
           <h2
             className="tableHead"
             style={{
@@ -146,24 +170,17 @@ const ItemAllocationTable = ({
           </h2>
           <AntTable
             refetch={refetch}
-            columns={PendingItemsForAllocationColumns(
-              t,
-              setSelectedRows,
-              handleRowSelection,
-              handleSelectAllUn,
-              allocatedData,
-              selectedRows
-            )}
+            rowKey={'Id'}
+            columns={PendingItemsForAllocationColumns(t, handleCheckboxChange, selectedRowKeys, handleSelectAllRecords)}
             data={data ? allocatedData?.data?.Data?.Result : tableData || []}
             isLoading={tableLoading || isFetching}
             isError={isError}
-            scroll={{ x: '', y: convertVhToPixels('55vh') }}
+            scroll={{ x: '', y: convertVhToPixels('47vh') }}
             numberOfSkeletons={12}
-            rowKey="Id"
           />
         </Col>
 
-        <Col xs={22} sm={20} lg={15} xl={8} style={{ marginTop: '10px', marginLeft: '15px' }}>
+        <Col xs={22} sm={20} lg={15} xl={11} xxl={8} style={{ marginTop: '10px', marginLeft: '15px' }}>
           <h2
             className="tableHead"
             style={{
@@ -183,18 +200,16 @@ const ItemAllocationTable = ({
           <AntTable
             columns={ItemsAllocationColumns(
               t,
-              setSelectRowforAllocated,
-              handleRowSelectionforAllocated,
-              handleSelectAll,
-              handleDeleteRowUn,
-              selectedRows
+              selectedRowKeysForUnAllocate,
+              handleSelectAllRecordsForAllocation,
+              handleCheckboxChangeForAllocation
             )}
             data={unallocatedData?.data?.Data?.Result || []}
             isError={isErrorunallocated}
             isLoading={tableLoadingunallocated || isFetchingunallocated}
             refetch={unallocatedrefetch}
             numberOfSkeletons={12}
-            scroll={{ x: '', y: convertVhToPixels('55vh') }}
+            scroll={{ x: '', y: convertVhToPixels('47vh') }}
           />
         </Col>
       </Row>
