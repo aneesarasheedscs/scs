@@ -22,14 +22,14 @@ function QuarterlySaleGraph({ getMonthandQuarter, isSuccess, isLoading, isError,
       },
       // data: data?.data?.Data?.Result?.Table.map((card: any) => card.ActivityDescription) || [],
       top: 0,
-      right: 'center',
+      left: 'left',
     },
     series: [
       {
         name: 'Sales by Quarter',
         type: 'pie',
-        radius: '60%',
-        center: ['50%', '45%'],
+        radius: '50%',
+        center: ['50%', '55%'],
 
         data: map(quarterlySaleGraph, (activity: any, activityIndex: number) => ({
           value: activity.CurrSaleAmount,
@@ -52,32 +52,33 @@ function QuarterlySaleGraph({ getMonthandQuarter, isSuccess, isLoading, isError,
 
   return (
     <>
-      <Card style={{ height: '40%' }}>
-        <Row gutter={[10, 10]} justify={'space-between'} style={{ width: '85%' }}>
-          <Col xl={12} xxl={12} lg={12} md={20} sm={20} xs={24}>
-            <h2 style={{ textAlign: 'center' }}>
-              {getMonthandQuarter?.data?.Data?.Result?.Table1?.[0]?.ActivityDescription}
-            </h2>
-            <Card hoverable style={{ height: '80%' }}>
+      <>
+        <Row gutter={[10, 10]} justify={'start'}>
+          <Col xl={12} xxl={11} lg={12} md={17} sm={24} xs={24}>
+            <Card hoverable style={{ height: 'auto' }}>
               <ReactECharts option={chartOptions} style={{ height: '300px' }} />
             </Card>
           </Col>
-          <Col xl={12} xxl={12} lg={11} md={20} sm={20} xs={24}>
-            <h2 style={{ textAlign: 'center' }}> {t('quarterly_sale_report')} </h2>
-
-            <Card hoverable style={{ height: '80%' }}>
-              <SaleReportbyQuarter
-                getMonthandQuarter={getMonthandQuarter}
-                refetch={refetch}
-                isError={isError}
-                isFetching={isFetching}
-                isLoading={isLoading}
-                isSuccess={isSuccess}
-              />
-            </Card>
+          <Col xl={12} xxl={9} lg={11} md={17} sm={24} xs={24}>
+            <Card
+              hoverable
+              style={{ height: '80%', marginBottom: '-5%' }}
+              cover={
+                <>
+                  <SaleReportbyQuarter
+                    getMonthandQuarter={getMonthandQuarter}
+                    refetch={refetch}
+                    isError={isError}
+                    isFetching={isFetching}
+                    isLoading={isLoading}
+                    isSuccess={isSuccess}
+                  />
+                </>
+              }
+            ></Card>
           </Col>
         </Row>
-      </Card>
+      </>
     </>
   );
 }

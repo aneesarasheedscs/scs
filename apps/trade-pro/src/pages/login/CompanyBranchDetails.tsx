@@ -10,6 +10,8 @@ import { storedUserDetail } from '@tradePro/utils/storageService';
 import { AntButton, AntSelectDynamic } from '@tradePro/components';
 import { useGetBranch, useGetCompany, useGetFinancialYear } from './queries';
 import { TUserDetail } from '@tradePro/globalTypes';
+import { useAtom } from 'jotai';
+import { financialYearObject } from './Atom';
 const { useForm, useWatch } = Form;
 function CompanyBranchDetails() {
   const navigate = useNavigate();
@@ -18,7 +20,8 @@ function CompanyBranchDetails() {
   const [companyList, setcompanyList] = useState<Company[]>([]);
   const [financialYearObj, setFinancialYearObj] = useState();
   const [headOffice, setheadOffice] = useState<boolean | undefined>();
-
+  const [financialYearObjec, setFinancialYearObjec] = useAtom(financialYearObject);
+  console.log(financialYearObjec);
   const { data: CompanyData, isSuccess, isLoading } = useGetCompany();
   const handleFinancialChange = (selectedObject: any) => {
     console.log(selectedObject);
@@ -40,7 +43,12 @@ function CompanyBranchDetails() {
       form.setFieldsValue({
         BranchId: 2,
       });
+      form.setFieldsValue({
+        FinancialYearId: financialYearObjec?.[0]?.Id,
+      });
     }
+    if (financialYearObjec !== null && financialYearObjec !== undefined) setFinancialYearObj(financialYearObjec);
+
     // if (year === false) {
     //   form.setFieldsValue({
     //     FinancialYearId: 2,
@@ -51,7 +59,7 @@ function CompanyBranchDetails() {
     //   });
     // }
     CompanyData;
-  }, [isSuccess, !isLoading]);
+  }, [isSuccess, !isLoading, financialYearObjec]);
   // const handleCompanyChange = (obj: Company) => {
   //   console.log(obj);
   //   if (obj !== null && obj !== undefined) {

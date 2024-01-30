@@ -26,10 +26,10 @@ function SaleReportbyMonth({ getMonthandQuarter, refetch, isError, isLoading, is
         refetch={refetch}
         isError={isError}
         columns={columns(t)}
-        numberOfSkeletons={12}
+        numberOfSkeletons={6}
         isLoading={isLoading || isFetching}
         data={getMonthandQuarter?.data?.Data?.Result?.Table2 || []}
-        scroll={{ x: '', y: convertVhToPixels('14vh') }}
+        scroll={{ x: '', y: convertVhToPixels('21vh') }}
       />
     </>
   );
@@ -57,10 +57,10 @@ export function SaleReportbyQuarter({ getMonthandQuarter, refetch, isError, isLo
         refetch={refetch}
         isError={isError}
         columns={column(t)}
-        numberOfSkeletons={12}
+        numberOfSkeletons={6}
         isLoading={isLoading || isFetching}
         data={getMonthandQuarter?.data?.Data?.Result?.Table1 || []}
-        scroll={{ x: '', y: convertVhToPixels('14vh') }}
+        scroll={{ x: '', y: convertVhToPixels('24vh') }}
       />
     </>
   );

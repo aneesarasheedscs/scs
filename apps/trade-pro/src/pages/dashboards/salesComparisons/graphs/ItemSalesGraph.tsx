@@ -45,15 +45,15 @@ function ItemSalesGraph({ data }: any) {
       right: 'center',
     },
     grid: {
-      top: '5%',
+      top: '2%',
       left: '5%',
       right: '5%',
-      bottom: '-5%',
+      bottom: '-2%',
       containLabel: true,
     },
     xAxis: {
-      // name: 'Customers',
-      // nameGap: 5,
+      name: 'Items',
+      nameGap: 6,
       type: 'category',
       data: filteredItemsData?.map((graph: any) => graph.GroupTitle) || [],
       axisLabel: {

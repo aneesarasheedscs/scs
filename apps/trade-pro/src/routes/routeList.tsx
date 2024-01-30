@@ -1,8 +1,6 @@
 import { lazy } from 'react';
 import { route } from './constant';
 import { RouteObject } from 'react-router-dom';
-import ItemAllocation from '@tradePro/pages/inventoryDefination/itemAllocationForm/itemAllocation';
-import ItemAllocationForm from '@tradePro/pages/inventoryDefination/itemAllocationForm';
 
 const open = false;
 const openItemType = false;

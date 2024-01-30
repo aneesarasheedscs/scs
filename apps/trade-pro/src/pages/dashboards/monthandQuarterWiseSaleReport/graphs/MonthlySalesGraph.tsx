@@ -30,7 +30,7 @@ function MonthlySalesGraph({ getMonthandQuarter, isSuccess, isLoading, isError, 
       top: '-5%',
       left: '5%',
       right: '10%',
-      bottom: '30%',
+      bottom: '5%',
       containLabel: true,
     },
     xAxis: {
@@ -59,34 +59,34 @@ function MonthlySalesGraph({ getMonthandQuarter, isSuccess, isLoading, isError, 
 
   return (
     <>
-      <Card style={{ height: '38%' }}>
-        <Row gutter={[10, 10]} justify={'space-between'} style={{ width: '85%' }}>
-          <Col xl={12} xxl={12} lg={12} md={20} sm={20} xs={24}>
-            <h2 style={{ textAlign: 'center' }}>
-              {' '}
-              {getMonthandQuarter?.data?.Data?.Result?.Table2?.[0]?.ActivityDescription}
-            </h2>
-            <Card hoverable style={{ height: '75%' }}>
+      <>
+        <Row gutter={[10, 10]} justify={'start'}>
+          <Col xl={12} xxl={11} lg={12} md={17} sm={24} xs={24}>
+            <Card hoverable style={{ height: 'auto' }}>
               <h3 className="graphAmount verticalText"> {t('amount_in_rs')}</h3>
-              <ReactECharts option={chartOptions} style={{ height: '300px' }} />
+              <ReactECharts option={chartOptions} style={{ height: '250px' }} />
             </Card>
           </Col>
-          <Col xl={12} xxl={12} lg={11} md={20} sm={20} xs={24}>
-            <h2 style={{ textAlign: 'center' }}> {t('monthly_sale_report')}</h2>
-
-            <Card hoverable style={{ height: '75%' }}>
-              <SaleReportbyMonth
-                getMonthandQuarter={getMonthandQuarter}
-                refetch={refetch}
-                isError={isError}
-                isFetching={isFetching}
-                isLoading={isLoading}
-                isSuccess={isSuccess}
-              />
-            </Card>
+          <Col xl={12} xxl={9} lg={12} md={17} sm={24} xs={24}>
+            <Card
+              hoverable
+              style={{ height: '87%', marginBottom: '-5%' }}
+              cover={
+                <>
+                  <SaleReportbyMonth
+                    getMonthandQuarter={getMonthandQuarter}
+                    refetch={refetch}
+                    isError={isError}
+                    isFetching={isFetching}
+                    isLoading={isLoading}
+                    isSuccess={isSuccess}
+                  />
+                </>
+              }
+            ></Card>
           </Col>
         </Row>
-      </Card>
+      </>
     </>
   );
 }
