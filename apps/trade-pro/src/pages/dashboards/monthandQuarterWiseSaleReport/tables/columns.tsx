@@ -6,7 +6,7 @@ import { TMonthlySaleReport, TQuarterlySaleReport } from '../types';
 
 export const columns = (t?: any): AntColumnType<TMonthlySaleReport>[] => [
   {
-    width: 350,
+    width: 300,
     title: <>{t('month')}</>,
     searchableInput: true,
     dataIndex: 'SalesMonth',
@@ -20,13 +20,17 @@ export const columns = (t?: any): AntColumnType<TMonthlySaleReport>[] => [
   },
 
   {
-    width: 200,
+    width: 220,
     title: <>{t('amount')}</>,
     dataIndex: 'CurrSaleAmount',
     showTotal: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.CurrSaleAmount - b.CurrSaleAmount,
-    render: (_, { CurrSaleAmount }) => numberFormatter(CurrSaleAmount),
+    render: (_, { CurrSaleAmount }) => (
+      <span style={{ display: 'flex', justifyContent: 'end', marginRight: '0%' }}>
+        {numberFormatter(CurrSaleAmount)}
+      </span>
+    ),
   },
 ];
 
@@ -68,12 +72,16 @@ export const column = (t?: any): AntColumnType<TQuarterlySaleReport>[] => [
     render: (_, { YearNo }) => numberFormatter(YearNo),
   },
   {
-    width: 150,
+    width: 110,
     title: <>{t('amount')}</>,
     dataIndex: 'CurrSaleAmount',
     showTotal: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.CurrSaleAmount - b.CurrSaleAmount,
-    render: (_, { CurrSaleAmount }) => numberFormatter(CurrSaleAmount),
+    render: (_, { CurrSaleAmount }) => (
+      <span style={{ display: 'flex', justifyContent: 'end', marginRight: '0%' }}>
+        {numberFormatter(CurrSaleAmount)}
+      </span>
+    ),
   },
 ];

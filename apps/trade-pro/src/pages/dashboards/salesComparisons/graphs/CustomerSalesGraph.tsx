@@ -42,19 +42,19 @@ function CustomersSalesGraph({ data }: any) {
         color: '#666',
       },
       data: filteredCustomerData?.map((graph: any) => graph.GroupTitle) || [],
-      top: 10,
+      top: 0,
       right: 'center',
     },
     grid: {
-      top: '5%',
+      top: '2%',
       left: '5%',
-      right: '5%',
-      bottom: '-5%',
+      right: '6%',
+      bottom: '-2%',
       containLabel: true,
     },
     xAxis: {
-      // name: 'Customers',
-      // nameGap: 5,
+      name: 'Customers',
+      nameGap: 5,
       type: 'category',
       data: filteredCustomerData?.map((graph: any) => graph.GroupTitle) || [],
       axisLabel: {
@@ -83,7 +83,7 @@ function CustomersSalesGraph({ data }: any) {
   return (
     <>
       <h3 className="graphAmount verticalText"> {t('amount_in_rs')}</h3>
-      <ReactECharts option={chartOptions} style={{ height: '300px' }} />
+      <ReactECharts option={chartOptions} style={{ height: '320px' }} />
     </>
   );
 }

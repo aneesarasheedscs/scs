@@ -456,12 +456,10 @@
   "net_amount": "صاف رقم",
   "%_of_total_weight": "کل وزن کا فیصد",
   "%_of_total_amount": "کل رقم کا فیصد",
-  "sales_payment_term": "فروخت کی ادائیگی کی شرط",
   "current_statistics": "موجودہ اشاعت",
   "parent_category": "پیرنٹ کیٹیگری",
   "cash_&_credit_sale": "نقد اور اسقاطی فروخت",
   "sales_by_items": "آئٹمز کے ذریعے فروخت",
-  "sales-by-branch": "شاخوں کی طرف سے فروخت",
   "sale_date": "فروخت کی تاریخ",
   "%_of_total": "کل کا %",
   "shift_location": "شفٹ مقام",
@@ -639,11 +637,21 @@
   "unapproved_vouchers": "غیر منظور شدہ واؤچرز",
   "approved_vouchers": "منظور شدہ واؤچرز",
   "pending_for_revision": "نظرثانی کے لیے زیر التواء",
+  "offset_account": "آفسیٹ اکاؤنٹ",
+  "payee_title": "وصول کنندہ کا عنوان",
+  "wht_against_account": "WHT_Against اکاؤنٹ",
+  "detail_total": "تفصیل کل",
+  "wht_account": "کیا اکاؤنٹ",
+  "tax_type": "ٹیکس کی قسم",
+  "tax": "ٹیکس",
+  "tax_amount": "ٹیکس کی رقم",
+  "accounts_dashboard": "اکاؤنٹس ڈیش بورڈ",
   "account_allocation": "کاؤنٹ تخصیص",
   "account_allocations": "اکاؤنٹ تشکیل",
   "financial_year": "مالی سال",
   "pending_accounts_for_allocation": "تشکیل کے لئے زیر تعلیم اکاؤنٹس",
   "to_company": "کمپنی کو",
+<<<<<<< HEAD
   "item_allocation": "اشیاء کی تفویض",
   "allocated_items": "تفویض شدہ اشیاء",
   "un_allocated_items": "غیر تفویض شدہ اشیاء",
@@ -654,4 +662,13 @@
   "language_id": "زبان کی شناخت",
   "language_name": "زبان کا نام",
   "account_title_other_lingo": "اکاؤنٹ ٹائٹل دوسری لنگو میں"
+=======
+  "sales_by_branch": "برانچ کے ذریعہ فروخت",
+  "graph_view": "گراف ویو",
+  "sales_by_payment_term": "ادائیگی کی مدت کے ذریعہ فروخت",
+  "sales_by_parent_category": "پیرنٹ کیٹیگری کے حساب سے سیلز",
+  "sales_by_days": "دنوں کی طرف سے فروخت",
+  "sales_by_dates": "تاریخوں کے حساب سے فروخت",
+  "item_allocation": "اشیاء کی تفویض"
+>>>>>>> origin/Trade_ProMerged
 }

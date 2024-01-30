@@ -10,17 +10,17 @@ const SalesDashboardChart = ({ data }: any) => {
     (item: any) => item.DescriptionTitle === 'Credit Sales'
   );
 
-  console.log(filteredSalesPaymentTerms?.[0].NetAmount);
-  const CashSaleAmount = filteredSalesPaymentTerms?.[0].NetAmount;
-  const CashSaleDesc = filteredSalesPaymentTerms?.[0].DescriptionTitle;
+  // console.log(filteredSalesPaymentTerms?.[0].NetAmount);
+  const CashSaleAmount = filteredSalesPaymentTerms?.[0]?.NetAmount;
+  const CashSaleDesc = filteredSalesPaymentTerms?.[0]?.DescriptionTitle;
   // const cashSaleAmount = (filteredSalesPaymentTerms, 'NetAmount');
 
-  const CreditSaleAmount = filteredSalesPaymentTerms2?.[0].NetAmount;
-  const CreditSaleDesc = filteredSalesPaymentTerms2?.[0].DescriptionTitle;
+  const CreditSaleAmount = filteredSalesPaymentTerms2?.[0]?.NetAmount;
+  const CreditSaleDesc = filteredSalesPaymentTerms2?.[0]?.DescriptionTitle;
 
   const option = {
     title: {
-      text: 'Cash & Credit Sale',
+      text: 'Cash & Credit Sales',
       // subtext: 'Fake Data',
       left: 'center',
     },
@@ -53,7 +53,7 @@ const SalesDashboardChart = ({ data }: any) => {
 
   return (
     <Col xxl={24} xl={24} md={20} xs={24} lg={24}>
-      <ReactECharts option={option} style={{ width: '40vw' }} />
+      <ReactECharts option={option} style={{ width: '100%' }} />
     </Col>
   );
 };

@@ -2,5 +2,20 @@
   "unapproved_vouchers": "未承認のクーポン",
   "approved_vouchers": "承認済みのクーポン",
   "pending_for_revision": "改訂待ち",
-  "cheque_date": "日付を確認する"
+  "cheque_date": "日付を確認する",
+  "offset_account": "相殺口座",
+  "payee_title": "受取人のタイトル",
+  "wht_against_account": "WHT_アカウントに対して",
+  "detail_total": "詳細合計",
+  "wht_account": "口座番号",
+  "tax_type": "税の種類",
+  "tax": "税",
+  "tax_amount": "課税額",
+  "accounts_dashboard": "アカウントダッシュボード",
+  "sales_by_branch": "支店別売上高",
+  "graph_view": "グラフビュー",
+  "sales_by_payment_term": "支払い期間別の売上",
+  "sales_by_parent_category": "親カテゴリー別の売上高",
+  "sales_by_days": "日別売上高",
+  "sales_by_dates": "販売日別"
 }

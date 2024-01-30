@@ -58,6 +58,7 @@ export const route = {
   ITEM_TYPE: '/define-item-type',
   UOM_DEFINE: '/define-item-uom',
   UOM_SCHEDULE: '/define-item-uom-schedule',
+  ITEM_ALLOCATION_FORM: '/pos-item-allocation',
 
   //Purchase Trading
   PURCHASE_ORDER: '/purchsae-order',

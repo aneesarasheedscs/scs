@@ -51,7 +51,7 @@ function AccountHistoryTable() {
         data={table?.data?.Data?.Result || []}
         columns={columns(t, handleUpdateAccountTitle)}
         isLoading={tableLoading}
-        numberOfSkeletons={15}
+        numberOfSkeletons={12}
         scroll={{ x: '', y: convertVhToPixels('55vh') }}
       />
     </div>

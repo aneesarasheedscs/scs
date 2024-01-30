@@ -487,5 +487,20 @@
   "pending_for_approval": "En attente d'approbation",
   "unapproved_vouchers": "Bons non approuvés",
   "approved_vouchers": "Bons approuvés",
-  "pending_for_revision": "En attente de révision"
+  "pending_for_revision": "En attente de révision",
+  "offset_account": "Compte de compensation",
+  "payee_title": "Titre du bénéficiaire",
+  "wht_against_account": "WHT_Contre le compte",
+  "detail_total": "Détail Total",
+  "wht_account": "Quel compte",
+  "tax_type": "Type de taxe",
+  "tax": "Impôt",
+  "tax_amount": "Montant de la taxe",
+  "accounts_dashboard": "Tableau de bord des comptes",
+  "sales_by_branch": "Ventes par succursale",
+  "graph_view": "Vue graphique",
+  "sales_by_payment_term": "Ventes par condition de paiement",
+  "sales_by_parent_category": "Ventes par catégorie parent",
+  "sales_by_days": "",
+  "sales_by_dates": "Ventes par dates"
 }

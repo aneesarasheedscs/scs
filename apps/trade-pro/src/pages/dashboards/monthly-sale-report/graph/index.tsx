@@ -49,8 +49,8 @@ const SalesDashboardChart = ({ data }: any) => {
   };
 
   return (
-    <Col span={24}>
-      <ReactECharts option={option} style={{ width: '18vw', marginTop: '15px' }} />
+    <Col span={24} style={{ padding: '2%' }}>
+      <ReactECharts option={option} style={{ width: '100%', marginTop: '15px' }} />
     </Col>
   );
 };

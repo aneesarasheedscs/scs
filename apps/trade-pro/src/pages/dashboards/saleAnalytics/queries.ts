@@ -58,7 +58,7 @@ export const useGetMasterBranchByUserId = () => {
 
 export const usePostSalesAnalyticsDashboard = (
   enabled = true,
-  params?: [TSalesDashboardCriteria] //types
+  params?: TSalesDashboardCriteria //types
 ) => {
   return useQuery(
     'sale-analytics',
@@ -66,7 +66,7 @@ export const usePostSalesAnalyticsDashboard = (
       return requestManager.post('/api/Dashboard/OrgSalesAnalyticsDashboard', {
         CompanyIds: userDetail?.CompanyId,
         OrganizationId: userDetail?.OrganizationId,
-        BranchIds: userDetail?.BranchesId,
+        // BranchIds: userDetail?.BranchesId,
         // FromDate: financialYear?.Start_Period,
         // ToDate: financialYear?.End_Period,
         ...params,

@@ -487,5 +487,20 @@
   "pending_for_approval": "等待批准",
   "unapproved_vouchers": "未经批准的优惠券",
   "approved_vouchers": "批准的优惠券",
-  "pending_for_revision": "待修改"
+  "pending_for_revision": "待修改",
+  "offset_account": "抵销账户",
+  "payee_title": "收款人名称",
+  "wht_against_account": "WHT_针对账户",
+  "detail_total": "详细 总计",
+  "wht_account": "账户名称",
+  "tax_type": "税种",
+  "tax": "税",
+  "tax_amount": "税额",
+  "accounts_dashboard": "账户仪表板",
+  "sales_by_branch": "分店销售额",
+  "graph_view": "图表视图",
+  "sales_by_payment_term": "按付款方式销售",
+  "sales_by_parent_category": "按父类别划分的销售额",
+  "sales_by_days": "按天销售",
+  "sales_by_dates": "按日期销售"
 }

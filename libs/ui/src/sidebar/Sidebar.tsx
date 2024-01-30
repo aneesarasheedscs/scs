@@ -7,7 +7,7 @@ export function Sidebar({ collapsed, children }: TSidebar) {
   return (
     <Sider
       // width={250}
-      width={collapsed ? 250 : 98}
+      width={collapsed ? 260 : 98}
       trigger={null}
       breakpoint="lg"
       collapsedWidth="0"

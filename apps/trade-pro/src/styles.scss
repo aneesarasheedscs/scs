@@ -39,7 +39,10 @@ body {
 .ant-form-item-label {
   padding-bottom: 3px !important;
 }
-
+.monthly_heading {
+  margin-left: 0%;
+  padding: 10px;
+}
 .antCard .ant-card-body {
   padding: 15px !important;
 }
@@ -79,11 +82,12 @@ body {
 }
 // $colorPrimary: #272799;
 .form-heading {
-  font-family: 'Times New Roman', Times, serif;
+  // font-family: 'Times New Roman', Times, serif;
   border-radius: 5px;
   padding: 5px;
-  box-shadow: 2px 4px 12px 1px var(--color-primary);
-  margin-bottom: 3px;
+  text-align: center;
+  // box-shadow: 2px 4px 12px 1px var(--color-primary);
+  // margin-bottom: 3px;
 }
 .form-heading3 {
   font-family: 'Times New Roman', Times, serif;
@@ -251,7 +255,8 @@ body {
   transform: rotate(180deg); /* rotate 180 degrees to make it vertical */
 }
 .salesComaprisonCard {
-  margin-top: 10px;
+  margin-top: 0px;
+
   margin-bottom: 10px;
   height: 8%;
   box-shadow: 2px 2px 10px 1px lightgray;

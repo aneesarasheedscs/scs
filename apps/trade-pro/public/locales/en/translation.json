@@ -439,7 +439,6 @@
   "count": "Count",
   "top": "Top",
   "bottom": "Bottom",
-  "sales_payment_term": "Sales Payment Term",
   "current_statistics": "Current Statistic",
   "parent_category": "Parent Category",
   "sales_by_items": "Sales By Items",
@@ -649,7 +648,7 @@
   "pending_accounts_for_allocation": "Pending Accounts For Allocation",
   "to_company": "To Company",
   "allocated_accounts": "Allocated Accounts",
-  "item_allocation": "Item Allocation",
+
   "allocated_items": "Allocated Items",
   "un_allocated_items": "Un Allocated Items",
   "company_name": "Company Name",
@@ -658,5 +657,11 @@
   "note_title": "Note Title",
   "language_id": "Language Id",
   "language_name": "Language Name",
-  "account_title_other_lingo": "Account Title Other Lingo"
+  "account_title_other_lingo": "Account Title Other Lingo",
+  "graph_view": "Graph View",
+  "sales_by_payment_term": "Sales By Payment Term",
+  "sales_by_parent_category": "Sales By Parent Category",
+  "sales_by_days": "Sales By Days",
+  "sales_by_dates": "Sales By Dates",
+  "item_allocation": "Item Allocation"
 }

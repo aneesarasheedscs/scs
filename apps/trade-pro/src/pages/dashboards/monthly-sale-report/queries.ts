@@ -66,7 +66,7 @@ export const useGetMonthlySalesDashboard = (
       return requestManager.post('/api/Dashboard/OrgSalesAnalyticsDashboardMonthly', {
         CompanyIds: userDetail?.CompanyId,
         OrganizationId: userDetail?.OrganizationId,
-        BranchIds: userDetail?.BranchesId,
+        // BranchIds: userDetail?.BranchesId,
         ...params,
       });
     },

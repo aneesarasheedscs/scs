@@ -6,8 +6,8 @@ import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { useTranslation } from 'react-i18next';
 
-const ParentCategoryTable = () => {
-  const { data } = useGetMonthlySalesDashboard();
+const ParentCategoryTable = ({ data }: any) => {
+  // const { data } = useGetMonthlySalesDashboard();
   const filteredParentCategory = data?.data?.Data?.Result.Table5.filter(
     (item: any) => item.CaptionTitle === 'Sales By Parent Category'
   );
@@ -33,12 +33,12 @@ const ParentCategoryTable = () => {
           },
           {
             title: t('net_weight'),
-            width: '170px',
+            width: '110px',
             dataIndex: 'NetWeight',
           },
           {
             title: t('net_amount'),
-            width: '170px',
+            width: '110px',
             dataIndex: 'NetAmount',
             render: (NetAmount, record) => (
               <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>
@@ -48,26 +48,26 @@ const ParentCategoryTable = () => {
           },
           {
             title: t('%_of_total_weight'),
-            width: '150px',
+            width: '140px',
             dataIndex: 'PrcntOfTotalWeight',
           },
 
           {
             title: t('%_of_total_amount'),
-            width: '170px',
+            width: '150px',
             dataIndex: 'PrcntOfTotalAmount',
           },
         ]}
         size="small"
         pagination={false}
-        scroll={{ x: 'auto' }}
+        scroll={{ y: '18vh' }}
       />
     </>
   );
 };
 
-export const SaleByDateTable = () => {
-  const { data } = useGetMonthlySalesDashboard();
+export const SaleByDateTable = ({ data }: any) => {
+  // const { data } = useGetMonthlySalesDashboard();
   const filteredSalesByDate = data?.data?.Data?.Result.Table4;
   const { t } = useTranslation();
   return (
@@ -100,15 +100,15 @@ export const SaleByDateTable = () => {
           },
         ]}
         pagination={false}
-        scroll={{ y: '14vh' }}
+        scroll={{ x: '', y: '18vh' }}
         size="small"
       />
     </>
   );
 };
 
-export const SaleByItemTable = () => {
-  const { data } = useGetMonthlySalesDashboard();
+export const SaleByItemTable = ({ data }: any) => {
+  // const { data } = useGetMonthlySalesDashboard();
   const filteredSalesByItem = data?.data?.Data?.Result.Table6.filter(
     (item: any) => item.CaptionTitle === 'Sales By Item Type'
   );
@@ -158,15 +158,15 @@ export const SaleByItemTable = () => {
           },
         ]}
         pagination={false}
-        scroll={{ y: '15vh' }}
+        scroll={{ y: '18vh' }}
         size="small"
       />
     </>
   );
 };
 
-export const SaleBybranchTable = () => {
-  const { data } = useGetMonthlySalesDashboard();
+export const SaleBybranchTable = ({ data }: any) => {
+  // const { data } = useGetMonthlySalesDashboard();
   const filteredSalesByBranch = data?.data?.Data?.Result.Table7.filter(
     (item: any) => item.CaptionTitle === 'Sales By Branch'
   );
@@ -206,11 +206,12 @@ export const SaleBybranchTable = () => {
 
           {
             title: t('%_of_total_amount'),
-            width: 136,
+            width: 140,
             dataIndex: 'PrcntOfTotalAmount',
           },
         ]}
-        scroll={{ y: '15vh' }}
+        scroll={{ y: '18vh' }}
+        size="small"
         pagination={false}
       />
     </>

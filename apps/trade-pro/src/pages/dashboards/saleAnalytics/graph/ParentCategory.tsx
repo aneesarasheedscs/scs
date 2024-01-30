@@ -8,16 +8,16 @@ const ParentCategoryChart = ({ data }: any) => {
   );
   const filteredParentCategory2 = data?.data?.Data?.Result.Table2.filter((item: any) => item.ParentCategory === 'Rice');
 
-  console.log(filteredParentCategory?.[0].NetAmount);
-  const ParentCategoryAmount = filteredParentCategory?.[0].NetAmount;
-  const ParentCategoryDesc = filteredParentCategory?.[0].ParentCategory;
+  console.log(filteredParentCategory?.[0]?.NetAmount);
+  const ParentCategoryAmount = filteredParentCategory?.[0]?.NetAmount;
+  const ParentCategoryDesc = filteredParentCategory?.[0]?.ParentCategory;
 
-  const ParentCategoryAmount2 = filteredParentCategory2?.[0].NetAmount;
-  const ParentCategoryDesc2 = filteredParentCategory2?.[0].ParentCategory;
+  const ParentCategoryAmount2 = filteredParentCategory2?.[0]?.NetAmount;
+  const ParentCategoryDesc2 = filteredParentCategory2?.[0]?.ParentCategory;
   const { t } = useTranslation();
   const option = {
     title: {
-      text: 'Parent Category',
+      // text: 'Parent Category',
       // subtext: 'Fake Data',
       left: 'center',
     },
@@ -32,7 +32,7 @@ const ParentCategoryChart = ({ data }: any) => {
       {
         name: 'Access From',
         type: 'pie',
-        radius: '50%',
+        radius: '70%',
         data: [
           { value: `${ParentCategoryAmount}`, name: `${ParentCategoryDesc}` },
           { value: `${ParentCategoryAmount2}`, name: `${ParentCategoryDesc2}` },
@@ -51,7 +51,7 @@ const ParentCategoryChart = ({ data }: any) => {
 
   return (
     <Col span={24}>
-      <ReactECharts option={option} style={{ width: '40vw' }} />
+      <ReactECharts option={option} style={{ width: '50vw', height: '250px' }} />
     </Col>
   );
 };

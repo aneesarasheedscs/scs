@@ -60,6 +60,8 @@ export const useGetSalesComparisonReport = (enabled = true, params?: TSearchCrit
         OrganizationId: userDetail?.OrganizationId,
         FromDate: financialYear?.Start_Period,
         ToDate: financialYear?.End_Period,
+        NoOfRecords: 10,
+        ApprovedFilter: 'Top',
         ...params,
       });
     },

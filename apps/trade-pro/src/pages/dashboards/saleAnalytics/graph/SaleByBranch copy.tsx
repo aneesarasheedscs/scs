@@ -77,7 +77,7 @@ const SaleByBranchChart = ({ data }: any) => {
             },
           ],
         }}
-        style={{ height: '280px' }}
+        style={{ width: '80%', height: '280px' }}
       />
     </Col>
   );

@@ -28,10 +28,10 @@ function SalesComparisonReportforTopCustomers({
         refetch={refetch}
         isError={isSaleReportError}
         columns={columns(t)}
-        numberOfSkeletons={12}
+        numberOfSkeletons={6}
         isLoading={isSaleReportLoading || isFetching}
         data={filteredCustomerData || []}
-        scroll={{ x: '', y: convertVhToPixels('17vh') }}
+        scroll={{ x: '', y: convertVhToPixels('22vh') }}
       />
     </>
   );
@@ -60,10 +60,10 @@ export function SalesComparisonReportforTopItems({
         refetch={refetch}
         isError={isSaleReportError}
         columns={column(t)}
-        numberOfSkeletons={12}
+        numberOfSkeletons={6}
         isLoading={isSaleReportLoading || isFetching}
         data={filteredCustomerData || []}
-        scroll={{ x: '', y: convertVhToPixels('17vh') }}
+        scroll={{ x: '', y: convertVhToPixels('22vh') }}
       />
     </>
   );
@@ -89,10 +89,10 @@ export function SalesComparisonReportforTopCities({
         refetch={refetch}
         isError={isSaleReportError}
         columns={columnforCity(t)}
-        numberOfSkeletons={12}
+        numberOfSkeletons={6}
         isLoading={isSaleReportLoading || isFetching}
         data={filteredCustomerData || []}
-        scroll={{ x: '', y: convertVhToPixels('17vh') }}
+        scroll={{ x: '', y: convertVhToPixels('22vh') }}
       />
     </>
   );
@@ -118,10 +118,10 @@ export function SalesComparisonReportforTopPackSize({
         refetch={refetch}
         isError={isSaleReportError}
         columns={columnforPackingSize(t)}
-        numberOfSkeletons={12}
+        numberOfSkeletons={6}
         isLoading={isSaleReportLoading || isFetching}
         data={filteredCustomerData || []}
-        scroll={{ x: '', y: convertVhToPixels('17vh') }}
+        scroll={{ x: '', y: convertVhToPixels('22vh') }}
       />
     </>
   );

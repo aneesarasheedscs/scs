@@ -3,7 +3,6 @@ import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageSe
 import { AxiosResponse } from 'axios';
 import { QueryFunction, useQuery } from 'react-query';
 import { TMonthandQuarterWiseSaleReport } from './types';
-// import { TStockReportsSearchCriteria } from './types';
 
 const userDetail = storedUserDetail();
 const financialYear = storedFinancialYear();

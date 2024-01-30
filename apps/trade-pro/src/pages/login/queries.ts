@@ -6,6 +6,9 @@ import { requestManager } from '@tradePro/configs/requestManager';
 import { storedUserDetail } from '@tradePro/utils/storageService';
 import { TUserDetail } from '@tradePro/globalTypes';
 import { boolean } from 'joi';
+import { useState } from 'react';
+import { useAtom } from 'jotai';
+import { financialYearObject } from './Atom';
 export const useLogin = () => {
   return useMutation('token', (data: TUser) => getAccessToken(data), {
     onSuccess: (response: AxiosResponse) => {
@@ -40,6 +43,7 @@ export const useGetCompany = () => {
 };
 
 export const useGetFinancialYear = (CompanyId: number | null) => () => {
+  const [financialYearObjec, setFinancialYearObjec] = useAtom(financialYearObject);
   return useQuery(
     ['financial-year', CompanyId],
     () => {
@@ -47,9 +51,16 @@ export const useGetFinancialYear = (CompanyId: number | null) => () => {
         params: { CompanyId, OrganizationId: userDetail?.OrganizationId },
       });
     },
-    { enabled: !!CompanyId }
+    {
+      enabled: !!CompanyId,
+      onSuccess: (response: AxiosResponse) => {
+        const userData: TUserDetail = response?.data?.Data?.Result;
+        setFinancialYearObjec(userData);
+      },
+    }
   );
 };
+
 export const useGetBranch = (CompanyId: number | null) => () => {
   return useQuery(
     ['branch', CompanyId],

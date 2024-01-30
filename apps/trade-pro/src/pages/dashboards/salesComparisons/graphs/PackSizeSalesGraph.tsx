@@ -53,6 +53,8 @@ function PackingSizeSalesGraph({ data }: any) {
     },
     xAxis: {
       type: 'category',
+      name: 'Pack Sizes',
+      nameGap: 6,
       data: filteredPackSizeData?.map((graph: any) => graph.GroupTitle) || [],
       axisLabel: {
         rotate: 45,

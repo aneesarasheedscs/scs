@@ -494,5 +494,20 @@
   "pending_for_approval": "في انتظار لموافقة",
   "unapproved_vouchers": "القسائم غير المعتمدة",
   "approved_vouchers": "القسائم المعتمدة",
-  "pending_for_revision": "في انتظار المراجعة"
+  "pending_for_revision": "في انتظار المراجعة",
+  "offset_account": "تعويض حساب",
+  "payee_title": "عنوان المستفيد",
+  "wht_against_account": "WHT_ضد الحساب",
+  "detail_total": "التفاصيل الإجمالية",
+  "wht_account": "حساب وايت",
+  "tax_type": "نوع الضريبة",
+  "tax": "ضريبة",
+  "tax_amount": "قيمة الضريبة",
+  "accounts_dashboard": "لوحة تحكم الحسابات",
+  "sales_by_branch": "المبيعات حسب الفرع",
+  "graph_view": "عرض الرسم البياني",
+  "sales_by_payment_term": "المبيعات حسب مصطلح الدفع",
+  "sales_by_parent_category": "المبيعات حسب الفئة الأم",
+  "sales_by_days": "المبيعات بالأيام",
+  "sales_by_dates": "المبيعات حسب التواريخ"
 }

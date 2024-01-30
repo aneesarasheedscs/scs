@@ -1,7 +1,7 @@
 import dayjs, { Dayjs } from 'dayjs';
 export type TSearchCriteriaSalesComparison = {
   OrganizationId: number;
-  CompanyIds: string | null;
+  CompanyIds: number | null;
   ToDate?: Date | string;
   FromDate?: Date | string;
   NoOfRecords: number;
@@ -16,6 +16,7 @@ export type TSalesComparisonforCustomer = {
   SaleQty: number;
   SaleWeight: number;
   SaleAmount: number;
+  PerOfTopBottom: number;
   '%OfTopBottom': number;
   '%OfTotal': number;
   GrandTotal: number;
