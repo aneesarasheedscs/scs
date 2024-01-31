@@ -147,6 +147,9 @@ export const useGetAllocatedAccounts = (enabled = true, Id: number) => {
   );
 };
 
+
+
+
 export const useAddAllocationAccounts = (enable?: true, companyId?: number) => {
   return useMutation(
     'add_account_allocation',
@@ -169,17 +172,7 @@ export const useAddAllocationAccounts = (enable?: true, companyId?: number) => {
       };
       return requestManager.post('/api/COAAllocation/Save', dataToSubmit);
     },
-    {
-      // onSuccess: () => {
-      //   queryClient.invalidateQueries('UnAllocated_Accounts');
-      //   const msg = 'Record Allocated successfully!';
-      //   notification.success({ description: '', message: msg });
-      // },
-      // onError: (error: AxiosError) => {
-      //   const msg = error.response?.data || 'Something went wrong';
-      //   notification.error({ description: '', message: msg as string });
-      // },
-      
+    {      
         onSuccess: (response: AxiosResponse) => {
           queryClient.invalidateQueries('Allocated_Accounts');
           queryClient.invalidateQueries('UnAllocated_Accounts');
@@ -196,7 +189,6 @@ export const useAddAllocationAccounts = (enable?: true, companyId?: number) => {
         onError: (error: AxiosError) => {
           const msg = error.response?.data || 'Something went wrong';
           notification.error({ description: '', message: msg as string });
-        
       }
     }
   );
@@ -243,7 +235,6 @@ export const useGetDeAllocationAccountss = (enable?: false, companyId?: number, 
         onError: (error: AxiosError) => {
           const msg = error.response?.data || 'Something went wrong';
           notification.error({ description: '', message: msg as string });
-        
       }
     }
   );

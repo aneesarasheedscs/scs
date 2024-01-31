@@ -2,20 +2,24 @@ import { AntButton, AntSelectDynamic } from '@tradePro/components';
 import { Card, Col, Form, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useGetItemAllocationComp, useGetPendingItemsForAllocation, useGetUnAllocatedItems } from '../quries';
-import AccountAllocationTable from '../table';
+
 import { useWatch } from 'antd/es/form/Form';
 import { TCompanyfilter, TaddAllocatedAccounts } from '../types';
 import { SyncOutlined } from '@ant-design/icons';
 import { useAtom } from 'jotai';
 import { selectedRowsAtom } from '../table/Atom';
 import ItemAllocationTable from '../table';
+import { useState } from 'react';
 
 const { useForm } = Form;
 
 const ItemAllocation = () => {
   const [form] = useForm<TaddAllocatedAccounts>();
   const formValues = useWatch<TaddAllocatedAccounts>([], form);
+  // const [selectedRows, setSelectedRows] = useAtom(selectedRowsAtom);
   const [selectedRows, setSelectedRows] = useAtom(selectedRowsAtom);
+  const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
+  const [selectedRowKeysForUnAllocate, setSelectedRowKeysForUnAllocate] = useState<number[]>([]);
   const onFinish = () => {};
   const CompanyId = form?.getFieldValue('CompCode');
 
@@ -35,7 +39,11 @@ const ItemAllocation = () => {
   } = useGetUnAllocatedItems(true, CompanyId);
 
   const { t } = useTranslation();
-  const handleItemChange = (obj: TCompanyfilter, index: string | null) => {};
+  const handleItemChange = (obj: TCompanyfilter, index: string | null) => {
+    setSelectedRows([]);
+    setSelectedRowKeys([]);
+    setSelectedRowKeysForUnAllocate([]);
+  };
 
   return (
     <div style={{ background: '#fff' }}>
@@ -53,7 +61,7 @@ const ItemAllocation = () => {
             <Card style={{ marginLeft: '18px' }}>
               <Form onFinish={onFinish} form={form}>
                 <Row gutter={16} justify={'space-between'}>
-                  <Col xs={18} sm={18} md={16} lg={16} xl={14} xxl={17} className="formfield">
+                  <Col xs={18} sm={22} md={16} lg={16} xl={14} xxl={17} className="formfield">
                     <AntSelectDynamic
                       // className="company"
                       bordered={false}
@@ -79,6 +87,8 @@ const ItemAllocation = () => {
                       onClick={() => {
                         form.resetFields();
                         setSelectedRows([]);
+                        setSelectedRowKeys([]);
+                        setSelectedRowKeysForUnAllocate([]);
                       }}
                       label={t('reset')}
                       icon={<SyncOutlined />}

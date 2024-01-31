@@ -10,7 +10,8 @@ import { Col, Form, Row } from 'antd';
 import { useGetAccountTypeId, useGetAccountTitle, PayableReportQueryHistory } from './queries';
 import { PayablesSearchCriteria } from './type';
 import { map } from 'lodash';
-
+import dayjs from 'dayjs';
+import '';
 
 const { useForm, useWatch } = Form;
 
@@ -45,23 +46,17 @@ function SearchCriteria() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-
   const onFinish = (Values: PayablesSearchCriteria) => {
     Values.Status = Array.isArray(Values.Status) ? Values.Status.join(', ') : Values.Status;
     refetch().then(() => handleClose());
-
   };
-
-  // function handleAccountTypeChange(value: any): void {
-  //   throw new Error('Function not implemented.');
-  // }
 
   return (
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
-      <Form form={form} onFinish={onFinish} layout="vertical" >
+      <Form form={form} onFinish={onFinish} layout="vertical">
         <Row gutter={[10, 10]}>
           <Col xs={24} sm={24} md={12}>
-            <AntDatePicker name="FromDate" label="From Date" />
+            <AntDatePicker name="FromDate" label="From Date" bordered={false} className="form_field" />
           </Col>
 
           <Col xs={24} sm={24} md={12}>
@@ -93,14 +88,14 @@ function SearchCriteria() {
 
           <Col xs={24} sm={24} md={12}>
             <AntSelectDynamic
-              mode='multiple'
+              mode="multiple"
               name="Status"
               label="Payable Account"
               fieldValue="AccountCode"
               fieldLabel="AccountTitle"
               options={map(AccountData, (Item: any) => ({
-                value: (Item?.AccountCode),
-                label: (Item?.AccountTitle),
+                value: Item?.AccountCode,
+                label: Item?.AccountTitle,
               }))}
             />
           </Col>

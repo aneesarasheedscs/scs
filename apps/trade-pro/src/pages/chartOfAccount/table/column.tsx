@@ -5,11 +5,11 @@ import { Space, Tooltip } from 'antd';
 import { AntButton } from '@tradePro/components';
 
 export const columns = (onUpdateAccountTitle: any): AntColumnType<TChartAccountData>[] => [
-  {
-    title: 'Sr#',
-    dataIndex: 'Id',
-    width: 80,
-  },
+  // {
+  //   title: 'Sr#',
+  //   dataIndex: 'Id',
+  //   width: 80,
+  // },
 
   {
     title: 'Account Code',

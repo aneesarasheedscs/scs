@@ -11,7 +11,7 @@ import {
 import AccountAllocationTable from '../table';
 import { useWatch } from 'antd/es/form/Form';
 import { TCompanyfilter, TaddAllocatedAccounts } from '../types';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { SyncOutlined } from '@ant-design/icons';
 import { useAtom } from 'jotai';
 import { selectedRowsAtom } from '../table/Atom';
@@ -23,6 +23,8 @@ const AccountAllocation = () => {
   const [form] = useForm<TaddAllocatedAccounts>();
   const formValues = useWatch<TaddAllocatedAccounts>([], form);
   const [selectedRows, setSelectedRows] = useAtom(selectedRowsAtom);
+  const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
+  const [selectedRowKeysForUnAllocate, setSelectedRowKeysForUnAllocate] = useState<number[]>([]);
 
   const CompanyId = form?.getFieldValue('CompCode');
   const onFinish = () => {};
@@ -45,7 +47,11 @@ const AccountAllocation = () => {
   } = useGetAllocatedAccounts(true, Id);
 
   const { t } = useTranslation();
-  const handleItemChange = (obj: TCompanyfilter, index: string) => {};
+  const handleItemChange = (obj: TCompanyfilter, index: string) => {
+    setSelectedRows([]);
+    setSelectedRowKeys([]);
+    setSelectedRowKeysForUnAllocate([]);
+  };
 
   useEffect(() => {
     if (isSuccess && !isLoading) {
@@ -91,11 +97,6 @@ const AccountAllocation = () => {
                         query={useGetFinancialYear(Id)}
                       />
                     </Col>
-
-                    {/* <Col xs={24} sm={12} md={12} lg={12} xl={2} offset={1}>
-                  <AntButton label={t('add')} htmlType="submit" />
-                </Col> */}
-
                     <Col xs={10} sm={7} md={6} lg={4} xl={4} className="btn-margin-top">
                       <AntButton
                         danger
@@ -104,6 +105,8 @@ const AccountAllocation = () => {
                         onClick={() => {
                           form.resetFields();
                           setSelectedRows([]);
+                          setSelectedRowKeys([]);
+                          setSelectedRowKeysForUnAllocate([]);
                         }}
                         label={t('reset')}
                         icon={<SyncOutlined />}

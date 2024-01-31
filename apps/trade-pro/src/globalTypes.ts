@@ -6,6 +6,7 @@ export type AntColumnType<T> = {
   showCount?: boolean;
   searchableDate?: boolean;
   searchableInput?: boolean;
+  hidden?:boolean
 } & ColumnType<T>;
 
 export type TUserDetail = {

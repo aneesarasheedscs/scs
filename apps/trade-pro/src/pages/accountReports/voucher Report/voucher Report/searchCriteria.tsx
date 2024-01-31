@@ -15,11 +15,13 @@ import {
 import { storedFinancialYear } from '@tradePro/utils/storageService';
 import { TVoucherReportCriterias } from '../types';
 import { useGetAccountTitle, useGetCustomGroup, useGetDocumentType, useGetVoucherReport } from './queries';
+import { useTranslation } from 'react-i18next';
+import './style.scss';
 
 const financialYear = storedFinancialYear();
 const { useForm, useWatch } = Form;
 
-function searchCriteriaVoucherReport() {
+function SearchCriteriaVoucherReport() {
   const [open, setOpen] = useState(false);
   const [form] = useForm<TVoucherReportCriterias>();
   const formValues = useWatch<TVoucherReportCriterias>([], form);
@@ -28,11 +30,12 @@ function searchCriteriaVoucherReport() {
   const ToDate = dayjs(financialYear?.End_Period);
 
   const {
+    data: voucherReportData,
     refetch,
     isFetching,
     isError: isVoucherReportError,
     isLoading: isVoucherReportLoading,
-  } = useGetVoucherReport(false, form.getFieldsValue());
+  } = useGetVoucherReport(true, form.getFieldsValue());
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -42,86 +45,81 @@ function searchCriteriaVoucherReport() {
   };
   const { data } = useGetCustomGroup();
   console.log('dataaa', data?.data?.Data?.Result);
-
-  // const { data: daa1 } = useGetDocumentType();
-  // console.log('customerData', daa1?.data?.Data?.Result);
+  const { t } = useTranslation();
 
   return (
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
       <Form form={form} onFinish={onFinish} layout="inline" initialValues={{ FromDate, ToDate }}>
-        <Row gutter={[10, 10]}>
-          <Col xs={12} sm={12} md={12} className="form_field">
-            <AntDatePicker name="FromDate" label="From Date" bordered={false} />
+        <Row gutter={[16, 16]} justify={'space-between'}>
+          <Col xs={24} sm={12} md={12} className="form_field">
+            <AntDatePicker name="FromDate" label={t('from_date')} bordered={false} />
           </Col>
 
-          <Col xs={24} sm={12} md={11} className="form_field" offset={1}>
-            <AntDatePicker name="ToDate" label="To Date" bordered={false} />
+          <Col xs={24} sm={12} md={11} className="form_field">
+            <AntDatePicker name="ToDate" label={t('to_date')} bordered={false} />
           </Col>
 
-          <Col xs={12} sm={12} md={12} className="form_field">
-            <AntInputNumber name="FromDocNo" label="From Doc#" bordered={false} />
+          <Col xs={24} sm={12} md={12} className="form_field">
+            <AntInputNumber name="FromDocNo" label={t('from_doc_no')} bordered={false} />
           </Col>
 
-          <Col xs={24} sm={12} md={11} className="form_field" offset={1}>
-            <AntInputNumber name="ToDocNo" label="To Doc#" bordered={false} />
+          <Col xs={24} sm={12} md={11} className="form_field">
+            <AntInputNumber name="ToDocNo" label={t('to_doc_no')} bordered={false} />
           </Col>
 
-          <Col xs={24} sm={24} md={24} className="form_field">
+          <Col xs={24} sm={24} md={11} lg={12} xl={12} xxl={12} className="form_field">
             <AntSelectDynamic
               bordered={false}
               fieldValue="Id"
-              label="Account Title"
+              label={t('account_title')}
               query={useGetAccountTitle}
               fieldLabel="AccountTitle"
               name="AccountId"
             />
           </Col>
 
-          <Col xs={24} sm={24} md={24} className="form_field">
+          <Col xs={24} sm={24} md={24} lg={11} xl={11} xxl={11} className="form_field">
             <AntSelectDynamic
               bordered={false}
               fieldValue="Id"
               fieldLabel="AcLookUpsDescription"
-              label="Custom Group"
+              label={t('custom_group')}
               query={useGetCustomGroup}
               name="CustomerGroupId"
             />
           </Col>
-          <Col xs={24} sm={24} md={24} className="form_field">
+          <Col xs={24} sm={24} md={24} lg={12} xl={12} className="form_field">
             <AntSelectDynamic
               bordered={false}
               mode="multiple"
               fieldValue="Id"
-              label="Document Type"
+              label={t('document_type')}
               query={useGetDocumentType}
               fieldLabel="DocumentTypeDescription"
               name="SelectedDocuments"
             />
           </Col>
-          <Col xs={12} sm={12} md={12} className="form_field">
-            <AntInput name="ManualBillNo" label="Manual Number" bordered={false}></AntInput>
+          <Col xs={24} sm={12} md={12} lg={11} xl={11} className="form_field">
+            <AntInput name="ManualBillNo" label={t('manual_number')} bordered={false}></AntInput>
           </Col>
           <Col xs={12} sm={12} md={12} offset={1}></Col>
 
-          {/* <Col xs={24} sm={24} md={12}>
-            <Radio name="ManualBillNo"></Radio>
-          </Col> */}
-          <Col xs={24} sm={12} md={12}>
-            <Form.Item name="ReportType" label="Report Type">
+          <Col xs={15} sm={12} md={12} xl={12}>
+            <Form.Item name="ApprovedFilter" label={t('report_type')}>
               <Radio.Group defaultValue={'3'}>
                 <Space direction="vertical">
-                  <Radio value="1">Approved</Radio>
-                  <Radio value="2">UnApproved</Radio>
-                  <Radio value="3">All</Radio>
+                  <Radio value="1">{t('approved')}</Radio>
+                  <Radio value="2">{t('un_approved')}</Radio>
+                  <Radio value="3">{t('all')}</Radio>
                 </Space>
               </Radio.Group>
             </Form.Item>
           </Col>
-          <Col xs={24} sm={24} md={6}>
+          <Col xs={10} sm={24} lg={5} md={6} xl={4}>
             <AntButton
-              label="Show"
+              label={t('show')}
               htmlType="submit"
-              style={{ marginTop: 2 }}
+              style={{ marginTop: 15 }}
               isError={isVoucherReportError}
               isLoading={isVoucherReportLoading || isFetching}
             />
@@ -132,4 +130,4 @@ function searchCriteriaVoucherReport() {
   );
 }
 
-export default searchCriteriaVoucherReport;
+export default SearchCriteriaVoucherReport;

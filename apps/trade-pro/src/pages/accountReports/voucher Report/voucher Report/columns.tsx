@@ -7,79 +7,59 @@ function handleRowClick(AccountId: number) {
   console.log('Clicked on accountId:', AccountId);
 }
 
-export const columnsVoucherReport = (): AntColumnType<TVoucherReport>[] => [
-  // {
-  //   title: 'sr#',
-  //   dataIndex: '',
-  //   width: 85,
-  //   render: (_, __, index) => index + 1,
-  //   showCount: true
-  // },
-
+export const columnsVoucherReport = (t: any): AntColumnType<TVoucherReport>[] => [
   {
-    title: 'Type',
+    title: t('type'),
     dataIndex: 'DocumentTypeCode',
     width: 80,
   },
-  // {
-  //   title: 'DocumentTypeSrNo',
-  //   dataIndex: 'DocumentTypeSrNo',
-  //   width: 170,
-  // },
+
   {
-    title: 'Voucher Code',
+    title: t('voucher_code'),
     dataIndex: 'VoucherCode',
     width: 120,
   },
 
   {
-    title: 'Voucher Date',
+    title: t('voucher_date'),
     dataIndex: 'voucherdate',
     width: 200,
     render: (_, { VoucherDate }) => formateDate(VoucherDate),
   },
 
   {
-    title: 'Manual Bill No',
+    title: t('manual_bill_no'),
     dataIndex: 'ManualBillNo',
     width: 110,
   },
 
   {
-    title: 'Account Code',
+    title: t('account_code'),
     dataIndex: 'AccountCode',
     width: 120,
     render: (_, { AccountCode }) => <a>{AccountCode}</a>,
-
-    // render: (_, { AccountCode, AccountId }) => <a onClick={() => handleRowClick(AccountId)}>{AccountCode}</a>,
-
-    // render: (_, { AccountCode, AccountId }) => (
-    //   <Link to={`/general-ledger${AccountId ? `/${AccountId}` : ''}`}>
-    //     {AccountCode}
-    //   </Link>
-    // )
   },
 
   {
-    title: 'Account Title',
+    title: t('account_title'),
     dataIndex: 'AccountTitle',
-    width: 200,
+    width: 250,
   },
 
   {
-    title: 'Cheque',
+    title: t('cheque'),
     dataIndex: 'ChequeNo',
     width: 100,
   },
 
   {
-    title: 'Comments',
+    title: t('comments'),
     dataIndex: 'Comments',
     width: 160,
   },
 
   {
-    title: 'Debit',
+    title: t('debit'),
     dataIndex: 'DebitAmount',
     width: 200,
     showTotal: true,
@@ -87,7 +67,7 @@ export const columnsVoucherReport = (): AntColumnType<TVoucherReport>[] => [
   },
 
   {
-    title: 'Credit',
+    title: t('credit'),
     dataIndex: 'CreditAmount',
     showTotal: true,
     width: 200,

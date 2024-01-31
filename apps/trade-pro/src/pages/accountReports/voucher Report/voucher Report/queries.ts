@@ -108,14 +108,14 @@ export const useGetCustomGroup = () => {
   );
 };
 
-export const useGetVoucherReport = (enabled = false, params?: TVoucherReportCriterias) => {
+export const useGetVoucherReport = (enabled = true, params?: TVoucherReportCriterias) => {
   return useQuery(
-    'trial-balance',
+    'voucher_report',
     () => {
-      return requestManager.post('/api/AccountsReports/VoucherReport', {
+      return requestManager.post(`/api/AccountsReports/VoucherReport`, {
         OrganizationId: userDetail?.OrganizationId,
         CompanyId: userDetail?.CompanyId,
-        FinancialYearId: FinancialYear?.Id,
+         FinancialYearId: FinancialYear?.Id,
         ApprovedFilter: params?.IsApproved ? '' : 'All',
         SaleInvoiceDocumentTypeIds: params?.SelectedDocuments.toString(),
         ...params,

@@ -289,4 +289,5 @@ type AntColumnType<T> = {
   showAverage?: boolean;
   searchableDate?: boolean;
   searchableInput?: boolean;
+  hidden?: boolean;
 } & ColumnType<T>;

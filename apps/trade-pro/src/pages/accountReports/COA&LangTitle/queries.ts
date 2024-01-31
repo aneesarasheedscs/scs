@@ -1,8 +1,9 @@
-import { queryClient } from '@tradePro/configs';
-import { useMutation, useQuery } from 'react-query';
+
+import {  useQuery } from 'react-query';
 import { requestManager } from '@tradePro/configs/requestManager';
 import { storedUserDetail } from '@tradePro/utils/storageService';
-import { table } from 'console';
+import { TChartOfAccountCriteria } from './type';
+
 const userDetail = storedUserDetail();
 
 // useGetCompanyName
@@ -25,7 +26,7 @@ export const useGetCOAReport = (enabled = true) => {
   return useQuery(
     'coa-title',
     () => {
-      return requestManager.get('/api/MultiLanguages/GetByOrganizationCompanyId', {
+      return requestManager.get('/api/COAAllocation/GetAll', {
         params: {
           OrganizationId: userDetail?.OrganizationId,
           CompanyId: userDetail?.CompanyId,
@@ -45,6 +46,26 @@ export const useGetLangauge = (enabled = true) => {
         params: {
           OrganizationId: userDetail?.OrganizationId,
           CompanyId: userDetail?.CompanyId,
+        },
+      });
+    },
+    { enabled }
+  );
+};
+
+
+
+
+export const useChartOfReporttableQuery = (enabled = true, params?: TChartOfAccountCriteria) => {
+  return useQuery(
+    'coa-tableQ',
+    () => {
+      return requestManager.get('api/ChartofAccount/AllChartofAccountForOtherLingo', {
+        params: {
+          OrganizationId: userDetail?.OrganizationId,
+          CompanyId: userDetail?.CompanyId,
+          IsApproved: true,
+          ...params,
         },
       });
     },
