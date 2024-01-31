@@ -6,16 +6,17 @@ import { TChartAccountAllLevelData } from '../../types';
 
 export const columns = (t?: any): AntColumnType<TChartAccountAllLevelData>[] => [
   {
-    title: <>{t('account_code')}</>,
+    title: t('account_code'),
     dataIndex: 'AccountCode',
     width: 160,
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.AccountCode.localeCompare(b.AccountCode),
+    showCount: true,
   },
 
   {
-    title: <>{t('account_title')} </>,
+    title: t('account_title'),
     dataIndex: 'AccountTitle',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
@@ -24,27 +25,29 @@ export const columns = (t?: any): AntColumnType<TChartAccountAllLevelData>[] => 
   },
 
   {
-    title: <>{t('account_level')} </>,
+    title: t('account_level'),
     dataIndex: 'Account_Level',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.Account_Level - b.Account_Level,
     width: 140,
     render: (Account_Level) => (
-      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>
+      <Space style={{ display: 'flex', justifyContent: 'center' }}>
         <span>{Account_Level}</span>
       </Space>
     ),
   },
   {
-    title: <>{t('account_type')} </>,
+    title: t('account_type'),
     dataIndex: 'AccountType',
     searchableInput: true,
     width: 160,
     sorter: (a, b) => a.AccountType.localeCompare(b.AccountType),
   },
   {
-    title: <>{t('account_class')} </>,
+    title: t('account_class'),
     dataIndex: 'AccountClass',
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.AccountClass - b.AccountClass,
     render: (AccountClass) => {
       if (AccountClass === 1) {
         return 'Capital';
@@ -65,7 +68,7 @@ export const columns = (t?: any): AntColumnType<TChartAccountAllLevelData>[] => 
   },
 
   {
-    title: <>{t('action')} </>,
+    title: t('action'),
     dataIndex: '',
     width: 80,
     render: (_, record) => (

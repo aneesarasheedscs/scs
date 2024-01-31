@@ -22,9 +22,8 @@ interface FormOfChartAccountProps {
   form: FormInstance;
   isLoading: any;
   isSuccess: any;
-  onSelectedValuesChange: (accountLevel: number, accountTitle: string) => void;
 }
-function FormOfChartAccount({ data, isSuccess, form, isLoading, onSelectedValuesChange }: FormOfChartAccountProps) {
+function FormOfChartAccount({ data, isSuccess, form, isLoading }: FormOfChartAccountProps) {
   const { setFields, getFieldValue } = form;
   const formValues = useWatch<TChartAccountData>([], form);
   const [selectedChildRows, setSelectedChildRows] = useAtom(selectedChildRowsAtom);
@@ -35,6 +34,7 @@ function FormOfChartAccount({ data, isSuccess, form, isLoading, onSelectedValues
   const [disablePLNotes, setDisablePLNotes] = useState(true);
 
   const handleItemChange = (obj: TChartAccount, index: string) => {
+    console.log(obj);
     if (obj?.AccountClass === 1) {
       setFields([{ name: ['AccountClass'], value: 'Capital' }]);
     } else if (obj?.AccountClass === 2) {
@@ -47,6 +47,7 @@ function FormOfChartAccount({ data, isSuccess, form, isLoading, onSelectedValues
       setFields([{ name: ['AccountClass'], value: 'Revenue' }]);
     }
     setFields([
+      { name: 'ParentAccountCodeTitle', value: obj?.AccountTitle },
       { name: 'ParentAccountCode', value: obj?.AccountCode },
       { name: 'AccountGroup', value: obj?.AccountGroup },
       { name: 'CompanyId', value: obj?.CompanyId },
@@ -62,7 +63,7 @@ function FormOfChartAccount({ data, isSuccess, form, isLoading, onSelectedValues
     setDisableAccountGroup(obj?.Account_Level === 2 || obj?.Account_Level === 1);
     setDisableBSNotes(obj?.Account_Level === 3 || obj?.Account_Level === 1);
     setDisablePLNotes(obj?.Account_Level === 3 || obj?.Account_Level === 1);
-    onSelectedValuesChange(obj?.Account_Level, obj?.AccountTitle);
+    setSelectedChildRows([]);
   };
   useEffect(() => {
     if (isSuccess && !isLoading) {
@@ -79,48 +80,67 @@ function FormOfChartAccount({ data, isSuccess, form, isLoading, onSelectedValues
           name: 'AccountType',
           value: data?.data?.Data?.Result?.[0]?.AccountType,
         },
+        {
+          name: 'AccountTypeId',
+          value: data?.data?.Data?.Result?.[0]?.AccountType,
+        },
       ]);
     }
-  }, [isLoading, isSuccess, formValues]);
-  if (selectedChildRows && selectedChildRows.length > 0) {
-    setFields([
-      {
-        name: 'ParentCodeId',
-        value: selectedChildRows?.[0]?.AccountTitle,
-      },
-      { name: 'ParentAccountCode', value: selectedChildRows?.[0]?.AccountCode },
+  }, [isLoading, isSuccess, form]);
+  useEffect(() => {
+    if (selectedChildRows && selectedChildRows.length > 0) {
+      setFields([
+        {
+          name: 'ParentCodeId',
+          value: selectedChildRows?.[0]?.AccountTitle,
+        },
+        { name: 'ParentAccountCode', value: selectedChildRows?.[0]?.AccountCode },
 
-      {
-        name: 'AccountCode',
-        value: data?.data?.Data?.Result?.[0]?.AccountCode,
-      },
-      {
-        name: 'Account_Level',
-        value: data?.data?.Data?.Result?.[0]?.Account_Level,
-      },
-      {
-        name: 'AccountType',
-        value: data?.data?.Data?.Result?.[0]?.AccountType,
-      },
-      {
-        name: 'AccountClass',
-        value:
-          selectedChildRows?.[0]?.AccountClass === 2
-            ? 'Assets'
-            : 'Capital' && selectedChildRows?.[0]?.AccountClass === 3
-            ? 'Liabilities'
-            : 'Expense' && selectedChildRows?.[0]?.AccountClass === 4
-            ? 'Expense'
-            : '',
-      },
-    ]);
-  }
+        {
+          name: 'AccountCode',
+          value: data?.data?.Data?.Result?.[0]?.AccountCode,
+        },
+        {
+          name: 'AccountGroup',
+          value: data?.data?.Data?.Result?.[0]?.CustomerGroupId || selectedChildRows?.[0]?.AccountGroup,
+        },
+        {
+          name: 'Account_Level',
+          value: data?.data?.Data?.Result?.[0]?.Account_Level,
+        },
+        {
+          name: 'AccountTypeId',
+          // value: data?.data?.Data?.Result?.[0]?.AccountType || selectedChildRows?.[0]?.AccountTypeId,
+          value: data?.data?.Data?.Result?.[0]?.AccountType,
+        },
+        {
+          name: 'AccountType',
+          // value: data?.data?.Data?.Result?.[0]?.AccountType || selectedChildRows?.[0]?.AccountType,
+          value: data?.data?.Data?.Result?.[0]?.AccountType,
+        },
+        {
+          name: 'AccountClass',
+          value:
+            selectedChildRows?.[0]?.AccountClass === 2
+              ? 'Assets'
+              : 'Capital' && selectedChildRows?.[0]?.AccountClass === 3
+              ? 'Liabilities'
+              : 'Expense' && selectedChildRows?.[0]?.AccountClass === 4
+              ? 'Expense'
+              : 'Revenu',
+        },
+      ]);
+    }
+  }, [selectedChildRows, data]);
+
+  console.log(selectedChildRows);
   return (
     <>
       <Card style={{ width: '98%', height: '100%' }} className="antCard card-shadow chartAccounts">
         <Row gutter={[10, 10]}>
           <Col span={12}>
             <AntSelectDynamic
+              autoFocus={true}
               required
               label={t('parent_category')}
               className="select"
@@ -251,9 +271,16 @@ function FormOfChartAccount({ data, isSuccess, form, isLoading, onSelectedValues
             />{' '}
           </Col>
 
-          <Col span={4}>
+          <Col span={4} style={{ width: '100%', display: 'none' }}>
             <AntInput
               name="ParentAccountCode"
+              label=""
+              className="input"
+              style={{ width: '100%', display: 'none' }}
+              readOnly
+            />{' '}
+            <AntInput
+              name="ParentAccountCodeTitle"
               label=""
               className="input"
               style={{ width: '100%', display: 'none' }}

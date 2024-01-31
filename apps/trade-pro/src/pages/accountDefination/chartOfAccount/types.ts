@@ -1,4 +1,5 @@
 export type TChartAccountData = {
+  PrintPreview: boolean;
   Id: number;
   PostState: string;
   ParentAcCode: string;
@@ -22,6 +23,8 @@ export type TChartAccountData = {
   ModifyUser: string | number;
   OrganizationId: number;
   ParentCodeId: number;
+  COAAllocationList: any[];
+  ChartofAccountsList: any[];
 };
 export type TChartAccountAllLevelData = {
   Id: number;

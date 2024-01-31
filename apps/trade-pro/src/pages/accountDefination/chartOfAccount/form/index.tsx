@@ -1,46 +1,45 @@
 import '../style.scss';
-import ChildAccountTable, { ChildAccountTableforView } from './tables';
+import ChildAccountTable from './tables';
 import { AntButton } from '@tradePro/components';
 import { Card, Col, Form, Row, theme } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { SaveOutlined, SyncOutlined } from '@ant-design/icons';
+import { SaveOutlined, SyncOutlined, PrinterFilled } from '@ant-design/icons';
 import FormOfChartAccount from './FormOfChartAccount';
 import { TChartAccountData } from '../types';
-import { useState } from 'react';
 import TableofAccountLevel1 from './tables/1stLevelAccount/tableofAccountLevel1';
 import TableofAccountLevel2 from './tables/2ndLevelAccount/tableofAccountLevel2';
 import TableofAccountLevel3 from './tables/3rdLevelAccount/tableofAccountLevel3';
 import TableofAccountLevel4 from './tables/4thLevelAccount/tableofAccountLevel4';
 import { useChartofAccountSave, useParentAccountLeaveService } from './querie';
 import { useAtom } from 'jotai';
-import { selectedRowsAtom, selectedAccountAtom, selectedChildRowsAtom } from './Atom';
+import { selectedRowsAtom, selectedChildRowsAtom } from './Atom';
+import { useState } from 'react';
 
 const { useToken } = theme;
 const { useForm, useWatch } = Form;
-interface SelectedValues {
-  accountLevel: number;
-  accountTitle: string;
-}
+
 function ChartAccountForm() {
   const [form] = useForm<TChartAccountData>();
   const formValues = useWatch<TChartAccountData>([], form);
+  const [printPreview, setPrintPreview] = useState(true);
 
   const { t } = useTranslation();
   const [selectedRows, setSelectedRows] = useAtom(selectedRowsAtom);
-  const [displayData, setDisplayData] = useAtom(selectedAccountAtom);
   const [selectedChildRows, setSelectedChildRows] = useAtom(selectedChildRowsAtom);
-  const handleSelectedValuesChange = (accountLevel: number, accountTitle: string) => {
-    setDisplayData({ accountLevel, accountTitle });
-  };
 
   const AccountCode = form.getFieldValue('ParentAccountCode');
   console.log('Account Code:', AccountCode);
-
+  const handleButtonClick = () => {
+    setPrintPreview(!printPreview);
+    console.log(printPreview);
+  };
   const { data, isSuccess, isLoading } = useParentAccountLeaveService(true, AccountCode);
   const { mutate } = useChartofAccountSave();
 
   const onFinish = (values: TChartAccountData) => {
+    values.PrintPreview = printPreview;
     mutate(values);
+
     console.log(values);
   };
 
@@ -54,37 +53,39 @@ function ChartAccountForm() {
                 <Row align="middle" gutter={10} style={{ marginRight: '-35px' }}>
                   <Col>
                     <AntButton
+                      title="PrintPreview"
+                      onClick={handleButtonClick}
+                      icon={<PrinterFilled />}
+                      style={{ backgroundColor: printPreview ? '#21E298' : 'red' }}
+                    />
+                  </Col>
+
+                  <Col>
+                    <AntButton label={t('save')} htmlType="submit" icon={<SaveOutlined style={{ fontSize: 16 }} />} />
+                  </Col>
+                  <Col>
+                    <AntButton
                       danger
                       ghost
                       htmlType="reset"
                       onClick={() => {
                         form.resetFields();
+                        setSelectedRows([]);
                         setSelectedChildRows([]);
                       }}
                       label={t('reset')}
-                      icon={<SyncOutlined />}
+                      icon={<SyncOutlined style={{ fontSize: 16 }} />}
                     />
-                  </Col>
-
-                  <Col>
-                    <AntButton ghost label={t('save')} htmlType="submit" icon={<SaveOutlined />} />
                   </Col>
                 </Row>
               </Form.Item>
             </Col>
             <Row style={{ marginTop: -20 }}>
               <Col xl={11}>
-                <FormOfChartAccount
-                  form={form}
-                  data={data}
-                  isSuccess={isSuccess}
-                  isLoading={isLoading}
-                  onSelectedValuesChange={handleSelectedValuesChange}
-                />
+                <FormOfChartAccount form={form} data={data} isSuccess={isSuccess} isLoading={isLoading} />
               </Col>
               <Col xl={13}>
-                <ChildAccountTable displayData={displayData} selectedRows={selectedRows} data={data} />
-                <ChildAccountTableforView displayData={displayData} selectedRows={selectedRows} data={data} />
+                <ChildAccountTable selectedRows={selectedRows} data={data} />
               </Col>
             </Row>
           </Row>
