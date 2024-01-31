@@ -18,4 +18,5 @@ export type TCOAReportHistory = {
   LanguageId: number;
   LanguageName: string;
   AccountTitleOtherLingo: string;
+
 };

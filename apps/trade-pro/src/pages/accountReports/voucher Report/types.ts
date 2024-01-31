@@ -1,7 +1,7 @@
 export type TVoucherReportCriterias = {
-  OrganizationId: number;
-  CompanyId: number;
-  FinancialYearId: number;
+  // OrganizationId: number;
+  // CompanyId: number;
+  // FinancialYearId: number;
   FromDate: string;
   ToDate: string;
   SelectedDocuments: string;
@@ -12,6 +12,7 @@ export type TVoucherReportCriterias = {
   ManualBillNo: string;
   CustomerGroupId: number;
   IsApproved: boolean;
+  ApprovedFilter: string
 };
 export type TVoucherReport = {
   Id: string;

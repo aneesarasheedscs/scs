@@ -58,7 +58,7 @@ function ChartOfAccountReport() {
             <Col xs={24} sm={24} md={17} xl={17} xxl={12} className="formsfield">
               <AntSelectDynamic
                 bordered={false}
-                name="CompanyIds"
+                name="CompanyId"
                 label={t('company')}
                 fieldValue="Id"
                 fieldLabel="CompName"
@@ -68,6 +68,22 @@ function ChartOfAccountReport() {
               />
             </Col>
 
+            <Col xs={24} sm={24} md={6} xl={6} xxl={6}>
+              <br />
+              <Checkbox defaultChecked={true} onChange={handleCheckboxChange}>
+                {t('is_active')}
+              </Checkbox>
+            </Col>
+            <Col xs={24} sm={24} md={5} xl={5} xxl={4}>
+              <br />
+              <AntButton
+                label={t('show')}
+                htmlType="submit"
+                style={{ marginTop: 2 }}
+                isError={isReportError}
+                isLoading={isReportLoading || isFetching}
+              />
+            </Col>
             <Col xs={24} sm={24} md={9} xl={9} xxl={11} className="formsfield">
               <AntSelectDynamic
                 bordered={false}
@@ -86,22 +102,6 @@ function ChartOfAccountReport() {
                 fieldValue="Id"
                 fieldLabel=""
                 query={useGetLangauge}
-              />
-            </Col>
-            <Col xs={24} sm={24} md={6} xl={6} xxl={6}>
-              <br />
-              <Checkbox defaultChecked={true} onChange={handleCheckboxChange}>
-                IsActive
-              </Checkbox>
-            </Col>
-            <Col xs={24} sm={24} md={5} xl={5} xxl={4}>
-              <br />
-              <AntButton
-                label={t('show')}
-                htmlType="submit"
-                style={{ marginTop: 2 }}
-                isError={isReportError}
-                isLoading={isReportLoading || isFetching}
               />
             </Col>
           </Row>

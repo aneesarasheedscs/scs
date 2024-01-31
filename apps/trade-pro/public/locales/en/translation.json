@@ -663,5 +663,13 @@
   "sales_by_parent_category": "Sales By Parent Category",
   "sales_by_days": "Sales By Days",
   "sales_by_dates": "Sales By Dates",
-  "item_allocation": "Item Allocation"
+  "item_allocation": "Item Allocation",
+  "chart_of_account_report": "Chart Of Account Report",
+  "manual_number": "Manual Number",
+  "from_doc_no": "From Doc No",
+  "to_doc_no": "To Doc No",
+  "all": "All",
+  "approved": "Approved",
+  "un_approved": "Un Approved",
+  "cheque": "Cheque"
 }

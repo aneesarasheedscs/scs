@@ -11,9 +11,13 @@ function TableSummary({ data, columns, filteredData }: TTableSummary) {
     <Table.Summary.Row style={{}}>
       {map(columns, (col: AntColumnType<any>, index: any) => {
         const dataIndex = col?.dataIndex as string;
-
+        if (col.hidden) {
+          return null;
+        }
         const dataToCalculate = size(filteredData) > 0 && size(filteredData) !== size(data) ? filteredData : data;
-
+        if (col.hidden) {
+          return null;
+        }
         const total = sumBy(dataToCalculate, (item) => item?.[dataIndex]);
         const average = meanBy(dataToCalculate, (item) => item?.[dataIndex]);
         const count = _.size(_.filter(dataToCalculate, (item) => item?.[dataIndex]));
@@ -45,6 +49,11 @@ function TableSummary({ data, columns, filteredData }: TTableSummary) {
 }
 
 type TTableSummary = { data?: any[]; columns: any[]; filteredData: any[] };
-type AntColumnType<T> = { showTotal?: boolean; showAverage?: boolean; showCount?: boolean } & ColumnType<T>;
+type AntColumnType<T> = {
+  showTotal?: boolean;
+  showAverage?: boolean;
+  showCount?: boolean;
+  hidden?: boolean;
+} & ColumnType<T>;
 
 export default TableSummary;
