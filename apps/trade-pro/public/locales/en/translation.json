@@ -671,5 +671,8 @@
   "all": "All",
   "approved": "Approved",
   "un_approved": "Un Approved",
-  "cheque": "Cheque"
+  "cheque": "Cheque",
+  "back": "Back",
+  "voucher_report": "Voucher Report",
+  "activity_summary": "Activity Summary"
 }

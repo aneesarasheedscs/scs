@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './style.scss';
 
 import { Col, Form, Radio, Row, Space } from 'antd';
@@ -21,7 +21,7 @@ import './style.scss';
 const financialYear = storedFinancialYear();
 const { useForm, useWatch } = Form;
 
-function SearchCriteriaVoucherReport() {
+function SearchCriteriaVoucherReport(dataa: any) {
   const [open, setOpen] = useState(false);
   const [form] = useForm<TVoucherReportCriterias>();
   const formValues = useWatch<TVoucherReportCriterias>([], form);
@@ -46,6 +46,10 @@ function SearchCriteriaVoucherReport() {
   const { data } = useGetCustomGroup();
   console.log('dataaa', data?.data?.Data?.Result);
   const { t } = useTranslation();
+
+  useEffect(() => {
+    form.setFieldValue('SelectedDocuments', 1);
+  }, [form]);
 
   return (
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>

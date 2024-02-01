@@ -2,6 +2,7 @@ import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { TVoucherReport } from '../types';
+import { Space } from 'antd';
 
 function handleRowClick(AccountId: number) {
   console.log('Clicked on accountId:', AccountId);
@@ -61,16 +62,24 @@ export const columnsVoucherReport = (t: any): AntColumnType<TVoucherReport>[] =>
   {
     title: t('debit'),
     dataIndex: 'DebitAmount',
-    width: 200,
+    width: 190,
     showTotal: true,
-    render: (_, { DebitAmount }) => numberFormatter(DebitAmount),
+    align: 'right',
+    sorter: (a, b) => a.DebitAmount - b.DebitAmount,
+    render: (DebitAmount, record) => (
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(DebitAmount)}</Space>
+    ),
   },
 
   {
     title: t('credit'),
     dataIndex: 'CreditAmount',
     showTotal: true,
-    width: 200,
-    render: (_, { CreditAmount }) => numberFormatter(CreditAmount),
+    align: 'right',
+    sorter: (a, b) => a.CreditAmount - b.CreditAmount,
+    width: 190,
+    render: (CreditAmount, record) => (
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(CreditAmount)}</Space>
+    ),
   },
 ];

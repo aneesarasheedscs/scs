@@ -14,10 +14,11 @@ export type TrialBalanceSearchCriteria = {
 };
 
 export type TrialBalanceHistory = {
+
   ParentAccount: string;
   ParentAccountTitle: string;
   AccountId: number;
-  AccountCode: string;
+  AccountCode: number;
   AccountTitle: string;
   Opening: number;
   OpeningDr: number;

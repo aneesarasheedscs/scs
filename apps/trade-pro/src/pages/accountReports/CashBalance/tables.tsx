@@ -40,22 +40,6 @@ const CashReceiptPaymentTables: React.FC<{
     token: { colorPrimary },
   } = theme.useToken();
 
-  // const handleAccountCodeClick = (AccountId: number) => {
-  //   setSelectedAccount(AccountId);
-  // };
-
-  // const [selectedRowKeys, setSelectedRowKeys] = React.useState<any>([]);
-  // const onSelectChange = (selectedRowKeys: any[], selectedRows: any) => {
-  //   debugger;
-  //   console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-  //   setSelectedRowKeys(selectedRowKeys);
-  // };
-  // const rowSelection = {
-  //   selectedRowKeys,
-  //   onChange: onSelectChange,
-  //   hideDefaultSelections: true,
-  // };
-
   return (
     <>
       <Col xl={22} style={{ marginLeft: '3%', marginBottom: '0.5%' }}>

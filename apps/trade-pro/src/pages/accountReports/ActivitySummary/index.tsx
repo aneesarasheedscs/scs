@@ -1,5 +1,5 @@
 import { Col, Row, Typography, Card, Form, theme, Checkbox, Modal } from 'antd';
-import { AntButton, AntDatePicker, AntSelectDynamic, AntTable } from '@scs/ui';
+import { AntButton, AntDatePicker, AntSelectDynamic, AntTable, BackButton } from '@scs/ui';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { Columns } from './Columns';
@@ -158,16 +158,14 @@ const ActivitySummaryReport: React.FC<{
 
   return (
     <div style={{ backgroundColor: '#fff', overflowX: 'hidden' }}>
-      <Row>
-        <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16} className="forms-heading-container">
-          <h1 className="report_heading">{t('acctivity_summary')}</h1>
-          {/* <span style={{ position: 'relative', left: '115%' }}>
-            {' '}
-            <b> {t('activity')}</b> &#9654; {t('summary')}
-          </span> */}
+      <Row justify={'space-between'} align={'middle'}>
+        <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16} className="">
+          <h1 className="report_heading">{t('activity_summary')}</h1>
+        </Col>
+        <Col xxl={1} style={{ marginRight: '50px' }}>
+          <BackButton />
         </Col>
       </Row>
-      {/* <Col xxl={24}> */}
       <Row justify={'space-around'}>
         <Col xxl={23} xl={23} sm={23} xs={23} lg={23}>
           <Card>

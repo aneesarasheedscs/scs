@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ChartOfAccountReport from './COAsearchCriteria';
 
 import { ChartOfAccountColumn } from './colomns';
-import { AntButton, AntSelectDynamic, AntTable } from '@tradePro/components';
+import { AntButton, AntSelectDynamic, AntTable, BackButton } from '@tradePro/components';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { Card, Checkbox, Col, Form, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
@@ -35,9 +35,13 @@ const ChartOfAccountReportTable = () => {
   }, [form]);
   return (
     <div style={{ background: '#fff' }}>
-      <Row>
+      <Row justify={'space-between'} align={'middle'}>
         <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16} className="forms-heading-container">
           <h1 className="report_heading">{t('chart_of_account_report')}</h1>
+        </Col>
+
+        <Col xxl={1} style={{ marginRight: '50px' }}>
+          <BackButton />
         </Col>
       </Row>
       <Row justify={'space-around'}>
@@ -58,7 +62,7 @@ const ChartOfAccountReportTable = () => {
                       // onChange={setSelectedValue}
                     />
                   </Col>
-                  <Col xs={24} sm={24} md={6} xl={6} xxl={3} style={{ marginTop: '10px' }}>
+                  <Col xs={24} sm={24} md={6} xl={6} xxl={3} style={{ marginTop: '10px', height: '10px' }}>
                     <Form.Item name="IsApproved" valuePropName="checked">
                       <Checkbox defaultChecked={true}>{t('IsActive')}</Checkbox>
                     </Form.Item>
@@ -79,8 +83,7 @@ const ChartOfAccountReportTable = () => {
         </Col>
       </Row>
       <Row justify={'space-around'}>
-        <Col xl={23}>
-          <br />
+        <Col xl={23} style={{ marginTop: '10px' }}>
           <AntTable
             refetch={refetch}
             isError={isReportError}

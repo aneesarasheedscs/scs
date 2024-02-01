@@ -11,32 +11,40 @@ export const SixColumnsTrialBalanceReport = (t: any): AntColumnType<TrialBalance
   {
     title: t('account_code'),
     dataIndex: 'AccountCode',
-    width: 150,
+    width: 110,
+    showCount: true,
+
     render: (_, { AccountCode, AccountId }) => <a onClick={() => handleRowClick(AccountId)}>{AccountCode}</a>,
   },
   {
     title: t('account_title'),
+    searchableInput: true,
+
     dataIndex: 'AccountTitle',
-    width: 200,
+    sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
+    width: 225,
   },
   {
-    title: t('opening_dr'),
+    title: t('Opening Dr'),
     showTotal: true,
     dataIndex: 'OpeningDr',
-    width: 200,
-
+    sorter: (a, b) => a.OpeningDr - b.OpeningDr,
+    width: 196,
+    align: 'right',
     render: (OpeningDr, record) => (
-      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(OpeningDr)}</Space>
+      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '0%' }}>{numberFormatter(OpeningDr)}</Space>
     ),
   },
   {
     title: t('opening_cr'),
     showTotal: true,
     dataIndex: 'OpeningCr',
-    width: 200,
 
+    width: 196,
+    align: 'right',
+    sorter: (a, b) => a.OpeningCr - b.OpeningCr,
     render: (OpeningCr, record) => (
-      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(OpeningCr)}</Space>
+      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '0%' }}>{numberFormatter(OpeningCr)}</Space>
     ),
   },
 
@@ -44,19 +52,24 @@ export const SixColumnsTrialBalanceReport = (t: any): AntColumnType<TrialBalance
     title: t('debit'),
     dataIndex: 'Debit',
     showTotal: true,
-    width: 200,
+    width: 196,
+    align: 'right',
 
+    sorter: (a, b) => a.Debit - b.Debit,
     render: (Debit, record) => (
-      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(Debit)}</Space>
+      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '-7%' }}>{numberFormatter(Debit)}</Space>
     ),
   },
   {
     title: t('credit'),
     dataIndex: 'Credit',
     showTotal: true,
-    width: 200,
+    align: 'right',
+
+    width: 196,
+    sorter: (a, b) => a.Credit - b.Credit,
     render: (Credit, record) => (
-      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(Credit)}</Space>
+      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '-7%' }}>{numberFormatter(Credit)}</Space>
     ),
   },
 
@@ -64,49 +77,54 @@ export const SixColumnsTrialBalanceReport = (t: any): AntColumnType<TrialBalance
     title: t('closing_cr'),
     dataIndex: 'ClosingCr',
     showTotal: true,
-    width: 200,
+    width: 196,
+    align: 'right',
+    sorter: (a, b) => a.ClosingCr - b.ClosingCr,
     render: (ClosingCr, record) => (
-      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(ClosingCr)}</Space>
+      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '0%' }}>{numberFormatter(ClosingCr)}</Space>
     ),
   },
   {
     title: t('closing_dr'),
     dataIndex: 'ClosingDr',
+    align: 'right',
     showTotal: true,
-    width: 200,
+    sorter: (a, b) => a.ClosingDr - b.ClosingDr,
+    width: 196,
     render: (ClosingDr, record) => (
-      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(ClosingDr)}</Space>
+      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '0%' }}>{numberFormatter(ClosingDr)}</Space>
     ),
   },
 ];
 
 export const FourColumnsTrialBalanceReport = (t: any): AntColumnType<TrialBalanceHistory>[] => [
-  // {
-  //   title: t('sr#'),
-  //   dataIndex: '',
-  //   width: 100,
-  //   render: (_, __, index) => index + 1,
-  // },
-
   {
     title: t('account_code'),
     dataIndex: 'AccountCode',
-    width: 200,
+    searchableInput: true,
+    width: 196,
+    showCount: true,
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.AccountCode - b.AccountCode,
     render: (_, { AccountCode, AccountId }) => <a onClick={() => handleRowClick(AccountId)}>{AccountCode}</a>,
   },
   {
     title: t('account_title'),
     dataIndex: 'AccountTitle',
-    width: 250,
+    sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
+    searchableInput: true,
+    width: 300,
   },
   {
     title: t('opening'),
     showTotal: true,
     dataIndex: 'Opening',
-    width: 300,
+    align: 'right',
+    sorter: (a, b) => a.Opening - b.Opening,
 
+    width: 250,
     render: (Opening, record) => (
-      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(Opening)}</Space>
+      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '-6%' }}>{numberFormatter(Opening)}</Space>
     ),
   },
 
@@ -114,29 +132,36 @@ export const FourColumnsTrialBalanceReport = (t: any): AntColumnType<TrialBalanc
     title: t('debit'),
     dataIndex: 'Debit',
     showTotal: true,
-    width: 200,
+    align: 'right',
+    sorter: (a, b) => a.Debit - b.Debit,
+
+    width: 250,
 
     render: (Debit, record) => (
-      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(Debit)}</Space>
+      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '-7%' }}>{numberFormatter(Debit)}</Space>
     ),
   },
   {
     title: t('credit'),
     dataIndex: 'Credit',
     showTotal: true,
-    width: 200,
+    align: 'right',
+    sorter: (a, b) => a.Credit - b.Credit,
+    width: 250,
     render: (Credit, record) => (
-      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(Credit)}</Space>
+      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '-7%' }}>{numberFormatter(Credit)}</Space>
     ),
   },
 
   {
     title: t('closing'),
     dataIndex: 'Closing',
+    align: 'right',
     showTotal: true,
-    width: 200,
+    sorter: (a, b) => a.Closing - b.Closing,
+    width: 250,
     render: (Closing, record) => (
-      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(Closing)}</Space>
+      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '-6%' }}>{numberFormatter(Closing)}</Space>
     ),
   },
 ];

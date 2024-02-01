@@ -114,6 +114,8 @@ export const useGetVoucherReport = (enabled = true, params?: TVoucherReportCrite
     () => {
       return requestManager.post(`/api/AccountsReports/VoucherReport`, {
         OrganizationId: userDetail?.OrganizationId,
+        FromDate:FinancialYear?.Start_Period,
+        ToDate:FinancialYear?.End_Period,
         CompanyId: userDetail?.CompanyId,
          FinancialYearId: FinancialYear?.Id,
         ApprovedFilter: params?.IsApproved ? '' : 'All',
