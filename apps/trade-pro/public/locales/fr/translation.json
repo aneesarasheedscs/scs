@@ -502,5 +502,12 @@
   "sales_by_payment_term": "Ventes par condition de paiement",
   "sales_by_parent_category": "Ventes par catégorie parent",
   "sales_by_days": "",
-  "sales_by_dates": "Ventes par dates"
+  "sales_by_dates": "Ventes par dates",
+  "bank_payment_voucher": "Bon de paiement bancaire",
+  "wht_against_ac": "WHT contre compte",
+  "wht": "QUOI",
+  "payment_type": "Type de paiement",
+  "tax_percentage": "Pourcentage d'impôt",
+  "cash_payment_voucher": "Bon de paiement en espèces",
+  "cost_center": "Centre de coûts"
 }

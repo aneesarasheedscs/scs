@@ -26,8 +26,6 @@ function ChildAccountTable({ data, selectedRows }: AnotherComponentProps) {
   const { t } = useTranslation();
   const AllLevelsData = table?.data?.Data?.Result || [];
   const AccountLeaveServiceData = data?.data?.Data?.Result?.[0]?.ParentCodeTitle;
-  console.log(AllLevelsData);
-  console.log(AccountLeaveServiceData);
   console.log(selectedRows);
 
   const [title, settitle] = useState<any>('');
@@ -54,7 +52,7 @@ function ChildAccountTable({ data, selectedRows }: AnotherComponentProps) {
       settitle(selectedRows?.[0]?.AccountTitle);
     }
   }, [title, level, selectedRows, filteredTableData]);
-  console.log(filteredTableData);
+  // console.log(filteredTableData);
 
   return (
     <div className="childTables0">

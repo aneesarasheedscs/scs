@@ -23,7 +23,7 @@ interface FormOfChartAccountProps {
   isLoading: any;
   isSuccess: any;
 }
-function FormOfChartAccount({ data, isSuccess, form, isLoading }: FormOfChartAccountProps) {
+function FormOfChartAccount({ data, form, isSuccess, isLoading }: FormOfChartAccountProps) {
   const { setFields, getFieldValue } = form;
   const formValues = useWatch<TChartAccountData>([], form);
   const [selectedChildRows, setSelectedChildRows] = useAtom(selectedChildRowsAtom);
@@ -57,7 +57,45 @@ function FormOfChartAccount({ data, isSuccess, form, isLoading }: FormOfChartAcc
     if (obj?.Account_Level === 3) {
       setFields([{ name: 'AccountGroup', value: 'Detail' }]);
     }
-
+    if (isSuccess && !isLoading) {
+      setFields([
+        {
+          name: 'AccountCode',
+          value: data?.data?.Data?.Result?.[0]?.AccountCode,
+        },
+        {
+          name: 'Account_Level',
+          value: data?.data?.Data?.Result?.[0]?.Account_Level,
+        },
+        {
+          name: 'AccountType',
+          value: data?.data?.Data?.Result?.[0]?.AccountType,
+        },
+        {
+          name: 'AccountTypeId',
+          value: data?.data?.Data?.Result?.[0]?.AccountType,
+        },
+      ]);
+    } else {
+      setFields([
+        {
+          name: 'AccountCode',
+          value: null,
+        },
+        {
+          name: 'Account_Level',
+          value: null,
+        },
+        {
+          name: 'AccountType',
+          value: '',
+        },
+        {
+          name: 'AccountTypeId',
+          value: null,
+        },
+      ]);
+    }
     setParentAccountDataAvailable(obj.Account_Level === 3 || obj.Account_Level === 1);
     setDisableCityName(obj.Account_Level === 2 || obj.Account_Level === 1);
     setDisableAccountGroup(obj?.Account_Level === 2 || obj?.Account_Level === 1);
@@ -86,7 +124,7 @@ function FormOfChartAccount({ data, isSuccess, form, isLoading }: FormOfChartAcc
         },
       ]);
     }
-  }, [isLoading, isSuccess, form]);
+  }, [!isLoading, isSuccess, form]);
   useEffect(() => {
     if (selectedChildRows && selectedChildRows.length > 0) {
       setFields([
@@ -133,7 +171,6 @@ function FormOfChartAccount({ data, isSuccess, form, isLoading }: FormOfChartAcc
     }
   }, [selectedChildRows, data]);
 
-  console.log(selectedChildRows);
   return (
     <>
       <Card style={{ width: '98%', height: '100%' }} className="antCard card-shadow chartAccounts">

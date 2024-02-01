@@ -1,6 +1,3 @@
-import { AntInput, AntSelectDynamic } from '@tradePro/components';
-import { Card, Checkbox, Col, Row, Form, FormInstance } from 'antd';
-import { useTranslation } from 'react-i18next';
 import {
   useGetAccountsBalance,
   useGetCreditAccountSelect,
@@ -9,8 +6,11 @@ import {
 } from '../queries/queries';
 import { map } from 'lodash';
 import { useEffect } from 'react';
-import { isWithHoldingCheckedAtom, selectedCreditAccountAtom, totalValue, selectedAgainstAccountAtom } from './Atom';
 import { useAtom } from 'jotai';
+import { useTranslation } from 'react-i18next';
+import { AntInput, AntSelectDynamic } from '@tradePro/components';
+import { Card, Checkbox, Col, Row, Form, FormInstance } from 'antd';
+import { isWithHoldingCheckedAtom, selectedCreditAccountAtom, totalValue, selectedAgainstAccountAtom } from './Atom';
 
 function MainEntry({ form, setBankId, bankId, isAddButtonClicked }: TDynamicForm) {
   const { t } = useTranslation();
@@ -60,7 +60,7 @@ function MainEntry({ form, setBankId, bankId, isAddButtonClicked }: TDynamicForm
   const voucherType: TVoucherType[] = [{ Id: 1, Type: 'BPV' }];
   return (
     <>
-      <Row gutter={[10, 10]} style={{ marginTop: '-1%' }}>
+      <Row gutter={[10, 10]} style={{ marginTop: '-0.5%' }}>
         <Col span={24}>
           <Card style={{ paddingBottom: '0.5%', boxShadow: '2px 4px 12px 1px gray' }}>
             <Row gutter={[10, 10]} justify={'space-between'} style={{ marginLeft: 10 }}>

@@ -15,21 +15,16 @@ function BankPaymentDetailTable() {
 
   return (
     <>
-      <Row style={{ marginTop: '0.5%' }}>
+      <Row style={{ marginTop: '0%' }}>
         <Col span={24}>
-          <Card style={{ boxShadow: '2px 4px 12px 1px gray', textAlign: 'left' }}>
-            <h2 className="form-heading3" style={{ marginTop: -10 }}>
-              {' '}
-              {t('detail')}
-            </h2>
-            <AntTable
-              numberOfSkeletons={6}
-              scroll={{ x: '', y: convertVhToPixels('20vh') }}
-              data={viewDetail || []}
-              columns={detailColumns(t)}
-              style={{ marginTop: 0 }}
-            />
-          </Card>
+          <h2 className="form-heading2">{t('detail')}</h2>
+          <AntTable
+            numberOfSkeletons={6}
+            scroll={{ x: '', y: convertVhToPixels('20vh') }}
+            data={viewDetail || []}
+            columns={detailColumns(t)}
+            style={{ marginTop: 0 }}
+          />
         </Col>
       </Row>
     </>

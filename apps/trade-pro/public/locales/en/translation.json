@@ -648,7 +648,6 @@
   "pending_accounts_for_allocation": "Pending Accounts For Allocation",
   "to_company": "To Company",
   "allocated_accounts": "Allocated Accounts",
-
   "allocated_items": "Allocated Items",
   "un_allocated_items": "Un Allocated Items",
   "company_name": "Company Name",
@@ -671,5 +670,16 @@
   "all": "All",
   "approved": "Approved",
   "un_approved": "Un Approved",
-  "cheque": "Cheque"
+  "cheque": "Cheque",
+  "bank_payment_voucher": "Bank Payment Voucher",
+  "wht_against_ac": "WHT Against Account",
+  "wht": "WHT",
+  "payment_type": "Payment Type",
+  "payee_title": "Payee Title",
+  "tax_type": "Tax Type",
+  "tax_percentage": "Tax %",
+  "wht_account": "WHT Account",
+  "tax_amount": "Tax Amount",
+  "cash_payment_voucher": "Cash Payment Voucher",
+  "cost_center": "Cost Center"
 }

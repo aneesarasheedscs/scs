@@ -832,5 +832,12 @@
   "sales_by_payment_term": "Ventas por plazo de pago",
   "sales_by_parent_category": "Ventas por categoría principal",
   "sales_by_days": "Ventas por días",
-  "sales_by_dates": "Ventas por fechas"
+  "sales_by_dates": "Ventas por fechas",
+  "bank_payment_voucher": "Comprobante de pago bancario",
+  "wht_against_ac": "WHT contra cuenta",
+  "wht": "QUÉ",
+  "payment_type": "Tipo de pago",
+  "tax_percentage": "Porcentaje de impuestos",
+  "cash_payment_voucher": "Vale de pago en efectivo",
+  "cost_center": "Centro de costos"
 }

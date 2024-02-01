@@ -1,4 +1,5 @@
 export type TSaveBankPaymentVoucher = {
+  PrintPreview: boolean;
   Id: number;
   Type: number;
   BranchId: number;

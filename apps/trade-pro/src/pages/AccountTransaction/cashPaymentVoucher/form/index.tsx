@@ -13,6 +13,7 @@ import { TSaveCashPaymentVoucher } from './types';
 import { useAddCashPaymentVoucher, useUpdateCashPaymentVoucher } from '../queries/querySave';
 import { useAtom } from 'jotai';
 import { addtableData, isWithHoldingCheckedAtom } from './Atom';
+import Buttons from './Buttons';
 
 const { useForm } = Form;
 
@@ -41,6 +42,7 @@ function CashPaymentVoucherForm({
     refetch: TaxScheduleRefetch,
     isLoading: TaxLoading,
   } = useGetTaxSchedule(VoucherDate, TaxTypeId);
+  const [printPreview, setPrintPreview] = useState(true);
 
   const { mutate: addCashPaymentVoucher, isSuccess: isEntrySuccessful, data: entryData } = useAddCashPaymentVoucher();
   const {
@@ -71,6 +73,8 @@ function CashPaymentVoucherForm({
     setTaxTypeId(TaxId);
   };
   const onFinish = (values: TSaveCashPaymentVoucher) => {
+    values.PrintPreview = printPreview;
+
     const TaxableEntry: any = {};
     if (values.IncludeWHT) {
       TaxableEntry.AccountId = values.RefDocNoId;
@@ -168,7 +172,18 @@ function CashPaymentVoucherForm({
   return (
     <Card className="main_card">
       <Form initialValues={{ remember: true }} form={form} layout="horizontal" onFinish={onFinish}>
-        <div style={{ marginTop: '-0.5%' }}>
+        <Buttons
+          form={form}
+          isSuccess={isSuccess}
+          entryData={entryData}
+          addCashPayment={addCashPayment}
+          DocumentTypeId={DocumentTypeId}
+          selectedRecordId={selectedRecordId}
+          setSelectedRecordId={setSelectedRecordId}
+          setPrintPreview={setPrintPreview}
+          printPreview={printPreview}
+        />
+        {/* <div style={{ marginTop: '-0.5%' }}>
           <Row align="middle" justify="space-between">
             <Col span={24}>
               <Row gutter={10} align="middle">
@@ -255,7 +270,7 @@ function CashPaymentVoucherForm({
               </Form.Item>
             </Col>
           </Row>
-        </div>
+        </div> */}
 
         <MainEntry
           form={form}

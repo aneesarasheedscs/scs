@@ -509,5 +509,12 @@
   "sales_by_payment_term": "المبيعات حسب مصطلح الدفع",
   "sales_by_parent_category": "المبيعات حسب الفئة الأم",
   "sales_by_days": "المبيعات بالأيام",
-  "sales_by_dates": "المبيعات حسب التواريخ"
+  "sales_by_dates": "المبيعات حسب التواريخ",
+  "bank_payment_voucher": "سند صرف بنكي",
+  "wht_against_ac": "WHT ضد الحساب",
+  "wht": "وايت",
+  "payment_type": "نوع الدفع",
+  "tax_percentage": "نسبة الضريبة",
+  "cash_payment_voucher": "قسيمة الدفع النقدي",
+  "cost_center": "مركز تقييم الكلفة، مركز التسعير، مركز التثمين"
 }

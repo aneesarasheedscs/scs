@@ -4,7 +4,7 @@ import { DataType } from '../form/types';
 
 export const detailColumns = (t?: any): AntColumnType<DataType>[] => [
   {
-    title: <>{t('account_title')}</>,
+    title: t('account_title'),
     width: 350,
     searchableInput: true,
     dataIndex: 'AccountTitle',
@@ -12,7 +12,7 @@ export const detailColumns = (t?: any): AntColumnType<DataType>[] => [
     sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
   },
   {
-    title: <>{t('job_lot')}</>,
+    title: t('job_lot'),
     width: 200,
     dataIndex: 'JobLotDescription',
     searchableInput: true,
@@ -20,7 +20,7 @@ export const detailColumns = (t?: any): AntColumnType<DataType>[] => [
     sorter: (a, b) => a.JobLotDescription.localeCompare(b.JobLotDescription),
   },
   {
-    title: <>{t('debit_amount')}</>,
+    title: t('debit_amount'),
     width: 200,
     showTotal: true,
     dataIndex: 'DebitAmount',
@@ -30,7 +30,7 @@ export const detailColumns = (t?: any): AntColumnType<DataType>[] => [
     ),
   },
   {
-    title: <>{t('credit_amount')}</>,
+    title: t('credit_amount'),
     width: 200,
     showTotal: true,
     dataIndex: 'CreditAmount',
@@ -42,7 +42,7 @@ export const detailColumns = (t?: any): AntColumnType<DataType>[] => [
     ),
   },
   {
-    title: <>{t('remarks')}</>,
+    title: t('remarks'),
     width: 260,
     dataIndex: 'Comments',
     searchableInput: true,

@@ -13,14 +13,13 @@ import TableofAccountLevel4 from './tables/4thLevelAccount/tableofAccountLevel4'
 import { useChartofAccountSave, useParentAccountLeaveService } from './querie';
 import { useAtom } from 'jotai';
 import { selectedRowsAtom, selectedChildRowsAtom } from './Atom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const { useToken } = theme;
 const { useForm, useWatch } = Form;
 
 function ChartAccountForm() {
   const [form] = useForm<TChartAccountData>();
-  const formValues = useWatch<TChartAccountData>([], form);
   const [printPreview, setPrintPreview] = useState(true);
 
   const { t } = useTranslation();
@@ -31,7 +30,6 @@ function ChartAccountForm() {
   console.log('Account Code:', AccountCode);
   const handleButtonClick = () => {
     setPrintPreview(!printPreview);
-    console.log(printPreview);
   };
   const { data, isSuccess, isLoading } = useParentAccountLeaveService(true, AccountCode);
   const { mutate } = useChartofAccountSave();
@@ -39,10 +37,34 @@ function ChartAccountForm() {
   const onFinish = (values: TChartAccountData) => {
     values.PrintPreview = printPreview;
     mutate(values);
-
     console.log(values);
   };
+  const handleKeyDown = (event: any) => {
+    if ((event.ctrlKey || event.metaKey) && event.key === 's') {
+      event.preventDefault();
 
+      onFinish(form.getFieldsValue());
+    } else if (event.key === 'Enter') {
+      event.preventDefault();
+    }
+    if (event.altKey && event.key === 'p') {
+      event.preventDefault();
+
+      setPrintPreview((prevPrintPreview) => !prevPrintPreview);
+    }
+    if (event.key === 'Escape') {
+      form.resetFields();
+      setSelectedRows([]);
+      setSelectedChildRows([]);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [form]);
   return (
     <>
       <Card>
