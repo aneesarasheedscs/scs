@@ -10,13 +10,17 @@ export const columns = (
   handleChildAccount?: any
 ): AntColumnType<TChartAccountAllLevelData>[] => [
   {
-    title: <>{t('account_title')} </>,
+    title: t('account_title'),
     dataIndex: 'AccountCode',
     width: 170,
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.AccountCode.localeCompare(b.AccountCode),
+    searchableInput: true,
+    showCount: true,
   },
 
   {
-    title: <>{t('account_title')} </>,
+    title: t('account_title'),
     dataIndex: 'AccountTitle',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
@@ -25,18 +29,20 @@ export const columns = (
   },
 
   {
-    title: <>{t('account_level')} </>,
+    title: t('account_level'),
     dataIndex: 'Account_Level',
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.Account_Level - b.Account_Level,
     width: 150,
     render: (Account_Level) => (
-      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 25 }}>
+      <Space style={{ display: 'flex', justifyContent: 'center' }}>
         <span>{Account_Level}</span>
       </Space>
     ),
   },
 
   {
-    title: <>{t('action')} </>,
+    title: t('action'),
     dataIndex: '',
     width: 120,
     render: (_, record) => (

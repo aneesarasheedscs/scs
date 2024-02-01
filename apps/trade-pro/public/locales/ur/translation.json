@@ -651,7 +651,6 @@
   "financial_year": "مالی سال",
   "pending_accounts_for_allocation": "تشکیل کے لئے زیر تعلیم اکاؤنٹس",
   "to_company": "کمپنی کو",
-
   "allocated_items": "تفویض شدہ اشیاء",
   "un_allocated_items": "غیر تفویض شدہ اشیاء",
   "company_name": "کمپنی کا نام",
@@ -677,5 +676,12 @@
   "cheque": "چیک",
   "approved": "منظور شدہ",
   "back": "پیچھے",
-  "voucher_report": "واوچر رپورٹ"
+  "voucher_report": "واوچر رپورٹ",
+  "bank_payment_voucher": "بینک ادائیگی واؤچر",
+  "wht_against_ac": "اکاؤنٹ کے خلاف WHT",
+  "wht": "ڈبلیو ایچ ٹی",
+  "payment_type": "ادائیگی کی قسم",
+  "tax_percentage": "ٹیکس فیصد",
+  "cash_payment_voucher": "نقد ادائیگی واؤچر",
+  "cost_center": "لاگت مرکز"
 }

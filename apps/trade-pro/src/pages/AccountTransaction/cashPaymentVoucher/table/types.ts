@@ -1,6 +1,6 @@
 export type TCashPaymentVoucherTable = {
   Id: string;
-  VoucherCode: string;
+  VoucherCode: number;
   DocumentTypeId: string;
   DocumentTypeCode: string;
   VoucherDate: string | Date;

@@ -1,8 +1,8 @@
-import { AntButton, AntDatePicker, AntInput, AntInputNumber, AntSelectDynamic, AntTable } from '@tradePro/components';
-import { Card, Col, Row, Form, FormInstance, notification } from 'antd';
-import { add, map, sumBy } from 'lodash';
 import dayjs from 'dayjs';
-import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
+import { useAtom } from 'jotai';
+import { column2 } from '../table/columns';
+import { add, map, sumBy } from 'lodash';
+import { addtableData } from '../form/Atom';
 import {
   useGetAccountsBalance,
   useGetBankPaymentJobLotSelect,
@@ -14,11 +14,12 @@ import {
 } from '../queries/queries';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
+import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
+import { Card, Col, Row, Form, FormInstance, notification } from 'antd';
 import { TBankPaymentDetailEntry, TTaxType, TjobLot } from './types';
-import { column2 } from '../table/columns';
-import { useAtom } from 'jotai';
+import { AntButton, AntDatePicker, AntInput, AntInputNumber, AntSelectDynamic, AntTable } from '@tradePro/components';
 import { selectedCreditAccountAtom, totalValue, selectedAgainstAccountAtom, isWithHoldingCheckedAtom } from './Atom';
-import { addtableData } from '../form/Atom';
+
 const { useWatch } = Form;
 const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
   const formValues = useWatch<TBankPaymentDetailEntry[]>('voucherDetailList', form);
@@ -65,7 +66,6 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
     DCheqDate: null,
     InvoiceNoRefId: null,
     CheqNoDetail: null,
-    // CheqId: null,
     PayeeTitle: null,
     Comments: null,
     CreditAmount: 0,
@@ -202,7 +202,7 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
       DCheqDate: `${dayjs(item.DCheqDate)}`,
       InvoiceNoRefId: item.InvoiceNoRefId,
       CheqNoDetail: item.CheqNoDetail,
-      // CheqId: item.CheqId,
+      CheqId: item.CheqId,
       PayeeTitle: item.PayeeTitle,
       Comments: item.Comments,
       IsTaxable: 'false',
@@ -222,22 +222,44 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
       notification.error({ message: message });
       return;
     }
-    setCounter((prevCounter: any) => prevCounter - 1);
-    setTableData((prevData: any[]) => {
-      const updatedData = newData.map((item, index) => {
-        const editedRowIndex = prevData.findIndex((row) => row.CheqId === edit.CheqId);
-        if (editedRowIndex >= 0) {
-          return {
-            ...item,
-            CheqId: edit.CheqId,
-          };
-        }
-        return item;
+    const editedRowIndex = tableData.findIndex((row: any) => row.CheqId === edit?.CheqId);
+    if (editedRowIndex >= 0) {
+      setTableData((prevData: any[]) => {
+        const updatedData = [...prevData];
+        updatedData[editedRowIndex] = {
+          ...newData[0],
+          CheqId: edit.CheqId,
+        };
+        console.log('New tableData:', updatedData);
+        return updatedData;
       });
-      const combinedData = [...prevData.filter((row) => row.CheqId !== edit.CheqId), ...updatedData];
-      console.log('New tableData:', combinedData);
-      return combinedData;
-    });
+    }
+    // setTableData((prevData: any[]) => {
+    //   const updatedData = newData.map((item, index) => {
+    //     const editedRowIndex = prevData.findIndex((row) => row.CheqId === edit.CheqId);
+    //     if (editedRowIndex >= 0) {
+    //       return {
+    //         ...item,
+    //         CheqId: edit.CheqId,
+    //       };
+    //     }
+    //     return item;
+    //   });
+    //   const combinedData = [...prevData.filter((row) => row.CheqId !== edit.CheqId), ...updatedData];
+    //   console.log('New tableData:', combinedData);
+    //   return combinedData;
+    // });
+    form.setFieldValue(['voucherDetailList', 0, 'AccountIdDebit'], null);
+    form.setFieldValue(['voucherDetailList', 0, 'AccountTitle'], null);
+    form.setFieldValue(['voucherDetailList', 0, 'JobLotId'], null);
+    form.setFieldValue(['voucherDetailList', 0, 'JobLotDescription'], null);
+    form.setFieldValue(['voucherDetailList', 0, 'DebitAmount'], null);
+    form.setFieldValue(['voucherDetailList', 0, 'Comments'], null);
+    form.setFieldValue(['voucherDetailList', 0, 'CheqNoDetail'], null);
+    form.setFieldValue(['voucherDetailList', 0, 'PayeeTitle'], null);
+    setIsEditMode(false);
+  };
+  const handleResetForm = () => {
     form.setFieldValue(['voucherDetailList', 0, 'AccountIdDebit'], null);
     form.setFieldValue(['voucherDetailList', 0, 'AccountTitle'], null);
     form.setFieldValue(['voucherDetailList', 0, 'JobLotId'], null);
@@ -267,16 +289,11 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
   const [isWithHoldingChecked, setIsWithHoldingChecked] = useAtom(isWithHoldingCheckedAtom);
   const handleItemChange = (obj: TTaxType, index: number) => {
     form.setFields([{ name: ['voucherDetailList', index, 'TaxPrcnt'], value: obj?.Id }]);
-    // form.setFields([{ name: ['voucherDetailList', index, 'CreditAmount'], value: obj?.Id }]);
   };
   const CalculateTaxAmount = (totalDebitAmount: number, taxAmount: number) => {
     return (totalDebitAmount * taxAmount) / 100;
   };
-
-  // const DebitAmount = form.getFieldValue(['voucherDetailList', 0, 'DebitAmount']);
-  // const totalDebitAmount = sumBy(DebitAmount);
-  // const taxAmount = form.getFieldValue(['voucherDetailList', 0, 'TaxPrcnt']);
-  // const TaxAmount = isWithHoldingChecked ? 0 : CalculateTaxAmount(totalDebitAmount, taxAmount);
+  console.log('table Data', tableData);
   useEffect(() => {
     const CreditAmount = form.getFieldValue('CreditAmount');
     const DebitAmount = tableData.map((item: any) => item.DebitAmount);
@@ -287,7 +304,6 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
 
     console.log(totalDebitAmount);
     console.log(TaxesTotalAmount);
-    // console.log(DebitAmount);
     console.log(TaxAmount);
     form.setFields([{ name: ['voucherDetailList', 0, 'Amount'], value: totalDebitAmount }]);
     form.setFields([{ name: ['voucherDetailList', 0, 'CreditAmount'], value: TaxAmount }]);
@@ -520,44 +536,44 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
                         xl={{ span: 24 }}
                         xxl={{ span: 11 }}
                       >
-                        <Col
-                          xs={{ span: 7, offset: 10 }}
-                          sm={{ span: 5, offset: 10 }}
-                          md={{ span: 4, offset: 10 }}
-                          lg={{ span: 4, offset: 10 }}
-                          xl={{ span: 3, offset: 11 }}
-                          xxl={{ span: 4, offset: 0 }}
-                          className="add"
-                        >
-                          <AntButton
-                            onClick={isEditMode ? handleUpdateToTable : handleAddToTable}
-                            label={isEditMode ? `${t('update')}` : `${t('add')}`}
-                            style={{ marginLeft: -10 }}
-                          ></AntButton>
+                        <Col xxl={8} xl={5} lg={8} md={8} sm={8} xs={24}>
+                          <Row
+                            align={'top'}
+                            gutter={10}
+                            style={{ display: 'flex', border: ' ' }}
+                            justify={'space-between'}
+                          >
+                            <Col span={12}>
+                              <AntButton
+                                onClick={isEditMode ? handleUpdateToTable : handleAddToTable}
+                                label={isEditMode ? `${t('update')}` : `${t('add')}`}
+                                style={{ marginLeft: 0 }}
+                              ></AntButton>
+                            </Col>
+                            <Col span={12}>
+                              <AntButton
+                                onClick={() => handleResetForm()}
+                                label={`${t('cancel')}`}
+                                style={{ backgroundColor: '#FFAF0C' }}
+                              ></AntButton>
+                            </Col>
+                          </Row>
                         </Col>
                       </Col>
                       <Row gutter={[16, 16]} style={{ marginTop: '1%' }}>
                         <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }}>
-                          <Card style={{ boxShadow: '2px 4px 12px 1px gray', textAlign: 'left' }}>
-                            <AntTable
-                              numberOfSkeletons={12}
-                              scroll={{ x: '', y: convertVhToPixels('15vh') }}
-                              data={tableData}
-                              columns={column2(t, handleDeleteRow, handleEditRow)}
-                            />
-                          </Card>
+                          <AntTable
+                            numberOfSkeletons={12}
+                            scroll={{ x: '', y: convertVhToPixels('15vh') }}
+                            data={tableData}
+                            columns={column2(t, handleDeleteRow, handleEditRow)}
+                          />
                         </Col>
                       </Row>
                       <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }}>
-                        <Row style={{ marginTop: '2%' }}>
-                          <Col
-                            xs={{ span: 24 }}
-                            sm={{ span: 24 }}
-                            md={{ span: 24 }}
-                            lg={{ span: 24 }}
-                            xl={{ span: 24 }}
-                          >
-                            <Card>
+                        <Row gutter={14} style={{ marginTop: '1%' }}>
+                          <>
+                            <Card style={{ width: '100%' }}>
                               <Row justify={'space-between'}>
                                 <Col
                                   xs={{ span: 24 }}
@@ -668,7 +684,7 @@ const DynamicForm = ({ form, bankId, setIsAddButtonClicked }: TDynamicForm) => {
                                 </Col>
                               </Row>
                             </Card>
-                          </Col>
+                          </>
                         </Row>
                       </Col>
                     </div>

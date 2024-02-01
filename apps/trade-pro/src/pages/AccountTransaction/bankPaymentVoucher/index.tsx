@@ -1,4 +1,4 @@
-import { Card, Tabs, theme } from 'antd';
+import { Card, Col, Row, Tabs, theme } from 'antd';
 import { useTranslation } from 'react-i18next';
 import './style.scss';
 import BankPaymentVoucherForm from './form';
@@ -29,28 +29,31 @@ function BankPaymentVoucher() {
 
   return (
     <>
-      <Card style={{ background: 'transparent', marginLeft: '-1%', marginTop: '-2%' }}>
-        <h2 style={{ textAlign: 'center' }}>{t('bank_payment_voucher')}</h2>
-        <Tabs
-          type="card"
-          size="large"
-          activeKey={activeTab}
-          className="tabs-margin-bottom-0"
-          onChange={(key) => setActiveTab(key)}
-        >
-          <Tabs.TabPane key="1" tab={t('history')}>
-            <BankPaymentTable setSelectedRecordId={setSelectedRecordId} setActiveTab={setActiveTab} />
-          </Tabs.TabPane>
-          <Tabs.TabPane key="2" tab={t('form')}>
-            <BankPaymentVoucherForm
-              selectedRecordId={selectedRecordId}
-              addBankPayment={addBankPayment}
-              refetchBankPayment={refetchBankPayment}
-              isDataSuccess={isDataSuccess}
-            />
-          </Tabs.TabPane>
-        </Tabs>
-      </Card>
+      <Row style={{ background: '', marginLeft: '', marginTop: '0%' }}>
+        <Col span={24}>
+          <h2 className="form-heading">{t('bank_payment_voucher')}</h2>
+          <Tabs
+            type="card"
+            size="large"
+            activeKey={activeTab}
+            className="tabs-margin-bottom-0"
+            onChange={(key) => setActiveTab(key)}
+          >
+            <Tabs.TabPane key="1" tab={t('history')}>
+              <BankPaymentTable setSelectedRecordId={setSelectedRecordId} setActiveTab={setActiveTab} />
+            </Tabs.TabPane>
+            <Tabs.TabPane key="2" tab={t('form')}>
+              <BankPaymentVoucherForm
+                selectedRecordId={selectedRecordId}
+                setSelectedRecordId={setSelectedRecordId}
+                addBankPayment={addBankPayment}
+                refetchBankPayment={refetchBankPayment}
+                isDataSuccess={isDataSuccess}
+              />
+            </Tabs.TabPane>
+          </Tabs>
+        </Col>
+      </Row>
     </>
   );
 }

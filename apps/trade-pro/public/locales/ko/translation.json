@@ -1,4 +1,15 @@
 {
   "sales_by_days": "일별 매출",
-  "sales_by_dates": "날짜별 판매"
+  "sales_by_dates": "날짜별 판매",
+  "bank_payment_voucher": "은행 지불 바우처",
+  "wht_against_ac": "계정에 대한 원천징수",
+  "wht": "WHT",
+  "payment_type": "결제 유형",
+  "payee_title": "수취인 이름",
+  "tax_type": "세금 유형",
+  "tax_percentage": "세율",
+  "wht_account": "WHT 계정",
+  "tax_amount": "세금",
+  "cash_payment_voucher": "현금결제바우처",
+  "cost_center": "비용 센터"
 }

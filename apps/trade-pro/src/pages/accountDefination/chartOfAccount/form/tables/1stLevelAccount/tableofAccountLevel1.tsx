@@ -8,11 +8,6 @@ import { useAtom } from 'jotai';
 import { selectedChildRowsAtom, selectedRowsAtom } from '../../Atom';
 import { useTranslation } from 'react-i18next';
 
-interface SelectedValues {
-  accountLevel: number;
-  accountTitle: string;
-}
-
 function TableofAccountLevel1() {
   const {
     refetch,
@@ -33,7 +28,7 @@ function TableofAccountLevel1() {
   };
   const handleChildAccount = (record: TChartAccountAllLevelData) => {
     setSelectedChildRows([record]);
-    console.log('Record Data', record);
+    console.log('Child Data', record);
   };
   const filteredTableData = table?.data?.Data?.Result?.filter((item: any) => item.Account_Level === 1) || [];
   return (

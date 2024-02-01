@@ -88,7 +88,7 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
   };
 
   useEffect(() => {
-    form.setFieldValue(['voucherDetailList', 0, 'PaymentTypeId'], '1');
+    form.setFieldValue(['voucherDetailList', 0, 'PaymentTypeId'], 1);
     form.setFieldValue(['voucherDetailList', 0, 'PaymentType'], 'Regular');
     form.setFieldValue(['voucherDetailList', 0, 'DCheqDate'], dayjs(new Date()));
   }, []);
@@ -255,7 +255,15 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
     // form.setFieldValue(['voucherDetailList', 0, 'PayeeTitle'], null);
     setIsEditMode(false);
   };
-
+  const handleResetForm = () => {
+    form.setFieldValue(['voucherDetailList', 0, 'AccountId'], null);
+    form.setFieldValue(['voucherDetailList', 0, 'AccountTitle'], null);
+    form.setFieldValue(['voucherDetailList', 0, 'JobLotId'], null);
+    form.setFieldValue(['voucherDetailList', 0, 'JobLotDescription'], null);
+    form.setFieldValue(['voucherDetailList', 0, 'DebitAmount'], null);
+    form.setFieldValue(['voucherDetailList', 0, 'Comments'], null);
+    setIsEditMode(false);
+  };
   const handleDeleteRow = (record: any, rowIndex: number) => {
     setTableData((prevData: any[]) => {
       const updatedData = prevData.filter((item: any, index) => index !== rowIndex);
@@ -461,8 +469,31 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
                         style={{ display: 'none' }}
                         formItemProps={{ ...field, name: [field.name, 'DebitAmount'] }}
                       />
+                      <Col xxl={3} xl={4} lg={6} md={6} sm={7} xs={24}>
+                        <Row
+                          align={'top'}
+                          gutter={10}
+                          style={{ display: 'flex', border: ' ' }}
+                          justify={'space-between'}
+                        >
+                          <Col span={12}>
+                            <AntButton
+                              onClick={isEditMode ? handleUpdateToTable : handleAddToTable}
+                              label={isEditMode ? `${t('update')}` : `${t('add')}`}
+                              style={{ marginLeft: 0 }}
+                            ></AntButton>
+                          </Col>
+                          <Col span={12}>
+                            <AntButton
+                              onClick={() => handleResetForm()}
+                              label={`${t('cancel')}`}
+                              style={{ backgroundColor: '#FFAF0C' }}
+                            ></AntButton>
+                          </Col>
+                        </Row>
+                      </Col>
                       {/* <Col span={10}> */}
-                      <Col
+                      {/* <Col
                         xs={{ span: 7, offset: 10 }}
                         sm={{ span: 5, offset: 10 }}
                         md={{ span: 4, offset: 10 }}
@@ -476,31 +507,23 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
                           label={isEditMode ? `${t('update')}` : `${t('add')}`}
                           style={{ marginLeft: -10 }}
                         ></AntButton>
-                      </Col>
+                      </Col> */}
                       {/* </Col> */}
 
                       <Row gutter={[16, 16]} style={{ marginTop: '1%' }}>
                         <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }}>
-                          {/* <Card style={{ boxShadow: '2px 4px 12px 1px gray', textAlign: 'left' }}> */}
                           <AntTable
                             numberOfSkeletons={12}
                             scroll={{ x: '', y: convertVhToPixels('15vh') }}
                             data={tableData}
                             columns={column2(t, handleDeleteRow, handleEditRow)}
                           />
-                          {/* </Card> */}
                         </Col>
                       </Row>
                       <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }}>
-                        <Row style={{ marginTop: '2%' }}>
-                          <Col
-                            xs={{ span: 24 }}
-                            sm={{ span: 24 }}
-                            md={{ span: 24 }}
-                            lg={{ span: 24 }}
-                            xl={{ span: 24 }}
-                          >
-                            <Card>
+                        <Row gutter={10} style={{ marginTop: '2%' }}>
+                          <>
+                            <Card style={{ width: '100%' }}>
                               <Row justify={'space-between'}>
                                 <Col
                                   xs={{ span: 24 }}
@@ -612,7 +635,7 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
                                 </Col>
                               </Row>
                             </Card>
-                          </Col>
+                          </>
                         </Row>
                       </Col>
                     </div>

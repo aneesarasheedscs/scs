@@ -1,2 +1,2 @@
 import { atom } from 'jotai';
-export const financialYearObject = atom<any>({});
+export const financialYearObject = atom<any>([]);

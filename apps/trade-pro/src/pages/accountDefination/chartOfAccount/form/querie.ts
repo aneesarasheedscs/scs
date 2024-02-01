@@ -4,10 +4,11 @@ import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageSe
 import { TChartAccountData } from '../types';
 import { queryClient } from '@tradePro/configs';
 import { notification } from 'antd';
+import { AxiosError, AxiosResponse } from 'axios';
 
 const userDetail = storedUserDetail();
 const financialYear = storedFinancialYear();
-
+console.log(financialYear?.Id);
 export const useParentAccountLeaveService = (enabled = true, AccountCode: string | null) => {
   return useQuery(
     ['ChartAccount-Leave-Service', AccountCode],
@@ -16,9 +17,10 @@ export const useParentAccountLeaveService = (enabled = true, AccountCode: string
         params: {
           OrganizationId: userDetail?.OrganizationId,
           CompanyId: userDetail?.CompanyId,
-          LanguageId: 2,
           FinancialYearId: financialYear?.Id,
           AccountCode,
+          SerachDetailAccount: true,
+          SerachGroupAccount: true,
         },
       });
     },
@@ -58,15 +60,25 @@ export const useChartofAccountSave = (params?: TChartAccountData) => {
         ActionId: 1,
         COAAllocationList: [],
         ChartofAccountsList: [],
-
         ...params,
       });
     },
     {
-      onSuccess: () => {
-        queryClient.invalidateQueries('purchase-order');
-        const msg = 'Record added successfully!';
-        notification.success({ description: '', message: msg });
+      onSuccess: (response: AxiosResponse) => {
+        queryClient.invalidateQueries('Chart-of-Account-HistoryTable');
+        if (response?.data && response?.data?.Status === false) {
+          notification.error({
+            message: 'Error',
+            description: response?.data?.Message || 'An error occurred.',
+          });
+        } else if (response?.data && response?.data?.Status === true) {
+          const msg = 'Record added successfully!';
+          notification.success({ description: '', message: msg });
+        }
+      },
+      onError: (error: AxiosError) => {
+        const msg = error.response?.data || 'Something went wrong';
+        notification.error({ description: '', message: msg as string });
       },
     }
   );

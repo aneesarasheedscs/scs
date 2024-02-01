@@ -502,5 +502,12 @@
   "sales_by_payment_term": "按付款方式销售",
   "sales_by_parent_category": "按父类别划分的销售额",
   "sales_by_days": "按天销售",
-  "sales_by_dates": "按日期销售"
+  "sales_by_dates": "按日期销售",
+  "bank_payment_voucher": "银行付款凭证",
+  "wht_against_ac": "账户预扣税",
+  "wht": "预扣税",
+  "payment_type": "付款方式",
+  "tax_percentage": "税率",
+  "cash_payment_voucher": "现金支付券",
+  "cost_center": "成本中心"
 }

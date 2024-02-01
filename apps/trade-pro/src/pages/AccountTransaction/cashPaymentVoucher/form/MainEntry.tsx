@@ -29,7 +29,7 @@ function MainEntry({ form, setBankId, bankId, isAddButtonClicked, setSharedState
     if (data?.data?.Data?.Result?.[0]?.Balance !== undefined) {
       form.setFieldsValue({ Balance: data?.data?.Data?.Result?.[0]?.Balance.toFixed(2) });
     }
-  }, [credit, bankId, data?.data?.Data?.Result]);
+  }, [credit, bankId, data?.data?.Data?.Result, form]);
 
   const handleCreditAccountChange = (accountId?: any, index?: any) => {
     const balance = data?.data?.Data?.Result?.[0]?.Balance.toFixed(2);
@@ -44,7 +44,7 @@ function MainEntry({ form, setBankId, bankId, isAddButtonClicked, setSharedState
   const voucherType: TVoucherType[] = [{ Id: 1, Type: 'CPV' }];
   return (
     <>
-      <Row gutter={[10, 10]} style={{ marginTop: '-2%' }}>
+      <Row gutter={[10, 10]} style={{ marginTop: '-0.5%' }}>
         <Col span={24}>
           <Card style={{ paddingBottom: '0.5%', boxShadow: '2px 4px 12px 1px gray' }}>
             <div className="form-list-container">

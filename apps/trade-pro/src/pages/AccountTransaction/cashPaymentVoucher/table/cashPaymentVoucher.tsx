@@ -12,7 +12,7 @@ import CashPaymentDetailTable from './DetailTable';
 
 function CashPaymentTable({ setSelectedRecordId, setActiveTab }: TFrom) {
   const { t } = useTranslation();
-  const { data, isError, isLoading } = useGetCashPaymentVoucherTable();
+  const { data, isError, isLoading, refetch, isFetching } = useGetCashPaymentVoucherTable();
   const [showComponent, setShowComponent] = useState(false);
   const {
     token: { colorPrimary },
@@ -26,31 +26,29 @@ function CashPaymentTable({ setSelectedRecordId, setActiveTab }: TFrom) {
   };
   return (
     <>
-      <Row style={{ marginTop: '0.5%' }}>
-        <Col span={24}>
-          <AntButton onClick={toggleCardView} className="btn" label={t('card_view')} />
-          <AntButton onClick={toggleGridView} className="btn" style={{ marginLeft: '1%' }} label={t('grid_view')} />
+      <Row gutter={0} style={{ marginTop: '0%' }}>
+        <Col span={24} style={{ marginLeft: '0.5%', borderTop: '1px solid #dfdfdf' }}>
+          <AntButton onClick={toggleCardView} className="" label={t('card_view')} />
+          <AntButton onClick={toggleGridView} className="" style={{ marginLeft: '0.2%' }} label={t('grid_view')} />
         </Col>
-        <br />
-        <br />
+
         {showComponent ? (
           <CardView />
         ) : (
           <Col>
-            <div>
+            <>
               <AntTable
+                refetch={refetch}
                 isError={isError}
                 numberOfSkeletons={8}
-                isLoading={isLoading}
+                isLoading={isLoading || isFetching}
                 scroll={{ x: '', y: convertVhToPixels('25vh') }}
                 data={data?.data?.Data?.Result || []}
                 columns={columns(t, setSelectedRecordId, setActiveTab)}
               />
 
-              <Col>
-                <CashPaymentDetailTable />
-              </Col>
-            </div>
+              <CashPaymentDetailTable />
+            </>
           </Col>
         )}
       </Row>

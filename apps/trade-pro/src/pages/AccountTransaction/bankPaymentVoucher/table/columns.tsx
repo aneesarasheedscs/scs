@@ -13,14 +13,16 @@ export const columns = (
   setActiveTab?: any
 ): AntColumnType<TBankPaymentVoucherTable>[] => [
   {
-    title: <>{t('code')}</>,
+    title: t('code'),
     width: 120,
     searchableInput: true,
     dataIndex: 'VoucherCode',
     sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.VoucherCode - b.VoucherCode,
+    showCount: true,
   },
   {
-    title: <>{t('type')}</>,
+    title: t('type'),
     width: 120,
     searchableInput: true,
     dataIndex: 'DocumentTypeCode',
@@ -29,7 +31,7 @@ export const columns = (
   },
 
   {
-    title: <>{t('voucher_date')}</>,
+    title: t('voucher_date'),
     width: 200,
     dataIndex: 'VoucherDate',
     searchableDate: true,
@@ -42,7 +44,7 @@ export const columns = (
     },
   },
   {
-    title: <>{t('account_title')}</>,
+    title: t('account_title'),
     width: 180,
     dataIndex: 'AccountTitle',
     searchableInput: true,
@@ -50,7 +52,7 @@ export const columns = (
     sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
   },
   {
-    title: <>{t('voucher_amount')}</>,
+    title: t('voucher_amount'),
     width: 200,
     showTotal: true,
     dataIndex: 'VoucherAmount',
@@ -61,14 +63,14 @@ export const columns = (
     ),
   },
   {
-    title: <>{t('cheque_no')}</>,
+    title: t('cheque_no'),
     width: 170,
     dataIndex: 'CheqNo',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
   },
   {
-    title: <>{t('cheque_date')}</>,
+    title: t('cheque_date'),
     dataIndex: 'ChequeDate',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
@@ -82,7 +84,7 @@ export const columns = (
     width: 160,
   },
   {
-    title: <>{t('remarks')}</>,
+    title: t('remarks'),
     width: 220,
     dataIndex: 'Remarks',
     searchableInput: true,
@@ -90,7 +92,7 @@ export const columns = (
     sorter: (a, b) => a.Remarks.localeCompare(b.Remarks),
   },
   {
-    title: <>{t('user_name')}</>,
+    title: t('user_name'),
     width: 220,
     dataIndex: 'UserName',
     searchableInput: true,
@@ -98,7 +100,7 @@ export const columns = (
     sorter: (a, b) => a.UserName.localeCompare(b.UserName),
   },
   {
-    title: <>{t('entry_date')}</>,
+    title: t('entry_date'),
     dataIndex: 'EntryDate',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
@@ -112,7 +114,7 @@ export const columns = (
     width: 160,
   },
   {
-    title: <>{t('pay_title')}</>,
+    title: t('pay_title'),
     width: 200,
     dataIndex: 'PayeeTitle',
     searchableInput: true,
@@ -120,7 +122,7 @@ export const columns = (
     sorter: (a, b) => a.PayeeTitle.localeCompare(b.PayeeTitle),
   },
   {
-    title: <>{t('status')}</>,
+    title: t('status'),
     dataIndex: 'IsApproved',
     render: (IsApproved) => (
       <Space
@@ -143,12 +145,12 @@ export const columns = (
     width: 120,
   },
   {
-    title: <>{t('no_of_attachment')}</>,
+    title: t('no_of_attachment'),
     width: 150,
     dataIndex: 'Attachment',
   },
   {
-    title: <>{t('action')}</>,
+    title: t('action'),
     width: 150,
     render: (_, record) => (
       <>
@@ -181,7 +183,7 @@ export const columns = (
 
 export const column2 = (t: any, handleDeleteRow?: any, handleEditRow?: any): AntColumnType<DataType>[] => [
   {
-    title: <>{t('payment_type')}</>,
+    title: t('payment_type'),
     width: 150,
     searchableInput: true,
     dataIndex: 'PaymentType',
@@ -189,7 +191,7 @@ export const column2 = (t: any, handleDeleteRow?: any, handleEditRow?: any): Ant
     sorter: (a, b) => a.PaymentType.localeCompare(b.PaymentType),
   },
   {
-    title: <>{t('debit_account')}</>,
+    title: t('debit_account'),
     width: 250,
     searchableInput: true,
     dataIndex: 'AccountTitle',
@@ -197,7 +199,7 @@ export const column2 = (t: any, handleDeleteRow?: any, handleEditRow?: any): Ant
     sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
   },
   {
-    title: <>{t('job_lot')}</>,
+    title: t('job_lot'),
     width: 130,
     dataIndex: 'JobLotDescription',
     searchableInput: true,
@@ -205,7 +207,7 @@ export const column2 = (t: any, handleDeleteRow?: any, handleEditRow?: any): Ant
     sorter: (a, b) => a.JobLotDescription.localeCompare(b.JobLotDescription),
   },
   {
-    title: <>{t('debit_amount')}</>,
+    title: t('debit_amount'),
     width: 130,
     dataIndex: 'DebitAmount',
     showTotal: true,
@@ -216,35 +218,35 @@ export const column2 = (t: any, handleDeleteRow?: any, handleEditRow?: any): Ant
     ),
   },
   {
-    title: <>{t('cheque_date')}</>,
+    title: t('cheque_date'),
     width: 140,
     dataIndex: 'DCheqDate',
     sortDirections: ['ascend', 'descend'],
     render: (_, { DCheqDate }) => formateDate(DCheqDate),
   },
   {
-    title: <>{t('cheque_no')}</>,
+    title: t('cheque_no'),
     width: 100,
     dataIndex: 'CheqNoDetail',
   },
   {
-    title: <>{t('payee_title')}</>,
-    width: 150,
+    title: t('payee_title'),
+    width: 210,
     dataIndex: 'PayeeTitle',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.PayeeTitle.localeCompare(b.PayeeTitle),
   },
   {
-    title: <>{t('remarks')}</>,
-    width: 220,
+    title: t('remarks'),
+    width: 200,
     dataIndex: 'Comments',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.Comments.localeCompare(b.Comments),
   },
   {
-    title: <>{t('action')}</>,
+    title: t('action'),
     width: 120,
     render: (_, record) => (
       <Tooltip title="Delete">

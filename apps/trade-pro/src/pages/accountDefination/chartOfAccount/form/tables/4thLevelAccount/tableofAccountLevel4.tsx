@@ -8,11 +8,6 @@ import { TChartAccountAllLevelData } from '../../../types';
 import { selectedRowsAtom, selectedChildRowsAtom } from '../../Atom';
 import { useTranslation } from 'react-i18next';
 
-interface SelectedValues {
-  accountLevel: number;
-  accountTitle: string;
-}
-
 function TableofAccountLevel4() {
   const {
     refetch,

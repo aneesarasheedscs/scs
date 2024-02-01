@@ -18,7 +18,8 @@ function CompanyBranchDetails() {
   const [form] = useForm<TCompanyBranchDetail>();
   const formValues = useWatch<TCompanyBranchDetail>([], form);
   const [companyList, setcompanyList] = useState<Company[]>([]);
-  const [financialYearObj, setFinancialYearObj] = useState();
+  const [financialYearObj, setFinancialYearObj] = useState<any>();
+  console.log(financialYearObj);
   const [headOffice, setheadOffice] = useState<boolean | undefined>();
   const [financialYearObjec, setFinancialYearObjec] = useAtom(financialYearObject);
   console.log(financialYearObjec);
@@ -80,8 +81,17 @@ function CompanyBranchDetails() {
         BranchesId: formValues?.BranchId,
         IsHeadOffice: headOffice,
       });
+      const financialYearObject = financialYearObj.reduce((acc: any, cur: any) => {
+        acc = cur;
+        return acc;
+      }, {});
+      const financialYearString = JSON.stringify(financialYearObject);
       localStorage.setItem('loggedInUserDetail', JSON.stringify(mergeObject));
-      localStorage.setItem('financialYear', JSON.stringify(financialYearObj));
+      localStorage.setItem('financialYear', financialYearString);
+      // const financialYearString = JSON.stringify(financialYearObj);
+      // console.log(financialYearString);
+      // localStorage.setItem('loggedInUserDetail', JSON.stringify(mergeObject));
+      // localStorage.setItem('financialYear', financialYearString);
       navigate(route.APP_MENU);
     }
   };

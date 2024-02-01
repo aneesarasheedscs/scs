@@ -10,7 +10,7 @@ export const columns = (t?: any, onUpdateAccountTitle?: any): AntColumnType<TCha
     dataIndex: 'Id',
     searchableInput: true,
 
-    width: 80,
+    width: 100,
     showCount: true,
   },
 

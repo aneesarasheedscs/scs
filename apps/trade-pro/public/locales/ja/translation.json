@@ -17,5 +17,12 @@
   "sales_by_payment_term": "支払い期間別の売上",
   "sales_by_parent_category": "親カテゴリー別の売上高",
   "sales_by_days": "日別売上高",
-  "sales_by_dates": "販売日別"
+  "sales_by_dates": "販売日別",
+  "bank_payment_voucher": "銀行支払い伝票",
+  "wht_against_ac": "口座に対するWHT",
+  "wht": "ホワイト",
+  "payment_type": "払いの種類",
+  "tax_percentage": "税率",
+  "cash_payment_voucher": "現金支払い伝票",
+  "cost_center": "コストセンター"
 }

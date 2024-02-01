@@ -52,7 +52,8 @@ function FilteredReports({ data, isSuccess, isLoading }: any) {
   const salesReports = list.filter((item) => item.ModuleDescription === 'Sales Reports');
   const InventoryReports = list.filter((item) => item.ModuleDescription === 'Inventory Reports');
   const StockReports = list.filter((item) => item.ModuleDescription === 'Stock Reports');
-
+  const Dashboard = list.filter((item) => item.ModuleDescription === 'DashBoards');
+  console.log(list);
   const handleAddtoFavoritScreens = (
     screenTitle?: string,
     ScreenID?: number,
@@ -391,6 +392,76 @@ function FilteredReports({ data, isSuccess, isLoading }: any) {
 
                         {map(
                           InventoryReports,
+                          ({ ModuleDescription, children }: TSideMenu & { children: TSideMenu[] }, index: number) => (
+                            <>
+                              {map(
+                                children,
+                                (
+                                  { ScreenAlias, ScreenDescription, ScreenID, ModuleTypeId, TargetUrl, RouteUrl },
+                                  i
+                                ) => {
+                                  const path = ScreenAlias?.toLowerCase()?.replace(/ /g, '-');
+                                  return (
+                                    <Card
+                                      hoverable
+                                      bordered={false}
+                                      className="filtered_cards"
+                                      style={{
+                                        borderBottom: '1px solid lightgray',
+                                        borderRadius: '0px',
+                                        marginBottom: '0%',
+                                        height: '4rem',
+                                      }}
+                                      cover={
+                                        <>
+                                          <h4
+                                            style={{
+                                              color: `${colorPrimary}`,
+                                              display: 'flex',
+                                              justifyContent: 'space-between',
+                                              marginTop: '0.5%',
+                                            }}
+                                          >
+                                            <span onClick={() => navigate(`/${path}`)}> {ScreenAlias}</span>
+                                            <StarOutlined
+                                              onClick={() =>
+                                                handleAddtoFavoritScreens(
+                                                  ScreenAlias,
+                                                  ScreenID,
+                                                  ModuleTypeId,
+                                                  TargetUrl,
+                                                  ScreenDescription,
+                                                  RouteUrl
+                                                )
+                                              }
+                                              style={{ color: 'gray', fontSize: '18px' }}
+                                            />
+                                          </h4>
+
+                                          <p style={{ color: 'gray' }}>{ScreenDescription} </p>
+                                        </>
+                                      }
+                                    ></Card>
+                                  );
+                                }
+                              )}
+                            </>
+                          )
+                        )}
+                      </>
+                    }
+                  ></Card>
+                </Col>
+                <Col xxl={12} xl={12} lg={12} md={12} sm={12} xs={24}>
+                  <Card
+                    className="filtered_reports"
+                    cover={
+                      <>
+                        <h3> {Dashboard?.[0]?.ModuleDescription}</h3>
+                        <Divider style={{ marginTop: '1%', marginBottom: '0%' }} />
+
+                        {map(
+                          Dashboard,
                           ({ ModuleDescription, children }: TSideMenu & { children: TSideMenu[] }, index: number) => (
                             <>
                               {map(
