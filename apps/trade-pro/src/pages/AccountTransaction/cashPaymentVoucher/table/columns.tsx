@@ -1,12 +1,13 @@
-import { EditFilled, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
-import { AntColumnType } from '@tradePro/globalTypes';
-import { AntButton } from '@tradePro/components';
+import dayjs from 'dayjs';
 import { Space, Tooltip } from 'antd';
+import { DataType } from '../form/types';
+import { AntButton } from '@tradePro/components';
+import { TCashPaymentVoucherTable } from './types';
+import { AntColumnType } from '@tradePro/globalTypes';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import { DataType } from '../form/types';
-import { TCashPaymentVoucherTable } from './types';
-import dayjs from 'dayjs';
+import { EditFilled, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
+
 export const columns = (
   t: any,
   setSelectedRecordId?: any,
@@ -50,13 +51,16 @@ export const columns = (
     sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
   },
   {
+    align: 'right',
     title: t('voucher_amount'),
     width: 200,
     showTotal: true,
     dataIndex: 'VoucherAmount',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.VoucherAmount - b.VoucherAmount,
-    render: (_, { VoucherAmount }) => numberFormatter(VoucherAmount),
+    render: (_, { VoucherAmount }) => (
+      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(VoucherAmount)}</span>
+    ),
   },
   {
     title: t('remarks'),
@@ -88,29 +92,28 @@ export const columns = (
     },
     width: 160,
   },
-  {
-    title: t('status'),
-    dataIndex: 'IsApproved',
-    render: (IsApproved) => (
-      <Space
-        style={{
-          backgroundColor: IsApproved ? '#00A148' : '#f37daa',
-          color: 'white',
-          borderRadius: '5px',
-          width: '95%',
-          paddingLeft: 8,
-          border: '1px ridge white',
-          boxShadow: ' rgba(0, 0, 0, 0.35) 0px 5px 15px',
-          position: 'absolute',
-          top: 8,
-          left: 0,
-        }}
-      >
-        {IsApproved ? 'Approved' : 'Not Approved'}
-      </Space>
-    ),
-    width: 130,
-  },
+  // {
+  //   title: t('status'),
+  //   dataIndex: 'IsApproved',
+  //   render: (IsApproved) => (
+  //     <Space
+  //       style={{
+  //         color: IsApproved === 'True' ? '#5A54F9' : 'red',
+  //         fontWeight: 'bold',
+  //         width: '80%',
+  //         position: 'absolute',
+  //         top: 10,
+  //         right: 5,
+  //         textAlign: 'center',
+  //         fontSize: 16,
+  //         paddingLeft: 8,
+  //       }}
+  //     >
+  //       {IsApproved === 'True' ? 'Active' : 'In-active'}
+  //     </Space>
+  //   ),
+  //   width: 130,
+  // },
   {
     title: t('attachments'),
     width: 180,
@@ -153,13 +156,14 @@ export const column2 = (t: any, handleDeleteRow: any, handleEditRow: any): AntCo
     title: t('payment_type'),
     width: 200,
     searchableInput: true,
+    showCount: true,
     dataIndex: 'PaymentType',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.PaymentType.localeCompare(b.PaymentType),
   },
   {
     title: t('debit_account'),
-    width: 300,
+    width: 350,
     searchableInput: true,
     dataIndex: 'AccountTitle',
     sortDirections: ['ascend', 'descend'],
@@ -167,19 +171,23 @@ export const column2 = (t: any, handleDeleteRow: any, handleEditRow: any): AntCo
   },
   {
     title: t('job_lot'),
-    width: 200,
+    width: 250,
     dataIndex: 'JobLotDescription',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.JobLotDescription.localeCompare(b.JobLotDescription),
   },
   {
+    align: 'right',
     title: t('debit_amount'),
     width: 200,
     dataIndex: 'DebitAmount',
     showTotal: true,
     sortDirections: ['ascend', 'descend'],
-    render: (_, { DebitAmount }) => <span>{numberFormatter(DebitAmount)}</span>,
+    sorter: (a, b) => a.DebitAmount - b.DebitAmount,
+    render: (_, { DebitAmount }) => (
+      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(DebitAmount)}</span>
+    ),
   },
   {
     title: t('remarks'),

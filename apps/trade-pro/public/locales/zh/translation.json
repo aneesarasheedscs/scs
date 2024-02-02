@@ -509,5 +509,6 @@
   "payment_type": "付款方式",
   "tax_percentage": "税率",
   "cash_payment_voucher": "现金支付券",
-  "cost_center": "成本中心"
+  "cost_center": "成本中心",
+  "cash_receipt_voucher": "现金收据券"
 }

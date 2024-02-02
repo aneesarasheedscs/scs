@@ -12,6 +12,7 @@ import { SaveOutlined, SyncOutlined, RedoOutlined, PaperClipOutlined, PrinterFil
 
 function Buttons({
   form,
+  setBankId,
   isSuccess,
   saveData,
   addBankPayment,
@@ -25,7 +26,7 @@ function Buttons({
   const [tableData, setTableData] = useAtom(addtableData);
 
   const { data, isError, refetch, isLoading, isSuccess: successVoucherNo } = useGetVoucherNo(DocumentTypeId);
-  const [isWithHoldingChecked, setIsWithHoldingChecked] = useAtom(isWithHoldingCheckedAtom);
+  // const [isWithHoldingChecked, setIsWithHoldingChecked] = useAtom(isWithHoldingCheckedAtom);
 
   console.log(tableData);
   const handleButtonClick = () => {
@@ -36,10 +37,13 @@ function Buttons({
     setSelectedRecordId(null);
     setTableData([]);
     refetch();
-    setIsWithHoldingChecked(false);
+    setBankId(null);
     form.setFieldValue('VoucherNo', data?.data?.Data?.Result);
+    form.setFieldValue('RefAccountId', null);
     form.setFieldValue('VoucherDate', dayjs(new Date()));
     form.setFieldValue('Remarks', null);
+    form.setFieldValue('IncludeWHT', false);
+    form.setFieldValue('Balance', null);
   };
   useEffect(() => {
     if (successVoucherNo)
@@ -136,6 +140,7 @@ function Buttons({
 }
 type TAddUpdateRecord = {
   form: FormInstance;
+  setBankId: any;
   isSuccess: any;
   saveData: any;
   addBankPayment: any;

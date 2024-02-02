@@ -509,5 +509,6 @@
   "payment_type": "Type de paiement",
   "tax_percentage": "Pourcentage d'impôt",
   "cash_payment_voucher": "Bon de paiement en espèces",
-  "cost_center": "Centre de coûts"
+  "cost_center": "Centre de coûts",
+  "cash_receipt_voucher": "Bon de reçu de caisse"
 }

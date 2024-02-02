@@ -53,6 +53,7 @@ export type TCashPaymentDetailEntry = {
   AccountTitle: string;
   JobLotDescription: string;
   AgainstAccountId: number;
+  Balance: number;
   CreditAmount: number;
   DebitAmount: number;
   Comments: string;

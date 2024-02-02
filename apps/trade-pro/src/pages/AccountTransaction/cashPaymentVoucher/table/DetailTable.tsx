@@ -1,10 +1,10 @@
 import { AntTable } from '@tradePro/components';
-import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { Card, Col, Row, theme } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useAtom } from 'jotai';
 import { viewDetailList } from '../form/Atom';
 import { detailColumns } from './DetailColumn';
+import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 
 function CashPaymentDetailTable() {
   const { t } = useTranslation();

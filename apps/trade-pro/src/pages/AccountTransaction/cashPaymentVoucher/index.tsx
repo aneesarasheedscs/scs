@@ -1,12 +1,12 @@
+import './style.scss';
+import { useAtom } from 'jotai';
+import { useEffect, useState } from 'react';
+import CashPaymentVoucherForm from './form';
+import { viewDetailList } from './form/Atom';
 import { Card, Col, Row, Tabs, theme } from 'antd';
 import { useTranslation } from 'react-i18next';
-import './style.scss';
-import { useEffect, useState } from 'react';
 import CashPaymentTable from './table/cashPaymentVoucher';
-import CashPaymentVoucherForm from './form';
-import { useAtom } from 'jotai';
 import { useGetCashPaymentVoucherById } from './queries/querySave';
-import { viewDetailList } from './form/Atom';
 
 function CashPaymentVoucher() {
   const { t } = useTranslation();

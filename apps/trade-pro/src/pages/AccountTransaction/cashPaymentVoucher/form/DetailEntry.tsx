@@ -1,7 +1,6 @@
-import { AntButton, AntInput, AntInputNumber, AntSelectDynamic, AntTable } from '@tradePro/components';
-import { Card, Col, Row, Form, FormInstance, theme, notification } from 'antd';
-import { add, map, sumBy } from 'lodash';
-import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
+import dayjs from 'dayjs';
+import { map } from 'lodash';
+import { useAtom } from 'jotai';
 import {
   useGetAccountsBalance,
   useGetCashPaymentJobLotSelect,
@@ -10,19 +9,15 @@ import {
   useGetDebitAccountSelect,
   useGetWHTAgainstAcSelect,
 } from '../queries/queries';
+import { addtableData } from './Atom';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
-import { TCashPaymentDetailEntry, TTaxType, TjobLot } from './types';
 import { column2 } from '../table/columns';
-import { useAtom } from 'jotai';
-import {
-  addtableData,
-  isWithHoldingCheckedAtom,
-  selectedAgainstAccountAtom,
-  selectedCreditAccountAtom,
-  totalValue,
-} from './Atom';
-import dayjs from 'dayjs';
+import { TCashPaymentDetailEntry, TTaxType, TjobLot } from './types';
+import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
+import { numberFormatter } from '@tradePro/utils/numberFormatter';
+import { Card, Col, Row, Form, FormInstance, theme, notification } from 'antd';
+import { AntButton, AntInput, AntInputNumber, AntSelectDynamic, AntTable } from '@tradePro/components';
 
 const { useWatch } = Form;
 
@@ -32,17 +27,16 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
   const { t } = useTranslation();
   const [tableData, setTableData] = useAtom(addtableData);
 
-  const [totalDebitAmounts, setTotalDebitAmounts] = useAtom(totalValue);
-  const [selectedCreditAccount, setSelectedCreditAccount] = useAtom(selectedCreditAccountAtom);
-  const [againstAccountAtom, setAgainstAccountAtom] = useAtom(selectedAgainstAccountAtom);
-  const [isWithHoldingChecked, setIsWithHoldingChecked] = useAtom(isWithHoldingCheckedAtom);
+  // const [totalDebitAmounts, setTotalDebitAmounts] = useAtom(totalValue);
+  // const [selectedCreditAccount, setSelectedCreditAccount] = useAtom(selectedCreditAccountAtom);
+  // const [againstAccountAtom, setAgainstAccountAtom] = useAtom(selectedAgainstAccountAtom);
+  // const [isWithHoldingChecked, setIsWithHoldingChecked] = useAtom(isWithHoldingCheckedAtom);
 
-  // const { data: configData } = useGetConfigration('CheqBook Enabled');
   const { data: configData } = useGetConfigration('ExpenseAccountAllowOnPaymentVoucher');
   const isExpenseAccountAllowed = configData?.data?.Data?.Result === 'True';
 
   const [refAccountId, setRefAccountId] = useState(0);
-  const { data } = useGetAccountsBalance(refAccountId);
+  const { data, isSuccess, isLoading } = useGetAccountsBalance(refAccountId);
   const { data: debit } = useGetDebitAccountSelect();
 
   const allowedAccountTypes = isExpenseAccountAllowed ? [2, 15] : [2, 11, 12, 13, 14, 15, 20, 21];
@@ -78,12 +72,9 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
     JobLotId: null,
     JobLotDescription: null,
     DebitAmount: null,
-    InvoiceNoRefId: null,
-    CheqNoDetail: null,
-    // CheqId: null,
-    PayeeTitle: null,
     Comments: null,
     CreditAmount: 0,
+    Balance: 0,
     TaxesTotalAmount: 0,
   };
 
@@ -130,15 +121,23 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
   // For Debit Account
   const handleCreditAccountChange = (accountId: number) => {
     setRefAccountId(accountId);
-    const balance2 = data?.data?.Data?.Result?.[0]?.Balance.toFixed(2);
-    form.setFieldValue(['voucherDetailList', 0, 'Balance'], balance2);
+    const balance2 = numberFormatter(data?.data?.Data?.Result?.[0]?.Balance);
+
+    if (data && isSuccess && !isLoading) {
+      form.setFieldValue(['voucherDetailList', 0, 'Balance'], balance2);
+    }
     const selectedAccount = filteredDebitAccounts.find((item: any) => item.Id === accountId);
     if (selectedAccount) {
       const accountTitle = selectedAccount.AccountTitle;
       form.setFieldValue(['voucherDetailList', 0, 'AccountTitle'], accountTitle);
     }
   };
-
+  useEffect(() => {
+    const balance2 = numberFormatter(data?.data?.Data?.Result?.[0]?.Balance);
+    if (data && isSuccess && !isLoading) {
+      form.setFieldValue(['voucherDetailList', 0, 'Balance'], balance2);
+    }
+  }, [data, isSuccess, !isLoading]);
   const handleAddToTable = () => {
     if (formValues[0].AccountId == null || formValues[0].AccountId == undefined) {
       const message = 'Please fill  Debit Account';
@@ -150,22 +149,6 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
       notification.error({ message: message });
       return;
     }
-    // const newData = {
-    //   PaymentType: formValues.PaymentType,
-    //   AccountId: formValues.AccountId,
-    //   AccountTitle: formValues.AccountTitle,
-    //   JobLotDescription: formValues.JobLotDescription,
-    //   JobLotId: formValues.JobLotId,
-    //   DebitAmount: formValues.DebitAmount,
-    //   // CreditAmount: item.DebitAmount,
-    //   CreditAmount: 0,
-    //   InvoiceNoRefId: formValues.InvoiceNoRefId,
-    //   CheqNoDetail: formValues.CheqNoDetail,
-    //   // CheqId: item.CheqId,
-    //   PayeeTitle: formValues.PayeeTitle,
-    //   Comments: formValues.Comments,
-    //   IsTaxable: 'false',
-    // };
 
     const newData = formValues[0];
     console.log(newData);
@@ -178,12 +161,10 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
 
     form.setFieldValue(['voucherDetailList', 0, 'AccountId'], null);
     form.setFieldValue(['voucherDetailList', 0, 'AccountTitle'], null);
-    // form.setFieldValue(['voucherDetailList', 0, 'JobLotId'], null);
-    // form.setFieldValue(['voucherDetailList', 0, 'JobLotDescription'], null);
+    form.setFieldValue(['voucherDetailList', 0, 'JobLotId'], null);
+    form.setFieldValue(['voucherDetailList', 0, 'JobLotDescription'], null);
     form.setFieldValue(['voucherDetailList', 0, 'DebitAmount'], null);
     form.setFieldValue(['voucherDetailList', 0, 'Comments'], null);
-    // form.setFieldValue(['voucherDetailList', 0, 'CheqNoDetail'], null);
-    // form.setFieldValue(['voucherDetailList', 0, 'PayeeTitle'], null);
     setIsEditMode(false);
   };
 
@@ -218,41 +199,19 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
     setTableData((prevData: any[]) => {
       return prevData.map((item, index) => {
         if (index === rowIndex) {
-          // Update the item at rowIndex
           return newData;
         } else {
-          // Keep other items unchanged
           return item;
         }
       });
     });
 
-    // setCounter((prevCounter: any) => prevCounter - 1);
-
-    // setTableData((prevData: any[]) => {
-    //   const updatedData = newData.map((item, index) => {
-    //     if (rowIndex >= 0) {
-    //       return {
-    //         ...item,
-    //         // ChequeNo: counter,
-    //         // AgainstAccountId: againstAccountId,
-    //       };
-    //     }
-    //     return item;
-    //   });
-
-    //   const combinedData = [...prevData.filter((row) => row.CheqId !== edit.CheqId), ...updatedData];
-    //   console.log('New tableData:', combinedData);
-    //   return combinedData;
-    // })
     form.setFieldValue(['voucherDetailList', 0, 'AccountId'], null);
     form.setFieldValue(['voucherDetailList', 0, 'AccountTitle'], null);
     form.setFieldValue(['voucherDetailList', 0, 'JobLotId'], null);
     form.setFieldValue(['voucherDetailList', 0, 'JobLotDescription'], null);
     form.setFieldValue(['voucherDetailList', 0, 'DebitAmount'], null);
     form.setFieldValue(['voucherDetailList', 0, 'Comments'], null);
-    // form.setFieldValue(['voucherDetailList', 0, 'CheqNoDetail'], null);
-    // form.setFieldValue(['voucherDetailList', 0, 'PayeeTitle'], null);
     setIsEditMode(false);
   };
   const handleResetForm = () => {
@@ -275,28 +234,9 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
   const handleEditRow = (record: any, index: number) => {
     console.log('Row Index: ', index);
     setrowIndex(index);
-    // setEdit(record);
+
     form.setFieldValue(['voucherDetailList', 0], record); // Update form values
     setIsEditMode(true);
-
-    // setTableData((prevData: any[]) => {
-    //   const updatedData = [...prevData]; // Create a copy of the array
-
-    //   // const rowIndex = updatedData.findIndex((item: any) => item.CheqId === record.CheqId);
-    //   const rowIndex = index;
-    //   if (rowIndex !== -1) {
-    //     updatedData[rowIndex] = {
-    //       ...updatedData[rowIndex],
-    //       PaymentTypeId: record.PaymentType,
-    //       AccountId: record.AccountTitle,
-    //       JobLotId: record.JobLotDescription,
-    //       DebitAmount: record.DebitAmount,
-    //       Comments: record.Comments,
-    //     };
-    //   }
-    //   console.log('New tableData:', updatedData);
-    //   return updatedData;
-    // });
   };
 
   const handleSelectjobLotChange = (obj: TjobLot, index: number) => {
@@ -314,13 +254,6 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
   const handleAgainstAccountChange = (accountId?: any) => {
     form.setFieldValue('AgainstAccountId', accountId);
   };
-  // const list = tableData.map((item: any) => item);
-  // const DebitAmount = tableData.map((item: any) => item.DebitAmount);
-  // const totalDebitAmount = sumBy(DebitAmount);
-  // useEffect(() => {
-  //   setTotalDebitAmounts(totalDebitAmount);
-  //   setVoucherDetailList(list);
-  // }, [tableData]);
 
   const handleTaxChange = (obj: TTaxType, index: number) => {
     // form.setFields([{ name: ['voucherDetailList', index, 'TaxPrcnt'], value: obj?.Id }]);
@@ -373,7 +306,7 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
                         style={{ marginTop: '-2.5rem', borderBottom: '1px solid gray', padding: '0px', height: '60px' }}
                       >
                         <p style={{ marginTop: 0, marginLeft: '60%' }} className="dr">
-                          Dr : <b> {data?.data?.Data?.Result?.[0]?.Balance.toFixed(2)}</b>
+                          Dr : <b> {numberFormatter(data?.data?.Data?.Result?.[0]?.Balance)}</b>
                         </p>
                         {/* <p style={{ marginTop: -10 }}>
                           {t('debit_account_balance')} : <b> {data?.data?.Data?.Result?.[0]?.Balance.toFixed(2)}</b>
@@ -492,23 +425,6 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
                           </Col>
                         </Row>
                       </Col>
-                      {/* <Col span={10}> */}
-                      {/* <Col
-                        xs={{ span: 7, offset: 10 }}
-                        sm={{ span: 5, offset: 10 }}
-                        md={{ span: 4, offset: 10 }}
-                        lg={{ span: 4, offset: 10 }}
-                        xl={{ span: 3, offset: 1 }}
-                        xxl={{ span: 2, offset: 1 }}
-                        className="add"
-                      >
-                        <AntButton
-                          onClick={isEditMode ? handleUpdateToTable : handleAddToTable}
-                          label={isEditMode ? `${t('update')}` : `${t('add')}`}
-                          style={{ marginLeft: -10 }}
-                        ></AntButton>
-                      </Col> */}
-                      {/* </Col> */}
 
                       <Row gutter={[16, 16]} style={{ marginTop: '1%' }}>
                         <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }}>

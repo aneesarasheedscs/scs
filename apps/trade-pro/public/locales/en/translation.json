@@ -681,5 +681,6 @@
   "wht_account": "WHT Account",
   "tax_amount": "Tax Amount",
   "cash_payment_voucher": "Cash Payment Voucher",
-  "cost_center": "Cost Center"
+  "cost_center": "Cost Center",
+  "cash_receipt_voucher": "Cash Receipt Voucher"
 }

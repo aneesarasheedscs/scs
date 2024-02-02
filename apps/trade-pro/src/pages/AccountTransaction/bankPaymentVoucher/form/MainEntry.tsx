@@ -1,35 +1,40 @@
-import {
-  useGetAccountsBalance,
-  useGetCreditAccountSelect,
-  useGetTaxSchedule,
-  useGetWHTAgainstAcSelect,
-} from '../queries/queries';
 import { map } from 'lodash';
 import { useEffect } from 'react';
 import { useAtom } from 'jotai';
 import { useTranslation } from 'react-i18next';
 import { AntInput, AntSelectDynamic } from '@tradePro/components';
 import { Card, Checkbox, Col, Row, Form, FormInstance } from 'antd';
-import { isWithHoldingCheckedAtom, selectedCreditAccountAtom, totalValue, selectedAgainstAccountAtom } from './Atom';
+import { isWithHoldingCheckedAtom, selectedCreditAccountAtom, selectedAgainstAccountAtom } from './Atom';
+import { useGetAccountsBalance, useGetCreditAccountSelect, useGetWHTAgainstAcSelect } from '../queries/queries';
 
-function MainEntry({ form, setBankId, bankId, isAddButtonClicked }: TDynamicForm) {
+function MainEntry({
+  form,
+  setBankId,
+  bankId,
+  setSharedStateIncludeWHT,
+  SharedStateIncludeWHT,
+  ScheduleData,
+  isAddButtonClicked,
+}: TDynamicForm) {
   const { t } = useTranslation();
-  const { data: getTaxSchedule } = useGetTaxSchedule();
-  const [totalDebitAmounts, setTotalDebitAmounts] = useAtom(totalValue);
   const { data: credit } = useGetCreditAccountSelect();
   const { data } = useGetAccountsBalance(bankId);
   const [selectedCreditAccount, setSelectedCreditAccount] = useAtom(selectedCreditAccountAtom);
   const [againstAccountAtom, setAgainstAccountAtom] = useAtom(selectedAgainstAccountAtom);
-  const [isWithHoldingChecked, setIsWithHoldingChecked] = useAtom(isWithHoldingCheckedAtom);
   const { data: filter } = useGetWHTAgainstAcSelect();
 
   useEffect(() => {
-    form.setFieldValue('VoucherAmount', totalDebitAmounts);
     if (data?.data?.Data?.Result?.[0]?.Balance !== undefined) {
       form.setFieldsValue({ Balance: data?.data?.Data?.Result?.[0]?.Balance.toFixed(2) });
     }
-  }, [credit, bankId, totalDebitAmounts, data?.data?.Data?.Result]);
-
+  }, [credit, bankId, data?.data?.Data?.Result]);
+  useEffect(() => {
+    if (SharedStateIncludeWHT && ScheduleData) {
+      form.setFieldValue('AgainstAccountId', ScheduleData?.TaxGLAccountId);
+    } else {
+      form.setFieldValue('AgainstAccountId', ScheduleData?.TaxGLAccountId);
+    }
+  }, [form, SharedStateIncludeWHT, ScheduleData]);
   const handleCreditAccountChange = (accountId?: any, index?: any) => {
     setSelectedCreditAccount(accountId);
     setBankId(accountId);
@@ -39,20 +44,12 @@ function MainEntry({ form, setBankId, bankId, isAddButtonClicked }: TDynamicForm
   };
 
   const handleCheckboxChangeforWHT = (isChecked: boolean, fieldName: string) => {
-    setIsWithHoldingChecked(isChecked);
+    setSharedStateIncludeWHT(isChecked);
     form.setFieldsValue({
       [fieldName]: isChecked,
     });
-    if (isChecked) {
-      form.setFieldValue(['voucherDetailList', 0, 'TaxPrcnt'], getTaxSchedule?.data?.Data?.Result?.[0]?.TaxPercent);
-      form.setFieldValue(['voucherDetailList', 0, 'AgainstAccountId'], 21321);
-      form.setFieldValue('AgainstAccountId', 21321);
-    } else if (!isChecked) {
-      form.setFieldValue(['voucherDetailList', 0, 'TaxPrcnt'], 0);
-      form.setFieldValue('AgainstAccountId', 21321);
-      form.setFieldValue(['voucherDetailList', 0, 'AgainstAccountId'], null);
-    }
   };
+
   interface TVoucherType {
     Id: number;
     Type: string;
@@ -125,12 +122,13 @@ function MainEntry({ form, setBankId, bankId, isAddButtonClicked }: TDynamicForm
                 className="formfield against"
               >
                 <AntSelectDynamic
+                  required={form.getFieldValue('IncludeWHT') ? true : false}
                   bordered={false}
                   label={t('wht_against_ac')}
                   fieldValue="Id"
                   fieldLabel="AccountTitle"
                   name="AgainstAccountId"
-                  disabled={!isWithHoldingChecked}
+                  disabled={!form.getFieldValue('IncludeWHT')}
                   options={map(filter, (item: any) => ({
                     value: item.Id,
                     label: item.AccountTitle,
@@ -178,6 +176,9 @@ type TDynamicForm = {
   form: FormInstance;
   setBankId: any;
   bankId: any;
+  setSharedStateIncludeWHT: any;
+  SharedStateIncludeWHT: any;
+  ScheduleData: any;
   isAddButtonClicked: any;
 };
 

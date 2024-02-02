@@ -1,12 +1,13 @@
-import { EditFilled, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
-import { AntColumnType } from '@tradePro/globalTypes';
-import { AntButton } from '@tradePro/components';
+import dayjs from 'dayjs';
 import { Space, Tooltip } from 'antd';
+import { DataType } from '../form/types';
+import { AntButton } from '@tradePro/components';
+import { TCashReceiptVoucherTable } from './types';
+import { AntColumnType } from '@tradePro/globalTypes';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import { DataType } from '../form/types';
-import { TCashReceiptVoucherTable } from './types';
-import dayjs from 'dayjs';
+import { EditFilled, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
+
 export const columns = (
   t: any,
   setSelectedRecordId?: any,
@@ -49,6 +50,7 @@ export const columns = (
     sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
   },
   {
+    align: 'right',
     title: <>{t('voucher_amount')}</>,
     width: 200,
     showTotal: true,

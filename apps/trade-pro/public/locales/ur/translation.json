@@ -681,5 +681,6 @@
   "payment_type": "ادائیگی کی قسم",
   "tax_percentage": "ٹیکس فیصد",
   "cash_payment_voucher": "نقد ادائیگی واؤچر",
-  "cost_center": "لاگت مرکز"
+  "cost_center": "لاگت مرکز",
+  "cash_receipt_voucher": "کیش رسید واؤچر"
 }

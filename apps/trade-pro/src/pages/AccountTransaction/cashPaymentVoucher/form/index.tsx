@@ -1,19 +1,16 @@
-import { useEffect, useState } from 'react';
-import { AntButton, AntDatePicker } from '@tradePro/components';
-import { Badge, Card, Checkbox, Col, Form, Input, Row, notification } from 'antd';
 import '../style.scss';
-import { SaveOutlined, SyncOutlined, PaperClipOutlined, ReloadOutlined } from '@ant-design/icons';
-import { useTranslation } from 'react-i18next';
-import VoucherNo from './VoucherNo';
-import { useGetTaxSchedule, useGetVoucherNo } from '../queries/queries';
 import dayjs from 'dayjs';
 import MainEntry from './MainEntry';
 import DynamicForm from './DetailEntry';
-import { TSaveCashPaymentVoucher } from './types';
-import { useAddCashPaymentVoucher, useUpdateCashPaymentVoucher } from '../queries/querySave';
 import { useAtom } from 'jotai';
-import { addtableData, isWithHoldingCheckedAtom } from './Atom';
+import { addtableData } from './Atom';
 import Buttons from './Buttons';
+import { useEffect, useState } from 'react';
+import { Card, Form, notification } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { TSaveCashPaymentVoucher } from './types';
+import { useGetTaxSchedule, useGetVoucherNo } from '../queries/queries';
+import { useAddCashPaymentVoucher, useUpdateCashPaymentVoucher } from '../queries/querySave';
 
 const { useForm } = Form;
 
@@ -28,14 +25,12 @@ function CashPaymentVoucherForm({
   const { t } = useTranslation();
   const [bankId, setBankId] = useState<number | null>(null);
   const DocumentTypeId = 1;
-
   const [VoucherDate, setVoucherDate] = useState<Date>(new Date());
   const [TaxTypeId, setTaxTypeId] = useState<number | undefined>();
   const [SharedStateIncludeWHT, setSharedStateIncludeWHT] = useState(false);
 
   const [tableData, setTableData] = useAtom(addtableData);
   const [isAddButtonClicked, setIsAddButtonClicked] = useState(true);
-  const { data, isError, refetch, isLoading, isSuccess } = useGetVoucherNo(DocumentTypeId);
   const {
     data: getTaxSchedule,
     isSuccess: TaxSuccess,
@@ -59,15 +54,13 @@ function CashPaymentVoucherForm({
     }
   }, [SharedStateIncludeWHT, VoucherDate, TaxTypeId]);
 
-  useEffect(() => {
-    setTableData([]);
-    if (selectedRecordId) {
-      form.resetFields();
-    } else {
-      if (isSuccess) form.setFieldValue('VoucherCode', data?.data?.Data?.Result[0]?.VoucherCode);
-      form.setFields([{ name: 'VoucherDate', value: dayjs(new Date()) }]);
-    }
-  }, [selectedRecordId]);
+  // useEffect(() => {
+
+  //   if (selectedRecordId) {
+
+  //   } else {
+  //   }
+  // }, [selectedRecordId]);
 
   const handleTaxTypeChange = (TaxId: number) => {
     setTaxTypeId(TaxId);
@@ -90,8 +83,9 @@ function CashPaymentVoucherForm({
         '   ' +
         values.voucherDetailList?.[0]?.TaxPrcnt;
       TaxableEntry.TaxPrcnt = values.voucherDetailList?.[0]?.TaxPrcnt;
-      TaxableEntry.TaxesTotalAmount = values.voucherDetailList?.[0]?.TaxAmount;
-      TaxableEntry.DebitAmount = values.voucherDetailList?.[0]?.TaxAmount;
+      TaxableEntry.TaxesTotalAmount = values.voucherDetailList?.[0]?.TotalAmount;
+      TaxableEntry.CreditAmount = values.voucherDetailList?.[0]?.TaxAmount;
+      TaxableEntry.Amount = values.voucherDetailList?.[0]?.Amount;
 
       values.voucherDetailList = [...tableData, TaxableEntry];
     } else {
@@ -131,33 +125,24 @@ function CashPaymentVoucherForm({
     } else {
       console.log(values);
       addCashPaymentVoucher(values);
-      if (isEntrySuccessful == true && entryData?.data?.Status == true) {
+      if (isEntrySuccessful === true && entryData?.data?.Status === true) {
       }
     }
-    handleReset();
-  };
-
-  const handleReset = () => {
-    setSelectedRecordId(null);
-    setTableData([]);
-    refetch();
-    setBankId(0);
-  };
-
-  const handleCheckboxChange = (isChecked: boolean, fieldName: string) => {
-    form.setFieldsValue({
-      [fieldName]: isChecked,
-    });
   };
 
   useEffect(() => {
     if (isDataSuccess) {
       form.setFieldValue('VoucherCode', addCashPayment?.data?.Data?.Result?.VoucherCode);
       form.setFieldValue('VoucherDate', dayjs(addCashPayment?.data?.Data?.Result?.VoucherDate));
+      form.setFieldValue(
+        'Type',
+        addCashPayment?.data?.Data?.Result?.Type === 0 ? 1 : addCashPayment?.data?.Data?.Result?.Type
+      );
       form.setFieldValue('RefAccountId', addCashPayment?.data?.Data?.Result?.RefAccountId);
       form.setFieldValue('Remarks', addCashPayment?.data?.Data?.Result?.Remarks);
       form.setFieldValue('JobLotId', addCashPayment?.data?.Data?.Result?.JobLotDescription);
-
+      form.setFieldValue('IncludeWHT', addCashPayment?.data?.Data?.Result?.IncludeWHT);
+      setSharedStateIncludeWHT(addCashPayment?.data?.Data?.Result?.IncludeWHT);
       form.setFieldValue(
         ['voucherDetailList', 0, 'DCheqDate'],
         dayjs(addCashPayment?.data?.Data?.Result?.voucherDetailList?.DCheqDate)
@@ -168,109 +153,39 @@ function CashPaymentVoucherForm({
       setTableData(DetailList);
     }
   }, [isDataSuccess]);
-
+  //Short keys
+  const handleKeyDown = (event: any) => {
+    if ((event.ctrlKey || event.metaKey) && event.key === 's') {
+      event.preventDefault();
+      onFinish(form.getFieldsValue());
+    }
+    if (event.altKey && event.key === 'p') {
+      event.preventDefault();
+      setPrintPreview((prevPrintPreview) => !prevPrintPreview);
+    }
+  };
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [form]);
   return (
     <Card className="main_card">
       <Form initialValues={{ remember: true }} form={form} layout="horizontal" onFinish={onFinish}>
         <Buttons
           form={form}
-          isSuccess={isSuccess}
           entryData={entryData}
+          isEntrySuccessful={isEntrySuccessful}
           addCashPayment={addCashPayment}
           DocumentTypeId={DocumentTypeId}
           selectedRecordId={selectedRecordId}
           setSelectedRecordId={setSelectedRecordId}
           setPrintPreview={setPrintPreview}
           printPreview={printPreview}
+          setBankId={setBankId}
+          setSharedStateIncludeWHT={setSharedStateIncludeWHT}
         />
-        {/* <div style={{ marginTop: '-0.5%' }}>
-          <Row align="middle" justify="space-between">
-            <Col span={24}>
-              <Row gutter={10} align="middle">
-                <Col style={{ fontSize: 18, fontWeight: 'bold', marginLeft: '0.5%' }} className="formfield1 voucherNo">
-                  {t('voucher_no')}:
-                </Col>
-                <Col className="formfield1 voucherNo">
-                  <VoucherNo
-                    isError={isError}
-                    refetch={refetch}
-                    isLoading={isLoading}
-                    data={
-                      selectedRecordId
-                        ? addCashPayment?.data?.Data?.Result?.VoucherCode
-                        : data?.data?.Data?.Result?.[0]?.VoucherCode
-                    }
-                  />
-                  <Form.Item name="VoucherCode" style={{ display: 'none' }}>
-                    <Input />
-                  </Form.Item>
-                </Col>
-                <Col
-                  xs={{ span: 11, offset: 1 }}
-                  sm={{ span: 11, offset: 1 }}
-                  md={{ span: 11, offset: 1 }}
-                  lg={{ span: 11, offset: 1 }}
-                  xl={{ span: 6, offset: 1 }}
-                  xxl={{ span: 4, offset: 1 }}
-                  className="formfield voucherDate"
-                >
-                  <AntDatePicker
-                    bordered={false}
-                    name="VoucherDate"
-                    label={t('voucher_date')}
-                    onChange={() => setVoucherDate(form.getFieldValue('VoucherDate'))}
-                  />
-                </Col>
-              </Row>
-            </Col>
-            <Col style={{ display: 'flex', justifyContent: 'end' }} span={24}>
-              <Form.Item>
-                <Row style={{ marginLeft: '-25%', marginTop: '-10%' }} gutter={10} className="btns">
-                  <Col
-                    xs={{ span: 24, offset: 4 }}
-                    sm={{ span: 5, offset: 4 }}
-                    md={{ span: 6, offset: 4 }}
-                    lg={{ span: 6, offset: 4 }}
-                    xl={{ span: 6, offset: 4 }}
-                    xxl={{ span: 6, offset: 4 }}
-                    className="checkbox"
-                  >
-                    <Form.Item name="IsTaxable" valuePropName="checked" initialValue={true}>
-                      <Checkbox onChange={(e) => handleCheckboxChange(e.target.checked, 'IsTaxable')}>
-                        {t('print_preview')}
-                      </Checkbox>
-                    </Form.Item>
-                  </Col>
-                  <Col className="icon">
-                    <Badge size="small" count={0}>
-                      <AntButton label={t('')} icon={<PaperClipOutlined />} />
-                    </Badge>
-                  </Col>
-                  <Col>
-                    <AntButton
-                      danger
-                      ghost
-                      htmlType="reset"
-                      onClick={() => handleReset()}
-                      label={t('reset')}
-                      icon={<SyncOutlined />}
-                    />
-                  </Col>
-                  <Col>
-                    <AntButton danger ghost label={t('refresh')} icon={<ReloadOutlined />} />
-                  </Col>
-                  <Col>
-                    <AntButton
-                      label={selectedRecordId ? t('update') : t('save')}
-                      htmlType="submit"
-                      icon={<SaveOutlined />}
-                    />
-                  </Col>
-                </Row>
-              </Form.Item>
-            </Col>
-          </Row>
-        </div> */}
 
         <MainEntry
           form={form}

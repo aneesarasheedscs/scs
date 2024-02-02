@@ -1,8 +1,8 @@
+import './style.scss';
+import { useState } from 'react';
 import { Card, Tabs, theme } from 'antd';
 import { useTranslation } from 'react-i18next';
-import './style.scss';
 import BankReceiptVoucherForm from './form';
-import { useState } from 'react';
 import BankReceiptTable from './table/bankReceiptVoucher';
 
 function BankReceiptVoucher() {
