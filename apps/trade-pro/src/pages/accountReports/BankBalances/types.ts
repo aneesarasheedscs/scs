@@ -1,6 +1,6 @@
 export type TCashAndBankBalancesSummary = {
   AccountId: number;
-  AccountCode: string;
+  AccountCode: number;
   AccountTitle: string;
   Opening: number;
   CurrDebit: number;
@@ -14,10 +14,11 @@ export type TCashAndBankBalancesSummary = {
 export type TPaymentReceipt = {
   TranType: string;
   voucherdate: Date;
+  vouchercode:number,
   Id: number;
   DocumentTypeId: number;
   DocumentTypeSrNo: number;
-  DocumentTypeCode: number;
+  DocumentTypeCode: string;
   Vouchercode: number;
   AccountTitle: string;
   OffsetAccountTitle: string;

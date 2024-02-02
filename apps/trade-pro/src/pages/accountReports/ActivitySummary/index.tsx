@@ -66,7 +66,7 @@ const ActivitySummaryReport: React.FC<{
     isError: isActivitySummaryError,
     isLoading: isActivitySummaryLoading,
   } = useGetActivitySummary(
-    false,
+    true,
     CompanyId !== undefined && CompanyId > 0 ? CompanyId : UserDetail?.CompanyId,
     formState
   );

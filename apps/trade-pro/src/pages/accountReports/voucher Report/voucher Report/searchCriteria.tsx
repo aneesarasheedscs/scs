@@ -41,6 +41,8 @@ function SearchCriteriaVoucherReport(dataa: any) {
   const handleClose = () => setOpen(false);
 
   const onFinish = (_: TVoucherReportCriterias) => {
+    console.log(_);
+    // _.SaleInvoiceDocumentTypeIds = _.SelectedDocuments.toString();
     refetch().then(() => handleClose());
   };
   const { data } = useGetCustomGroup();
@@ -49,6 +51,7 @@ function SearchCriteriaVoucherReport(dataa: any) {
 
   useEffect(() => {
     form.setFieldValue('SelectedDocuments', 1);
+    // form.setFieldValue('SaleInvoiceDocumentTypeIds', '1');
   }, [form]);
 
   return (
@@ -129,6 +132,7 @@ function SearchCriteriaVoucherReport(dataa: any) {
             />
           </Col>
         </Row>
+        <AntInput label="" name="" />
       </Form>
     </SearchCriteriaWrapper>
   );

@@ -74,7 +74,7 @@ const PayablesReceivables: React.FC<{
     isLoading: isLoading,
     refetch,
   } = usePostPayablesReceivables(
-    false,
+    true,
     AccountClassId,
     CompanyIdProp !== undefined && CompanyIdProp > 0 ? CompanyIdProp : UserDetail?.CompanyId,
     formState

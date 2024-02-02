@@ -8,9 +8,11 @@ export const CashBalancesSummaryCash = (
   handleAccountCodeClick: any
 ): AntColumnType<TCashAndBankBalancesSummary>[] => [
   {
-    width: 180,
+    width: 220,
     title: t('account_code'),
     dataIndex: 'AccountCode',
+    showCount: true,
+    sorter: (a, b) => a.AccountCode - b.AccountCode,
     render: (_, { AccountCode, AccountId }) => (
       <>
         <a onClick={() => handleAccountCodeClick(AccountId)}>{AccountCode}</a>
@@ -18,7 +20,7 @@ export const CashBalancesSummaryCash = (
     ),
   },
   {
-    width: 250,
+    width: 270,
     title: t('account_title'),
 
     searchableInput: true,
@@ -27,7 +29,7 @@ export const CashBalancesSummaryCash = (
     sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
   },
   {
-    width: 150,
+    width: 250,
     title: t('opening'),
     dataIndex: 'Opening',
     align: 'right',
@@ -38,7 +40,7 @@ export const CashBalancesSummaryCash = (
     ),
   },
   {
-    width: 150,
+    width: 250,
     title: t('current_debit'),
     dataIndex: 'CurrDebit',
     align: 'right',
@@ -49,7 +51,7 @@ export const CashBalancesSummaryCash = (
     ),
   },
   {
-    width: 150,
+    width: 250,
     title: t('current_credit'),
     dataIndex: 'CurrCredit',
     align: 'right',
@@ -60,7 +62,7 @@ export const CashBalancesSummaryCash = (
     ),
   },
   {
-    width: 150,
+    width: 250,
     title: t('closing'),
     dataIndex: 'Closing',
     align: 'right',

@@ -3,6 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import FollowUp from './FollowUp';
 import PayablesReceivables from './payablesReceivables';
+import { BackButton } from '@tradePro/components';
 
 const PayablesReceivablesReport: React.FC<{
   AccountClassId?: number;
@@ -15,13 +16,14 @@ const PayablesReceivablesReport: React.FC<{
   return (
     <div>
       <>
-        <Row>
-          <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16} className="forms-heading-container">
-            <h1 style={{ fontFamily: 'Poppins', fontSize: '19px', padding: '10px' }}>{t('report')}</h1>
-            {/* <span style={{ position: 'relative', left: '115%' }}>
-            {' '}
-            <b> {t('activity')}</b> &#9654; {t('summary')}
-          </span> */}
+        <Row justify={'space-between'} align={'middle'}>
+          <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16} className="">
+            <h1 className="report_heading" style={{ marginLeft: '0%' }}>
+              {t('report')}
+            </h1>
+          </Col>
+          <Col xxl={1} style={{ marginRight: '20px' }}>
+            <BackButton />
           </Col>
         </Row>
 

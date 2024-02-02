@@ -9,9 +9,11 @@ export const BankBalancesSummaryBank = (
   handleAccountCodeClick: any
 ): AntColumnType<TCashAndBankBalancesSummary>[] => [
   {
-    width: 130,
+    width: 220,
     title: t('account_code'),
     dataIndex: 'AccountCode',
+    showCount: true,
+    sorter: (a, b) => a.AccountCode - b.AccountCode,
     render: (_, { AccountCode, AccountId }) => (
       <>
         <a onClick={() => handleAccountCodeClick(AccountId)}>{AccountCode}</a>
@@ -19,55 +21,59 @@ export const BankBalancesSummaryBank = (
     ),
   },
   {
-    width: 250,
+    width: 270,
     title: t('account_title'),
     searchableInput: true,
     dataIndex: 'AccountTitle',
-
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
   },
   {
-    width: 150,
+    width: 250,
     title: t('opening'),
     searchableDate: true,
     dataIndex: 'Opening',
     showTotal: true,
+    align: 'right',
+    sorter: (a, b) => a.Opening - b.Opening,
     render: (Opening, record) => (
-      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(Opening)}</Space>
+      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '' }}>{numberFormatter(Opening)}</Space>
     ),
   },
   {
-    width: 150,
+    width: 250,
     title: t('current_credit'),
     searchableDate: true,
     showTotal: true,
     dataIndex: 'CurrCredit',
-
+    align: 'right',
+    sorter: (a, b) => a.CurrCredit - b.CurrCredit,
     render: (CurrCredit, record) => (
-      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(CurrCredit)}</Space>
+      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '' }}>{numberFormatter(CurrCredit)}</Space>
     ),
   },
   {
-    width: 150,
+    width: 250,
     title: t('current_debit'),
     showTotal: true,
     searchableDate: true,
     dataIndex: 'CurrDebit',
-
+    align: 'right',
+    sorter: (a, b) => a.CurrDebit - b.CurrDebit,
     render: (CurrDebit, record) => (
-      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(CurrDebit)}</Space>
+      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '' }}>{numberFormatter(CurrDebit)}</Space>
     ),
   },
   {
-    width: 150,
+    width: 250,
     title: t('closing'),
     showTotal: true,
     searchableDate: true,
     dataIndex: 'Closing',
-
+    align: 'right',
+    sorter: (a, b) => a.Closing - b.Closing,
     render: (Closing, record) => (
-      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(Closing)}</Space>
+      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '' }}>{numberFormatter(Closing)}</Space>
     ),
   },
 ];

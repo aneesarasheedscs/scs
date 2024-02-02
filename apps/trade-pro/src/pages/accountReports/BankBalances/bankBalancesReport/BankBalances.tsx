@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Card, Typography, Form, theme, Modal } from 'antd';
-import { AntButton, AntDatePicker, AntSelectDynamic } from '@scs/ui';
+import { AntButton, AntDatePicker, AntSelectDynamic, BackButton } from '@scs/ui';
 import { useTranslation } from 'react-i18next';
 import BankPaymentTables from './bankTables';
 import { useForm, useWatch } from 'antd/es/form/Form';
@@ -44,6 +44,7 @@ const BankBalances: React.FC<{ DateType?: string; FromDateProp?: Date; ToDatePro
     isError: isError,
     isLoading: isLoading,
     refetch,
+    isFetching: isFetchingBankRecipt,
   } = useGetBankBalancesReceiptPayment(
     false,
     CompanyId !== undefined && CompanyId > 0 ? CompanyId : UserDetail?.CompanyId,
@@ -55,8 +56,9 @@ const BankBalances: React.FC<{ DateType?: string; FromDateProp?: Date; ToDatePro
     isError: isSummaryError,
     isLoading: isSummaryLoading,
     refetch: RefetchSummary,
+    isFetching: isFetchingBankSummary,
   } = useCashBankBalancesSummary(
-    false,
+    true,
     15,
     CompanyId !== undefined && CompanyId > 0 ? CompanyId : UserDetail?.CompanyId,
     formState
@@ -109,44 +111,19 @@ const BankBalances: React.FC<{ DateType?: string; FromDateProp?: Date; ToDatePro
     setSelectedAccount(AccountId);
   };
 
+  const [backButton, setBackButton] = useState(-1);
+
   return (
     <div className="cash-balances-container-bank">
-      <Row>
-        <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16} className="forms-heading-container">
-          <h1 style={{ fontFamily: 'Poppins', fontSize: '19px', padding: '10px' }}>{t('bank_balances')}</h1>
+      <Row justify={'space-between'} align={'middle'}>
+        <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16} className="">
+          <h1 className="report_heading">{t('bank_balances')}</h1>
+        </Col>
+        <Col xxl={1} style={{ marginRight: '50px' }}>
+          <BackButton goToDashboard={true} />
         </Col>
       </Row>
-      {/* <Row gutter={[16, 16]} justify={'space-around'}>
-        <Col xs={24} md={24} lg={24} xxl={23} xl={23} sm={23}>
-          <Card className="">
-            <Form form={form} onFinish={onFinish}>
-              <Row gutter={[4, 4]} justify={'space-around'}>
-                <Col xxl={6} xl={7} xs={24} sm={24} lg={9} className="formfield form-container">
-                  <AntSelectDynamic
-                    bordered={false}
-                    label={t('date_type')}
-                    name="DateType"
-                    fieldLabel="DateType"
-                    fieldValue="Id"
-                    query={useGetDateType}
-                    onChange={(value) => handleDateChange(value)}
-                  />
-                </Col>
-                <Col xxl={5} xl={6} xs={24} sm={12} lg={7} className="formfield form-container">
-                  <AntDatePicker name="FromDate" bordered={false} label={t('from_date')} />
-                </Col>
-                <Col xxl={5} xl={6} xs={24} sm={11} lg={7} className="formfield form-container">
-                  <AntDatePicker name="ToDate" bordered={false} label={t('to_date')} />
-                </Col>
 
-                <Col xxl={2} xl={3} xs={8} lg={5} className="btn-margin-top">
-                  <AntButton label={t('show')} htmlType="submit" isError={isError} isLoading={isLoading} />
-                </Col>
-              </Row>
-            </Form>
-          </Card>
-        </Col>
-      </Row> */}
       <Col style={{ overflowX: 'hidden' }}>
         <Row gutter={[16, 16]} justify={'space-around'}>
           <Col xs={23} md={24} lg={24} xxl={23}>
@@ -192,6 +169,8 @@ const BankBalances: React.FC<{ DateType?: string; FromDateProp?: Date; ToDatePro
           IsReceiptPaymentLoading={isLoading}
           RefetchSummary={RefetchSummary}
           refetch={refetch}
+          isFetchingBankRecipt={isFetchingBankRecipt}
+          isFetchingBankSummary={isFetchingBankSummary}
           handleAccountCodeClick={handleAccountCodeClick}
         />
       </Col>

@@ -92,7 +92,7 @@ const ChartOfAccountReportTable = () => {
             columns={ChartOfAccountColumn()}
             data={data?.data?.Data?.Result || []}
             // searchCriteriaForm={<ChartOfAccountReport />}
-            scroll={{ x: '', y: convertVhToPixels('50vh') }}
+            scroll={{ x: '', y: convertVhToPixels('45vh') }}
             rowKey="Id"
           />
         </Col>

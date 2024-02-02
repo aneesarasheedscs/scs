@@ -6,7 +6,7 @@ import AccountsDetailSearchCriteriaForm from './tables/AccountsDetailSearchCrite
 import { useGetGeneralLedgerDetail, useGetGeneralLedgerSummaryI, useGetGeneralLedgerSummaryII } from './queries';
 import AccountDetailCard from './GeneralLedger/AccountDetailCard';
 import { TFilterForms } from './type';
-import { AntTable } from '@scs/ui';
+import { AntTable, BackButton } from '@scs/ui';
 import { DetailTableColumns, SummaryIITableColumns, SummaryITableColumns } from './tables/columns';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { useGetAccountBalance, useGetAccountDetail } from './queryOptions';
@@ -125,53 +125,54 @@ const GeneralLedgerReport: React.FC<{
 
   return (
     <Card style={{ marginLeft: '-1%', marginTop: '-2%' }}>
-      {/* <Row gutter={[16, 16]}>
-        <Col span={24}>
-          <h2 style={{ boxShadow: '2px 4px 12px 1px gray' }} className="form-heading">
-            {t('general_ledger')}
-          </h2>
+      <Row justify={'space-between'} align={'middle'}>
+        <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16} className="">
+          <h1 className="report_heading">{t('general_ledger')}</h1>
         </Col>
-      </Row> */}
-      <Row>
-        <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16} className="forms-heading-container">
-          <h1 style={{ fontFamily: 'Poppins', fontSize: '19px', padding: '10px' }}>{t('general_ledger')}</h1>
+        <Col xxl={1} style={{ marginRight: '50px' }}>
+          <BackButton />
         </Col>
       </Row>
 
-      <Col xs={15} sm={10} md={6} lg={5} xxl={4}>
+      {/* <Col xs={15} sm={10} md={6} lg={5} xxl={4}>
         {' '}
         <AccountsDetailSearchCriteriaForm
           CriteriaObject={{ AccountIdProp, FromDateProp, ToDateProp, CompanyId }}
           handleAccountTitleChange={handleAccountTitleChange}
           handleFormStateChange={handleFormStateChange}
         />
-      </Col>
+      </Col> */}
       {/* <br /> */}
 
       {showAccountDetailCard && (
-        <Col
-          sm={{ span: 24, offset: 0 }}
-          md={{ span: 20, offset: 2 }}
-          lg={{ span: 20, offset: 5 }}
-          xl={{ span: 16, offset: 10 }}
-          xxl={{ span: 10, offset: 13 }}
-          style={{ marginTop: '-4%' }}
-          className="card"
-        >
-          <AccountDetailCard
-            DetailData={AccountDetail?.data?.Data?.Result}
-            BalanceData={AccountBalance?.data?.Data?.Result}
-          />
-        </Col>
+        <Row justify={'space-around'}>
+          <Col
+            xxl={23}
+
+            // className="card"
+          >
+            <AccountDetailCard
+              DetailData={AccountDetail?.data?.Data?.Result}
+              BalanceData={AccountBalance?.data?.Data?.Result}
+            />
+          </Col>
+        </Row>
       )}
       <br />
-      <Row gutter={[16, 16]}>
-        <Col span={24}>
+      <Row gutter={[16, 16]} justify={'space-around'}>
+        <Col span={23}>
           {formState !== undefined && (formState.ReportType == undefined || formState?.ReportType == 1) && (
             <AntTable
               isError={detailError}
               columns={DetailTableColumns(t)}
               numberOfSkeletons={12}
+              searchCriteriaForm={
+                <AccountsDetailSearchCriteriaForm
+                  CriteriaObject={{ AccountIdProp, FromDateProp, ToDateProp, CompanyId }}
+                  handleAccountTitleChange={handleAccountTitleChange}
+                  handleFormStateChange={handleFormStateChange}
+                />
+              }
               isLoading={detailDataLoading}
               data={detailData?.data?.Data?.Result || []}
               scroll={{ x: '', y: convertVhToPixels('27vh') }}
@@ -182,6 +183,13 @@ const GeneralLedgerReport: React.FC<{
               isError={summary1Error}
               columns={SummaryITableColumns(t)}
               numberOfSkeletons={12}
+              searchCriteriaForm={
+                <AccountsDetailSearchCriteriaForm
+                  CriteriaObject={{ AccountIdProp, FromDateProp, ToDateProp, CompanyId }}
+                  handleAccountTitleChange={handleAccountTitleChange}
+                  handleFormStateChange={handleFormStateChange}
+                />
+              }
               isLoading={summary1DataLoading}
               data={summary1Data?.data?.Data?.Result || []}
               scroll={{ x: '', y: convertVhToPixels('27vh') }}
@@ -192,6 +200,13 @@ const GeneralLedgerReport: React.FC<{
               isError={summary2Error}
               columns={SummaryIITableColumns(t)}
               numberOfSkeletons={12}
+              searchCriteriaForm={
+                <AccountsDetailSearchCriteriaForm
+                  CriteriaObject={{ AccountIdProp, FromDateProp, ToDateProp, CompanyId }}
+                  handleAccountTitleChange={handleAccountTitleChange}
+                  handleFormStateChange={handleFormStateChange}
+                />
+              }
               isLoading={summary2DataLoading}
               data={summary2Data?.data?.Data?.Result || []}
               scroll={{ x: '', y: convertVhToPixels('27vh') }}

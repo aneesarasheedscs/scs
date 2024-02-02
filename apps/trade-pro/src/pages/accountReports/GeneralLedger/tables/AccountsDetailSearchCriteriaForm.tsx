@@ -72,6 +72,7 @@ const AccountsDetailSearchCriteriaForm: React.FC<{
 
   const onFinish = (_: TFilterForms) => {
     setformState(form.getFieldsValue());
+    handleClose();
   };
 
   return (

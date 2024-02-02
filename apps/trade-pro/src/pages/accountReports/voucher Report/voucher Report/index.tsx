@@ -32,7 +32,7 @@ function VoucherReport() {
             isLoading={isLoading || isFetching}
             data={data?.data?.Data?.Result || []}
             searchCriteriaForm={<SearchCriteriaVoucherReport data={data} />}
-            scroll={{ x: '', y: convertVhToPixels('62vh') }}
+            scroll={{ x: '', y: convertVhToPixels('55vh') }}
           />
         </Col>
       </Row>

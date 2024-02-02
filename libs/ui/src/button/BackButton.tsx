@@ -1,13 +1,22 @@
 import React, { ReactNode } from 'react';
-import { Button, ButtonProps } from 'antd';
+import { Button } from 'antd';
 import { CaretLeftOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { t } from 'i18next';
 
-export function BackButton() {
+interface BackButtonProps {
+  goToDashboard: boolean;
+}
+
+export function BackButton({ goToDashboard }: BackButtonProps) {
   const navigate = useNavigate();
-  const handleBack = ({ label, isError, isLoading, fullWidth = true, type = 'primary', ...restProps }: any) => {
-    navigate(-1); // Go back one step in the navigation history
+
+  const handleBack = () => {
+    if (goToDashboard) {
+      navigate(0); // Navigate to route "0" (dashboard)
+    } else {
+      navigate(-1); // Navigate back one step in the history
+    }
   };
   return (
     <>
