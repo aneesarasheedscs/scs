@@ -33,7 +33,7 @@ const PayablesReceivablesTable: React.FC<{
             isLoading={IsLoading}
             data={Data || []}
             scroll={{ x: '', y: convertVhToPixels('40vh') }}
-            numberOfSkeletons={10}
+            numberOfSkeletons={20}
           />
         </Col>
       </Row>

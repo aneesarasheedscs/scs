@@ -14,13 +14,7 @@ const OpeningBalanceTable = () => {
   const { data, isError, isLoading, refetch } = useGetOpenBalanceHistory();
 
   const handleEditButtonClick = (record: any) => {
-    // const selectedRow = data?.data?.Data?.Result.find((row: any) => row.Id === recordId);
     setSelectedRows([record]);
-    // if (selectedRow) {
-    //   setSelectedRows([...selectedRows, selectedRow]);
-    // } else {
-    //   console.log('Row not found for ID:', recordId);
-    // }
   };
 
   return (

@@ -17,18 +17,20 @@ export type TVoucherReportCriterias = {
 export type TVoucherReport = {
   Id: string;
   AccountId: string;
+  voucherdate:Date
   DocumentTypeCode: string;
   DocumentTypeId: string;
   DocumentTypeSrNo: string;
-  VoucherCode: string;
+  VoucherCode: number;
   VoucherDate: string;
-  ManualBillNo: string;
-  AccountCode: string;
+  ManualBillNo: number;
+  AccountCode: number;
   AccountTitle: string;
   AccountTitleCoag: string;
   ChequePartyName: string | null;
-  ChequeNo: string | null;
+
   Comments: string;
   DebitAmount: number;
   CreditAmount: number;
+  ChequeNo:number
 };

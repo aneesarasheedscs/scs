@@ -1,5 +1,5 @@
 import { Row, Col, Card, Typography, DatePicker, theme, Form, Modal } from 'antd';
-import { AntButton, AntDatePicker, AntSelectDynamic } from '@scs/ui';
+import { AntButton, AntDatePicker, AntSelectDynamic, BackButton } from '@scs/ui';
 import { useTranslation } from 'react-i18next';
 import CashReceiptPaymentTables from './tables';
 import { useGetCashReceiptPayment, useCashBankBalancesSummary, useGetDateType } from '../queries';
@@ -8,6 +8,8 @@ import dayjs from 'dayjs';
 import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 import React, { useEffect, useState } from 'react';
 import GeneralLedgerReport from '../GeneralLedger';
+import { useAtom } from 'jotai';
+import { useatomBackButton } from 'libs/ui/src/button/atom';
 
 const { Title, Text } = Typography;
 const { useToken } = theme;
@@ -26,6 +28,7 @@ const CashBalances: React.FC<{ DateType?: string; FromDateProp?: Date; ToDatePro
   const [form] = useForm<TAccountDashboardCriteria>();
   const formvalues = useWatch<TAccountDashboardCriteria>([], form);
   const { setFieldValue, getFieldValue } = form;
+  const [backbtn, setBackbtn] = useAtom(useatomBackButton);
 
   useEffect(() => {
     if (FromDateProp !== undefined && ToDateProp !== undefined) {
@@ -45,6 +48,7 @@ const CashBalances: React.FC<{ DateType?: string; FromDateProp?: Date; ToDatePro
     isError: isError,
     isLoading: isLoading,
     refetch,
+    isFetching: isFetchingCashReceipt,
   } = useGetCashReceiptPayment(
     false,
     CompanyId !== undefined && CompanyId > 0 ? CompanyId : UserDetail?.CompanyId,
@@ -56,8 +60,9 @@ const CashBalances: React.FC<{ DateType?: string; FromDateProp?: Date; ToDatePro
     isError: isSummaryError,
     isLoading: isSummaryLoading,
     refetch: RefetchSummary,
+    isFetching: isFetchingCashSummary,
   } = useCashBankBalancesSummary(
-    false,
+    true,
     2,
     CompanyId !== undefined && CompanyId > 0 ? CompanyId : UserDetail?.CompanyId,
     formState
@@ -109,12 +114,17 @@ const CashBalances: React.FC<{ DateType?: string; FromDateProp?: Date; ToDatePro
     setFieldValue('FromDate', dayjs(fromDate));
     setFieldValue('ToDate', dayjs(toDate));
   };
-
+  const setBackbtnFun = () => {
+    setBackbtn(0);
+  };
   return (
     <div className="cash-balances-container-cash">
-      <Row>
-        <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16} className="forms-heading-container">
-          <h1 style={{ fontFamily: 'Poppins', fontSize: '19px', padding: '10px' }}>{t('cash_balances')}</h1>
+      <Row justify={'space-between'} align={'middle'}>
+        <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16} className="">
+          <h1 className="report_heading">{t('cash_balances')}</h1>
+        </Col>
+        <Col xxl={1} style={{ marginRight: '50px' }}>
+          <BackButton goToDashboard={true} />
         </Col>
       </Row>
       <Col style={{ overflowX: 'hidden' }}>
@@ -162,6 +172,8 @@ const CashBalances: React.FC<{ DateType?: string; FromDateProp?: Date; ToDatePro
           IsCashPaymentLoading={isLoading}
           RefetchSummary={RefetchSummary}
           refetch={refetch}
+          isFetchingCashSummary={isFetchingCashSummary}
+          isFetchingCashReceipt={isFetchingCashReceipt}
           handleAccountCodeClick={handleAccountCodeClick}
         />
       </Col>

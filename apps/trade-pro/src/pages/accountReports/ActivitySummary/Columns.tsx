@@ -12,6 +12,7 @@ export const Columns = (t: any, handleAccountCodeClick: any, columnWidth: any): 
       width: 150,
       title: t('account_code'),
       dataIndex: 'AccountCode',
+      showCount: true,
       sortDirections: ['ascend', 'descend'],
       sorter: (a, b) => a.AccountCode - b.AccountCode,
       render: (_, { AccountCode, AccountId }) => (

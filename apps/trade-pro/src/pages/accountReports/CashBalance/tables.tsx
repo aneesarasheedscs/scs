@@ -20,6 +20,8 @@ const CashReceiptPaymentTables: React.FC<{
   handleAccountCodeClick: any;
   refetch: any;
   RefetchSummary: any;
+  isFetchingCashSummary: any;
+  isFetchingCashReceipt: any;
 }> = (props) => {
   const {
     PaymentReceiptData,
@@ -31,6 +33,8 @@ const CashReceiptPaymentTables: React.FC<{
     handleAccountCodeClick,
     RefetchSummary,
     refetch,
+    isFetchingCashSummary,
+    isFetchingCashReceipt,
   } = props;
   const { t } = useTranslation();
 
@@ -39,22 +43,6 @@ const CashReceiptPaymentTables: React.FC<{
   const {
     token: { colorPrimary },
   } = theme.useToken();
-
-  // const handleAccountCodeClick = (AccountId: number) => {
-  //   setSelectedAccount(AccountId);
-  // };
-
-  // const [selectedRowKeys, setSelectedRowKeys] = React.useState<any>([]);
-  // const onSelectChange = (selectedRowKeys: any[], selectedRows: any) => {
-  //   debugger;
-  //   console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-  //   setSelectedRowKeys(selectedRowKeys);
-  // };
-  // const rowSelection = {
-  //   selectedRowKeys,
-  //   onChange: onSelectChange,
-  //   hideDefaultSelections: true,
-  // };
 
   return (
     <>
@@ -70,9 +58,10 @@ const CashReceiptPaymentTables: React.FC<{
             rowKey={'AccountId'}
             columns={CashBalancesSummaryCash(t, handleAccountCodeClick)}
             isError={IsSummaryError}
-            isLoading={IsSummaryLoading}
+            isLoading={IsSummaryLoading || isFetchingCashSummary}
             data={SummaryData || []}
-            scroll={{ x: 'max-content' }}
+            // scroll={{ x: 'max-content' }}
+            scroll={{ y: convertVhToPixels('10vh') }}
             refetch={RefetchSummary}
           />
         </Col>
@@ -88,7 +77,7 @@ const CashReceiptPaymentTables: React.FC<{
             columns={columnsCashBalance(t)}
             data={filteredTableData || []}
             isError={IsCashPaymentError}
-            isLoading={IsCashPaymentLoading}
+            isLoading={IsCashPaymentLoading || isFetchingCashReceipt}
             scroll={{ y: convertVhToPixels('35vh') }}
             refetch={refetch}
           />

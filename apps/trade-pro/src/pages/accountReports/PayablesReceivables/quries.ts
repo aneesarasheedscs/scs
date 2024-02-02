@@ -2,7 +2,7 @@ import { useMutation, useQuery } from 'react-query';
 import { requestManager } from '@tradePro/configs/requestManager';
 
 import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
-import { TPayablesReceivablesCriteria, Tpayables, Treceivable } from './types';
+import { TPayablesReceivablesCriteria,  } from './types';
 
 import { queryClient } from '@scs/configs';
 import { notification } from 'antd';
@@ -10,6 +10,7 @@ import { AxiosError } from 'axios';
 import { TAddFollowUp } from './types';
 
 const financialYear = storedFinancialYear();
+const userDetail = storedUserDetail()
 
 export const usePostPayablesReceivables = (
   enabled?: boolean,
@@ -44,7 +45,7 @@ export const usePostPayablesReceivables = (
 };
 
 export const useAddFollowUp = (params?: TAddFollowUp) => {
-  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
+
   return useMutation(
     'follow-up-receivables',
     (data: TAddFollowUp) => {

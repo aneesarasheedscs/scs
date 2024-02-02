@@ -109,16 +109,20 @@ export const useGetCustomGroup = () => {
 };
 
 export const useGetVoucherReport = (enabled = true, params?: TVoucherReportCriterias) => {
+  console.log(params)
   return useQuery(
     'voucher_report',
     () => {
+      const defaultSaleInvoiceDocumentTypeIds = '1';
       return requestManager.post(`/api/AccountsReports/VoucherReport`, {
         OrganizationId: userDetail?.OrganizationId,
+        FromDate:FinancialYear?.Start_Period,
+        ToDate:FinancialYear?.End_Period,
         CompanyId: userDetail?.CompanyId,
          FinancialYearId: FinancialYear?.Id,
         ApprovedFilter: params?.IsApproved ? '' : 'All',
-        SaleInvoiceDocumentTypeIds: params?.SelectedDocuments.toString(),
-        ...params,
+        SaleInvoiceDocumentTypeIds: params?.SelectedDocuments?.toString() || defaultSaleInvoiceDocumentTypeIds, 
+               ...params,
       });
     },
     { enabled }

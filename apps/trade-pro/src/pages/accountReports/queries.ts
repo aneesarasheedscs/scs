@@ -4,11 +4,13 @@ import { Tfilter } from './ActivitySummary/types';
 import { TVoucherReportCriterias, TrialBalanceSearchCriteria } from './types';
 import { TAccountDashboardCriteria } from './CashBalance';
 import dayjs from 'dayjs'
+import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 
+
+const userDetail = storedUserDetail();
+const FinancialYear = storedFinancialYear();
 //Activity Summary
-export const useGetActivitySummary = (enabled = false, CompanyId?: number, params?: Tfilter) => {
-  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
-  const FinancialYear: any = JSON.parse(localStorage.getItem('financialYear') || '{}');
+export const useGetActivitySummary = (enabled = true, CompanyId?: number, params?: Tfilter) => {
   return useQuery(
     ['activity-summary'],
     () => {
@@ -18,8 +20,8 @@ export const useGetActivitySummary = (enabled = false, CompanyId?: number, param
         FinancialYearId: FinancialYear?.Id,
         IsApproved: params?.ApprovedFilter == 'All' ? false : true,
         ...params,
-        // FromDate:dayjs(new Date()),
-        // ToDate:dayjs(new Date())
+        FromDate:FinancialYear?.Start_Period,
+        ToDate: FinancialYear?.End_Period
       });
     },
     { enabled }
@@ -40,6 +42,7 @@ export const useGetVoucherReport = (enabled = true, params?: TVoucherReportCrite
         FinancialYearId: financialYear?.Id,
         IsApproved: params?.ReportType == 1 ? true : false,
         ApprovedFilter: params?.ReportType == 3 ? 'All' : null,
+        
         ...params,
       });
     },
@@ -130,8 +133,7 @@ export const useGetDateTypes = () => {
 };
 
 export const useGetTrialBalanceReport = (enabled = true, params?: TrialBalanceSearchCriteria) => {
-  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
-  const FinancialYear: any = JSON.parse(localStorage.getItem('financialYear') || '{}');
+ 
   return useQuery(
     'trial-balance',
     () => {
@@ -154,19 +156,20 @@ export const useCashBankBalancesSummary = (
   CompanyId?: number,
   params?: TAccountDashboardCriteria
 ) => {
-  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
-  const financialYear: any = JSON.parse(localStorage.getItem('financialYear') || '{}');
+
   return useQuery(
     ['cash_Bank_balancesummary', AccountTypeId],
     () => {
       return requestManager.post('api/AccountsReports/CashandBankBalancesSummery', {
         CompanyId: CompanyId,
         OrganizationId: userDetail?.OrganizationId,
-        FinancialYearId: financialYear?.Id,
+        FinancialYearId: FinancialYear?.Id,
         AccountTypeId: AccountTypeId,
         ApprovedFilter: 'All',
         BranchesId: userDetail?.BranchesId,
         ProjectsId: 0,
+        FromDate:FinancialYear?.Start_Period,
+        ToDate: FinancialYear?.End_Period,
         ...params,
       });
     },
@@ -176,7 +179,7 @@ export const useCashBankBalancesSummary = (
 //========================
 //Cash Receipt And Payment
 export const useGetCashReceiptPayment = (enabled: boolean, CompanyId?: number, params?: TAccountDashboardCriteria) => {
-  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
+
   return useQuery(
     'cash_Receipt_Payment',
     () => {
@@ -184,6 +187,9 @@ export const useGetCashReceiptPayment = (enabled: boolean, CompanyId?: number, p
         params: {
           OrganizationId: userDetail?.OrganizationId,
           CompanyId: CompanyId,
+          FromDate:FinancialYear?.Start_Period,
+          ToDate: FinancialYear?.End_Period,
+          
           ...params,
         },
       });
@@ -198,8 +204,7 @@ export const useGetBankBalancesReceiptPayment = (
   CompanyId?: number,
   params?: TAccountDashboardCriteria
 ) => {
-  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
-  const financialYear: any = JSON.parse(localStorage.getItem('financialYear') || '{}');
+
   return useQuery(
     ['bank_receipt_payment', params],
     () => {
@@ -207,7 +212,7 @@ export const useGetBankBalancesReceiptPayment = (
         params: {
           OrganizationId: userDetail?.OrganizationId,
           CompanyId: CompanyId,
-          FinancialYearId: financialYear?.Id,
+          FinancialYearId: FinancialYear?.Id,
           ...params,
         },
       });
@@ -218,11 +223,11 @@ export const useGetBankBalancesReceiptPayment = (
 //=============================
 
 export const useGetFollowUpHistory = () => {
-  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
+
   return useQuery(
     'follow-up-receivables',
     () => {
-      return requestManager.get('/api/AccountsPayRecFollowUpHistory/GetAll?OrganizationId=2&CompanyId=2', {
+      return requestManager.get('/api/AccountsPayRecFollowUpHistory/GetAll', {
         params: { OrganizationId: userDetail?.OrganizationId, CompanyId: userDetail?.CompanyId },
       });
     },
@@ -231,7 +236,7 @@ export const useGetFollowUpHistory = () => {
 };
 
 export const useGetDateType = () => {
-  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
+
   return useQuery(
     'date-type',
     () => {
@@ -243,7 +248,6 @@ export const useGetDateType = () => {
   );
 };
 export const useGetBranchesByUserId = () => {
-  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
   return useQuery(
     'branches-By-UserId',
     () => {
@@ -259,7 +263,7 @@ export const useGetBranchesByUserId = () => {
   );
 };
 export const useGetMasterBranchByUserId = () => {
-  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
+  // const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
 
   return useQuery(
     'master-branch',

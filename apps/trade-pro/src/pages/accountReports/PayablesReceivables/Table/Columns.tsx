@@ -10,6 +10,8 @@ export const PayableColumn = (t: any, handleAccountCodeClick: any): AntColumnTyp
     width: 350,
     title: t('account_title_3rd'),
     dataIndex: 'lvl03_Title',
+    showCount: true,
+    searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.lvl03_Title.localeCompare(b.lvl03_Title),
   },
@@ -28,6 +30,7 @@ export const PayableColumn = (t: any, handleAccountCodeClick: any): AntColumnTyp
   {
     width: 250,
     title: t('account_title'),
+    searchableInput: true,
     dataIndex: 'AccountTitle',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
@@ -40,7 +43,7 @@ export const PayableColumn = (t: any, handleAccountCodeClick: any): AntColumnTyp
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.Opening - b.Opening,
     render: (Opening, record) => (
-      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(Opening)}</Space>
+      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '' }}>{numberFormatter(Opening)}</Space>
     ),
   },
   {
@@ -50,8 +53,9 @@ export const PayableColumn = (t: any, handleAccountCodeClick: any): AntColumnTyp
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.Debit - b.Debit,
     showTotal: true,
+    align: 'right',
     render: (CurrDebit, record) => (
-      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(CurrDebit)}</Space>
+      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '' }}>{numberFormatter(CurrDebit)}</Space>
     ),
   },
   {
@@ -61,8 +65,9 @@ export const PayableColumn = (t: any, handleAccountCodeClick: any): AntColumnTyp
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.Credit - b.Credit,
     showTotal: true,
+    align: 'right',
     render: (CurrCredit, record) => (
-      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(CurrCredit)}</Space>
+      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '' }}>{numberFormatter(CurrCredit)}</Space>
     ),
   },
 
@@ -72,10 +77,10 @@ export const PayableColumn = (t: any, handleAccountCodeClick: any): AntColumnTyp
     dataIndex: 'Closing',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.Closing - b.Closing,
-
+    align: 'right',
     showTotal: true,
     render: (Closing, record) => (
-      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(Closing)}</Space>
+      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '' }}>{numberFormatter(Closing)}</Space>
     ),
   },
   {
@@ -95,6 +100,7 @@ export const PayableColumn = (t: any, handleAccountCodeClick: any): AntColumnTyp
     width: 150,
     title: t('last_bills_amount'),
     dataIndex: 'LastBillsAmount',
+    align: 'right',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.LastBillsAmount - b.LastBillsAmount,
   },
@@ -102,6 +108,7 @@ export const PayableColumn = (t: any, handleAccountCodeClick: any): AntColumnTyp
     width: 150,
     title: t('bill_days'),
     dataIndex: 'BillDays',
+    align: 'right',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.BillDays - b.BillDays,
   },
@@ -109,6 +116,7 @@ export const PayableColumn = (t: any, handleAccountCodeClick: any): AntColumnTyp
     width: 150,
     title: t('last_paid_amount'),
     dataIndex: 'LastRcvdAmount',
+    align: 'right',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.LastRcvdAmount - b.LastRcvdAmount,
   },
@@ -147,6 +155,7 @@ export const ReceivableColumn = (t: any, handleAccountCodeClick: any): AntColumn
     width: 250,
     title: t('account_title_3rd'),
     dataIndex: 'lvl03_Title',
+    showCount: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.lvl03_Title.localeCompare(b.lvl03_Title),
   },
@@ -175,10 +184,10 @@ export const ReceivableColumn = (t: any, handleAccountCodeClick: any): AntColumn
     dataIndex: 'Opening',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.Opening - b.Opening,
-
+    align: 'right',
     showTotal: true,
     render: (Opening, record) => (
-      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(Opening)}</Space>
+      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '' }}>{numberFormatter(Opening)}</Space>
     ),
   },
   {
@@ -188,8 +197,9 @@ export const ReceivableColumn = (t: any, handleAccountCodeClick: any): AntColumn
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.Debit - b.Debit,
     showTotal: true,
+    align: 'right',
     render: (Debit) => (
-      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(Debit)}</Space>
+      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '' }}>{numberFormatter(Debit)}</Space>
     ),
   },
   {
@@ -199,8 +209,9 @@ export const ReceivableColumn = (t: any, handleAccountCodeClick: any): AntColumn
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.Credit - b.Credit,
     showTotal: true,
+    align: 'right',
     render: (Credit) => (
-      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(Credit)}</Space>
+      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '' }}>{numberFormatter(Credit)}</Space>
     ),
   },
 
@@ -211,9 +222,9 @@ export const ReceivableColumn = (t: any, handleAccountCodeClick: any): AntColumn
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.Closing - b.Closing,
     showTotal: true,
-
+    align: 'right',
     render: (Closing) => (
-      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: 20 }}>{numberFormatter(Closing)}</Space>
+      <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '' }}>{numberFormatter(Closing)}</Space>
     ),
   },
   {

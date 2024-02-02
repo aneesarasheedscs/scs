@@ -26,9 +26,6 @@ const AccountDashboardCards: React.FC<{
   const [selectedCardData, setSelectedCardData] = useState<any>();
   const [columnWidth, setColumnWidth] = useState(false);
 
-  // const [open, setOpen] = useState(false);
-  // const handleOpen = () => setOpen(true);
-  // const handleClose = () => setOpen(false);
   return (
     <div>
       <Row gutter={[10, 10]} justify={'space-between'}>
@@ -44,12 +41,6 @@ const AccountDashboardCards: React.FC<{
                       border: `1px solid ${colorPrimary}`,
                     }}
                   >
-                    {/* <div className="custom-div" style={{ background: colorPrimary }}>
-                      <Title level={4} className="custom-title"> */}
-                    {/* {getIconForCard(card.Id)} */}
-                    {/* <ExportOutlined style={{ color: '#fff' }} />
-                      </Title>
-                    </div> */}
                     <Col xxl={24} xs={24} sm={24} md={24} lg={24} xl={23}>
                       <Title
                         level={5}

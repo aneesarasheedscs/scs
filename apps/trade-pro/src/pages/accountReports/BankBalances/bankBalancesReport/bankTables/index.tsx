@@ -1,5 +1,5 @@
 import { AntTable } from '@scs/ui';
-import { Card, Col, DatePicker, Divider, Row, Typography, theme } from 'antd';
+import { Col, Row, Typography, theme } from 'antd';
 
 import React from 'react';
 
@@ -7,11 +7,8 @@ import { useTranslation } from 'react-i18next';
 import { BankBalancesSummaryBank } from './SummaryColumns';
 import { columnsBankBalance, columnsBankPayment } from './BankColumns';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
-import { numberFormatter } from '@tradePro/utils/numberFormatter';
 
-const { Title, Text } = Typography;
-const { RangePicker } = DatePicker;
-const { useToken } = theme;
+const { Title } = Typography;
 
 const BankPaymentTables: React.FC<{
   PaymentReceiptData: any;
@@ -23,6 +20,8 @@ const BankPaymentTables: React.FC<{
   handleAccountCodeClick: any;
   RefetchSummary: any;
   refetch: any;
+  isFetchingBankSummary: any;
+  isFetchingBankRecipt: any;
 }> = (props) => {
   const {
     PaymentReceiptData,
@@ -34,6 +33,8 @@ const BankPaymentTables: React.FC<{
     handleAccountCodeClick,
     RefetchSummary,
     refetch,
+    isFetchingBankSummary,
+    isFetchingBankRecipt,
   } = props;
   const { t } = useTranslation();
 
@@ -46,9 +47,7 @@ const BankPaymentTables: React.FC<{
 
   return (
     <>
-      <Col xl={22} style={{ marginLeft: '3%', marginBottom: '0.5%' }}>
-        {/* <Divider /> */}
-      </Col>
+      <Col xl={22} style={{ marginLeft: '3%', marginBottom: '0.5%' }}></Col>
       <Row gutter={[24, 24]}>
         <Col xl={23} xs={23} md={24} className="" style={{ marginLeft: '2%' }}>
           <Title className="section-title" level={4}>
@@ -57,37 +56,38 @@ const BankPaymentTables: React.FC<{
           <AntTable
             columns={BankBalancesSummaryBank(t, handleAccountCodeClick)}
             isError={IsSummaryError}
-            isLoading={IsSummaryLoading}
+            isLoading={IsSummaryLoading || isFetchingBankSummary}
             data={SummaryData || []}
-            scroll={{ x: 'max-content' }}
+            scroll={{ y: convertVhToPixels('45vh') }}
             refetch={RefetchSummary}
+            numberOfSkeletons={12}
           />
         </Col>
       </Row>
 
       <Row gutter={[24, 24]} justify={'space-between'} style={{ marginLeft: 20, width: '97%' }}>
         <Col xl={12} xs={23} md={12} className="">
-          <Title className="section-title" level={3}>
+          <Title className="section-title" level={4}>
             {t('bank_receipt')}
           </Title>
           <AntTable
             columns={columnsBankBalance(t)}
             data={fillteredTableData}
             isError={IsReceiptPaymentError}
-            isLoading={IsReceiptPaymentLoading}
+            isLoading={IsReceiptPaymentLoading || isFetchingBankRecipt}
             scroll={{ y: convertVhToPixels('35vh') }}
             refetch={refetch}
           />
         </Col>
         <Col xl={12} xs={23} md={12} className="">
-          <Title className="section-title" level={3}>
+          <Title className="section-title" level={4}>
             {t('bank_payment')}
           </Title>
           <AntTable
             columns={columnsBankPayment(t)}
             data={fillteredTableData2}
             isError={IsReceiptPaymentError}
-            isLoading={IsReceiptPaymentLoading}
+            isLoading={IsReceiptPaymentLoading || isFetchingBankRecipt}
             scroll={{ y: convertVhToPixels('35vh') }}
             refetch={refetch}
           />

@@ -8,12 +8,16 @@ export type TGeneralLedgerDetail = {
   Credit: number;
   Balance: number;
   Comments: string;
-  ChequeNo: number | string;
+  ChequeNo: number;
   ChequeDate: Date;
   QtyIn: number;
   QtyOut: number;
-  MannualNo: string;
+  MannualNo: number;
   NoOfAttachments: number;
+  VoucherNo:number;
+  AccountCode:number;
+  ItemRate:number
+  
 };
 
 export type TFilterForms = {
