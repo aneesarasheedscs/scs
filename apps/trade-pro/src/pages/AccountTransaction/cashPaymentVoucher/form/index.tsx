@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import { Card, Form, notification } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { TSaveCashPaymentVoucher } from './types';
-import { useGetTaxSchedule, useGetVoucherNo } from '../queries/queries';
+import { useGetTaxSchedule } from '../queries/queries';
 import { useAddCashPaymentVoucher, useUpdateCashPaymentVoucher } from '../queries/querySave';
 
 const { useForm } = Form;
@@ -153,7 +153,7 @@ function CashPaymentVoucherForm({
       setTableData(DetailList);
     }
   }, [isDataSuccess]);
-  //Short keys
+
   const handleKeyDown = (event: any) => {
     if ((event.ctrlKey || event.metaKey) && event.key === 's') {
       event.preventDefault();
@@ -177,6 +177,8 @@ function CashPaymentVoucherForm({
           form={form}
           entryData={entryData}
           isEntrySuccessful={isEntrySuccessful}
+          UpdateData={UpdateData}
+          isUpdateEntrySuccessful={isUpdateEntrySuccessful}
           addCashPayment={addCashPayment}
           DocumentTypeId={DocumentTypeId}
           selectedRecordId={selectedRecordId}
@@ -189,10 +191,12 @@ function CashPaymentVoucherForm({
 
         <MainEntry
           form={form}
-          setSharedStateIncludeWHT={setSharedStateIncludeWHT}
-          isAddButtonClicked={isAddButtonClicked}
           setBankId={setBankId}
           bankId={bankId}
+          isAddButtonClicked={isAddButtonClicked}
+          setSharedStateIncludeWHT={setSharedStateIncludeWHT}
+          SharedStateIncludeWHT={SharedStateIncludeWHT}
+          ScheduleData={getTaxSchedule?.data?.Data?.Result?.[0]}
         />
         <DynamicForm
           form={form}

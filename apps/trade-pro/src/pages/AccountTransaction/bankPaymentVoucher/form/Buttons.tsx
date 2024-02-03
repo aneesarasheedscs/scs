@@ -4,7 +4,7 @@ import { map } from 'lodash';
 import VoucherNo from './VoucherNo';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { addtableData, isWithHoldingCheckedAtom } from '../form/Atom';
+import { addtableData } from '../form/Atom';
 import { useGetVoucherNo } from '../queries/queries';
 import { AntButton, AntDatePicker } from '@tradePro/components';
 import { Badge, Col, Form, FormInstance, Input, Row, notification } from 'antd';
@@ -21,12 +21,12 @@ function Buttons({
   setPrintPreview,
   printPreview,
   DocumentTypeId,
+  setSharedStateIncludeWHT,
 }: TAddUpdateRecord) {
   const { t } = useTranslation();
   const [tableData, setTableData] = useAtom(addtableData);
 
   const { data, isError, refetch, isLoading, isSuccess: successVoucherNo } = useGetVoucherNo(DocumentTypeId);
-  // const [isWithHoldingChecked, setIsWithHoldingChecked] = useAtom(isWithHoldingCheckedAtom);
 
   console.log(tableData);
   const handleButtonClick = () => {
@@ -38,12 +38,14 @@ function Buttons({
     setTableData([]);
     refetch();
     setBankId(null);
+    setSharedStateIncludeWHT(false);
     form.setFieldValue('VoucherNo', data?.data?.Data?.Result);
     form.setFieldValue('RefAccountId', null);
     form.setFieldValue('VoucherDate', dayjs(new Date()));
     form.setFieldValue('Remarks', null);
     form.setFieldValue('IncludeWHT', false);
     form.setFieldValue('Balance', null);
+    form.setFieldValue(['voucherDetailList', 0, 'TaxTypeId'], null);
   };
   useEffect(() => {
     if (successVoucherNo)
@@ -52,16 +54,29 @@ function Buttons({
         map(data?.data?.Data?.Result, (item) => item.VoucherCode)
       );
     form.setFields([{ name: 'VoucherDate', value: dayjs(new Date()) }]);
+  }, [data, successVoucherNo]);
+  useEffect(() => {
     if (isSuccess && saveData?.data?.Status === true) {
-      refetch();
+      handleResetForm();
     }
-  }, [data, successVoucherNo, isSuccess]);
+  }, [saveData, isSuccess]);
+  const handleKeyDown = (event: any) => {
+    if (event.key === 'Escape') {
+      handleResetForm();
+    }
+  };
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [form]);
   return (
     <>
       <Row justify="space-between" style={{ marginLeft: 0, marginRight: 10 }}>
-        <Col xxl={8} xl={9} lg={12} style={{ marginTop: '0%' }}>
+        <Col xxl={8} xl={9} lg={18} md={18} sm={18} xs={24} style={{ marginTop: '0%' }}>
           <Row gutter={10} align="middle" style={{ border: '' }} justify={'space-evenly'}>
-            <Col className="formfield1 voucherNo">
+            <Col xl={9} xxl={7} lg={8} md={7} sm={18} xs={18} className="formfield voucherNo">
               <b style={{ fontSize: 18 }}> {t('voucher_no')}</b> &nbsp;
               <VoucherNo
                 isError={isError}
@@ -105,16 +120,6 @@ function Buttons({
                     title="Attachment"
                     icon={<PaperClipOutlined style={{ fontSize: 20 }} />}
                   />
-                  {/* <AntButton
-                    style={{ border: '1px solid #f0f0f0' }}
-                    ghost
-                    title="Attachment"
-                    icon={
-                      <PaperClipOutlined
-                        style={{ color: '#ffaf0c', fontSize: 20, fontWeight: 'bold', paddingTop: 1 }}
-                      />
-                    }
-                  /> */}
                 </Badge>
               </Col>
 
@@ -149,5 +154,6 @@ type TAddUpdateRecord = {
   setSelectedRecordId: (id: number | null) => void;
   setPrintPreview: any;
   printPreview: any;
+  setSharedStateIncludeWHT: any;
 };
 export default Buttons;

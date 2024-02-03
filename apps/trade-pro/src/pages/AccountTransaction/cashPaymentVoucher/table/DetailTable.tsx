@@ -9,6 +9,7 @@ import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 function CashPaymentDetailTable() {
   const { t } = useTranslation();
   const [viewDetail, setViewDetail] = useAtom(viewDetailList);
+  console.log(viewDetail);
   const {
     token: { colorPrimary },
   } = theme.useToken();

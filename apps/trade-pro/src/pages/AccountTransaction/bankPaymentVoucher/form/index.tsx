@@ -9,9 +9,9 @@ import { useEffect, useState } from 'react';
 import { Card, Form, notification } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { TSaveBankPaymentVoucher } from './types';
-import { addtableData, isWithHoldingCheckedAtom } from './Atom';
-import { useAddBankPaymentVoucher, useUpdateBankPaymentVoucher } from '../queries/querySave';
+import { addtableData } from './Atom';
 import { useGetTaxSchedule } from '../queries/queries';
+import { useAddBankPaymentVoucher, useUpdateBankPaymentVoucher } from '../queries/querySave';
 
 const { useForm } = Form;
 
@@ -27,7 +27,6 @@ function BankPaymentVoucherForm({
   const [bankId, setBankId] = useState<number | null>(null);
   const DocumentTypeId = 2;
   const [tableData, setTableData] = useAtom(addtableData);
-  // const [isWithHoldingChecked, setIsWithHoldingChecked] = useAtom(isWithHoldingCheckedAtom);
   const [isAddButtonClicked, setIsAddButtonClicked] = useState(true);
   const { mutate: addBankPaymentVoucher, data: saveData, isSuccess } = useAddBankPaymentVoucher(DocumentTypeId);
   const { mutate: updateBankPaymentVoucher } = useUpdateBankPaymentVoucher(DocumentTypeId, selectedRecordId);
@@ -41,7 +40,8 @@ function BankPaymentVoucherForm({
     isLoading: TaxLoading,
   } = useGetTaxSchedule(VoucherDate, TaxTypeId);
   const [SharedStateIncludeWHT, setSharedStateIncludeWHT] = useState(false);
-
+  const AgainstAccountId = form.getFieldValue('AgainstAccountId');
+  console.log(AgainstAccountId);
   useEffect(() => {
     if (SharedStateIncludeWHT) {
       if (VoucherDate && TaxTypeId) {
@@ -52,25 +52,11 @@ function BankPaymentVoucherForm({
   const onFinish = (values: TSaveBankPaymentVoucher) => {
     values.PrintPreview = printPreview;
 
-    // const AgainstAccountId = values.voucherDetailList?.[0]?.AgainstAccountId;
-    // const AccountId = values.voucherDetailList?.[0]?.AccountId;
-    // const Amount = values.voucherDetailList?.[0]?.Amount;
-    // const TaxTypeId = values.voucherDetailList?.[0]?.TaxTypeId;
-    // const TaxPrcnt = values.voucherDetailList?.[0]?.TaxPrcnt;
-    // const CreditAmount = values.voucherDetailList?.[0]?.CreditAmount;
-    // const TaxesTotalAmount = values.voucherDetailList?.[0]?.TaxesTotalAmount;
-    // const Comments = values.voucherDetailList?.[0]?.Comments;
-    // const IsTaxable = 'False';
-    // const includeWHTList = [
-    //   { AgainstAccountId, AccountId, TaxTypeId, TaxPrcnt, Amount, CreditAmount, IsTaxable, TaxesTotalAmount, Comments },
-    // ];
-    // const includeWHTListEntry = includeWHTList.map((item) => ({
-    //   ...item,
-    // }));
     const TaxableEntry: any = {};
     if (values.IncludeWHT) {
       TaxableEntry.AccountId = values.RefAccountId;
       TaxableEntry.AgainstAccountId = values.voucherDetailList[0].AgainstAccountId;
+
       TaxableEntry.TaxTypeId = values.voucherDetailList?.[0]?.TaxTypeId;
       TaxableEntry.IsTaxable = 'True';
       TaxableEntry.Comments =
@@ -84,16 +70,24 @@ function BankPaymentVoucherForm({
       TaxableEntry.TaxPrcnt = values.voucherDetailList?.[0]?.TaxPrcnt;
       TaxableEntry.TaxesTotalAmount = values.voucherDetailList?.[0]?.TotalAmount;
       TaxableEntry.CreditAmount = values.voucherDetailList?.[0]?.TaxAmount;
+      if (SharedStateIncludeWHT && getTaxSchedule) {
+        const updatedData = tableData?.map((item: any) => ({
+          ...item,
+          AgainstAccountId: AgainstAccountId,
+        }));
 
-      values.voucherDetailList = [...tableData, TaxableEntry];
+        values.voucherDetailList = [...updatedData, TaxableEntry];
+      } else {
+        values.voucherDetailList = values.voucherDetailList && tableData;
+      }
     } else {
       values.voucherDetailList = values.voucherDetailList && tableData;
     }
 
-    console.log(values);
     if (isNumber(selectedRecordId)) {
-      // updateBankPaymentVoucher(values);
+      updateBankPaymentVoucher(values);
       console.log(values);
+      console.log(tableData);
     } else if (tableData.length === 0) {
       notification.error({
         message: 'Error',
@@ -101,26 +95,39 @@ function BankPaymentVoucherForm({
       });
     } else {
       console.log(values);
-      // addBankPaymentVoucher(values);
+      addBankPaymentVoucher(values);
     }
   };
-
-  useEffect(() => {
-    if (isNumber(selectedRecordId)) {
-      refetchBankPayment();
-    }
-  }, [selectedRecordId]);
+  // useEffect(() => {
+  //   if (isNumber(selectedRecordId)) {
+  //     // refetchBankPayment();
+  //   }
+  // }, [selectedRecordId]);
 
   useEffect(() => {
     if (isDataSuccess) {
+      form.setFieldValue('VoucherCode', addBankPayment?.data?.Data?.Result?.VoucherCode);
       form.setFieldValue('VoucherDate', dayjs(addBankPayment?.data?.Data?.Result?.VoucherDate));
       form.setFieldValue('RefAccountId', addBankPayment?.data?.Data?.Result?.RefAccountId);
+      form.setFieldValue('AgainstAccountId', addBankPayment?.data?.Data?.Result?.AgainstAccountId);
+      form.setFieldValue('IncludeWHT', addBankPayment?.data?.Data?.Result?.IncludeWHT);
       form.setFieldValue('Remarks', addBankPayment?.data?.Data?.Result?.Remarks);
       form.setFieldValue(
         ['voucherDetailList', 0, 'DCheqDate'],
-        dayjs(addBankPayment?.data?.Data?.Result?.voucherDetailList?.DCheqDate)
+        dayjs(addBankPayment?.data?.Data?.Result?.voucherDetailList?.[0]?.DCheqDate)
       );
-      setTableData(addBankPayment?.data?.Data?.Result?.voucherDetailList);
+      form.setFieldValue(
+        ['voucherDetailList', 0, 'TaxTypeId'],
+        addBankPayment?.data?.Data?.Result?.voucherDetailList?.[0]?.TaxTypeId
+      );
+      form.setFieldValue(
+        ['voucherDetailList', 0, 'AgainstAccountId'],
+        addBankPayment?.data?.Data?.Result?.voucherDetailList?.[0]?.AgainstAccountId
+      );
+      const DetailList = addBankPayment?.data?.Data?.Result?.voucherDetailList.filter(
+        (row: any) => row.DebitAmount > 0
+      );
+      setTableData(DetailList);
     }
   }, [isDataSuccess]);
   const handleTaxTypeChange = (TaxId: number) => {
@@ -140,6 +147,7 @@ function BankPaymentVoucherForm({
           setSelectedRecordId={setSelectedRecordId}
           setPrintPreview={setPrintPreview}
           printPreview={printPreview}
+          setSharedStateIncludeWHT={setSharedStateIncludeWHT}
         />
         <MainEntry
           form={form}

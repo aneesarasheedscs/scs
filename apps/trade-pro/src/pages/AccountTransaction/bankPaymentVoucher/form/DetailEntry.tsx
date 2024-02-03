@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { useAtom } from 'jotai';
 import { column2 } from '../table/columns';
-import { add, map, sumBy } from 'lodash';
+import { add, map } from 'lodash';
 import { addtableData } from '../form/Atom';
 import {
   useGetAccountsBalance,
@@ -14,12 +14,11 @@ import {
 } from '../queries/queries';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
+import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { Card, Col, Row, Form, FormInstance, notification } from 'antd';
 import { TBankPaymentDetailEntry, TTaxType, TjobLot } from './types';
 import { AntButton, AntDatePicker, AntInput, AntInputNumber, AntSelectDynamic, AntTable } from '@tradePro/components';
-import { selectedCreditAccountAtom, selectedAgainstAccountAtom, isWithHoldingCheckedAtom } from './Atom';
-import { numberFormatter } from '@tradePro/utils/numberFormatter';
 
 const { useWatch } = Form;
 const DynamicForm = ({
@@ -33,8 +32,6 @@ const DynamicForm = ({
   const formValues = useWatch<TBankPaymentDetailEntry[]>('voucherDetailList', form);
   const { t } = useTranslation();
   const [tableData, setTableData] = useAtom(addtableData);
-  const [selectedCreditAccount, setSelectedCreditAccount] = useAtom(selectedCreditAccountAtom);
-  const [againstAccountAtom, setAgainstAccountAtom] = useAtom(selectedAgainstAccountAtom);
   const [refAccountId, setRefAccountId] = useState(0);
   const { data } = useGetAccountsBalance(refAccountId);
   const { data: configData } = useGetConfigration('CheqBook Enabled');
@@ -47,8 +44,9 @@ const DynamicForm = ({
   const filteredDebitAccounts = debit?.data?.Data?.Result.filter(
     (item: any) => !allowedAccountTypes.includes(item.AccountTypeId)
   );
+  const RefAccountId = form.getFieldValue('RefAccountId');
+  console.log(RefAccountId);
   const { data: filter } = useGetWHTAgainstAcSelect();
-  console.log(againstAccountAtom);
   const { data: chequeNoCompulsoryConfig } = useGetConfigration('ChequeNoCompulsoryOnBpv');
   const isChequeNoCompulsory = chequeNoCompulsoryConfig?.data?.Data?.Result === 'True';
   const [edit, setEdit] = useState<any>([]);
@@ -107,31 +105,7 @@ const DynamicForm = ({
     form.setFieldValue(['voucherDetailList', 0], record); // Update form values
     setIsEditMode(true);
   };
-  const handleEditRow2 = (record: any) => {
-    setEdit(record);
-    setTableData((prevData: any[]) => {
-      const updatedData = [...prevData];
-      const rowIndex = updatedData.findIndex((item: any) => item.CheqId === record.CheqId);
 
-      if (rowIndex !== -1) {
-        updatedData[rowIndex] = {
-          ...updatedData[rowIndex],
-          PaymentTypeId: record.PaymentType,
-          AccountIdDebit: record.AccountTitle,
-          JobLotId: record.JobLotDescription,
-          DebitAmount: record.DebitAmount,
-          DCheqDate: dayjs(record.DCheqDate),
-          CheqNoDetail: record.CheqNoDetail,
-          PayeeTitle: record.PayeeTitle,
-          Comments: record.Comments,
-        };
-        form.setFieldValue(['voucherDetailList', 0], updatedData[rowIndex]);
-        setIsEditMode(true);
-      }
-      console.log('New tableData:', updatedData);
-      return updatedData;
-    });
-  };
   const chequeBookOptions =
     chequeBooks?.data?.Data?.Result?.map((chequeBook: any) => ({
       label: chequeBook.CheqNo,
@@ -154,6 +128,7 @@ const DynamicForm = ({
       PaymentType: item.PaymentType,
       AccountId: item.AccountIdDebit,
       AccountTitle: item.AccountTitle,
+      AgainstAccountId: item.AgainstAccountId,
       JobLotDescription: item.JobLotDescription,
       JobLotId: item.JobLotId,
       DebitAmount: item.DebitAmount,
@@ -170,7 +145,7 @@ const DynamicForm = ({
       notification.error({ message: message });
       return;
     }
-    if (!selectedCreditAccount) {
+    if (!RefAccountId) {
       const message = 'Please select a Credit Account';
       notification.error({ message: message });
       return;
@@ -220,6 +195,7 @@ const DynamicForm = ({
       PaymentType: item.PaymentType,
       AccountId: item.AccountIdDebit,
       AccountTitle: item.AccountTitle,
+      AgainstAccountId: item.AgainstAccountId,
       JobLotDescription: item.JobLotDescription,
       JobLotId: item.JobLotId,
       DebitAmount: item.DebitAmount,
@@ -297,7 +273,7 @@ const DynamicForm = ({
     form.setFieldValue(['voucherDetailList', 0, 'PaymentType'], 'Regular');
     form.setFieldValue(['voucherDetailList', 0, 'DCheqDate'], dayjs(new Date()));
   }, [form]);
-  const [isWithHoldingChecked, setIsWithHoldingChecked] = useAtom(isWithHoldingCheckedAtom);
+  // const [isWithHoldingChecked, setIsWithHoldingChecked] = useAtom(isWithHoldingCheckedAtom);
   const handleItemChange = (obj: TTaxType, index: number) => {
     form.setFields([{ name: ['voucherDetailList', index, 'TaxName'], value: obj?.TaxName }]);
     handleTaxTypeChange(obj.Id);
@@ -316,9 +292,9 @@ const DynamicForm = ({
       form.setFieldValue(['voucherDetailList', 0, 'AgainstAccountId'], null);
       handleCalculations();
     }
-    // if (againstAccountAtom) {
-    //   form.setFieldValue(['voucherDetailList', 0, 'AgainstAccountId'], againstAccountAtom);
-    // }
+    if (RefAccountId) {
+      form.setFieldValue(['voucherDetailList', 0, 'AgainstAccountId'], RefAccountId);
+    }
   }, [form, SharedStateIncludeWHT, ScheduleData]);
   useEffect(() => {
     if (tableData.length > 0) {
@@ -603,7 +579,6 @@ const DynamicForm = ({
                                 >
                                   <AntInputNumber
                                     readOnly
-                                    disabled={!isWithHoldingChecked}
                                     bordered={false}
                                     label={t('tax_percentage')}
                                     formItemProps={{ ...field, name: [field.name, 'TaxPrcnt'] }}
@@ -618,7 +593,7 @@ const DynamicForm = ({
                                   className="formfield"
                                 >
                                   <AntSelectDynamic
-                                    disabled={!isWithHoldingChecked}
+                                    disabled={!SharedStateIncludeWHT}
                                     bordered={false}
                                     fieldValue="Id"
                                     fieldLabel="AccountTitle"
@@ -642,7 +617,6 @@ const DynamicForm = ({
                                 >
                                   <AntInputNumber
                                     readOnly
-                                    disabled={!isWithHoldingChecked}
                                     bordered={false}
                                     label={t('amount')}
                                     formItemProps={{ ...field, name: [field.name, 'Amount'] }}
@@ -659,7 +633,6 @@ const DynamicForm = ({
                                 >
                                   <AntInputNumber
                                     readOnly
-                                    disabled={!isWithHoldingChecked}
                                     bordered={false}
                                     label={t('tax_amount')}
                                     formItemProps={{ ...field, name: [field.name, 'TaxAmount'] }}
@@ -676,7 +649,6 @@ const DynamicForm = ({
                                 >
                                   <AntInputNumber
                                     readOnly
-                                    disabled={!isWithHoldingChecked}
                                     bordered={false}
                                     label={t('total_amount')}
                                     formItemProps={{ ...field, name: [field.name, 'TotalAmount'] }}

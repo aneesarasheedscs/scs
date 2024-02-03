@@ -11,7 +11,8 @@ import { EditFilled, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
 export const columns = (
   t: any,
   setSelectedRecordId?: any,
-  setActiveTab?: any
+  setActiveTab?: any,
+  setSelectedRecordIdforDetail?: any
 ): AntColumnType<TCashPaymentVoucherTable>[] => [
   {
     title: t('code'),
@@ -121,7 +122,7 @@ export const columns = (
   },
   {
     title: t('action'),
-    width: 150,
+    width: 120,
     render: (_, record) => (
       <>
         <Tooltip title="Edit">
@@ -141,7 +142,7 @@ export const columns = (
               type="text"
               icon={<EyeOutlined style={{ color: 'blue', marginLeft: 4 }} />}
               onClick={() => {
-                setSelectedRecordId(record.Id);
+                setSelectedRecordIdforDetail(record.Id);
               }}
             />
           </Space>

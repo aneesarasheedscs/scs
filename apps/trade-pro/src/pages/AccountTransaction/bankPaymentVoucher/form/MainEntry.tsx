@@ -1,10 +1,8 @@
 import { map } from 'lodash';
 import { useEffect } from 'react';
-import { useAtom } from 'jotai';
 import { useTranslation } from 'react-i18next';
 import { AntInput, AntSelectDynamic } from '@tradePro/components';
 import { Card, Checkbox, Col, Row, Form, FormInstance } from 'antd';
-import { isWithHoldingCheckedAtom, selectedCreditAccountAtom, selectedAgainstAccountAtom } from './Atom';
 import { useGetAccountsBalance, useGetCreditAccountSelect, useGetWHTAgainstAcSelect } from '../queries/queries';
 
 function MainEntry({
@@ -19,8 +17,6 @@ function MainEntry({
   const { t } = useTranslation();
   const { data: credit } = useGetCreditAccountSelect();
   const { data } = useGetAccountsBalance(bankId);
-  const [selectedCreditAccount, setSelectedCreditAccount] = useAtom(selectedCreditAccountAtom);
-  const [againstAccountAtom, setAgainstAccountAtom] = useAtom(selectedAgainstAccountAtom);
   const { data: filter } = useGetWHTAgainstAcSelect();
 
   useEffect(() => {
@@ -36,12 +32,9 @@ function MainEntry({
     }
   }, [form, SharedStateIncludeWHT, ScheduleData]);
   const handleCreditAccountChange = (accountId?: any, index?: any) => {
-    setSelectedCreditAccount(accountId);
     setBankId(accountId);
   };
-  const handleAgainstAccountChange = (accountId?: any) => {
-    setAgainstAccountAtom(accountId);
-  };
+  const handleAgainstAccountChange = (accountId?: any) => {};
 
   const handleCheckboxChangeforWHT = (isChecked: boolean, fieldName: string) => {
     setSharedStateIncludeWHT(isChecked);

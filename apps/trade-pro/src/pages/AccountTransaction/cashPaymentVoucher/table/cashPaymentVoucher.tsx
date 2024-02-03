@@ -10,7 +10,7 @@ import { AntButton, AntTable } from '@tradePro/components';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { useGetCashPaymentVoucherTable } from '../queries/queries';
 
-function CashPaymentTable({ setSelectedRecordId, setActiveTab }: TFrom) {
+function CashPaymentTable({ setSelectedRecordId, setActiveTab, setSelectedRecordIdforDetail }: TFrom) {
   const { t } = useTranslation();
   const { data, isError, isLoading, refetch, isFetching } = useGetCashPaymentVoucherTable();
   const [showComponent, setShowComponent] = useState(false);
@@ -44,7 +44,7 @@ function CashPaymentTable({ setSelectedRecordId, setActiveTab }: TFrom) {
                 isLoading={isLoading || isFetching}
                 scroll={{ x: '', y: convertVhToPixels('30vh') }}
                 data={data?.data?.Data?.Result || []}
-                columns={columns(t, setSelectedRecordId, setActiveTab)}
+                columns={columns(t, setSelectedRecordId, setActiveTab, setSelectedRecordIdforDetail)}
               />
 
               <CashPaymentDetailTable />
@@ -59,6 +59,7 @@ function CashPaymentTable({ setSelectedRecordId, setActiveTab }: TFrom) {
 type TFrom = {
   setSelectedRecordId: (id: number | null) => void;
   setActiveTab: (tab: string) => void;
+  setSelectedRecordIdforDetail: (id: number | null) => void;
 };
 
 export default CashPaymentTable;

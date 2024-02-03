@@ -6,11 +6,12 @@ import { viewDetailList } from './form/Atom';
 import { Card, Col, Row, Tabs, theme } from 'antd';
 import { useTranslation } from 'react-i18next';
 import CashPaymentTable from './table/cashPaymentVoucher';
-import { useGetCashPaymentVoucherById } from './queries/querySave';
+import { useGetCashPaymentVoucherById, useGetCashPaymentVoucherDetailById } from './queries/querySave';
 
 function CashPaymentVoucher() {
   const { t } = useTranslation();
   const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
+  const [selectedRecordIdforDetail, setSelectedRecordIdforDetail] = useState<number | null>();
   const [activeTab, setActiveTab] = useState<string>('1');
   const [viewDetail, setViewDetail] = useAtom(viewDetailList);
 
@@ -20,12 +21,19 @@ function CashPaymentVoucher() {
     isSuccess: isDataSuccess,
     isLoading,
   } = useGetCashPaymentVoucherById(selectedRecordId);
+  const {
+    data,
+    refetch,
+    isSuccess,
+    isLoading: isLoadingDetail,
+  } = useGetCashPaymentVoucherDetailById(selectedRecordIdforDetail);
 
   useEffect(() => {
-    if (isDataSuccess && !isLoading) {
-      setViewDetail(addCashPayment?.data?.Data?.Result?.WsRmRequisitionPoDetailsList);
+    if (isSuccess && !isLoadingDetail) {
+      const DetailList = data?.data?.Data?.Result?.voucherDetailList.filter((row: any) => row.DebitAmount > 0);
+      setViewDetail(DetailList);
     }
-  }, [isDataSuccess, !isLoading]);
+  }, [isSuccess, !isLoadingDetail]);
 
   const {
     token: { colorPrimary },
@@ -44,7 +52,11 @@ function CashPaymentVoucher() {
             onChange={(key) => setActiveTab(key)}
           >
             <Tabs.TabPane key="1" tab={t('history')}>
-              <CashPaymentTable setSelectedRecordId={setSelectedRecordId} setActiveTab={setActiveTab} />
+              <CashPaymentTable
+                setSelectedRecordId={setSelectedRecordId}
+                setActiveTab={setActiveTab}
+                setSelectedRecordIdforDetail={setSelectedRecordIdforDetail}
+              />
             </Tabs.TabPane>
 
             <Tabs.TabPane key="2" tab={t('form')}>

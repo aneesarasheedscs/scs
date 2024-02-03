@@ -7,13 +7,15 @@ import { useTranslation } from 'react-i18next';
 import { addtableData } from '../form/Atom';
 import { useGetVoucherNo } from '../queries/queries';
 import { AntButton, AntDatePicker } from '@tradePro/components';
-import { Badge, Col, Form, FormInstance, Input, Row, notification } from 'antd';
+import { Badge, Col, Form, FormInstance, Input, Row } from 'antd';
 import { SaveOutlined, SyncOutlined, RedoOutlined, PaperClipOutlined, PrinterFilled } from '@ant-design/icons';
 
 function Buttons({
   form,
   entryData,
   isEntrySuccessful,
+  UpdateData,
+  isUpdateEntrySuccessful,
   addCashPayment,
   selectedRecordId,
   setSelectedRecordId,
@@ -44,8 +46,15 @@ function Buttons({
     form.setFieldValue('RefAccountId', null);
     form.setFieldValue('VoucherDate', dayjs(new Date()));
     form.setFieldValue('Remarks', null);
-    form.setFieldValue(['voucherDetailList', 0], null);
+    form.setFieldValue(['voucherDetailList', 0, 'TaxTypeId'], null);
   };
+  useEffect(() => {
+    if (isEntrySuccessful && entryData?.data?.Status === true) {
+      handleResetForm();
+    } else if (isUpdateEntrySuccessful && UpdateData?.data?.Status === true) {
+      handleResetForm();
+    }
+  }, [entryData, isEntrySuccessful, isUpdateEntrySuccessful, UpdateData]);
   useEffect(() => {
     if (successVoucherNo)
       form.setFieldValue(
@@ -53,11 +62,7 @@ function Buttons({
         map(data?.data?.Data?.Result, (item) => item.VoucherCode)
       );
     form.setFields([{ name: 'VoucherDate', value: dayjs(new Date()) }]);
-    if (isEntrySuccessful && entryData?.data?.Status === true) {
-      // refetch();
-      handleResetForm();
-    }
-  }, [data, successVoucherNo, entryData, isEntrySuccessful]);
+  }, [data, successVoucherNo]);
   const handleKeyDown = (event: any) => {
     if (event.key === 'Escape') {
       handleResetForm();
@@ -141,6 +146,8 @@ type TAddUpdateRecord = {
   form: FormInstance;
   entryData: any;
   isEntrySuccessful: any;
+  UpdateData: any;
+  isUpdateEntrySuccessful: any;
   addCashPayment: any;
   DocumentTypeId: number;
   selectedRecordId: any;

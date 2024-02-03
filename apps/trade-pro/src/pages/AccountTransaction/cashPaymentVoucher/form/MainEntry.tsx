@@ -11,7 +11,15 @@ import { AntInput, AntSelectDynamic } from '@tradePro/components';
 import { Card, Checkbox, Col, Row, Form, FormInstance } from 'antd';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
 
-function MainEntry({ form, setBankId, bankId, isAddButtonClicked, setSharedStateIncludeWHT }: TDynamicForm) {
+function MainEntry({
+  form,
+  setBankId,
+  bankId,
+  isAddButtonClicked,
+  setSharedStateIncludeWHT,
+  SharedStateIncludeWHT,
+  ScheduleData,
+}: TDynamicForm) {
   const { t } = useTranslation();
   const handleCheckboxChangeforWHT = (isChecked: boolean, fieldName: string) => {
     setSharedStateIncludeWHT(isChecked);
@@ -30,7 +38,13 @@ function MainEntry({ form, setBankId, bankId, isAddButtonClicked, setSharedState
       form.setFieldsValue({ Balance: data?.data?.Data?.Result?.[0]?.Balance.toFixed(2) });
     }
   }, [credit, bankId, data?.data?.Data?.Result, form]);
-
+  useEffect(() => {
+    if (SharedStateIncludeWHT && ScheduleData) {
+      form.setFieldValue('RefDocNoId', ScheduleData?.TaxGLAccountId);
+    } else {
+      form.setFieldValue('RefDocNoId', ScheduleData?.TaxGLAccountId);
+    }
+  }, [form, SharedStateIncludeWHT, ScheduleData]);
   const handleCreditAccountChange = (accountId?: any, index?: any) => {
     const balance = data?.data?.Data?.Result?.[0]?.Balance.toFixed(2);
     form.setFieldValue(['voucherDetailList', index, 'Balance'], numberFormatter(balance));
@@ -176,6 +190,8 @@ type TDynamicForm = {
   bankId: any;
   isAddButtonClicked: any;
   setSharedStateIncludeWHT: any;
+  SharedStateIncludeWHT: any;
+  ScheduleData: any;
 };
 
 export default MainEntry;

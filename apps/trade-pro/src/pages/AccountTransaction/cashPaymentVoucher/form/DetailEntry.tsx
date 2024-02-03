@@ -27,11 +27,6 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
   const { t } = useTranslation();
   const [tableData, setTableData] = useAtom(addtableData);
 
-  // const [totalDebitAmounts, setTotalDebitAmounts] = useAtom(totalValue);
-  // const [selectedCreditAccount, setSelectedCreditAccount] = useAtom(selectedCreditAccountAtom);
-  // const [againstAccountAtom, setAgainstAccountAtom] = useAtom(selectedAgainstAccountAtom);
-  // const [isWithHoldingChecked, setIsWithHoldingChecked] = useAtom(isWithHoldingCheckedAtom);
-
   const { data: configData } = useGetConfigration('ExpenseAccountAllowOnPaymentVoucher');
   const isExpenseAccountAllowed = configData?.data?.Data?.Result === 'True';
 
@@ -484,7 +479,7 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
                                   className="formfield"
                                 >
                                   <AntSelectDynamic
-                                    disabled={!SharedStateIncludeWHT /* isWithHoldingChecked*/}
+                                    disabled={!SharedStateIncludeWHT}
                                     bordered={false}
                                     fieldValue="Id"
                                     fieldLabel="AccountTitle"
