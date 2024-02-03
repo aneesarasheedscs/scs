@@ -72,7 +72,7 @@ const GeneralLedgerReport: React.FC<{
     isLoading: detailDataLoading,
     refetch: detailRefetch,
   } = useGetGeneralLedgerDetail(
-    false,
+    true,
     CompanyId !== undefined && CompanyId > 0 ? CompanyId : userDetail?.CompanyId,
     formState
   );
@@ -124,7 +124,7 @@ const GeneralLedgerReport: React.FC<{
   }, [formState]);
 
   return (
-    <Card style={{ marginLeft: '-1%', marginTop: '-2%' }}>
+    <div style={{ background: '#fff' }}>
       <Row justify={'space-between'} align={'middle'}>
         <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16} className="">
           <h1 className="report_heading">{t('general_ledger')}</h1>
@@ -133,24 +133,18 @@ const GeneralLedgerReport: React.FC<{
           <BackButton />
         </Col>
       </Row>
-
-      {/* <Col xs={15} sm={10} md={6} lg={5} xxl={4}>
-        {' '}
-        <AccountsDetailSearchCriteriaForm
-          CriteriaObject={{ AccountIdProp, FromDateProp, ToDateProp, CompanyId }}
-          handleAccountTitleChange={handleAccountTitleChange}
-          handleFormStateChange={handleFormStateChange}
-        />
-      </Col> */}
-      {/* <br /> */}
-
+      <Row>
+        <Col style={{ marginLeft: '34px' }}>
+          <AccountsDetailSearchCriteriaForm
+            CriteriaObject={{ AccountIdProp, FromDateProp, ToDateProp, CompanyId }}
+            handleAccountTitleChange={handleAccountTitleChange}
+            handleFormStateChange={handleFormStateChange}
+          />
+        </Col>
+      </Row>
       {showAccountDetailCard && (
         <Row justify={'space-around'}>
-          <Col
-            xxl={23}
-
-            // className="card"
-          >
+          <Col xxl={23} style={{ marginTop: '5px' }}>
             <AccountDetailCard
               DetailData={AccountDetail?.data?.Data?.Result}
               BalanceData={AccountBalance?.data?.Data?.Result}
@@ -166,13 +160,6 @@ const GeneralLedgerReport: React.FC<{
               isError={detailError}
               columns={DetailTableColumns(t)}
               numberOfSkeletons={12}
-              searchCriteriaForm={
-                <AccountsDetailSearchCriteriaForm
-                  CriteriaObject={{ AccountIdProp, FromDateProp, ToDateProp, CompanyId }}
-                  handleAccountTitleChange={handleAccountTitleChange}
-                  handleFormStateChange={handleFormStateChange}
-                />
-              }
               isLoading={detailDataLoading}
               data={detailData?.data?.Data?.Result || []}
               scroll={{ x: '', y: convertVhToPixels('27vh') }}
@@ -183,13 +170,6 @@ const GeneralLedgerReport: React.FC<{
               isError={summary1Error}
               columns={SummaryITableColumns(t)}
               numberOfSkeletons={12}
-              searchCriteriaForm={
-                <AccountsDetailSearchCriteriaForm
-                  CriteriaObject={{ AccountIdProp, FromDateProp, ToDateProp, CompanyId }}
-                  handleAccountTitleChange={handleAccountTitleChange}
-                  handleFormStateChange={handleFormStateChange}
-                />
-              }
               isLoading={summary1DataLoading}
               data={summary1Data?.data?.Data?.Result || []}
               scroll={{ x: '', y: convertVhToPixels('27vh') }}
@@ -200,13 +180,6 @@ const GeneralLedgerReport: React.FC<{
               isError={summary2Error}
               columns={SummaryIITableColumns(t)}
               numberOfSkeletons={12}
-              searchCriteriaForm={
-                <AccountsDetailSearchCriteriaForm
-                  CriteriaObject={{ AccountIdProp, FromDateProp, ToDateProp, CompanyId }}
-                  handleAccountTitleChange={handleAccountTitleChange}
-                  handleFormStateChange={handleFormStateChange}
-                />
-              }
               isLoading={summary2DataLoading}
               data={summary2Data?.data?.Data?.Result || []}
               scroll={{ x: '', y: convertVhToPixels('27vh') }}
@@ -214,7 +187,7 @@ const GeneralLedgerReport: React.FC<{
           )}
         </Col>
       </Row>
-    </Card>
+    </div>
   );
 };
 

@@ -80,18 +80,18 @@ const AccountsDetailSearchCriteriaForm: React.FC<{
       <Form style={style} form={form} onFinish={onFinish} layout="horizontal">
         <Row gutter={[12, 12]} align="middle" justify="space-between">
           <Col span={6} className="formfield">
-            <AntDatePicker bordered={false} name="FromDate" label="From Date" />
+            <AntDatePicker bordered={false} name="FromDate" label={t('from_date')} />
           </Col>
 
           <Col span={6} className="formfield">
-            <AntDatePicker bordered={false} name="ToDate" label="To Date" />
+            <AntDatePicker bordered={false} name="ToDate" label={t('to_date')} />
           </Col>
 
           <Col span={11} className="formfield">
             <AntSelectDynamic
               required
               bordered={false}
-              label="Account Title"
+              label={t('account_title')}
               name="AccountId"
               fieldValue="Id"
               fieldLabel="AccountTitle"
@@ -108,8 +108,8 @@ const AccountsDetailSearchCriteriaForm: React.FC<{
             />
           </Col>
 
-          <Col span={6}>
-            <Form.Item name="ReportType" label="Report Type">
+          <Col span={12}>
+            <Form.Item name="ReportType" label={t('report_type')}>
               <Radio.Group defaultValue={'1'}>
                 <Space direction="horizontal">
                   <Radio value="1">{t('detail')}</Radio>
@@ -127,7 +127,7 @@ const AccountsDetailSearchCriteriaForm: React.FC<{
         </Row>
         <Row align="middle" justify="end" gutter={[10, 10]}>
           <Col xs={5} sm={5} md={5} xxl={3}>
-            <AntButton label="Show" htmlType="submit" style={{ marginTop: 15 }} />
+            <AntButton label={t('show')} htmlType="submit" style={{ marginTop: 15 }} />
           </Col>
         </Row>
       </Form>

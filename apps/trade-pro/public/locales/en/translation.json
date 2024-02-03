@@ -684,5 +684,14 @@
   "wht_account": "WHT Account",
   "tax_amount": "Tax Amount",
   "cash_payment_voucher": "Cash Payment Voucher",
-  "cost_center": "Cost Center"
+  "cost_center": "Cost Center",
+  "account_detail": "Account Detail",
+  "account class": "Account Class",
+  "manuual_no": "Mannual No",
+  "offset_title": "OffSetTitle",
+  "summary_I": "Summary I",
+  "summary_II": "Summary II",
+  "closing_balance": "Closing Balance",
+  "total_debit": "Total Debit",
+  "total_credit": "Total Credit"
 }

@@ -40,43 +40,62 @@ const AccountDetailCard: React.FC<{ DetailData: any; BalanceData: any }> = (prop
           </Col>
 
           <div>
-            <b>
-              <Row gutter={[16, 16]}>
-                <Col span={12}>
-                  <p> {/* {t('account title:')} {table2?.data?.Data?.Result?.[0]?.AccountTitle} */}</p>
-                  <p>
-                    {t('account_code: ')}
-                    {DetailData?.[0]?.AccountCode}
-                  </p>
-                  <p>
+            {/* <b> */}
+            <Row gutter={[16, 16]}>
+              <Col span={12}>
+                <p> {/* {t('account title:')} {table2?.data?.Data?.Result?.[0]?.AccountTitle} */}</p>
+                <p>
+                  <b> {t('account_code')}</b>
+                  <span className="marginleft"> {DetailData?.[0]?.AccountCode}</span>
+                </p>
+                <p>
+                  {' '}
+                  <b> {t('account class')}</b>
+                  <span className="marginleft"> {DetailData?.[0]?.ClassName}</span>
+                </p>
+                <p>
+                  {' '}
+                  <b> {t('account_type')} </b>
+                  <span className="marginleft"> {DetailData?.[0]?.AccountType}</span>
+                </p>
+              </Col>
+              <Col span={12}>
+                <p>
+                  <b> {t('opening')}</b>
+                  <span className="marginleft2" style={{ marginLeft: 40 }}>
+                    {numberFormatter(BalanceData?.[0]?.OpeningBalance)} &nbsp;
+                    {BalanceData?.[0]?.OpeningBalance > 0 ? 'Dr' : 'Cr'}
+                  </span>
+                </p>
+                <p>
+                  {' '}
+                  <b> {t('total_debit')}</b>
+                  <span className="marginleft2" style={{ marginLeft: 20 }}>
                     {' '}
-                    {t('account class: ')} {DetailData?.[0]?.ClassName}
-                  </p>
-                  <p>
+                    {numberFormatter(BalanceData?.[0]?.DebitAmount)} &nbsp;
+                    {BalanceData?.[0]?.DebitAmount > 0 ? 'Dr' : 'Cr'}
+                  </span>
+                </p>
+                <p>
+                  {' '}
+                  <b> {t('total_credit')}</b>
+                  <span className="marginleft2" style={{ marginLeft: 15 }}>
                     {' '}
-                    {t('account type: ')} {DetailData?.[0]?.AccountType}
-                  </p>
+                    {numberFormatter(BalanceData?.[0]?.CreditAmount)} &nbsp;
+                    {BalanceData?.[0]?.CreditAmount > 0 ? 'Dr' : 'Cr'}
+                  </span>
+                </p>
+                <Col style={{ marginLeft: '-9px' }}>
+                  <b> {t('closing')}</b>
+                  <span className="marginleft2" style={{ marginLeft: 45 }}>
+                    {' '}
+                    {numberFormatter(BalanceData?.[0]?.ClosingBalance)} &nbsp;
+                    {BalanceData?.[0]?.ClosingBalance > 0 ? 'Dr' : 'Cr'}
+                  </span>
                 </Col>
-                <Col span={12}>
-                  <p>
-                    {t('opening_balance: ')} {numberFormatter(BalanceData?.[0]?.OpeningBalance.toFixed(2))}
-                  </p>
-                  <p>
-                    {' '}
-                    {t('debit_amount: ')} {numberFormatter(BalanceData?.[0]?.DebitAmount.toFixed(2))}
-                  </p>
-                  <p>
-                    {' '}
-                    {t('credit_amount:  ')}
-                    {numberFormatter(BalanceData?.[0]?.CreditAmount.toFixed(2))}
-                  </p>
-                  <p>
-                    {t('closing_balance: ')}
-                    {numberFormatter(BalanceData?.[0]?.ClosingBalance.toFixed(2))}
-                  </p>
-                </Col>
-              </Row>
-            </b>
+              </Col>
+            </Row>
+            {/* </b> */}
           </div>
         </Card>
       </Col>

@@ -683,5 +683,11 @@
   "payment_type": "ادائیگی کی قسم",
   "tax_percentage": "ٹیکس فیصد",
   "cash_payment_voucher": "نقد ادائیگی واؤچر",
-  "cost_center": "لاگت مرکز"
+  "cost_center": "لاگت مرکز",
+  "account class": "اکاؤنٹ کلاس",
+  "closing_balance": "آخری موازنہ",
+  "manuual_no": "دستی کتاب نمبر",
+  "offset_title": "عنوان کا چھوٹا حصہ",
+  "summary_I": "خلاصہ I",
+  "summary_II": "خلاصہ II"
 }
