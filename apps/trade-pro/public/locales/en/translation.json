@@ -693,5 +693,6 @@
   "summary_II": "Summary II",
   "closing_balance": "Closing Balance",
   "total_debit": "Total Debit",
-  "total_credit": "Total Credit"
+  "total_credit": "Total Credit",
+  "cash_receipt_voucher": "Cash Receipt Voucher"
 }

@@ -24,5 +24,6 @@
   "payment_type": "払いの種類",
   "tax_percentage": "税率",
   "cash_payment_voucher": "現金支払い伝票",
-  "cost_center": "コストセンター"
+  "cost_center": "コストセンター",
+  "cash_receipt_voucher": "現金領収書バウチャー"
 }

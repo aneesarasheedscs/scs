@@ -29,7 +29,7 @@ function BankPaymentVoucherForm({ selectedRecordId }: TAddUpdateRecord) {
   const [bankId, setBankId] = useState<number | null>(null);
   const { data, isError, refetch, isLoading, isSuccess } = useGetVoucherNo();
   const [voucherDetailList, setVoucherDetailList] = useAtom(listAtom);
-  const [voucherDetailListforTax, setVoucherDetailListforTax] = useAtom(listAtomforTax);
+  // const [voucherDetailListforTax, setVoucherDetailListforTax] = useAtom(listAtomforTax);
   const [isTaxable, setIsTaxable] = useState(false);
   const {
     data: addBankReceipt,
@@ -58,10 +58,10 @@ function BankPaymentVoucherForm({ selectedRecordId }: TAddUpdateRecord) {
       values.voucherDetailList = values.voucherDetailList.map((detail) => ({
         ...detail,
       }));
-      updateBankReceiptVoucher(values);
+      // updateBankReceiptVoucher(values);
     } else {
       values.voucherDetailList = values.voucherDetailList && voucherDetailList;
-      addBankReceiptVoucher(values);
+      // addBankReceiptVoucher(values);
     }
   };
 

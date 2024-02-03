@@ -21,6 +21,7 @@ export type TSaveBankPaymentVoucher = {
   ChequeDate: string;
   Remarks: string;
   VoucherAmount: number;
+  IsTaxable: boolean;
   voucherDetailList: TBankPaymentDetailEntry[];
 };
 
@@ -62,8 +63,10 @@ export type TBankPaymentDetailEntry = {
   AccountId: number;
   AgainstAccountId: number;
   TaxTypeId: number;
+  TaxName: string;
   TaxPrcnt: number;
-  TaxesTotalAmount: number;
+  TaxAmount: number;
+  TotalAmount: number;
   IsDetailExpanded: boolean;
   AccountCode: number;
   AgainstAccount: string;

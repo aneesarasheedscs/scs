@@ -1,13 +1,13 @@
-import { AntButton, AntTable } from '@tradePro/components';
-import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
-import { Col, Row, theme } from 'antd';
-import { columns } from './columns';
-import { useTranslation } from 'react-i18next';
-import { useGetCashReceiptVoucherTable } from '../queries/queries';
-import { useState } from 'react';
 import './Card.scss';
 import './DetailTableFile.scss';
 import CardView from './CardView';
+import { useState } from 'react';
+import { Col, Row, theme } from 'antd';
+import { columns } from './columns';
+import { useTranslation } from 'react-i18next';
+import { AntButton, AntTable } from '@tradePro/components';
+import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
+import { useGetCashReceiptVoucherTable } from '../queries/queries';
 
 function CashReceiptTable({ setSelectedRecordId, setActiveTab }: TFrom) {
   const { t } = useTranslation();
@@ -26,29 +26,28 @@ function CashReceiptTable({ setSelectedRecordId, setActiveTab }: TFrom) {
 
   return (
     <>
-      <Row style={{ marginTop: '0.5%' }}>
-        <Col span={24}>
-          <AntButton onClick={toggleCardView} className="btn" label={t('card_view')} />
-          <AntButton onClick={toggleGridView} className="btn" style={{ marginLeft: '1%' }} label={t('grid_view')} />
+      <Row gutter={10}>
+        <Col span={24} style={{ marginLeft: '0.5%', borderTop: '1px solid #dfdfdf' }}>
+          <AntButton onClick={toggleCardView} className="" label={t('card_view')} />
+          <AntButton onClick={toggleGridView} className="" style={{ marginLeft: '0.2%' }} label={t('grid_view')} />
         </Col>
-        <br />
-        <br />
+
         {showComponent ? (
           <CardView />
         ) : (
           <Col>
-            <div>
+            <>
               <AntTable
                 isError={isError}
-                numberOfSkeletons={8}
+                numberOfSkeletons={10}
                 isLoading={isLoading}
                 scroll={{ x: '', y: convertVhToPixels('25vh') }}
                 data={data?.data?.Data?.Result || []}
                 columns={columns(t, setSelectedRecordId, setActiveTab)}
               />
 
-              <Col>{/* <CashReceiptDetailTable /> */}</Col>
-            </div>
+              {/* <CashReceiptDetailTable />  */}
+            </>
           </Col>
         )}
       </Row>

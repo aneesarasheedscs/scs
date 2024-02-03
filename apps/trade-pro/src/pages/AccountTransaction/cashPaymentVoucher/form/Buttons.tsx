@@ -4,28 +4,31 @@ import { map } from 'lodash';
 import VoucherNo from './VoucherNo';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { addtableData, isWithHoldingCheckedAtom } from '../form/Atom';
+import { addtableData } from '../form/Atom';
 import { useGetVoucherNo } from '../queries/queries';
 import { AntButton, AntDatePicker } from '@tradePro/components';
-import { Badge, Col, Form, FormInstance, Input, Row, notification } from 'antd';
+import { Badge, Col, Form, FormInstance, Input, Row } from 'antd';
 import { SaveOutlined, SyncOutlined, RedoOutlined, PaperClipOutlined, PrinterFilled } from '@ant-design/icons';
 
 function Buttons({
   form,
-  isSuccess,
   entryData,
+  isEntrySuccessful,
+  UpdateData,
+  isUpdateEntrySuccessful,
   addCashPayment,
   selectedRecordId,
   setSelectedRecordId,
   setPrintPreview,
   printPreview,
   DocumentTypeId,
+  setBankId,
+  setSharedStateIncludeWHT,
 }: TAddUpdateRecord) {
   const { t } = useTranslation();
   const [tableData, setTableData] = useAtom(addtableData);
 
   const { data, isError, refetch, isLoading, isSuccess: successVoucherNo } = useGetVoucherNo(DocumentTypeId);
-  const [isWithHoldingChecked, setIsWithHoldingChecked] = useAtom(isWithHoldingCheckedAtom);
 
   console.log(tableData);
   const handleButtonClick = () => {
@@ -36,11 +39,22 @@ function Buttons({
     setSelectedRecordId(null);
     setTableData([]);
     refetch();
-    setIsWithHoldingChecked(false);
+    setBankId();
+    setSharedStateIncludeWHT(false);
     form.setFieldValue('VoucherNo', data?.data?.Data?.Result);
+    form.setFieldValue('IncludeWHT', false);
+    form.setFieldValue('RefAccountId', null);
     form.setFieldValue('VoucherDate', dayjs(new Date()));
     form.setFieldValue('Remarks', null);
+    form.setFieldValue(['voucherDetailList', 0, 'TaxTypeId'], null);
   };
+  useEffect(() => {
+    if (isEntrySuccessful && entryData?.data?.Status === true) {
+      handleResetForm();
+    } else if (isUpdateEntrySuccessful && UpdateData?.data?.Status === true) {
+      handleResetForm();
+    }
+  }, [entryData, isEntrySuccessful, isUpdateEntrySuccessful, UpdateData]);
   useEffect(() => {
     if (successVoucherNo)
       form.setFieldValue(
@@ -48,16 +62,24 @@ function Buttons({
         map(data?.data?.Data?.Result, (item) => item.VoucherCode)
       );
     form.setFields([{ name: 'VoucherDate', value: dayjs(new Date()) }]);
-    if (isSuccess && entryData?.data?.Status === true) {
-      refetch();
+  }, [data, successVoucherNo]);
+  const handleKeyDown = (event: any) => {
+    if (event.key === 'Escape') {
+      handleResetForm();
     }
-  }, [data, successVoucherNo, isSuccess]);
+  };
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [form]);
   return (
     <>
       <Row justify="space-between" style={{ marginLeft: 0, marginRight: 10 }}>
-        <Col xxl={8} xl={9} lg={12} style={{ marginTop: '0%' }}>
+        <Col xxl={8} xl={9} lg={18} md={18} sm={18} xs={24} style={{ marginTop: '0%' }}>
           <Row gutter={10} align="middle" style={{ border: '' }} justify={'space-evenly'}>
-            <Col className="formfield1 voucherNo">
+            <Col xl={9} xxl={7} lg={8} md={7} sm={18} xs={18} className="formfield1 voucherNo">
               <b style={{ fontSize: 18 }}> {t('voucher_no')}</b> &nbsp;
               <VoucherNo
                 isError={isError}
@@ -122,13 +144,17 @@ function Buttons({
 }
 type TAddUpdateRecord = {
   form: FormInstance;
-  isSuccess: any;
   entryData: any;
+  isEntrySuccessful: any;
+  UpdateData: any;
+  isUpdateEntrySuccessful: any;
   addCashPayment: any;
   DocumentTypeId: number;
   selectedRecordId: any;
   setSelectedRecordId: (id: number | null) => void;
   setPrintPreview: any;
   printPreview: any;
+  setBankId: any;
+  setSharedStateIncludeWHT: any;
 };
 export default Buttons;

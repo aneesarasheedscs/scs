@@ -1,16 +1,16 @@
-import { AntButton, AntTable } from '@tradePro/components';
-import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
-import { Col, Row, theme } from 'antd';
-import { columns } from './columns';
-import { useTranslation } from 'react-i18next';
-import { useGetCashPaymentVoucherTable } from '../queries/queries';
-import { useState } from 'react';
-import CardView from './CardView';
 import './Card.scss';
 import './Table.scss';
+import { columns } from './columns';
+import { useState } from 'react';
+import CardView from './CardView';
+import { Col, Row, theme } from 'antd';
+import { useTranslation } from 'react-i18next';
 import CashPaymentDetailTable from './DetailTable';
+import { AntButton, AntTable } from '@tradePro/components';
+import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
+import { useGetCashPaymentVoucherTable } from '../queries/queries';
 
-function CashPaymentTable({ setSelectedRecordId, setActiveTab }: TFrom) {
+function CashPaymentTable({ setSelectedRecordId, setActiveTab, setSelectedRecordIdforDetail }: TFrom) {
   const { t } = useTranslation();
   const { data, isError, isLoading, refetch, isFetching } = useGetCashPaymentVoucherTable();
   const [showComponent, setShowComponent] = useState(false);
@@ -40,11 +40,11 @@ function CashPaymentTable({ setSelectedRecordId, setActiveTab }: TFrom) {
               <AntTable
                 refetch={refetch}
                 isError={isError}
-                numberOfSkeletons={8}
+                numberOfSkeletons={10}
                 isLoading={isLoading || isFetching}
-                scroll={{ x: '', y: convertVhToPixels('25vh') }}
+                scroll={{ x: '', y: convertVhToPixels('30vh') }}
                 data={data?.data?.Data?.Result || []}
-                columns={columns(t, setSelectedRecordId, setActiveTab)}
+                columns={columns(t, setSelectedRecordId, setActiveTab, setSelectedRecordIdforDetail)}
               />
 
               <CashPaymentDetailTable />
@@ -59,6 +59,7 @@ function CashPaymentTable({ setSelectedRecordId, setActiveTab }: TFrom) {
 type TFrom = {
   setSelectedRecordId: (id: number | null) => void;
   setActiveTab: (tab: string) => void;
+  setSelectedRecordIdforDetail: (id: number | null) => void;
 };
 
 export default CashPaymentTable;

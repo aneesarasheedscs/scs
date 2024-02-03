@@ -31,6 +31,26 @@ export const useGetCashPaymentVoucherById = (Id?: number | null | any) => {
 const getCashPaymentVoucherById = (Id?: number | null) => {
   return requestManager.get('/api/Voucher/GetByID', { params: { Id } });
 };
+export const useGetCashPaymentVoucherDetailById = (Id?: number | null | any) => {
+  return useQuery(
+    ['CashPaymentVoucher-Detail-getById', Id],
+    () => {
+      return getCashPaymentVoucherByDetailId(Id);
+    },
+    {
+      cacheTime: 0,
+      staleTime: 0,
+      enabled: !!Id,
+      onError: (error: AxiosError) => {
+        const msg = error.response?.data || 'Something went wrong';
+        notification.error({ description: '', message: msg as string });
+      },
+    }
+  );
+};
+const getCashPaymentVoucherByDetailId = (Id?: number | null) => {
+  return requestManager.get('/api/Voucher/GetByID', { params: { Id } });
+};
 
 // save form
 
