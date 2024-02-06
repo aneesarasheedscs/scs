@@ -101,7 +101,7 @@ export const FourColumnsTrialBalanceReport = (t: any): AntColumnType<TrialBalanc
   {
     title: t('account_code'),
     dataIndex: 'AccountCode',
-    searchableInput: true,
+
     width: 196,
     showCount: true,
     sortDirections: ['ascend', 'descend'],

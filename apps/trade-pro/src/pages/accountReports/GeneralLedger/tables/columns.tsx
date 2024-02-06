@@ -19,7 +19,7 @@ export const DetailTableColumns = (t: any): AntColumnType<TGeneralLedgerDetail>[
   },
 
   {
-    width: 200,
+    width: 150,
     searchableInput: true,
     title: t('voucher_type'),
     dataIndex: 'DocType',
@@ -33,7 +33,7 @@ export const DetailTableColumns = (t: any): AntColumnType<TGeneralLedgerDetail>[
     width: 150,
   },
   {
-    width: 250,
+    width: 150,
     searchableInput: true,
     title: t('account_code'),
     dataIndex: 'AccountCode',
@@ -71,7 +71,7 @@ export const DetailTableColumns = (t: any): AntColumnType<TGeneralLedgerDetail>[
     ),
   },
   {
-    width: 170,
+    width: 200,
     title: t('balance'),
     dataIndex: 'Balance',
     align: 'right',
@@ -83,7 +83,7 @@ export const DetailTableColumns = (t: any): AntColumnType<TGeneralLedgerDetail>[
     ),
   },
   {
-    width: 200,
+    width: 150,
     dataIndex: 'Comments',
     title: t('comments'),
     searchableInput: true,
@@ -100,7 +100,7 @@ export const DetailTableColumns = (t: any): AntColumnType<TGeneralLedgerDetail>[
   {
     title: t('date'),
     dataIndex: 'ChequeDate',
-    width: 200,
+    width: 150,
     sorter: (a, b) => {
       const dateA = dayjs(a.ChequeDate);
       const dateB = dayjs(b.ChequeDate);
@@ -197,31 +197,37 @@ export const SummaryITableColumns = (t: any): AntColumnType<TGeneralLedgerSummar
   },
 
   {
-    width: 200,
+    width: 150,
     title: t('debit'),
     dataIndex: 'DebitAmount',
     align: 'right',
     showTotal: true,
     sorter: (a, b) => a.DebitAmount - b.DebitAmount,
-    render: (DebitAmount, recode) => <Space style={{}}>{numberFormatter(DebitAmount)}</Space>,
+    render: (DebitAmount, recode) => (
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(DebitAmount)}</Space>
+    ),
   },
   {
-    width: 200,
+    width: 150,
     title: t('credit'),
     dataIndex: 'CreditAmount',
     showTotal: true,
     align: 'right',
     sorter: (a, b) => a.CreditAmount - b.CreditAmount,
-    render: (CreditAmount, recode) => <Space style={{}}>{numberFormatter(CreditAmount)}</Space>,
+    render: (CreditAmount, recode) => (
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(CreditAmount)}</Space>
+    ),
   },
   {
-    width: 200,
+    width: 150,
     title: t('running_balance'),
     dataIndex: 'RunningBalance',
     showTotal: true,
     align: 'right',
     sorter: (a, b) => a.RunningBalance - b.RunningBalance,
-    render: (RunningBalance, recode) => <Space style={{}}>{numberFormatter(RunningBalance)}</Space>,
+    render: (RunningBalance, recode) => (
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(RunningBalance)}</Space>
+    ),
   },
   {
     width: 200,
@@ -251,6 +257,7 @@ export const SummaryIITableColumns = (t: any): AntColumnType<TGeneralLedgerSumma
       return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
     },
     render: (_, { VoucherDate }) => formateDate(VoucherDate),
+    showCount: true,
   },
   {
     width: 200,
@@ -265,20 +272,20 @@ export const SummaryIITableColumns = (t: any): AntColumnType<TGeneralLedgerSumma
     title: t('account_title'),
     dataIndex: 'AccountTitle',
     searchableInput: true,
-    width: 300,
+    width: 200,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
   },
   {
-    width: 300,
-    title: t('off_set_title'),
+    width: 200,
+    title: t('offset_title'),
     searchableInput: true,
     dataIndex: 'OffSetAccountTitle',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.OffSetAccountTitle.localeCompare(b.OffSetAccountTitle),
   },
   {
-    width: 300,
+    width: 200,
     title: t('remarks'),
     searchableInput: true,
     dataIndex: 'Remarks',
@@ -286,32 +293,38 @@ export const SummaryIITableColumns = (t: any): AntColumnType<TGeneralLedgerSumma
     sorter: (a, b) => a.Remarks.localeCompare(b.Remarks),
   },
   {
-    width: 150,
+    width: 200,
     title: t('debit'),
     dataIndex: 'DebitAmount',
     align: 'right',
     sorter: (a, b) => a.DebitAmount - b.DebitAmount,
     showTotal: true,
-    render: (DebitAmount, recode) => <Space style={{}}>{numberFormatter(DebitAmount)}</Space>,
+    render: (DebitAmount, recode) => (
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(DebitAmount)}</Space>
+    ),
   },
   {
-    width: 150,
+    width: 200,
     title: t('credit'),
     dataIndex: 'CreditAmount',
     align: 'right',
     sorter: (a, b) => a.CreditAmount - b.CreditAmount,
     showTotal: true,
-    render: (_, { CreditAmount }) => <Space style={{}}>{numberFormatter(CreditAmount)}</Space>,
+    render: (_, { CreditAmount }) => (
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(CreditAmount)}</Space>
+    ),
   },
 
   {
-    width: 160,
+    width: 200,
     title: t('running_balance'),
     dataIndex: 'Balance',
     align: 'right',
     sorter: (a, b) => a.Balance - b.Balance,
-
-    render: (Balance, recode) => <Space style={{}}>{numberFormatter(Balance)}</Space>,
+    showTotal: true,
+    render: (Balance, recode) => (
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(Balance)}</Space>
+    ),
   },
   {
     width: 160,

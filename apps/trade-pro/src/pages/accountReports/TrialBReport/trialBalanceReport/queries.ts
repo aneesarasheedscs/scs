@@ -98,6 +98,7 @@ export const useGetTrialBalanceReport = (enabled = true, params?: TrialBalanceSe
         CompanyId: userDetail?.CompanyId,
         FinancialYearId: FinancialYear?.Id,
         IsApproved: params?.ApprovedFilter == 'All' ? false : true,
+
         ...params,
       });
     },

@@ -1,8 +1,6 @@
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { Card, Col, Row, Typography, theme } from 'antd';
-import { useGetAccountBalance, useGetAccountDetail, useGetAccountTitle } from '../queryOptions';
 import { useTranslation } from 'react-i18next';
-import { useGetGeneralLedgerDetail, useGetGeneralLedgerSummaryI } from '../queries';
 import React, { useState } from 'react';
 
 const { Title } = Typography;
@@ -16,17 +14,16 @@ const AccountDetailCard: React.FC<{ DetailData: any; BalanceData: any }> = (prop
   } = theme.useToken();
 
   return (
-    <Row>
-      <Col xxl={24}>
+    <Row justify={'center'}>
+      <Col xxl={24} xs={23} sm={24} md={24}>
         <Card
           hoverable
           style={{
             border: `1px solid ${colorPrimary}`,
-            height: 155,
+            height: 158,
           }}
         >
-          {/* <Row gutter={[12, 12]}></Row> */}
-          <Col span={24}>
+          <Col span={24} xs={24}>
             <Title
               level={4}
               className="custom-title1"
@@ -95,7 +92,6 @@ const AccountDetailCard: React.FC<{ DetailData: any; BalanceData: any }> = (prop
                 </Col>
               </Col>
             </Row>
-            {/* </b> */}
           </div>
         </Card>
       </Col>

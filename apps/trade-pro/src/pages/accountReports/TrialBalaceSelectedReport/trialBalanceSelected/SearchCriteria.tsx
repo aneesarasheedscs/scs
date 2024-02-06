@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Checkbox, Col, Form, Row } from 'antd';
+import { Checkbox, Col, Form, Radio, Row } from 'antd';
 import dayjs from 'dayjs';
 import { AntButton, AntDatePicker, AntSelectDynamic, SearchCriteriaWrapper } from '@tradePro/components';
 import { storedFinancialYear } from '@tradePro/utils/storageService';
@@ -8,6 +8,8 @@ import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { useGetAccountTitle, useGetCityName, useGetDateTypes, useGetTrialBalanceSelectedReport } from './queries';
 import '../style.scss';
 import { useTranslation } from 'react-i18next';
+import { useAtom } from 'jotai';
+import { selectedColumnAtom } from './atom';
 
 const financialYear = storedFinancialYear();
 const { useForm, useWatch } = Form;
@@ -16,6 +18,9 @@ function CriteriaTrialBalanceSelected() {
   const [open, setOpen] = useState(false);
   const [form] = useForm<TtrialBalanceSelectedSearchCriteria>();
   const formValues = useWatch<TtrialBalanceSelectedSearchCriteria>([], form);
+
+  const [selectedColumnss, setSelectedColumnss] = useAtom(selectedColumnAtom);
+  const [radioClicked, setRadioClicked] = useState(false);
   const { setFieldValue, getFieldValue } = form;
   const { data } = useGetAccountTitle();
   console.log('this is account', data);
@@ -28,7 +33,12 @@ function CriteriaTrialBalanceSelected() {
   } = useGetTrialBalanceSelectedReport(false, form.getFieldsValue());
 
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // const handleClose = () => {};
+  const handleClose = () => {
+    if (!radioClicked) {
+      setOpen(false);
+    }
+  };
 
   const onFinish = (_: TtrialBalanceSelectedSearchCriteria) => {
     refetch().then(() => handleClose());
@@ -71,13 +81,16 @@ function CriteriaTrialBalanceSelected() {
     setFieldValue('FromDate', dayjs(fromDate));
     setFieldValue('ToDate', dayjs(toDate));
   };
-
   const { t } = useTranslation();
+  const handleColumnChange = (e: any) => {
+    setSelectedColumnss(e.target.value);
+  };
+
   return (
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
       <Form form={form} onFinish={onFinish} layout="inline" initialValues={formValues}>
-        <Row gutter={[10, 10]}>
-          <Col xs={24} sm={12} md={24} className="form_field">
+        <Row gutter={[16, 16]} justify={'space-between'}>
+          <Col xs={24} sm={24} md={9} xxl={10} className="form_field">
             <p className="datetype_icon_width">
               <AntSelectDynamic
                 bordered={false}
@@ -92,7 +105,7 @@ function CriteriaTrialBalanceSelected() {
             </p>
           </Col>
 
-          <Col xs={24} sm={12} md={12} className="form_field">
+          <Col xs={24} sm={12} md={7} xxl={7} className="form_field">
             <p className="date_icon_width">
               <Form.Item name="FromDate" initialValue={FromDate}>
                 <AntDatePicker name="FromDate" label={t('from_date')} bordered={false} />
@@ -100,13 +113,13 @@ function CriteriaTrialBalanceSelected() {
             </p>
           </Col>
 
-          <Col xs={24} sm={12} md={11} className="form_field" offset={1}>
+          <Col xs={24} sm={11} md={7} xxl={6} className="form_field">
             <Form.Item name="ToDate" initialValue={ToDate}>
               <AntDatePicker name="ToDate" label={t('to_date')} bordered={false} />
             </Form.Item>
           </Col>
 
-          <Col xs={24} sm={12} md={24} className="form_field">
+          <Col xs={24} sm={12} md={12} xxl={10} className="form_field">
             <p className="datetype_icon_width">
               <AntSelectDynamic
                 bordered={false}
@@ -118,7 +131,7 @@ function CriteriaTrialBalanceSelected() {
               />
             </p>
           </Col>
-          <Col xs={24} sm={12} md={24} className="form_field">
+          <Col xs={24} sm={11} md={11} xxl={13} className="form_field">
             <AntSelectDynamic
               bordered={false}
               label={t('city_name')}
@@ -129,12 +142,18 @@ function CriteriaTrialBalanceSelected() {
             />
           </Col>
 
-          <Col xs={12} sm={6} md={6}>
+          <Col xs={12} sm={6} md={6} xxl={4}>
             <Form.Item name="ActionId">
               <Checkbox checked={getFieldValue('ActionId') === 1} onChange={onChangeIsActive}>
                 {t('is_active')}
               </Checkbox>
             </Form.Item>
+          </Col>
+          <Col xxl={8}>
+            <Radio.Group value={selectedColumnss} onChange={handleColumnChange}>
+              <Radio value="four"> {t('four_columns')}</Radio>
+              <Radio value="six">{t('six_columns')}</Radio>
+            </Radio.Group>
           </Col>
 
           <Col xs={8} sm={4} md={4}>

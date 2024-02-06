@@ -101,10 +101,6 @@ const AccountsDetailSearchCriteriaForm: React.FC<{
                   CriteriaObject?.CompanyId !== undefined ? CriteriaObject?.CompanyId : userDetail?.CompanyId
                 )
               }
-              // options={map(AccountTitleData, (item: any) => ({
-              //   value: item.Id,
-              //   label: item.AccountTitle,
-              // }))}
             />
           </Col>
 

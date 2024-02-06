@@ -71,6 +71,7 @@ const GeneralLedgerReport: React.FC<{
     isSuccess: detailDataSuccess,
     isLoading: detailDataLoading,
     refetch: detailRefetch,
+    isFetching: detaiIsFetching,
   } = useGetGeneralLedgerDetail(
     true,
     CompanyId !== undefined && CompanyId > 0 ? CompanyId : userDetail?.CompanyId,
@@ -83,6 +84,7 @@ const GeneralLedgerReport: React.FC<{
     isSuccess: summary1DataSuccess,
     isLoading: summary1DataLoading,
     refetch: summary1Refetch,
+    isFetching: summary1isFetching,
   } = useGetGeneralLedgerSummaryI(
     false,
     CompanyId !== undefined && CompanyId > 0 ? CompanyId : userDetail?.CompanyId,
@@ -95,6 +97,7 @@ const GeneralLedgerReport: React.FC<{
     isSuccess: summary2DataSuccess,
     isLoading: summary2DataLoading,
     refetch: summary2Refetch,
+    isFetching: summary2isFetching,
   } = useGetGeneralLedgerSummaryII(
     false,
     CompanyId !== undefined && CompanyId > 0 ? CompanyId : userDetail?.CompanyId,
@@ -134,7 +137,7 @@ const GeneralLedgerReport: React.FC<{
         </Col>
       </Row>
       <Row>
-        <Col style={{ marginLeft: '34px' }}>
+        <Col style={{ marginLeft: '35px' }}>
           <AccountsDetailSearchCriteriaForm
             CriteriaObject={{ AccountIdProp, FromDateProp, ToDateProp, CompanyId }}
             handleAccountTitleChange={handleAccountTitleChange}
@@ -142,9 +145,10 @@ const GeneralLedgerReport: React.FC<{
           />
         </Col>
       </Row>
+      <br />
       {showAccountDetailCard && (
-        <Row justify={'space-around'}>
-          <Col xxl={23} style={{ marginTop: '5px' }}>
+        <Row gutter={[24, 24]} justify={'space-around'}>
+          <Col xxl={23} style={{ marginTop: '0px' }}>
             <AccountDetailCard
               DetailData={AccountDetail?.data?.Data?.Result}
               BalanceData={AccountBalance?.data?.Data?.Result}
@@ -152,7 +156,7 @@ const GeneralLedgerReport: React.FC<{
           </Col>
         </Row>
       )}
-      <br />
+      {/* <br /> */}
       <Row gutter={[16, 16]} justify={'space-around'}>
         <Col span={23}>
           {formState !== undefined && (formState.ReportType == undefined || formState?.ReportType == 1) && (
@@ -160,9 +164,10 @@ const GeneralLedgerReport: React.FC<{
               isError={detailError}
               columns={DetailTableColumns(t)}
               numberOfSkeletons={12}
-              isLoading={detailDataLoading}
+              isLoading={detailDataLoading || detaiIsFetching}
               data={detailData?.data?.Data?.Result || []}
               scroll={{ x: '', y: convertVhToPixels('27vh') }}
+              refetch={detailRefetch}
             />
           )}
           {formState !== undefined && formState?.ReportType == 2 && (
@@ -170,7 +175,8 @@ const GeneralLedgerReport: React.FC<{
               isError={summary1Error}
               columns={SummaryITableColumns(t)}
               numberOfSkeletons={12}
-              isLoading={summary1DataLoading}
+              isLoading={summary1DataLoading || summary1isFetching}
+              refetch={summary1Refetch}
               data={summary1Data?.data?.Data?.Result || []}
               scroll={{ x: '', y: convertVhToPixels('27vh') }}
             />
@@ -180,7 +186,8 @@ const GeneralLedgerReport: React.FC<{
               isError={summary2Error}
               columns={SummaryIITableColumns(t)}
               numberOfSkeletons={12}
-              isLoading={summary2DataLoading}
+              isLoading={summary2DataLoading || summary2isFetching}
+              refetch={summary2Refetch}
               data={summary2Data?.data?.Data?.Result || []}
               scroll={{ x: '', y: convertVhToPixels('27vh') }}
             />
