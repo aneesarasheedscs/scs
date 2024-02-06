@@ -25,7 +25,7 @@ export const useGetBankReceiptVoucherTable = (enabled = true, params?: TBankHist
         BranchesId: userDetail?.BranchesId,
         CompanyId: userDetail?.CompanyId,
         FinancialYearId: financialYear?.Id,
-        Ids: '1',
+        Ids: '2',
         PostState: true,
         NoOfRecords: 50,
         ...params,
@@ -37,12 +37,19 @@ export const useGetBankReceiptVoucherTable = (enabled = true, params?: TBankHist
 
 // Voucher No
 
-export const useGetVoucherNo = () => {
+export const useGetVoucherNo = (DocumentTypeId: number) => {
   return useQuery(
-    'voucher-number',
+    ['voucher-number', DocumentTypeId],
     () => {
       return requestManager.get('/api/Voucher/GenerateVoucherCodeByDocumentTypeId', {
-        params: { ...params, DocumentTypeId: 2, BranchId: 2, FinancialYearId: 2 },
+        params: {
+          ...params,
+          DocumentTypeId: DocumentTypeId,
+          BranchId: userDetail?.BranchesId,
+          FinancialYearId: financialYear?.Id,
+          CompanyId: userDetail?.CompanyId,
+          OrganizationId: userDetail?.OrganizationId,
+        },
       });
     },
     { cacheTime: 5000 }
@@ -170,14 +177,14 @@ export const useGetBankReceiptJobLotSelect = () => {
   );
 };
 
-export const useGetTaxSchedule = () => {
+export const useGetTaxSchedule = (DocDate?: Date, TaxNameId?: number) => {
   return useQuery(
     'TaxSchedule',
     () => {
       return requestManager.get('/api/TaxScheduleMain/GetTaxSchedule', {
-        params: { ...params, EffectedDate: '2023-09-12', TaxNameId: 11 },
+        params: { ...params, EffectedDate: DocDate, TaxNameId: TaxNameId },
       });
     },
-    { cacheTime: 5000 }
+    { enabled: !!DocDate && !!TaxNameId, cacheTime: 5000 }
   );
 };

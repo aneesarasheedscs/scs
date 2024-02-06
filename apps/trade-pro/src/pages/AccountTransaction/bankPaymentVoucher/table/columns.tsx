@@ -188,6 +188,7 @@ export const column2 = (t: any, handleDeleteRow?: any, handleEditRow?: any): Ant
   {
     title: t('payment_type'),
     width: 150,
+    showCount: true,
     searchableInput: true,
     dataIndex: 'PaymentType',
     sortDirections: ['ascend', 'descend'],
@@ -203,13 +204,14 @@ export const column2 = (t: any, handleDeleteRow?: any, handleEditRow?: any): Ant
   },
   {
     title: t('job_lot'),
-    width: 130,
+    width: 150,
     dataIndex: 'JobLotDescription',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.JobLotDescription.localeCompare(b.JobLotDescription),
   },
   {
+    align: 'right',
     title: t('debit_amount'),
     width: 130,
     dataIndex: 'DebitAmount',
@@ -217,24 +219,34 @@ export const column2 = (t: any, handleDeleteRow?: any, handleEditRow?: any): Ant
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.DebitAmount - b.DebitAmount,
     render: (_, { DebitAmount }) => (
-      <span style={{ display: 'flex', justifyContent: 'end', marginRight: '10%' }}>{numberFormatter(DebitAmount)}</span>
+      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(DebitAmount)}</span>
     ),
   },
   {
     title: t('cheque_date'),
     width: 140,
     dataIndex: 'DCheqDate',
+    searchableDate: true,
     sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => {
+      const dateA = dayjs(a.DCheqDate);
+      const dateB = dayjs(b.DCheqDate);
+      return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
+    },
     render: (_, { DCheqDate }) => formateDate(DCheqDate),
   },
   {
     title: t('cheque_no'),
-    width: 100,
+    width: 120,
     dataIndex: 'CheqNoDetail',
+    sorter: (a, b) => a.CheqNoDetail - b.CheqNoDetail,
+    render: (_, { CheqNoDetail }) => (
+      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(CheqNoDetail)}</span>
+    ),
   },
   {
     title: t('payee_title'),
-    width: 210,
+    width: 220,
     dataIndex: 'PayeeTitle',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],

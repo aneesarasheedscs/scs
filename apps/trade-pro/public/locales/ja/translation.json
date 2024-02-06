@@ -25,5 +25,7 @@
   "tax_percentage": "税率",
   "cash_payment_voucher": "現金支払い伝票",
   "cost_center": "コストセンター",
-  "cash_receipt_voucher": "現金領収書バウチャー"
+  "cash_receipt_voucher": "現金領収書バウチャー",
+  "bank_receipt_voucher": "銀行領収証",
+  "against_ac": "アカウントに対して"
 }

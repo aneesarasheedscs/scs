@@ -840,5 +840,7 @@
   "tax_percentage": "Porcentaje de impuestos",
   "cash_payment_voucher": "Vale de pago en efectivo",
   "cost_center": "Centro de costos",
-  "cash_receipt_voucher": "Vale de recibo en efectivo"
+  "cash_receipt_voucher": "Vale de recibo en efectivo",
+  "bank_receipt_voucher": "Comprobante de recibo bancario",
+  "against_ac": "Contra cuenta"
 }

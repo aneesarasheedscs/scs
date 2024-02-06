@@ -1,28 +1,3 @@
-export type TSaveBankReceiptVoucher = {
-  Id: number;
-  Type: number;
-  BranchId: number;
-  ProjectId: number;
-  OrganizationId: number;
-  CompanyId: number;
-  FinancialYearId: number;
-  EntryUser: number;
-  ModifyUser: number;
-  EntryDate: string;
-  ModifyDate: string;
-  DocumentTypeId: number;
-  VoucherCode: number;
-  VoucherDate: string;
-  RefAccountId: number;
-  AgainstAccountId: number;
-  RefDocNoId: number;
-  IncludeWHT: boolean;
-  ChequeDate: string;
-  Remarks: string;
-  VoucherAmount: number;
-  voucherDetailList: ReceiptVoucher[];
-};
-
 export type ReceiptVoucher = {
   AccountId: number;
   AgainstAccountId: number;
@@ -58,6 +33,8 @@ export type TTaxSchedule = {
 };
 
 export type TBankReceiptDetailEntry = {
+  AccountIdCredit: number;
+  CheqId: number;
   AccountTitle: string;
   JobLotDescription: string;
   JobLotId: number;
@@ -84,6 +61,10 @@ export type TBankReceiptDetailEntry = {
   IsDetailExpanded: boolean;
   AccountCode: number;
   AgainstAccount: string;
+  AccountIdDebit: string;
+  TaxName: string;
+  TaxAmount: number;
+  TotalAmount: number;
 };
 
 export type TFormDetailList = {
@@ -98,8 +79,12 @@ export type TFormDetailList = {
   TaxesTotalAmount: number;
   Amount: number;
 };
-
+export type TTaxType = {
+  Id: number;
+  TaxName: string;
+};
 export type TSaveBankReceipt = {
+  PrintPreview: boolean;
   Id: number;
   Type: number;
   BranchId: number;
@@ -122,22 +107,6 @@ export type TSaveBankReceipt = {
   Remarks: string;
   VoucherAmount: number;
   voucherDetailList: TBankReceiptDetailEntry[];
-};
-
-type VoucherDetail = {
-  AccountId: number;
-  AgainstAccountId: number;
-  JobLotId: number;
-  Comments: string;
-  PaymentType: 'Advance' | 'Other';
-  AdvanceAmount?: number;
-  DebitAmount: number;
-  CreditAmount: number;
-  InvoiceNoRefId: number;
-  CheqNoDetail: number;
-  DCheqDate: string;
-  PayeeTitle: string;
-  IsTaxable: boolean;
 };
 
 export type DataType = {

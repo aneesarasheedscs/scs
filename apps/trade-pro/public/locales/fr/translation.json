@@ -510,5 +510,7 @@
   "tax_percentage": "Pourcentage d'impôt",
   "cash_payment_voucher": "Bon de paiement en espèces",
   "cost_center": "Centre de coûts",
-  "cash_receipt_voucher": "Bon de reçu de caisse"
+  "cash_receipt_voucher": "Bon de reçu de caisse",
+  "bank_receipt_voucher": "Bon de reçu bancaire",
+  "against_ac": "Contre compte"
 }

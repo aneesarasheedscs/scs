@@ -51,6 +51,7 @@ function BankPaymentVoucherForm({
   }, [SharedStateIncludeWHT, VoucherDate, TaxTypeId]);
   const onFinish = (values: TSaveBankPaymentVoucher) => {
     values.PrintPreview = printPreview;
+    const AgainstAccountId = form.getFieldValue('AgainstAccountId');
 
     const TaxableEntry: any = {};
     if (values.IncludeWHT) {
@@ -98,11 +99,6 @@ function BankPaymentVoucherForm({
       addBankPaymentVoucher(values);
     }
   };
-  // useEffect(() => {
-  //   if (isNumber(selectedRecordId)) {
-  //     // refetchBankPayment();
-  //   }
-  // }, [selectedRecordId]);
 
   useEffect(() => {
     if (isDataSuccess) {

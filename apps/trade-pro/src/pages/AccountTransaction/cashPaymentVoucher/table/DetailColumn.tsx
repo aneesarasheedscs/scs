@@ -5,7 +5,7 @@ import { DataType } from '../form/types';
 export const detailColumns = (t?: any): AntColumnType<DataType>[] => [
   {
     title: t('account_title'),
-    width: 320,
+    width: 350,
     searchableInput: true,
     dataIndex: 'AccountTitle',
     sortDirections: ['ascend', 'descend'],
@@ -22,7 +22,7 @@ export const detailColumns = (t?: any): AntColumnType<DataType>[] => [
   },
   {
     title: t('remarks'),
-    width: 320,
+    width: 420,
     dataIndex: 'Comments',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
@@ -36,7 +36,7 @@ export const detailColumns = (t?: any): AntColumnType<DataType>[] => [
     dataIndex: 'DebitAmount',
     sorter: (a, b) => a.DebitAmount - b.DebitAmount,
     render: (_, { DebitAmount }) => (
-      <span style={{ display: 'flex', justifyContent: 'end', marginRight: '' }}>{numberFormatter(DebitAmount)}</span>
+      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(DebitAmount)}</span>
     ),
   },
   {
@@ -47,7 +47,7 @@ export const detailColumns = (t?: any): AntColumnType<DataType>[] => [
     dataIndex: 'CreditAmount',
     sorter: (a, b) => a.CreditAmount - b.CreditAmount,
     render: (_, { CreditAmount }) => (
-      <span style={{ display: 'flex', justifyContent: 'end', marginRight: '' }}>{numberFormatter(CreditAmount)}</span>
+      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(CreditAmount)}</span>
     ),
   },
 ];

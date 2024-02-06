@@ -684,5 +684,7 @@
   "tax_percentage": "ٹیکس فیصد",
   "cash_payment_voucher": "نقد ادائیگی واؤچر",
   "cost_center": "لاگت مرکز",
-  "cash_receipt_voucher": "کیش رسید واؤچر"
+  "cash_receipt_voucher": "کیش رسید واؤچر",
+  "bank_receipt_voucher": "بینک رسید واؤچر",
+  "against_ac": "اکاؤنٹ کے خلاف"
 }

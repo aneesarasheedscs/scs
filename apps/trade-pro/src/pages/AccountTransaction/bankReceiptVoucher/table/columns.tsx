@@ -147,7 +147,7 @@ export const columns = (
 export const column2 = (t: any, handleDeleteRow?: any, handleEditRow?: any): AntColumnType<DataType>[] => [
   {
     title: <>{t('payment_type')}</>,
-    width: 260,
+    width: 250,
     searchableInput: true,
     dataIndex: 'PaymentType',
     sortDirections: ['ascend', 'descend'],
@@ -155,7 +155,7 @@ export const column2 = (t: any, handleDeleteRow?: any, handleEditRow?: any): Ant
   },
   {
     title: <>{t('credit_account')}</>,
-    width: 260,
+    width: 300,
     searchableInput: true,
     dataIndex: 'AccountTitle',
     sortDirections: ['ascend', 'descend'],
@@ -163,7 +163,7 @@ export const column2 = (t: any, handleDeleteRow?: any, handleEditRow?: any): Ant
   },
   {
     title: <>{t('job_lot')}</>,
-    width: 260,
+    width: 200,
     dataIndex: 'JobLotDescription',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
@@ -171,37 +171,48 @@ export const column2 = (t: any, handleDeleteRow?: any, handleEditRow?: any): Ant
   },
   {
     title: <>{t('remarks')}</>,
-    width: 260,
+    width: 410,
     dataIndex: 'Comments',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.Comments.localeCompare(b.Comments),
   },
   {
+    align: 'right',
     title: <>{t('amount')}</>,
-    width: 260,
+    width: 200,
     dataIndex: 'CreditAmount',
     showTotal: true,
     sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.CreditAmount - b.CreditAmount,
+    render: (_, { CreditAmount }) => (
+      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(CreditAmount)}</span>
+    ),
   },
   {
     title: <>{t('action')}</>,
-    width: 150,
+    width: 120,
     render: (_, record) => (
-      <Tooltip title="Delete">
-        <Space>
-          <AntButton
-            type="text"
-            icon={<DeleteOutlined style={{ color: 'red' }} />}
-            onClick={() => handleDeleteRow(record)}
-          />
-          <AntButton
-            type="text"
-            icon={<EditFilled style={{ color: 'blue' }} />}
-            onClick={() => handleEditRow(record)}
-          />
-        </Space>
-      </Tooltip>
+      <>
+        <Tooltip title={t('edit')}>
+          <Space>
+            <AntButton
+              type="text"
+              icon={<EditFilled style={{ color: 'blue' }} />}
+              onClick={() => handleEditRow(record)}
+            />
+          </Space>
+        </Tooltip>
+        <Tooltip title={t('delete')}>
+          <Space>
+            <AntButton
+              type="text"
+              icon={<DeleteOutlined style={{ color: 'red' }} />}
+              onClick={() => handleDeleteRow(record)}
+            />
+          </Space>
+        </Tooltip>
+      </>
     ),
   },
 ];
