@@ -22,4 +22,8 @@ export type TtrialBalanceSelectedHistory = {
   Credit: number;
   Closing: number;
   AccountId: number;
+  OpeningDr:number;
+  OpeningCr:number;
+  ClosingCr:number;
+  ClosingDr:number
 };

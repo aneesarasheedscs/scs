@@ -8,21 +8,25 @@ import { CheckBox } from './tables/Atom';
 const userDetail = storedUserDetail();
 const FinancialYearId = storedFinancialYear();
 
-export const useGetGeneralLedgerDetail = (enabled = false, CompanyId?: number, params?: TFilterForms) => {
+export const useGetGeneralLedgerDetail = (enabled = true, CompanyId?: number, params?: TFilterForms) => {
   // const [isUnpostedChecked, setIsUnpostedChecked] = useAtom(CheckBox);
   // const filter = isUnpostedChecked ? 'IsApproved' : 'ApprovedFilter';
   // const filterValue = isUnpostedChecked ? true : 'All';
   return useQuery(
     'general-ledger-detail',
     () => {
+
       return requestManager.post('/api/AccountsReports/GeneralLedgerWithOffsetAccount', {
         OrganizationId: userDetail?.OrganizationId,
         CompanyId: CompanyId,
         FinancialYearId: FinancialYearId?.Id,
         BranchesId: userDetail?.BranchesId,
         EntryUser: userDetail?.UserId,
+        FromDate:FinancialYearId?.Start_Period,
+        ToDate:FinancialYearId?.End_Period,
         ApprovedFilter: params?.PostUnpost == true ? 'All' : '',
         IsApproved: params?.PostUnpost == false ? true : false,
+        AccountId:params?.AccountId ? params?.AccountId: 21321,
         ...params,
       });
     },

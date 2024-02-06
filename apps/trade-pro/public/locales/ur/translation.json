@@ -684,7 +684,13 @@
   "tax_percentage": "ٹیکس فیصد",
   "cash_payment_voucher": "نقد ادائیگی واؤچر",
   "cost_center": "لاگت مرکز",
-  "cash_receipt_voucher": "کیش رسید واؤچر",
   "bank_receipt_voucher": "بینک رسید واؤچر",
-  "against_ac": "اکاؤنٹ کے خلاف"
+  "against_ac": "اکاؤنٹ کے خلاف",
+  "account class": "اکاؤنٹ کلاس",
+  "closing_balance": "آخری موازنہ",
+  "manuual_no": "دستی کتاب نمبر",
+  "offset_title": "عنوان کا چھوٹا حصہ",
+  "summary_I": "خلاصہ I",
+  "summary_II": "خلاصہ II",
+  "cash_receipt_voucher": "کیش رسید واؤچر"
 }

@@ -55,4 +55,5 @@ export type TGeneralLedgerSummaryII = {
   RunningBalance: number;
   NumAttachments: number;
   VoucherType: string;
+  Balance:number
 };

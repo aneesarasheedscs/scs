@@ -8,7 +8,6 @@ const FinancialYear = storedFinancialYear();
 
 
 export const useGetAccountTitle = () => {
-  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
   return useQuery(
     'account-title',
     () => {
@@ -20,7 +19,7 @@ export const useGetAccountTitle = () => {
           ApprovedFilter: 'All',
           IsApproved: true,
 
-          languageId: 0,
+          LanguageId: 2,
         },
       });
     },
@@ -77,7 +76,7 @@ export const useGetDateTypes = () => {
 
 export const useGetTrialBalanceSelectedReport = (enabled = true, params?: TtrialBalanceSelectedSearchCriteria) => {
   return useQuery(
-    'trial-balance',
+    'selected-trial-balance',
     () => {
       return requestManager.post('/api/AccountsReports/SelectedTrialBalanceNew', {
         OrganizationId: userDetail?.OrganizationId,
