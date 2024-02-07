@@ -25,7 +25,7 @@ export const useGetCashReceiptVoucherTable = (enabled = true, params?: TCashHist
         BranchesId: userDetail?.BranchesId,
         CompanyId: userDetail?.CompanyId,
         FinancialYearId: financialYear?.Id,
-        Ids: '1',
+        Ids: '3',
         PostState: true,
         // NoOfRecords: 50,
         ...params,
@@ -37,14 +37,14 @@ export const useGetCashReceiptVoucherTable = (enabled = true, params?: TCashHist
 
 // Voucher No
 
-export const useGetVoucherNo = () => {
+export const useGetVoucherNo = (DocumentTypeId: number) => {
   return useQuery(
-    'voucher-number',
+    ['voucher-number', DocumentTypeId],
     () => {
       return requestManager.get('/api/Voucher/GenerateVoucherCodeByDocumentTypeId', {
         params: {
           ...params,
-          DocumentTypeId: 1,
+          DocumentTypeId: DocumentTypeId,
           BranchId: userDetail?.BranchesId,
           FinancialYearId: financialYear?.Id,
           CompanyId: userDetail?.CompanyId,
@@ -75,9 +75,9 @@ export const useGetAccountsBalance = (accountId: number) => {
 };
 // Fetch credit Account Logic
 
-export const useGetCreditAccountSelect = () => {
+export const useGetDebitAccountSelect = () => {
   return useQuery(
-    'credit-accounts',
+    'debit-accounts-for-CRV',
     () => {
       return requestManager.get('/api/COAAllocation/GetDetailAccountByDocumentTypeId', {
         params: { ...params, DocumentTypeId: 1 },
@@ -89,9 +89,9 @@ export const useGetCreditAccountSelect = () => {
 
 // Fetch debit Account Logic
 
-export const useGetDebitAccountSelect = () => {
+export const useGetCreditAccountSelect = () => {
   return useQuery(
-    'debit-accounts',
+    'credit-accounts-for-CRV',
     () => {
       return requestManager.get('/api/COAAllocation/GetAll', {
         params: { ...params },
@@ -163,14 +163,14 @@ export const useGetCashReceiptJobLotSelect = () => {
   );
 };
 
-export const useGetTaxSchedule = () => {
+export const useGetTaxSchedule = (DocDate?: Date, TaxNameId?: number) => {
   return useQuery(
     'TaxSchedule',
     () => {
       return requestManager.get('/api/TaxScheduleMain/GetTaxSchedule', {
-        params: { ...params, EffectedDate: '2023-09-12', TaxNameId: 11 },
+        params: { ...params, EffectedDate: DocDate, TaxNameId: TaxNameId },
       });
     },
-    { cacheTime: 5000 }
+    { enabled: !!DocDate && !!TaxNameId, cacheTime: 5000 }
   );
 };

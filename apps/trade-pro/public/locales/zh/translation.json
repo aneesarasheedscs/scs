@@ -510,5 +510,7 @@
   "tax_percentage": "税率",
   "cash_payment_voucher": "现金支付券",
   "cost_center": "成本中心",
-  "cash_receipt_voucher": "现金收据券"
+  "cash_receipt_voucher": "现金收据券",
+  "bank_receipt_voucher": "银行收据凭证",
+  "against_ac": "对抗帐户"
 }

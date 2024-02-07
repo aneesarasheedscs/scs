@@ -16,7 +16,7 @@ export const columns = (
 ): AntColumnType<TCashPaymentVoucherTable>[] => [
   {
     title: t('code'),
-    width: 120,
+    width: 110,
     searchableInput: true,
     dataIndex: 'VoucherCode',
     sorter: (a, b) => a.VoucherCode - b.VoucherCode,
@@ -24,7 +24,7 @@ export const columns = (
   },
   {
     title: t('type'),
-    width: 120,
+    width: 110,
     searchableInput: true,
     dataIndex: 'DocumentTypeCode',
     sortDirections: ['ascend', 'descend'],
@@ -32,7 +32,7 @@ export const columns = (
   },
   {
     title: t('voucher_date'),
-    width: 200,
+    width: 160,
     dataIndex: 'VoucherDate',
     searchableDate: true,
     render: (_, { VoucherDate }) => formateDate(VoucherDate),
@@ -45,7 +45,7 @@ export const columns = (
   },
   {
     title: t('account_title'),
-    width: 180,
+    width: 200,
     dataIndex: 'AccountTitle',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
@@ -54,7 +54,7 @@ export const columns = (
   {
     align: 'right',
     title: t('voucher_amount'),
-    width: 200,
+    width: 170,
     showTotal: true,
     dataIndex: 'VoucherAmount',
     sortDirections: ['ascend', 'descend'],
@@ -63,14 +63,7 @@ export const columns = (
       <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(VoucherAmount)}</span>
     ),
   },
-  {
-    title: t('remarks'),
-    width: 220,
-    dataIndex: 'Remarks',
-    searchableInput: true,
-    sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.Remarks.localeCompare(b.Remarks),
-  },
+
   {
     title: t('entry_user'),
     dataIndex: 'UserName',
@@ -82,7 +75,6 @@ export const columns = (
   {
     title: t('entry_date'),
     dataIndex: 'EntryDate',
-    searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     searchableDate: true,
     render: (_, { EntryDate }) => formateDate(EntryDate),
@@ -116,8 +108,16 @@ export const columns = (
   //   width: 130,
   // },
   {
+    title: t('remarks'),
+    width: 240,
+    dataIndex: 'Remarks',
+    searchableInput: true,
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.Remarks.localeCompare(b.Remarks),
+  },
+  {
     title: t('attachments'),
-    width: 180,
+    width: 150,
     dataIndex: 'Attachment',
   },
   {
@@ -202,21 +202,26 @@ export const column2 = (t: any, handleDeleteRow: any, handleEditRow: any): AntCo
     title: t('action'),
     width: 120,
     render: (_, record, index) => (
-      <Tooltip title="Actions">
-        <Space>
-          <AntButton
-            type="text"
-            icon={<DeleteOutlined style={{ color: 'red' }} />}
-            onClick={() => handleDeleteRow(record, index)}
-          />
-
-          <AntButton
-            type="text"
-            icon={<EditFilled style={{ color: 'blue' }} />}
-            onClick={() => handleEditRow(record, index)}
-          />
-        </Space>
-      </Tooltip>
+      <>
+        <Tooltip title={t('edit')}>
+          <Space>
+            <AntButton
+              type="text"
+              icon={<EditFilled style={{ color: 'blue' }} />}
+              onClick={() => handleEditRow(record)}
+            />
+          </Space>
+        </Tooltip>
+        <Tooltip title={t('delete')}>
+          <Space>
+            <AntButton
+              type="text"
+              icon={<DeleteOutlined style={{ color: 'red' }} />}
+              onClick={() => handleDeleteRow(record)}
+            />
+          </Space>
+        </Tooltip>
+      </>
     ),
   },
 ];

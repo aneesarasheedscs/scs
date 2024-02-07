@@ -51,6 +51,7 @@ function BankPaymentVoucherForm({
   }, [SharedStateIncludeWHT, VoucherDate, TaxTypeId]);
   const onFinish = (values: TSaveBankPaymentVoucher) => {
     values.PrintPreview = printPreview;
+    const AgainstAccountId = form.getFieldValue('AgainstAccountId');
 
     const TaxableEntry: any = {};
     if (values.IncludeWHT) {
@@ -85,7 +86,7 @@ function BankPaymentVoucherForm({
     }
 
     if (isNumber(selectedRecordId)) {
-      updateBankPaymentVoucher(values);
+      // updateBankPaymentVoucher(values);
       console.log(values);
       console.log(tableData);
     } else if (tableData.length === 0) {
@@ -95,14 +96,9 @@ function BankPaymentVoucherForm({
       });
     } else {
       console.log(values);
-      addBankPaymentVoucher(values);
+      // addBankPaymentVoucher(values);
     }
   };
-  // useEffect(() => {
-  //   if (isNumber(selectedRecordId)) {
-  //     // refetchBankPayment();
-  //   }
-  // }, [selectedRecordId]);
 
   useEffect(() => {
     if (isDataSuccess) {

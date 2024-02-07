@@ -685,6 +685,8 @@
   "tax_amount": "Tax Amount",
   "cash_payment_voucher": "Cash Payment Voucher",
   "cost_center": "Cost Center",
+  "bank_receipt_voucher": "Bank Receipt Voucher",
+  "against_ac": "Against Account",
   "account_detail": "Account Detail",
   "account class": "Account Class",
   "manuual_no": "Mannual No",

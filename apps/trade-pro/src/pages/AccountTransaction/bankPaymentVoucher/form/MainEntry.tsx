@@ -84,7 +84,7 @@ function MainEntry({
                 lg={{ span: 12 }}
                 xl={{ span: 7 }}
                 xxl={{ span: 8 }}
-                className="formfield credit"
+                className="formfield"
               >
                 <p style={{ marginTop: -18, marginLeft: '65%' }} className="cr">
                   Cr : <b> {data?.data?.Data?.Result?.[0]?.Balance.toFixed(2)}</b>

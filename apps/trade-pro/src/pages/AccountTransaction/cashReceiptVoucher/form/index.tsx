@@ -5,11 +5,10 @@ import '../style.scss';
 import { SaveOutlined, SyncOutlined, PaperClipOutlined, ReloadOutlined, PrinterFilled } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import VoucherNo from './VoucherNo';
-import { useGetVoucherNo } from '../queries/queries';
+import { useGetTaxSchedule, useGetVoucherNo } from '../queries/queries';
 import { isNumber, map } from 'lodash';
 import dayjs from 'dayjs';
 import MainEntry from './MainEntry';
-import DynamicForm from './DetailEntry';
 import FormListt from './FormList';
 import { TSaveCashReceipt } from './types';
 import {
@@ -19,35 +18,42 @@ import {
 } from '../queries/querySave';
 import { useAtom } from 'jotai';
 import { listAtom } from './Atom';
+import Buttons from './Buttons';
+import DynamicForm from './DetailEntryForm';
 
 const { useForm } = Form;
 
-function CashReceiptVoucherForm({ selectedRecordId }: TAddUpdateRecord) {
+function CashReceiptVoucherForm({
+  selectedRecordId,
+  setSelectedRecordId,
+  refetchCashReceipt,
+  addCashReceipt,
+}: TAddUpdateRecord) {
   const [form] = useForm<TSaveCashReceipt>();
   const { t } = useTranslation();
   const [voucherDetailList, setVoucherDetailList] = useAtom(listAtom);
   const [bankId, setBankId] = useState<number | null>(null);
   const [againstAccountId, setAgainstAccountId] = useState('');
-  const { data, isError, refetch, isLoading, isSuccess } = useGetVoucherNo();
+  const [printPreview, setPrintPreview] = useState(true);
+  const [SharedStateIncludeWHT, setSharedStateIncludeWHT] = useState(false);
 
+  const DocumentTypeId = 3;
   const {
     data: addBankPayment,
     refetch: refetchBankPayment,
     isSuccess: isDataSuccess,
   } = useGetCashReceiptVoucherById(selectedRecordId);
+  const [TaxTypeId, setTaxTypeId] = useState<number | undefined>();
+  const [VoucherDate, setVoucherDate] = useState<Date>(new Date());
 
-  const { mutate: addBankPaymentVoucher } = useAddCashReceiptVoucher();
+  const {
+    data: getTaxSchedule,
+    isSuccess: TaxSuccess,
+    refetch: TaxScheduleRefetch,
+    isLoading: TaxLoading,
+  } = useGetTaxSchedule(VoucherDate, TaxTypeId);
+  const { mutate: addBankPaymentVoucher, isSuccess, data: saveData } = useAddCashReceiptVoucher();
   const { mutate: updateBankPaymentVoucher } = useUpdateCashReceiptVoucher(selectedRecordId);
-  const [isTaxable, setIsTaxable] = useState(false);
-  useEffect(() => {
-    if (isSuccess)
-      form.setFieldValue(
-        'VoucherNo',
-        map(data?.data?.Data?.Result, (item) => item.VoucherCode)
-      );
-    form.setFieldValue('VoucherCode', data?.data?.Data?.Result?.[0]?.VoucherCode);
-    form.setFields([{ name: 'VoucherDate', value: dayjs(new Date()) }]);
-  }, [data, isSuccess]);
 
   const onFinish = (values: TSaveCashReceipt) => {
     console.log(values);
@@ -55,18 +61,20 @@ function CashReceiptVoucherForm({ selectedRecordId }: TAddUpdateRecord) {
       values.voucherDetailList = values.voucherDetailList.map((detail) => ({
         ...detail,
       }));
-      updateBankPaymentVoucher(values);
+      // updateBankPaymentVoucher(values);
     } else {
       values.voucherDetailList = values.voucherDetailList && voucherDetailList;
-      addBankPaymentVoucher(values);
+      // addBankPaymentVoucher(values);
     }
   };
-
-  useEffect(() => {
-    if (isNumber(selectedRecordId)) {
-      refetchBankPayment();
-    }
-  }, [selectedRecordId]);
+  const handleTaxTypeChange = (TaxId: number) => {
+    setTaxTypeId(TaxId);
+  };
+  // useEffect(() => {
+  //   if (isNumber(selectedRecordId)) {
+  //     refetchBankPayment();
+  //   }
+  // }, [selectedRecordId]);
 
   useEffect(() => {
     if (isDataSuccess) {
@@ -75,15 +83,10 @@ function CashReceiptVoucherForm({ selectedRecordId }: TAddUpdateRecord) {
     }
   }, [isDataSuccess]);
 
-  const handleButtonClick = () => {
-    setIsTaxable(!isTaxable);
-    console.log(isTaxable);
-  };
-
   return (
     <Card className="main_card">
       <Form initialValues={{ remember: true }} form={form} layout="horizontal" onFinish={onFinish}>
-        <div style={{ marginTop: '-0.5%' }}>
+        {/* <div style={{ marginTop: '-0.5%' }}>
           <Row align="middle" justify="space-between">
             <Col span={24}>
               <Row gutter={10} align="middle">
@@ -160,11 +163,37 @@ function CashReceiptVoucherForm({ selectedRecordId }: TAddUpdateRecord) {
               </Form.Item>
             </Col>
           </Row>
-        </div>
+        </div> */}
+        <Buttons
+          form={form}
+          setBankId={setBankId}
+          isSuccess={isSuccess}
+          saveData={saveData}
+          addCashReceipt={addCashReceipt}
+          DocumentTypeId={DocumentTypeId}
+          selectedRecordId={selectedRecordId}
+          setSelectedRecordId={setSelectedRecordId}
+          setPrintPreview={setPrintPreview}
+          printPreview={printPreview}
+          setSharedStateIncludeWHT={setSharedStateIncludeWHT}
+        />
+        <MainEntry
+          form={form}
+          setBankId={setBankId}
+          setSharedStateIncludeWHT={setSharedStateIncludeWHT}
+          SharedStateIncludeWHT={SharedStateIncludeWHT}
+          ScheduleData={getTaxSchedule?.data?.Data?.Result?.[0]}
+          bankId={bankId}
+        />
+        {/* <MainEntryForm form={form} setBankId={setBankId} bankId={bankId} setAgainstAccountId={setAgainstAccountId} /> */}
 
-        <MainEntry form={form} setBankId={setBankId} bankId={bankId} setAgainstAccountId={setAgainstAccountId} />
-        <DynamicForm form={form} againstAccountId={againstAccountId} />
-        <FormListt form={form} />
+        <DynamicForm
+          form={form}
+          handleTaxTypeChange={handleTaxTypeChange}
+          SharedStateIncludeWHT={SharedStateIncludeWHT}
+          ScheduleData={getTaxSchedule?.data?.Data?.Result?.[0]}
+        />
+        {/* <FormListt form={form} /> */}
       </Form>
     </Card>
   );
@@ -172,6 +201,9 @@ function CashReceiptVoucherForm({ selectedRecordId }: TAddUpdateRecord) {
 
 type TAddUpdateRecord = {
   selectedRecordId?: number | null;
+  setSelectedRecordId: (id: number | null) => void;
+  refetchCashReceipt: any;
+  addCashReceipt: any;
 };
 
 export default CashReceiptVoucherForm;

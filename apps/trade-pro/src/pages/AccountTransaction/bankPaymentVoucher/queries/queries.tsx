@@ -73,7 +73,7 @@ export const useGetAccountsBalance = (accountId: number) => {
 
 export const useGetCreditAccountSelect = () => {
   return useQuery(
-    'credit-accounts',
+    'credit-accounts-for-BPV',
     () => {
       return requestManager.get('/api/COAAllocation/GetDetailAccountByDocumentTypeId', {
         params: { ...params, DocumentTypeId: 2 },
@@ -85,7 +85,7 @@ export const useGetCreditAccountSelect = () => {
 
 export const useGetDebitAccountSelect = () => {
   return useQuery(
-    'debit-accounts',
+    'debit-accounts-BPV',
     () => {
       return requestManager.get('/api/COAAllocation/GetAll', {
         params: { ...params },

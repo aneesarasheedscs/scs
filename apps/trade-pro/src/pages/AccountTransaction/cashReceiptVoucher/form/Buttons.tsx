@@ -15,7 +15,7 @@ function Buttons({
   setBankId,
   isSuccess,
   saveData,
-  addBankPayment,
+  addCashReceipt,
   selectedRecordId,
   setSelectedRecordId,
   setPrintPreview,
@@ -45,16 +45,16 @@ function Buttons({
     form.setFieldValue('Remarks', null);
     form.setFieldValue('IncludeWHT', false);
     form.setFieldValue('Balance', null);
+    form.setFieldValue('PayeeTitle', null);
+    form.setFieldValue('CheqNoDetail', null);
     form.setFieldValue(['voucherDetailList', 0, 'TaxTypeId'], null);
+    form.setFieldValue(['voucherDetailList', 0, 'Amount'], null);
+    form.setFieldValue(['voucherDetailList', 0, 'TotalAmount'], null);
   };
   useEffect(() => {
-    if (successVoucherNo)
-      form.setFieldValue(
-        'VoucherCode',
-        // map(data?.data?.Data?.Result, (item) => item.VoucherCode)
-        data?.data?.Data?.Result?.[0]?.VoucherCode
-      );
+    if (successVoucherNo) form.setFieldValue('VoucherCode', data?.data?.Data?.Result?.[0]?.VoucherCode);
     form.setFields([{ name: 'VoucherDate', value: dayjs(new Date()) }]);
+    form.setFields([{ name: 'ChequeDate', value: dayjs(new Date()) }]);
   }, [data, successVoucherNo]);
   useEffect(() => {
     if (isSuccess && saveData?.data?.Status === true) {
@@ -74,10 +74,10 @@ function Buttons({
   }, [form]);
   return (
     <>
-      <Row justify="space-between" style={{ marginLeft: 0, marginRight: 10 }}>
+      <Row justify="space-between" gutter={[10, 16]} style={{ marginLeft: 0, marginRight: 10 }}>
         <Col xxl={8} xl={9} lg={18} md={18} sm={18} xs={24} style={{ marginTop: '0%' }}>
           <Row gutter={10} align="middle" style={{ border: '' }} justify={'space-evenly'}>
-            <Col xl={9} xxl={7} lg={8} md={7} sm={18} xs={18} className="formfield voucherNo">
+            <Col xl={9} xxl={7} lg={8} md={7} sm={18} xs={18} className="formfield1 voucherNo">
               <b style={{ fontSize: 18 }}> {t('voucher_no')}</b> &nbsp;
               <VoucherNo
                 isError={isError}
@@ -85,7 +85,7 @@ function Buttons({
                 isLoading={isLoading}
                 data={
                   selectedRecordId
-                    ? addBankPayment?.data?.Data?.Result?.VoucherCode
+                    ? addCashReceipt?.data?.Data?.Result?.VoucherCode
                     : data?.data?.Data?.Result?.[0]?.VoucherCode
                 }
               />
@@ -93,7 +93,7 @@ function Buttons({
                 <Input />
               </Form.Item>
             </Col>
-            <Col xl={15} xxl={15} sm={18} lg={15} xs={23} md={15} className="formfield">
+            <Col xl={15} xxl={15} sm={18} lg={15} xs={18} md={15} className="formfield">
               <AntDatePicker bordered={false} name="VoucherDate" label={t('voucher_date')} />
             </Col>
           </Row>
@@ -149,7 +149,7 @@ type TAddUpdateRecord = {
   setBankId: any;
   isSuccess: any;
   saveData: any;
-  addBankPayment: any;
+  addCashReceipt: any;
   DocumentTypeId: number;
   selectedRecordId: any;
   setSelectedRecordId: (id: number | null) => void;

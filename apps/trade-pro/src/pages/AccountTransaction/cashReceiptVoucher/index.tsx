@@ -1,15 +1,31 @@
 import './style.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CashReceiptVoucherForm from './form';
 import { useTranslation } from 'react-i18next';
 import { Card, Col, Row, Tabs, theme } from 'antd';
 import CashReceiptTable from './table/cashReceiptVoucher';
+import { useAtom } from 'jotai';
+import { viewDetailList } from './form/Atom';
+import { useGetCashReceiptVoucherById, useGetCashReceiptVoucherDetailById } from './queries/querySave';
 
 function CashReceiptVoucher() {
   const { t } = useTranslation();
   const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
   const [activeTab, setActiveTab] = useState<string>('1');
+  const [viewDetail, setViewDetail] = useAtom(viewDetailList);
 
+  const {
+    data: addCashReceipt,
+    refetch: refetchCashReceipt,
+    isSuccess: isDataSuccess,
+  } = useGetCashReceiptVoucherById(selectedRecordId);
+  const { data, refetch, isSuccess, isLoading } = useGetCashReceiptVoucherDetailById(selectedRecordId);
+  useEffect(() => {
+    if (isSuccess) {
+      const DetailList = data?.data?.Data?.Result?.voucherDetailList.filter((row: any) => row.DebitAmount <= 0);
+      setViewDetail(DetailList);
+    }
+  }, [isSuccess, !isLoading]);
   const {
     token: { colorPrimary },
   } = theme.useToken();
@@ -30,7 +46,12 @@ function CashReceiptVoucher() {
               <CashReceiptTable setSelectedRecordId={setSelectedRecordId} setActiveTab={setActiveTab} />
             </Tabs.TabPane>
             <Tabs.TabPane key="2" tab={t('form')}>
-              <CashReceiptVoucherForm selectedRecordId={selectedRecordId} />
+              <CashReceiptVoucherForm
+                selectedRecordId={selectedRecordId}
+                setSelectedRecordId={setSelectedRecordId}
+                refetchCashReceipt={refetchCashReceipt}
+                addCashReceipt={addCashReceipt}
+              />
             </Tabs.TabPane>
           </Tabs>
         </Col>

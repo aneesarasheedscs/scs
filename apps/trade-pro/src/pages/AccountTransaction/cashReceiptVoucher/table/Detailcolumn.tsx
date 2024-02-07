@@ -5,7 +5,7 @@ import { DataType } from '../form/types';
 export const detailColumns = (t?: any): AntColumnType<DataType>[] => [
   {
     title: t('account_title'),
-    width: 350,
+    width: 400,
     searchableInput: true,
     dataIndex: 'AccountTitle',
     sortDirections: ['ascend', 'descend'],
@@ -14,19 +14,11 @@ export const detailColumns = (t?: any): AntColumnType<DataType>[] => [
   },
   {
     title: t('job_lot'),
-    width: 300,
+    width: 280,
     dataIndex: 'JobLotDescription',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.JobLotDescription.localeCompare(b.JobLotDescription),
-  },
-  {
-    title: t('remarks'),
-    width: 420,
-    dataIndex: 'Comments',
-    searchableInput: true,
-    sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.Comments.localeCompare(b.Comments),
   },
   {
     align: 'right',
@@ -49,5 +41,13 @@ export const detailColumns = (t?: any): AntColumnType<DataType>[] => [
     render: (_, { CreditAmount }) => (
       <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(CreditAmount)}</span>
     ),
+  },
+  {
+    title: t('remarks'),
+    width: 400,
+    dataIndex: 'Comments',
+    searchableInput: true,
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.Comments.localeCompare(b.Comments),
   },
 ];

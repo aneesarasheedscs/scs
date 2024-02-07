@@ -22,32 +22,6 @@ import { AntButton, AntInput, AntInputNumber, AntSelectDynamic, AntTable } from 
 const { useWatch } = Form;
 
 const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, ScheduleData }: TDynamicForm) => {
-  const formValues = useWatch<TCashPaymentDetailEntry[]>('voucherDetailList', form);
-
-  const { t } = useTranslation();
-  const [tableData, setTableData] = useAtom(addtableData);
-
-  const { data: configData } = useGetConfigration('ExpenseAccountAllowOnPaymentVoucher');
-  const isExpenseAccountAllowed = configData?.data?.Data?.Result === 'True';
-
-  const [refAccountId, setRefAccountId] = useState(0);
-  const { data, isSuccess, isLoading } = useGetAccountsBalance(refAccountId);
-  const { data: debit } = useGetDebitAccountSelect();
-
-  const allowedAccountTypes = isExpenseAccountAllowed ? [2, 15] : [2, 11, 12, 13, 14, 15, 20, 21];
-  const filteredDebitAccounts = debit?.data?.Data?.Result.filter(
-    (item: any) => !allowedAccountTypes.includes(item.AccountTypeId)
-  );
-
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [rowIndex, setrowIndex] = useState(-1);
-
-  const {
-    token: { colorPrimary },
-  } = theme.useToken();
-
-  const { data: filter } = useGetWHTAgainstAcSelect();
-
   interface TPaymentType {
     typeId: number;
     PaymentType: string;
@@ -72,6 +46,36 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
     Balance: 0,
     TaxesTotalAmount: 0,
   };
+  const formValues = useWatch<TCashPaymentDetailEntry[]>('voucherDetailList', form);
+  const { t } = useTranslation();
+  const [tableData, setTableData] = useAtom(addtableData);
+  const { data: configData, isSuccess: isSuccessConfig } = useGetConfigration('ExpenseAccountAllowOnPaymentVoucher');
+  const isExpenseAccountAllowed = configData?.data?.Data?.Result === 'True';
+  const [refAccountId, setRefAccountId] = useState(0);
+  const [filteredDebitAccounts, setfilteredDebitAccount] = useState<any>();
+  const { data, isSuccess, isLoading } = useGetAccountsBalance(refAccountId);
+  const { data: debit, isSuccess: isSuccessDebitAc, isLoading: isLoadingDeibtAc } = useGetDebitAccountSelect();
+  const allowedAccountTypes = isExpenseAccountAllowed ? [2, 15] : [2, 11, 12, 13, 14, 15, 20, 21];
+  // const filteredDebitAccounts = debit?.data?.Data?.Result.filter(
+  //   (item: any) => !allowedAccountTypes.includes(item.AccountTypeId)
+  // );
+  useEffect(() => {
+    if (isSuccessConfig && isSuccessDebitAc && !isLoadingDeibtAc) {
+      const filteredDebitAccount = debit?.data?.Data?.Result.filter(
+        (item: any) => !allowedAccountTypes.includes(item.AccountTypeId)
+      );
+      setfilteredDebitAccount(filteredDebitAccount);
+    }
+  }, [isSuccessConfig, isSuccessDebitAc, !isLoadingDeibtAc]);
+  console.log(filteredDebitAccounts);
+
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [rowIndex, setrowIndex] = useState(-1);
+  const {
+    token: { colorPrimary },
+  } = theme.useToken();
+
+  const { data: filter } = useGetWHTAgainstAcSelect();
 
   useEffect(() => {
     form.setFieldValue(['voucherDetailList', 0, 'PaymentTypeId'], 1);
@@ -303,9 +307,7 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
                         <p style={{ marginTop: 0, marginLeft: '60%' }} className="dr">
                           Dr : <b> {numberFormatter(data?.data?.Data?.Result?.[0]?.Balance)}</b>
                         </p>
-                        {/* <p style={{ marginTop: -10 }}>
-                          {t('debit_account_balance')} : <b> {data?.data?.Data?.Result?.[0]?.Balance.toFixed(2)}</b>
-                        </p> */}
+
                         <p style={{ marginTop: 0 }}>
                           <AntSelectDynamic
                             bordered={false}

@@ -517,5 +517,7 @@
   "tax_percentage": "نسبة الضريبة",
   "cash_payment_voucher": "قسيمة الدفع النقدي",
   "cost_center": "مركز تقييم الكلفة، مركز التسعير، مركز التثمين",
-  "cash_receipt_voucher": "قسيمة استلام النقد"
+  "cash_receipt_voucher": "قسيمة استلام النقد",
+  "bank_receipt_voucher": "قسيمة إيصال البنك",
+  "against_ac": "ضد الحساب"
 }
