@@ -5,11 +5,7 @@ export type TrialBalanceSearchCriteria = {
   LanguageId: number;
   FromDate: Date;
   ToDate: Date;
-  ApprovedFilter: string;
-  IsApproved: boolean;
-  ZeroBalanceType: number;
-  Debit: number;
-  Credit: number;
+  AccountLevel:number;
   DateType: number;
 };
 

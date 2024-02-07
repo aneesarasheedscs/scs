@@ -74,7 +74,6 @@ export const useGetLanguages = () => {
 };
 
 export const useGetDateTypes = () => {
-  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
   return useQuery(
     'DateTypes',
     () => {
@@ -89,34 +88,40 @@ export const useGetDateTypes = () => {
   );
 };
 
-export const useGetTrialBalanceReport = (enabled = true, params?: TrialBalanceSearchCriteria) => {
-  return useQuery(
-    'trial-balance',
-    () => {
-      return requestManager.post('/api/AccountsReports/TrialBalance', {
-        OrganizationId: userDetail?.OrganizationId,
-        CompanyId: userDetail?.CompanyId,
-        FinancialYearId: FinancialYear?.Id,
-        IsApproved: params?.ApprovedFilter == 'All' ? false : true,
-        ...params,
-      });
-    },
-    { enabled }
-  );
-};
+// export const useGetTrialBalanceReport = (enabled = true, params?: TrialBalanceSearchCriteria) => {
+//   return useQuery(
+//     'trial-balance',
+//     () => {
+//       return requestManager.post('/api/AccountsReports/TrialBalance', {
+//         OrganizationId: userDetail?.OrganizationId,
+//         CompanyId: userDetail?.CompanyId,
+//         FinancialYearId: FinancialYear?.Id,
+//         IsApproved: params?.ApprovedFilter == 'All' ? false : true,
+//         ...params,
+//       });
+//     },
+//     { enabled }
+//   );
+// };
 
-export const useGetTrialBalanceSelectedReport = (enabled = true, params?: TtrialBalanceSelectedSearchCriteria) => {
+
+
+export const useGetTrialAllLevelReport = (params?:TrialBalanceSearchCriteria) => {
   return useQuery(
-    'trial-balance',
+    'tiral-all-level',
     () => {
-      return requestManager.post('/api/AccountsReports/SelectedTrialBalanceNew', {
-        OrganizationId: userDetail?.OrganizationId,
-        CompanyId: userDetail?.CompanyId,
-        FinancialYearId: FinancialYear?.Id,
-        ApprovedFilter: params?.IsApproved ? '' : 'All',
-        ...params,
+      return requestManager.get('/api/AccountsReports/HararicalTrialBalance', {
+        params: {
+          OrganizationId: userDetail?.OrganizationId,
+          CompanyId: userDetail?.CompanyId,
+          AccountLevel: 2,
+          // FormDate:FinancialYear?.Start_Period,
+          // ToDate:FinancialYear?.End_Period,
+          ...params
+          
+        },
       });
     },
-    { enabled }
+    { cacheTime: userDetail?.expires_in }
   );
 };

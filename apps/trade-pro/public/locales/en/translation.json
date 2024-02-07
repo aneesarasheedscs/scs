@@ -694,5 +694,8 @@
   "closing_balance": "Closing Balance",
   "total_debit": "Total Debit",
   "total_credit": "Total Credit",
-  "cash_receipt_voucher": "Cash Receipt Voucher"
+  "cash_receipt_voucher": "Cash Receipt Voucher",
+  "opening_dr": "Opening Dr",
+  "trial_all_level": "Trial All Level",
+  "view_options": "View Options"
 }

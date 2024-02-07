@@ -1,19 +1,24 @@
-import { Tabs } from 'antd';
+import { Col, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
 import TrialBalanceAllLevelReport from './trialBalanceAllLevel';
+import { BackButton } from '@scs/ui';
 
 function TrialBalance() {
   const { t } = useTranslation();
   return (
-    <>
-      <Tabs
-        type="card"
-        size="large"
-        defaultActiveKey="1"
-        className="tabs-margin-bottom-0"
-        items={[{ key: '1', label: t('selected_trial_balace'), children: <TrialBalanceAllLevelReport /> }]}
-      />
-    </>
+    <div style={{ background: '#fff' }}>
+      <Row justify={'space-between'} align={'middle'}>
+        <Col xs={10} sm={10} md={12} lg={5} xl={4} xxl={3} className="forms-heading-container">
+          <h1 className="report_heading" style={{ textAlign: 'center' }}>
+            {t('trial_all_level')}
+          </h1>
+        </Col>
+        <Col xxl={1} style={{ marginRight: '49px' }}>
+          <BackButton />
+        </Col>
+      </Row>
+      <TrialBalanceAllLevelReport />
+    </div>
   );
 }
 

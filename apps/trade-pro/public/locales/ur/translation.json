@@ -690,5 +690,8 @@
   "offset_title": "عنوان کا چھوٹا حصہ",
   "summary_I": "خلاصہ I",
   "summary_II": "خلاصہ II",
-  "cash_receipt_voucher": "کیش رسید واؤچر"
+  "cash_receipt_voucher": "کیش رسید واؤچر",
+  "opening_dr": "آغازی ڈبیٹ",
+  "trial_all_level": "تمام سطحوں کی آزمائش",
+  "view_options": "اختیارات دیکھیں"
 }
