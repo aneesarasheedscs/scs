@@ -32,7 +32,7 @@ const MainEntry = ({
   const isChequeNoCompulsory = chequeNoCompulsoryConfig?.data?.Data?.Result === 'True';
   useEffect(() => {
     if (data?.data?.Data?.Result?.[0]?.Balance !== undefined) {
-      form.setFieldsValue({ Balance: data?.data?.Data?.Result?.[0]?.Balance.toFixed(2) });
+      form.setFieldsValue({ Balance: data?.data?.Data?.Result?.[0]?.Balance });
     }
   }, [debit, bankId, data?.data?.Data?.Result]);
   useEffect(() => {
@@ -73,7 +73,7 @@ const MainEntry = ({
 
   return (
     <>
-      <Row gutter={[10, 10]} style={{ marginTop: '-0.8%' }}>
+      <Row gutter={[10, 10]} style={{ marginTop: '-0.5%' }}>
         <Col span={24}>
           <Card style={{ paddingBottom: '0.5%', boxShadow: '2px 4px 12px 1px gray' }}>
             <div

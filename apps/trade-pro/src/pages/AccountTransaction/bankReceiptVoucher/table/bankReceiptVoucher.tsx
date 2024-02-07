@@ -8,10 +8,11 @@ import './Card.scss';
 import './DetailTableFile.scss';
 import { useState } from 'react';
 import CardView from './CardView';
+import BankReceiptDetailTable from './DetailTable';
 
-function BankReceiptTable({ setSelectedRecordId, setActiveTab }: TFrom) {
+function BankReceiptTable({ setSelectedRecordId, setActiveTab, setSelectedRecordDetailId }: TFrom) {
   const { t } = useTranslation();
-  const { data, isError, isLoading } = useGetBankReceiptVoucherTable();
+  const { data, isError, isLoading, refetch, isFetching } = useGetBankReceiptVoucherTable();
   const [showComponent, setShowComponent] = useState(false);
   const {
     token: { colorPrimary },
@@ -26,28 +27,25 @@ function BankReceiptTable({ setSelectedRecordId, setActiveTab }: TFrom) {
 
   return (
     <>
-      <Row style={{ marginTop: '0.5%' }}>
-        <Col span={24}>
-          <AntButton onClick={toggleCardView} className="btn" label={t('card_view')} />
-          <AntButton onClick={toggleGridView} className="btn" style={{ marginLeft: '1%' }} label={t('grid_view')} />
+      <Row gutter={10}>
+        <Col span={24} style={{ marginLeft: '0.5%', borderTop: '1px solid #dfdfdf' }}>
+          <AntButton onClick={toggleCardView} className="" label={t('card_view')} />
+          <AntButton onClick={toggleGridView} className="" style={{ marginLeft: '0.2%' }} label={t('grid_view')} />
         </Col>
-        <br />
-        <br />
         {showComponent ? (
           <CardView />
         ) : (
           <Col span={24}>
-            <div>
-              <AntTable
-                isError={isError}
-                numberOfSkeletons={8}
-                isLoading={isLoading}
-                scroll={{ x: '', y: convertVhToPixels('25vh') }}
-                data={data?.data?.Data?.Result || []}
-                columns={columns(t, setSelectedRecordId, setActiveTab)}
-              />
-              <Col>{/* <BankReceiptDetailTable /> */}</Col>
-            </div>
+            <AntTable
+              refetch={refetch}
+              isError={isError}
+              numberOfSkeletons={8}
+              isLoading={isLoading || isFetching}
+              scroll={{ x: '', y: convertVhToPixels('35vh') }}
+              data={data?.data?.Data?.Result || []}
+              columns={columns(t, setSelectedRecordId, setActiveTab, setSelectedRecordDetailId)}
+            />
+            <BankReceiptDetailTable />
           </Col>
         )}
       </Row>
@@ -58,6 +56,7 @@ function BankReceiptTable({ setSelectedRecordId, setActiveTab }: TFrom) {
 type TFrom = {
   setSelectedRecordId: (id: number | null) => void;
   setActiveTab: (tab: string) => void;
+  setSelectedRecordDetailId: (id: number | null) => void;
 };
 
 export default BankReceiptTable;

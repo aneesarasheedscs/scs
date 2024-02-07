@@ -30,6 +30,26 @@ export const useGetBankReceiptVoucherById = (Id?: number | null | any) => {
 const getBankReceiptVoucherById = (Id?: number | null) => {
   return requestManager.get('/api/Voucher/GetByID', { params: { Id } });
 };
+export const useGetBankReceiptVoucherDetailById = (Id?: number | null | any) => {
+  return useQuery(
+    ['BankReceiptVoucher-detail-getById', Id],
+    () => {
+      return getBankReceiptVoucherDetailById(Id);
+    },
+    {
+      cacheTime: 0,
+      staleTime: 0,
+      enabled: !!Id,
+      onError: (error: AxiosError) => {
+        const msg = error.response?.data || 'Something went wrong';
+        notification.error({ description: '', message: msg as string });
+      },
+    }
+  );
+};
+const getBankReceiptVoucherDetailById = (Id?: number | null) => {
+  return requestManager.get('/api/Voucher/GetByID', { params: { Id } });
+};
 
 // save form
 

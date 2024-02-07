@@ -15,7 +15,7 @@ function Buttons({
   setBankId,
   isSuccess,
   saveData,
-  addBankReceipt,
+  addCashReceipt,
   selectedRecordId,
   setSelectedRecordId,
   setPrintPreview,
@@ -85,7 +85,7 @@ function Buttons({
                 isLoading={isLoading}
                 data={
                   selectedRecordId
-                    ? addBankReceipt?.data?.Data?.Result?.VoucherCode
+                    ? addCashReceipt?.data?.Data?.Result?.VoucherCode
                     : data?.data?.Data?.Result?.[0]?.VoucherCode
                 }
               />
@@ -149,7 +149,7 @@ type TAddUpdateRecord = {
   setBankId: any;
   isSuccess: any;
   saveData: any;
-  addBankReceipt: any;
+  addCashReceipt: any;
   DocumentTypeId: number;
   selectedRecordId: any;
   setSelectedRecordId: (id: number | null) => void;

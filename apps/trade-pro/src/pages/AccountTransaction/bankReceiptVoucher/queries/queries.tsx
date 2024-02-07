@@ -25,7 +25,7 @@ export const useGetBankReceiptVoucherTable = (enabled = true, params?: TBankHist
         BranchesId: userDetail?.BranchesId,
         CompanyId: userDetail?.CompanyId,
         FinancialYearId: financialYear?.Id,
-        Ids: '2',
+        Ids: '4',
         PostState: true,
         NoOfRecords: 50,
         ...params,
@@ -78,7 +78,7 @@ export const useGetAccountsBalance = (accountId: number) => {
 
 export const useGetDebitAccountSelect = () => {
   return useQuery(
-    'debit-accounts',
+    'debit-accounts-for-BRV',
     () => {
       return requestManager.get('/api/COAAllocation/GetDetailAccountByDocumentTypeId', {
         params: { ...params, DocumentTypeId: 2 },
@@ -92,7 +92,7 @@ export const useGetDebitAccountSelect = () => {
 
 export const useGetCreditAccountSelect = () => {
   return useQuery(
-    'credit-accounts',
+    'credit-accounts-for-BRV',
     () => {
       return requestManager.get('/api/COAAllocation/GetAll', {
         params: { ...params },

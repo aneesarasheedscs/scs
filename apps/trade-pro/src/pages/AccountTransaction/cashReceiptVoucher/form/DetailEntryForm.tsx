@@ -5,8 +5,8 @@ import { add, map } from 'lodash';
 import { addtableData } from '../form/Atom';
 import {
   useGetAccountsBalance,
-  useGetBankReceiptJobLotSelect,
-  useGetBankReceiptTaxType,
+  useGetCashReceiptJobLotSelect,
+  useGetCashReceiptTaxType,
   useGetConfigration,
   useGetCreditAccountSelect,
   useGetWHTAgainstAcSelect,
@@ -16,12 +16,12 @@ import { useEffect, useState } from 'react';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { Card, Col, Row, Form, FormInstance, notification } from 'antd';
-import { TBankReceiptDetailEntry, TTaxType, TjobLot } from './types';
+import { TCashReceiptDetailEntry, TTaxType, TjobLot } from './types';
 import { AntButton, AntInput, AntInputNumber, AntSelectDynamic, AntTable } from '@tradePro/components';
 
 const { useWatch } = Form;
 const DynamicForm = ({ form, handleTaxTypeChange, SharedStateIncludeWHT, ScheduleData }: TDynamicForm) => {
-  const formValues = useWatch<TBankReceiptDetailEntry[]>('voucherDetailList', form);
+  const formValues = useWatch<TCashReceiptDetailEntry[]>('voucherDetailList', form);
   const { t } = useTranslation();
   const [tableData, setTableData] = useAtom(addtableData);
   const [refAccountId, setRefAccountId] = useState(0);
@@ -370,7 +370,7 @@ const DynamicForm = ({ form, handleTaxTypeChange, SharedStateIncludeWHT, Schedul
                           fieldValue="Id"
                           fieldLabel="JobLotDescription"
                           name={[field.name, 'JobLotId']}
-                          query={useGetBankReceiptJobLotSelect}
+                          query={useGetCashReceiptJobLotSelect}
                           onSelectChange={(obj) => handleSelectjobLotChange(obj, field.name)}
                         />
                       </Col>
@@ -492,7 +492,7 @@ const DynamicForm = ({ form, handleTaxTypeChange, SharedStateIncludeWHT, Schedul
                                     fieldValue="Id"
                                     fieldLabel="TaxName"
                                     name={[field.name, 'TaxTypeId']}
-                                    query={useGetBankReceiptTaxType}
+                                    query={useGetCashReceiptTaxType}
                                     onSelectChange={(obj) => handleItemChange(obj, field.name)}
                                   />
                                 </Col>
@@ -599,7 +599,6 @@ const DynamicForm = ({ form, handleTaxTypeChange, SharedStateIncludeWHT, Schedul
 };
 type TDynamicForm = {
   form: FormInstance;
-
   handleTaxTypeChange: any;
   SharedStateIncludeWHT: boolean;
   ScheduleData: any;

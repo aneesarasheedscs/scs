@@ -54,14 +54,6 @@ function CashPaymentVoucherForm({
     }
   }, [SharedStateIncludeWHT, VoucherDate, TaxTypeId]);
 
-  // useEffect(() => {
-
-  //   if (selectedRecordId) {
-
-  //   } else {
-  //   }
-  // }, [selectedRecordId]);
-
   const handleTaxTypeChange = (TaxId: number) => {
     setTaxTypeId(TaxId);
   };

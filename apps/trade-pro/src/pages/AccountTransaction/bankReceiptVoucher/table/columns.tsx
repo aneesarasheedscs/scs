@@ -1,4 +1,4 @@
-import { EditFilled, PrinterOutlined, DeleteOutlined } from '@ant-design/icons';
+import { EditFilled, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { AntButton } from '@tradePro/components';
 import { Space, Tooltip } from 'antd';
@@ -10,26 +10,29 @@ import dayjs from 'dayjs';
 export const columns = (
   t: any,
   setSelectedRecordId?: any,
-  setActiveTab?: any
+  setActiveTab?: any,
+  setSelectedRecordDetailId?: any
 ): AntColumnType<TBankReceiptVoucherTable>[] => [
   {
-    title: <>{t('code')}</>,
-    width: 120,
+    title: t('code'),
+    width: 110,
     searchableInput: true,
     dataIndex: 'VoucherCode',
+    showCount: true,
     sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.VoucherCode - b.VoucherCode,
   },
   {
-    title: <>{t('type')}</>,
-    width: 120,
+    title: t('type'),
+    width: 110,
     searchableInput: true,
     dataIndex: 'DocumentTypeCode',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.DocumentTypeCode.localeCompare(b.DocumentTypeCode),
   },
   {
-    title: <>{t('voucher_date')}</>,
-    width: 200,
+    title: t('voucher_date'),
+    width: 150,
     dataIndex: 'VoucherDate',
     searchableDate: true,
     render: (_, { VoucherDate }) => formateDate(VoucherDate),
@@ -41,16 +44,17 @@ export const columns = (
     },
   },
   {
-    title: <>{t('account_title')}</>,
-    width: 180,
+    title: t('account_title'),
+    width: 200,
     dataIndex: 'AccountTitle',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
   },
   {
-    title: <>{t('voucher_amount')}</>,
-    width: 200,
+    align: 'right',
+    title: t('voucher_amount'),
+    width: 170,
     showTotal: true,
     dataIndex: 'VoucherAmount',
     sortDirections: ['ascend', 'descend'],
@@ -60,22 +64,23 @@ export const columns = (
     ),
   },
   {
-    title: <>{t('cheque_no')}</>,
-    width: 120,
+    title: t('cheque_no'),
+    width: 140,
     dataIndex: 'CheqNo',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.CheqNo - b.CheqNo,
   },
   {
-    title: <>{t('remarks')}</>,
-    width: 220,
+    title: t('remarks'),
+    width: 200,
     dataIndex: 'Remarks',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.Remarks.localeCompare(b.Remarks),
   },
   {
-    title: <>{t('entry_user')}</>,
+    title: t('entry_user'),
     width: 160,
     dataIndex: 'UserName',
     searchableInput: true,
@@ -83,7 +88,7 @@ export const columns = (
     sorter: (a, b) => a.UserName.localeCompare(b.UserName),
   },
   {
-    title: <>{t('entry_date')}</>,
+    title: t('entry_date'),
     dataIndex: 'EntryDate',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
@@ -94,59 +99,71 @@ export const columns = (
       const dateB = dayjs(b.EntryDate);
       return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
     },
-    width: 160,
+    width: 150,
   },
+  // {
+  //   title: t('status'),
+  //   dataIndex: 'IsApproved',
+  //   render: (IsApproved) => (
+  //     <Space
+  //       style={{
+  //         backgroundColor: IsApproved ? '#00A148' : '#f37daa',
+  //         color: 'white',
+  //         borderRadius: '5px',
+  //         width: '95%',
+  //         paddingLeft: 8,
+  //         border: '1px ridge white',
+  //         boxShadow: ' rgba(0, 0, 0, 0.35) 0px 5px 15px',
+  //         position: 'absolute',
+  //         top: 8,
+  //         left: 0,
+  //       }}
+  //     >
+  //       {IsApproved ? 'Approved' : 'Not Approved'}
+  //     </Space>
+  //   ),
+  //   width: 120,
+  // },
   {
-    title: <>{t('status')}</>,
-    dataIndex: 'IsApproved',
-    render: (IsApproved) => (
-      <Space
-        style={{
-          backgroundColor: IsApproved ? '#00A148' : '#f37daa',
-          color: 'white',
-          borderRadius: '5px',
-          width: '95%',
-          paddingLeft: 8,
-          border: '1px ridge white',
-          boxShadow: ' rgba(0, 0, 0, 0.35) 0px 5px 15px',
-          position: 'absolute',
-          top: 8,
-          left: 0,
-        }}
-      >
-        {IsApproved ? 'Approved' : 'Not Approved'}
-      </Space>
-    ),
-    width: 120,
-  },
-  {
-    title: <>{t('attachment')}</>,
-    width: 180,
+    title: t('attachment'),
+    width: 100,
     dataIndex: 'Attachment',
   },
   {
-    title: <>{t('action')}</>,
-    width: 100,
+    title: t('action'),
+    width: 96,
     render: (_, record) => (
-      <Tooltip title="Actions">
-        <Space>
-          <AntButton
-            type="text"
-            icon={<EditFilled style={{ color: 'black' }} />}
-            onClick={() => {
-              setSelectedRecordId(record?.Id), setActiveTab('2');
-            }}
-          />
-          <AntButton type="text" icon={<PrinterOutlined style={{ color: 'red', marginLeft: '-1rem' }} />} />
-        </Space>
-      </Tooltip>
+      <>
+        <Tooltip title="Edit">
+          <Space style={{ position: 'absolute', top: 5, left: 10 }}>
+            <AntButton
+              type="text"
+              icon={<EditFilled style={{ color: 'black' }} />}
+              onClick={() => {
+                setSelectedRecordId(record?.Id), setActiveTab('2');
+              }}
+            />
+          </Space>
+        </Tooltip>
+        <Tooltip title="View Detail">
+          <Space style={{ position: 'absolute', top: 5, right: 15 }}>
+            <AntButton
+              type="text"
+              icon={<EyeOutlined style={{ color: 'blue', marginLeft: 4 }} />}
+              onClick={() => {
+                setSelectedRecordDetailId(record.Id);
+              }}
+            />
+          </Space>
+        </Tooltip>
+      </>
     ),
   },
 ];
 
 export const column2 = (t: any, handleDeleteRow?: any, handleEditRow?: any): AntColumnType<DataType>[] => [
   {
-    title: <>{t('payment_type')}</>,
+    title: t('payment_type'),
     width: 250,
     searchableInput: true,
     dataIndex: 'PaymentType',
@@ -154,7 +171,7 @@ export const column2 = (t: any, handleDeleteRow?: any, handleEditRow?: any): Ant
     sorter: (a, b) => a.PaymentType.localeCompare(b.PaymentType),
   },
   {
-    title: <>{t('credit_account')}</>,
+    title: t('credit_account'),
     width: 300,
     searchableInput: true,
     dataIndex: 'AccountTitle',
@@ -162,7 +179,7 @@ export const column2 = (t: any, handleDeleteRow?: any, handleEditRow?: any): Ant
     sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
   },
   {
-    title: <>{t('job_lot')}</>,
+    title: t('job_lot'),
     width: 200,
     dataIndex: 'JobLotDescription',
     searchableInput: true,
@@ -170,8 +187,8 @@ export const column2 = (t: any, handleDeleteRow?: any, handleEditRow?: any): Ant
     sorter: (a, b) => a.JobLotDescription.localeCompare(b.JobLotDescription),
   },
   {
-    title: <>{t('remarks')}</>,
-    width: 410,
+    title: t('remarks'),
+    width: 420,
     dataIndex: 'Comments',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
@@ -179,7 +196,7 @@ export const column2 = (t: any, handleDeleteRow?: any, handleEditRow?: any): Ant
   },
   {
     align: 'right',
-    title: <>{t('amount')}</>,
+    title: t('amount'),
     width: 200,
     dataIndex: 'CreditAmount',
     showTotal: true,
@@ -190,8 +207,8 @@ export const column2 = (t: any, handleDeleteRow?: any, handleEditRow?: any): Ant
     ),
   },
   {
-    title: <>{t('action')}</>,
-    width: 120,
+    title: t('action'),
+    width: 100,
     render: (_, record) => (
       <>
         <Tooltip title={t('edit')}>

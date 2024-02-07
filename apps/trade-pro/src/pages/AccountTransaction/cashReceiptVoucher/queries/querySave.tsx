@@ -30,6 +30,26 @@ export const useGetCashReceiptVoucherById = (Id?: number | null | any) => {
 const getCashReceiptVoucherById = (Id?: number | null) => {
   return requestManager.get('/api/Voucher/GetByID', { params: { Id } });
 };
+export const useGetCashReceiptVoucherDetailById = (Id?: number | null | any) => {
+  return useQuery(
+    ['CashReceiptVoucher-getById', Id],
+    () => {
+      return getCashReceiptVoucherDetailById(Id);
+    },
+    {
+      cacheTime: 0,
+      staleTime: 0,
+      enabled: !!Id,
+      onError: (error: AxiosError) => {
+        const msg = error.response?.data || 'Something went wrong';
+        notification.error({ description: '', message: msg as string });
+      },
+    }
+  );
+};
+const getCashReceiptVoucherDetailById = (Id?: number | null) => {
+  return requestManager.get('/api/Voucher/GetByID', { params: { Id } });
+};
 
 // save form
 

@@ -24,7 +24,7 @@ function BankPaymentVoucherForm({
 }: TAddUpdateRecord) {
   const [form] = useForm<TSaveBankReceipt>();
   const { t } = useTranslation();
-  const DocumentTypeId = 2;
+  const DocumentTypeId = 4;
   const [bankId, setBankId] = useState<number | null>(null);
   const [tableData, setTableData] = useAtom(addtableData);
   const [SharedStateIncludeWHT, setSharedStateIncludeWHT] = useState(false);
@@ -164,7 +164,6 @@ function BankPaymentVoucherForm({
         />
         <DynamicForm
           form={form}
-          bankId={bankId}
           handleTaxTypeChange={handleTaxTypeChange}
           SharedStateIncludeWHT={SharedStateIncludeWHT}
           ScheduleData={getTaxSchedule?.data?.Data?.Result?.[0]}

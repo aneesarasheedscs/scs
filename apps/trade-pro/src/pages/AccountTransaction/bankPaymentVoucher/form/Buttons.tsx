@@ -50,8 +50,9 @@ function Buttons({
   useEffect(() => {
     if (successVoucherNo)
       form.setFieldValue(
-        'VoucherNo',
-        map(data?.data?.Data?.Result, (item) => item.VoucherCode)
+        'VoucherCode',
+        // map(data?.data?.Data?.Result, (item) => item.VoucherCode)
+        data?.data?.Data?.Result?.[0]?.VoucherCode
       );
     form.setFields([{ name: 'VoucherDate', value: dayjs(new Date()) }]);
   }, [data, successVoucherNo]);

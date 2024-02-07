@@ -22,7 +22,10 @@ export type TSaveCashReceiptVoucher = {
   VoucherAmount: number;
   voucherDetailList: PaymentVoucher[];
 };
-
+export type TTaxType = {
+  Id: number;
+  TaxName: string;
+};
 export type PaymentVoucher = {
   AccountId: number;
   AgainstAccountId: number;

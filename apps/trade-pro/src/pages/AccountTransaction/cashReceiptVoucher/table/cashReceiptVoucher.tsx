@@ -8,10 +8,11 @@ import { useTranslation } from 'react-i18next';
 import { AntButton, AntTable } from '@tradePro/components';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { useGetCashReceiptVoucherTable } from '../queries/queries';
+import CashReceiptDetailTable from './DetailTable';
 
 function CashReceiptTable({ setSelectedRecordId, setActiveTab }: TFrom) {
   const { t } = useTranslation();
-  const { data, isError, isLoading } = useGetCashReceiptVoucherTable();
+  const { data, isError, isLoading, refetch, isFetching } = useGetCashReceiptVoucherTable();
   const [showComponent, setShowComponent] = useState(false);
   const {
     token: { colorPrimary },
@@ -38,15 +39,16 @@ function CashReceiptTable({ setSelectedRecordId, setActiveTab }: TFrom) {
           <Col>
             <>
               <AntTable
+                refetch={refetch}
                 isError={isError}
-                numberOfSkeletons={10}
-                isLoading={isLoading}
-                scroll={{ x: '', y: convertVhToPixels('25vh') }}
+                numberOfSkeletons={8}
+                isLoading={isLoading || isFetching}
+                scroll={{ x: '', y: convertVhToPixels('30vh') }}
                 data={data?.data?.Data?.Result || []}
                 columns={columns(t, setSelectedRecordId, setActiveTab)}
               />
 
-              {/* <CashReceiptDetailTable />  */}
+              <CashReceiptDetailTable />
             </>
           </Col>
         )}
