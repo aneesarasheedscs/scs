@@ -1,22 +1,6 @@
 import exp from 'constants';
 
-export type TtrialBalanceAllLevel = {
-  Id: number;
-  AccountType:string;
-  AccountTitle: string;
-  AccountCode: number;
-  AccountLevel: number;
-  IsGroupDetail: string;
-  Opening: number;
-  Debit: number;
-  Credit: number;
-  Closing: number;
-  AccountId: number;
-  OpeningCr:number
-  OpeningDr:number
-  ClosingCr:number;
-  ClosingDr:number
-};
+
 //trial balance
 export type TrialBalanceSearchCriteria = {
   OrganizationId: number;

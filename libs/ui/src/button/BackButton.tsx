@@ -31,3 +31,23 @@ export function BackButton({ goToDashboard }: BackButtonProps) {
     </>
   );
 }
+
+// export function BackButton() {
+//   const navigate = useNavigate();
+
+//   const handleBack = () => {
+//     navigate(-1); // Navigate back one step in the history
+//   };
+//   return (
+//     <>
+//       <Button
+//         type="primary"
+//         onClick={handleBack}
+//         icon={<CaretLeftOutlined style={{ fontWeight: 'bold', fontSize: '14px' }} />}
+//         style={{ background: 'orange' }}
+//       >
+//         {t('back')}
+//       </Button>
+//     </>
+//   );
+// }

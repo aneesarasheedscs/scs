@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Form, Radio, Row } from 'antd';
 import dayjs from 'dayjs';
 import { AntButton, AntDatePicker, AntSelectDynamic, SearchCriteriaWrapper } from '@tradePro/components';
 import { storedFinancialYear } from '@tradePro/utils/storageService';
-import { TrialBalanceSearchCriteria } from './type';
-import { useGetAccountTitle, useGetDateTypes, useGetTrialAllLevelReport } from './queries';
+import { TrialBalanceAllLevelSearchCriteria } from './type';
+import { useGetDateTypes, useGetTrialAllLevelReport } from './queries';
 import '../style.scss';
 import { useTranslation } from 'react-i18next';
 import { useAtom } from 'jotai';
@@ -14,24 +14,26 @@ import { map } from 'lodash';
 const financialYear = storedFinancialYear();
 const { useForm, useWatch } = Form;
 
-function CriteriaTrialBalanceSelected() {
+function CriteriaTrialBalanceSelected({ form, refetch, isError, isLoading, isFetching }: any) {
   const [open, setOpen] = useState(false);
-  const [form] = useForm<TrialBalanceSearchCriteria>();
-  const formValues = useWatch<TrialBalanceSearchCriteria>([], form);
+  // const [form] = useForm<TrialBalanceAllLevelSearchCriteria>();
+  const formValues = useWatch<TrialBalanceAllLevelSearchCriteria>([], form);
   const [selectedColumnss, setSelectedColumnss] = useAtom(selectedColumnAtom);
-  const { setFieldValue, getFieldValue } = form;
+  const { setFieldValue, getFieldValue, setFields } = form;
 
-  const {
-    refetch,
-    isFetching,
-    isError: isReportError,
-    isLoading: isReportLoading,
-  } = useGetTrialAllLevelReport(form.getFieldsValue());
+  // const {
+  //   data,
+  //   isSuccess,
+  //   refetch,
+  //   isFetching,
+  //   isError: isReportError,
+  //   isLoading: isReportLoading,
+  // } = useGetTrialAllLevelReport(true, form.getFieldsValue());
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const onFinish = (_: TrialBalanceSearchCriteria) => {
+  const onFinish = (_: TrialBalanceAllLevelSearchCriteria) => {
     refetch().then(() => handleClose());
   };
 
@@ -97,11 +99,15 @@ function CriteriaTrialBalanceSelected() {
     },
   ];
 
+  useEffect(() => {
+    setFields([{ name: 'AccountLevel', value: 2 }]);
+  }, []);
+
   return (
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
       <Form form={form} onFinish={onFinish} layout="inline" initialValues={formValues}>
         <Row gutter={[10, 10]} justify={'space-between'}>
-          <Col xs={24} sm={12} md={24} xxl={8} className="form_field">
+          <Col xs={24} sm={24} md={8} xxl={8} lg={8} className="form_field">
             <AntSelectDynamic
               bordered={false}
               fieldValue="Id"
@@ -114,47 +120,53 @@ function CriteriaTrialBalanceSelected() {
             />
           </Col>
 
-          <Col xs={24} sm={12} md={12} xxl={8} className="form_field">
+          <Col xs={24} sm={12} md={8} xxl={8} lg={8} className="form_field">
             <Form.Item name="FromDate" initialValue={FromDate}>
               <AntDatePicker name="FromDate" label={t('from_date')} bordered={false} />
             </Form.Item>
           </Col>
 
-          <Col xs={24} sm={12} md={11} xxl={7} className="form_field">
+          <Col xs={24} sm={11} md={7} xxl={7} lg={7} className="form_field">
             <Form.Item name="ToDate" initialValue={ToDate}>
               <AntDatePicker name="ToDate" label={t('to_date')} bordered={false} />
             </Form.Item>
           </Col>
 
-          <Col xs={24} sm={12} md={24} xxl={8} className="form_field">
+          <Col xs={24} sm={12} md={8} xxl={8} lg={8} className="form_field">
             <AntSelectDynamic
               bordered={false}
               label={t('view_options')}
-              name=""
-              fieldLabel="AccounTitle"
-              fieldValue="AccountTitle"
+              name="AccountLevel"
+              fieldLabel="Name"
+              fieldValue="Id"
               options={map(viewOpetions, (item: TviewOptions) => ({
                 value: item.Id,
                 label: item.Name,
-                // disabled: item.Id !== 1,
               }))}
-              query={useGetAccountTitle}
+              // defaultValue={viewOpetions[1]?.Id}
             />
           </Col>
-          <Col xxl={10}>
+          <Col xxl={3} style={{ marginTop: 'px' }}>
+            <Radio.Group value={''}>
+              <Radio value="four"> {t('collapse')}</Radio>
+              <Radio value="six">{t('expand')}</Radio>
+            </Radio.Group>
+          </Col>
+
+          <Col xxl={7} style={{ marginTop: '15px' }}>
             <Radio.Group value={selectedColumnss} onChange={handleColumnChange}>
               <Radio value="four"> {t('four_columns')}</Radio>
               <Radio value="six">{t('six_columns')}</Radio>
             </Radio.Group>
           </Col>
 
-          <Col xs={24} sm={24} md={8} xxl={4}>
+          <Col xs={6} sm={6} md={4} xxl={3} lg={4}>
             <AntButton
               label={t('show')}
               htmlType="submit"
               style={{ marginTop: 2 }}
-              isError={isReportError}
-              isLoading={isReportLoading || isFetching}
+              isError={isError}
+              isLoading={isLoading || isFetching}
             />
           </Col>
         </Row>

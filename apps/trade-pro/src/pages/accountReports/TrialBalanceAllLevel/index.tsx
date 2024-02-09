@@ -8,13 +8,13 @@ function TrialBalance() {
   return (
     <div style={{ background: '#fff' }}>
       <Row justify={'space-between'} align={'middle'}>
-        <Col xs={10} sm={10} md={12} lg={5} xl={4} xxl={3} className="forms-heading-container">
+        <Col xs={10} sm={10} md={12} lg={8} xl={6} xxl={4} className="forms-heading-container">
           <h1 className="report_heading" style={{ textAlign: 'center' }}>
-            {t('trial_all_level')}
+            {t('trial_balance_all_levels')}
           </h1>
         </Col>
         <Col xxl={1} style={{ marginRight: '49px' }}>
-          <BackButton />
+          <BackButton goToDashboard={false} />
         </Col>
       </Row>
       <TrialBalanceAllLevelReport />
