@@ -1,4 +1,4 @@
-import { Col, Radio, Row, Typography } from 'antd';
+import { Col, Row, Typography } from 'antd';
 import { AntTable, BackButton } from '@tradePro/components';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import SearchCriteria from './SearchCriteria';
@@ -24,7 +24,6 @@ function TrialBalanceReport({}) {
           </h1>
         </Col>
         <Col xxl={1} style={{ marginRight: '50px' }}>
-          {' '}
           <BackButton />
         </Col>
       </Row>

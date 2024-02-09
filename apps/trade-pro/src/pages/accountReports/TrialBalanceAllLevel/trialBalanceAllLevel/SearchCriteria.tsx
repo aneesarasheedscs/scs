@@ -1,57 +1,40 @@
-import React, { useState } from 'react';
-import { Checkbox, Col, Form, Row } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Col, Form, Radio, Row } from 'antd';
 import dayjs from 'dayjs';
-import {
-  AntButton,
-  AntDatePicker,
-  AntInputNumber,
-  AntSelectDynamic,
-  SearchCriteriaWrapper,
-} from '@tradePro/components';
+import { AntButton, AntDatePicker, AntSelectDynamic, SearchCriteriaWrapper } from '@tradePro/components';
 import { storedFinancialYear } from '@tradePro/utils/storageService';
-import { TtrialBalanceSelectedSearchCriteria } from './type';
-import { CheckboxChangeEvent } from 'antd/es/checkbox';
-import { useGetAccountTitle, useGetDateTypes, useGetTrialBalanceSelectedReport } from './queries';
+import { TrialBalanceAllLevelSearchCriteria } from './type';
+import { useGetDateTypes, useGetTrialAllLevelReport } from './queries';
 import '../style.scss';
 import { useTranslation } from 'react-i18next';
-import { useGetCityName } from '@tradePro/pages/accountReports/TrialBalaceSelectedReport/trialBalanceSelected/queries';
+import { useAtom } from 'jotai';
+import { selectedColumnAtom } from './atom';
+import { map } from 'lodash';
+
 const financialYear = storedFinancialYear();
 const { useForm, useWatch } = Form;
 
-function CriteriaTrialBalanceSelected() {
+function CriteriaTrialBalanceSelected({ form, refetch, isError, isLoading, isFetching }: any) {
   const [open, setOpen] = useState(false);
-  const [form] = useForm<TtrialBalanceSelectedSearchCriteria>();
-  const formValues = useWatch<TtrialBalanceSelectedSearchCriteria>([], form);
-  const { setFieldValue, getFieldValue } = form;
+  // const [form] = useForm<TrialBalanceAllLevelSearchCriteria>();
+  const formValues = useWatch<TrialBalanceAllLevelSearchCriteria>([], form);
+  const [selectedColumnss, setSelectedColumnss] = useAtom(selectedColumnAtom);
+  const { setFieldValue, getFieldValue, setFields } = form;
 
-  const {
-    refetch,
-    isFetching,
-    isError: isReportError,
-    isLoading: isReportLoading,
-  } = useGetTrialBalanceSelectedReport(false, form.getFieldsValue());
+  // const {
+  //   data,
+  //   isSuccess,
+  //   refetch,
+  //   isFetching,
+  //   isError: isReportError,
+  //   isLoading: isReportLoading,
+  // } = useGetTrialAllLevelReport(true, form.getFieldsValue());
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const onFinish = (_: TtrialBalanceSelectedSearchCriteria) => {
+  const onFinish = (_: TrialBalanceAllLevelSearchCriteria) => {
     refetch().then(() => handleClose());
-  };
-
-  const onChangeSkipZero = (e: CheckboxChangeEvent) => {
-    if (e.target.checked) {
-      setFieldValue('ZeroBalanceType', 1);
-    } else {
-      setFieldValue('ZeroBalanceType', 0);
-    }
-  };
-
-  const onChangeUnPost = (e: CheckboxChangeEvent) => {
-    if (e.target.checked) {
-      setFieldValue('IsApproved', false);
-    } else {
-      setFieldValue('IsApproved', true);
-    }
   };
 
   const FromDate = dayjs(financialYear?.Start_Period);
@@ -84,11 +67,47 @@ function CriteriaTrialBalanceSelected() {
     setFieldValue('ToDate', dayjs(toDate));
   };
   const { t } = useTranslation();
+  const handleColumnChange = (e: any) => {
+    setSelectedColumnss(e.target.value);
+  };
+
+  interface TviewOptions {
+    Id: number;
+    Name: string;
+  }
+
+  const viewOpetions: TviewOptions[] = [
+    {
+      Id: 1,
+      Name: 'Upto 1st Level',
+    },
+    {
+      Id: 2,
+      Name: 'Upto 2nd Level',
+    },
+    {
+      Id: 3,
+      Name: 'Upto 3rd Level',
+    },
+    {
+      Id: 4,
+      Name: 'Upto 4th Level',
+    },
+    {
+      Id: 5,
+      Name: 'Upto All(5) Levels',
+    },
+  ];
+
+  useEffect(() => {
+    setFields([{ name: 'AccountLevel', value: 2 }]);
+  }, []);
+
   return (
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
       <Form form={form} onFinish={onFinish} layout="inline" initialValues={formValues}>
-        <Row gutter={[10, 10]}>
-          <Col xs={24} sm={12} md={24} className="form_field">
+        <Row gutter={[10, 10]} justify={'space-between'}>
+          <Col xs={24} sm={24} md={8} xxl={8} lg={8} className="form_field">
             <AntSelectDynamic
               bordered={false}
               fieldValue="Id"
@@ -101,68 +120,53 @@ function CriteriaTrialBalanceSelected() {
             />
           </Col>
 
-          <Col xs={24} sm={12} md={12} className="form_field">
-            <p className="date_icon_width">
-              <AntDatePicker defaultValue={FromDate} name="FromDate" label={t('from_date')} bordered={false} />
-            </p>
+          <Col xs={24} sm={12} md={8} xxl={8} lg={8} className="form_field">
+            <Form.Item name="FromDate" initialValue={FromDate}>
+              <AntDatePicker name="FromDate" label={t('from_date')} bordered={false} />
+            </Form.Item>
           </Col>
 
-          <Col xs={24} sm={12} md={11} className="form_field" offset={1}>
-            <AntDatePicker defaultValue={ToDate} name="ToDate" label={t('to_date')} bordered={false} />
+          <Col xs={24} sm={11} md={7} xxl={7} lg={7} className="form_field">
+            <Form.Item name="ToDate" initialValue={ToDate}>
+              <AntDatePicker name="ToDate" label={t('to_date')} bordered={false} />
+            </Form.Item>
           </Col>
 
-          <Col xs={24} sm={12} md={12} className="form_field">
-            <AntInputNumber name="Debit" label={t('cl_debit')} bordered={false} />
-          </Col>
-
-          <Col xs={24} sm={12} md={11} className="form_field" offset={1}>
-            <AntInputNumber name="Credit" label={t('cl_credit')} bordered={false} />
-          </Col>
-
-          <Col xs={24} sm={12} md={24} className="form_field">
+          <Col xs={24} sm={12} md={8} xxl={8} lg={8} className="form_field">
             <AntSelectDynamic
               bordered={false}
-              label={t('account_title')}
-              name=""
-              fieldLabel="AccounTitle"
-              fieldValue="AccountTitle"
-              query={useGetAccountTitle}
-            />
-          </Col>
-          <Col xs={24} sm={12} md={24} className="form_field">
-            <AntSelectDynamic
-              bordered={false}
-              label={t('city_name')}
-              name="CityName"
-              fieldLabel="CityName"
+              label={t('view_options')}
+              name="AccountLevel"
+              fieldLabel="Name"
               fieldValue="Id"
-              query={useGetCityName}
+              options={map(viewOpetions, (item: TviewOptions) => ({
+                value: item.Id,
+                label: item.Name,
+              }))}
+              // defaultValue={viewOpetions[1]?.Id}
             />
           </Col>
-
-          <Col xs={12} sm={6} md={6}>
-            <Form.Item name="ZeroBalanceType">
-              <Checkbox checked={getFieldValue('ZeroBalanceType')} onChange={onChangeSkipZero}>
-                {t('is_active')}
-              </Checkbox>
-            </Form.Item>
+          <Col xxl={3} style={{ marginTop: 'px' }}>
+            <Radio.Group value={''}>
+              <Radio value="four"> {t('collapse')}</Radio>
+              <Radio value="six">{t('expand')}</Radio>
+            </Radio.Group>
           </Col>
 
-          <Col xs={12} sm={6} md={6}>
-            <Form.Item name="IsApproved">
-              <Checkbox checked={getFieldValue('IsApproved')} onChange={onChangeUnPost}>
-                {t('un_post')}
-              </Checkbox>
-            </Form.Item>
+          <Col xxl={7} style={{ marginTop: '15px' }}>
+            <Radio.Group value={selectedColumnss} onChange={handleColumnChange}>
+              <Radio value="four"> {t('four_columns')}</Radio>
+              <Radio value="six">{t('six_columns')}</Radio>
+            </Radio.Group>
           </Col>
 
-          <Col xs={24} sm={24} md={8}>
+          <Col xs={6} sm={6} md={4} xxl={3} lg={4}>
             <AntButton
               label={t('show')}
               htmlType="submit"
               style={{ marginTop: 2 }}
-              isError={isReportError}
-              isLoading={isReportLoading || isFetching}
+              isError={isError}
+              isLoading={isLoading || isFetching}
             />
           </Col>
         </Row>

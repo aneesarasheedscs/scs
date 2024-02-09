@@ -33,12 +33,7 @@ function CriteriaTrialBalanceSelected() {
   } = useGetTrialBalanceSelectedReport(false, form.getFieldsValue());
 
   const handleOpen = () => setOpen(true);
-  // const handleClose = () => {};
-  const handleClose = () => {
-    if (!radioClicked) {
-      setOpen(false);
-    }
-  };
+  const handleClose = () => setOpen(false);
 
   const onFinish = (_: TtrialBalanceSelectedSearchCriteria) => {
     refetch().then(() => handleClose());

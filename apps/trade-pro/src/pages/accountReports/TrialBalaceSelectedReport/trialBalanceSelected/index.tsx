@@ -23,7 +23,7 @@ function TrialBalanceSelectedReport() {
             {t('selected_trial_balance')}
           </h1>
         </Col>
-        <Col xxl={1} style={{ marginRight: '55px' }}>
+        <Col xxl={1} style={{ marginRight: '50px' }}>
           {' '}
           <BackButton />
         </Col>

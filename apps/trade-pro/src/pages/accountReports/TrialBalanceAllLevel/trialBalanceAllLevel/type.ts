@@ -1,19 +1,15 @@
-export type TrialBalanceSearchCriteria = {
+export type TrialBalanceAllLevelSearchCriteria = {
   OrganizationId: number;
   CompanyId: number;
-  FinancialYearId: number;
   LanguageId: number;
   FromDate: Date;
   ToDate: Date;
-  ApprovedFilter: string;
-  IsApproved: boolean;
-  ZeroBalanceType: number;
-  Debit: number;
-  Credit: number;
+  AccountLevel:number;
   DateType: number;
 };
 
 export type TrialBalanceHistory = {
+
   ParentAccount: number;
   ParentAccountTitle: number;
   AccountId: number;
@@ -41,16 +37,23 @@ export type TtrialBalanceSelectedSearchCriteria = {
   ActionId: number;
 };
 
-export type TtrialBalanceSelectedHistory = {
+export type TtrialBalanceAllLevel = {
+  RowId: number
   Id: number;
-  ClassName: string;
-  AcLevel: number;
-  AccountType: string;
-  AccountCode: number;
+  AccountType:string;
   AccountTitle: string;
+  AccountCode: number;
+  AccountLevel: number;
+  IsGroupDetail: string;
   Opening: number;
   Debit: number;
   Credit: number;
   Closing: number;
   AccountId: number;
+  OpeningCr:number
+  OpeningDr:number
+  ClosingCr:number;
+  ClosingDr:number
+  AcLevel:number
+  CreditDr:number
 };
