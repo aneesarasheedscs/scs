@@ -2,13 +2,13 @@ import './style.scss';
 import { useAtom } from 'jotai';
 import { viewDetailList } from './form/Atom';
 import { useEffect, useState } from 'react';
-import CashReceiptVoucherForm from './form';
+import ContraVoucherForm from './form';
 import { useTranslation } from 'react-i18next';
-import { Col, Row, Tabs, theme } from 'antd';
-import CashReceiptTable from './table/cashReceiptVoucher';
-import { useGetCashReceiptVoucherById, useGetCashReceiptVoucherDetailById } from './queries/querySave';
+import { Card, Col, Row, Tabs, theme } from 'antd';
+import ContraVoucherTable from './table/contraVoucherTable';
+import { useGetContraVoucherById, useGetContraVoucherDetailById } from './queries/querySave';
 
-function CashReceiptVoucher() {
+function ContraVoucher() {
   const { t } = useTranslation();
   const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
   const [selectedRecordIdforDetail, setSelectedRecordIdforDetail] = useState<number | null>();
@@ -16,11 +16,12 @@ function CashReceiptVoucher() {
   const [viewDetail, setViewDetail] = useAtom(viewDetailList);
 
   const {
-    data: addCashReceipt,
-    refetch: refetchCashReceipt,
+    data: ContraVoucherById,
+    refetch: refetchContra,
     isSuccess: isDataSuccess,
-  } = useGetCashReceiptVoucherById(selectedRecordId);
-  const { data, refetch, isSuccess, isLoading } = useGetCashReceiptVoucherDetailById(selectedRecordIdforDetail);
+    isLoading: isDataLoading,
+  } = useGetContraVoucherById(selectedRecordId);
+  const { data, refetch, isSuccess, isLoading } = useGetContraVoucherDetailById(selectedRecordIdforDetail);
   useEffect(() => {
     if (isSuccess) {
       const DetailList = data?.data?.Data?.Result?.voucherDetailList.filter((row: any) => row.DebitAmount <= 0);
@@ -35,7 +36,7 @@ function CashReceiptVoucher() {
     <>
       <Row style={{ background: '' }}>
         <Col span={24}>
-          <h2 className="form-heading">{t('cash_receipt_voucher')}</h2>
+          <h2 className="form-heading">{t('contra_voucher')}</h2>
           <Tabs
             type="card"
             size="large"
@@ -44,18 +45,18 @@ function CashReceiptVoucher() {
             onChange={(key) => setActiveTab(key)}
           >
             <Tabs.TabPane key="1" tab={t('history')}>
-              <CashReceiptTable
+              <ContraVoucherTable
                 setSelectedRecordId={setSelectedRecordId}
-                setActiveTab={setActiveTab}
                 setSelectedRecordIdforDetail={setSelectedRecordIdforDetail}
+                setActiveTab={setActiveTab}
               />
             </Tabs.TabPane>
             <Tabs.TabPane key="2" tab={t('form')}>
-              <CashReceiptVoucherForm
+              <ContraVoucherForm
                 selectedRecordId={selectedRecordId}
                 setSelectedRecordId={setSelectedRecordId}
-                refetchCashReceipt={refetchCashReceipt}
-                addCashReceipt={addCashReceipt}
+                refetchContra={refetchContra}
+                ContraVoucherById={ContraVoucherById}
                 isDataSuccess={isDataSuccess}
               />
             </Tabs.TabPane>
@@ -65,4 +66,4 @@ function CashReceiptVoucher() {
     </>
   );
 }
-export default CashReceiptVoucher;
+export default ContraVoucher;

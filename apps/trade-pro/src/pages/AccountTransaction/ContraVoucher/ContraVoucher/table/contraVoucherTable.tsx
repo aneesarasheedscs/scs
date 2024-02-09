@@ -1,18 +1,18 @@
 import './Card.scss';
 import './DetailTableFile.scss';
-import CardView from './CardView';
-import { useState } from 'react';
-import { Col, Row, theme } from 'antd';
 import { columns } from './columns';
+import { useState } from 'react';
+import CardView from './CardView';
+import { Col, Row, theme } from 'antd';
 import { useTranslation } from 'react-i18next';
-import CashReceiptDetailTable from './DetailTable';
+import ContraVoucherDetailTable from './DetailTable';
+import { useGetContraVoucherTable } from '../queries/queries';
 import { AntButton, AntTable } from '@tradePro/components';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
-import { useGetCashReceiptVoucherTable } from '../queries/queries';
 
-function CashReceiptTable({ setSelectedRecordId, setActiveTab, setSelectedRecordIdforDetail }: TFrom) {
+function ContraVoucherTable({ setSelectedRecordId, setSelectedRecordIdforDetail, setActiveTab }: TFrom) {
   const { t } = useTranslation();
-  const { data, isError, isLoading, refetch, isFetching } = useGetCashReceiptVoucherTable();
+  const { data, isError, isLoading, refetch, isFetching } = useGetContraVoucherTable();
   const [showComponent, setShowComponent] = useState(false);
   const {
     token: { colorPrimary },
@@ -36,7 +36,7 @@ function CashReceiptTable({ setSelectedRecordId, setActiveTab, setSelectedRecord
         {showComponent ? (
           <CardView />
         ) : (
-          <Col>
+          <Col span={24}>
             <>
               <AntTable
                 refetch={refetch}
@@ -45,10 +45,9 @@ function CashReceiptTable({ setSelectedRecordId, setActiveTab, setSelectedRecord
                 isLoading={isLoading || isFetching}
                 scroll={{ x: '', y: convertVhToPixels('30vh') }}
                 data={data?.data?.Data?.Result || []}
-                columns={columns(t, setSelectedRecordId, setActiveTab, setSelectedRecordIdforDetail)}
+                columns={columns(t, setSelectedRecordId, setSelectedRecordIdforDetail, setActiveTab)}
               />
-
-              <CashReceiptDetailTable />
+              <ContraVoucherDetailTable />
             </>
           </Col>
         )}
@@ -58,9 +57,9 @@ function CashReceiptTable({ setSelectedRecordId, setActiveTab, setSelectedRecord
 }
 
 type TFrom = {
-  setSelectedRecordId: (id: number | null) => void;
+  setSelectedRecordId: (Id: number | null) => void;
+  setSelectedRecordIdforDetail: (Id: number | null) => void;
   setActiveTab: (tab: string) => void;
-  setSelectedRecordIdforDetail: (id: number | null) => void;
 };
 
-export default CashReceiptTable;
+export default ContraVoucherTable;

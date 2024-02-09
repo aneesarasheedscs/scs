@@ -1,0 +1,390 @@
+$background-color-invoice: #5a54f9;
+$background-color-company_info: #e1e1e1;
+
+.main-voucher-design {
+  border: 1px solid black;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: all 0.8s linear;
+  width: 150%;
+}
+.caption-value-wrape {
+  padding: 0px 20px;
+  display: flex;
+
+  .caption {
+    color: $background-color-invoice;
+    padding-right: 14px;
+    font-size: 15px;
+    font-weight: 600;
+
+    @media screen and (max-width: 1250px) {
+      font-size: 11px;
+    }
+  }
+  .value {
+    color: black;
+    @media screen and (max-width: 1250px) {
+      font-size: 11px;
+    }
+  }
+}
+
+.Account_title {
+  text-align: center;
+  margin-top: 5px;
+  text-transform: uppercase;
+  text-rendering: optimizeLegibility;
+  color: #5a54f9;
+  letter-spacing: 5px;
+  text-shadow: 4px 4px 0px #d5d5d5, 7px 4px 0px rgba(10, 110, 110, 0.2);
+  font-size: 27px;
+}
+
+.Horizental_Line {
+  margin-top: 6px;
+  margin-bottom: 0px;
+  border-top: 2px solid #31c9c9;
+  width: 94%;
+}
+.Wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.Detail-wrape {
+  padding: 10px;
+
+  .detail-title {
+    color: White;
+    background-color: #5a54f9;
+    width: 147px;
+    padding: 7px;
+    font-size: 18px;
+    font-weight: 700;
+
+    @media screen and (max-width: 1250px) {
+      padding: 2px 10px;
+      font-size: 13px;
+    }
+  }
+}
+
+.Table {
+  padding: 0;
+  transition: all 0.8s linear;
+
+  .table-header {
+    padding: 7px;
+    display: flex;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    background-color: #8a86f7;
+
+    .show-hide-icon {
+      display: block;
+      margin-top: -1px;
+      font-size: 18px;
+      padding: 0px 8px;
+      cursor: pointer;
+
+      @media screen and (max-width: 1250px) {
+        margin-top: 0px;
+        font-size: 12px;
+      }
+    }
+
+    .Account {
+      width: 30%;
+      @media screen and (max-width: 1250px) {
+        font-size: 12px;
+      }
+    }
+    .offset_Account {
+      width: 20%;
+      @media screen and (max-width: 1250px) {
+        font-size: 12px;
+      }
+    }
+    .jobLOt {
+      width: 15%;
+      @media screen and (max-width: 1250px) {
+        font-size: 12px;
+      }
+    }
+    .Debit,
+    .Credit {
+      width: 15%;
+      word-break: break-word;
+      @media screen and (max-width: 1250px) {
+        font-size: 12px;
+      }
+    }
+  }
+  .table-Row {
+    padding: 7px;
+    display: flex;
+    .show-hide-icon {
+      display: block;
+      margin-top: -1px;
+      font-size: 18px;
+      padding: 0px 8px;
+      color: #5a54f9;
+      cursor: pointer;
+      @media screen and (max-width: 1250px) {
+        margin-top: 0px;
+        font-size: 12px;
+      }
+    }
+    .Account {
+      width: 30%;
+      @media screen and (max-width: 1250px) {
+        font-size: 12px;
+      }
+    }
+    .offset_Account {
+      width: 50%;
+
+      @media screen and (max-width: 1250px) {
+        font-size: 12px;
+      }
+    }
+    .jobLOt {
+      width: 15%;
+      @media screen and (max-width: 1250px) {
+        font-size: 12px;
+      }
+    }
+    .Debit,
+    .Credit {
+      width: 15%;
+      word-break: break-word;
+      @media screen and (max-width: 1250px) {
+        font-size: 12px;
+      }
+    }
+  }
+  .detail-table-row {
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    margin-bottom: 7px;
+    .Detail-remarks {
+      width: 100%;
+      display: flex;
+      padding: 0px 10px;
+      .caption {
+        color: #5a54f9;
+        font-size: 14px;
+        padding: 0px 11px;
+        @media screen and (max-width: 1250px) {
+          font-size: 14px;
+        }
+      }
+      .value {
+        font-size: 12px;
+        margin-top: 3px;
+        @media screen and (max-width: 1250px) {
+          font-size: 12px;
+          margin-top: 2px;
+        }
+      }
+    }
+    .detail-wrape {
+      display: flex;
+      width: 33.3%;
+      padding: 0px 10px;
+      .caption {
+        color: #5a54f9;
+        font-size: 14px;
+        padding: 0px 11px;
+        @media screen and (max-width: 1250px) {
+          font-size: 14px;
+        }
+      }
+      .value {
+        font-size: 12px;
+        margin-top: 3px;
+        @media screen and (max-width: 1250px) {
+          font-size: 12px;
+          margin-top: 2px;
+        }
+      }
+    }
+  }
+  .table-Footer {
+    .totals-wrape {
+      .values {
+        display: flex;
+        padding: 5px;
+        background-color: #8a86f7;
+        font-size: 16px;
+        color: white;
+        font-weight: 600;
+        .total-caption {
+          width: 68%;
+          padding: 0.4%;
+          @media screen and (max-width: 1250px) {
+            font-size: 11px;
+          }
+        }
+        .Debit {
+          width: 15%;
+          @media screen and (max-width: 1250px) {
+            font-size: 11px;
+          }
+        }
+        .Credit {
+          width: 17%;
+          @media screen and (max-width: 1250px) {
+            font-size: 11px;
+          }
+        }
+      }
+    }
+  }
+}
+//*********************************
+.Item-addless {
+  padding: 4px 10px;
+}
+.supplier-Addless {
+  padding: 12px;
+  width: 70%;
+  margin: auto;
+  overflow: hidden;
+}
+.table-title {
+  color: White;
+  background-color: #5a54f9b0;
+  width: 168px;
+  padding: 4px;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0px 1px;
+  @media screen and (max-width: 1250px) {
+    padding: 4px;
+    font-size: 13px;
+  }
+}
+
+.arrow-btn {
+  color: brown;
+  padding: 0;
+  margin: 0;
+  font-size: 26px;
+}
+.grand-total-wrape {
+  display: flex;
+  justify-content: end;
+  .grand-totals {
+    width: 421px;
+    margin: 16px 11px;
+    color: #121212;
+    border: 2px solid #5a54f9;
+    .calculate-wrape {
+      display: flex;
+      padding: 3px;
+      justify-content: space-between;
+      .total-caption {
+        font-size: 18px;
+        font-weight: 600;
+        font-family: inherit;
+        font-family: none;
+      }
+      .total-value {
+        font-size: 18px;
+        padding: 0px 0px;
+        color: #121212;
+        font-weight: 570;
+        font-family: fangsong;
+      }
+    }
+    .grand-total {
+      color: #5a54f9;
+      padding: 6px 10px;
+    }
+  }
+}
+.Footer {
+  border: 2px solid #5a54f9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .Thanks {
+    color: #5a54f9;
+    font-size: 22px;
+    padding: 0px 20px;
+    font-weight: bold;
+    font-family: inherit;
+    .heart-icon {
+      color: #5a54f9;
+    }
+    @media screen and (max-width: 1250px) {
+      font-size: 28px;
+    }
+  }
+  .powered-by {
+    padding: 12px;
+    color: #5a54f9;
+    font-weight: bold;
+    font-size: 1rem;
+  }
+}
+//**********************************
+.Scss-Link {
+  color: black;
+  font-size: 16px;
+  font-weight: 600;
+}
+//=======================================
+.WhtAgaints_Account {
+  display: flex;
+  justify-content: end;
+  margin: 0px 10px 0px 0px;
+}
+.Wrap {
+  border: 1px solid #5a54f9;
+  width: 421px;
+  margin: 20px 0px 0px 0px;
+}
+.Title_Wrap {
+  text-align: center;
+  border: 1px solid #5a54f9b0;
+}
+.Wht-Title {
+  font-size: 17px;
+  color: #5a54f9;
+}
+.Wht-Value {
+  font-size: 17px;
+}
+.Img {
+  width: 35px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  height: 35px;
+}
+.table-data:nth-child(odd) {
+  background-color: rgb(236, 234, 234); /* Change this color as needed */
+}
+
+@media screen and (min-width: 992px) and (max-width: 1200px) {
+  .table-remarks {
+    margin-top: -7% !important;
+  }
+}
+@media screen and (min-width: 576px) and (max-width: 768px) {
+  .table-remarks {
+    margin-top: -5.5% !important;
+  }
+}
+@media screen and (min-width: 481px) and (max-width: 575px) {
+  .table-remarks {
+    margin-top: -8% !important;
+  }
+}

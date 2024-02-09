@@ -1,8 +1,6 @@
 import dayjs from 'dayjs';
 import { useAtom } from 'jotai';
-import { column2 } from '../table/columns';
-import { add, map } from 'lodash';
-import { addtableData } from '../form/Atom';
+import { map } from 'lodash';
 import {
   useGetAccountsBalance,
   useGetCashReceiptJobLotSelect,
@@ -11,6 +9,8 @@ import {
   useGetCreditAccountSelect,
   useGetWHTAgainstAcSelect,
 } from '../queries/queries';
+import { column2 } from '../table/columns';
+import { addtableData } from '../form/Atom';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';

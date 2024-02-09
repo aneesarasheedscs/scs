@@ -30,7 +30,7 @@ function BankPaymentVoucherForm({
   const [SharedStateIncludeWHT, setSharedStateIncludeWHT] = useState(false);
   const [TaxTypeId, setTaxTypeId] = useState<number | undefined>();
   const [VoucherDate, setVoucherDate] = useState<Date>(new Date());
-
+  const BankReceiptGetById = addBankReceipt?.data?.Data?.Result;
   const {
     data: getTaxSchedule,
     isSuccess: TaxSuccess,
@@ -107,33 +107,34 @@ function BankPaymentVoucherForm({
     if (isDataSuccess) {
       form.setFieldValue(
         'ChequeDate',
-        addBankReceipt?.data?.Data?.Result?.ChequeDate !== null
-          ? dayjs(addBankReceipt?.data?.Data?.Result?.ChequeDate)
-          : ''
+        BankReceiptGetById?.ChequeDate !== null ? dayjs(BankReceiptGetById?.ChequeDate) : ''
       );
-      form.setFieldValue('VoucherDate', dayjs(addBankReceipt?.data?.Data?.Result?.VoucherDate));
-      form.setFieldValue('VoucherCode', addBankReceipt?.data?.Data?.Result?.VoucherCode);
-      form.setFieldValue('RefAccountId', addBankReceipt?.data?.Data?.Result?.RefAccountId);
-      // form.setFieldValue('CheqId', addBankReceipt?.data?.Data?.Result?.CheqId > 0);
-      form.setFieldValue('PayeeTitle', addBankReceipt?.data?.Data?.Result?.PayeeTitle);
-      // form.setFieldValue('AgainstAccountId', addBankReceipt?.data?.Data?.Result?.AgainstAccountId > 0);
-      form.setFieldValue('IncludeWHT', addBankReceipt?.data?.Data?.Result?.IncludeWHT);
-      if (addBankReceipt?.data?.Data?.Result?.IncludeWHT === true) {
+      form.setFieldValue('VoucherDate', dayjs(BankReceiptGetById?.VoucherDate));
+      form.setFieldValue('VoucherCode', BankReceiptGetById?.VoucherCode);
+      form.setFieldValue('RefAccountId', BankReceiptGetById?.RefAccountId);
+      form.setFieldValue('CheqId', BankReceiptGetById?.CheqId > 0 ? BankReceiptGetById?.CheqId : null);
+      form.setFieldValue('PayeeTitle', BankReceiptGetById?.PayeeTitle);
+      form.setFieldValue(
+        'AgainstAccountId',
+        BankReceiptGetById?.AgainstAccountId > 0 ? BankReceiptGetById?.AgainstAccountId : null
+      );
+      form.setFieldValue('IncludeWHT', BankReceiptGetById?.IncludeWHT);
+      if (BankReceiptGetById?.IncludeWHT === true) {
         setSharedStateIncludeWHT(true);
       }
-      form.setFieldValue('Remarks', addBankReceipt?.data?.Data?.Result?.Remarks);
-      setBankId(addBankReceipt?.data?.Data?.Result?.RefAccountId);
+      form.setFieldValue('Remarks', BankReceiptGetById?.Remarks);
+      setBankId(BankReceiptGetById?.RefAccountId);
       form.setFieldValue(
         ['voucherDetailList', 0, 'TaxTypeId'],
-        addBankReceipt?.data?.Data?.Result?.voucherDetailList?.[0]?.TaxTypeId > 0
+        BankReceiptGetById?.voucherDetailList?.[0]?.TaxTypeId > 0
+          ? BankReceiptGetById?.voucherDetailList?.[0]?.TaxTypeId
+          : BankReceiptGetById?.voucherDetailList?.[0]?.TaxTypeId
       );
       form.setFieldValue(
         ['voucherDetailList', 0, 'AgainstAccountId'],
-        addBankReceipt?.data?.Data?.Result?.voucherDetailList?.[0]?.AgainstAccountId
+        BankReceiptGetById?.voucherDetailList?.[0]?.AgainstAccountId
       );
-      const DetailList = addBankReceipt?.data?.Data?.Result?.voucherDetailList.filter(
-        (row: any) => row.DebitAmount <= 0
-      );
+      const DetailList = BankReceiptGetById?.voucherDetailList.filter((row: any) => row.DebitAmount <= 0);
       setTableData(DetailList);
     }
   }, [isDataSuccess]);
