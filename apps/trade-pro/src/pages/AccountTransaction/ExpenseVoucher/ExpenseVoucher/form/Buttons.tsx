@@ -1,12 +1,12 @@
 import dayjs from 'dayjs';
 import { useAtom } from 'jotai';
 import VoucherNo from './VoucherNo';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { addtableData } from '../form/Atom';
 import { useGetVoucherNo } from '../queries/queries';
 import { AntButton, AntDatePicker } from '@tradePro/components';
-import { Badge, Col, Form, FormInstance, Input, Row } from 'antd';
+import { Badge, Col, Form, FormInstance, Input, Row, notification } from 'antd';
 import { SaveOutlined, SyncOutlined, RedoOutlined, PaperClipOutlined, PrinterFilled } from '@ant-design/icons';
 
 function Buttons({
@@ -15,13 +15,12 @@ function Buttons({
   isSuccess,
   saveData,
   updateData,
-  addCashReceipt,
+  ExpenseVoucherById,
   selectedRecordId,
   setSelectedRecordId,
   setPrintPreview,
   printPreview,
   DocumentTypeId,
-  setSharedStateIncludeWHT,
 }: TAddUpdateRecord) {
   const { t } = useTranslation();
   const [tableData, setTableData] = useAtom(addtableData);
@@ -38,18 +37,14 @@ function Buttons({
     setTableData([]);
     refetch();
     setBankId(null);
-    setSharedStateIncludeWHT(false);
     form.setFieldValue('VoucherNo', data?.data?.Data?.Result);
     form.setFieldValue('RefAccountId', null);
     form.setFieldValue('VoucherDate', dayjs(new Date()));
+    form.setFieldValue('ChequeDate', dayjs(new Date()));
     form.setFieldValue('Remarks', null);
-    form.setFieldValue('IncludeWHT', false);
     form.setFieldValue('Balance', null);
-    form.setFieldValue('PayeeTitle', null);
-    form.setFieldValue('CheqNoDetail', null);
-    form.setFieldValue(['voucherDetailList', 0, 'TaxTypeId'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'Amount'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'TotalAmount'], null);
+    form.setFieldValue('PayTitle', null);
+    form.setFieldValue('CheqId', null);
   };
   useEffect(() => {
     if (successVoucherNo) form.setFieldValue('VoucherCode', data?.data?.Data?.Result?.[0]?.VoucherCode);
@@ -87,7 +82,7 @@ function Buttons({
                 isLoading={isLoading}
                 data={
                   selectedRecordId
-                    ? addCashReceipt?.data?.Data?.Result?.VoucherCode
+                    ? ExpenseVoucherById?.data?.Data?.Result?.VoucherCode
                     : data?.data?.Data?.Result?.[0]?.VoucherCode
                 }
               />
@@ -95,7 +90,7 @@ function Buttons({
                 <Input />
               </Form.Item>
             </Col>
-            <Col xl={15} xxl={15} sm={18} lg={15} xs={18} md={15} className="formfield">
+            <Col xl={15} xxl={15} sm={18} lg={15} xs={18} md={15} className="formfield1">
               <AntDatePicker bordered={false} name="VoucherDate" label={t('voucher_date')} />
             </Col>
           </Row>
@@ -152,12 +147,11 @@ type TAddUpdateRecord = {
   isSuccess: any;
   saveData: any;
   updateData: any;
-  addCashReceipt: any;
+  ExpenseVoucherById: any;
   DocumentTypeId: number;
   selectedRecordId: any;
   setSelectedRecordId: (id: number | null) => void;
   setPrintPreview: any;
   printPreview: any;
-  setSharedStateIncludeWHT: any;
 };
 export default Buttons;

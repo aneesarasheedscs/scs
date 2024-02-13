@@ -105,8 +105,8 @@ const PosItemAllocation = lazy(() => import('@tradePro/pages/inventoryDefination
 const OpeningBalance = lazy(() => import('@tradePro/pages/accountDefination/openingBalance'));
 
 //Account Transaction
-const ContraVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/ContraVoucher'));
-const ExpenseVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/ExpenseVoucher'));
+const ContraVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/ContraVoucher/ContraVoucher'));
+const ExpenseVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/ExpenseVoucher/ExpenseVoucher'));
 const BankReceiptVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/bankReceiptVoucher'));
 const BankPaymentVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/bankPaymentVoucher'));
 const CashPaymentVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/cashPaymentVoucher'));

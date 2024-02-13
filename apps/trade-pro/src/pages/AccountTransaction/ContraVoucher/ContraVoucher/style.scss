@@ -1,0 +1,137 @@
+.formfield {
+  border-bottom: 1px solid gray;
+  padding: 0px;
+  height: 38px !important;
+}
+.ant-checkbox-inner,
+.ant-checkbox-input {
+  height: 1.5rem !important;
+  width: 1.5rem !important;
+  transition: 0.1s all;
+}
+.formfield1 {
+  border-bottom: 1px solid gray;
+  padding: 0px;
+  height: 38px;
+}
+.formfield2 {
+  border-bottom: none;
+  // padding: 0px;
+  height: 38px;
+}
+.cr {
+  margin-top: -3%;
+}
+// Responsiveness
+
+@media screen and (min-width: 992px) and (max-width: 1200px) {
+  .remarks {
+    margin-top: 2.2% !important;
+  }
+  .paytitle {
+    margin-top: -0% !important;
+  }
+  .cr {
+    margin-top: -2% !important;
+  }
+  .dr {
+    margin-top: 0% !important;
+  }
+
+  .add {
+    margin-top: 3% !important;
+  }
+  .btns {
+    margin-top: 1.5rem !important;
+    margin-bottom: 2%;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .remark {
+    margin-top: 1% !important;
+  }
+  .remarks {
+    margin-top: 1.5% !important;
+  }
+  .paytitle {
+    margin-top: 0% !important;
+  }
+  .cr {
+    margin-top: -2% !important;
+  }
+  .dr {
+    margin-top: 0% !important;
+  }
+  .add {
+    margin-top: 3% !important;
+  }
+  .btns {
+    margin-top: 1.5rem !important;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px) {
+  .remarks {
+    margin-top: 1rem !important;
+  }
+  .btns {
+    margin-top: 1.5rem !important;
+  }
+  .cr {
+    margin-top: 1% !important;
+    margin-left: 65% !important;
+  }
+  .dr {
+    margin-top: 1% !important;
+    margin-left: 65% !important;
+  }
+  .credit,
+  .debit {
+    margin-top: 0rem !important;
+    height: 60px !important;
+  }
+  .formfield {
+    height: 55px !important;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 575px) {
+  .formfield {
+    height: 70px !important;
+  }
+  .add {
+    margin-top: 5% !important;
+  }
+  .icon {
+    margin-left: -1%;
+  }
+  .voucherDate {
+    margin-top: -1.5rem !important;
+  }
+  .voucherNo {
+    margin-top: 0.5rem;
+  }
+  .btns {
+    margin-top: 1.5rem !important;
+    margin-left: -3.9% !important;
+  }
+  .cr {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+  .dr {
+    position: absolute;
+    top: 15px;
+    right: 5px;
+  }
+  .credit {
+    margin-top: 0rem !important;
+    height: 87px !important;
+  }
+  .debit {
+    margin-top: -1.5rem !important;
+    height: 87px !important;
+  }
+}

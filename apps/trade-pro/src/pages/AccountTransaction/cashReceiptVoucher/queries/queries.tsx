@@ -1,9 +1,9 @@
-import { QueryFunction, useQuery } from 'react-query';
-import { requestManager } from '@tradePro/configs/requestManager';
-import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 import { AxiosResponse } from 'axios';
 import { AccountData } from '../form/types';
 import { TCashHistory } from '../table/types';
+import { QueryFunction, useQuery } from 'react-query';
+import { requestManager } from '@tradePro/configs/requestManager';
+import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 
 const userDetail = storedUserDetail();
 const financialYear = storedFinancialYear();
@@ -168,7 +168,12 @@ export const useGetTaxSchedule = (DocDate?: Date, TaxNameId?: number) => {
     'TaxSchedule',
     () => {
       return requestManager.get('/api/TaxScheduleMain/GetTaxSchedule', {
-        params: { ...params, EffectedDate: DocDate, TaxNameId: TaxNameId },
+        params: {
+          OrganizationId: userDetail?.OrganizationId,
+          CompanyId: userDetail?.CompanyId,
+          EffectedDate: DocDate,
+          TaxNameId: TaxNameId,
+        },
       });
     },
     { enabled: !!DocDate && !!TaxNameId, cacheTime: 5000 }

@@ -86,7 +86,7 @@ function BankPaymentVoucherForm({
     }
 
     if (isNumber(selectedRecordId)) {
-      // updateBankPaymentVoucher(values);
+      updateBankPaymentVoucher(values);
       console.log(values);
       console.log(tableData);
     } else if (tableData.length === 0) {
@@ -96,22 +96,19 @@ function BankPaymentVoucherForm({
       });
     } else {
       console.log(values);
-      // addBankPaymentVoucher(values);
+      addBankPaymentVoucher(values);
     }
   };
 
   useEffect(() => {
     if (isDataSuccess) {
       form.setFieldValue('VoucherCode', addBankPayment?.data?.Data?.Result?.VoucherCode);
-      form.setFieldValue('VoucherDate', dayjs(addBankPayment?.data?.Data?.Result?.VoucherDate));
+      form.setFieldValue('VoucherDate', dayjs(new Date()));
       form.setFieldValue('RefAccountId', addBankPayment?.data?.Data?.Result?.RefAccountId);
       form.setFieldValue('AgainstAccountId', addBankPayment?.data?.Data?.Result?.AgainstAccountId);
       form.setFieldValue('IncludeWHT', addBankPayment?.data?.Data?.Result?.IncludeWHT);
       form.setFieldValue('Remarks', addBankPayment?.data?.Data?.Result?.Remarks);
-      form.setFieldValue(
-        ['voucherDetailList', 0, 'DCheqDate'],
-        dayjs(addBankPayment?.data?.Data?.Result?.voucherDetailList?.[0]?.DCheqDate)
-      );
+      form.setFieldValue(['voucherDetailList', 0, 'DCheqDate'], dayjs(new Date()));
       form.setFieldValue(
         ['voucherDetailList', 0, 'TaxTypeId'],
         addBankPayment?.data?.Data?.Result?.voucherDetailList?.[0]?.TaxTypeId

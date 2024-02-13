@@ -1,30 +1,30 @@
-import './style.scss';
-import { useEffect, useState } from 'react';
 import { Card, Col, Row, Tabs, theme } from 'antd';
 import { useTranslation } from 'react-i18next';
-import BankReceiptVoucherForm from './form';
-import BankReceiptTable from './table/bankReceiptVoucher';
-import { useGetBankReceiptVoucherById, useGetBankReceiptVoucherDetailById } from './queries/querySave';
+import './style.scss';
+import ExpenseVoucherTable from './table/expenseVoucherTable';
+import ExpenseVoucherForm from './form';
+import { useEffect, useState } from 'react';
+import { useGetExpenseVoucherById, useGetExpenseVoucherDetail } from './queries/querySave';
 import { useAtom } from 'jotai';
 import { viewDetailList } from './form/Atom';
 
-function BankReceiptVoucher() {
+function ExpenseVoucher() {
   const { t } = useTranslation();
-  const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
-  const [selectedRecordDetailId, setSelectedRecordDetailId] = useState<number | null>();
+  const [selectedRecordId, setSelectedRecordId] = useState<any>();
+  const [selectedRecordDetailId, setSelectedRecordDetailId] = useState<any>();
   const [activeTab, setActiveTab] = useState<string>('1');
   const [viewDetail, setViewDetail] = useAtom(viewDetailList);
 
   const {
-    data: addBankReceipt,
-    refetch: refetchBankReceipt,
+    data: ExpenseVoucherById,
+    refetch: refetchExpense,
     isSuccess: isDataSuccess,
-  } = useGetBankReceiptVoucherById(selectedRecordId);
-  const { data, refetch, isSuccess, isLoading } = useGetBankReceiptVoucherDetailById(selectedRecordDetailId);
+    isLoading: isDataLoading,
+  } = useGetExpenseVoucherById(selectedRecordId);
+  const { data, refetch, isSuccess, isLoading } = useGetExpenseVoucherDetail(selectedRecordDetailId);
   useEffect(() => {
     if (isSuccess) {
-      const DetailList = data?.data?.Data?.Result?.voucherDetailList.filter((row: any) => row.DebitAmount <= 0);
-      setViewDetail(DetailList);
+      setViewDetail(data?.data?.Data?.Result?.voucherDetailList);
     }
   }, [isSuccess, !isLoading]);
   const {
@@ -35,7 +35,7 @@ function BankReceiptVoucher() {
     <>
       <Row style={{}}>
         <Col span={24}>
-          <h2 style={{ textAlign: 'center' }}>{t('bank_receipt_voucher')}</h2>
+          <h2 className="form-heading">{t('expense_voucher')}</h2>
           <Tabs
             type="card"
             size="large"
@@ -44,18 +44,20 @@ function BankReceiptVoucher() {
             onChange={(key) => setActiveTab(key)}
           >
             <Tabs.TabPane key="1" tab={t('history')}>
-              <BankReceiptTable
+              <ExpenseVoucherTable
                 setSelectedRecordId={setSelectedRecordId}
                 setActiveTab={setActiveTab}
                 setSelectedRecordDetailId={setSelectedRecordDetailId}
+                refetch={refetch}
+                isLoading={isLoading}
               />
             </Tabs.TabPane>
             <Tabs.TabPane key="2" tab={t('form')}>
-              <BankReceiptVoucherForm
+              <ExpenseVoucherForm
                 selectedRecordId={selectedRecordId}
                 setSelectedRecordId={setSelectedRecordId}
-                addBankReceipt={addBankReceipt}
-                refetchBankReceipt={refetchBankReceipt}
+                refetchExpense={refetchExpense}
+                ExpenseVoucherById={ExpenseVoucherById}
                 isDataSuccess={isDataSuccess}
               />
             </Tabs.TabPane>
@@ -65,4 +67,4 @@ function BankReceiptVoucher() {
     </>
   );
 }
-export default BankReceiptVoucher;
+export default ExpenseVoucher;

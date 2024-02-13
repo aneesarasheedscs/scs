@@ -3,18 +3,18 @@ import { useMutation, useQuery } from 'react-query';
 import { notification } from 'antd';
 import { AxiosError, AxiosResponse } from 'axios';
 import { requestManager } from '@tradePro/configs/requestManager';
-import { storedUserDetail } from '@tradePro/utils/storageService';
-import { TSaveCashReceipt, TSaveCashReceiptVoucher } from '../form/types';
+import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
+import { TSaveContraVoucher } from '../form/types';
 
-const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
-const financialYear: any = JSON.parse(localStorage.getItem('financialYear') || '{}');
+const userDetail = storedUserDetail();
+const financialYear = storedFinancialYear();
 
 //Get ById
-export const useGetCashReceiptVoucherById = (Id?: number | null | any) => {
+export const useGetContraVoucherById = (Id?: string | null | any) => {
   return useQuery(
-    ['CashReceiptVoucher-getById', Id],
+    ['contraVoucher-getById', Id],
     () => {
-      return getCashReceiptVoucherById(Id);
+      return getContraVoucherById(Id);
     },
     {
       cacheTime: 0,
@@ -27,14 +27,14 @@ export const useGetCashReceiptVoucherById = (Id?: number | null | any) => {
     }
   );
 };
-const getCashReceiptVoucherById = (Id?: number | null) => {
-  return requestManager.get('/api/Voucher/GetByID', { params: { Id } });
+const getContraVoucherById = (Id?: string | null) => {
+  return requestManager.get(`/api/Voucher/GetByID`, { params: { Id } });
 };
-export const useGetCashReceiptVoucherDetailById = (Id?: number | null | any) => {
+export const useGetContraVoucherDetailById = (Id?: string | null | any) => {
   return useQuery(
-    ['CashReceiptVoucher-getById', Id],
+    ['contraVoucher-detail-getById', Id],
     () => {
-      return getCashReceiptVoucherDetailById(Id);
+      return getContraVoucherDetailById(Id);
     },
     {
       cacheTime: 0,
@@ -47,21 +47,21 @@ export const useGetCashReceiptVoucherDetailById = (Id?: number | null | any) => 
     }
   );
 };
-const getCashReceiptVoucherDetailById = (Id?: number | null) => {
-  return requestManager.get('/api/Voucher/GetByID', { params: { Id } });
+const getContraVoucherDetailById = (Id?: string | null) => {
+  return requestManager.get(`/api/Voucher/GetByID`, { params: { Id } });
 };
 
 // save form
 
-export const useAddCashReceiptVoucher = (DocumentTypeId?: number, params?: TSaveCashReceipt) => {
+export const useAddContraVoucher = (DocumentTypeId: number, params?: TSaveContraVoucher) => {
   return useMutation(
-    'CashReceiptVoucher-history',
-    (data: TSaveCashReceipt) => {
+    'contraVoucher-history',
+    (data: TSaveContraVoucher) => {
       let dataToSubmit = {};
       dataToSubmit = {
         ...data,
         Id: 0,
-        Type: 1,
+        Type: 3,
         OrganizationId: userDetail?.OrganizationId,
         CompanyId: userDetail?.CompanyId,
         BranchId: userDetail?.BranchesId,
@@ -73,8 +73,7 @@ export const useAddCashReceiptVoucher = (DocumentTypeId?: number, params?: TSave
         DocumentTypeId: DocumentTypeId,
         ...params,
       };
-
-      return requestManager.post('/api/voucher/Save', dataToSubmit);
+      return requestManager.post('/api/Voucher/Save', dataToSubmit);
     },
     {
       onSuccess: (response: AxiosResponse) => {
@@ -86,7 +85,7 @@ export const useAddCashReceiptVoucher = (DocumentTypeId?: number, params?: TSave
         } else if (response?.data && response?.data?.Status === true) {
           const msg = 'Record added successfully!';
           notification.success({ description: '', message: msg });
-          queryClient.invalidateQueries('CashReceiptVoucher-history');
+          queryClient.invalidateQueries('contraVoucher-history');
         }
       },
       onError: (error: AxiosError) => {
@@ -97,17 +96,15 @@ export const useAddCashReceiptVoucher = (DocumentTypeId?: number, params?: TSave
   );
 };
 
-export const useUpdateCashReceiptVoucher = (Id?: number | null, DocumentTypeId?: number, params?: TSaveCashReceipt) => {
-  console.log(Id);
+export const useUpdateContraVoucher = (Id?: number | null, DocumentTypeId?: number, params?: TSaveContraVoucher) => {
   return useMutation(
-    'CashReceiptVoucher-history',
-    (data: TSaveCashReceipt) => {
+    'contraVoucher-history',
+    (data: TSaveContraVoucher) => {
       let dataToSubmit = {};
-      const userDetail = storedUserDetail();
       dataToSubmit = {
         ...data,
         Id: Id,
-        Type: 1,
+        Type: 3,
         OrganizationId: userDetail?.OrganizationId,
         CompanyId: userDetail?.CompanyId,
         BranchId: userDetail?.BranchesId,
@@ -119,7 +116,7 @@ export const useUpdateCashReceiptVoucher = (Id?: number | null, DocumentTypeId?:
         DocumentTypeId: DocumentTypeId,
         ...params,
       };
-      return requestManager.post('/api/voucher/Save', dataToSubmit);
+      return requestManager.post('/api/Voucher/Save', dataToSubmit);
     },
     {
       onSuccess: (response: AxiosResponse) => {
@@ -129,9 +126,9 @@ export const useUpdateCashReceiptVoucher = (Id?: number | null, DocumentTypeId?:
             description: response?.data?.Message || 'An error occurred.',
           });
         } else if (response?.data && response?.data?.Status === true) {
-          const msg = 'Record Updated successfully!';
+          const msg = 'Record updated successfully!';
           notification.success({ description: '', message: msg });
-          queryClient.invalidateQueries('CashReceiptVoucher-history');
+          queryClient.invalidateQueries('contraVoucher-history');
         }
       },
       onError: (error: AxiosError) => {
