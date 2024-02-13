@@ -1,7 +1,7 @@
 import { queryClient } from '@tradePro/configs/index';
 import { useMutation, useQuery } from 'react-query';
 import { notification } from 'antd';
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { requestManager } from '@tradePro/configs/requestManager';
 import { storedUserDetail } from '@tradePro/utils/storageService';
 import { TSaveCashReceipt, TSaveCashReceiptVoucher } from '../form/types';
@@ -53,7 +53,7 @@ const getCashReceiptVoucherDetailById = (Id?: number | null) => {
 
 // save form
 
-export const useAddCashReceiptVoucher = (params?: TSaveCashReceipt) => {
+export const useAddCashReceiptVoucher = (DocumentTypeId?: number, params?: TSaveCashReceipt) => {
   return useMutation(
     'CashReceiptVoucher-history',
     (data: TSaveCashReceipt) => {
@@ -61,7 +61,7 @@ export const useAddCashReceiptVoucher = (params?: TSaveCashReceipt) => {
       dataToSubmit = {
         ...data,
         Id: 0,
-        Type: 0,
+        Type: 1,
         OrganizationId: userDetail?.OrganizationId,
         CompanyId: userDetail?.CompanyId,
         BranchId: userDetail?.BranchesId,
@@ -70,21 +70,24 @@ export const useAddCashReceiptVoucher = (params?: TSaveCashReceipt) => {
         ModifyUser: userDetail?.UserId,
         EntryDate: new Date().toISOString(),
         ModifyDate: new Date().toISOString(),
-        DocumentTypeId: 1,
-        RefAccountId: 21284,
-        // AgainstAccountId: 0,
-        // RefDocNoId: 0,
-        // VoucherAmount: 1000,
+        DocumentTypeId: DocumentTypeId,
         ...params,
       };
 
       return requestManager.post('/api/voucher/Save', dataToSubmit);
     },
     {
-      onSuccess: () => {
-        queryClient.invalidateQueries('CashReceiptVoucher-history');
-        const msg = 'Record added successfully!';
-        notification.success({ description: '', message: msg });
+      onSuccess: (response: AxiosResponse) => {
+        if (response?.data && response?.data?.Status === false) {
+          notification.error({
+            message: 'Error',
+            description: response?.data?.Message || 'An error occurred.',
+          });
+        } else if (response?.data && response?.data?.Status === true) {
+          const msg = 'Record added successfully!';
+          notification.success({ description: '', message: msg });
+          queryClient.invalidateQueries('CashReceiptVoucher-history');
+        }
       },
       onError: (error: AxiosError) => {
         const msg = error.response?.data || 'Something went wrong';
@@ -94,7 +97,7 @@ export const useAddCashReceiptVoucher = (params?: TSaveCashReceipt) => {
   );
 };
 
-export const useUpdateCashReceiptVoucher = (Id?: number | null, params?: TSaveCashReceipt) => {
+export const useUpdateCashReceiptVoucher = (Id?: number | null, DocumentTypeId?: number, params?: TSaveCashReceipt) => {
   console.log(Id);
   return useMutation(
     'CashReceiptVoucher-history',
@@ -104,7 +107,7 @@ export const useUpdateCashReceiptVoucher = (Id?: number | null, params?: TSaveCa
       dataToSubmit = {
         ...data,
         Id: Id,
-        Type: 0,
+        Type: 1,
         OrganizationId: userDetail?.OrganizationId,
         CompanyId: userDetail?.CompanyId,
         BranchId: userDetail?.BranchesId,
@@ -113,20 +116,23 @@ export const useUpdateCashReceiptVoucher = (Id?: number | null, params?: TSaveCa
         ModifyUser: userDetail?.UserId,
         EntryDate: new Date().toISOString(),
         ModifyDate: new Date().toISOString(),
-        DocumentTypeId: 1,
-        RefAccountId: 21284,
-        // AgainstAccountId: 0,
-        // RefDocNoId: 0,
-        // VoucherAmount: 1000,
+        DocumentTypeId: DocumentTypeId,
         ...params,
       };
       return requestManager.post('/api/voucher/Save', dataToSubmit);
     },
     {
-      onSuccess: () => {
-        queryClient.invalidateQueries('bankPaymentVoucher-history');
-        const msg = 'Record updated successfully!';
-        notification.success({ description: '', message: msg });
+      onSuccess: (response: AxiosResponse) => {
+        if (response?.data && response?.data?.Status === false) {
+          notification.error({
+            message: 'Error',
+            description: response?.data?.Message || 'An error occurred.',
+          });
+        } else if (response?.data && response?.data?.Status === true) {
+          const msg = 'Record Updated successfully!';
+          notification.success({ description: '', message: msg });
+          queryClient.invalidateQueries('CashReceiptVoucher-history');
+        }
       },
       onError: (error: AxiosError) => {
         const msg = error.response?.data || 'Something went wrong';

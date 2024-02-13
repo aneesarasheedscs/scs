@@ -22,7 +22,7 @@ export const useGetExpenseVoucherTable = (enabled = true, params?: TVoucherHisto
     () => {
       return requestManager.post('/api/Voucher/VoucherFormHistory', {
         OrganizationId: userDetail?.OrganizationId,
-        BranchesId: 2,
+        BranchesId: userDetail?.BranchesId,
         CompanyId: userDetail?.CompanyId,
         FinancialYearId: financialYear?.Id,
         Ids: '26',
@@ -48,7 +48,24 @@ export const useGetExpenseVoucherNo = () => {
     { cacheTime: 5000 }
   );
 };
-
+export const useGetVoucherNo = (DocumentTypeId: number) => {
+  return useQuery(
+    ['voucher-number', DocumentTypeId],
+    () => {
+      return requestManager.get('/api/Voucher/GenerateVoucherCodeByDocumentTypeId', {
+        params: {
+          ...params,
+          DocumentTypeId: DocumentTypeId,
+          BranchId: userDetail?.BranchesId,
+          FinancialYearId: financialYear?.Id,
+          CompanyId: userDetail?.CompanyId,
+          OrganizationId: userDetail?.OrganizationId,
+        },
+      });
+    },
+    { cacheTime: 5000 }
+  );
+};
 export const useGetAccountsBalance = (accountId?: number) => {
   return useQuery(
     ['Accounts-Balance', accountId],
@@ -81,12 +98,11 @@ const GetExpenseCreditAccountSelect: QueryFunction<AxiosResponse<any, any>> = as
     },
   });
   const rawData = response.data?.Data.Result || [];
-  const filteredData = rawData.filter((item: AccountData) => item.AccountTypeId === 2);
-  const filteredData2 = rawData.filter((item: AccountData) => item.AccountTypeId === 15);
-  return filteredData && filteredData2;
+  const filteredData = rawData.filter((item: AccountData) => item.AccountTypeId === 2 || item.AccountTypeId === 15);
+  return filteredData;
 };
 
-export const useGetExpenseFetchAccountSelect2 = () => {
+export const useGetExpenseFetchDebitAccountSelect = () => {
   return useQuery('expensedebit-accounts', GetExpenseDebitAccountSelect, {
     cacheTime: userDetail?.expires_in,
   });
@@ -98,22 +114,11 @@ const GetExpenseDebitAccountSelect: QueryFunction<AxiosResponse<any, any>> = asy
     },
   });
   const rawData = response.data?.Data.Result || [];
-  const filteredData3 = rawData.filter((item: AccountData) => item.AccountTypeId === 11);
-  const filteredData4 = rawData.filter((item: AccountData) => item.AccountTypeId === 13);
-  return filteredData3 || filteredData4;
+  const filteredData = rawData.filter((item: AccountData) => item.AccountTypeId === 11 || item.AccountTypeId === 13);
+  return filteredData;
 };
 
 //   Select Fields Query
-
-export const useGetExpenseBranchSelect = () => {
-  return useQuery(
-    'ExpenseBranch-Select',
-    () => {
-      return requestManager.get('/api/Branches/GetAll?OrganizationId=2&CompanyId=2', { params: { ...params } });
-    },
-    { cacheTime: 5000 }
-  );
-};
 
 export const useGetExpenseProjectSelect = () => {
   return useQuery(

@@ -77,6 +77,7 @@ function CashPaymentVoucherForm({
       TaxableEntry.TaxPrcnt = values.voucherDetailList?.[0]?.TaxPrcnt;
       TaxableEntry.TaxesTotalAmount = values.voucherDetailList?.[0]?.TotalAmount;
       TaxableEntry.CreditAmount = values.voucherDetailList?.[0]?.TaxAmount;
+      TaxableEntry.DebitAmount = values.voucherDetailList?.[0]?.Amount;
       TaxableEntry.Amount = values.voucherDetailList?.[0]?.Amount;
 
       values.voucherDetailList = [...tableData, TaxableEntry];
@@ -125,20 +126,13 @@ function CashPaymentVoucherForm({
   useEffect(() => {
     if (isDataSuccess) {
       form.setFieldValue('VoucherCode', addCashPayment?.data?.Data?.Result?.VoucherCode);
-      form.setFieldValue('VoucherDate', dayjs(addCashPayment?.data?.Data?.Result?.VoucherDate));
-      form.setFieldValue(
-        'Type',
-        addCashPayment?.data?.Data?.Result?.Type === 0 ? 1 : addCashPayment?.data?.Data?.Result?.Type
-      );
+      form.setFieldValue('VoucherDate', dayjs(new Date()));
       form.setFieldValue('RefAccountId', addCashPayment?.data?.Data?.Result?.RefAccountId);
       form.setFieldValue('Remarks', addCashPayment?.data?.Data?.Result?.Remarks);
       form.setFieldValue('JobLotId', addCashPayment?.data?.Data?.Result?.JobLotDescription);
       form.setFieldValue('IncludeWHT', addCashPayment?.data?.Data?.Result?.IncludeWHT);
       setSharedStateIncludeWHT(addCashPayment?.data?.Data?.Result?.IncludeWHT);
-      form.setFieldValue(
-        ['voucherDetailList', 0, 'DCheqDate'],
-        dayjs(addCashPayment?.data?.Data?.Result?.voucherDetailList?.DCheqDate)
-      );
+      form.setFieldValue(['voucherDetailList', 0, 'DCheqDate'], dayjs(new Date()));
       const DetailList = addCashPayment?.data?.Data?.Result?.voucherDetailList.filter(
         (row: any) => row.DebitAmount > 0
       );

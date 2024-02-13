@@ -10,6 +10,7 @@ export type AccountData = {
 };
 
 export type TSaveExpenseVoucher = {
+  PrintPreview: boolean;
   Id: number;
   Type: number;
   BranchId: number;
@@ -33,6 +34,7 @@ export type TSaveExpenseVoucher = {
   PayTitle: string;
   IncludeWHT: boolean;
   Remarks: string;
+  VoucherAmount: number;
   voucherDetailList: ExpenseVoucherDetail[];
 };
 
@@ -54,6 +56,8 @@ export type TExpenseDetailEntry = {
   DebitAmount: number;
   Comments: string;
   key: number;
+  AccountCode: number;
+  AgainstAccount: string;
 };
 export type DataType = {
   key: number;

@@ -49,7 +49,10 @@ function BankPaymentVoucherForm({
     }
   }, [SharedStateIncludeWHT, VoucherDate, TaxTypeId]);
   const { mutate: addBankReceiptVoucher, data: saveData, isSuccess } = useAddBankReceiptVoucher(DocumentTypeId);
-  const { mutate: updateBankReceiptVoucher } = useUpdateBankReceiptVoucher(selectedRecordId, DocumentTypeId);
+  const { mutate: updateBankReceiptVoucher, data: updateData } = useUpdateBankReceiptVoucher(
+    selectedRecordId,
+    DocumentTypeId
+  );
   const [printPreview, setPrintPreview] = useState(true);
   const AgainstAccountId = form.getFieldValue('AgainstAccountId');
   console.log(AgainstAccountId);
@@ -105,11 +108,8 @@ function BankPaymentVoucherForm({
 
   useEffect(() => {
     if (isDataSuccess) {
-      form.setFieldValue(
-        'ChequeDate',
-        BankReceiptGetById?.ChequeDate !== null ? dayjs(BankReceiptGetById?.ChequeDate) : ''
-      );
-      form.setFieldValue('VoucherDate', dayjs(BankReceiptGetById?.VoucherDate));
+      form.setFieldValue('ChequeDate', dayjs(new Date()));
+      form.setFieldValue('VoucherDate', dayjs(new Date()));
       form.setFieldValue('VoucherCode', BankReceiptGetById?.VoucherCode);
       form.setFieldValue('RefAccountId', BankReceiptGetById?.RefAccountId);
       form.setFieldValue('CheqId', BankReceiptGetById?.CheqId > 0 ? BankReceiptGetById?.CheqId : null);
@@ -147,6 +147,7 @@ function BankPaymentVoucherForm({
           setBankId={setBankId}
           isSuccess={isSuccess}
           saveData={saveData}
+          updateData={updateData}
           addBankReceipt={addBankReceipt}
           DocumentTypeId={DocumentTypeId}
           selectedRecordId={selectedRecordId}

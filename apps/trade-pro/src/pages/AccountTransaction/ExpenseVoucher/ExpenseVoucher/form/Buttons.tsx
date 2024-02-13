@@ -15,7 +15,7 @@ function Buttons({
   isSuccess,
   saveData,
   updateData,
-  ContraVoucher,
+  ExpenseVoucherById,
   selectedRecordId,
   setSelectedRecordId,
   setPrintPreview,
@@ -82,7 +82,7 @@ function Buttons({
                 isLoading={isLoading}
                 data={
                   selectedRecordId
-                    ? ContraVoucher?.data?.Data?.Result?.VoucherCode
+                    ? ExpenseVoucherById?.data?.Data?.Result?.VoucherCode
                     : data?.data?.Data?.Result?.[0]?.VoucherCode
                 }
               />
@@ -147,7 +147,7 @@ type TAddUpdateRecord = {
   isSuccess: any;
   saveData: any;
   updateData: any;
-  ContraVoucher: any;
+  ExpenseVoucherById: any;
   DocumentTypeId: number;
   selectedRecordId: any;
   setSelectedRecordId: (id: number | null) => void;

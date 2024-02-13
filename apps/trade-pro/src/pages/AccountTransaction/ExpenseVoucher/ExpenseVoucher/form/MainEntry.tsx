@@ -1,39 +1,36 @@
+import '../style.scss';
 import { map } from 'lodash';
 import {
-  useGetAccountsBalances,
+  useGetAccountsBalance,
   useGetConfigration,
-  useGetContraChequeNoSelect,
-  useGetContraCreditAccountSelect,
-  useGetContraProjectSelect,
+  useGetExpenseChequeNoSelect,
+  useGetExpenseFetchAccountSelect,
+  useGetExpenseProjectSelect,
 } from '../queries/queries';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, Col, Row, FormInstance } from 'antd';
-import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { AntDatePicker, AntInput, AntSelectDynamic } from '@tradePro/components';
+import { numberFormatter } from '@tradePro/utils/numberFormatter';
 
-const MainEntry = ({ form, setBankId, bankId }: TDynamicForm) => {
+function MainEntry({ form, setBankId, bankId }: TDynamicForm) {
   const { t } = useTranslation();
-  const { data } = useGetAccountsBalances(bankId);
-  const { data: project, isSuccess, isLoading } = useGetContraProjectSelect();
-  const [chequeBookEnabled, setChequeBookEnabled] = useState(false);
-  const { data: credit } = useGetContraCreditAccountSelect();
-  const { data: chequeBooks } = useGetContraChequeNoSelect(bankId);
-  const { data: chequeNoCompulsoryConfig } = useGetConfigration('ChequeNoCompulsoryOnBpv');
+
+  const [chequeNoEnabled, setChequeNoEnabled] = useState(false);
+  const { data } = useGetAccountsBalance(bankId);
+  const { data: credit } = useGetExpenseFetchAccountSelect();
+  const { data: chequeBooks } = useGetExpenseChequeNoSelect(bankId);
+  const { data: chequeNoCompulsoryConfig } = useGetConfigration('ChequeBook Enabled');
   const isChequeNoCompulsory = chequeNoCompulsoryConfig?.data?.Data?.Result === 'True';
-  useEffect(() => {
-    if (data?.data?.Data?.Result?.[0]?.Balance !== undefined) {
-      form.setFieldsValue({ Balance: data?.data?.Data?.Result?.[0]?.Balance });
-    }
-  }, [credit, bankId, data?.data?.Data?.Result]);
+  const { data: project, isSuccess, isLoading } = useGetExpenseProjectSelect();
   useEffect(() => {
     if (isSuccess && !isLoading) {
       form.setFieldValue('ProjectId', project?.data?.Data?.Result?.[0]?.ProjectName);
     }
-  }, [isSuccess, !isLoading]);
+  }, [isSuccess]);
 
-  const handleCreditAccountChange = (accountId?: any) => {
-    setBankId(accountId);
+  const handleCreditAccountChange = (value: any) => {
+    setBankId(value);
   };
 
   const chequeBookOptions =
@@ -66,7 +63,7 @@ const MainEntry = ({ form, setBankId, bankId }: TDynamicForm) => {
                   fieldValue="Id"
                   fieldLabel="ProjectName"
                   name="ProjectId"
-                  query={useGetContraProjectSelect}
+                  query={useGetExpenseProjectSelect}
                 />
               </Col>
               <Col
@@ -121,7 +118,7 @@ const MainEntry = ({ form, setBankId, bankId }: TDynamicForm) => {
                 xxl={{ span: 4 }}
                 className="formfield"
               >
-                {chequeBookEnabled ? (
+                {chequeNoEnabled ? (
                   <AntInput bordered={false} label={t('cheque_no')} name="CheqId" required={isChequeNoCompulsory} />
                 ) : (
                   <AntSelectDynamic
@@ -164,7 +161,7 @@ const MainEntry = ({ form, setBankId, bankId }: TDynamicForm) => {
                 lg={{ span: 0 }}
                 xl={{ span: 0 }}
                 xxl={{ span: 4 }}
-                className="formfield2"
+                className="formfield3"
               >
                 <AntInput
                   bordered={false}
@@ -179,12 +176,8 @@ const MainEntry = ({ form, setBankId, bankId }: TDynamicForm) => {
       </Row>
     </>
   );
-};
+}
 
-type TDynamicForm = {
-  form: FormInstance;
-  setBankId: any;
-  bankId: any;
-};
+type TDynamicForm = { form: FormInstance; setBankId: any; bankId: any };
 
 export default MainEntry;

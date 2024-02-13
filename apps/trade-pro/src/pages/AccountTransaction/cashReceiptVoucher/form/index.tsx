@@ -40,8 +40,11 @@ function CashReceiptVoucherForm({
     refetch: TaxScheduleRefetch,
     isLoading: TaxLoading,
   } = useGetTaxSchedule(VoucherDate, TaxTypeId);
-  const { mutate: addBankPaymentVoucher, isSuccess, data: saveData } = useAddCashReceiptVoucher();
-  const { mutate: updateBankPaymentVoucher } = useUpdateCashReceiptVoucher(selectedRecordId);
+  const { mutate: addBankPaymentVoucher, isSuccess, data: saveData } = useAddCashReceiptVoucher(DocumentTypeId);
+  const { mutate: updateBankPaymentVoucher, data: updateData } = useUpdateCashReceiptVoucher(
+    selectedRecordId,
+    DocumentTypeId
+  );
   useEffect(() => {
     if (SharedStateIncludeWHT) {
       if (VoucherDate && TaxTypeId) {
@@ -70,6 +73,8 @@ function CashReceiptVoucherForm({
       TaxableEntry.TaxPrcnt = values.voucherDetailList?.[0]?.TaxPrcnt;
       TaxableEntry.TaxesTotalAmount = values.voucherDetailList?.[0]?.TotalAmount;
       TaxableEntry.CreditAmount = values.voucherDetailList?.[0]?.TaxAmount;
+      TaxableEntry.DebitAmount = values.voucherDetailList?.[0]?.Amount;
+      TaxableEntry.Amount = values.voucherDetailList?.[0]?.Amount;
       if (SharedStateIncludeWHT && getTaxSchedule) {
         const updatedData = tableData?.map((item: any) => ({
           ...item,
@@ -103,11 +108,8 @@ function CashReceiptVoucherForm({
 
   useEffect(() => {
     if (isDataSuccess) {
-      form.setFieldValue(
-        'ChequeDate',
-        CashReceiptGetById?.ChequeDate !== null ? dayjs(CashReceiptGetById?.ChequeDate) : ''
-      );
-      form.setFieldValue('VoucherDate', dayjs(CashReceiptGetById?.VoucherDate));
+      form.setFieldValue('ChequeDate', dayjs(new Date()));
+      form.setFieldValue('VoucherDate', dayjs(new Date()));
       form.setFieldValue('VoucherCode', CashReceiptGetById?.VoucherCode);
       form.setFieldValue('RefAccountId', CashReceiptGetById?.RefAccountId);
       form.setFieldValue('CheqId', CashReceiptGetById?.CheqId > 0 ? CashReceiptGetById?.CheqId : null);
@@ -145,6 +147,7 @@ function CashReceiptVoucherForm({
           setBankId={setBankId}
           isSuccess={isSuccess}
           saveData={saveData}
+          updateData={updateData}
           addCashReceipt={addCashReceipt}
           DocumentTypeId={DocumentTypeId}
           selectedRecordId={selectedRecordId}

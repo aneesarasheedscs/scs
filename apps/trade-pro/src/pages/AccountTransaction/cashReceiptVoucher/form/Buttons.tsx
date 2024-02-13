@@ -14,6 +14,7 @@ function Buttons({
   setBankId,
   isSuccess,
   saveData,
+  updateData,
   addCashReceipt,
   selectedRecordId,
   setSelectedRecordId,
@@ -58,8 +59,10 @@ function Buttons({
   useEffect(() => {
     if (isSuccess && saveData?.data?.Status === true) {
       handleResetForm();
+    } else if (updateData?.data?.Status === true) {
+      handleResetForm();
     }
-  }, [saveData, isSuccess]);
+  }, [saveData, updateData, isSuccess]);
   const handleKeyDown = (event: any) => {
     if (event.key === 'Escape') {
       handleResetForm();
@@ -148,6 +151,7 @@ type TAddUpdateRecord = {
   setBankId: any;
   isSuccess: any;
   saveData: any;
+  updateData: any;
   addCashReceipt: any;
   DocumentTypeId: number;
   selectedRecordId: any;

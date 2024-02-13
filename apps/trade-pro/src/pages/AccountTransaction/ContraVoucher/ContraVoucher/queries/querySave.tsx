@@ -1,7 +1,7 @@
 import { queryClient } from '@tradePro/configs/index';
 import { useMutation, useQuery } from 'react-query';
 import { notification } from 'antd';
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { requestManager } from '@tradePro/configs/requestManager';
 import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 import { TSaveContraVoucher } from '../form/types';
@@ -53,7 +53,7 @@ const getContraVoucherDetailById = (Id?: string | null) => {
 
 // save form
 
-export const useAddContraVoucher = (params?: TSaveContraVoucher) => {
+export const useAddContraVoucher = (DocumentTypeId: number, params?: TSaveContraVoucher) => {
   return useMutation(
     'contraVoucher-history',
     (data: TSaveContraVoucher) => {
@@ -70,15 +70,23 @@ export const useAddContraVoucher = (params?: TSaveContraVoucher) => {
         ModifyUser: userDetail?.UserId,
         EntryDate: new Date().toISOString(),
         ModifyDate: new Date().toISOString(),
+        DocumentTypeId: DocumentTypeId,
         ...params,
       };
       return requestManager.post('/api/Voucher/Save', dataToSubmit);
     },
     {
-      onSuccess: () => {
-        queryClient.invalidateQueries('contraVoucher-history');
-        const msg = 'Record added successfully!';
-        notification.success({ description: '', message: msg });
+      onSuccess: (response: AxiosResponse) => {
+        if (response?.data && response?.data?.Status === false) {
+          notification.error({
+            message: 'Error',
+            description: response?.data?.Message || 'An error occurred.',
+          });
+        } else if (response?.data && response?.data?.Status === true) {
+          const msg = 'Record added successfully!';
+          notification.success({ description: '', message: msg });
+          queryClient.invalidateQueries('contraVoucher-history');
+        }
       },
       onError: (error: AxiosError) => {
         const msg = error.response?.data || 'Something went wrong';
@@ -88,7 +96,7 @@ export const useAddContraVoucher = (params?: TSaveContraVoucher) => {
   );
 };
 
-export const useUpdateContraVoucher = (Id?: number | null, params?: TSaveContraVoucher) => {
+export const useUpdateContraVoucher = (Id?: number | null, DocumentTypeId?: number, params?: TSaveContraVoucher) => {
   return useMutation(
     'contraVoucher-history',
     (data: TSaveContraVoucher) => {
@@ -96,6 +104,7 @@ export const useUpdateContraVoucher = (Id?: number | null, params?: TSaveContraV
       dataToSubmit = {
         ...data,
         Id: Id,
+        Type: 3,
         OrganizationId: userDetail?.OrganizationId,
         CompanyId: userDetail?.CompanyId,
         BranchId: userDetail?.BranchesId,
@@ -104,22 +113,23 @@ export const useUpdateContraVoucher = (Id?: number | null, params?: TSaveContraV
         ModifyUser: userDetail?.UserId,
         EntryDate: new Date().toISOString(),
         ModifyDate: new Date().toISOString(),
-        RefAccountId: 21284,
-        RefDocNoId: 21284,
-        VoucherCode: 104,
-        ChequeNo: '0',
-        AgainstAccountId: 21493,
-        DocumentTypeId: 10,
-        VoucherAmount: 5000,
+        DocumentTypeId: DocumentTypeId,
         ...params,
       };
       return requestManager.post('/api/Voucher/Save', dataToSubmit);
     },
     {
-      onSuccess: () => {
-        queryClient.invalidateQueries('contraVoucher-history');
-        const msg = 'Record updated successfully!';
-        notification.success({ description: '', message: msg });
+      onSuccess: (response: AxiosResponse) => {
+        if (response?.data && response?.data?.Status === false) {
+          notification.error({
+            message: 'Error',
+            description: response?.data?.Message || 'An error occurred.',
+          });
+        } else if (response?.data && response?.data?.Status === true) {
+          const msg = 'Record updated successfully!';
+          notification.success({ description: '', message: msg });
+          queryClient.invalidateQueries('contraVoucher-history');
+        }
       },
       onError: (error: AxiosError) => {
         const msg = error.response?.data || 'Something went wrong';

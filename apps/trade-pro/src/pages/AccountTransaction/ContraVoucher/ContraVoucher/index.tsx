@@ -24,8 +24,7 @@ function ContraVoucher() {
   const { data, refetch, isSuccess, isLoading } = useGetContraVoucherDetailById(selectedRecordIdforDetail);
   useEffect(() => {
     if (isSuccess) {
-      const DetailList = data?.data?.Data?.Result?.voucherDetailList.filter((row: any) => row.DebitAmount <= 0);
-      setViewDetail(DetailList);
+      setViewDetail(data?.data?.Data?.Result?.voucherDetailList);
     }
   }, [isSuccess, !isLoading]);
   const {

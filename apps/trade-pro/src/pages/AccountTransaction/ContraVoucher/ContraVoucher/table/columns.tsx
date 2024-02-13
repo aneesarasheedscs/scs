@@ -24,7 +24,7 @@ export const columns = (
   },
   {
     title: t('type'),
-    width: 120,
+    width: 100,
     searchableInput: true,
     dataIndex: 'DocumentTypeCode',
     sortDirections: ['ascend', 'descend'],
@@ -45,20 +45,13 @@ export const columns = (
   },
   {
     title: t('account_title'),
-    width: 200,
+    width: 240,
     dataIndex: 'AccountTitle',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
   },
-  {
-    title: t('remarks'),
-    width: 200,
-    dataIndex: 'Remarks',
-    searchableInput: true,
-    sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.Remarks.localeCompare(b.Remarks),
-  },
+
   {
     align: 'right',
     title: t('voucher_amount'),
@@ -85,6 +78,14 @@ export const columns = (
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.CheqNo - b.CheqNo,
+  },
+  {
+    title: t('remarks'),
+    width: 250,
+    dataIndex: 'Remarks',
+    searchableInput: true,
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.Remarks.localeCompare(b.Remarks),
   },
   {
     title: t('attachment'),
