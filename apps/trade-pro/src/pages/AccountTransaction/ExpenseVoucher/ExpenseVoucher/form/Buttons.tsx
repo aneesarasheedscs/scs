@@ -56,6 +56,7 @@ function Buttons({
       handleResetForm();
     } else if (updateData?.data?.Status === true) {
       handleResetForm();
+    } else {
     }
   }, [saveData, updateData, isSuccess]);
   const handleKeyDown = (event: any) => {

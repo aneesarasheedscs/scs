@@ -842,5 +842,6 @@
   "cost_center": "Centro de costos",
   "cash_receipt_voucher": "Vale de recibo en efectivo",
   "bank_receipt_voucher": "Comprobante de recibo bancario",
-  "against_ac": "Contra cuenta"
+  "against_ac": "Contra cuenta",
+  "journal_voucher": "Documento preliminar"
 }

@@ -6,7 +6,7 @@ import { TCashPaymentVoucherTable } from './types';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import { EditFilled, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
+import { EditFilled, EyeTwoTone, DeleteOutlined } from '@ant-design/icons';
 
 export const columns = (
   t: any,
@@ -85,31 +85,9 @@ export const columns = (
     },
     width: 160,
   },
-  // {
-  //   title: t('status'),
-  //   dataIndex: 'IsApproved',
-  //   render: (IsApproved) => (
-  //     <Space
-  //       style={{
-  //         color: IsApproved === 'True' ? '#5A54F9' : 'red',
-  //         fontWeight: 'bold',
-  //         width: '80%',
-  //         position: 'absolute',
-  //         top: 10,
-  //         right: 5,
-  //         textAlign: 'center',
-  //         fontSize: 16,
-  //         paddingLeft: 8,
-  //       }}
-  //     >
-  //       {IsApproved === 'True' ? 'Active' : 'In-active'}
-  //     </Space>
-  //   ),
-  //   width: 130,
-  // },
   {
     title: t('remarks'),
-    width: 240,
+    width: 260,
     dataIndex: 'Remarks',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
@@ -122,14 +100,14 @@ export const columns = (
   },
   {
     title: t('action'),
-    width: 120,
+    width: 100,
     render: (_, record) => (
       <>
         <Tooltip title="Edit">
-          <Space>
+          <Space style={{ position: 'absolute', top: 10, left: 10 }}>
             <AntButton
               type="text"
-              icon={<EditFilled style={{ color: 'black' }} />}
+              icon={<EditFilled style={{ color: '#006640' }} />}
               onClick={() => {
                 setSelectedRecordId(record?.Id), setActiveTab('2');
               }}
@@ -137,10 +115,10 @@ export const columns = (
           </Space>
         </Tooltip>
         <Tooltip title="View Detail">
-          <Space>
+          <Space style={{ position: 'absolute', top: 10, right: 10 }}>
             <AntButton
               type="text"
-              icon={<EyeOutlined style={{ color: 'blue', marginLeft: 4 }} />}
+              icon={<EyeTwoTone style={{ color: 'blue', marginLeft: 4 }} />}
               onClick={() => {
                 setSelectedRecordIdforDetail(record.Id);
               }}
@@ -192,7 +170,7 @@ export const column2 = (t: any, handleDeleteRow: any, handleEditRow: any): AntCo
   },
   {
     title: t('remarks'),
-    width: 350,
+    width: 370,
     dataIndex: 'Comments',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
@@ -200,14 +178,14 @@ export const column2 = (t: any, handleDeleteRow: any, handleEditRow: any): AntCo
   },
   {
     title: t('action'),
-    width: 120,
+    width: 100,
     render: (_, record, index) => (
       <>
         <Tooltip title={t('edit')}>
           <Space>
             <AntButton
               type="text"
-              icon={<EditFilled style={{ color: 'blue' }} />}
+              icon={<EditFilled style={{ color: '#006640' }} />}
               onClick={() => handleEditRow(record)}
             />
           </Space>

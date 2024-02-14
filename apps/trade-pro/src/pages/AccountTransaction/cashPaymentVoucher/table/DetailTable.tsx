@@ -6,7 +6,7 @@ import { viewDetailList } from '../form/Atom';
 import { detailColumns } from './DetailColumn';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 
-function CashPaymentDetailTable() {
+function CashPaymentDetailTable({ refetch, isLoadingDetail }: any) {
   const { t } = useTranslation();
   const [viewDetail, setViewDetail] = useAtom(viewDetailList);
   console.log(viewDetail);
@@ -20,8 +20,10 @@ function CashPaymentDetailTable() {
         <Col span={24}>
           <h2 className="form-heading2"> {t('detail')}</h2>
           <AntTable
-            numberOfSkeletons={6}
-            scroll={{ x: '', y: convertVhToPixels('20vh') }}
+            refetch={refetch}
+            isLoading={isLoadingDetail}
+            numberOfSkeletons={4}
+            scroll={{ x: '', y: convertVhToPixels('18vh') }}
             data={viewDetail || []}
             columns={detailColumns(t)}
             style={{ marginTop: 0 }}

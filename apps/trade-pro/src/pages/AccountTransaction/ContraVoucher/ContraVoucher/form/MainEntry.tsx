@@ -41,7 +41,7 @@ const MainEntry = ({ form, setBankId, bankId }: TDynamicForm) => {
       label: chequeBook.CheqNo,
       value: chequeBook.Id,
     })) || [];
-
+  console.log(form.getFieldValue('VoucherAmount'));
   return (
     <>
       <Row gutter={[10, 10]} style={{ marginTop: '-0.3%', marginBottom: '0.5%' }}>

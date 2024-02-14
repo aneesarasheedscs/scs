@@ -3,7 +3,7 @@ import { useAtom } from 'jotai';
 import { isNumber } from 'lodash';
 import { Card, Form, notification } from 'antd';
 import Buttons from './Buttons';
-import { addtableData } from './Atom';
+import { addtableData, dataforCreditAmount } from './Atom';
 import MainEntryForm from './MainEntry';
 import DynamicForm from './DetailEntry';
 import { useEffect, useState } from 'react';
@@ -25,14 +25,13 @@ function ContraVoucherForm({
   const [bankId, setBankId] = useState<number | null>(null);
   const [printPreview, setPrintPreview] = useState(true);
   const [tableData, setTableData] = useAtom(addtableData);
-  const [isTaxable, setIsTaxable] = useState(false);
+  const [taableDataforCreditAmount, setTableDataforCreditAmount] = useAtom(dataforCreditAmount);
+
   const ContraVoucher = ContraVoucherById?.data?.Data?.Result;
 
   const DocumentTypeId = 10;
   const { mutate: addContraVoucher, isSuccess, data: saveData } = useAddContraVoucher(DocumentTypeId);
   const { mutate: updateContraVoucher, data: updateData } = useUpdateContraVoucher(selectedRecordId, DocumentTypeId);
-
-  const AgainstAccountId = form.getFieldValue('RefAccountId');
 
   const onFinish = (values: TSaveContraVoucher) => {
     const AgainstAccountId = form.getFieldValue('RefAccountId');
@@ -41,7 +40,8 @@ function ContraVoucherForm({
       ...item,
       AgainstAccountId: AgainstAccountId,
     }));
-    values.voucherDetailList = values.voucherDetailList && updatedData;
+    const combinedData = [...updatedData, ...taableDataforCreditAmount];
+    values.voucherDetailList = values.voucherDetailList && combinedData;
     console.log(values);
 
     if (isNumber(selectedRecordId)) {
@@ -51,6 +51,7 @@ function ContraVoucherForm({
           description: 'Please Enter Data in the Grid before Update!',
         });
       } else {
+        console.log(values);
         updateContraVoucher(values);
       }
     } else {
@@ -60,6 +61,7 @@ function ContraVoucherForm({
           description: 'Please Enter Data in the Grid before Save!',
         });
       } else {
+        console.log(values);
         addContraVoucher(values);
       }
     }
@@ -69,6 +71,7 @@ function ContraVoucherForm({
     if (isDataSuccess) {
       form.setFieldValue('VoucherDate', dayjs(new Date()));
       form.setFieldValue('ChequeDate', dayjs(new Date()));
+      form.setFieldValue('VoucherCode', ContraVoucher?.VoucherCode);
       form.setFieldValue('CheqId', ContraVoucher?.CheqId);
       form.setFieldValue('PayTitle', ContraVoucher?.PayTitle);
       form.setFieldValue('RefAccountId', ContraVoucher?.RefAccountId);

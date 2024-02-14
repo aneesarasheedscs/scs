@@ -1,32 +1,42 @@
 import { AntColumnType } from '@tradePro/globalTypes';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import { DataType } from '../form/types';
+import { TVoucherDetailList } from '../../types';
 
-export const detailColumns = (t?: any): AntColumnType<DataType>[] => [
+export const detailColumns = (t?: any): AntColumnType<TVoucherDetailList>[] => [
   {
     title: t('account_title'),
-    width: 400,
+    width: 280,
     searchableInput: true,
     dataIndex: 'AccountTitle',
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
+    sorter: (a, b) => a.AccountTitleC.localeCompare(b.AccountTitleC),
     showCount: true,
   },
   {
-    title: t('job_lot'),
-    width: 275,
-    dataIndex: 'JobLotDescription',
+    title: t('against_ac'),
+    width: 250,
     searchableInput: true,
+    dataIndex: 'AccountTitle',
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.JobLotDescription.localeCompare(b.JobLotDescription),
+    sorter: (a, b) => a.AccountTitleD.localeCompare(b.AccountTitleD),
+  },
+  {
+    title: t('cheque no'),
+    width: 150,
+    searchableInput: true,
+    dataIndex: 'CheqNoDetail',
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.CheqNoDetail.localeCompare(b.CheqNoDetail),
   },
   {
     align: 'right',
     title: t('debit_amount'),
-    width: 250,
+    width: 145,
     showTotal: true,
     dataIndex: 'DebitAmount',
+    sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.DebitAmount - b.DebitAmount,
+
     render: (_, { DebitAmount }) => (
       <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(DebitAmount)}</span>
     ),
@@ -34,17 +44,19 @@ export const detailColumns = (t?: any): AntColumnType<DataType>[] => [
   {
     align: 'right',
     title: t('credit_amount'),
-    width: 250,
+    width: 145,
     showTotal: true,
     dataIndex: 'CreditAmount',
+    sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.CreditAmount - b.CreditAmount,
+
     render: (_, { CreditAmount }) => (
       <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(CreditAmount)}</span>
     ),
   },
   {
     title: t('remarks'),
-    width: 400,
+    width: 200,
     dataIndex: 'Comments',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],

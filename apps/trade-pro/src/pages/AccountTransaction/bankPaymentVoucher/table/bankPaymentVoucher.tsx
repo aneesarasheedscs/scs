@@ -10,9 +10,9 @@ import './DetailTableFile.scss';
 import CardView from './CardView';
 import BankPaymentDetailTable from './DetailTable';
 
-function BankPaymentTable({ setSelectedRecordId, setActiveTab, setSelectedRecordDetailId }: TFrom) {
+function BankPaymentTable({ setSelectedRecordId, setActiveTab, setSelectedRecordDetailId, refetch, isLoading }: TFrom) {
   const { t } = useTranslation();
-  const { data, isError, isLoading, refetch, isFetching } = useGetBankPaymentVoucherTable();
+  const { data, isError, isLoading: isLoadingBPV, refetch: refetchBPV, isFetching } = useGetBankPaymentVoucherTable();
   const [showComponent, setShowComponent] = useState(false);
   const {
     token: { colorPrimary },
@@ -37,16 +37,16 @@ function BankPaymentTable({ setSelectedRecordId, setActiveTab, setSelectedRecord
           <Col span={24}>
             <>
               <AntTable
-                refetch={refetch}
+                refetch={refetchBPV}
                 isError={isError}
                 numberOfSkeletons={8}
-                isLoading={isLoading || isFetching}
-                scroll={{ x: '', y: convertVhToPixels('30vh') }}
+                isLoading={isLoadingBPV || isFetching}
+                scroll={{ x: '', y: convertVhToPixels('35vh') }}
                 data={data?.data?.Data?.Result || []}
                 columns={columns(t, setSelectedRecordId, setActiveTab, setSelectedRecordDetailId)}
               />
 
-              <BankPaymentDetailTable />
+              <BankPaymentDetailTable refetch={refetch} isLoading={isLoading} />
             </>
           </Col>
         )}
@@ -59,6 +59,8 @@ type TFrom = {
   setSelectedRecordId: (id: number | null) => void;
   setActiveTab: (tab: string) => void;
   setSelectedRecordDetailId: (id: number | null) => void;
+  refetch: any;
+  isLoading: any;
 };
 
 export default BankPaymentTable;

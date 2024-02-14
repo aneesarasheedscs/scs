@@ -5,7 +5,7 @@ import { AntButton } from '@tradePro/components';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import { EditFilled, DeleteOutlined, EyeOutlined } from '@ant-design/icons';
+import { EditFilled, DeleteOutlined, EyeOutlined, EyeTwoTone } from '@ant-design/icons';
 
 export const columns = (
   t: any,
@@ -100,10 +100,10 @@ export const columns = (
     render: (_, record) => (
       <>
         <Tooltip title="Edit">
-          <Space style={{ position: 'absolute', top: 5, left: 10 }}>
+          <Space style={{ position: 'absolute', top: 10, left: 10 }}>
             <AntButton
               type="text"
-              icon={<EditFilled style={{ color: 'black' }} />}
+              icon={<EditFilled style={{ color: '#006640' }} />}
               onClick={() => {
                 setSelectedRecordId(record?.Id), setActiveTab('2');
               }}
@@ -111,10 +111,10 @@ export const columns = (
           </Space>
         </Tooltip>
         <Tooltip title="View Detail">
-          <Space style={{ position: 'absolute', top: 5, right: 10 }}>
+          <Space style={{ position: 'absolute', top: 10, right: 10 }}>
             <AntButton
               type="text"
-              icon={<EyeOutlined style={{ color: 'blue', marginLeft: 4 }} />}
+              icon={<EyeTwoTone style={{}} />}
               onClick={() => {
                 setSelectedRecordIdforDetail(record.Id);
               }}
@@ -129,7 +129,7 @@ export const columns = (
 export const columns2 = (t: any, handleDeleteRow: any, handleEditRow: any): AntColumnType<any>[] => [
   {
     title: t('debit_account'),
-    width: 400,
+    width: 410,
     searchableInput: true,
     dataIndex: 'AccountTitle',
     sortDirections: ['ascend', 'descend'],
@@ -150,13 +150,15 @@ export const columns2 = (t: any, handleDeleteRow: any, handleEditRow: any): AntC
     align: 'right',
     showTotal: true,
     dataIndex: 'DebitAmount',
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.DebitAmount - b.DebitAmount,
     render: (_, { DebitAmount }) => (
       <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(DebitAmount)}</span>
     ),
   },
   {
     title: t('remarks'),
-    width: 400,
+    width: 430,
     dataIndex: 'Comments',
 
     searchableInput: true,
@@ -165,20 +167,20 @@ export const columns2 = (t: any, handleDeleteRow: any, handleEditRow: any): AntC
   },
   {
     title: t('action'),
-    width: 120,
+    width: 100,
 
     render: (_, record) => (
       <Tooltip title={t('actions')}>
         <Space>
           <AntButton
             type="text"
-            icon={<DeleteOutlined style={{ color: 'red' }} />}
-            onClick={() => handleDeleteRow(record)}
+            icon={<EditFilled style={{ color: '#006640' }} />}
+            onClick={() => handleEditRow(record)}
           />
           <AntButton
             type="text"
-            icon={<EditFilled style={{ color: 'blue' }} />}
-            onClick={() => handleEditRow(record)}
+            icon={<DeleteOutlined style={{ color: 'red' }} />}
+            onClick={() => handleDeleteRow(record)}
           />
         </Space>
       </Tooltip>

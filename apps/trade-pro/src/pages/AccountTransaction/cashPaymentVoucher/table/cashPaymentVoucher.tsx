@@ -10,9 +10,15 @@ import { AntButton, AntTable } from '@tradePro/components';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { useGetCashPaymentVoucherTable } from '../queries/queries';
 
-function CashPaymentTable({ setSelectedRecordId, setActiveTab, setSelectedRecordIdforDetail }: TFrom) {
+function CashPaymentTable({
+  setSelectedRecordId,
+  setActiveTab,
+  setSelectedRecordIdforDetail,
+  refetch,
+  isLoadingDetail,
+}: TFrom) {
   const { t } = useTranslation();
-  const { data, isError, isLoading, refetch, isFetching } = useGetCashPaymentVoucherTable();
+  const { data, isError, isLoading, refetch: refetchCPV, isFetching } = useGetCashPaymentVoucherTable();
   const [showComponent, setShowComponent] = useState(false);
   const {
     token: { colorPrimary },
@@ -38,16 +44,16 @@ function CashPaymentTable({ setSelectedRecordId, setActiveTab, setSelectedRecord
           <Col>
             <>
               <AntTable
-                refetch={refetch}
+                refetch={refetchCPV}
                 isError={isError}
-                numberOfSkeletons={10}
+                numberOfSkeletons={8}
                 isLoading={isLoading || isFetching}
-                scroll={{ x: '', y: convertVhToPixels('30vh') }}
+                scroll={{ x: '', y: convertVhToPixels('35vh') }}
                 data={data?.data?.Data?.Result || []}
                 columns={columns(t, setSelectedRecordId, setActiveTab, setSelectedRecordIdforDetail)}
               />
 
-              <CashPaymentDetailTable />
+              <CashPaymentDetailTable refetch={refetch} isLoadingDetail={isLoadingDetail} />
             </>
           </Col>
         )}
@@ -60,6 +66,8 @@ type TFrom = {
   setSelectedRecordId: (id: number | null) => void;
   setActiveTab: (tab: string) => void;
   setSelectedRecordIdforDetail: (id: number | null) => void;
+  refetch: any;
+  isLoadingDetail: any;
 };
 
 export default CashPaymentTable;

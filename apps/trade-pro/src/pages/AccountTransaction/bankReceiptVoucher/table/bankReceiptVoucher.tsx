@@ -10,9 +10,9 @@ import { useState } from 'react';
 import CardView from './CardView';
 import BankReceiptDetailTable from './DetailTable';
 
-function BankReceiptTable({ setSelectedRecordId, setActiveTab, setSelectedRecordDetailId }: TFrom) {
+function BankReceiptTable({ setSelectedRecordId, setActiveTab, setSelectedRecordDetailId, refetch, isLoading }: TFrom) {
   const { t } = useTranslation();
-  const { data, isError, isLoading, refetch, isFetching } = useGetBankReceiptVoucherTable();
+  const { data, isError, isLoading: isLoadingBRV, refetch: refetchBRV, isFetching } = useGetBankReceiptVoucherTable();
   const [showComponent, setShowComponent] = useState(false);
   const {
     token: { colorPrimary },
@@ -37,15 +37,15 @@ function BankReceiptTable({ setSelectedRecordId, setActiveTab, setSelectedRecord
         ) : (
           <Col span={24}>
             <AntTable
-              refetch={refetch}
+              refetch={refetchBRV}
               isError={isError}
               numberOfSkeletons={8}
-              isLoading={isLoading || isFetching}
+              isLoading={isLoadingBRV || isFetching}
               scroll={{ x: '', y: convertVhToPixels('35vh') }}
               data={data?.data?.Data?.Result || []}
               columns={columns(t, setSelectedRecordId, setActiveTab, setSelectedRecordDetailId)}
             />
-            <BankReceiptDetailTable />
+            <BankReceiptDetailTable refetch={refetch} isLoading={isLoading} />
           </Col>
         )}
       </Row>
@@ -57,6 +57,8 @@ type TFrom = {
   setSelectedRecordId: (id: number | null) => void;
   setActiveTab: (tab: string) => void;
   setSelectedRecordDetailId: (id: number | null) => void;
+  refetch: any;
+  isLoading: any;
 };
 
 export default BankReceiptTable;

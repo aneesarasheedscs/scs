@@ -10,9 +10,15 @@ import { useGetContraVoucherTable } from '../queries/queries';
 import { AntButton, AntTable } from '@tradePro/components';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 
-function ContraVoucherTable({ setSelectedRecordId, setSelectedRecordIdforDetail, setActiveTab }: TFrom) {
+function ContraVoucherTable({
+  setSelectedRecordId,
+  setSelectedRecordIdforDetail,
+  setActiveTab,
+  refetch,
+  isLoading,
+}: TFrom) {
   const { t } = useTranslation();
-  const { data, isError, isLoading, refetch, isFetching } = useGetContraVoucherTable();
+  const { data, isError, isLoading: isLoadingContra, refetch: refetchContra, isFetching } = useGetContraVoucherTable();
   const [showComponent, setShowComponent] = useState(false);
   const {
     token: { colorPrimary },
@@ -39,15 +45,15 @@ function ContraVoucherTable({ setSelectedRecordId, setSelectedRecordIdforDetail,
           <Col span={24}>
             <>
               <AntTable
-                refetch={refetch}
+                refetch={refetchContra}
                 isError={isError}
                 numberOfSkeletons={8}
-                isLoading={isLoading || isFetching}
-                scroll={{ x: '', y: convertVhToPixels('30vh') }}
+                isLoading={isLoadingContra || isFetching}
+                scroll={{ x: '', y: convertVhToPixels('35vh') }}
                 data={data?.data?.Data?.Result || []}
                 columns={columns(t, setSelectedRecordId, setSelectedRecordIdforDetail, setActiveTab)}
               />
-              <ContraVoucherDetailTable />
+              <ContraVoucherDetailTable refetch={refetch} isLoading={isLoading} />
             </>
           </Col>
         )}
@@ -60,6 +66,8 @@ type TFrom = {
   setSelectedRecordId: (Id: number | null) => void;
   setSelectedRecordIdforDetail: (Id: number | null) => void;
   setActiveTab: (tab: string) => void;
+  refetch: any;
+  isLoading: any;
 };
 
 export default ContraVoucherTable;

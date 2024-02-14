@@ -27,5 +27,8 @@
   "cost_center": "コストセンター",
   "cash_receipt_voucher": "現金領収書バウチャー",
   "bank_receipt_voucher": "銀行領収証",
-  "against_ac": "アカウントに対して"
+  "against_ac": "アカウントに対して",
+  "contra_voucher": "コントラバウチャー",
+  "expense_voucher": "経費引換券",
+  "journal_voucher": "ジャーナルバウチャー"
 }
