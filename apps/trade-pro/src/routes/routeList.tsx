@@ -173,8 +173,8 @@ export const protectedRoutes: RouteObject[] = [
   { path: route.GENERAL_LEDGER, element: <GeneralLedgerReport /> },
   { path: route.PAYABLES, element: <PayablesTable /> },
   { path: route.PAYABLES_AGING_REPORT, element: <PayableAgingRegisterTable /> },
-  { path: route.RECEIVABLES, element: <ReceivablesAgingRegisterTable /> },
-  { path: route.RECEIVABLES_AGING_REPORT, element: <ReceivableReport /> },
+  { path: route.RECEIVABLES, element: <ReceivableReport /> },
+  { path: route.RECEIVABLES_AGING_REPORT, element: <ReceivablesAgingRegisterTable /> },
 
   //Stock Reports
   { path: route.STOCK_REPORT_SIMPLE, element: <StockReportSimple /> },

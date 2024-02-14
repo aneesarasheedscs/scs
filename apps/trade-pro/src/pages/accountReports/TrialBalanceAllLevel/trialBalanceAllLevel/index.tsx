@@ -14,7 +14,6 @@ import { useGetTrialAllLevelReport } from './queries';
 import { useEffect, useState } from 'react';
 import { TrialBalanceAllLevelSearchCriteria, TtrialBalanceAllLevel } from './type';
 import _ from 'lodash';
-import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 
 const { useForm, useWatch } = Form;
 function TrialBalanceAllLevelReport() {
@@ -23,8 +22,6 @@ function TrialBalanceAllLevelReport() {
 
   const [selectedColumnss, setSelectedColumnss] = useAtom(selectedColumnAtom);
   const [tableData, setTableData] = useState<any>();
-  // const [selectedRow, setSelectedRow] = useState<any>();
-
   const [form] = useForm<TrialBalanceAllLevelSearchCriteria>();
   const formValues = useWatch<TrialBalanceAllLevelSearchCriteria>([], form);
   const { data, isSuccess, refetch, isFetching, isError, isLoading } = useGetTrialAllLevelReport(
@@ -35,13 +32,7 @@ function TrialBalanceAllLevelReport() {
   console.log(data?.data?.Data?.Result);
   const [expandedRowKeys, setExpandedRowKeys] = useState<any>([]);
   console.log(expandedRowKeys?.[0]);
-  // console.log(selectedRow);
-  // const childAccounts = data?.data?.Data?.Result?.filter((item: any) => item.ParentId === selectedRow?.RowId);
-  // console.log(childAccounts);
-  // useEffect(() => {
-  //   const childAccounts = data?.data?.Data?.Result?.filter((item: any) => item.ParentId === selectedRow?.RowId);
-  //   console.log(childAccounts);
-  // }, [data]);
+
   const AccountLevel = form.getFieldValue('AccountLevel');
   console.log(AccountLevel);
   const AllLevelData = data?.data?.Data?.Result;
@@ -82,21 +73,11 @@ function TrialBalanceAllLevelReport() {
       setExpandedRowKeys(expandedRowKeys.filter((key: any) => key !== record.AccountId));
     }
   };
-  // const Opening = tableData?.[0]?.Opening;
+
+  // const Opening = tableData?.map((item: any) => item.Opening) ?? []; // Extracting all Opening values into an array
   // console.log(Opening);
-  // const sum = _.sumBy(Opening);
+  // const sum = _.sum(Opening); // Using _.sum to calculate the sum of all Opening values
   // console.log(sum);
-
-  useEffect(() => {
-    // Calculate the height of the table dynamically based on the viewport height
-    const vhToPixels = convertVhToPixels('60vh'); // Convert 60vh to pixels
-    setScrollHeight(vhToPixels);
-  }, []);
-
-  const Opening = tableData?.map((item: any) => item.Opening) ?? []; // Extracting all Opening values into an array
-  console.log(Opening);
-  const sum = _.sum(Opening); // Using _.sum to calculate the sum of all Opening values
-  console.log(sum);
 
   return (
     <>
@@ -122,6 +103,9 @@ function TrialBalanceAllLevelReport() {
                 isError={isError}
                 isLoading={isLoading}
                 isFetching={isFetching}
+                expandedRowKeys={expandedRowKeys}
+                setExpandedRowKeys={setExpandedRowKeys}
+                tableData={tableData}
               />
             }
             // scroll={{ x: '', y: convertVhToPixels('60vh') }}
@@ -154,7 +138,9 @@ function TrialBalanceAllLevelReport() {
                                 }
                                 data={childAccounts || []}
                                 expandable={
-                                  tableData?.[0]?.AcLevel === 1 && AccountLevel === 1
+                                  (tableData?.[0]?.AcLevel === 1 && AccountLevel === 2) ||
+                                  (tableData?.[0]?.AcLevel === 2 && AccountLevel === 3) ||
+                                  (tableData?.[0]?.AcLevel === 3 && AccountLevel === 4)
                                     ? {}
                                     : {
                                         expandedRowRender: (record) => {
@@ -217,7 +203,7 @@ function TrialBalanceAllLevelReport() {
                                                               record.AccountId !== 'Not Expandable',
                                                             expandedRowKeys,
                                                             onExpand: (expanded, record) =>
-                                                              handleRowExpand(expanded, record), // Pass record object here
+                                                              handleRowExpand(expanded, record),
                                                           }
                                                     }
                                                   />
@@ -228,7 +214,7 @@ function TrialBalanceAllLevelReport() {
                                         },
                                         rowExpandable: (record) => record.AccountId !== 'Not Expandable',
                                         expandedRowKeys,
-                                        onExpand: (expanded, record) => handleRowExpand(expanded, record), // Pass record object here
+                                        onExpand: (expanded, record) => handleRowExpand(expanded, record),
                                       }
                                 }
                               />
@@ -239,7 +225,7 @@ function TrialBalanceAllLevelReport() {
                     },
                     rowExpandable: (record) => record.AccountId !== 'Not Expandable',
                     expandedRowKeys,
-                    onExpand: (expanded, record) => handleRowExpand(expanded, record), // Pass record object here
+                    onExpand: (expanded, record) => handleRowExpand(expanded, record),
                   }
             }
           />

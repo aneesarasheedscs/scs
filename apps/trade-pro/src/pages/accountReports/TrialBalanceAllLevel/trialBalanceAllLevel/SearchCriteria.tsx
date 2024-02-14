@@ -3,8 +3,8 @@ import { Col, Form, Radio, Row } from 'antd';
 import dayjs from 'dayjs';
 import { AntButton, AntDatePicker, AntSelectDynamic, SearchCriteriaWrapper } from '@tradePro/components';
 import { storedFinancialYear } from '@tradePro/utils/storageService';
-import { TrialBalanceAllLevelSearchCriteria } from './type';
-import { useGetDateTypes, useGetTrialAllLevelReport } from './queries';
+import { TrialBalanceAllLevelSearchCriteria, TtrialBalanceAllLevel } from './type';
+import { useGetDateTypes } from './queries';
 import '../style.scss';
 import { useTranslation } from 'react-i18next';
 import { useAtom } from 'jotai';
@@ -14,9 +14,17 @@ import { map } from 'lodash';
 const financialYear = storedFinancialYear();
 const { useForm, useWatch } = Form;
 
-function CriteriaTrialBalanceSelected({ form, refetch, isError, isLoading, isFetching }: any) {
+function CriteriaTrialBalanceSelected({
+  form,
+  refetch,
+  isError,
+  isLoading,
+  isFetching,
+  expandedRowKeys,
+  setExpandedRowKeys,
+  tableData,
+}: any) {
   const [open, setOpen] = useState(false);
-  // const [form] = useForm<TrialBalanceAllLevelSearchCriteria>();
   const formValues = useWatch<TrialBalanceAllLevelSearchCriteria>([], form);
   const [selectedColumnss, setSelectedColumnss] = useAtom(selectedColumnAtom);
   const { setFieldValue, getFieldValue, setFields } = form;
@@ -100,8 +108,18 @@ function CriteriaTrialBalanceSelected({ form, refetch, isError, isLoading, isFet
   ];
 
   useEffect(() => {
-    setFields([{ name: 'AccountLevel', value: 2 }]);
+    setFields([{ name: 'AccountLevel', value: 1 }]);
   }, []);
+
+  const handleRowExpandChange = (e: any) => {
+    const value = e.target.value;
+    if (value === 'collapse') {
+      setExpandedRowKeys([]);
+    } else {
+      const updatedKeys = tableData.map((record: TtrialBalanceAllLevel) => record.AccountId);
+      setExpandedRowKeys(updatedKeys);
+    }
+  };
 
   return (
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
@@ -146,10 +164,10 @@ function CriteriaTrialBalanceSelected({ form, refetch, isError, isLoading, isFet
               // defaultValue={viewOpetions[1]?.Id}
             />
           </Col>
-          <Col xxl={3} style={{ marginTop: 'px' }}>
-            <Radio.Group value={''}>
-              <Radio value="four"> {t('collapse')}</Radio>
-              <Radio value="six">{t('expand')}</Radio>
+          <Col xxl={3} style={{ marginTop: '0px' }}>
+            <Radio.Group value={expandedRowKeys.length > 0 ? 'expand' : 'collapse'} onChange={handleRowExpandChange}>
+              <Radio value="collapse">{t('collapse')}</Radio>
+              <Radio value="expand">{t('expand')}</Radio>
             </Radio.Group>
           </Col>
 

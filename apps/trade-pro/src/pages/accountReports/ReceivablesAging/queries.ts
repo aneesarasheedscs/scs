@@ -31,6 +31,7 @@ export const useGetReceivablesAgingRegister = (enabled = true, params?: Receivab
         () => {
             return requestManager.post('/api/AccountsReports/ReceivableAging', {
                 OrganizationId: userDetail?.OrganizationId,
+                CompanyId:userDetail?.CompanyId,
                 FinancialYearId: financialYear?.Id,
                 ...params,
             });
