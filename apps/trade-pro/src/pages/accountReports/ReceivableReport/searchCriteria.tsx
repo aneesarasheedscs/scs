@@ -12,19 +12,12 @@ import {
   AntSelectDynamic,
   SearchCriteriaWrapper,
 } from '@tradePro/components';
-import {
-  useGetCityNamecategory,
-  // useGetItemCategory,
-  useGetAccountTitle,
-  useGetCustomGroup,
-  useGetAccountTypeId,
-  useGetApprovedStatus,
-} from './queries';
+import { useGetCityNamecategory, useGetAccountTitle, useGetAccountTypeId, useGetApprovedStatus } from './queries';
 import { ReceivableReportQueryHistory } from './tableQueries';
 import { ReceivableReportTypeCriteria } from './type';
 import { storedFinancialYear } from '@tradePro/utils/storageService';
 import { map } from 'lodash';
-import Item from 'antd/es/list/Item';
+
 const financialYear = storedFinancialYear();
 const { useForm, useWatch } = Form;
 const ReceivableFormCriteria = () => {

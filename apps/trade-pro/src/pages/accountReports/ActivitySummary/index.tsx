@@ -163,7 +163,7 @@ const ActivitySummaryReport: React.FC<{
           <h1 className="report_heading">{t('activity_summary')}</h1>
         </Col>
         <Col xxl={1} style={{ marginRight: '50px' }}>
-          <BackButton />
+          <BackButton goToDashboard={false} />
         </Col>
       </Row>
       <Row justify={'space-around'}>

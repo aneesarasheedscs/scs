@@ -1,29 +1,38 @@
 import { Col, Form, Row } from 'antd';
 import { AntTable } from '@tradePro/components';
-import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import SearchCriteria from './SearchCriteria';
 import { useTranslation } from 'react-i18next';
 import { useAtom } from 'jotai';
-import { FourTrialBalanceAllLevelHistoryColumns, SixTrialBalanceAllLevelHistoryColumns } from './columns';
+import {
+  FourTrialBalanceAllLevelHistoryColumns,
+  SixTrialBalanceAllLevelHistoryColumns,
+  TrialBalanceAllLevelChildColumns,
+  TrialBalanceAllLevelChildColumnsSix,
+} from './columns';
 import { selectedColumnAtom } from './atom';
 import { useGetTrialAllLevelReport } from './queries';
 import { useEffect, useState } from 'react';
 import { TrialBalanceAllLevelSearchCriteria, TtrialBalanceAllLevel } from './type';
+import _ from 'lodash';
 
 const { useForm, useWatch } = Form;
 function TrialBalanceAllLevelReport() {
   const { t } = useTranslation();
+  const [scrollHeight, setScrollHeight] = useState<number | string>('60vh'); // Initial scroll height
+
   const [selectedColumnss, setSelectedColumnss] = useAtom(selectedColumnAtom);
   const [tableData, setTableData] = useState<any>();
-  // const { data, refetch, isError, isLoading, isFetching } = useGetTrialAllLevelReport();
-  // const fillteredAccountLevel2 = data?.filter((item,i)=>)
-
   const [form] = useForm<TrialBalanceAllLevelSearchCriteria>();
   const formValues = useWatch<TrialBalanceAllLevelSearchCriteria>([], form);
   const { data, isSuccess, refetch, isFetching, isError, isLoading } = useGetTrialAllLevelReport(
     true,
     form.getFieldsValue()
   );
+
+  console.log(data?.data?.Data?.Result);
+  const [expandedRowKeys, setExpandedRowKeys] = useState<any>([]);
+  console.log(expandedRowKeys?.[0]);
+
   const AccountLevel = form.getFieldValue('AccountLevel');
   console.log(AccountLevel);
   const AllLevelData = data?.data?.Data?.Result;
@@ -47,25 +56,10 @@ function TrialBalanceAllLevelReport() {
     }
   }, [data, isSuccess, !isLoading]);
   console.log(tableData);
-  const [expandedRowKeys, setExpandedRowKeys] = useState<any>([]);
 
-  // useEffect(() => {
-  //   setExpandedRowKeys(AllLevelData?.AccountId);
-  // }, [AllLevelData]);
-
-  // const handleRowExpand = (expanded: any, record: TtrialBalanceAllLevel) => {
-  //   console.log('Expanded Row:', record); // Check what record is being clicked
-  //   console.log('Expanded Row Keys:', expandedRowKeys); // Check the current expandedRowKeys
-  //   const isRowExpanded = expandedRowKeys.includes(record.AccountId);
-  //   console.log('Is Row Expanded:', isRowExpanded); // Check if the row is already expanded
-  //   const newExpandedRowKeys = isRowExpanded
-  //     ? expandedRowKeys.filter((key: any) => key !== record.AccountId)
-  //     : [...expandedRowKeys, record.AccountId];
-  //   console.log('New Expanded Row Keys:', newExpandedRowKeys); // Check the new expandedRowKeys
-  //   setExpandedRowKeys(newExpandedRowKeys);
-  // };
   const handleRowExpand = (expanded: boolean, record: TtrialBalanceAllLevel) => {
     // Check if the row is already expanded
+    // setSelectedRow(record);
     const isRowExpanded = expandedRowKeys.includes(record.AccountId);
     console.log('Is Row Expanded:', isRowExpanded);
     console.log(expandedRowKeys);
@@ -80,14 +74,20 @@ function TrialBalanceAllLevelReport() {
     }
   };
 
+  // const Opening = tableData?.map((item: any) => item.Opening) ?? []; // Extracting all Opening values into an array
+  // console.log(Opening);
+  // const sum = _.sum(Opening); // Using _.sum to calculate the sum of all Opening values
+  // console.log(sum);
+
   return (
     <>
       <Row justify={'space-around'}>
         <Col xxl={23} xl={23} lg={23}>
           <AntTable
-            rowKey={'Id'}
+            rowKey={'AccountId'}
             refetch={refetch}
             isError={isError}
+            // summary={() => []}
             numberOfSkeletons={12}
             isLoading={isLoading || isFetching}
             columns={
@@ -103,16 +103,131 @@ function TrialBalanceAllLevelReport() {
                 isError={isError}
                 isLoading={isLoading}
                 isFetching={isFetching}
+                expandedRowKeys={expandedRowKeys}
+                setExpandedRowKeys={setExpandedRowKeys}
+                tableData={tableData}
               />
             }
             // scroll={{ x: '', y: convertVhToPixels('60vh') }}
-            expandable={{
-              expandedRowRender: (record) => <p style={{ margin: 0 }}>{record.AccountId}</p>,
-              rowExpandable: (record) => record.AccountId !== 'Not Expandable',
-              expandedRowKeys,
-              // onExpand: handleRowExpand,
-              onExpand: (expanded, record) => handleRowExpand(expanded, record), // Pass record object here
-            }}
+            // scroll={{ x: 'max-content' }}
+            expandable={
+              tableData?.[0]?.AcLevel === 1 && AccountLevel === 1
+                ? {}
+                : {
+                    expandedRowRender: (record) => {
+                      const childAccounts = data?.data?.Data?.Result?.filter(
+                        (item: any) => item.ParentId === record.RowId
+                      );
+                      return (
+                        <>
+                          <Row justify={'end'}>
+                            <Col span={23}>
+                              <AntTable
+                                summary={() => []}
+                                printData={{ enabled: false, show: false }}
+                                downloadPdf={{ enabled: false, show: false }}
+                                columnChooser={{ enabled: false, show: false }}
+                                downloadExcel={{ enabled: false, show: false }}
+                                groupByColumns={{ enabled: false, show: false }}
+                                refreshData={{ enabled: false, show: false }}
+                                rowKey={'AccountId'}
+                                columns={
+                                  selectedColumnss === 'four'
+                                    ? TrialBalanceAllLevelChildColumns(t)
+                                    : TrialBalanceAllLevelChildColumnsSix(t)
+                                }
+                                data={childAccounts || []}
+                                expandable={
+                                  (tableData?.[0]?.AcLevel === 1 && AccountLevel === 2) ||
+                                  (tableData?.[0]?.AcLevel === 2 && AccountLevel === 3) ||
+                                  (tableData?.[0]?.AcLevel === 3 && AccountLevel === 4)
+                                    ? {}
+                                    : {
+                                        expandedRowRender: (record) => {
+                                          const childAccounts = data?.data?.Data?.Result?.filter(
+                                            (item: any) => item.ParentId === record.RowId
+                                          );
+                                          return (
+                                            <>
+                                              <Row justify={'end'}>
+                                                <Col span={23}>
+                                                  <AntTable
+                                                    summary={() => []}
+                                                    printData={{ enabled: false, show: false }}
+                                                    downloadPdf={{ enabled: false, show: false }}
+                                                    columnChooser={{ enabled: false, show: false }}
+                                                    downloadExcel={{ enabled: false, show: false }}
+                                                    groupByColumns={{ enabled: false, show: false }}
+                                                    refreshData={{ enabled: false, show: false }}
+                                                    rowKey={'AccountId'}
+                                                    columns={
+                                                      selectedColumnss === 'four'
+                                                        ? TrialBalanceAllLevelChildColumns(t)
+                                                        : TrialBalanceAllLevelChildColumnsSix(t)
+                                                    }
+                                                    data={childAccounts || []}
+                                                    expandable={
+                                                      tableData?.[0]?.AcLevel === 1 && AccountLevel === 1
+                                                        ? {}
+                                                        : {
+                                                            expandedRowRender: (record) => {
+                                                              const childAccounts = data?.data?.Data?.Result?.filter(
+                                                                (item: any) => item.ParentId === record.RowId
+                                                              );
+                                                              return (
+                                                                <>
+                                                                  <Row justify={'end'}>
+                                                                    <Col span={23}>
+                                                                      <AntTable
+                                                                        summary={() => []}
+                                                                        printData={{ enabled: false, show: false }}
+                                                                        downloadPdf={{ enabled: false, show: false }}
+                                                                        columnChooser={{ enabled: false, show: false }}
+                                                                        downloadExcel={{ enabled: false, show: false }}
+                                                                        groupByColumns={{ enabled: false, show: false }}
+                                                                        refreshData={{ enabled: false, show: false }}
+                                                                        rowKey={'AccountId'}
+                                                                        columns={
+                                                                          selectedColumnss === 'four'
+                                                                            ? TrialBalanceAllLevelChildColumns(t)
+                                                                            : TrialBalanceAllLevelChildColumnsSix(t)
+                                                                        }
+                                                                        data={childAccounts || []}
+                                                                      />
+                                                                    </Col>
+                                                                  </Row>
+                                                                </>
+                                                              );
+                                                            },
+                                                            rowExpandable: (record) =>
+                                                              record.AccountId !== 'Not Expandable',
+                                                            expandedRowKeys,
+                                                            onExpand: (expanded, record) =>
+                                                              handleRowExpand(expanded, record),
+                                                          }
+                                                    }
+                                                  />
+                                                </Col>
+                                              </Row>
+                                            </>
+                                          );
+                                        },
+                                        rowExpandable: (record) => record.AccountId !== 'Not Expandable',
+                                        expandedRowKeys,
+                                        onExpand: (expanded, record) => handleRowExpand(expanded, record),
+                                      }
+                                }
+                              />
+                            </Col>
+                          </Row>
+                        </>
+                      );
+                    },
+                    rowExpandable: (record) => record.AccountId !== 'Not Expandable',
+                    expandedRowKeys,
+                    onExpand: (expanded, record) => handleRowExpand(expanded, record),
+                  }
+            }
           />
         </Col>
       </Row>
