@@ -17,7 +17,7 @@ export const useGetCustomer = (enabled = true) => {
     return useQuery('Receivabes-Customers', () => {
         return requestManager.get('/api/Company/GetAlldt', {
             params: {
-                OrgCompanyTypeId: userDetail?.OrganizationId
+                OrgCompanyTypeId: userDetail?.OrganizationId,
             }
         });
     },

@@ -35,3 +35,22 @@ export type ReceivableReportTypeHistory = {
   PromiseDate: number;
   // CompLogoImage: any;
 };
+export type TAddFollowUp = {
+  Id: number; // 0 for Insert, other values for Update
+  CompanyId: number;
+  OrganizationId: number;
+  ChartOfAccountId: number;
+  FollowupDate: Date | string; // You may want to use a Date type instead
+  NextFollowupDays: number; //
+  PromiseDate: string; //
+  CommentsDate: string; //
+  CommentsDetail: string; //
+};
+
+export type TFollowUp = {
+  AccountTitle: string;
+  FollowUpDate: Date;
+  NFDays: number;
+  PromiseDate: Date;
+  CommentDetail: string;
+};

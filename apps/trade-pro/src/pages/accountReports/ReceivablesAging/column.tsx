@@ -9,6 +9,7 @@ export const columns = (t: any): AntColumnType<ReceivablesAgingRegisterHistory>[
     width: 250,
     dataIndex: 'AccountTitle',
     searchableInput: true,
+    showCount:true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
   },
@@ -18,6 +19,7 @@ export const columns = (t: any): AntColumnType<ReceivablesAgingRegisterHistory>[
     dataIndex: 'Opening',
     width: 220,
     align: 'right',
+    showTotal:true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.Opening - b.Opening,
     render: (Opening, record) => (
@@ -29,45 +31,57 @@ export const columns = (t: any): AntColumnType<ReceivablesAgingRegisterHistory>[
     title: t('1st_interval'),
     width: 210,
     align: 'right',
+    showTotal: true,
     dataIndex: '1stInterval',
-    sorter: (a, b) => a.Opening - b.Opening,
-    render: (Opening, record) => (
-      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(Opening)}</Space>
+    sorter: (a, b) => a['1stInterval'] - b['1stInterval'], // Sorting based on the '2ndInterval' data
+    render: (FirstIntervall, record) => ( // Applying number formatting to '2ndInterval'
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(FirstIntervall)}</Space>
     ),
-    // sorter: (a, b) => a.1stInterval - b.1stInterval,
-    // render: (_, { Ac2LevelCode }) => numberFormatter(Ac2LevelCode),
   },
-
+  
   {
     title: t('2nd_interval'),
     width: 210,
+    showTotal: true,
     align: 'right',
     dataIndex: '2ndInterval',
-    sortDirections: ['ascend', 'descend'],
-    // sorter: (a, b) => a.Ac2levelTitle.localeCompare(b.Ac2levelTitle),
+    sorter: (a, b) => a['2ndInterval'] - b['2ndInterval'], 
+    render: (SecondIntervall, record) => ( 
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(SecondIntervall)}</Space>
+    ),
   },
+  
 
   {
     title: t('3rd_interval'),
     width: 220,
+    showTotal:true,
     align: 'right',
     dataIndex: '3rdInterval',
-    // render: (_, { Ac3LevelCode }) => numberFormatter(Ac3LevelCode),
+    sorter: (a, b) => a['3rdInterval'] - b['3rdInterval'], 
+    render: (ThirdIntervall, record) => ( 
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(ThirdIntervall)}</Space>
+    ),
   },
 
   {
     title: t('interval_above'),
     width: 210,
     align: 'right',
+    showTotal:true,
     dataIndex: 'IntervalAbove',
     sortDirections: ['ascend', 'descend'],
-    // sorter: (a, b) => a.Ac3levelTitle.localeCompare(b.Ac3levelTitle),
+    sorter: (a, b) => a.IntervalAbove - b.IntervalAbove,
+    render: (IntervalAbove, record) => (
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(IntervalAbove)}</Space>
+    ),
   },
 
   {
     width: 210,
     align: 'right',
     title: t('closing'),
+    showTotal:true,
     dataIndex: 'Closing',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.Closing - b.Closing,

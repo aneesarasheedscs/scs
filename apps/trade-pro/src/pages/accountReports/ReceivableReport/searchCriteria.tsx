@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Col, Form, Row, Select } from 'antd';
+import { Checkbox, Col, Form, Row, Select } from 'antd';
 import dayjs from 'dayjs';
-import { AxiosResponse } from 'axios';
-import { useQuery, UseQueryResult } from 'react-query';
+import type { CheckboxProps } from 'antd';
 
 import {
   AntButton,
@@ -17,6 +16,8 @@ import { ReceivableReportQueryHistory } from './tableQueries';
 import { ReceivableReportTypeCriteria } from './type';
 import { storedFinancialYear } from '@tradePro/utils/storageService';
 import { map } from 'lodash';
+import { useTranslation } from 'react-i18next';
+import { CheckBox } from '../GeneralLedger/tables/Atom';
 
 const financialYear = storedFinancialYear();
 const { useForm, useWatch } = Form;
@@ -59,45 +60,53 @@ const ReceivableFormCriteria = () => {
   };
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const { t } = useTranslation();
 
+  const onChange: CheckboxProps['onChange'] = (e) => {
+    console.log(`checked = ${e.target.checked}`);
+  };
   return (
     <div>
       <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
         <Form
-          layout="vertical"
+          layout="inline"
           form={form}
           onFinish={onFinish}
           // initialValues={formValues}
           initialValues={{ FromDate, ToDate }}
         >
-          <Row gutter={[10, 10]}>
-            <Col xs={24} sm={12} md={8}>
-              <AntDatePicker name="FromDate" label="From Date" />
+          <Row gutter={[16, 16]} justify={'space-between'}>
+            <Col xs={20} sm={12} md={8} xxl={8} className="form_field">
+              <AntDatePicker name="FromDate" label={t('from_date')} bordered={false} />
             </Col>
 
-            <Col xs={24} sm={24} md={8}>
-              <AntDatePicker name="ToDate" label="To Date" />
+            <Col xs={20} sm={11} md={7} xxl={7} className="form_field">
+              <AntDatePicker name="ToDate" label={t('to_date')} bordered={false} />
             </Col>
-
-            <Col xs={24} sm={24} md={8}>
-              <AntInputNumber name="FromDocNo" label="Sale Order From" />
-            </Col>
-            <Col xs={24} sm={24} md={8}>
-              <AntInputNumber name="ToDocNo" label="Sale Order To" />
-            </Col>
-            <Col xs={24} sm={24} md={8}>
+            <Col xs={20} sm={24} md={8} xxl={8} className="form_field">
               <AntSelectDynamic
+                bordered={false}
                 name="CityId"
-                label="City Name"
+                label={t('city_name')}
                 fieldValue="Id"
                 fieldLabel="CityName"
                 query={useGetCityNamecategory}
               />
             </Col>
-            <Col xs={24} sm={24} md={8}>
+            <Col xs={20} sm={24} md={8} xxl={8} className="form_field">
+              <AntInputNumber name="FromDocNo" label={t('balance_from')} bordered={false} />
+            </Col>
+            <Col xs={20} sm={12} md={7} xxl={7} className="form_field">
+              <AntInputNumber name="ToDocNo" label={t('balance_to')} bordered={false} />
+            </Col>
+            <Col xs={20} sm={11} md={8} xxl={8} style={{ marginTop: 20 }}>
+              <Checkbox onChange={onChange}>{t('only_trade_parties')}</Checkbox>
+            </Col>
+            <Col xs={20} sm={24} md={12} xxl={12} className="form_field">
               <AntSelectDynamic
+                bordered={false}
                 name="AccountId"
-                label="Receivable AC Type"
+                label={t('reveiables_ac_type')}
                 fieldValue="Id"
                 fieldLabel="AccountType"
                 options={map(AccountTypes, (item: any) => ({
@@ -107,11 +116,12 @@ const ReceivableFormCriteria = () => {
                 onChange={(value) => handleAccountTypeChange(value)}
               />
             </Col>
-            <Col xs={24} sm={24} md={8}>
+            <Col xs={20} sm={24} md={11} xxl={11} className="form_field">
               <AntSelectDynamic
+                bordered={false}
                 mode="multiple"
                 name="Status"
-                label="receivable account"
+                label={t('reveiable_account')}
                 fieldValue="AccountCode"
                 fieldLabel="AccountTitle"
                 options={map(AccountData, (Item: any) => ({
@@ -120,20 +130,31 @@ const ReceivableFormCriteria = () => {
                 }))}
               />
             </Col>
-            <Col xs={24} sm={24} md={8}>
+            <Col xs={20} sm={24} md={12} xxl={12} className="form_field">
               <AntSelectDynamic
+                bordered={false}
                 name="CustomGroupId"
-                label="custom group"
+                label={t('custom_group')}
+                fieldValue="Id"
+                fieldLabel="Status"
+                query={useGetApprovedStatus}
+              />
+            </Col>
+            <Col xs={20} sm={24} md={11} xxl={11} className="form_field">
+              <AntSelectDynamic
+                bordered={false}
+                name="CustomGroupId"
+                label={t('inventory_group')}
                 fieldValue="Id"
                 fieldLabel="Status"
                 query={useGetApprovedStatus}
               />
             </Col>
 
-            <Col xs={24} sm={24} md={8}>
+            <Col xs={6} sm={5} md={4} xxl={4}>
               <br />
               <AntButton
-                label="Show"
+                label={t('show')}
                 htmlType="submit"
                 style={{ marginTop: 2 }}
                 isError={isReportError}

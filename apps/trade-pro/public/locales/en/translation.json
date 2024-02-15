@@ -702,5 +702,12 @@
   "view_options": "View Options",
   "trial_balance_all_levels": "Trial Balance All Levels",
   "collapse": "Collapse",
-  "expand": "Expand"
+  "expand": "Expand",
+  "receivables_aging":"Reveivables Aging",
+  "interval_above":"Interval Above",
+  "1st_interval":"1st Interval",
+  "2nd_interval":"2nd Interval",
+  "3rd_interval":"3rd Interval",
+  "interval_days":"Interval Days"
+
 }

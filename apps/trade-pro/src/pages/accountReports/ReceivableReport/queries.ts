@@ -1,7 +1,10 @@
-import { QueryFunction, useQuery, UseQueryResult } from 'react-query';
+import { QueryFunction, useMutation, useQuery, UseQueryResult } from 'react-query';
 import { requestManager } from '@tradePro/configs/requestManager';
 import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
-import { ReceivableReportTypeCriteria } from './type';
+import { ReceivableReportTypeCriteria, TAddFollowUp } from './type';
+import { queryClient } from '@scs/configs';
+import { notification } from 'antd';
+import { AxiosError } from 'axios';
 // import { AxiosResponse } from 'axios';
 
 const userDetail = storedUserDetail();
@@ -39,13 +42,13 @@ const getAccountId = async () => {
   return filteredData;
 };
 
-// Account Title
-export const useGetAccountTitle = (AccountTypeId?: number | null) => {
-  return useQuery(['account-title', AccountTypeId], () => getAccountTitle(AccountTypeId), {
-    cacheTime: userDetail?.expires_in,
-    enabled: !!AccountTypeId,
-  });
-};
+//Account Title
+// export const useGetAccountTitle = (AccountTypeId?: number | null) => {
+//   return useQuery(['account-title', AccountTypeId], () => getAccountTitle(AccountTypeId), {
+//     cacheTime: userDetail?.expires_in,
+//     enabled: !!AccountTypeId,
+//   });
+// };
 const getAccountTitle = async (AccountTypeId: any) => {
   const response = await requestManager.get('/api/ChartofAccount/ReadAllParentGroupAccount', {
     params: {
@@ -115,5 +118,50 @@ export const useGetApprovedStatus = (enabled = true) => {
       });
     },
     { enabled }
+  );
+};
+
+
+export const useAddFollowUp = (params?: TAddFollowUp) => {
+
+  return useMutation(
+    'follow-up-receivables',
+    (data: TAddFollowUp) => {
+      let dataToSubmit = {};
+      dataToSubmit = {
+        ...data,
+        Id: 0, //insert  (save)
+        OrganizationId: userDetail?.OrganizationId,
+        CompanyId: userDetail?.CompanyId,
+        CommentsDate: '2023-09-05',
+        ChartOfAccountId: 21340,
+        CommentsDetail: '',
+        ...params,
+      };
+      return requestManager.post('/api/AccountsPayRecFollowUpHistory/Save', dataToSubmit);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('add-follow-up');
+        const msg = 'Record added successfully!';
+        notification.success({ description: '', message: msg });
+      },
+      onError: (error: AxiosError) => {
+        const msg = error.response?.data || 'add-follow-up';
+        notification.error({ description: '', message: msg as string });
+      },
+    }
+  );
+};
+
+export const useGetAccountTitle = () => {
+  return useQuery(
+    'account-titlee',
+    () => {
+      return requestManager.get('/api/COAAllocation/AccountsComboFill?', {
+        params: { OrganizationId: userDetail?.OrganizationId, CompanyId: userDetail?.CompanyId },
+      });
+    },
+    { cacheTime: userDetail?.expires_in }
   );
 };

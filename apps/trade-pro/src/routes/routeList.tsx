@@ -74,7 +74,7 @@ const PayableAgingRegisterTable = lazy(() => import('@tradePro/pages/accountRepo
 const ReceivablesAgingRegisterTable = lazy(
   () => import('@tradePro/pages/accountReports/ReceivablesAging/receivablesAging')
 );
-const ReceivableReport = lazy(() => import('@tradePro/pages/accountReports/ReceivableReport/receivableTable'));
+const ReceivableReport = lazy(() => import('@tradePro/pages/accountReports/ReceivableReport/receivablesReport'));
 
 //Stock Reports
 const StockReportSimple = lazy(() => import('@tradePro/pages/stockReports/stockReportSimple'));
