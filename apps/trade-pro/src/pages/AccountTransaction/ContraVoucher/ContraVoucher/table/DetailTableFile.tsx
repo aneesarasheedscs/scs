@@ -35,11 +35,12 @@ const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedR
       <div className="Detail-wrape">
         <div className="Table">
           <div className="table-header">
+            <div className="Account">{t('account_code')}</div>
             <div className="Account">{t('account_title')}</div>
-            <div style={{ marginLeft: '5%' }} className="offset_Account">
+            <div style={{ marginLeft: '2%' }} className="offset_Account">
               {t('offset_account')}
             </div>
-            <div style={{ marginLeft: '15%' }} className="jobLOt">
+            <div style={{ marginLeft: '10%' }} className="jobLOt">
               {t('job_lot')}
             </div>
             <div style={{ textAlign: 'right' }} className="Debit">
@@ -59,6 +60,13 @@ const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedR
                   style={{ color: '#8a86f7', cursor: 'pointer', fontWeight: 'bold' }}
                 >
                   {item.AccountCode}
+                </div>
+                <div
+                  className="Account"
+                  title="Click to View General Ledger"
+                  style={{ color: '#8a86f7', cursor: 'pointer', fontWeight: 'bold' }}
+                >
+                  {item.AccountTitle}
                 </div>
 
                 <div

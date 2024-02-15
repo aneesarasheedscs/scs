@@ -27,8 +27,29 @@ function BankPaymentTable({ setSelectedRecordId, setActiveTab, setSelectedRecord
     <>
       <Row gutter={10}>
         <Col span={24} style={{ marginLeft: '0.5%', borderTop: '1px solid #dfdfdf' }}>
-          <AntButton onClick={toggleCardView} className="" label={t('card_view')} />
-          <AntButton onClick={toggleGridView} className="" style={{ marginLeft: '0.2%' }} label={t('grid_view')} />
+          <AntButton
+            onClick={toggleGridView}
+            style={{
+              background: showComponent ? '' : '#fff',
+              color: showComponent ? '' : `${colorPrimary}`,
+              fontWeight: 'bold',
+              border: showComponent ? '' : `1px solid ${colorPrimary}`,
+            }}
+            className=""
+            label={t('grid_view')}
+          />
+          <AntButton
+            style={{
+              background: showComponent ? '#fff' : '',
+              color: showComponent ? `${colorPrimary}` : '',
+              border: showComponent ? `1px solid ${colorPrimary}` : '',
+              fontWeight: 'bold',
+              marginLeft: '0.2%',
+            }}
+            onClick={toggleCardView}
+            className=""
+            label={t('card_view')}
+          />
         </Col>
 
         {showComponent ? (

@@ -1,19 +1,16 @@
 import dayjs from 'dayjs';
 import { useAtom } from 'jotai';
 import VoucherNo from './VoucherNo';
-import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-// import { addtableData } from '../form/Atom';
-// import { useGetVoucherNo } from '../queries/queries';
-import { AntButton, AntDatePicker } from '@tradePro/components';
-import { Badge, Col, Form, FormInstance, Input, Row, notification } from 'antd';
-import { SaveOutlined, SyncOutlined, RedoOutlined, PaperClipOutlined, PrinterFilled } from '@ant-design/icons';
+import { useEffect } from 'react';
 import { useGetVoucherNo } from '../quries';
 import { addtableData } from './Atom';
+import { useTranslation } from 'react-i18next';
+import { AntButton } from '@tradePro/components';
+import { Badge, Col, Form, FormInstance, Input, Row } from 'antd';
+import { SaveOutlined, SyncOutlined, RedoOutlined, PaperClipOutlined, PrinterFilled } from '@ant-design/icons';
 
 function Buttons({
   form,
-
   isSuccess,
   saveData,
   updateData,
@@ -26,10 +23,8 @@ function Buttons({
 }: TAddUpdateRecord) {
   const { t } = useTranslation();
   const [tableData, setTableData] = useAtom(addtableData);
-
   const { data, isError, refetch, isLoading, isSuccess: successVoucherNo } = useGetVoucherNo(DocumentTypeId);
   const journalVoucherById = journalVoucherData?.data?.Data?.Result;
-  console.log(tableData);
   const handleButtonClick = () => {
     setPrintPreview(!printPreview);
     console.log(printPreview);

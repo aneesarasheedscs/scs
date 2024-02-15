@@ -17,7 +17,7 @@ export function AntDatePicker({
   const requiredProps = required
     ? {
         name,
-        rules: [{ required: true, message: `Please select ${label}` }],
+        rules: [{ required: true, message: `` }],
       }
     : { name, rules: [] };
 

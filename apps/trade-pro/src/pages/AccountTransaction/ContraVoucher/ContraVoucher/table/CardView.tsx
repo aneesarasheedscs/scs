@@ -38,17 +38,17 @@ const CardView: React.FC<{}> = () => {
             <Search onChange={(e) => handleSearch(e.target.value)} placeholder="Filter" />
           </Row>
           <Row className="row" style={{ fontSize: 14, fontWeight: '700' }}>
-            <Col lg={{ span: 6 }} md={{ span: 6 }} sm={{ span: 6 }} className="column">
+            <Col lg={{ span: 7 }} md={{ span: 6 }} sm={{ span: 6 }} className="column">
               {t('voucher_no')} <SortAscendingOutlined /> <SortDescendingOutlined />
             </Col>
-            <Col lg={{ span: 6 }} md={{ span: 6 }} sm={{ span: 6 }} className="column">
-              {t('v.date')} <SortAscendingOutlined /> <SortDescendingOutlined />
+            <Col lg={{ span: 7 }} md={{ span: 6 }} sm={{ span: 6 }} className="column">
+              {t('voucher_date')} <SortAscendingOutlined /> <SortDescendingOutlined />
             </Col>
-            <Col lg={{ span: 6 }} md={{ span: 6 }} sm={{ span: 6 }} className="column">
+            <Col lg={{ span: 5 }} md={{ span: 6 }} sm={{ span: 6 }} className="column">
               {t('account')}
               <SortAscendingOutlined /> <SortDescendingOutlined />
             </Col>
-            <Col lg={{ span: 6 }} md={{ span: 6 }} sm={{ span: 6 }} className="column">
+            <Col lg={{ span: 5 }} md={{ span: 6 }} sm={{ span: 6 }} className="column">
               {t('amount')} <SortAscendingOutlined /> <SortDescendingOutlined />
             </Col>
           </Row>
@@ -73,8 +73,8 @@ const CardView: React.FC<{}> = () => {
                     </Row>
 
                     <Row justify={'space-between'} style={{ marginTop: '3%' }}>
-                      <h3 style={{ width: '5.5rem' }}>{card.AccountTitle}</h3>
-                      <p style={{ textAlign: 'center', marginTop: '6%' }}>
+                      <h3 style={{ width: '' }}>{card.AccountTitle}</h3>
+                      <p style={{ textAlign: 'center', marginTop: '7%' }}>
                         <span
                           className="list-items2"
                           style={{
@@ -89,7 +89,7 @@ const CardView: React.FC<{}> = () => {
                     </Row>
 
                     <Row justify={'space-between'} style={{ marginTop: '2%' }}>
-                      <p style={{ fontSize: '0.7rem', fontWeight: 'bold', color: '#5551d5' }}>{card.Remarks}</p>
+                      <p className="list-item2">{card.Remarks}</p>
                     </Row>
                   </Card>
                 </Col>
@@ -143,10 +143,10 @@ const CardView: React.FC<{}> = () => {
                       >
                         <div>
                           <div className="">
-                            <div style={{ fontSize: '1.5rem', color: 'green', textAlign: 'left' }}>
+                            <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'green', textAlign: 'left' }}>
                               {userDetail?.CompanyName}
                             </div>
-                            <div style={{ fontSize: '1.1rem', color: 'green', textAlign: 'left' }}>
+                            <div style={{ fontSize: '1rem', color: 'green', textAlign: 'left' }}>
                               {userDetail?.CompanyAddress}
                             </div>
                             <div style={{ fontSize: '0.8rem', color: 'green', textAlign: 'left' }}>
@@ -158,7 +158,7 @@ const CardView: React.FC<{}> = () => {
                     </Row>
                   </div>
 
-                  <div className="Wrapper" style={{ marginTop: '1.5%' }}>
+                  <div className="Wrapper" style={{ marginTop: '1%' }}>
                     <Col span={7}>
                       <div className="">
                         <div className="caption-value-wrape">
@@ -186,22 +186,11 @@ const CardView: React.FC<{}> = () => {
 
                         <div className="caption-value-wrape">
                           <div className="caption">{t('remarks')}</div>
-                          <div className="value">
-                            <div
-                              style={{
-                                marginLeft: '1.4rem',
-                                textAlign: 'center',
-                                width: '100%',
-                              }}
-                              className="value remarks-heading"
-                            >
-                              {selectedCardData?.Remarks}
-                            </div>
-                          </div>
+                          <div className="value">{selectedCardData?.Remarks}</div>
                         </div>
                       </div>
                     </Col>
-                    <Col span={10} style={{ marginTop: '-1%' }}>
+                    <Col span={10} style={{ marginTop: '1%' }}>
                       <div className="">
                         <div className="caption-value-wrape">
                           <div className="voucher_Account_title">
@@ -213,24 +202,15 @@ const CardView: React.FC<{}> = () => {
                     </Col>
                     <Col span={7}>
                       <div className="">
-                        <div
-                          style={{ display: 'flex', justifyContent: 'space-between' }}
-                          className="caption-value-wrape"
-                        >
+                        <div className="caption-value-wrape">
                           <div className="caption">{t('payee_title')}</div>
                           <div className="value">{selectedCardData?.PayTitle}</div>
                         </div>
-                        <div
-                          style={{ display: 'flex', justifyContent: 'space-between' }}
-                          className="caption-value-wrape"
-                        >
+                        <div className="caption-value-wrape">
                           <div className="caption">{t('cheque_no')}</div>
                           <div className="value">{selectedCardData?.CheqNo}</div>
                         </div>
-                        <div
-                          style={{ display: 'flex', justifyContent: 'space-between' }}
-                          className="caption-value-wrape"
-                        >
+                        <div className="caption-value-wrape">
                           <div className="caption">{t('cheque_date')}</div>
                           <div className="value">
                             {selectedCardData ? dayjs(selectedCardData.ChequeDate).format('YYYY-MM-DD') : ''}

@@ -17,5 +17,6 @@
   "against_ac": "계정 대비",
   "contra_voucher": "콘트라 바우처",
   "expense_voucher": "비용 바우처",
-  "journal_voucher": "저널 바우처"
+  "journal_voucher": "저널 바우처",
+  "offset_account": "상계 계정"
 }

@@ -1,16 +1,17 @@
-import { EditFilled, EyeTwoTone, DeleteOutlined } from '@ant-design/icons';
-import { AntColumnType } from '@tradePro/globalTypes';
-import { AntButton } from '@tradePro/components';
+import dayjs from 'dayjs';
 import { Space, Tooltip } from 'antd';
+import { AntButton } from '@tradePro/components';
+import { AntColumnType } from '@tradePro/globalTypes';
+import { TJournalVoucherHistory } from '../../types';
+import { EditFilled, EyeTwoTone } from '@ant-design/icons';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import dayjs from 'dayjs';
-import { TJournalVoucherHistory } from '../../types';
 
 export const columns = (
   t?: any,
   setSelectedRecordId?: any,
-  setActiveTab?: any
+  setActiveTab?: any,
+  setSelectedRecordDetailId?: any
 ): AntColumnType<TJournalVoucherHistory>[] => [
   {
     title: t('voucher_code'),
@@ -92,7 +93,7 @@ export const columns = (
               type="text"
               icon={<EyeTwoTone style={{ color: '', marginLeft: 4 }} />}
               onClick={() => {
-                setSelectedRecordId(record.Id);
+                setSelectedRecordDetailId(record.Id);
               }}
             />
           </Space>

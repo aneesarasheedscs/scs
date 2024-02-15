@@ -1,9 +1,9 @@
+import { Space, Tooltip } from 'antd';
+import { TVoucherDetailList } from '../types';
 import { AntButton } from '@tradePro/components';
 import { AntColumnType } from '@tradePro/globalTypes';
-import { Popconfirm, Space, Tooltip } from 'antd';
 import { DeleteOutlined, EditFilled } from '@ant-design/icons';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import { TJournalVoucherData, TVoucherDetailList } from '../types';
 
 export const columns = (t: any, handleDeleteRow: any, handleEditRow: any): AntColumnType<TVoucherDetailList>[] => [
   {
@@ -54,31 +54,11 @@ export const columns = (t: any, handleDeleteRow: any, handleEditRow: any): AntCo
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.Comments.localeCompare(b.Comments),
   },
-  // {
-  //   title: t('action'),
-  //   width: 95,
-  //   render: (_, record) => (
-  //     <Tooltip title={t('actions')}>
-  //       <Space>
-  //         <AntButton
-  //           type="text"
-  //           icon={<EditFilled style={{ color: '#006640' }} />}
-  //           onClick={() => handleEditRow(record)}
-  //         />
-  //         <AntButton
-  //           type="text"
-  //           icon={<DeleteOutlined style={{ color: 'red' }} />}
-  //           onClick={() => handleDeleteRow(record)}
-  //         />
-  //       </Space>
-  //     </Tooltip>
-  //   ),
-  // },
+
   {
     title: t('action'),
     width: 95,
     render: (_, record, index) => {
-      // Check if the index is odd
       if (index % 2 !== 0) {
         return (
           <Tooltip title={t('actions')}>
@@ -97,7 +77,6 @@ export const columns = (t: any, handleDeleteRow: any, handleEditRow: any): AntCo
           </Tooltip>
         );
       } else {
-        // If the index is even, render empty space
         return null;
       }
     },

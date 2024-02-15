@@ -703,5 +703,6 @@
   "trial_balance_all_levels": "Trial Balance All Levels",
   "collapse": "Collapse",
   "expand": "Expand",
-  "journal_voucher": "Journal Voucher"
+  "journal_voucher": "Journal Voucher",
+  "offset_account": "Offset Account"
 }

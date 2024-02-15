@@ -34,8 +34,29 @@ function CashPaymentTable({
     <>
       <Row gutter={0} style={{ marginTop: '0%' }}>
         <Col span={24} style={{ marginLeft: '0.5%', borderTop: '1px solid #dfdfdf' }}>
-          <AntButton onClick={toggleCardView} className="" label={t('card_view')} />
-          <AntButton onClick={toggleGridView} className="" style={{ marginLeft: '0.2%' }} label={t('grid_view')} />
+          <AntButton
+            onClick={toggleGridView}
+            className=""
+            style={{
+              background: showComponent ? '' : '#fff',
+              color: showComponent ? '' : `${colorPrimary}`,
+              fontWeight: 'bold',
+              border: showComponent ? '' : `1px solid ${colorPrimary}`,
+            }}
+            label={t('grid_view')}
+          />
+          <AntButton
+            onClick={toggleCardView}
+            style={{
+              background: showComponent ? '#fff' : '',
+              color: showComponent ? `${colorPrimary}` : '',
+              fontWeight: 'bold',
+              border: showComponent ? `1px solid ${colorPrimary}` : '',
+              marginLeft: '0.2%',
+            }}
+            className=""
+            label={t('card_view')}
+          />
         </Col>
 
         {showComponent ? (
