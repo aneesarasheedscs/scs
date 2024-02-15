@@ -512,5 +512,6 @@
   "cost_center": "Centre de coûts",
   "cash_receipt_voucher": "Bon de reçu de caisse",
   "bank_receipt_voucher": "Bon de reçu bancaire",
-  "against_ac": "Contre compte"
+  "against_ac": "Contre compte",
+  "journal_voucher": "Bon de journal"
 }

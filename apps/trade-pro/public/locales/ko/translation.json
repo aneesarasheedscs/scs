@@ -14,5 +14,9 @@
   "cost_center": "비용 센터",
   "cash_receipt_voucher": "현금영수증 상품권",
   "bank_receipt_voucher": "은행 영수증 바우처",
-  "against_ac": "계정 대비"
+  "against_ac": "계정 대비",
+  "contra_voucher": "콘트라 바우처",
+  "expense_voucher": "비용 바우처",
+  "journal_voucher": "저널 바우처",
+  "offset_account": "상계 계정"
 }

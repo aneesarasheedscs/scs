@@ -111,7 +111,7 @@ const BankReceiptVoucher = lazy(() => import('@tradePro/pages/AccountTransaction
 const BankPaymentVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/bankPaymentVoucher'));
 const CashPaymentVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/cashPaymentVoucher'));
 const CashReceiptVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/cashReceiptVoucher'));
-const JournalVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/JournalVoucher'));
+const JournalVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/JournalVoucher/JournalVoucher'));
 
 //Sale Trading
 const SaleOrder = lazy(() => import('@tradePro/pages/SaleTrading/saleOrder'));

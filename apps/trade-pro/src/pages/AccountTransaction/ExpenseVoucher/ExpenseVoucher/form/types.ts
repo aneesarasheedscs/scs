@@ -60,9 +60,12 @@ export type TExpenseDetailEntry = {
   AgainstAccount: string;
 };
 export type DataType = {
-  key: number;
+  AccountId: number;
   AccountTitle: string;
   debitAccount: any;
+  JobLotId: number;
+  LineId: number;
+  AgainstAccountId: number;
   JobLotDescription: string;
   DebitAmount: number;
   Comments: string;

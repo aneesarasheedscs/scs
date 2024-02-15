@@ -1,27 +1,22 @@
-.AccountHeading {
-  background: linear-gradient(-45deg, #cccaf5, #5a54f9);
-  padding: 10px;
-  height: 10%;
-  border-radius: 0.5rem;
-  width: 101%;
-  box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
-  color: white;
+:root {
+  --color-primary: #25a7df;
 }
 
 .singleCard:hover {
-  color: white;
-  background: linear-gradient(-45deg, #5a54f9, white);
-  border: 2px solid white;
-  background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
-  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
-    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
-    rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  box-shadow: 2px 4px 12px 0px gray;
+  // color: white;
+  // background: linear-gradient(-45deg, var(--color-primary), white);
+  // border: 2px solid white;
+  // background-size: 400% 400%;
+  // animation: gradient 15s ease infinite;
+  // box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+  //   rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
+  //   rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
 .singleCard {
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
-  border-bottom-right-radius: 40px;
-  border-top-left-radius: 40px;
+  // box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  // border-bottom-right-radius: 40px;
+  // border-top-left-radius: 40px;
   display: table;
   width: 100%;
   height: 90%;
@@ -40,26 +35,26 @@
   }
 }
 
-.singleCard:before {
-  backface-visibility: hidden;
-  background-color: white;
-  opacity: 0.1;
-  clip-path: polygon(-1% 0, 0 0, -25% 100%, -1% 100%);
-  content: '';
-  height: 100%;
-  left: 0;
-  position: absolute;
-  top: 0;
-  transform: translateZ(0);
-  transition: clip-path 0.5s cubic-bezier(0.165, 0.84, 0.44, 1),
-    -webkit-clip-path 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-  width: 100%;
-}
+// .singleCard:before {
+//   backface-visibility: hidden;
+//   background-color: white;
+//   opacity: 0.1;
+//   clip-path: polygon(-1% 0, 0 0, -25% 100%, -1% 100%);
+//   content: '';
+//   height: 100%;
+//   left: 0;
+//   position: absolute;
+//   top: 0;
+//   transform: translateZ(0);
+//   transition: clip-path 0.5s cubic-bezier(0.165, 0.84, 0.44, 1),
+//     -webkit-clip-path 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+//   width: 100%;
+// }
 
-.singleCard:hover:before {
-  animation: opacityFallbackIn 0s step-start forwards;
-  clip-path: polygon(0 0, 101% 0, 101% 101%, 0 101%);
-}
+// .singleCard:hover:before {
+//   animation: opacityFallbackIn 0s step-start forwards;
+//   clip-path: polygon(0 0, 101% 0, 101% 101%, 0 101%);
+// }
 
 .columns {
   border-left: 1px solid lightgray;
@@ -95,7 +90,6 @@
 }
 
 .list-items2 {
-  color: #fff;
   font-weight: bold;
   font-size: 14px;
   padding: 3px;
@@ -105,8 +99,13 @@
 }
 .list-item1 {
   font-weight: bold;
-  color: #5a54f9;
+  color: var(--color-primary);
   font-size: 16px;
+}
+.list-item2 {
+  font-weight: bold;
+  color: var(--color-primary);
+  font-size: 14px;
 }
 
 .filter {
@@ -175,10 +174,7 @@
   right: 4%;
   font-weight: bold;
 }
-.list-item4 {
-  color: green;
-  font-weight: 800;
-}
+
 #ribbon {
   position: absolute;
   top: 0;

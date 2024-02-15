@@ -1,21 +1,20 @@
 import dayjs from 'dayjs';
 import { useAtom } from 'jotai';
 import VoucherNo from './VoucherNo';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useGetVoucherNo } from '../quries';
+import { addtableData } from './Atom';
 import { useTranslation } from 'react-i18next';
-import { addtableData } from '../form/Atom';
-import { useGetVoucherNo } from '../queries/queries';
-import { AntButton, AntDatePicker } from '@tradePro/components';
-import { Badge, Col, Form, FormInstance, Input, Row, notification } from 'antd';
+import { AntButton } from '@tradePro/components';
+import { Badge, Col, Form, FormInstance, Input, Row } from 'antd';
 import { SaveOutlined, SyncOutlined, RedoOutlined, PaperClipOutlined, PrinterFilled } from '@ant-design/icons';
 
 function Buttons({
   form,
-  setBankId,
   isSuccess,
   saveData,
   updateData,
-  ContraVoucher,
+  journalVoucherData,
   selectedRecordId,
   setSelectedRecordId,
   setPrintPreview,
@@ -24,10 +23,8 @@ function Buttons({
 }: TAddUpdateRecord) {
   const { t } = useTranslation();
   const [tableData, setTableData] = useAtom(addtableData);
-
   const { data, isError, refetch, isLoading, isSuccess: successVoucherNo } = useGetVoucherNo(DocumentTypeId);
-
-  console.log(tableData);
+  const journalVoucherById = journalVoucherData?.data?.Data?.Result;
   const handleButtonClick = () => {
     setPrintPreview(!printPreview);
     console.log(printPreview);
@@ -36,7 +33,7 @@ function Buttons({
     setSelectedRecordId(null);
     setTableData([]);
     refetch();
-    setBankId(null);
+
     form.setFieldValue('VoucherNo', data?.data?.Data?.Result);
     form.setFieldValue('RefAccountId', null);
     form.setFieldValue('VoucherDate', dayjs(new Date()));
@@ -74,21 +71,19 @@ function Buttons({
       <Row justify="space-between" gutter={[10, 16]} style={{ marginLeft: 0, marginRight: 10 }}>
         <Col xxl={8} xl={9} lg={18} md={18} sm={18} xs={24} style={{ marginTop: '0%' }}>
           <Row gutter={10} align="middle" style={{ border: '' }} justify={'space-evenly'}>
-            <Col xl={9} xxl={7} lg={8} md={7} sm={18} xs={18} className="formfield1 voucherNo">
+            <Col xl={9} xxl={7} lg={8} md={7} sm={18} xs={18} className="formfield voucherNo">
               <b style={{ fontSize: 18 }}> {t('voucher_no')}</b> &nbsp;
               <VoucherNo
                 isError={isError}
                 refetch={refetch}
                 isLoading={isLoading}
-                data={selectedRecordId ? ContraVoucher?.VoucherCode : data?.data?.Data?.Result?.[0]?.VoucherCode}
+                data={selectedRecordId ? journalVoucherById?.VoucherCode : data?.data?.Data?.Result?.[0]?.VoucherCode}
               />
               <Form.Item name="VoucherCode" style={{ display: 'none' }}>
                 <Input />
               </Form.Item>
             </Col>
-            <Col xl={15} xxl={15} sm={18} lg={15} xs={18} md={15} className="formfield1">
-              <AntDatePicker bordered={false} name="VoucherDate" label={t('voucher_date')} />
-            </Col>
+            <Col xl={15} xxl={15} sm={18} lg={15} xs={18} md={15}></Col>
           </Row>
         </Col>
 
@@ -139,11 +134,11 @@ function Buttons({
 }
 type TAddUpdateRecord = {
   form: FormInstance;
-  setBankId: any;
+
   isSuccess: any;
   saveData: any;
   updateData: any;
-  ContraVoucher: any;
+  journalVoucherData: any;
   DocumentTypeId: number;
   selectedRecordId: any;
   setSelectedRecordId: (id: number | null) => void;

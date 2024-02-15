@@ -1,28 +1,25 @@
-import './Card.scss';
-import './DetailTableFile.scss';
-import { columns } from './columns';
-import { useState } from 'react';
-import CardView from './CardView';
 import { Col, Row, theme } from 'antd';
-import { useTranslation } from 'react-i18next';
-import ContraVoucherDetailTable from './DetailTable';
-import { useGetContraVoucherTable } from '../queries/queries';
+import { columns } from './columns';
 import { AntButton, AntTable } from '@tradePro/components';
+import { useTranslation } from 'react-i18next';
+import { useGetJournalVocherHistory } from '../../quries';
+import JournalVoucherDetailTable from '../JournalVoucherDetail';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
+import { useState } from 'react';
 
-function ContraVoucherTable({
+function JournalVoucherTable({
   setSelectedRecordId,
-  setSelectedRecordIdforDetail,
   setActiveTab,
+  setSelectedRecordDetailId,
   refetch,
   isLoading,
 }: TFrom) {
   const { t } = useTranslation();
-  const { data, isError, isLoading: isLoadingContra, refetch: refetchContra, isFetching } = useGetContraVoucherTable();
-  const [showComponent, setShowComponent] = useState(false);
+  const { data, isError, isLoading: isLoadingJV, refetch: refetchJV, isFetching } = useGetJournalVocherHistory();
   const {
     token: { colorPrimary },
   } = theme.useToken();
+  const [showComponent, setShowComponent] = useState(false);
 
   const toggleCardView = () => {
     setShowComponent(true);
@@ -34,7 +31,7 @@ function ContraVoucherTable({
   return (
     <>
       <Row gutter={10}>
-        <Col span={24} style={{ marginLeft: '0.5%', borderTop: '1px solid #dfdfdf' }}>
+        <Col span={18} style={{ marginLeft: '0.5%', borderTop: '1px solid #dfdfdf' }}>
           <AntButton
             onClick={toggleGridView}
             className=""
@@ -59,23 +56,24 @@ function ContraVoucherTable({
             label={t('card_view')}
           />
         </Col>
-
         {showComponent ? (
-          <CardView />
+          <>{/* <CardView /> */}</>
         ) : (
           <Col span={24}>
-            <>
-              <AntTable
-                refetch={refetchContra}
-                isError={isError}
-                numberOfSkeletons={8}
-                isLoading={isLoadingContra || isFetching}
-                scroll={{ x: '', y: convertVhToPixels('35vh') }}
-                data={data?.data?.Data?.Result || []}
-                columns={columns(t, setSelectedRecordId, setSelectedRecordIdforDetail, setActiveTab)}
-              />
-              <ContraVoucherDetailTable refetch={refetch} isLoading={isLoading} />
-            </>
+            <Row style={{}}>
+              <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }} xxl={18}>
+                <AntTable
+                  refetch={refetchJV}
+                  isError={isError}
+                  numberOfSkeletons={10}
+                  isLoading={isLoadingJV || isFetching}
+                  scroll={{ x: '', y: convertVhToPixels('35vh') }}
+                  data={data?.data?.Data?.Result || []}
+                  columns={columns(t, setSelectedRecordId, setActiveTab, setSelectedRecordDetailId)}
+                />
+                <JournalVoucherDetailTable refetch={refetch} isLoading={isLoading} />
+              </Col>
+            </Row>
           </Col>
         )}
       </Row>
@@ -84,11 +82,11 @@ function ContraVoucherTable({
 }
 
 type TFrom = {
-  setSelectedRecordId: (Id: number | null) => void;
-  setSelectedRecordIdforDetail: (Id: number | null) => void;
+  setSelectedRecordId: (id: number | null) => void;
   setActiveTab: (tab: string) => void;
+  setSelectedRecordDetailId: (id: number | null) => void;
   refetch: any;
   isLoading: any;
 };
 
-export default ContraVoucherTable;
+export default JournalVoucherTable;

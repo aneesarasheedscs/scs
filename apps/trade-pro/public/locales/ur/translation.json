@@ -702,5 +702,6 @@
   "2nd_interval": "دوسرا فاصلہ",
   "3rd_interval": "تیسرا فاصلہ",
   "interval_days": "فاصلہ دن",
-  "receivables_aging": "قبضوں کی عمر کا تناسب"
+  "receivables_aging": "قبضوں کی عمر کا تناسب",
+  "journal_voucher": "جرنل واؤچر"
 }

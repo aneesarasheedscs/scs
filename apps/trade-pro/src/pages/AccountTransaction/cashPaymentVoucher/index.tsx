@@ -56,6 +56,8 @@ function CashPaymentVoucher() {
                 setSelectedRecordId={setSelectedRecordId}
                 setActiveTab={setActiveTab}
                 setSelectedRecordIdforDetail={setSelectedRecordIdforDetail}
+                refetch={refetch}
+                isLoadingDetail={isLoadingDetail}
               />
             </Tabs.TabPane>
 

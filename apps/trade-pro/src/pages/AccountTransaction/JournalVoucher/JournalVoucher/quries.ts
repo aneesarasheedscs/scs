@@ -3,7 +3,7 @@ import { requestManager } from '@tradePro/configs/requestManager';
 import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 import { queryClient } from '@tradePro/configs';
 import { notification } from 'antd';
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { TJournalVoucherData, TJournalVoucherHistory } from './types';
 
 const userDetail = storedUserDetail();
@@ -17,18 +17,24 @@ const [BranchesId, CompanyId, OrganizationId] = [
 
 const params = { CompanyId, OrganizationId };
 
-export const useGetDocumentNumber = () => {
+export const useGetVoucherNo = (DocumentTypeId: number) => {
   return useQuery(
-    'document-number',
+    ['voucher-number', DocumentTypeId],
     () => {
       return requestManager.get('/api/Voucher/GenerateVoucherCodeByDocumentTypeId', {
-        params: { ...params, BranchId: 2, DocumentTypeId: 5, FinancialYearId: financialYear?.Id },
+        params: {
+          ...params,
+          DocumentTypeId: DocumentTypeId,
+          BranchId: userDetail?.BranchesId,
+          FinancialYearId: financialYear?.Id,
+          CompanyId: userDetail?.CompanyId,
+          OrganizationId: userDetail?.OrganizationId,
+        },
       });
     },
     { cacheTime: 5000 }
   );
 };
-
 export const useGetAccountsCombo = () => {
   return useQuery('credit-account', () => {
     return requestManager.get('/api/COAAllocation/AccountsComboFill', {
@@ -90,21 +96,38 @@ export const useGetJournalVoucherById = (Id?: number | null) => {
     }
   );
 };
-
 const getJournaloucherById = (Id?: number | null) => {
   return requestManager.get(`/api/Voucher/GetByID`, { params: { Id } });
 };
-export const useAddJournalVoucher = (params?: TJournalVoucherData) => {
+export const useGetJournalVoucherDetailById = (Id?: number | null) => {
+  return useQuery(
+    ['contraVoucher-detail-getById', Id],
+    () => {
+      return getJournaloucherDetail(Id);
+    },
+    {
+      cacheTime: 0,
+      staleTime: 0,
+      enabled: !!Id,
+      onError: (error: AxiosError) => {
+        const msg = error.response?.data || 'Something went wrong';
+        notification.error({ description: '', message: msg as string });
+      },
+    }
+  );
+};
+const getJournaloucherDetail = (Id?: number | null) => {
+  return requestManager.get(`/api/Voucher/GetByID`, { params: { Id } });
+};
+export const useAddJournalVoucher = (DocumentTypeId?: number, params?: TJournalVoucherData) => {
   return useMutation(
-    'journal_voucher',
+    'add_journal_voucher',
     (data: TJournalVoucherData) => {
       let dataToSubmit = {};
       dataToSubmit = {
         ...data,
         Id: 0,
-        Type: 3,
-        DocumentTypeId: 5,
-        DocumentTypeSrNo: 0,
+        DocumentTypeId: DocumentTypeId,
         OrganizationId: userDetail?.OrganizationId,
         CompanyId: userDetail?.CompanyId,
         BranchId: userDetail?.BranchesId,
@@ -118,10 +141,17 @@ export const useAddJournalVoucher = (params?: TJournalVoucherData) => {
       return requestManager.post('/api/Voucher/Save', dataToSubmit);
     },
     {
-      onSuccess: () => {
-        queryClient.invalidateQueries('journal_voucher');
-        const msg = 'Record added successfully!';
-        notification.success({ description: '', message: msg });
+      onSuccess: (response: AxiosResponse) => {
+        if (response?.data && response?.data?.Status === false) {
+          notification.error({
+            message: 'Error',
+            description: response?.data?.Message || 'An error occurred.',
+          });
+        } else if (response?.data && response?.data?.Status === true) {
+          queryClient.invalidateQueries('journal_voucher');
+          const msg = 'Record added successfully!';
+          notification.success({ description: '', message: msg });
+        }
       },
       onError: (error: AxiosError) => {
         const msg = error.response?.data || 'Something went wrong';
@@ -130,7 +160,7 @@ export const useAddJournalVoucher = (params?: TJournalVoucherData) => {
     }
   );
 };
-export const useUpdateJournalVoucher = (Id?: number | null, params?: TJournalVoucherData) => {
+export const useUpdateJournalVoucher = (Id?: number | null, DocumentTypeId?: number, params?: TJournalVoucherData) => {
   return useMutation(
     'update_journal_voucher',
     (data: TJournalVoucherData) => {
@@ -138,9 +168,7 @@ export const useUpdateJournalVoucher = (Id?: number | null, params?: TJournalVou
       dataToSubmit = {
         ...data,
         Id: Id,
-        Type: 3,
-        DocumentTypeId: 5,
-        DocumentTypeSrNo: 0,
+        DocumentTypeId: DocumentTypeId,
         OrganizationId: userDetail?.OrganizationId,
         CompanyId: userDetail?.CompanyId,
         BranchId: userDetail?.BranchesId,
@@ -154,10 +182,17 @@ export const useUpdateJournalVoucher = (Id?: number | null, params?: TJournalVou
       return requestManager.post('/api/Voucher/Save', dataToSubmit);
     },
     {
-      onSuccess: () => {
-        queryClient.invalidateQueries('update_journal_voucher');
-        const msg = 'Record added successfully!';
-        notification.success({ description: '', message: msg });
+      onSuccess: (response: AxiosResponse) => {
+        if (response?.data && response?.data?.Status === false) {
+          notification.error({
+            message: 'Error',
+            description: response?.data?.Message || 'An error occurred.',
+          });
+        } else if (response?.data && response?.data?.Status === true) {
+          queryClient.invalidateQueries('journal_voucher');
+          const msg = 'Record Updated successfully!';
+          notification.success({ description: '', message: msg });
+        }
       },
       onError: (error: AxiosError) => {
         const msg = error.response?.data || 'Something went wrong';

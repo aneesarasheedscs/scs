@@ -48,6 +48,8 @@ function CashReceiptVoucher() {
                 setSelectedRecordId={setSelectedRecordId}
                 setActiveTab={setActiveTab}
                 setSelectedRecordIdforDetail={setSelectedRecordIdforDetail}
+                refetch={refetch}
+                isLoading={isLoading}
               />
             </Tabs.TabPane>
             <Tabs.TabPane key="2" tab={t('form')}>

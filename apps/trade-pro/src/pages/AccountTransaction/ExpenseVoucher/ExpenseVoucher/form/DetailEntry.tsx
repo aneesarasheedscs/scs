@@ -32,15 +32,18 @@ const DynamicForm = ({ form }: TDynamicForm) => {
     Comments: null,
   };
   const [isEditMode, setIsEditMode] = useState(false);
-  const { data: filteredDebitAccounts } = useGetExpenseFetchDebitAccountSelect();
+  const { data: filteredDebitAccounts, isLoading } = useGetExpenseFetchDebitAccountSelect();
   const { t } = useTranslation();
+
   const handleDebitAccountChange = async (value: any) => {
     setRefAccountId(value);
-    const selectedAccount = filteredDebitAccounts?.find((item: any) => item.Id === value);
-    if (selectedAccount) {
-      const accountTitle = selectedAccount.AccountTitle;
-      console.log(accountTitle);
-      form.setFieldValue(['voucherDetailList', 0, 'AccountTitle'], accountTitle);
+    if (!isLoading && Array.isArray(filteredDebitAccounts)) {
+      const selectedAccount = filteredDebitAccounts.find((item: any) => item.Id === value);
+      if (selectedAccount) {
+        const accountTitle = selectedAccount.AccountTitle;
+        console.log(accountTitle);
+        form.setFieldValue(['voucherDetailList', 0, 'AccountTitle'], accountTitle);
+      }
     }
   };
   const AgainstAccountId = form.getFieldValue('RefAccountId');
@@ -61,7 +64,12 @@ const DynamicForm = ({ form }: TDynamicForm) => {
       return;
     }
     if (newData.some((item) => item.AccountId === null || item.AccountId === undefined)) {
-      const message = 'Please select a Debit account';
+      const message = 'Please select  Debit account';
+      notification.error({ message: message });
+      return;
+    }
+    if (AgainstAccountId === null || AgainstAccountId === undefined) {
+      const message = 'Please select  Credit account';
       notification.error({ message: message });
       return;
     }
@@ -100,7 +108,12 @@ const DynamicForm = ({ form }: TDynamicForm) => {
       return;
     }
     if (newData.some((item) => item.AccountId === null || item.AccountId === undefined)) {
-      const message = 'Please select a Debit account';
+      const message = 'Please select  Debit account';
+      notification.error({ message: message });
+      return;
+    }
+    if (AgainstAccountId === null || AgainstAccountId === undefined) {
+      const message = 'Please select  Credit account';
       notification.error({ message: message });
       return;
     }
@@ -147,8 +160,12 @@ const DynamicForm = ({ form }: TDynamicForm) => {
       if (rowIndex !== -1) {
         updatedData[rowIndex] = {
           ...updatedData[rowIndex],
-          AccountId: record.AccountTitle,
-          JobLotId: record.JobLotDescription,
+          AccountId: record.AccountId,
+          AccountTitle: record.AccountTitle,
+          JobLotId: record.JobLotId,
+          JobLotDescription: record.JobLotDescription,
+          AgainstAccountId: record.AgainstAccountId,
+          LineId: record.LineId,
           DebitAmount: record.DebitAmount,
           Comments: record.Comments,
         };
@@ -165,12 +182,10 @@ const DynamicForm = ({ form }: TDynamicForm) => {
   };
 
   const DebitAmount = tableData.map((item: any) => item.DebitAmount);
-  console.log(DebitAmount);
   const totalDebitAmount = sumBy(DebitAmount);
-  console.log(totalDebitAmount);
   useEffect(() => {
     form.setFieldValue('VoucherAmount', totalDebitAmount);
-  }, [form, 'VoucherAmount']);
+  }, [form, tableData, 'VoucherAmount']);
   return (
     <>
       <Row gutter={[16, 16]} style={{ marginTop: '0%' }}>

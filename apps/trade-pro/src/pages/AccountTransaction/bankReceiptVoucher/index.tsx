@@ -48,6 +48,8 @@ function BankReceiptVoucher() {
                 setSelectedRecordId={setSelectedRecordId}
                 setActiveTab={setActiveTab}
                 setSelectedRecordDetailId={setSelectedRecordDetailId}
+                refetch={refetch}
+                isLoading={isLoading}
               />
             </Tabs.TabPane>
             <Tabs.TabPane key="2" tab={t('form')}>

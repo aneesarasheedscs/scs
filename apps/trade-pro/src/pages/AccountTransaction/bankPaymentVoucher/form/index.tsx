@@ -29,7 +29,10 @@ function BankPaymentVoucherForm({
   const [tableData, setTableData] = useAtom(addtableData);
   const [isAddButtonClicked, setIsAddButtonClicked] = useState(true);
   const { mutate: addBankPaymentVoucher, data: saveData, isSuccess } = useAddBankPaymentVoucher(DocumentTypeId);
-  const { mutate: updateBankPaymentVoucher } = useUpdateBankPaymentVoucher(DocumentTypeId, selectedRecordId);
+  const { mutate: updateBankPaymentVoucher, data: updateData } = useUpdateBankPaymentVoucher(
+    DocumentTypeId,
+    selectedRecordId
+  );
   const [printPreview, setPrintPreview] = useState(true);
   const [VoucherDate, setVoucherDate] = useState<Date>(new Date());
   const [TaxTypeId, setTaxTypeId] = useState<number | undefined>();
@@ -134,6 +137,7 @@ function BankPaymentVoucherForm({
           setBankId={setBankId}
           isSuccess={isSuccess}
           saveData={saveData}
+          updateData={updateData}
           addBankPayment={addBankPayment}
           DocumentTypeId={DocumentTypeId}
           selectedRecordId={selectedRecordId}

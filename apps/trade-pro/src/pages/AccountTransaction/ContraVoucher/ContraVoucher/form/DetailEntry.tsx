@@ -1,7 +1,7 @@
 import { map, sumBy } from 'lodash';
 import '../style.scss';
 import { useAtom } from 'jotai';
-import { addtableData } from './Atom';
+import { addtableData, dataforCreditAmount } from './Atom';
 import { columns2 } from '../table/columns';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -18,6 +18,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
   const [refAccountId, setRefAccountId] = useState(0);
   const { data } = useGetAccountsBalances(refAccountId);
   const [tableData, setTableData] = useAtom(addtableData);
+  const [tableDataforCreditAmount, setTableDataforCreditAmount] = useAtom(dataforCreditAmount);
   const formValues = useWatch<TContraDetailEntry[]>('voucherDetailList', form);
   const [edit, setEdit] = useState<any>([]);
   const initialValues = {
@@ -28,15 +29,18 @@ const DynamicForm = ({ form }: TDynamicForm) => {
     Comments: null,
   };
   const [isEditMode, setIsEditMode] = useState(false);
-  const { data: filteredDebitAccounts } = useGetContraCreditAccountSelect();
+  const { data: filteredDebitAccounts, isLoading } = useGetContraCreditAccountSelect();
   const { t } = useTranslation();
+
   const handleDebitAccountChange = async (value: any) => {
     setRefAccountId(value);
-    const selectedAccount = filteredDebitAccounts?.find((item: any) => item.Id === value);
-    if (selectedAccount) {
-      const accountTitle = selectedAccount.AccountTitle;
-      console.log(accountTitle);
-      form.setFieldValue(['voucherDetailList', 0, 'AccountTitle'], accountTitle);
+    if (!isLoading && Array.isArray(filteredDebitAccounts)) {
+      const selectedAccount = filteredDebitAccounts.find((item: any) => item.Id === value);
+      if (selectedAccount) {
+        const accountTitle = selectedAccount.AccountTitle;
+        console.log(accountTitle);
+        form.setFieldValue(['voucherDetailList', 0, 'AccountTitle'], accountTitle);
+      }
     }
   };
   const AgainstAccountId = form.getFieldValue('RefAccountId');
@@ -48,28 +52,43 @@ const DynamicForm = ({ form }: TDynamicForm) => {
       JobLotDescription: item.JobLotDescription,
       JobLotId: item.JobLotId,
       DebitAmount: item.DebitAmount,
-      CreditAmount: item.DebitAmount,
+      CreditAmount: 0,
       Comments: item.Comments,
     }));
     if (newData.some((item) => item.DebitAmount === null || item.DebitAmount === undefined)) {
-      const message = 'Please fill  Debit Amount';
+      const message = 'Please fill Debit Amount';
       notification.error({ message: message });
       return;
     }
     if (newData.some((item) => item.AccountId === null || item.AccountId === undefined)) {
-      const message = 'Please select a Debit account';
+      const message = 'Please fill Debit Account';
       notification.error({ message: message });
       return;
     }
+    if (AgainstAccountId === null || AgainstAccountId === undefined) {
+      const message = 'Please select  Credit account';
+      notification.error({ message: message });
+      return;
+    }
+    const TaxableEntry: any = {};
+    const updatedData = newData.map((item, index) => ({
+      ...item,
+      LineId: counter + 1,
+      AgainstAccountId: AgainstAccountId,
+    }));
     setCounter((prevCounter: any) => prevCounter + 1);
+    TaxableEntry.AccountId = AgainstAccountId;
+    TaxableEntry.AgainstAccountId = formValues?.[0]?.AccountId;
+    TaxableEntry.JobLotId = formValues?.[0]?.JobLotId;
+    TaxableEntry.JobLotDescription = formValues?.[0]?.JobLotDescription;
+    TaxableEntry.CreditAmount = formValues?.[0]?.DebitAmount;
+    TaxableEntry.DebitAmount = formValues?.[0].CreditAmount;
+    TaxableEntry.Comments = formValues?.[0]?.Comments;
+    TaxableEntry.LineId = counter + 2;
     setTableData((prevData: any[]) => {
-      const updatedData = newData.map((item) => ({
-        ...item,
-        LineId: counter,
-        AgainstAccountId: AgainstAccountId,
-      }));
       const combinedData = [...prevData, ...updatedData];
       console.log('New tableData:', combinedData);
+      setTableDataforCreditAmount((prevTableData: any) => [...prevTableData, TaxableEntry]);
       return combinedData;
     });
     form.setFieldValue(['voucherDetailList', 0, 'AccountId'], null);
@@ -79,6 +98,9 @@ const DynamicForm = ({ form }: TDynamicForm) => {
     setIsEditMode(false);
     setRefAccountId(0);
   };
+  console.log(counter);
+
+  console.log(tableDataforCreditAmount);
   const handleUpdateToTable = () => {
     console.log('Form Values:', formValues);
     const newData = formValues.map((item, index) => ({
@@ -87,20 +109,34 @@ const DynamicForm = ({ form }: TDynamicForm) => {
       JobLotDescription: item.JobLotDescription,
       JobLotId: item.JobLotId,
       DebitAmount: item.DebitAmount,
-      CreditAmount: item.DebitAmount,
+      CreditAmount: 0,
       Comments: item.Comments,
     }));
     if (newData.some((item) => item.DebitAmount === null || item.DebitAmount === undefined)) {
-      const message = 'Please fill  Debit Amount';
+      const message = 'Please fill Debit Amount';
       notification.error({ message: message });
       return;
     }
     if (newData.some((item) => item.AccountId === null || item.AccountId === undefined)) {
-      const message = 'Please select a Debit account';
+      const message = 'Please fill Debit Account';
       notification.error({ message: message });
       return;
     }
+    if (AgainstAccountId === null || AgainstAccountId === undefined) {
+      const message = 'Please select a Credit account';
+      notification.error({ message: message });
+      return;
+    }
+    const TaxableEntry: any = {};
     const editedRowIndex = tableData.findIndex((row: any) => row.LineId === edit?.LineId);
+    TaxableEntry.AccountId = AgainstAccountId;
+    TaxableEntry.AgainstAccountId = formValues?.[0]?.AccountId;
+    TaxableEntry.JobLotId = formValues?.[0]?.JobLotId;
+    TaxableEntry.JobLotDescription = formValues?.[0]?.JobLotDescription;
+    TaxableEntry.CreditAmount = formValues?.[0]?.DebitAmount;
+    TaxableEntry.DebitAmount = formValues?.[0].CreditAmount;
+    TaxableEntry.Comments = formValues?.[0]?.Comments;
+    TaxableEntry.LineId = edit.LineId + 1;
     if (editedRowIndex >= 0) {
       setTableData((prevData: any[]) => {
         const updatedData = [...prevData];
@@ -109,6 +145,11 @@ const DynamicForm = ({ form }: TDynamicForm) => {
           LineId: edit.LineId,
           AgainstAccountId: AgainstAccountId,
         };
+        setTableDataforCreditAmount((prevTableData: any[]) => {
+          const updatedTableDataforCreditAmount = [...prevTableData];
+          updatedTableDataforCreditAmount[editedRowIndex] = TaxableEntry;
+          return updatedTableDataforCreditAmount;
+        });
         console.log('New tableData:', updatedData);
         return updatedData;
       });
@@ -120,6 +161,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
     setIsEditMode(false);
     setRefAccountId(0);
   };
+  console.log(tableDataforCreditAmount);
   const handleResetForm = () => {
     form.setFieldValue(['voucherDetailList', 0, 'AccountId'], null);
     form.setFieldValue(['voucherDetailList', 0, 'JobLotId'], null);
@@ -143,8 +185,12 @@ const DynamicForm = ({ form }: TDynamicForm) => {
       if (rowIndex !== -1) {
         updatedData[rowIndex] = {
           ...updatedData[rowIndex],
-          AccountId: record.AccountTitle,
-          JobLotId: record.JobLotDescription,
+          AccountId: record.AccountId,
+          AccountTitle: record.AccountTitle,
+          JobLotId: record.JobLotId,
+          JobLotDescription: record.JobLotDescription,
+          AgainstAccountId: record.AgainstAccountId,
+          LineId: record.LineId,
           DebitAmount: record.DebitAmount,
           Comments: record.Comments,
         };
@@ -159,12 +205,12 @@ const DynamicForm = ({ form }: TDynamicForm) => {
   const handleSelectjobLotChange = (obj: TjobLot, index: number) => {
     form.setFieldValue(['voucherDetailList', 0, 'JobLotDescription'], obj?.JobLotDescription);
   };
-
   const DebitAmount = tableData.map((item: any) => item.DebitAmount);
   const totalDebitAmount = sumBy(DebitAmount);
+  console.log(totalDebitAmount);
   useEffect(() => {
     form.setFieldValue('VoucherAmount', totalDebitAmount);
-  }, [form]);
+  }, [form, tableData, 'VoucherAmount']);
   return (
     <>
       <Row gutter={[16, 16]} style={{ marginTop: '0%' }}>
@@ -187,7 +233,6 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         xl={{ span: 9 }}
                         xxl={{ span: 6 }}
                         className="formfield1 debit"
-                        // style={{ marginTop: '0rem', borderBottom: '1px solid gray', padding: '0px', height: '60px' }}
                       >
                         <p style={{ marginTop: -18, marginLeft: '50%' }} className="dr">
                           Dr : <b> {numberFormatter(data?.data?.Data?.Result?.[0]?.Balance)}</b>
@@ -215,7 +260,6 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         xl={{ span: 7 }}
                         xxl={{ span: 4 }}
                         className="formfield job"
-                        // style={{ marginTop: '0.8rem' }}
                       >
                         <AntSelectDynamic
                           bordered={false}
@@ -236,7 +280,6 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         xl={{ span: 7 }}
                         xxl={{ span: 4 }}
                         className="formfield"
-                        // style={{ marginTop: '0.8rem' }}
                       >
                         <AntInputNumber
                           bordered={false}
@@ -316,8 +359,8 @@ const DynamicForm = ({ form }: TDynamicForm) => {
 
           <AntTable
             // isError={isError}
-            numberOfSkeletons={12}
             // isLoading={isLoading}
+            numberOfSkeletons={4}
             scroll={{ x: '', y: convertVhToPixels('15vh') }}
             data={tableData}
             columns={columns2(t, handleDeleteRow, handleEditRow)}

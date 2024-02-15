@@ -48,6 +48,8 @@ function ContraVoucher() {
                 setSelectedRecordId={setSelectedRecordId}
                 setSelectedRecordIdforDetail={setSelectedRecordIdforDetail}
                 setActiveTab={setActiveTab}
+                refetch={refetch}
+                isLoading={isLoading}
               />
             </Tabs.TabPane>
             <Tabs.TabPane key="2" tab={t('form')}>

@@ -14,7 +14,7 @@ export const detailColumns = (t?: any): AntColumnType<DataType>[] => [
   },
   {
     title: t('job_lot'),
-    width: 280,
+    width: 275,
     dataIndex: 'JobLotDescription',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
