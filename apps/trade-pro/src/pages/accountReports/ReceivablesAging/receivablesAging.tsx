@@ -15,11 +15,12 @@ function ReceivablesAgingRegisterTable() {
   const [form] = useForm<ReceivablesAgingSearchCriteria>();
   const formValues = useWatch<ReceivablesAgingSearchCriteria>([], form);
 
-  const { data, refetch, isFetching, isError: isError, isLoading: isLoading } = useGetReceivablesAgingRegister();
+  const { data, refetch, isFetching, isError: isError, isLoading: isLoading } = useGetReceivablesAgingRegister(true,form.getFieldsValue());
 
   const onFinish = (_: ReceivablesAgingSearchCriteria) => {
     refetch();
   };
+  
   useEffect(() => {
     form.setFields([{ name: 'EndDate', value: dayjs() }]);
   }, []);
@@ -32,7 +33,7 @@ function ReceivablesAgingRegisterTable() {
             {t('receivables_aging')}
           </h1>
         </Col>
-        <Col xxl={1} style={{ marginRight: '49px' }}>
+        <Col xxl={1} style={{ marginRight: '56px' }}>
           <BackButton goToDashboard={false} />
         </Col>
       </Row>
@@ -41,29 +42,29 @@ function ReceivablesAgingRegisterTable() {
         <Col xxl={23} xl={23} sm={23} xs={23} lg={23}>
           <Card>
             <Form form={form} onFinish={onFinish} initialValues={formValues}>
-              <Col xxl={18} xl={24} lg={24} xs={24}>
+              <Col xxl={17} xl={24} lg={24} xs={24}>
                 <Row gutter={[16, 16]} justify={'space-between'}>
                   <Col xs={24} sm={24} md={12} xxl={9} className="form_field">
                     <AntSelectDynamic
                       bordered={false}
                       name="CompanyId"
-                      label="CompanyName"
+                      label={t('company_name')} 
                       fieldValue="Id"
                       fieldLabel="CompName"
                       query={useGetCustomer}
                     />
                   </Col>
                   <Col xs={24} sm={24} md={12} xxl={5} className="form_field">
-                    <AntDatePicker name="EndDate" label="End Date" bordered={false} />
+                    <AntDatePicker name="EndDate" label={t('end_date')} bordered={false} />
                   </Col>
                   <Col xs={24} sm={24} md={12} xxl={5} className="form_field">
-                    <AntInputNumber name="IntervalDays" label="Interval Days" bordered={false} />
+                    <AntInputNumber name="IntervalDays" label={t('interval_days')} bordered={false} />
                   </Col>
                   <Col xs={24} sm={24} md={8} xxl={3}>
                     <AntButton
-                      label="Show"
+                      label={t('show')}
                       htmlType="submit"
-                      style={{ marginTop: 2 }}
+                      style={{ marginTop:2}}
                       isError={isError}
                       isLoading={isLoading || isFetching}
                     />

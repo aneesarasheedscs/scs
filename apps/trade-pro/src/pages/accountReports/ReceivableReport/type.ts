@@ -9,6 +9,8 @@ export type ReceivableReportTypeCriteria = {
   AccountId?: number;
   CityId?: number;
   CustomGroupId: number;
+  AccountTypeIds: string
+  AccountType: string
   Status: string;
 };
 
@@ -31,7 +33,27 @@ export type ReceivableReportTypeHistory = {
   RcvdDays: number;
   CityName: string;
   MobilePersonal: number;
-  FollowUpDate: number;
-  PromiseDate: number;
-  // CompLogoImage: any;
+  PromiseDate: Date;
+  CompLogoImage: any;
+  Title:string;
+  FollowupDate:Date
+};
+export type TAddFollowUp = {
+  Id: number; // 0 for Insert, other values for Update
+  CompanyId: number;
+  OrganizationId: number;
+  ChartOfAccountId: number;
+  FollowupDate: Date | string; // You may want to use a Date type instead
+  NextFollowupDays: number; //
+  PromiseDate: string; //
+  CommentsDate: string; //
+  CommentsDetail: string; //
+};
+
+export type TFollowUp = {
+  AccountTitle: string;
+  FollowUpDate: Date;
+  NFDays: number;
+  PromiseDate: Date;
+  CommentDetail: string;
 };

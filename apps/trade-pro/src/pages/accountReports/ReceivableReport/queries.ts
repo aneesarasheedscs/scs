@@ -1,7 +1,11 @@
-import { QueryFunction, useQuery, UseQueryResult } from 'react-query';
+import { QueryFunction, useMutation, useQuery, UseQueryResult } from 'react-query';
 import { requestManager } from '@tradePro/configs/requestManager';
 import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
-import { ReceivableReportTypeCriteria } from './type';
+import { ReceivableReportTypeCriteria, TAddFollowUp } from './type';
+import { queryClient } from '@scs/configs';
+import { notification } from 'antd';
+import { AxiosError } from 'axios';
+import dayjs from 'dayjs'
 // import { AxiosResponse } from 'axios';
 
 const userDetail = storedUserDetail();
@@ -39,7 +43,7 @@ const getAccountId = async () => {
   return filteredData;
 };
 
-// Account Title
+//Account Title
 export const useGetAccountTitle = (AccountTypeId?: number | null) => {
   return useQuery(['account-title', AccountTypeId], () => getAccountTitle(AccountTypeId), {
     cacheTime: userDetail?.expires_in,
@@ -52,7 +56,7 @@ const getAccountTitle = async (AccountTypeId: any) => {
       OrganizationId: userDetail?.OrganizationId,
       CompanyId: userDetail?.CompanyId,
       FinancialYearId: financialYear?.Id,
-      LanguageId: 0,
+      LanguageId: 2,
       Account_Level: 3,
     },
   });
@@ -112,6 +116,90 @@ export const useGetApprovedStatus = (enabled = true) => {
           OrganizationId: userDetail?.OrganizationId,
           CompanyId: userDetail?.CompanyId,
         },
+      });
+    },
+    { enabled }
+  );
+};
+
+export const useGetCustomerGroup = (enabled = true) => {
+  return useQuery(
+    'customer_group',
+    () => {
+      return requestManager.get('/api/CustomerGroup/CustomerGroupFromInventoryStockEvaluation', {
+        params: {
+          OrganizationId: userDetail?.OrganizationId,
+          CompanyId: userDetail?.CompanyId,
+        },
+      });
+    },
+    { enabled }
+  );
+};
+
+
+
+
+
+export const useAddFollowUp = (params?: TAddFollowUp) => {
+
+  return useMutation(
+    'follow-up-receivables',
+    (data: TAddFollowUp) => {
+      let dataToSubmit = {};
+      dataToSubmit = {
+        ...data,
+        Id: 0, //insert  (save)
+        OrganizationId: userDetail?.OrganizationId,
+        CompanyId: userDetail?.CompanyId,
+        CommentsDate: '2023-09-05',
+        ChartOfAccountId: 21340,
+        CommentsDetail: '',
+        ...params,
+      };
+      return requestManager.post('/api/AccountsPayRecFollowUpHistory/Save', dataToSubmit);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('add-follow-up');
+        const msg = 'Record added successfully!';
+        notification.success({ description: '', message: msg });
+      },
+      onError: (error: AxiosError) => {
+        const msg = error.response?.data || 'add-follow-up';
+        notification.error({ description: '', message: msg as string });
+      },
+    }
+  );
+};
+
+export const useGetAccountTitlee = () => {
+  return useQuery(
+    'account-titlee',
+    () => {
+      return requestManager.get('/api/COAAllocation/AccountsComboFill?', {
+        params: { OrganizationId: userDetail?.OrganizationId, CompanyId: userDetail?.CompanyId },
+      });
+    },
+    { cacheTime: userDetail?.expires_in }
+  );
+};
+
+export const ReceivableReportQueryHistory = (enabled = true, params?: ReceivableReportTypeCriteria) => {
+  return useQuery(
+    'receivable-query',
+    () => {
+      return requestManager.post('/api/AccountsReports/Receivable', {
+        OrganizationId: userDetail?.OrganizationId,
+        CompanyId: userDetail?.CompanyId,
+        FinancialYearId: financialYear?.Id,
+        FromDate:financialYear?.Start_Period,
+        ToDate:dayjs(new Date()),
+        // AccountTypeIds:83,
+        AccountTypeIds: params?.AccountType?.toString(),
+        // SaleInvoiceDocumentTypeIds: params?.SelectedDocuments?.toString() || defaultSaleInvoiceDocumentTypeIds, 
+
+        ...params,
       });
     },
     { enabled }
