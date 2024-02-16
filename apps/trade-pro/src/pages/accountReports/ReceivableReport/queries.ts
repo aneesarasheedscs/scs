@@ -5,6 +5,7 @@ import { ReceivableReportTypeCriteria, TAddFollowUp } from './type';
 import { queryClient } from '@scs/configs';
 import { notification } from 'antd';
 import { AxiosError } from 'axios';
+import dayjs from 'dayjs'
 // import { AxiosResponse } from 'axios';
 
 const userDetail = storedUserDetail();
@@ -43,19 +44,19 @@ const getAccountId = async () => {
 };
 
 //Account Title
-// export const useGetAccountTitle = (AccountTypeId?: number | null) => {
-//   return useQuery(['account-title', AccountTypeId], () => getAccountTitle(AccountTypeId), {
-//     cacheTime: userDetail?.expires_in,
-//     enabled: !!AccountTypeId,
-//   });
-// };
+export const useGetAccountTitle = (AccountTypeId?: number | null) => {
+  return useQuery(['account-title', AccountTypeId], () => getAccountTitle(AccountTypeId), {
+    cacheTime: userDetail?.expires_in,
+    enabled: !!AccountTypeId,
+  });
+};
 const getAccountTitle = async (AccountTypeId: any) => {
   const response = await requestManager.get('/api/ChartofAccount/ReadAllParentGroupAccount', {
     params: {
       OrganizationId: userDetail?.OrganizationId,
       CompanyId: userDetail?.CompanyId,
       FinancialYearId: financialYear?.Id,
-      LanguageId: 0,
+      LanguageId: 2,
       Account_Level: 3,
     },
   });
@@ -121,6 +122,24 @@ export const useGetApprovedStatus = (enabled = true) => {
   );
 };
 
+export const useGetCustomerGroup = (enabled = true) => {
+  return useQuery(
+    'customer_group',
+    () => {
+      return requestManager.get('/api/CustomerGroup/CustomerGroupFromInventoryStockEvaluation', {
+        params: {
+          OrganizationId: userDetail?.OrganizationId,
+          CompanyId: userDetail?.CompanyId,
+        },
+      });
+    },
+    { enabled }
+  );
+};
+
+
+
+
 
 export const useAddFollowUp = (params?: TAddFollowUp) => {
 
@@ -154,7 +173,7 @@ export const useAddFollowUp = (params?: TAddFollowUp) => {
   );
 };
 
-export const useGetAccountTitle = () => {
+export const useGetAccountTitlee = () => {
   return useQuery(
     'account-titlee',
     () => {
@@ -163,5 +182,26 @@ export const useGetAccountTitle = () => {
       });
     },
     { cacheTime: userDetail?.expires_in }
+  );
+};
+
+export const ReceivableReportQueryHistory = (enabled = true, params?: ReceivableReportTypeCriteria) => {
+  return useQuery(
+    'receivable-query',
+    () => {
+      return requestManager.post('/api/AccountsReports/Receivable', {
+        OrganizationId: userDetail?.OrganizationId,
+        CompanyId: userDetail?.CompanyId,
+        FinancialYearId: financialYear?.Id,
+        FromDate:financialYear?.Start_Period,
+        ToDate:dayjs(new Date()),
+        // AccountTypeIds:83,
+        AccountTypeIds: params?.AccountType?.toString(),
+        // SaleInvoiceDocumentTypeIds: params?.SelectedDocuments?.toString() || defaultSaleInvoiceDocumentTypeIds, 
+
+        ...params,
+      });
+    },
+    { enabled }
   );
 };

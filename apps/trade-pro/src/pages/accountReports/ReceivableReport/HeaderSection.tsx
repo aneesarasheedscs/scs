@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 import { SaveOutlined, SyncOutlined } from '@ant-design/icons';
 import { TAddFollowUp } from './type';
-import { useAddFollowUp } from './queries';
+import { useAddFollowUp, useGetAccountTitlee } from './queries';
 import { useGetAccountTitle } from '../queries';
 
 function HeaderSection() {
@@ -42,7 +42,7 @@ function HeaderSection() {
                       name="AccountTitleId"
                       fieldLabel="AccountTitle"
                       fieldValue="Id"
-                      query={useGetAccountTitle}
+                      query={useGetAccountTitlee}
                     />
                   </Col>
                   <Col xl={7} lg={11} xxl={5} className="formfield">

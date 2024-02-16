@@ -711,5 +711,14 @@
   "interval_days": "Interval Days",
 
   "journal_voucher": "Journal Voucher",
-  "offset_account": "Offset Account"
+  "offset_account": "Offset Account",
+  "receivables_report": "Receivables Report",
+  "last_biils_amount": "Last Biils Amount",
+  "follow_up_date": "Follow Up Date",
+  "company_logo_image": "Company Logo Image",
+  "inventory_group": "Inventory Group",
+  "reveiables_ac_type": "Receivables AC Type",
+  "reveiable_account": "Revceivables Account",
+  "only_trade_parties": "Only Trade Parties",
+  "last_rcvd_date": "Last Rcvd Date"
 }

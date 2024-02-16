@@ -703,5 +703,14 @@
   "3rd_interval": "تیسرا فاصلہ",
   "interval_days": "فاصلہ دن",
   "receivables_aging": "قبضوں کی عمر کا تناسب",
-  "journal_voucher": "جرنل واؤچر"
+  "journal_voucher": "جرنل واؤچر",
+  "receivables_report": "وصولی رپورٹ",
+  "last_biils_amount": "آخری بل کی رقم",
+  "follow_up_date": "تابع کرنے کی تاریخ",
+  "company_logo_image": "کمپنی لوگو تصویر",
+  "inventory_group": "انوان انوان",
+  "reveiables_ac_type": "وصول کرنے والے اے سی قسم",
+  "reveiable_account": "وصول کرنے والے اکاؤنٹ",
+  "only_trade_parties": "صرف تجارتی جماعتیں",
+  "last_rcvd_date": "آخری وصولی تاریخ"
 }

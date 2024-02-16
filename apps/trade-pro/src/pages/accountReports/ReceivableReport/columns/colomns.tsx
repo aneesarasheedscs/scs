@@ -3,6 +3,9 @@ import { AntColumnType } from '@tradePro/globalTypes';
 import { ReceivableReportTypeHistory, TFollowUp } from '../type';
 import { formateDate } from '@tradePro/utils/formateDate';
 import dayjs from 'dayjs';
+import { Space, Tooltip } from 'antd';
+import { AntButton } from '@scs/ui';
+import { PhoneOutlined } from '@ant-design/icons';
 
 export const ReceivablColumn = (t: any): AntColumnType<ReceivableReportTypeHistory>[] => [
   {
@@ -18,123 +21,195 @@ export const ReceivablColumn = (t: any): AntColumnType<ReceivableReportTypeHisto
     dataIndex: 'AccountCode',
     sorter: (a, b) => a.AccountCode - b.AccountCode,
     width: 150,
+
+    render: (_, { AccountCode, AccountId }) => (
+      <>
+        {/* <a onClick={() => handleAccountCodeClick(AccountId)}>{AccountCode}</a> */}
+        <a>{AccountCode}</a>
+      </>
+    ),
   },
   {
     width: 120,
     title: t('opening'),
     showTotal: true,
-    dataIndex: 'ObDebit',
-    sorter: (a, b) => a.AccountCode - b.AccountCode,
-    render: (_, { ObDebit }) => numberFormatter(ObDebit),
+    dataIndex: 'Opening',
+    sorter: (a, b) => a.Opening - b.Opening,
+    align: 'right',
+    render: (_, { Opening }) => (
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(Opening)}</Space>
+    ),
   },
 
   {
     title: t('debit'),
-    dataIndex: 'ClDebit',
+    dataIndex: 'ObDebit',
     showTotal: true,
     width: 120,
-    render: (_, { ClDebit }) => numberFormatter(ClDebit),
+    sorter: (a, b) => a.ObDebit - b.ObDebit,
+    align: 'right',
+    render: (_, { ObDebit }) => (
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(ObDebit)}</Space>
+    ),
   },
 
   {
     title: t('credit'),
-    dataIndex: 'CurrDebit',
+    dataIndex: 'ObCredit',
     showTotal: true,
     width: 120,
-    render: (_, { CurrDebit }) => numberFormatter(CurrDebit),
+    sorter: (a, b) => a.ObCredit - b.ObCredit,
+    align: 'right',
+    render: (_, { ObCredit }) => (
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(ObCredit)}</Space>
+    ),
   },
   {
     title: t('closing'),
-    dataIndex: 'CurrCredit',
+    dataIndex: 'ClDebit',
     showTotal: true,
     width: 120,
-    render: (_, { CurrCredit }) => numberFormatter(CurrCredit),
+    sorter: (a, b) => a.ClDebit - b.ClDebit,
+    align: 'right',
+    render: (_, { ClDebit }) => (
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(ClDebit)}</Space>
+    ),
   },
 
   {
     title: t('last_bill_date'),
-
-    dataIndex: 'Opening',
-    width: 120,
-    showTotal: true,
-
-    render: (_, { Opening }) => numberFormatter(Opening),
+    dataIndex: 'LastBillDate',
+    width: 200,
+    render: (_, { LastBillDate }) => formateDate(LastBillDate),
+    sorter: (a, b) => {
+      const dateA = dayjs(a.LastBillDate);
+      const dateB = dayjs(b.LastBillDate);
+      return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
+    },
   },
 
   {
     title: t('last_biils_amount'),
-
-    dataIndex: 'BillDays',
+    dataIndex: 'LastBillsAmount',
     width: 150,
-    render: (_, { BillDays }) => numberFormatter(BillDays),
+    showTotal: true,
+    sorter: (a, b) => a.LastBillsAmount - b.LastBillsAmount,
+    align: 'right',
+    render: (_, { LastBillsAmount }) => (
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(LastBillsAmount)}</Space>
+    ),
   },
   {
     title: t('bill_days'),
-    dataIndex: 'LastRcvdAmount',
+    dataIndex: 'BillDays',
     showTotal: true,
     width: 160,
-    render: (_, { LastRcvdAmount }) => numberFormatter(LastRcvdAmount),
+    sorter: (a, b) => a.BillDays - b.BillDays,
+    align: 'right',
+    render: (_, { BillDays }) => (
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(BillDays)}</Space>
+    ),
   },
 
   {
     title: t('last_rcvd_date'),
-
-    dataIndex: 'LastBillDate',
-    width: 120,
-
-    render: (_, { LastBillDate }) => formateDate(LastBillDate),
+    dataIndex: 'LastRcvdDate',
+    width: 150,
+    render: (_, { LastRcvdDate }) => formateDate(LastRcvdDate),
+    sorter: (a, b) => {
+      const dateA = dayjs(a.LastRcvdDate);
+      const dateB = dayjs(b.LastRcvdDate);
+      return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
+    },
   },
   {
     title: t('last_rcvd_amount'),
-    dataIndex: 'BillDays',
-    width: 150,
-    render: (_, { BillDays }) => numberFormatter(BillDays),
+    dataIndex: 'LastRcvdAmount',
+    width: 200,
+    showTotal: true,
+    sorter: (a, b) => a.LastRcvdAmount - b.LastRcvdAmount,
+    align: 'right',
+    render: (_, { LastRcvdAmount }) => (
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(LastRcvdAmount)}</Space>
+    ),
   },
 
   {
     title: t('rcvd_days'),
     showTotal: true,
-    dataIndex: 'LastBillsAmount',
-    width: 120,
-    render: (_, { LastBillsAmount }) => numberFormatter(LastBillsAmount),
+    dataIndex: 'RcvdDays',
+    width: 150,
+    sorter: (a, b) => a.RcvdDays - b.RcvdDays,
+    align: 'right',
+    render: (_, { RcvdDays }) => (
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(RcvdDays)}</Space>
+    ),
   },
   {
     title: t('city_name'),
-    dataIndex: 'LastRcvdDate',
-    width: 120,
-    render: (_, { LastRcvdDate }) => formateDate(LastRcvdDate),
+    dataIndex: 'CityName',
+    width: 150,
+    searchableInput: true,
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.CityName.localeCompare(b.CityName),
   },
   {
     title: t('mobile_personal'),
-    dataIndex: 'LastRcvdDate',
-    width: 120,
-    render: (_, { LastRcvdDate }) => formateDate(LastRcvdDate),
+    dataIndex: 'MobilePersonal',
+    width: 150,
+    sorter: (a, b) => a.MobilePersonal - b.MobilePersonal,
   },
 
   {
     title: t('title'),
-    dataIndex: 'CityName',
+    dataIndex: 'Title',
     width: 130,
     searchableInput: true,
-    sorter: (a, b) => a.CityName.localeCompare(b.CityName),
+    sorter: (a, b) => a.Title.localeCompare(b.Title),
   },
   {
     title: t('follow_up_date'),
-    dataIndex: 'FollowUpDate',
+    dataIndex: 'FollowupDate',
+    width: 150,
+    render: (_, { FollowupDate }) => formateDate(FollowupDate),
+    sorter: (a, b) => {
+      const dateA = dayjs(a.FollowupDate);
+      const dateB = dayjs(b.FollowupDate);
+      return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
+    },
+  },
+  {
+    title: t('promise_date'),
+    dataIndex: 'PromiseDate',
     width: 120,
-    render: (_, { FollowUpDate }) => numberFormatter(FollowUpDate),
+    render: (_, { PromiseDate }) => formateDate(PromiseDate),
+    sorter: (a, b) => {
+      const dateA = dayjs(a.PromiseDate);
+      const dateB = dayjs(b.PromiseDate);
+      return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
+    },
   },
   {
     title: t('company_logo_image'),
-    dataIndex: 'MobilePersonal',
-    width: 120,
-    render: (_, { MobilePersonal }) => numberFormatter(MobilePersonal),
+    dataIndex: 'CompLogoImage',
+    width: 170,
+    searchableInput: true,
   },
+
   {
     title: t('action'),
-    dataIndex: 'PromiseDate',
-    width: 120,
-    render: (_, { PromiseDate }) => numberFormatter(PromiseDate),
+    dataIndex: 'PromCompLogoImageiseDate',
+    width: 150,
+    render: (_, record) => (
+      <Tooltip title="CellNo">
+        <AntButton
+          style={{ border: 'none', display: 'flex', justifyContent: 'center', position: 'relative', top: '-5px' }}
+          ghost
+          size="small"
+          icon={<PhoneOutlined />}
+        />
+      </Tooltip>
+    ),
   },
 ];
 

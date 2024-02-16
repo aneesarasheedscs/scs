@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { ReceivableReportTypeHistory } from './type';
-import { ReceivableReportQueryHistory } from './tableQueries';
 import { ReceivablColumn } from './columns/colomns';
-import { AntTable, BackButton } from '@scs/ui';
+import { AntTable } from '@tradePro/components';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import ReceivableFormCriteria from './searchCriteria';
 import { Col, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
 import './style.scss';
+import { ReceivableReportQueryHistory } from './queries';
+
 const ReceivableReportTable: React.FC = () => {
+  const [SelectedAccount, setSelectedAccount] = useState<number | undefined>(undefined);
   const { data, refetch, isError, isLoading, isFetching } = ReceivableReportQueryHistory();
+  // const handleAccountCodeClick = (AccountId: number) => {
+  //   setSelectedAccount(AccountId);
+  // };
   const { t } = useTranslation();
   return (
     <div>
