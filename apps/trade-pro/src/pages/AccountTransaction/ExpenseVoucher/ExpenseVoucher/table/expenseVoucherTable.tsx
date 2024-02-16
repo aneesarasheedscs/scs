@@ -66,7 +66,7 @@ function ExpenseVoucherTable({
         </Col>
 
         {showComponent ? (
-          <CardView />
+          <CardView setSelectedRecordId={setSelectedRecordId} setActiveTab={setActiveTab} />
         ) : (
           <Col span={24}>
             <>

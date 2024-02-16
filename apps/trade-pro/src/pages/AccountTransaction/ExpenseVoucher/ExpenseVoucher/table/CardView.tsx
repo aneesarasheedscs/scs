@@ -11,8 +11,12 @@ import Buttons from './Buttons';
 import Tablefile from './DetailTableFile';
 import { useGetExpenseVoucherTable } from '../queries/queries';
 import { TExpenseVoucherHistory } from './types';
-
-const CardView: React.FC<{}> = () => {
+interface Props {
+  setSelectedRecordId: (Id: number | null) => void;
+  setActiveTab: (tab: string) => void;
+  setSelectedRecordDetailId: (Id: number | null) => void;
+}
+const CardView: React.FC<any> = ({ setSelectedRecordId, setActiveTab }: Props) => {
   const { t } = useTranslation();
   const { data } = useGetExpenseVoucherTable();
   const voucherData = data?.data?.Data?.Result;
@@ -173,7 +177,11 @@ const CardView: React.FC<{}> = () => {
 
         {selectedCardData && (
           <Col lg={{ span: 24 }} md={24} xl={17} xxl={18} xs={24} sm={{ span: 24 }} className="columns">
-            <Buttons />
+            <Buttons
+              selectedRecordId={selectedRecordId}
+              setSelectedRecordId={setSelectedRecordId}
+              setActiveTab={setActiveTab}
+            />{' '}
             <Row align="middle">
               <Col xs={16} sm={16} className="columns">
                 <div className="main-voucher-design" id="Rice_Invoice_Main_Box">
