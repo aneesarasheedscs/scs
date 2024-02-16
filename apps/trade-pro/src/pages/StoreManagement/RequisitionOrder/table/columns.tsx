@@ -1,4 +1,4 @@
-import { EditFilled, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
+import { EditFilled, EyeOutlined, EyeTwoTone } from '@ant-design/icons';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { AntButton } from '@tradePro/components';
 import { Space, Tooltip } from 'antd';
@@ -20,6 +20,7 @@ export const columns = (
     width: 120,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.DocNo - b.DocNo,
+    showCount: true,
   },
   {
     title: t('doc_date'),
@@ -52,7 +53,7 @@ export const columns = (
   {
     title: t('request_status'),
     dataIndex: 'RequestStatus',
-    width: 170,
+    width: 200,
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.EntryUser.localeCompare(b.EntryUser),
@@ -130,10 +131,8 @@ export const columns = (
           fontWeight: 'bold',
           width: '95%',
           paddingLeft: 8,
-          border: '1px ridge white',
-          boxShadow: ' rgba(0, 0, 0, 0.35) 0px 5px 15px',
           position: 'absolute',
-          top: 8,
+          top: 10,
           left: 0,
           textAlign: 'center',
         }}
@@ -158,32 +157,28 @@ export const columns = (
   },
   {
     title: t('action'),
-    width: 120,
+    width: 90,
     render: (_, record) => (
       <>
-        <Tooltip title={t('edit')}>
-          <Space>
+        <Tooltip title="Edit">
+          <Space style={{ position: 'absolute', top: 10, left: 10 }}>
             <AntButton
               type="text"
-              icon={<EditFilled style={{ color: 'black' }} />}
+              icon={<EditFilled style={{ color: '#006640' }} />}
               onClick={() => {
                 setSelectedRecordId(record?.Id), setActiveTab('2');
               }}
             />
           </Space>
         </Tooltip>
-        <Tooltip title={t('detail')}>
-          <Space>
+        <Tooltip title="View Detail">
+          <Space style={{ position: 'absolute', top: 10, right: 15 }}>
             <AntButton
               type="text"
-              icon={
-                <EyeOutlined
-                  style={{ color: 'blue', marginLeft: 4 }}
-                  onClick={() => {
-                    setSelectedRecordIdforDetail(record?.Id);
-                  }}
-                />
-              }
+              icon={<EyeTwoTone style={{}} />}
+              onClick={() => {
+                setSelectedRecordIdforDetail(record.Id);
+              }}
             />
           </Space>
         </Tooltip>

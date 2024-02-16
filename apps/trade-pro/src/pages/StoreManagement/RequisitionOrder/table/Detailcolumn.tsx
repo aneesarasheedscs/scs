@@ -12,6 +12,7 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmRequisitionPoDetailsL
     sorter: (a, b) => a.ItemName.localeCompare(b.ItemName),
   },
   {
+    align: 'right',
     title: t('item_qty'),
     width: 150,
     showTotal: true,
@@ -19,7 +20,7 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmRequisitionPoDetailsL
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.ReqQty - b.ReqQty,
     render: (_, { ReqQty }) => (
-      <span style={{ display: 'flex', justifyContent: 'end', marginRight: '10%' }}>{numberFormatter(ReqQty)}</span>
+      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(ReqQty)}</span>
     ),
   },
   {
@@ -31,6 +32,7 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmRequisitionPoDetailsL
     sorter: (a, b) => a.PackUom.localeCompare(b.PackUom),
   },
   {
+    align: 'right',
     title: t('weight'),
     width: 150,
     showTotal: true,
@@ -38,10 +40,11 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmRequisitionPoDetailsL
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.BillWeight - b.BillWeight,
     render: (_, { BillWeight }) => (
-      <span style={{ display: 'flex', justifyContent: 'end', marginRight: '10%' }}>{numberFormatter(BillWeight)}</span>
+      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(BillWeight)}</span>
     ),
   },
   {
+    align: 'right',
     title: t('item_rate'),
     width: 150,
     showTotal: true,
@@ -49,10 +52,11 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmRequisitionPoDetailsL
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.ReqRate - b.ReqRate,
     render: (_, { ReqRate }) => (
-      <span style={{ display: 'flex', justifyContent: 'end', marginRight: '10%' }}>{numberFormatter(ReqRate)}</span>
+      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(ReqRate)}</span>
     ),
   },
   {
+    align: 'right',
     title: t('amount'),
     width: 150,
     showTotal: true,
@@ -60,7 +64,7 @@ export const detailColumns = (t?: any): AntColumnType<TWsRmRequisitionPoDetailsL
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.ReqAmount - b.ReqAmount,
     render: (_, { ReqAmount }) => (
-      <span style={{ display: 'flex', justifyContent: 'end', marginRight: '10%' }}>{numberFormatter(ReqAmount)}</span>
+      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(ReqAmount)}</span>
     ),
   },
 

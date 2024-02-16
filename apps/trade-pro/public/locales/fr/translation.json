@@ -285,7 +285,7 @@
   "company": "Entreprise",
   "branch": "Bifurquer",
   "project": "Projet",
-  "voucher_type": "Type de bon :",
+  "voucher_type": "Type de bon ",
   "voucher_date": "Date du bon",
   "cheque_date": "Vérifier la date",
   "pay_title": "Payer le titre",
@@ -513,5 +513,6 @@
   "cash_receipt_voucher": "Bon de reçu de caisse",
   "bank_receipt_voucher": "Bon de reçu bancaire",
   "against_ac": "Contre compte",
-  "journal_voucher": "Bon de journal"
+  "journal_voucher": "Bon de journal",
+  "req_status": "Statut de la demande"
 }

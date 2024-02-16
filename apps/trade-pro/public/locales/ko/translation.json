@@ -18,5 +18,7 @@
   "contra_voucher": "콘트라 바우처",
   "expense_voucher": "비용 바우처",
   "journal_voucher": "저널 바우처",
-  "offset_account": "상계 계정"
+  "offset_account": "상계 계정",
+  "voucher_type": "바우처 종류",
+  "req_status": "요청 상태"
 }

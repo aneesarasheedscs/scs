@@ -104,7 +104,8 @@ export type TRequisitionOrderHistory = {
   IsApproved: string;
   RemarksHeader: string;
   CompLogoImage: string;
-
+  IssuedQty: number;
+  IssuedAmount: number;
   EntryUserProfileImageUrl: string;
   ModifyUserProfileImageUrl: string;
   ApprovalUserProfileImageUrl: string;

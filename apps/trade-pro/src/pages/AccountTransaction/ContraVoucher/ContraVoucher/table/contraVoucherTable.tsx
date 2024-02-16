@@ -61,7 +61,9 @@ function ContraVoucherTable({
         </Col>
 
         {showComponent ? (
-          <CardView />
+          <Col span={24} style={{}}>
+            <CardView setSelectedRecordId={setSelectedRecordId} setActiveTab={setActiveTab} />
+          </Col>
         ) : (
           <Col span={24}>
             <>

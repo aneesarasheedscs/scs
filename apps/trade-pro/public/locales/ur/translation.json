@@ -307,7 +307,7 @@
   "company": "کمپنی",
   "branch": "شاخ",
   "project": "پروجیکٹ",
-  "voucher_type": "واؤچر کی قسم:",
+  "voucher_type": "واؤچر کی قسم",
   "voucher_date": "واؤچر کی تاریخ",
   "cheque_date": "تاریخ چیک کریں۔",
   "pay_title": "پے ٹائٹل",
@@ -697,5 +697,6 @@
   "trial_all_level": "تمام سطحوں کی آزمائش",
   "view_options": "اختیارات دیکھیں",
   "trial_balance_all_levels": "تمام سطوح کا تجربی توازن",
-  "journal_voucher": "جرنل واؤچر"
+  "journal_voucher": "جرنل واؤچر",
+  "req_status": "درخواست کی حیثیت"
 }

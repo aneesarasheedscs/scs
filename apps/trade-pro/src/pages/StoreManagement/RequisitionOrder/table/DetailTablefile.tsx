@@ -3,7 +3,7 @@ import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { useTranslation } from 'react-i18next';
 import './detail.scss';
 import _ from 'lodash';
-import { Col, Row } from 'antd';
+import { Col, Image, Row } from 'antd';
 import { TWsRmRequisitionPoDetailsList } from '../types';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { useGetRequisitionOrderById } from '../quries';
@@ -46,10 +46,10 @@ const Tablefile: React.FC<{ selectedRecordId?: number | any; stockTransfer: any 
               <div style={{ marginLeft: '0%' }} className="offset_Account">
                 {t('item_name')}
               </div>
-              <div style={{ marginLeft: '20%' }} className="jobLOt">
+              <div style={{ marginLeft: '25%' }} className="jobLOt">
                 {t('item_qty')}
               </div>
-              <div style={{ textAlign: 'right' }} className="Debit">
+              <div style={{ textAlign: 'center' }} className="Debit">
                 {t('pack_uom')}
               </div>
               <div style={{ textAlign: 'right' }} className="Credit">
@@ -71,7 +71,7 @@ const Tablefile: React.FC<{ selectedRecordId?: number | any; stockTransfer: any 
                 <div className="table-Row">
                   <div
                     className="offset_Account"
-                    style={{ color: '#8a86f7', cursor: 'pointer', fontWeight: 'bold', marginLeft: '0%' }}
+                    style={{ color: 'blue', cursor: 'pointer', fontWeight: 'bold', marginLeft: '0%' }}
                     title="Click to View General Ledger"
                   >
                     {item.ItemName}
@@ -98,8 +98,6 @@ const Tablefile: React.FC<{ selectedRecordId?: number | any; stockTransfer: any 
                   <div>
                     <p
                       style={{
-                        color: '#8a86f7',
-                        cursor: 'pointer',
                         fontWeight: 'bold',
                         marginLeft: '0.5%',
                         width: '25%',
@@ -126,9 +124,7 @@ const Tablefile: React.FC<{ selectedRecordId?: number | any; stockTransfer: any 
                   <div style={{ textAlign: 'right', marginRight: '2%' }} className="Credit">
                     {totalItemRate > 0 ? numberFormatter(totalItemRate) : 0}
                   </div>
-                  {/* <div style={{ textAlign: 'right', marginRight: '1.5%' }} className="Credit">
-                    {totalExpenseAmount > 0 ? numberFormatter(totalExpenseAmount) : 0}
-                  </div> */}
+
                   <div style={{ textAlign: 'right' }} className="Credit">
                     {totalAmount > 0 ? numberFormatter(totalAmount) : 0}
                   </div>
@@ -151,13 +147,13 @@ const Tablefile: React.FC<{ selectedRecordId?: number | any; stockTransfer: any 
               marginTop: '1%',
             }}
           >
-            <div style={{ color: '#5A54F9', fontWeight: 'bold' }}>{t('prepared_by')}:</div>
+            <div style={{ fontWeight: 'bold' }}>{t('prepared_by')}:</div>
             <div>
-              {/* <img className="Img" src={stockTransfer?.[0]?.EntryUserProfileImageUrl}></img> */}
-              {/* <img className="Img" src={convertFilePathToUrl(stockTransfer?.[0]?.EntryUserProfileImageUrl)} alt="Prepared By" /> */}
-              <img className="Img" src={`file://${stockTransfer?.[0]?.EntryUserProfileImageUrl}`}></img>
-              {/* <img className="Img" src={'\\DESKTOP-GAMC9GTAttachmentsProfilePicture.jpg'}></img> */}
-              {/* <img className="Img" src={require(`.${stockTransfer?.[0]?.EntryUserProfileImageUrl}`)} alt="Prepared By" /> */}
+              <Image
+                className="Img"
+                src={'data:image/jpeg;base64,' + stockTransfer?.[0]?.EntryUserProfileImageUrl}
+                style={{ width: '4rem', height: '4rem' }}
+              />
             </div>
             <p>{stockTransfer?.[0]?.EntryUser}</p>
             <p>{formateDate(stockTransfer?.[0]?.EntryDate)}</p>
@@ -175,9 +171,13 @@ const Tablefile: React.FC<{ selectedRecordId?: number | any; stockTransfer: any 
               marginTop: '1%',
             }}
           >
-            <div style={{ color: '#5A54F9', fontWeight: 'bold' }}>{t('approved_by')}:</div>
+            <div style={{ fontWeight: 'bold' }}>{t('approved_by')}:</div>
             <div>
-              <img className="Img" src={stockTransfer?.[0]?.ApprovalUserProfileImageUrl}></img>
+              <Image
+                className="Img"
+                src={'data:image/jpeg;base64,' + stockTransfer?.[0]?.ApprovalUserProfileImageUrl}
+                style={{ width: '4rem', height: '4rem' }}
+              />
             </div>
             <p>{stockTransfer?.[0]?.ApprovedUser}</p>
             <p>{formateDate(stockTransfer?.[0]?.ApprovedDate)}</p>
@@ -195,13 +195,13 @@ const Tablefile: React.FC<{ selectedRecordId?: number | any; stockTransfer: any 
               marginTop: '1%',
             }}
           >
-            <div style={{ color: '#5A54F9', fontWeight: 'bold' }}>{t('modify_user')}:</div>
+            <div style={{ fontWeight: 'bold' }}>{t('modify_user')}:</div>
             <div>
-              <img
+              <Image
                 className="Img"
-                // src={'file://C:UsershpPictures.bg33-1.jpg'}
-                src={stockTransfer?.[0]?.ModifyUserProfileImageUrl}
-              ></img>
+                src={'data:image/jpeg;base64,' + stockTransfer?.[0]?.ModifyUserProfileImageUrl}
+                style={{ width: '4rem', height: '4rem' }}
+              />
             </div>
             <div>
               <p>{stockTransfer?.[0]?.ModifyUser}</p>

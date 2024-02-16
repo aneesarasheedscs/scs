@@ -178,9 +178,6 @@ export const useAddRequisitionOrder = (DocumentTypeId?: number, params?: TRequis
     },
     {
       onSuccess: (response: AxiosResponse) => {
-        queryClient.invalidateQueries('requisition_order');
-        // const msg = 'Record added successfully!';
-        // notification.success({ description: '', message: msg });
         if (response?.data && response?.data?.Status === false) {
           notification.error({
             message: 'Error',
@@ -189,6 +186,7 @@ export const useAddRequisitionOrder = (DocumentTypeId?: number, params?: TRequis
         } else if (response?.data && response?.data?.Status === true) {
           const msg = 'Record Approved successfully!';
           notification.success({ description: '', message: msg });
+          queryClient.invalidateQueries('requisition_order');
         }
       },
       onError: (error: AxiosError) => {
@@ -227,7 +225,6 @@ export const useUpdateRequisitionOrder = (Id?: number | null, DocumentTypeId?: n
     },
     {
       onSuccess: (response: AxiosResponse) => {
-        queryClient.invalidateQueries('requisition_order');
         if (response?.data && response?.data?.Status === false) {
           notification.error({
             message: 'Error',
@@ -236,6 +233,7 @@ export const useUpdateRequisitionOrder = (Id?: number | null, DocumentTypeId?: n
         } else if (response?.data && response?.data?.Status === true) {
           const msg = 'Record Updated successfully!';
           notification.success({ description: '', message: msg });
+          queryClient.invalidateQueries('requisition_order');
         }
       },
       onError: (error: AxiosError) => {

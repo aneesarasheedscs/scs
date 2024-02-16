@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import { Row, Col, theme } from 'antd';
+import { Row, Col, theme, Image } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useGetExpenseVoucherTable } from '../queries/queries';
 import { TExpenseDetailEntry } from '../form/types';
@@ -34,11 +34,14 @@ const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedR
       <div className="Detail-wrape">
         <div className="Table">
           <div className="table-header">
-            <div className="Account">{t('account_title')}</div>
-            <div style={{ marginLeft: '5%' }} className="offset_Account">
+            <div className="Account">{t('account_code')}</div>
+            <div className="Account" style={{ marginLeft: '-1%' }}>
+              {t('account_title')}
+            </div>
+            <div style={{ marginLeft: '4%' }} className="offset_Account">
               {t('offset_account')}
             </div>
-            <div style={{ marginLeft: '15%' }} className="jobLOt">
+            <div style={{ marginLeft: '10%' }} className="jobLOt">
               {t('job_lot')}
             </div>
             <div style={{ textAlign: 'right' }} className="Debit">
@@ -55,16 +58,19 @@ const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedR
                 <div
                   className="Account"
                   title="Click to View General Ledger"
-                  style={{ color: '#8a86f7', cursor: 'pointer', fontWeight: 'bold' }}
+                  style={{ color: 'blue', cursor: 'pointer', fontWeight: 'bold' }}
                 >
                   {item.AccountCode}
                 </div>
-
                 <div
-                  className="offset_Account"
-                  style={{ color: '#8a86f7', cursor: 'pointer', fontWeight: 'bold', marginLeft: '5%' }}
+                  className="Account"
                   title="Click to View General Ledger"
+                  style={{ color: 'blue', cursor: 'pointer', fontWeight: 'bold' }}
                 >
+                  {item.AccountTitle}
+                </div>
+
+                <div className="offset_Account" style={{ fontWeight: 'bold', marginLeft: '5%' }}>
                   {item.AgainstAccount}
                 </div>
 
@@ -78,33 +84,17 @@ const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedR
                   {item.CreditAmount > 0 ? numberFormatter(item.CreditAmount) : 0}
                 </div>
               </div>
-
               <div className="table-row">
-                <div>
-                  <p
-                    style={{
-                      color: '#8a86f7',
-                      cursor: 'pointer',
-                      fontWeight: 'bold',
-                      marginLeft: '0.5%',
-                      width: '25%',
-                    }}
-                  >
-                    {item.AccountTitle}
-                  </p>
-                  <p
-                    className="table-remarks"
-                    style={{
-                      marginLeft: '44.5%',
-                      marginTop: '-3.3%',
-                      position: 'absolute',
-                      width: '100%',
-                    }}
-                  >
-                    {' '}
-                    {item.Comments}
-                  </p>
-                </div>
+                <p
+                  style={{
+                    marginLeft: '0.5%',
+                    fontWeight: 'bold',
+                    marginTop: '-0.5%',
+                    width: '100%',
+                  }}
+                >
+                  {item.Comments}
+                </p>
               </div>
             </div>
           ))}
@@ -112,7 +102,7 @@ const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedR
             <div className="totals-wrape">
               <div className="values">
                 <div className="total-caption">{t('total')}</div>
-                <div style={{ textAlign: 'right', marginLeft: '27%' }} className="Debit">
+                <div style={{ textAlign: 'right', marginLeft: '44%' }} className="Debit">
                   {totalDebit > 0 ? numberFormatter(totalDebit) : 0}
                 </div>
                 <div style={{ textAlign: 'right' }} className="Credit">
@@ -126,57 +116,83 @@ const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedR
 
       <Row>
         <Col
-          span={8}
+          xl={5}
+          lg={5}
+          md={5}
+          sm={6}
+          xs={6}
           style={{
-            display: 'flex',
-            textAlignLast: 'center',
-            flexDirection: 'column',
+            textAlign: 'center',
             marginTop: '2%',
           }}
         >
-          <div style={{ color: '#5a54f9', fontWeight: 'bold' }}>{t('prepared_by')}:</div>
+          <div style={{ fontWeight: 'bold' }}>{t('prepared_by')}:</div>
           <div>
-            <img className="Img" src={table?.data?.Data?.Result?.[0]?.EntryUserProfileImageUrl}></img>
+            <Image
+              className="Img"
+              src={'data:image/jpeg;base64,' + table?.data?.Data?.Result?.[0]?.EntryUserProfileImageUrl}
+              style={{ width: '4rem', height: '4rem' }}
+            />
           </div>
           <div>
             <p>{table?.data?.Data?.Result?.[0]?.UserName}</p>
           </div>
         </Col>
         <Col
-          span={8}
+          xl={4}
+          lg={4}
+          md={4}
+          sm={5}
+          xs={6}
           style={{
-            display: 'flex',
-            textAlignLast: 'center',
-            flexDirection: 'column',
+            textAlign: 'center',
             marginTop: '2%',
           }}
         >
-          <div style={{ color: '#5a54f9', fontWeight: 'bold' }}>{t('approved_by')}:</div>
+          <div style={{ fontWeight: 'bold' }}>{t('approved_by')}:</div>
           <div>
-            <img className="Img" src={table?.data?.Data?.Result?.[0]?.ApprovalUserProfileImageUrl}></img>
+            <Image
+              className="Img"
+              src={'data:image/jpeg;base64,' + table?.data?.Data?.Result?.[0]?.ApprovalUserProfileImageUrl}
+              style={{ width: '4rem', height: '4rem' }}
+            />
           </div>
           <p>{table?.data?.Data?.Result?.[0]?.UserName}</p>
         </Col>
         <Col
-          span={8}
+          xl={4}
+          lg={4}
+          md={4}
+          sm={5}
+          xs={6}
           style={{
-            display: 'flex',
-            textAlignLast: 'center',
-            flexDirection: 'column',
+            textAlign: 'center',
             marginTop: '2%',
           }}
         >
-          <div style={{ color: '#5a54f9', fontWeight: 'bold' }}>{t('modify_user')}:</div>
+          <div style={{ fontWeight: 'bold' }}>{t('modify_user')}:</div>
           <div>
-            <img
+            <Image
               className="Img"
-              // src={'file://C:UsershpPictures.bg33-1.jpg'}
-              src={table?.data?.Data?.Result?.[0]?.ModifyUserProfileImageUrl}
-            ></img>
+              src={'data:image/jpeg;base64,' + table?.data?.Data?.Result?.[0]?.ModifyUserProfileImageUrl}
+              style={{ width: '4rem', height: '4rem' }}
+            />
           </div>
           <div>
             <p>{table?.data?.Data?.Result?.[0]?.UserName}</p>
           </div>
+        </Col>
+        <Col xl={11} lg={11} md={11} sm={24} xs={24}>
+          <Col style={{ marginTop: '2%' }}>
+            <div className="grand-total-wrape">
+              <div className="grand-totals">
+                <div className="calculate-wrape grand-total">
+                  <div className="total-caption"> {t('voucher_amount')} </div>
+                  <div className="total-value">{numberFormatter(data?.data?.Data?.Result?.VoucherAmount)}</div>
+                </div>
+              </div>
+            </div>
+          </Col>
         </Col>
       </Row>
       <br />

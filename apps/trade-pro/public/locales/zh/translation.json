@@ -286,7 +286,7 @@
   "company": "公司",
   "branch": "分支",
   "project": "项目",
-  "voucher_type": "优惠券类型：",
+  "voucher_type": "优惠券类型",
   "voucher_date": "凭证日期",
   "cheque_date": "检查日期",
   "pay_title": "付费头衔",
@@ -513,5 +513,6 @@
   "cash_receipt_voucher": "现金收据券",
   "bank_receipt_voucher": "银行收据凭证",
   "against_ac": "对抗帐户",
-  "journal_voucher": "记账凭证"
+  "journal_voucher": "记账凭证",
+  "req_status": "请求状态"
 }

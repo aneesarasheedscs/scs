@@ -88,12 +88,12 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
     const newSortOrder = sortOrderAmount === 'asc' ? 'desc' : 'asc';
     setSortOrderAmount(newSortOrder);
 
-    // const sortedRecords = [...(records || [])].sort((a, b) => {
-    //   const comparison = newSortOrder === 'asc' ? 1 : -1;
-    //   return a.IssuedAmount > b.IssuedAmount ? comparison : -comparison;
-    // });
+    const sortedRecords = [...(records || [])].sort((a, b) => {
+      const comparison = newSortOrder === 'asc' ? 1 : -1;
+      return a.IssuedAmount > b.IssuedAmount ? comparison : -comparison;
+    });
 
-    // setRecords(sortedRecords);
+    setRecords(sortedRecords);
   };
 
   const handleSearch = (value: any) => {
@@ -112,7 +112,7 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
   return (
     <div>
       <Row className="row1" style={{ border: '', width: '', height: '100%' }}>
-        <Col lg={{ span: 8 }} xl={6} xxl={6} sm={{ span: 24 }} className="columns">
+        <Col lg={{ span: 12 }} md={12} xl={6} xxl={6} sm={{ span: 24 }} className="columns">
           <Row className="col" align="middle">
             <Search onChange={(e) => handleSearch(e.target.value)} placeholder="Filter" />
           </Row>
@@ -190,14 +190,14 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
               <Col xs={16} sm={16} className="columns">
                 <div className="main-voucher-design" id="Rice_Invoice_Main_Box">
                   <div className="row">
-                    <Row>
+                    <Row gutter={10}>
                       <Col
                         xs={{ span: 6 }}
                         sm={{ span: 5 }}
                         md={{ span: 4 }}
                         lg={{ span: 6 }}
                         xl={{ span: 4 }}
-                        xxl={{ span: 3 }}
+                        xxl={{ span: 2 }}
                       >
                         <div
                           style={{
@@ -224,12 +224,12 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
                         xl={{ span: 20 }}
                         xxl={{ span: 20 }}
                       >
-                        <div>
+                        <div style={{ marginLeft: 10 }}>
                           <div className="">
-                            <div style={{ fontSize: '1.5rem', color: 'green', textAlign: 'left' }}>
+                            <div style={{ fontSize: '1.5rem', color: 'green', fontWeight: 'bold', textAlign: 'left' }}>
                               {userDetail?.CompanyName}
                             </div>
-                            <div style={{ fontSize: '1.1rem', color: 'green', textAlign: 'left' }}>
+                            <div style={{ fontSize: '1rem', color: 'green', textAlign: 'left' }}>
                               {userDetail?.CompanyAddress}
                             </div>
                             <div style={{ fontSize: '0.8rem', color: 'green', textAlign: 'left' }}>
@@ -242,7 +242,7 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
                   </div>
 
                   <div className="Wrapper">
-                    <Col xxl={9} xl={12} lg={12} md={13} sm={14} style={{ marginTop: '0.5%' }}>
+                    <Col xxl={9} xl={11} lg={9} md={9} sm={10} style={{ marginTop: '0.5%' }}>
                       <div className="">
                         <div className="caption-value-wrape">
                           <div className="caption">{t('doc_no')} #</div>
@@ -256,29 +256,28 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
                         <div className="caption-value-wrape">
                           <div className="caption">{t('qty')}:</div>
                           <div className="value">
-                            {/* {selectedCardData?.IssuedQty > 0 ? numberFormatter(selectedCardData?.IssuedQty) : 0} */}
+                            {selectedCardData?.IssuedQty > 0 ? numberFormatter(selectedCardData?.IssuedQty) : 0}
                           </div>
                         </div>
 
                         <div className="caption-value-wrape">
                           <div className="caption">{t('remarks')}:</div>
                           <div className="value">
-                            <div
-                              // style={{
-                              //   marginLeft: '1.4rem',
-                              //   textAlign: 'center',
-                              //   width: '100%',
-                              // }}
-                              className="value"
-                            >
-                              {selectedCardData?.RemarksHeader}
-                            </div>
+                            <div className="value">{selectedCardData?.RemarksHeader}</div>
                           </div>
                         </div>
                       </div>
                     </Col>
-                    <Col xxl={7} xl={5}></Col>
-                    <Col xxl={9} xl={9} lg={9} md={9} sm={10} style={{ marginTop: '0.5%' }}>
+                    <Col xxl={7} xl={5} lg={8} md={7}>
+                      <div className="">
+                        <div className="caption-value-wrape">
+                          <div className="voucher_Account_title">
+                            <div className="Account_title">{selectedCardData?.EntryUser}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </Col>
+                    <Col xxl={9} xl={10} lg={9} md={9} sm={10} style={{ marginTop: '0.5%' }}>
                       <div className="">
                         <div
                           style={{ display: 'flex', justifyContent: 'space-between' }}
@@ -302,12 +301,12 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
                         >
                           <div className="caption">{t('amount')}:</div>
                           <div className="value">
-                            {/* {selectedCardData?.IssuedAmount > 0 ? numberFormatter(selectedCardData?.IssuedAmount) : 0} */}
+                            {selectedCardData?.IssuedAmount > 0 ? numberFormatter(selectedCardData?.IssuedAmount) : 0}
                           </div>
                         </div>
                       </div>
                       <div className="caption-value-wrape">
-                        <div className="caption">{t('request_status')}:</div>
+                        <div className="caption">{t('req_status')}:</div>
                         <div className="value">{selectedCardData?.RequestStatus}</div>
                       </div>
                     </Col>

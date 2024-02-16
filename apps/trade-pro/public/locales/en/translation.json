@@ -293,7 +293,7 @@
   "debit_account": "Debit Account",
   "voucher_no": "Voucher No",
   "project": "Project",
-  "voucher_type": "Voucher Type:",
+  "voucher_type": "Voucher Type",
   "voucher_date": "Voucher Date",
   "pay_title": "Pay Title",
   "credit_account": "Credit Account",
@@ -704,5 +704,6 @@
   "collapse": "Collapse",
   "expand": "Expand",
   "journal_voucher": "Journal Voucher",
-  "offset_account": "Offset Account"
+  "offset_account": "Offset Account",
+  "req_status": "Request Status"
 }
