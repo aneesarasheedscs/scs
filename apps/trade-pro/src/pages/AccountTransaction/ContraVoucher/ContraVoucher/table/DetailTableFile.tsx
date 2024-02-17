@@ -1,31 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import { numberFormatter } from '@tradePro/utils/numberFormatter';
+import './DetailTableFile.scss';
 import { Row, Col, theme, Image } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { isNumber } from 'lodash';
-import { useGetContraVoucherTable } from '../queries/queries';
-import { useGetContraVoucherById } from '../queries/querySave';
+import React, { useEffect, useState } from 'react';
 import { TContraDetailEntry } from '../form/types';
-import './DetailTableFile.scss';
-const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedRecordId }) => {
+import { useGetContraVoucherById } from '../queries/querySave';
+import { numberFormatter } from '@tradePro/utils/numberFormatter';
+
+const Tablefile: React.FC<{ selectedRecordId?: number | null; voucherData: any }> = ({
+  selectedRecordId,
+  voucherData,
+}) => {
   const { t } = useTranslation();
-  const { data: table } = useGetContraVoucherTable();
   const { data, isLoading, isSuccess } = useGetContraVoucherById(selectedRecordId);
-  const voucherData = data?.data?.Data?.Result?.voucherDetailList;
+  const voucherDetailData = data?.data?.Data?.Result?.voucherDetailList;
   const [mainDataSource, setMainDataSource] = useState<TContraDetailEntry[]>([]);
   console.log(data?.data?.Data?.Result.IncludeWHT);
 
   useEffect(() => {
     if (isSuccess && !isLoading) {
-      setMainDataSource(voucherData);
+      setMainDataSource(voucherDetailData);
     }
   }, [isSuccess, !isLoading]);
 
-  const totalDebit = voucherData?.reduce((total: number, item: any) => total + item.DebitAmount, 0) || 0;
-  const totalCredit = voucherData?.reduce((total: number, item: any) => total + item.CreditAmount, 0) || 0;
+  const totalDebit = voucherDetailData?.reduce((total: number, item: any) => total + item.DebitAmount, 0) || 0;
+  const totalCredit = voucherDetailData?.reduce((total: number, item: any) => total + item.CreditAmount, 0) || 0;
 
   console.log(data?.data?.Data?.Result);
-  console.log(table?.data?.Data?.Result?.[0]?.ModifyUserProfileImageUrl);
   const {
     token: { colorPrimary },
   } = theme.useToken();
@@ -53,7 +53,7 @@ const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedR
             </div>
           </div>
 
-          {voucherData?.map((item: TContraDetailEntry, index: number) => (
+          {voucherDetailData?.map((item: TContraDetailEntry, index: number) => (
             <div className={`table-data ${index % 2 === 0 ? '' : 'alternate'}`} key={index}>
               <div className="table-Row">
                 <div className="AccountCode" title="Click to View General Ledger">
@@ -124,12 +124,12 @@ const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedR
           <div>
             <Image
               className="Img"
-              src={'data:image/jpeg;base64,' + table?.data?.Data?.Result?.[0]?.EntryUserProfileImageUrl}
+              src={'data:image/jpeg;base64,' + voucherData?.[0]?.EntryUserProfileImageUrl}
               style={{ width: '4rem', height: '4rem' }}
             />
           </div>
           <div>
-            <p>{table?.data?.Data?.Result?.[0]?.UserName}</p>
+            <p>{voucherData?.[0]?.UserName}</p>
           </div>
         </Col>
         <Col
@@ -147,11 +147,11 @@ const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedR
           <div>
             <Image
               className="Img"
-              src={'data:image/jpeg;base64,' + table?.data?.Data?.Result?.[0]?.ApprovalUserProfileImageUrl}
+              src={'data:image/jpeg;base64,' + voucherData?.[0]?.ApprovalUserProfileImageUrl}
               style={{ width: '4rem', height: '4rem' }}
             />
           </div>
-          <p>{table?.data?.Data?.Result?.[0]?.UserName}</p>
+          <p>{voucherData?.[0]?.UserName}</p>
         </Col>
         <Col
           xl={4}
@@ -168,12 +168,12 @@ const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedR
           <div>
             <Image
               className="Img"
-              src={'data:image/jpeg;base64,' + table?.data?.Data?.Result?.[0]?.ModifyUserProfileImageUrl}
+              src={'data:image/jpeg;base64,' + voucherData?.[0]?.ModifyUserProfileImageUrl}
               style={{ width: '4rem', height: '4rem' }}
             />
           </div>
           <div>
-            <p>{table?.data?.Data?.Result?.[0]?.UserName}</p>
+            <p>{voucherData?.[0]?.UserName}</p>
           </div>
         </Col>
         <Col xl={11} lg={11} md={11} sm={24} xs={24}>

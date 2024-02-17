@@ -1,3 +1,7 @@
+import './Card.scss';
+import './DetailTableFile.scss';
+import { useState } from 'react';
+import CardView from './CardView';
 import { Col, Row, theme } from 'antd';
 import { columns } from './columns';
 import { AntButton, AntTable } from '@tradePro/components';
@@ -5,7 +9,6 @@ import { useTranslation } from 'react-i18next';
 import { useGetJournalVocherHistory } from '../../quries';
 import JournalVoucherDetailTable from '../JournalVoucherDetail';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
-import { useState } from 'react';
 
 function JournalVoucherTable({
   setSelectedRecordId,
@@ -31,7 +34,7 @@ function JournalVoucherTable({
   return (
     <>
       <Row gutter={10}>
-        <Col span={18} style={{ marginLeft: '0.5%', borderTop: '1px solid #dfdfdf' }}>
+        <Col span={showComponent ? 24 : 18} style={{ marginLeft: '0.5%', borderTop: '1px solid #dfdfdf' }}>
           <AntButton
             onClick={toggleGridView}
             className=""
@@ -57,7 +60,9 @@ function JournalVoucherTable({
           />
         </Col>
         {showComponent ? (
-          <>{/* <CardView /> */}</>
+          <>
+            <CardView setSelectedRecordId={setSelectedRecordId} setActiveTab={setActiveTab} />{' '}
+          </>
         ) : (
           <Col span={24}>
             <Row style={{}}>

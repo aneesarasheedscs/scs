@@ -5,33 +5,36 @@ import Search from 'antd/es/input/Search';
 import { useTranslation } from 'react-i18next';
 import { Card, Col, Image, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { TBankPaymentVoucherTable } from './types';
+import { useGetJournalVocherHistory } from '../../quries';
+import { TJournalVoucherHistory } from '../../types';
 import { formateDate } from '@tradePro/utils/formateDate';
-import { storedUserDetail } from '@tradePro/utils/storageService';
-import { useGetBankPaymentVoucherTable } from '../queries/queries';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
+import { storedUserDetail } from '@tradePro/utils/storageService';
 import { SortAscendingOutlined, SortDescendingOutlined, HeartFilled } from '@ant-design/icons';
 
-const CardView: React.FC<{ setSelectedRecordId: (id: number | null) => void; setActiveTab: (tab: string) => void }> = ({
-  setSelectedRecordId,
-  setActiveTab,
-}) => {
+interface Props {
+  setSelectedRecordId: (Id: number | null) => void;
+  setActiveTab: (tab: string) => void;
+  setSelectedRecordDetailId: (Id: number | null) => void;
+}
+const CardView: React.FC<any> = ({ setSelectedRecordId, setActiveTab }: Props) => {
   const { t } = useTranslation();
-  const { data } = useGetBankPaymentVoucherTable();
+  const { data } = useGetJournalVocherHistory();
   const voucherData = data?.data?.Data?.Result;
   console.log(data?.data?.Data?.Result);
-  const [records, setRecords] = useState<TBankPaymentVoucherTable[]>([]);
-  const [selectedCardData, setSelectedCardData] = useState<TBankPaymentVoucherTable>();
+  const [records, setRecords] = useState<TJournalVoucherHistory[]>([]);
+  const [selectedCardData, setSelectedCardData] = useState<TJournalVoucherHistory>();
   console.log(selectedCardData);
   const totalRecords = data?.data?.Data?.Result.length || 0;
   const userDetail = storedUserDetail();
   const selectedRecordId = selectedCardData?.Id;
-
+  console.log(selectedRecordId);
+  console.log('data', selectedCardData?.CompLogoImage);
   const handleSearch = (value: any) => {
     console.log(value);
     const trimmedValue = value.trim();
-    const filteredRecords = voucherData?.filter((record: TBankPaymentVoucherTable) => {
-      return record.AccountTitle.toLowerCase().includes(trimmedValue.toLowerCase());
+    const filteredRecords = voucherData?.filter((record: TJournalVoucherHistory) => {
+      return record.UserName.toLowerCase().includes(trimmedValue.toLowerCase());
     });
     setRecords(filteredRecords || []);
     if (!filteredRecords || filteredRecords.length === 0) {
@@ -74,8 +77,8 @@ const CardView: React.FC<{ setSelectedRecordId: (id: number | null) => void; set
     setSortOrderEntryUser(newSortOrder);
 
     const sortedRecords = [...(records || [])].sort((a, b) => {
-      const entryUserA = a.AccountTitle.toLowerCase();
-      const entryUserB = b.AccountTitle.toLowerCase();
+      const entryUserA = a.UserName.toLowerCase();
+      const entryUserB = b.UserName.toLowerCase();
 
       return newSortOrder === 'asc' ? entryUserA.localeCompare(entryUserB) : entryUserB.localeCompare(entryUserA);
     });
@@ -97,7 +100,6 @@ const CardView: React.FC<{ setSelectedRecordId: (id: number | null) => void; set
   useEffect(() => {
     setRecords(voucherData);
   }, [voucherData]);
-
   return (
     <>
       <Row className="row1">
@@ -116,7 +118,7 @@ const CardView: React.FC<{ setSelectedRecordId: (id: number | null) => void; set
               <SortDescendingOutlined onClick={() => handleSortVoucherDate()} />
             </Col>
             <Col lg={{ span: 5 }} md={{ span: 6 }} sm={{ span: 6 }} className="column">
-              {t('account')}
+              Ent {t('user')}
               <SortAscendingOutlined onClick={() => handleSortAccount()} />
               <SortDescendingOutlined onClick={() => handleSortAccount()} />
             </Col>
@@ -125,7 +127,7 @@ const CardView: React.FC<{ setSelectedRecordId: (id: number | null) => void; set
               <SortDescendingOutlined onClick={() => handleSortAmount()} />
             </Col>
           </Row>
-          <div style={{ backgroundColor: ' #d6d6e7', maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
+          <div style={{ backgroundColor: ' #d6d6e7', maxHeight: 'calc(100vh - 300px)', overflowY: 'auto' }}>
             <Row
               gutter={[16, 16]}
               style={{
@@ -133,7 +135,7 @@ const CardView: React.FC<{ setSelectedRecordId: (id: number | null) => void; set
                 width: '99%',
               }}
             >
-              {records?.map((card: TBankPaymentVoucherTable | any) => (
+              {records?.map((card: TJournalVoucherHistory | any) => (
                 <Col span={24} key={card.Id}>
                   <Card className="singleCard" onClick={() => setSelectedCardData(card)}>
                     <Row justify={'space-between'} style={{ marginTop: '-3%' }}>
@@ -146,7 +148,7 @@ const CardView: React.FC<{ setSelectedRecordId: (id: number | null) => void; set
                     </Row>
 
                     <Row justify={'space-between'} style={{ marginTop: '3%' }}>
-                      <h3 style={{ width: '' }}>{card.AccountTitle}</h3>
+                      <h3 style={{ width: '' }}>{card.UserName}</h3>
 
                       <h3 style={{ textAlign: 'right' }}>{numberFormatter(card.VoucherAmount)}</h3>
                       <h4 style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '1%' }}>
@@ -175,7 +177,7 @@ const CardView: React.FC<{ setSelectedRecordId: (id: number | null) => void; set
         </Col>
 
         {selectedCardData && (
-          <Col lg={{ span: 24 }} md={24} xl={17} xxl={18} xs={24} className="columns">
+          <Col lg={{ span: 24 }} md={24} xl={17} xxl={18} xs={24} sm={{ span: 24 }} className="columns">
             <Buttons
               selectedRecordId={selectedRecordId}
               setSelectedRecordId={setSelectedRecordId}
@@ -220,7 +222,7 @@ const CardView: React.FC<{ setSelectedRecordId: (id: number | null) => void; set
                         xl={{ span: 20 }}
                         xxl={{ span: 20 }}
                       >
-                        <div>
+                        <div style={{ marginLeft: 10 }}>
                           <div className="">
                             <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'green', textAlign: 'left' }}>
                               {userDetail?.CompanyName}
@@ -241,30 +243,30 @@ const CardView: React.FC<{ setSelectedRecordId: (id: number | null) => void; set
                     <Col span={7}>
                       <div className="">
                         <div className="caption-value-wrape">
-                          <div className="caption">{t('voucher_type')}</div>
+                          <div className="caption">{t('voucher_type')}:</div>
                           <div className="value">{selectedCardData?.DocumentTypeCode}</div>
                         </div>
                         <div className="caption-value-wrape">
-                          <div className="caption">{t('voucher_date')}</div>
+                          <div className="caption">{t('voucher_date')}:</div>
                           <div className="value">
                             {selectedCardData ? dayjs(selectedCardData.VoucherDate).format('YYYY-MM-DD') : ''}
                           </div>
                         </div>
 
                         <div className="caption-value-wrape">
-                          <div className="caption">{t('voucher_code')}</div>
+                          <div className="caption">{t('voucher_code')}:</div>
                           <div className="value">{selectedCardData?.VoucherCode}</div>
                         </div>
 
                         <div className="caption-value-wrape">
-                          <div className="caption">{t('total_amount')}</div>
+                          <div className="caption">{t('total_amount')}:</div>
                           <div className="value">
                             {selectedCardData?.VoucherAmount > 0 ? numberFormatter(selectedCardData?.VoucherAmount) : 0}
                           </div>
                         </div>
 
                         <div className="caption-value-wrape">
-                          <div className="caption">{t('remarks')}</div>
+                          <div className="caption">{t('remarks')}:</div>
                           <div className="value">
                             <div>{selectedCardData?.Remarks}</div>
                           </div>
@@ -275,7 +277,7 @@ const CardView: React.FC<{ setSelectedRecordId: (id: number | null) => void; set
                       <div className="">
                         <div className="caption-value-wrape">
                           <div className="voucher_Account_title">
-                            <div className="Account_title">{selectedCardData?.AccountTitle}</div>
+                            <div className="Account_title">{selectedCardData?.UserName}</div>
                           </div>
                         </div>
                       </div>
@@ -286,21 +288,21 @@ const CardView: React.FC<{ setSelectedRecordId: (id: number | null) => void; set
                           style={{ display: 'flex', justifyContent: 'space-between' }}
                           className="caption-value-wrape"
                         >
-                          <div className="caption">{t('payee_title')}</div>
-                          <div className="value">{selectedCardData?.PayeeTitle}</div>
+                          <div className="caption">{t('payee_title')}:</div>
+                          <div className="value">{selectedCardData?.PayTitle}</div>
                         </div>
                         <div
                           style={{ display: 'flex', justifyContent: 'space-between' }}
                           className="caption-value-wrape"
                         >
-                          <div className="caption">{t('cheque_no')}</div>
+                          <div className="caption">{t('cheque_no')}:</div>
                           <div className="value">{selectedCardData?.CheqNo}</div>
                         </div>
                         <div
                           style={{ display: 'flex', justifyContent: 'space-between' }}
                           className="caption-value-wrape"
                         >
-                          <div className="caption">{t('cheque_date')}</div>
+                          <div className="caption">{t('cheque_date')}:</div>
                           <div className="value">
                             {selectedCardData ? dayjs(selectedCardData.ChequeDate).format('YYYY-MM-DD') : ''}
                           </div>

@@ -61,7 +61,7 @@ function CashReceiptTable({
         </Col>
 
         {showComponent ? (
-          <CardView />
+          <CardView setSelectedRecordId={setSelectedRecordId} setActiveTab={setActiveTab} />
         ) : (
           <Col>
             <>

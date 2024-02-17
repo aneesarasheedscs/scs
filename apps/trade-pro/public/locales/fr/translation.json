@@ -514,5 +514,7 @@
   "bank_receipt_voucher": "Bon de reçu bancaire",
   "against_ac": "Contre compte",
   "journal_voucher": "Bon de journal",
-  "req_status": "Statut de la demande"
+  "req_status": "Statut de la demande",
+  "user": "Utilisateur",
+  "tax_percent": "Pourcentage d'impôt"
 }

@@ -1,5 +1,5 @@
 export type TCashPaymentVoucherTable = {
-  Id: string;
+  Id: number;
   VoucherCode: number;
   DocumentTypeId: string;
   DocumentTypeCode: string;
@@ -11,7 +11,19 @@ export type TCashPaymentVoucherTable = {
   UserName: string;
   CheqNo: string;
   Debit: number;
+
+  TaxAmount: number;
+  TaxPrcnt: number;
+  TaxName: string;
+  TaxAccount: string;
+  CustomerAddress: string;
+  EntryUserProfileImageUrl: string;
+  ModifyUserProfileImageUrl: string;
+  ApprovalUserProfileImageUrl: string;
+  CompLogoImage: string;
+  ChequeDate: Date | string;
   EntryDate: Date | string;
+  PayeeTitle: string;
 };
 
 export type TCashHistory = {

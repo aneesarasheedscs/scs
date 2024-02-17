@@ -521,5 +521,7 @@
   "bank_receipt_voucher": "قسيمة إيصال البنك",
   "against_ac": "ضد الحساب",
   "journal_voucher": "قسيمة المجلة",
-  "req_status": "حالة الطلب"
+  "req_status": "حالة الطلب",
+  "user": "مستخدم",
+  "tax_percent": "نسبة الضريبة"
 }

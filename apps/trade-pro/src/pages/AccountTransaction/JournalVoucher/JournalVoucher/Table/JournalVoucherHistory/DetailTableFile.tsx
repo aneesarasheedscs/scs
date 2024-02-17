@@ -1,8 +1,8 @@
+import React, { useEffect, useState } from 'react';
 import { Row, Col, theme, Image } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { TExpenseDetailEntry } from '../form/types';
-import React, { useEffect, useState } from 'react';
-import { useGetExpenseVoucherById } from '../queries/querySave';
+import { TVoucherDetailList } from '../../types';
+import { useGetJournalVoucherById } from '../../quries';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
 
 const Tablefile: React.FC<{ selectedRecordId?: number | null; voucherData: any }> = ({
@@ -10,9 +10,9 @@ const Tablefile: React.FC<{ selectedRecordId?: number | null; voucherData: any }
   voucherData,
 }) => {
   const { t } = useTranslation();
-  const { data, isLoading, isSuccess } = useGetExpenseVoucherById(selectedRecordId);
+  const { data, isLoading, isSuccess } = useGetJournalVoucherById(selectedRecordId);
   const voucherDetailData = data?.data?.Data?.Result?.voucherDetailList;
-  const [mainDataSource, setMainDataSource] = useState<TExpenseDetailEntry[]>([]);
+  const [mainDataSource, setMainDataSource] = useState<TVoucherDetailList[]>([]);
   console.log(data?.data?.Data?.Result.IncludeWHT);
 
   useEffect(() => {
@@ -34,15 +34,17 @@ const Tablefile: React.FC<{ selectedRecordId?: number | null; voucherData: any }
       <div className="Detail-wrape">
         <div className="Table">
           <div className="table-header">
-            <div className="Account">{t('account_code')}</div>
-            <div className="Account" style={{ marginLeft: '-1%' }}>
+            <div className="Account" style={{}}>
               {t('account_title')}
             </div>
-            <div style={{ marginLeft: '4%' }} className="offset_Account">
+            <div style={{}} className="offset_Account">
               {t('offset_account')}
             </div>
-            <div style={{ marginLeft: '10%' }} className="jobLOt">
-              {t('job_lot')}
+            <div style={{}} className="jobLOt">
+              {t('cheque no')}
+            </div>
+            <div style={{ textAlign: 'left' }} className="Remarks">
+              {t('remarks')}
             </div>
             <div style={{ textAlign: 'right' }} className="Debit">
               {t('debit')}
@@ -52,16 +54,9 @@ const Tablefile: React.FC<{ selectedRecordId?: number | null; voucherData: any }
             </div>
           </div>
 
-          {voucherDetailData?.map((item: TExpenseDetailEntry, index: number) => (
+          {voucherDetailData?.map((item: TVoucherDetailList, index: number) => (
             <div className={`table-data ${index % 2 === 0 ? '' : 'alternate'}`} key={index}>
               <div className="table-Row">
-                <div
-                  className="Account"
-                  title="Click to View General Ledger"
-                  style={{ color: 'blue', cursor: 'pointer', fontWeight: 'bold' }}
-                >
-                  {item.AccountCode}
-                </div>
                 <div
                   className="Account"
                   title="Click to View General Ledger"
@@ -70,12 +65,15 @@ const Tablefile: React.FC<{ selectedRecordId?: number | null; voucherData: any }
                   {item.AccountTitle}
                 </div>
 
-                <div className="offset_Account" style={{ fontWeight: 'bold', marginLeft: '5%' }}>
+                <div className="offset_Account" style={{ fontWeight: 'bold' }}>
                   {item.AgainstAccount}
                 </div>
 
-                <div style={{ marginLeft: '-9%' }} className="jobLOt">
-                  {item.JobLotDescription}
+                <div style={{ textAlign: 'center' }} className="jobLOt">
+                  {item.CheqNoDetail}
+                </div>
+                <div style={{ textAlign: 'left', marginLeft: '1%' }} className="Remarks">
+                  {item.Comments}
                 </div>
                 <div style={{ textAlign: 'right' }} className="Debit">
                   {item.DebitAmount > 0 ? numberFormatter(item.DebitAmount) : 0}
@@ -84,25 +82,13 @@ const Tablefile: React.FC<{ selectedRecordId?: number | null; voucherData: any }
                   {item.CreditAmount > 0 ? numberFormatter(item.CreditAmount) : 0}
                 </div>
               </div>
-              <div className="table-row">
-                <p
-                  style={{
-                    marginLeft: '0.5%',
-                    fontWeight: 'bold',
-                    marginTop: '-0.5%',
-                    width: '100%',
-                  }}
-                >
-                  {item.Comments}
-                </p>
-              </div>
             </div>
           ))}
           <div style={{ marginTop: '1%' }} className="table-Footer">
             <div className="totals-wrape">
               <div className="values">
-                <div className="total-caption">{t('total')}</div>
-                <div style={{ textAlign: 'right', marginLeft: '44%' }} className="Debit">
+                <div className="total-caption">{t('totals')}</div>
+                <div style={{ textAlign: 'right', marginLeft: '28%' }} className="Debit">
                   {totalDebit > 0 ? numberFormatter(totalDebit) : 0}
                 </div>
                 <div style={{ textAlign: 'right' }} className="Credit">

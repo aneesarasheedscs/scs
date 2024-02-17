@@ -60,6 +60,36 @@ $background-color-invoice: #25a7df;
   font-size: 16px;
 }
 
+.filter {
+  color: #fff;
+  background: #5a54f9;
+  position: absolute;
+  right: 35px;
+  top: 13px;
+  width: 4%;
+  border-radius: 5px;
+  height: 20px;
+  font-size: 20px;
+  padding: 5px;
+  z-index: 1;
+}
+
+.btn {
+  background-color: #5a54f9;
+  border-radius: 4px;
+  color: white;
+  box-shadow: white 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px,
+    #d6d6e7 0 -3px 0 inset;
+
+  transition: box-shadow 0.15s, transform 0.15s;
+
+  will-change: box-shadow, transform;
+}
+
+.btn:active {
+  box-shadow: #d6d6e7 0 3px 7px inset;
+  transform: translateY(2px);
+}
 .firstTitle {
   margin-top: 3%;
   background-color: #f1f1f1;
@@ -116,7 +146,10 @@ $background-color-invoice: #25a7df;
 
   border-top-left-radius: 44px;
 }
-
+.pending {
+  color: #5a54f9;
+  font-weight: 700;
+}
 .form {
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
     rgba(0, 0, 0, 0.2) 0px -3px 0px inset;

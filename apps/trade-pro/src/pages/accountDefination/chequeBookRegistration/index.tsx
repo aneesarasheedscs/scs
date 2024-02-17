@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import ChequeBookTable from './table/chequeBookRegistrationTable';
 import './style.scss';
 import ChequeForm from './form';
-import ChequeBookStatusTable from '../chequeBookStatus/table/chequeBookStatusTable';
 import ChequeStatusForm from '../chequeBookStatus/form';
 
 function ChequeBookForm() {

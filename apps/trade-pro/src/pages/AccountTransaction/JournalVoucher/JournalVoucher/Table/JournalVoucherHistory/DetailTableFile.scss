@@ -82,21 +82,8 @@ $background-color-company_info: #e1e1e1;
     font-weight: 700;
     background-color: var(--color-primary);
 
-    .show-hide-icon {
-      display: block;
-      margin-top: -1px;
-      font-size: 18px;
-      padding: 0px 8px;
-      cursor: pointer;
-
-      @media screen and (max-width: 1250px) {
-        margin-top: 0px;
-        font-size: 12px;
-      }
-    }
-
     .Account {
-      width: 30%;
+      width: 25%;
 
       @media screen and (max-width: 1250px) {
         font-size: 12px;
@@ -122,25 +109,20 @@ $background-color-company_info: #e1e1e1;
         font-size: 12px;
       }
     }
+    .Remarks {
+      width: 25%;
+      word-break: break-word;
+      @media screen and (max-width: 1250px) {
+        font-size: 12px;
+      }
+    }
   }
   .table-Row {
     padding: 7px;
     display: flex;
 
-    .show-hide-icon {
-      display: block;
-      margin-top: -1px;
-      font-size: 18px;
-      padding: 0px 8px;
-      color: black;
-      cursor: pointer;
-      @media screen and (max-width: 1250px) {
-        margin-top: 0px;
-        font-size: 12px;
-      }
-    }
     .Account {
-      width: 30%;
+      width: 25%;
       color: blue;
       font-weight: bold;
       cursor: pointer;
@@ -148,17 +130,9 @@ $background-color-company_info: #e1e1e1;
         font-size: 12px;
       }
     }
-    .AccountCode {
-      width: 30%;
-      color: blue;
-      font-weight: bold;
-      cursor: pointer;
-      @media screen and (max-width: 1250px) {
-        font-size: 12px;
-      }
-    }
+
     .offset_Account {
-      width: 50%;
+      width: 20%;
       // color: var(--color-primary);
       font-weight: bold;
       cursor: pointer;
@@ -180,8 +154,14 @@ $background-color-company_info: #e1e1e1;
         font-size: 12px;
       }
     }
+    .Remarks {
+      width: 25%;
+      word-break: break-word;
+      @media screen and (max-width: 1250px) {
+        font-size: 12px;
+      }
+    }
   }
-
   .table-Footer {
     .totals-wrape {
       .values {
@@ -323,9 +303,8 @@ $background-color-company_info: #e1e1e1;
   border: 1px solid var(--color-primary);
 }
 .Wht-Title {
-  font-size: 18px;
-  color: black;
-  font-weight: bold;
+  font-size: 17px;
+  color: #5a54f9;
 }
 .Wht-Value {
   font-size: 17px;

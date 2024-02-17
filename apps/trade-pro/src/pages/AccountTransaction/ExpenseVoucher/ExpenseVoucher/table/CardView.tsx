@@ -1,16 +1,17 @@
-import { Card, Col, Image, Row } from 'antd';
-import { SortAscendingOutlined, SortDescendingOutlined, HeartFilled } from '@ant-design/icons';
-import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
-import { formateDate } from '@tradePro/utils/formateDate';
-import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import Search from 'antd/es/input/Search';
-import { useTranslation } from 'react-i18next';
-import { storedUserDetail } from '@tradePro/utils/storageService';
 import Buttons from './Buttons';
 import Tablefile from './DetailTableFile';
-import { useGetExpenseVoucherTable } from '../queries/queries';
+import Search from 'antd/es/input/Search';
+import { useTranslation } from 'react-i18next';
+import { Card, Col, Image, Row } from 'antd';
 import { TExpenseVoucherHistory } from './types';
+import React, { useEffect, useState } from 'react';
+import { formateDate } from '@tradePro/utils/formateDate';
+import { useGetExpenseVoucherTable } from '../queries/queries';
+import { numberFormatter } from '@tradePro/utils/numberFormatter';
+import { storedUserDetail } from '@tradePro/utils/storageService';
+import { SortAscendingOutlined, SortDescendingOutlined, HeartFilled } from '@ant-design/icons';
+
 interface Props {
   setSelectedRecordId: (Id: number | null) => void;
   setActiveTab: (tab: string) => void;
@@ -126,7 +127,7 @@ const CardView: React.FC<any> = ({ setSelectedRecordId, setActiveTab }: Props) =
               <SortDescendingOutlined onClick={() => handleSortAmount()} />
             </Col>
           </Row>
-          <div style={{ backgroundColor: ' #d6d6e7', maxHeight: 'calc(114vh - 200px)', overflowY: 'auto' }}>
+          <div style={{ backgroundColor: ' #d6d6e7', maxHeight: 'calc(100vh - 300px)', overflowY: 'auto' }}>
             <Row
               gutter={[16, 16]}
               style={{
@@ -188,12 +189,13 @@ const CardView: React.FC<any> = ({ setSelectedRecordId, setActiveTab }: Props) =
                   <div className="row">
                     <Row>
                       <Col
-                        xs={{ span: 6 }}
-                        sm={{ span: 5 }}
+                        xs={{ span: 4 }}
+                        sm={{ span: 4 }}
                         md={{ span: 4 }}
-                        lg={{ span: 6 }}
-                        xl={{ span: 4 }}
+                        lg={{ span: 4 }}
+                        xl={{ span: 3 }}
                         xxl={{ span: 2 }}
+                        style={{ marginRight: '1%' }}
                       >
                         <div
                           style={{
@@ -213,9 +215,9 @@ const CardView: React.FC<any> = ({ setSelectedRecordId, setActiveTab }: Props) =
                         </div>
                       </Col>
                       <Col
-                        xs={{ span: 18 }}
-                        sm={{ span: 19 }}
-                        md={{ span: 20 }}
+                        xs={{ span: 24 }}
+                        sm={{ span: 24 }}
+                        md={{ span: 18 }}
                         lg={{ span: 18 }}
                         xl={{ span: 20 }}
                         xxl={{ span: 20 }}
@@ -309,13 +311,13 @@ const CardView: React.FC<any> = ({ setSelectedRecordId, setActiveTab }: Props) =
                       </div>
                     </Col>
                   </div>
-                  <Tablefile selectedRecordId={selectedRecordId} />
+                  <Tablefile selectedRecordId={selectedRecordId} voucherData={voucherData} />
                 </div>
               </Col>
             </Row>
           </Col>
         )}
-        <Col xl={{ span: 18, offset: 6 }} span={24}>
+        <Col xl={{ span: 17, offset: 7 }} xxl={{ span: 18, offset: 6 }} span={24}>
           <div className="Footer">
             <div className="Thanks">
               {t('thank_you')}{' '}

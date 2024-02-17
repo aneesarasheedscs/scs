@@ -1,12 +1,12 @@
 import './style.scss';
+import { useAtom } from 'jotai';
 import { useEffect, useState } from 'react';
-import { Card, Col, Row, Tabs, theme } from 'antd';
+import { Col, Row, Tabs, theme } from 'antd';
 import { useTranslation } from 'react-i18next';
 import BankReceiptVoucherForm from './form';
+import { viewDetailList } from './form/Atom';
 import BankReceiptTable from './table/bankReceiptVoucher';
 import { useGetBankReceiptVoucherById, useGetBankReceiptVoucherDetailById } from './queries/querySave';
-import { useAtom } from 'jotai';
-import { viewDetailList } from './form/Atom';
 
 function BankReceiptVoucher() {
   const { t } = useTranslation();

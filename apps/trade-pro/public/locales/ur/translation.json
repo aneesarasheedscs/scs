@@ -713,5 +713,7 @@
   "reveiables_ac_type": "وصول کرنے والے اے سی قسم",
   "reveiable_account": "وصول کرنے والے اکاؤنٹ",
   "only_trade_parties": "صرف تجارتی جماعتیں",
-  "last_rcvd_date": "آخری وصولی تاریخ"
+  "last_rcvd_date": "آخری وصولی تاریخ",
+  "user": "صارف",
+  "tax_percent": "ٹیکس فیصد"
 }

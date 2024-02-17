@@ -1,12 +1,12 @@
-import { Card, Col, Row, Tabs, theme } from 'antd';
-import { useTranslation } from 'react-i18next';
 import './style.scss';
-import ExpenseVoucherTable from './table/expenseVoucherTable';
+import { useAtom } from 'jotai';
 import ExpenseVoucherForm from './form';
 import { useEffect, useState } from 'react';
-import { useGetExpenseVoucherById, useGetExpenseVoucherDetail } from './queries/querySave';
-import { useAtom } from 'jotai';
 import { viewDetailList } from './form/Atom';
+import { useTranslation } from 'react-i18next';
+import { Card, Col, Row, Tabs, theme } from 'antd';
+import ExpenseVoucherTable from './table/expenseVoucherTable';
+import { useGetExpenseVoucherById, useGetExpenseVoucherDetail } from './queries/querySave';
 
 function ExpenseVoucher() {
   const { t } = useTranslation();

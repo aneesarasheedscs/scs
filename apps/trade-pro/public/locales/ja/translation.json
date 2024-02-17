@@ -32,5 +32,7 @@
   "expense_voucher": "経費引換券",
   "journal_voucher": "ジャーナルバウチャー",
   "voucher_type": "バウチャーの種類",
-  "req_status": "リクエストステータス"
+  "req_status": "リクエストステータス",
+  "user": "ユーザー",
+  "tax_percent": "税率"
 }

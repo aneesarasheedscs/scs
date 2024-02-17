@@ -25,6 +25,7 @@ export type TVoucherDetailList = {
   AccountId: number;
   AccountTitle: string;
   AgainstAccountId: number;
+  AgainstAccount: string;
   JobLotId: number;
   Comments: string;
   CheqNoDetail: string;
@@ -48,4 +49,16 @@ export type TJournalVoucherHistory = {
   VoucherAmount: number;
   UserName: string;
   CheqNo: number | null;
+
+  ChequeDate: Date | string;
+  PayTitle: string;
+  TaxAmount: number;
+  TaxPrcnt: number;
+  TaxName: string;
+  TaxAccount: string;
+  CustomerAddress: string;
+  EntryUserProfileImageUrl: string;
+  ModifyUserProfileImageUrl: string;
+  ApprovalUserProfileImageUrl: string;
+  CompLogoImage: string | null;
 };

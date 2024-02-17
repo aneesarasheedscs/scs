@@ -1,18 +1,25 @@
-import React, { useEffect, useState } from 'react';
-
-import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import { Row, Col, Space, theme } from 'antd';
+import { isNumber } from 'lodash';
+import { Row, Col, theme, Image } from 'antd';
 import { useTranslation } from 'react-i18next';
-// import { VoucherHistory_Detail, VouchersModernHistory } from '../type';
-import { PlusSquareOutlined, MinusSquareOutlined, HeartFilled } from '@ant-design/icons';
+import React, { useEffect, useState } from 'react';
 import { TCashPaymentDetailEntry } from '../form/types';
+import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { useGetCashPaymentVoucherById } from '../queries/querySave';
 
-const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedRecordId }) => {
+type TaxEntry = {
+  Wht_Account: string;
+  Wht_AgainstAccount: string;
+  TaxType: string;
+  TaxPercent: number;
+  TaxAmount: number;
+};
+const Tablefile: React.FC<{ selectedRecordId?: number | null; voucherData: any }> = ({ selectedRecordId }) => {
   const { t } = useTranslation();
   const { data, isError, isLoading, isSuccess } = useGetCashPaymentVoucherById(selectedRecordId);
   console.log(selectedRecordId);
   let GeneralLedgerLinkVisible = true;
+  const [TaxableEntry, setTaxableEntry] = useState<TaxEntry>();
+
   const voucherData = data?.data?.Data?.Result?.voucherDetailList;
   const [mainDataSource, setMainDataSource] = useState<TCashPaymentDetailEntry[]>([]);
   console.log(voucherData);
@@ -22,7 +29,28 @@ const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedR
     }
   }, [isSuccess, !isLoading]);
   console.log(mainDataSource);
-
+  useEffect(() => {
+    if (isSuccess && !isLoading) {
+      setMainDataSource(voucherData);
+      if (data?.data?.Data?.Result?.IncludeWHT) {
+        for (let i = 0; i < voucherData.length; i++) {
+          if (
+            voucherData[i]?.IsTaxable == 'True' &&
+            voucherData[i].CreditAmount > 0 &&
+            voucherData[i].AccountId == data?.data?.Data?.Result?.RefDocNoId
+          ) {
+            setTaxableEntry({
+              Wht_Account: voucherData[i].AccountTitle,
+              Wht_AgainstAccount: voucherData[i].AgainstAccount,
+              TaxType: voucherData[i].TaxType,
+              TaxPercent: voucherData[i].TaxPrcnt,
+              TaxAmount: voucherData[i].TaxesTotalAmount,
+            });
+          }
+        }
+      }
+    }
+  }, [isSuccess, !isLoading]);
   useEffect(() => {
     GenerateDetailAndWhtInfo();
   }, [voucherData]);
@@ -86,48 +114,10 @@ const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedR
     setMainDataSource(voucherData);
   };
 
-  const totalDebit =
-    voucherData?.VoucherHistoryDetail?.reduce((total: number, item: any) => total + item.DebitAmount, 0) || 0;
-  const totalCredit =
-    voucherData?.VoucherHistoryDetail?.reduce((total: number, item: any) => total + item.CreditAmount, 0) || 0;
+  const totalCredit = voucherData?.reduce((total: number, item: any) => total + item.CreditAmount, 0) || 0;
+  const totalDebit = voucherData?.reduce((total: number, item: any) => total + item.DebitAmount, 0) || 0;
 
-  //   const VoucherDetail = new Array<VoucherHistory_Detail>();
   const VoucherDetail = new Array<TCashPaymentDetailEntry>();
-  const [clickedRow, setClickedRow] = useState(null); // Track clicked row
-
-  const handleRowClick = (record: any) => {
-    if (clickedRow === record.key) {
-      setClickedRow(null); // Clear the clicked row if clicked again
-    } else {
-      setClickedRow(record.key); // Set the clicked row
-    }
-  };
-
-  const [ExpandedFlag, setExpandedFlag] = useState(false);
-  const ExpandSpecificDetail = (data: any) => {
-    data.IsDetailExpanded = !data.IsDetailExpanded;
-    setExpandedFlag(false);
-    for (let i = 0; i < voucherData?.length; i++) {
-      if (voucherData[i].IsDetailExpanded == true) {
-        setExpandedFlag(true);
-        break;
-      }
-    }
-  };
-
-  const ExpandAllDetails = () => {
-    setExpandedFlag(false);
-    for (let i = 0; i < voucherData?.length; i++) {
-      if (voucherData[i].IsDetailExpanded == true) {
-        setExpandedFlag(true);
-        break;
-      }
-    }
-    let Action = ExpandedFlag == false ? true : false;
-    for (let i = 0; i < voucherData; i++) {
-      voucherData[i].IsDetailExpanded = Action;
-    }
-  };
 
   const {
     token: { colorPrimary },
@@ -138,140 +128,242 @@ const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedR
       <div className="Detail-wrape">
         <div className="Table">
           <div className="table-header">
-            <div className="show-hide-icon">
-              <span className="show-detail-icon" onClick={() => ExpandAllDetails()}>
-                {ExpandedFlag ? <MinusSquareOutlined /> : <PlusSquareOutlined />}
-              </span>
+            <div className="Account">{t('account_code')}</div>
+            <div className="Account" style={{ marginLeft: '-1%' }}>
+              {t('account_title')}
             </div>
-            <div className="Account">Account Title</div>
-            <div className="offset_Account">Offset Account</div>
-            <div className="jobLOt">Job/Lot</div>
-            <div className="Debit">Debit</div>
-            <div className="Credit">Credit</div>
+            <div style={{ marginLeft: '4%' }} className="offset_Account">
+              {t('offset_account')}
+            </div>
+            <div style={{ marginLeft: '10%' }} className="jobLOt">
+              {t('job_lot')}
+            </div>
+            <div style={{ textAlign: 'right' }} className="Debit">
+              {t('debit')}
+            </div>
+            <div style={{ textAlign: 'right' }} className="Credit">
+              {t('credit')}
+            </div>
           </div>
-          {/* {mainDataSource?.VoucherHistoryDetail?.map((item: VoucherHistory_Detail) => ( */}
-          {voucherData?.map((item: TCashPaymentDetailEntry) => (
-            <div>
+          {voucherData?.map((item: TCashPaymentDetailEntry, index: number) => (
+            <div className={`table-data ${index % 2 === 0 ? '' : 'alternate'}`} key={index}>
               <div className="table-Row">
-                <div className="show-hide-icon">
-                  <span className="show-detail-icon" onClick={() => ExpandSpecificDetail(item)}>
-                    {item?.IsDetailExpanded ? <MinusSquareOutlined /> : <PlusSquareOutlined />}
-                  </span>
-                </div>
-                {/* {!GeneralLedgerLinkVisible ? ( */}
-                <div className="Account">{item.AccountTitle}</div>
-                {/* ) : ( */}
                 <div
                   className="Account"
                   title="Click to View General Ledger"
-                  // onClick={() => HandleGeneralLedgerLinkClicked(item.DetailAccountId)}
                   style={{ color: 'blue', cursor: 'pointer', fontWeight: 'bold' }}
                 >
-                  {item.AccountTitle}
+                  {item.AccountCode}
                 </div>
-                {/* )} */}
-                {/* {!GeneralLedgerLinkVisible ? ( */}
-                <div className="offset_Account">{item.AccountTitle}</div>
-                {/* // ) : ( */}
                 <div
-                  className="offset_Account"
+                  className="Account"
                   title="Click to View General Ledger"
-                  // onClick={() => HandleGeneralLedgerLinkClicked(item.AgainstAccountId)}
                   style={{ color: 'blue', cursor: 'pointer', fontWeight: 'bold' }}
                 >
                   {item.AccountTitle}
                 </div>
-                {/* )} */}
 
-                <div className="jobLOt">{item.JobLotDescription}</div>
-                <div className="Debit">{item.DebitAmount > 0 ? numberFormatter(item.DebitAmount) : 0}</div>
-                <div className="Credit">{item.CreditAmount > 0 ? numberFormatter(item.CreditAmount) : 0}</div>
-              </div>
-              {item.IsDetailExpanded && (
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                  <div className="detail-table-row">
-                    <div className="Detail-remarks">
-                      <div className="caption">Remarks</div>
-                      <div className="value">{item.Comments}</div>
-                    </div>
-                  </div>
+                <div className="offset_Account" style={{ fontWeight: 'bold', marginLeft: '5%' }}>
+                  {item.AgainstAccount}
                 </div>
-              )}
+
+                <div style={{ marginLeft: '-9%' }} className="jobLOt">
+                  {item.JobLotDescription}
+                </div>
+                <div style={{ textAlign: 'right' }} className="Debit">
+                  {item.DebitAmount > 0 ? numberFormatter(item.DebitAmount) : 0}
+                </div>
+                <div style={{ textAlign: 'right' }} className="Credit">
+                  {item.CreditAmount > 0 ? numberFormatter(item.CreditAmount) : 0}
+                </div>
+              </div>
+
+              <div className="table-row">
+                <p
+                  style={{
+                    marginLeft: '0.5%',
+                    fontWeight: 'bold',
+                    marginTop: '-0.5%',
+                    width: '100%',
+                  }}
+                >
+                  {item.Comments}
+                </p>
+              </div>
             </div>
           ))}
-          <div className="table-Footer">
+          <div style={{ marginTop: '1%' }} className="table-Footer">
             <div className="totals-wrape">
               <div className="values">
-                <div className="total-caption">Detail Total</div>
-                <div className="Debit">{totalDebit > 0 ? numberFormatter(totalDebit) : 0}</div>
-                <div className="Credit">{totalCredit > 0 ? numberFormatter(totalCredit) : 0}</div>
+                <div className="total-caption">{t('totals')}</div>
+                <div style={{ textAlign: 'right', marginLeft: '44%' }} className="Debit">
+                  {totalDebit > 0 ? numberFormatter(totalDebit) : 0}
+                </div>
+                <div style={{ textAlign: 'right' }} className="Credit">
+                  {totalCredit > 0 ? numberFormatter(totalCredit) : 0}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      {/* {mainDataSource?.VoucherHistoryHeader.IncludeWHT && (*/}
-      {mainDataSource && (
-        <Row>
-          <Col span={24}>
+      <Row>
+        <Col
+          xs={{ span: 8 }}
+          sm={{ span: 8 }}
+          md={{ span: 5 }}
+          lg={{ span: 5 }}
+          xl={{ span: 5 }}
+          style={{
+            display: 'flex',
+            textAlignLast: 'center',
+            flexDirection: 'column',
+            marginTop: '2%',
+          }}
+        >
+          <div style={{ fontWeight: 'bold' }}>{t('prepared_by')}:</div>
+          <div>
+            <Image
+              className="Img"
+              src={'data:image/jpeg;base64,' + voucherData?.[0]?.EntryUserProfileImageUrl}
+              style={{ width: '4rem', height: '4rem' }}
+            />
+          </div>
+          <div>
+            <p>{voucherData?.[0]?.UserName}</p>
+          </div>
+        </Col>
+        <Col
+          xs={{ span: 8 }}
+          sm={{ span: 8 }}
+          md={{ span: 5 }}
+          lg={{ span: 5 }}
+          xl={{ span: 5 }}
+          style={{
+            display: 'flex',
+            textAlignLast: 'center',
+            flexDirection: 'column',
+            marginTop: '2%',
+          }}
+        >
+          <div style={{ fontWeight: 'bold' }}>{t('approved_by')}:</div>
+          <div>
+            <Image
+              className="Img"
+              src={'data:image/jpeg;base64,' + voucherData?.[0]?.ApprovalUserProfileImageUrl}
+              style={{ width: '4rem', height: '4rem' }}
+            />
+          </div>
+          <p>{voucherData?.[0]?.UserName}</p>
+        </Col>
+        <Col
+          xs={{ span: 8 }}
+          sm={{ span: 8 }}
+          md={{ span: 5 }}
+          lg={{ span: 5 }}
+          xl={{ span: 5 }}
+          style={{
+            display: 'flex',
+            textAlignLast: 'center',
+            flexDirection: 'column',
+            marginTop: '2%',
+          }}
+        >
+          <div style={{ fontWeight: 'bold' }}>{t('modify_user')}:</div>
+          <div>
+            <Image
+              className="Img"
+              src={'data:image/jpeg;base64,' + voucherData?.[0]?.ModifyUserProfileImageUrl}
+              style={{ width: '4rem', height: '4rem' }}
+            />
+          </div>
+          <div>
+            <p>{voucherData?.[0]?.UserName}</p>
+          </div>
+        </Col>
+
+        <Col
+          xs={{ span: 24 }}
+          sm={{ span: 24 }}
+          md={{ span: 9 }}
+          lg={{ span: 9 }}
+          xl={{ span: 9 }}
+          style={{ marginTop: '0%' }}
+        >
+          {data?.data?.Data?.Result.IncludeWHT && (
             <div className="WhtAgaints_Account">
               <div className="Wrap">
                 <div className="Title_Wrap">
-                  <div className="Wht-Title">WHT_Against Account</div>
-                  {/* <div className="Wht-Value">{mainDataSource.VoucherHistoryHeader.Wht_AgainstAccount}</div> */}
-                  {/* <div className="Wht-Value">{mainDataSource.VoucherHistoryHeader.Wht_AgainstAccount}</div> */}
+                  <div className="Wht-Title">{t('wht_against_account')}</div>
+                  <div className="Wht-Value">{TaxableEntry?.Wht_AgainstAccount}</div>
                 </div>
                 <div className="my-2">
-                  <div className="caption-value-wrape">
-                    <div className="caption">Wht Account:</div>
-                    {/* <div className="value">{mainDataSource?.VoucherHistoryHeader?.Wht_Account}</div> */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                    }}
+                    className="caption-value-wrape"
+                  >
+                    <div className="caption">{t('wht_account')}</div>
+                    <div style={{ textAlign: 'right' }} className="value">
+                      {TaxableEntry?.Wht_Account}
+                    </div>
                   </div>
                   <div className="d-flex justify-content-between">
-                    <div className="caption-value-wrape">
-                      <div className="caption">Tax Type:</div>
-                      {/* <div className="value">{mainDataSource?.VoucherHistoryHeader?.TaxType}</div> */}
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                      }}
+                      className="caption-value-wrape"
+                    >
+                      <div className="caption">{t('tax_type')}</div>
+                      <div style={{ textAlign: 'right' }} className="value">
+                        {TaxableEntry?.TaxType}
+                      </div>
                     </div>
-                    <div className="caption-value-wrape">
-                      <div className="caption">Tax%:</div>
-                      {/* <div className="value">{mainDataSource?.VoucherHistoryHeader?.TaxPercent.toFixed(3)}</div> */}
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                      }}
+                      className="caption-value-wrape"
+                    >
+                      <div className="caption">{t('tax_percent')}</div>
+                      <div style={{ textAlign: 'right' }} className="value">
+                        {TaxableEntry?.TaxPercent.toFixed(2)}
+                      </div>
                     </div>
                   </div>
-                  <div className="caption-value-wrape">
-                    <div className="caption">Tax Amount:</div>
-                    {/* <div className="value">{numberFormatter(mainDataSource?.VoucherHistoryHeader?.TaxAmount)}</div> */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                    }}
+                    className="caption-value-wrape"
+                  >
+                    <div className="caption">{t('tax_amount')}</div>
+                    <div style={{ textAlign: 'right' }} className="value">
+                      {numberFormatter(isNumber(TaxableEntry?.TaxAmount) ? TaxableEntry?.TaxAmount : 0)}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </Col>
-        </Row>
-      )}
+          )}
 
-      <div className="grand-total-wrape">
-        <div className="grand-totals">
-          <div className="calculate-wrape grand-total">
-            <div className="total-caption">Voucher Amount</div>
-            <div className="total-value">{numberFormatter(data?.data?.Data?.Result?.VoucherAmount)}</div>
+          <div style={{ marginLeft: '-2.5%' }} className="grand-total-wrape">
+            <div className="grand-totals">
+              <div className="calculate-wrape grand-total">
+                <div className="total-caption">{t('amount')}</div>
+                <div className="total-value">{numberFormatter(data?.data?.Data?.Result?.VoucherAmount)}</div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-
-      <div className="Footer">
-        <div className="Thanks">
-          Thank You{' '}
-          <span className="heart-icon">
-            <HeartFilled />
-          </span>
-        </div>
-        <div className="powered-by">
-          Powered by{' '}
-          <span>
-            <a href="https://eccountbookapps.com/" className="Scss-Link" target="_blank">
-              Synergic Corporation And Solution
-            </a>
-          </span>
-        </div>
-      </div>
+        </Col>
+      </Row>
+      <br />
     </div>
   );
 };

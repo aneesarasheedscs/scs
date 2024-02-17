@@ -709,7 +709,6 @@
   "2nd_interval": "2nd Interval",
   "3rd_interval": "3rd Interval",
   "interval_days": "Interval Days",
-
   "journal_voucher": "Journal Voucher",
   "offset_account": "Offset Account",
   "req_status": "Request Status",
@@ -721,5 +720,8 @@
   "reveiables_ac_type": "Receivables AC Type",
   "reveiable_account": "Revceivables Account",
   "only_trade_parties": "Only Trade Parties",
-  "last_rcvd_date": "Last Rcvd Date"
+  "last_rcvd_date": "Last Rcvd Date",
+  "user": "User",
+  "wht_against_account": "WHT Against Account",
+  "tax_percent": "Tax Percent"
 }

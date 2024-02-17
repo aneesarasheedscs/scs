@@ -1,14 +1,15 @@
-import { AntButton, AntTable } from '@tradePro/components';
-import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
-import { Card, Col, Row, theme } from 'antd';
-import { columns } from './columns';
-import { useTranslation } from 'react-i18next';
-import { useGetExpenseVoucherTable } from '../queries/queries';
-import { useState } from 'react';
-import CardView from './CardView';
 import './Card.scss';
 import './DetailTableFile.scss';
+import { columns } from './columns';
+import { useState } from 'react';
+import CardView from './CardView';
+import { Card, Col, Row, theme } from 'antd';
+import { useTranslation } from 'react-i18next';
 import ExpenseVoucherDetailTable from './DetailTable';
+import { AntButton, AntTable } from '@tradePro/components';
+import { useGetExpenseVoucherTable } from '../queries/queries';
+import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
+
 function ExpenseVoucherTable({
   setSelectedRecordId,
   setActiveTab,

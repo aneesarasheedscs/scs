@@ -844,5 +844,6 @@
   "bank_receipt_voucher": "Comprobante de recibo bancario",
   "against_ac": "Contra cuenta",
   "journal_voucher": "Documento preliminar",
-  "req_status": "Estado de la solicitud"
+  "req_status": "Estado de la solicitud",
+  "tax_percent": "Porcentaje de impuestos"
 }
