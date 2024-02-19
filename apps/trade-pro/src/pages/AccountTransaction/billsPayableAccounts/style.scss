@@ -1,0 +1,151 @@
+.formfield {
+  border-bottom: 1px solid gray;
+  padding: 0px;
+  height: 34px;
+}
+.ant-checkbox-inner,
+.ant-checkbox-input {
+  height: 1.5rem !important;
+  width: 1.5rem !important;
+}
+.formfield1 {
+  border-bottom: 1px solid gray;
+  padding: 0px;
+  height: 38px;
+}
+// Responsiveness
+.main_card {
+  position: relative;
+}
+.detail_list_optional {
+  position: absolute;
+  top: 0;
+  left: 10;
+  z-index: 1;
+}
+@media screen and (min-width: 1200px) and (max-width: 1600px) {
+  .dr,
+  .cr {
+    margin-left: 55% !important;
+  }
+}
+@media screen and (min-width: 992px) and (max-width: 1200px) {
+  .against,
+  .balance,
+  .remarks {
+    margin-top: 1.5% !important;
+  }
+  .cr,
+  .dr {
+    margin-left: 50% !important;
+  }
+  .add {
+    margin-top: 3%;
+    margin-bottom: 2%;
+  }
+  .btns {
+    margin-top: 1.5rem !important;
+  }
+  .wht {
+    margin-top: 2.5% !important;
+  }
+  .box {
+    margin-left: -1rem !important;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .cr,
+  .dr {
+    margin-left: 57% !important;
+  }
+  .against,
+  .balance,
+  .remarks,
+  .btns {
+    margin-top: 1.5% !important;
+  }
+  .add {
+    margin-top: 3%;
+    margin-bottom: 2%;
+  }
+  .btns {
+    margin-top: 1.5rem !important;
+  }
+  .wht {
+    margin-top: 2.5% !important;
+  }
+  .box {
+    margin-left: -1rem !important;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px) {
+  .credit {
+    margin-top: 1.5%;
+  }
+  .debit {
+    margin-top: -10% !important;
+  }
+  .date {
+    margin-bottom: 6% !important;
+  }
+  .type {
+    margin-bottom: 10% !important;
+  }
+  .add {
+    margin-top: 3%;
+    margin-bottom: 2%;
+  }
+  .formfield {
+    height: 2.5rem;
+  }
+  .btns {
+    margin-top: 1.5rem !important;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 575px) {
+  .credit {
+    margin-top: 2% !important;
+  }
+  .debit {
+    height: 85px !important;
+  }
+  .cr,
+  .dr {
+    margin-left: 50% !important;
+  }
+  .date {
+    margin-bottom: 10% !important;
+  }
+  .type {
+    margin-bottom: 15% !important;
+  }
+  .add {
+    margin-top: 3%;
+    margin-bottom: 2%;
+  }
+  .formfield {
+    height: 65px;
+  }
+  .voucherDate {
+    margin-top: -1.5rem;
+  }
+  .voucherNo {
+    margin-top: 0.5rem;
+  }
+  .btns {
+    margin-top: 1.5rem !important;
+    margin-left: -1rem !important;
+  }
+  .wht {
+    margin-top: 2rem !important;
+  }
+  .box {
+    margin-left: -2.2rem !important;
+  }
+  .icon {
+    margin-left: -1%;
+  }
+}

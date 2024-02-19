@@ -723,5 +723,8 @@
   "last_rcvd_date": "Last Rcvd Date",
   "user": "User",
   "wht_against_account": "WHT Against Account",
-  "tax_percent": "Tax Percent"
+  "tax_percent": "Tax Percent",
+  "bills_payable_accounts": "Bills Payable Accounts",
+  "invoice_date": "Invoice Date",
+  "bill_invoice_no": "Bill/Invoice No"
 }

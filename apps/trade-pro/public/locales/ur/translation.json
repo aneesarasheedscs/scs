@@ -715,5 +715,8 @@
   "only_trade_parties": "صرف تجارتی جماعتیں",
   "last_rcvd_date": "آخری وصولی تاریخ",
   "user": "صارف",
-  "tax_percent": "ٹیکس فیصد"
+  "tax_percent": "ٹیکس فیصد",
+  "bills_payable_accounts": "بلز قابل ادائیگی اکاؤنٹس",
+  "invoice_date": "رسید کی تاریخ",
+  "bill_invoice_no": "بل/انوائس نمبر"
 }

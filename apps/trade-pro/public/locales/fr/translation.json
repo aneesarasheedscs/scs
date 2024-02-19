@@ -516,5 +516,8 @@
   "journal_voucher": "Bon de journal",
   "req_status": "Statut de la demande",
   "user": "Utilisateur",
-  "tax_percent": "Pourcentage d'impôt"
+  "tax_percent": "Pourcentage d'impôt",
+  "bills_payable_accounts": "Comptes de factures à payer",
+  "invoice_date": "Date de facture",
+  "bill_invoice_no": "Numéro de facture/facture"
 }

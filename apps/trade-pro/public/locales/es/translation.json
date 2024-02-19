@@ -845,5 +845,8 @@
   "against_ac": "Contra cuenta",
   "journal_voucher": "Documento preliminar",
   "req_status": "Estado de la solicitud",
-  "tax_percent": "Porcentaje de impuestos"
+  "tax_percent": "Porcentaje de impuestos",
+  "bills_payable_accounts": "Cuentas de facturas por pagar",
+  "invoice_date": "Fecha de la factura",
+  "bill_invoice_no": "Número de factura/factura"
 }

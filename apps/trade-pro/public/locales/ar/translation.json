@@ -523,5 +523,8 @@
   "journal_voucher": "قسيمة المجلة",
   "req_status": "حالة الطلب",
   "user": "مستخدم",
-  "tax_percent": "نسبة الضريبة"
+  "tax_percent": "نسبة الضريبة",
+  "bills_payable_accounts": "حسابات الفواتير المستحقة الدفع",
+  "invoice_date": "تاريخ الفاتورة",
+  "bill_invoice_no": "رقم الفاتورة/الفاتورة"
 }

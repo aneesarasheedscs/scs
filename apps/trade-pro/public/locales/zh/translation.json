@@ -516,5 +516,8 @@
   "journal_voucher": "记账凭证",
   "req_status": "请求状态",
   "user": "用户",
-  "tax_percent": "税率"
+  "tax_percent": "税率",
+  "bills_payable_accounts": "应付票据账户",
+  "invoice_date": "发票日期",
+  "bill_invoice_no": "帐单/发票编号"
 }
