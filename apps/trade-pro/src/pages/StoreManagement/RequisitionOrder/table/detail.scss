@@ -18,10 +18,10 @@ $background-color-company_info: #e1e1e1;
   // border: 1px solid red;
 
   .caption {
-    color: $background-color-invoice;
+    color: black;
+    font-weight: bold;
     padding-right: 14px;
     font-size: 15px;
-    font-weight: 600;
     width: 50%;
     // border: 1px solid blue;
 
@@ -42,12 +42,13 @@ $background-color-company_info: #e1e1e1;
 .Account_title {
   text-align: center;
   margin-top: 5px;
-  text-transform: uppercase;
-  text-rendering: optimizeLegibility;
-  color: #5a54f9;
-  letter-spacing: 5px;
-  text-shadow: 4px 4px 0px #d5d5d5, 7px 4px 0px rgba(10, 110, 110, 0.2);
-  font-size: 27px;
+  // text-transform: uppercase;
+  // text-rendering: optimizeLegibility;
+  color: black;
+  font-weight: bold;
+  // letter-spacing: 5px;
+  // text-shadow: 4px 4px 0px #d5d5d5, 7px 4px 0px rgba(10, 110, 110, 0.2);
+  font-size: 25px;
 }
 
 .Horizental_Line {
@@ -175,57 +176,57 @@ $background-color-company_info: #e1e1e1;
       }
     }
   }
-  .detail-table-row {
-    width: 90%;
-    display: flex;
-    flex-wrap: wrap;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
-    margin-bottom: 7px;
-    .Detail-remarks {
-      width: 100%;
-      display: flex;
-      padding: 0px 10px;
-      .caption {
-        color: #5a54f9;
-        font-size: 14px;
-        padding: 0px 11px;
-        @media screen and (max-width: 1250px) {
-          font-size: 14px;
-        }
-      }
-      .value {
-        font-size: 12px;
-        margin-top: 3px;
-        @media screen and (max-width: 1250px) {
-          font-size: 12px;
-          margin-top: 2px;
-        }
-      }
-    }
-    .detail-wrape {
-      display: flex;
-      width: 33.3%;
-      padding: 0px 10px;
-      .caption {
-        color: #5a54f9;
-        font-size: 14px;
-        padding: 0px 11px;
-        @media screen and (max-width: 1250px) {
-          font-size: 14px;
-        }
-      }
-      .value {
-        font-size: 12px;
-        margin-top: 3px;
-        @media screen and (max-width: 1250px) {
-          font-size: 12px;
-          margin-top: 2px;
-        }
-      }
-    }
-  }
+  // .detail-table-row {
+  //   width: 90%;
+  //   display: flex;
+  //   flex-wrap: wrap;
+  //   border-left: 1px solid black;
+  //   border-right: 1px solid black;
+  //   border-bottom: 1px solid black;
+  //   margin-bottom: 7px;
+  //   .Detail-remarks {
+  //     width: 100%;
+  //     display: flex;
+  //     padding: 0px 10px;
+  //     .caption {
+  //       color: #5a54f9;
+  //       font-size: 14px;
+  //       padding: 0px 11px;
+  //       @media screen and (max-width: 1250px) {
+  //         font-size: 14px;
+  //       }
+  //     }
+  //     .value {
+  //       font-size: 12px;
+  //       margin-top: 3px;
+  //       @media screen and (max-width: 1250px) {
+  //         font-size: 12px;
+  //         margin-top: 2px;
+  //       }
+  //     }
+  //   }
+  //   .detail-wrape {
+  //     display: flex;
+  //     width: 33.3%;
+  //     padding: 0px 10px;
+  //     .caption {
+  //       color: #5a54f9;
+  //       font-size: 14px;
+  //       padding: 0px 11px;
+  //       @media screen and (max-width: 1250px) {
+  //         font-size: 14px;
+  //       }
+  //     }
+  //     .value {
+  //       font-size: 12px;
+  //       margin-top: 3px;
+  //       @media screen and (max-width: 1250px) {
+  //         font-size: 12px;
+  //         margin-top: 2px;
+  //       }
+  //     }
+  //   }
+  // }
   .table-Footer {
     .totals-wrape {
       .values {
@@ -295,7 +296,7 @@ $background-color-company_info: #e1e1e1;
     width: 421px;
     margin: 16px 11px;
     color: #121212;
-    border: 2px solid #5a54f9;
+    border: 2px solid var(--color-primary);
     .calculate-wrape {
       display: flex;
       padding: 3px;
@@ -315,25 +316,25 @@ $background-color-company_info: #e1e1e1;
       }
     }
     .grand-total {
-      color: #5a54f9;
+      color: var(--color-primary);
       padding: 6px 10px;
     }
   }
 }
 .Footer {
-  border: 2px solid #5a54f9;
+  border: 2px solid var(--color-primary);
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   .Thanks {
-    color: #5a54f9;
+    color: var(--color-primary);
     font-size: 22px;
     padding: 0px 20px;
     font-weight: bold;
     font-family: inherit;
     .heart-icon {
-      color: #5a54f9;
+      color: var(--color-primary);
     }
     @media screen and (max-width: 1250px) {
       font-size: 28px;
@@ -341,7 +342,7 @@ $background-color-company_info: #e1e1e1;
   }
   .powered-by {
     padding: 12px;
-    color: #5a54f9;
+    color: var(--color-primary);
     font-weight: bold;
     font-size: 1rem;
   }

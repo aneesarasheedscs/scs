@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import { Row, Col, theme } from 'antd';
-import { useTranslation } from 'react-i18next';
 import { isNumber } from 'lodash';
-import { useGetCashReceiptVoucherTable } from '../queries/queries';
-import { useGetCashReceiptVoucherById } from '../queries/querySave';
+import { Row, Col, theme, Image } from 'antd';
+import { useTranslation } from 'react-i18next';
+import React, { useEffect, useState } from 'react';
 import { TCashReceiptDetailEntry } from '../form/types';
+import { numberFormatter } from '@tradePro/utils/numberFormatter';
+import { useGetCashReceiptVoucherById } from '../queries/querySave';
 
-const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedRecordId }) => {
+const Tablefile: React.FC<{ selectedRecordId?: number | null; voucherData: any }> = ({
+  selectedRecordId,
+  voucherData,
+}) => {
   const { t } = useTranslation();
-  const { data: table } = useGetCashReceiptVoucherTable();
   const { data, isLoading, isSuccess } = useGetCashReceiptVoucherById(selectedRecordId);
-  const voucherData = data?.data?.Data?.Result?.voucherDetailList;
+  const voucherDetailData = data?.data?.Data?.Result?.voucherDetailList;
   const [mainDataSource, setMainDataSource] = useState<TCashReceiptDetailEntry[]>([]);
   console.log(data?.data?.Data?.Result.IncludeWHT);
   type TaxEntry = {
@@ -24,20 +25,20 @@ const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedR
 
   useEffect(() => {
     if (isSuccess && !isLoading) {
-      setMainDataSource(voucherData);
+      setMainDataSource(voucherDetailData);
       if (data?.data?.Data?.Result?.IncludeWHT) {
-        for (let i = 0; i < voucherData.length; i++) {
+        for (let i = 0; i < voucherDetailData.length; i++) {
           if (
-            voucherData[i]?.IsTaxable == 'True' &&
-            voucherData[i].CreditAmount > 0 &&
-            voucherData[i].AccountId == data?.data?.Data?.Result?.RefDocNoId
+            voucherDetailData[i]?.IsTaxable == 'True' &&
+            voucherDetailData[i].CreditAmount > 0 &&
+            voucherDetailData[i].AccountId == data?.data?.Data?.Result?.RefDocNoId
           ) {
             setTaxableEntry({
-              Wht_Account: voucherData[i].AccountTitle,
-              Wht_AgainstAccount: voucherData[i].AgainstAccount,
-              TaxType: voucherData[i].TaxType,
-              TaxPercent: voucherData[i].TaxPrcnt,
-              TaxAmount: voucherData[i].TaxesTotalAmount,
+              Wht_Account: voucherDetailData[i].AccountTitle,
+              Wht_AgainstAccount: voucherDetailData[i].AgainstAccount,
+              TaxType: voucherDetailData[i].TaxType,
+              TaxPercent: voucherDetailData[i].TaxPrcnt,
+              TaxAmount: voucherDetailData[i].TaxesTotalAmount,
             });
           }
         }
@@ -45,11 +46,10 @@ const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedR
     }
   }, [isSuccess, !isLoading]);
 
-  const totalDebit = voucherData?.reduce((total: number, item: any) => total + item.DebitAmount, 0) || 0;
-  const totalCredit = voucherData?.reduce((total: number, item: any) => total + item.CreditAmount, 0) || 0;
+  const totalDebit = voucherDetailData?.reduce((total: number, item: any) => total + item.DebitAmount, 0) || 0;
+  const totalCredit = voucherDetailData?.reduce((total: number, item: any) => total + item.CreditAmount, 0) || 0;
   const [TaxableEntry, setTaxableEntry] = useState<TaxEntry>();
   console.log(data?.data?.Data?.Result);
-  console.log(table?.data?.Data?.Result?.[0]?.ModifyUserProfileImageUrl);
   const {
     token: { colorPrimary },
   } = theme.useToken();
@@ -59,11 +59,14 @@ const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedR
       <div className="Detail-wrape">
         <div className="Table">
           <div className="table-header">
-            <div className="Account">{t('account_title')}</div>
-            <div style={{ marginLeft: '5%' }} className="offset_Account">
+            <div className="Account">{t('account_code')}</div>
+            <div className="Account" style={{ marginLeft: '-1%' }}>
+              {t('account_title')}
+            </div>
+            <div style={{ marginLeft: '4%' }} className="offset_Account">
               {t('offset_account')}
             </div>
-            <div style={{ marginLeft: '15%' }} className="jobLOt">
+            <div style={{ marginLeft: '10%' }} className="jobLOt">
               {t('job_lot')}
             </div>
             <div style={{ textAlign: 'right' }} className="Debit">
@@ -74,22 +77,25 @@ const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedR
             </div>
           </div>
 
-          {voucherData?.map((item: TCashReceiptDetailEntry, index: number) => (
+          {voucherDetailData?.map((item: TCashReceiptDetailEntry, index: number) => (
             <div className={`table-data ${index % 2 === 0 ? '' : 'alternate'}`} key={index}>
               <div className="table-Row">
                 <div
                   className="Account"
                   title="Click to View General Ledger"
-                  style={{ color: '#8a86f7', cursor: 'pointer', fontWeight: 'bold' }}
+                  style={{ color: 'blue', cursor: 'pointer', fontWeight: 'bold' }}
                 >
                   {item.AccountCode}
                 </div>
-
                 <div
-                  className="offset_Account"
-                  style={{ color: '#8a86f7', cursor: 'pointer', fontWeight: 'bold', marginLeft: '5%' }}
+                  className="Account"
                   title="Click to View General Ledger"
+                  style={{ color: 'blue', cursor: 'pointer', fontWeight: 'bold' }}
                 >
+                  {item.AccountTitle}
+                </div>
+
+                <div className="offset_Account" style={{ fontWeight: 'bold', marginLeft: '5%' }}>
                   {item.AgainstAccount}
                 </div>
 
@@ -105,39 +111,24 @@ const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedR
               </div>
 
               <div className="table-row">
-                <div>
-                  <p
-                    style={{
-                      color: '#8a86f7',
-                      cursor: 'pointer',
-                      fontWeight: 'bold',
-                      marginLeft: '0.5%',
-                      width: '25%',
-                    }}
-                  >
-                    {item.AccountTitle}
-                  </p>
-                  <p
-                    className="table-remarks"
-                    style={{
-                      marginLeft: '44.5%',
-                      marginTop: '-3.3%',
-                      position: 'absolute',
-                      width: '100%',
-                    }}
-                  >
-                    {' '}
-                    {item.Comments}
-                  </p>
-                </div>
+                <p
+                  style={{
+                    marginLeft: '0.5%',
+                    fontWeight: 'bold',
+                    marginTop: '-0.5%',
+                    width: '100%',
+                  }}
+                >
+                  {item.Comments}
+                </p>
               </div>
             </div>
           ))}
           <div style={{ marginTop: '1%' }} className="table-Footer">
             <div className="totals-wrape">
               <div className="values">
-                <div className="total-caption">{t('total')}</div>
-                <div style={{ textAlign: 'right', marginLeft: '27%' }} className="Debit">
+                <div className="total-caption">{t('totals')}</div>
+                <div style={{ textAlign: 'right', marginLeft: '42%' }} className="Debit">
                   {totalDebit > 0 ? numberFormatter(totalDebit) : 0}
                 </div>
                 <div style={{ textAlign: 'right' }} className="Credit">
@@ -163,56 +154,64 @@ const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedR
             marginTop: '2%',
           }}
         >
-          <div style={{ color: '#5a54f9', fontWeight: 'bold' }}>{t('prepared_by')}:</div>
+          <div style={{ fontWeight: 'bold' }}>{t('prepared_by')}:</div>
           <div>
-            <img className="Img" src={table?.data?.Data?.Result?.[0]?.EntryUserProfileImageUrl}></img>
-          </div>
-          <div>
-            <p>{table?.data?.Data?.Result?.[0]?.UserName}</p>
-          </div>
-        </Col>
-        <Col
-          xs={{ span: 8 }}
-          sm={{ span: 8 }}
-          md={{ span: 5 }}
-          lg={{ span: 5 }}
-          xl={{ span: 5 }}
-          style={{
-            display: 'flex',
-            textAlignLast: 'center',
-            flexDirection: 'column',
-            marginTop: '2%',
-          }}
-        >
-          <div style={{ color: '#5a54f9', fontWeight: 'bold' }}>{t('approved_by')}:</div>
-          <div>
-            <img className="Img" src={table?.data?.Data?.Result?.[0]?.ApprovalUserProfileImageUrl}></img>
-          </div>
-          <p>{table?.data?.Data?.Result?.[0]?.UserName}</p>
-        </Col>
-        <Col
-          xs={{ span: 8 }}
-          sm={{ span: 8 }}
-          md={{ span: 5 }}
-          lg={{ span: 5 }}
-          xl={{ span: 5 }}
-          style={{
-            display: 'flex',
-            textAlignLast: 'center',
-            flexDirection: 'column',
-            marginTop: '2%',
-          }}
-        >
-          <div style={{ color: '#5a54f9', fontWeight: 'bold' }}>{t('modify_user')}:</div>
-          <div>
-            <img
+            <Image
               className="Img"
-              // src={'file://C:UsershpPictures.bg33-1.jpg'}
-              src={table?.data?.Data?.Result?.[0]?.ModifyUserProfileImageUrl}
-            ></img>
+              src={'data:image/jpeg;base64,' + voucherData?.[0]?.EntryUserProfileImageUrl}
+              style={{ width: '4rem', height: '4rem' }}
+            />
           </div>
           <div>
-            <p>{table?.data?.Data?.Result?.[0]?.UserName}</p>
+            <p>{voucherData?.[0]?.UserName}</p>
+          </div>
+        </Col>
+        <Col
+          xs={{ span: 8 }}
+          sm={{ span: 8 }}
+          md={{ span: 5 }}
+          lg={{ span: 5 }}
+          xl={{ span: 5 }}
+          style={{
+            display: 'flex',
+            textAlignLast: 'center',
+            flexDirection: 'column',
+            marginTop: '2%',
+          }}
+        >
+          <div style={{ fontWeight: 'bold' }}>{t('approved_by')}:</div>
+          <div>
+            <Image
+              className="Img"
+              src={'data:image/jpeg;base64,' + voucherData?.[0]?.ApprovalUserProfileImageUrl}
+              style={{ width: '4rem', height: '4rem' }}
+            />
+          </div>
+          <p>{voucherData?.[0]?.UserName}</p>
+        </Col>
+        <Col
+          xs={{ span: 8 }}
+          sm={{ span: 8 }}
+          md={{ span: 5 }}
+          lg={{ span: 5 }}
+          xl={{ span: 5 }}
+          style={{
+            display: 'flex',
+            textAlignLast: 'center',
+            flexDirection: 'column',
+            marginTop: '2%',
+          }}
+        >
+          <div style={{ fontWeight: 'bold' }}>{t('modify_user')}:</div>
+          <div>
+            <Image
+              className="Img"
+              src={'data:image/jpeg;base64,' + voucherData?.[0]?.ModifyUserProfileImageUrl}
+              style={{ width: '4rem', height: '4rem' }}
+            />
+          </div>
+          <div>
+            <p>{voucherData?.[0]?.UserName}</p>
           </div>
         </Col>
 
@@ -222,7 +221,7 @@ const Tablefile: React.FC<{ selectedRecordId?: number | string }> = ({ selectedR
           md={{ span: 9 }}
           lg={{ span: 9 }}
           xl={{ span: 9 }}
-          style={{ marginTop: '0.9%' }}
+          style={{ marginTop: '0.5%' }}
         >
           {data?.data?.Data?.Result.IncludeWHT && (
             <div className="WhtAgaints_Account">

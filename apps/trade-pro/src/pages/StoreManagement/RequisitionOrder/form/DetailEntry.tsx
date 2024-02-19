@@ -566,8 +566,8 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                       <Col
                         xs={{ span: 24 }}
                         sm={{ span: 20 }}
-                        md={{ span: 18 }}
-                        lg={{ span: 18 }}
+                        md={{ span: 17 }}
+                        lg={{ span: 17 }}
                         xl={{ span: 15 }}
                         xxl={{ span: 8 }}
                         className="formfield"
@@ -577,12 +577,6 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                           <AntInput
                             bordered={false}
                             label={t('remarks')}
-                            style={{
-                              borderBottom: '1px solid gray',
-                              width: '103%',
-                              borderRadius: '0px',
-                              marginTop: '0.6%',
-                            }}
                             formItemProps={{ ...field, name: [field.name, 'RemarksDetail'] }}
                           />
                         </p>
@@ -590,8 +584,8 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                       <Col
                         xs={{ span: 24 }}
                         sm={{ span: 21 }}
-                        md={{ span: 4 }}
-                        lg={{ span: 4 }}
+                        md={{ span: 6 }}
+                        lg={{ span: 6 }}
                         xl={{ span: 8 }}
                         xxl={{ span: 4 }}
                       >
@@ -599,10 +593,10 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                           <Col
                             xs={{ span: 10 }}
                             sm={{ span: 6 }}
-                            md={{ span: 20 }}
-                            lg={{ span: 20 }}
+                            md={{ span: 12 }}
+                            lg={{ span: 12 }}
                             xl={{ span: 6 }}
-                            xxl={7}
+                            xxl={8}
                           >
                             <AntButton
                               style={{ marginTop: 15 }}
@@ -613,14 +607,13 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                           <Col
                             xs={{ span: 10 }}
                             sm={{ span: 6 }}
-                            md={{ span: 20 }}
-                            lg={{ span: 20 }}
+                            md={{ span: 12 }}
+                            lg={{ span: 12 }}
                             xl={{ span: 6 }}
-                            xxl={7}
+                            xxl={8}
                           >
                             <AntButton
-                              ghost
-                              style={{ marginTop: 15 }}
+                              style={{ backgroundColor: '#FFAF0C', marginTop: 15 }}
                               onClick={() => {
                                 handleResetForm();
                                 setIsEditMode(false);
@@ -641,7 +634,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
             <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }}>
               <AntTable
                 numberOfSkeletons={12}
-                scroll={{ x: '', y: convertVhToPixels('20vh') }}
+                scroll={{ x: '', y: convertVhToPixels('18vh') }}
                 data={tableData || []}
                 columns={columns(t, handleDeleteRow, handleEditRow)}
               />

@@ -30,5 +30,12 @@
   "against_ac": "アカウントに対して",
   "contra_voucher": "コントラバウチャー",
   "expense_voucher": "経費引換券",
-  "journal_voucher": "ジャーナルバウチャー"
+  "journal_voucher": "ジャーナルバウチャー",
+  "voucher_type": "バウチャーの種類",
+  "req_status": "リクエストステータス",
+  "user": "ユーザー",
+  "tax_percent": "税率",
+  "bills_payable_accounts": "支払手形勘定",
+  "invoice_date": "請求書の日付",
+  "bill_invoice_no": "請求書/請求書番号"
 }

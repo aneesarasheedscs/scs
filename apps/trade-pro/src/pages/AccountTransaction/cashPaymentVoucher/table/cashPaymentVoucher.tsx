@@ -60,7 +60,7 @@ function CashPaymentTable({
         </Col>
 
         {showComponent ? (
-          <CardView />
+          <CardView setSelectedRecordId={setSelectedRecordId} setActiveTab={setActiveTab} />
         ) : (
           <Col>
             <>

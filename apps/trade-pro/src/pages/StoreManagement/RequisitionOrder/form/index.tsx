@@ -92,6 +92,8 @@ function RequisitionOrderForm({
       addRequisitionOrder(values);
       console.log(values);
     }
+  };
+  useEffect(() => {
     if (successAdd && addRequisition?.data?.Status === true) {
       setTableData([]);
       setSelectedRecordId(null);
@@ -108,8 +110,7 @@ function RequisitionOrderForm({
       form.setFieldValue('DocDate', dayjs(new Date()));
       form.setFieldValue('RemarksHeader', null);
     }
-  };
-
+  }, [successAdd, addRequisition, successUpdate, updateRequistion]);
   useEffect(() => {
     if (selectedRecordId) {
       setDeleteTableData([]);
@@ -156,9 +157,9 @@ function RequisitionOrderForm({
       <Card>
         <Form form={form} onFinish={onFinish} layout="horizontal" style={{ marginBottom: 20 }}>
           <Row justify="space-between" style={{ marginLeft: 10, marginRight: 10 }}>
-            <Col xxl={8} xl={9} lg={12} style={{ marginTop: '0.5%' }}>
+            <Col xxl={8} xl={11} lg={16} style={{ marginTop: '0.5%' }}>
               <Row gutter={10} align="middle" style={{ border: '' }} justify={'space-between'}>
-                <Col>
+                <Col xl={9} xxl={7} lg={9} md={9} sm={9} xs={18}>
                   <b style={{ fontSize: 18 }}> {t('document_no')}</b> &nbsp;
                   <DocNumber
                     isError={isError}
@@ -170,7 +171,7 @@ function RequisitionOrderForm({
                     <Input />
                   </Form.Item>
                 </Col>
-                <Col xl={15} xxl={15} sm={18} lg={15} xs={23} md={15} className="formfield">
+                <Col xl={15} xxl={15} sm={15} lg={15} xs={23} md={15} className="formfield">
                   <AntDatePicker autoFocus required name="DocDate" label={t('document_date')} bordered={false} />
                 </Col>
               </Row>

@@ -43,33 +43,38 @@ export type TTaxSchedule = {
 };
 
 export type TCashPaymentDetailEntry = {
-  PaymentTypeId: number;
-  Id: number;
-  PaymentType: string;
-  JobLotId: number;
-  Remarks: string;
-  AccountId: number;
-  AccountIdDebit: number;
+  AccountIdCredit: number;
+  CheqId: number;
   AccountTitle: string;
   JobLotDescription: string;
-  AgainstAccountId: number;
-  Balance: number;
-  CreditAmount: number;
+  JobLotId: number;
+  DCheqDate: Date | string;
+  PaymentTypeId: number;
+  PaymentType: string;
+  Id: number;
   DebitAmount: number;
-  Comments: string;
-  key: number;
-  TaxTypeId: number;
-  TaxName: string;
-  TaxPrcnt: number;
-  CheqId: number;
+  CreditAmount: number;
+  AdvanceAmount: number;
+  CheqNoDetail: number;
   InvoiceNoRefId: number;
   PayeeTitle: string;
-  CheqNoDetail: number;
-  IsDetailExpanded: boolean;
+  Comments: string;
+  IsTaxable: boolean;
+  AccountId: number;
+  ChequeDate: Date | string;
   Amount: number;
+  CheqNo: number;
+  AgainstAccountId: number;
+  TaxTypeId: number;
+  TaxPrcnt: number;
+  TaxesTotalAmount: number;
+  IsDetailExpanded: boolean;
+  AccountCode: number;
+  AgainstAccount: string;
+  AccountIdDebit: string;
+  TaxName: string;
   TaxAmount: number;
   TotalAmount: number;
-  IsTaxable: boolean;
 };
 
 export type TFormDetailList = {

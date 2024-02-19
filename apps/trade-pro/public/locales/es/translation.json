@@ -623,7 +623,7 @@
   "voucher_no": "Número de vale",
   "branch": "Rama",
   "project": "Proyecto",
-  "voucher_type": "Tipo de vale:",
+  "voucher_type": "Tipo de vale",
   "voucher_date": "Fecha del bono",
   "cheque_date": "Verificar fecha",
   "pay_title": "Título de pago",
@@ -843,5 +843,10 @@
   "cash_receipt_voucher": "Vale de recibo en efectivo",
   "bank_receipt_voucher": "Comprobante de recibo bancario",
   "against_ac": "Contra cuenta",
-  "journal_voucher": "Documento preliminar"
+  "journal_voucher": "Documento preliminar",
+  "req_status": "Estado de la solicitud",
+  "tax_percent": "Porcentaje de impuestos",
+  "bills_payable_accounts": "Cuentas de facturas por pagar",
+  "invoice_date": "Fecha de la factura",
+  "bill_invoice_no": "Número de factura/factura"
 }

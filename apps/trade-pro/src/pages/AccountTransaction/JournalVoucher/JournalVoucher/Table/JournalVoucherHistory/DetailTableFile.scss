@@ -1,0 +1,330 @@
+$background-color-invoice: #25a7df;
+$background-color-company_info: #e1e1e1;
+
+.main-voucher-design {
+  border: 1px solid black;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: all 0.8s linear;
+  width: 150%;
+}
+.caption-value-wrape {
+  padding: 0px 20px;
+  display: flex;
+
+  .caption {
+    color: black;
+    font-weight: bold !important;
+    padding-right: 14px;
+    font-size: 15px;
+    font-weight: 600;
+
+    width: 50%;
+
+    @media screen and (max-width: 1250px) {
+      font-size: 11px;
+    }
+  }
+  .value {
+    color: black;
+
+    width: 50%;
+    @media screen and (max-width: 1250px) {
+      font-size: 11px;
+    }
+  }
+}
+
+.Account_title {
+  text-align: center;
+  margin-top: 5px;
+  color: black;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.Horizental_Line {
+  margin-top: 6px;
+  margin-bottom: 0px;
+  border-top: 2px solid #31c9c9;
+  width: 94%;
+}
+.Wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.Detail-wrape {
+  padding: 10px;
+  .detail-title {
+    color: White;
+    background-color: var(--color-primary);
+    width: 147px;
+    padding: 7px;
+    font-size: 18px;
+    font-weight: 700;
+
+    @media screen and (max-width: 1250px) {
+      padding: 2px 10px;
+      font-size: 13px;
+    }
+  }
+}
+
+.Table {
+  padding: 0;
+  transition: all 0.8s linear;
+
+  .table-header {
+    padding: 7px;
+    display: flex;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    background-color: var(--color-primary);
+
+    .Account {
+      width: 25%;
+
+      @media screen and (max-width: 1250px) {
+        font-size: 12px;
+      }
+    }
+    .offset_Account {
+      width: 20%;
+      @media screen and (max-width: 1250px) {
+        font-size: 12px;
+      }
+    }
+    .jobLOt {
+      width: 15%;
+      @media screen and (max-width: 1250px) {
+        font-size: 12px;
+      }
+    }
+    .Debit,
+    .Credit {
+      width: 15%;
+      word-break: break-word;
+      @media screen and (max-width: 1250px) {
+        font-size: 12px;
+      }
+    }
+    .Remarks {
+      width: 25%;
+      word-break: break-word;
+      @media screen and (max-width: 1250px) {
+        font-size: 12px;
+      }
+    }
+  }
+  .table-Row {
+    padding: 7px;
+    display: flex;
+
+    .Account {
+      width: 25%;
+      color: blue;
+      font-weight: bold;
+      cursor: pointer;
+      @media screen and (max-width: 1250px) {
+        font-size: 12px;
+      }
+    }
+
+    .offset_Account {
+      width: 20%;
+      // color: var(--color-primary);
+      font-weight: bold;
+      cursor: pointer;
+      @media screen and (max-width: 1250px) {
+        font-size: 12px;
+      }
+    }
+    .jobLOt {
+      width: 15%;
+      @media screen and (max-width: 1250px) {
+        font-size: 12px;
+      }
+    }
+    .Debit,
+    .Credit {
+      width: 15%;
+      word-break: break-word;
+      @media screen and (max-width: 1250px) {
+        font-size: 12px;
+      }
+    }
+    .Remarks {
+      width: 25%;
+      word-break: break-word;
+      @media screen and (max-width: 1250px) {
+        font-size: 12px;
+      }
+    }
+  }
+  .table-Footer {
+    .totals-wrape {
+      .values {
+        display: flex;
+        padding: 2px;
+        background-color: var(--color-primary);
+        font-size: 16px;
+        color: white;
+        font-weight: 600;
+        .total-caption {
+          width: 68%;
+          padding: 0.4%;
+          @media screen and (max-width: 1250px) {
+            font-size: 11px;
+          }
+        }
+        .Debit {
+          width: 15%;
+          @media screen and (max-width: 1250px) {
+            font-size: 11px;
+          }
+        }
+        .Credit {
+          width: 17%;
+          @media screen and (max-width: 1250px) {
+            font-size: 11px;
+          }
+        }
+      }
+    }
+  }
+}
+//*********************************
+.Item-addless {
+  padding: 4px 10px;
+}
+.supplier-Addless {
+  padding: 12px;
+  width: 70%;
+  margin: auto;
+  overflow: hidden;
+}
+.table-title {
+  color: White;
+  background-color: var(--color-primary);
+  width: 168px;
+  padding: 4px;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0px 1px;
+  @media screen and (max-width: 1250px) {
+    padding: 4px;
+    font-size: 13px;
+  }
+}
+
+.grand-total-wrape {
+  display: flex;
+  justify-content: end;
+  .grand-totals {
+    width: 421px;
+    margin: 16px 11px;
+    color: #121212;
+    border: 2px solid var(--color-primary);
+    .calculate-wrape {
+      display: flex;
+      padding: 3px;
+      justify-content: space-between;
+      .total-caption {
+        font-size: 18px;
+        font-weight: 600;
+        font-family: inherit;
+        font-family: none;
+      }
+      .total-value {
+        font-size: 18px;
+        padding: 0px 0px;
+        color: #121212;
+        font-weight: 570;
+        font-family: fangsong;
+      }
+    }
+    .grand-total {
+      color: var(--color-primary);
+      padding: 6px 10px;
+    }
+  }
+}
+.Footer {
+  border: 2px solid var(--color-primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .Thanks {
+    color: var(--color-primary);
+    font-size: 22px;
+    padding: 0px 20px;
+    font-weight: bold;
+    font-family: inherit;
+    .heart-icon {
+      color: var(--color-primary);
+    }
+    @media screen and (max-width: 1250px) {
+      font-size: 28px;
+    }
+    @media screen and (max-width: 650px) {
+      font-size: 18px;
+      display: flex;
+      width: 50%;
+    }
+  }
+  .powered-by {
+    padding: 12px;
+    color: var(--color-primary);
+    font-weight: bold;
+    font-size: 1rem;
+  }
+}
+//**********************************
+.Scss-Link {
+  color: black;
+  font-size: 16px;
+  font-weight: 600;
+}
+//=======================================
+.WhtAgaints_Account {
+  display: flex;
+  justify-content: end;
+  margin: 0px 10px 0px 0px;
+}
+.Wrap {
+  border: 1px solid var(--color-primary);
+  width: 421px;
+  margin: 20px 0px 0px 0px;
+}
+.Title_Wrap {
+  text-align: center;
+  border: 1px solid var(--color-primary);
+}
+.Wht-Title {
+  font-size: 17px;
+  color: #5a54f9;
+}
+.Wht-Value {
+  font-size: 17px;
+}
+.Img {
+  width: 35px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  height: 35px;
+}
+.table-data:nth-child(odd) {
+  background-color: rgb(236, 234, 234); /* Change this color as needed */
+}
+@media screen and (max-width: 650px) and (min-width: 200px) {
+  .Account_title {
+    position: absolute;
+    top: 10px;
+    left: 0rem;
+    margin-top: 5px;
+    color: black;
+    font-size: 15px;
+  }
+}

@@ -307,7 +307,7 @@
   "company": "کمپنی",
   "branch": "شاخ",
   "project": "پروجیکٹ",
-  "voucher_type": "واؤچر کی قسم:",
+  "voucher_type": "واؤچر کی قسم",
   "voucher_date": "واؤچر کی تاریخ",
   "cheque_date": "تاریخ چیک کریں۔",
   "pay_title": "پے ٹائٹل",
@@ -697,6 +697,7 @@
   "trial_all_level": "تمام سطحوں کی آزمائش",
   "view_options": "اختیارات دیکھیں",
   "trial_balance_all_levels": "تمام سطوح کا تجربی توازن",
+  "req_status": "درخواست کی حیثیت",
   "interval_above": "فاصلہ اوپر",
   "1st_interval": "پہلا فاصلہ",
   "2nd_interval": "دوسرا فاصلہ",
@@ -712,5 +713,10 @@
   "reveiables_ac_type": "وصول کرنے والے اے سی قسم",
   "reveiable_account": "وصول کرنے والے اکاؤنٹ",
   "only_trade_parties": "صرف تجارتی جماعتیں",
-  "last_rcvd_date": "آخری وصولی تاریخ"
+  "last_rcvd_date": "آخری وصولی تاریخ",
+  "user": "صارف",
+  "tax_percent": "ٹیکس فیصد",
+  "bills_payable_accounts": "بلز قابل ادائیگی اکاؤنٹس",
+  "invoice_date": "رسید کی تاریخ",
+  "bill_invoice_no": "بل/انوائس نمبر"
 }

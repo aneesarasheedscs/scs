@@ -18,5 +18,13 @@
   "contra_voucher": "콘트라 바우처",
   "expense_voucher": "비용 바우처",
   "journal_voucher": "저널 바우처",
-  "offset_account": "상계 계정"
+  "offset_account": "상계 계정",
+  "voucher_type": "바우처 종류",
+  "req_status": "요청 상태",
+  "user": "사용자",
+  "wht_against_account": "계정에 대한 원천징수",
+  "tax_percent": "세율",
+  "bills_payable_accounts": "지급 청구서 계정",
+  "invoice_date": "송장 날짜",
+  "bill_invoice_no": "청구서/송장 번호"
 }

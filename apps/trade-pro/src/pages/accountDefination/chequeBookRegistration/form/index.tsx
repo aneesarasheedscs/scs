@@ -80,14 +80,12 @@ function ChequeForm() {
           <Form.Item className="buttons">
             <Row align="middle" style={{ marginLeft: '-22%' }} gutter={10}>
               <Col>
-                <AntButton htmlType="submit" label={t('generate')} onClick={handleGenerateButtonClick} />
+                <AntButton label={t('generate')} onClick={handleGenerateButtonClick} />
               </Col>
               <Col>
                 <AntButton danger ghost htmlType="reset" label={t('reset')} icon={<SyncOutlined />} />
               </Col>
-              <Col>
-                <AntButton label={t('save_and_add_more')} htmlType="submit" disabled={isSaveButtonDisabled} />
-              </Col>
+
               <Col>
                 <AntButton
                   ghost

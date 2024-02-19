@@ -15,14 +15,14 @@ function RequisitionOrderDetailTable({ requisitionDetail, isDataLoadingDetail, r
     <div>
       <Row style={{ marginTop: '0.1%' }}>
         <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }} xxl={24}>
-          <h2 className="form-heading3" style={{ marginTop: 0 }}>
+          <h2 className="form-heading2" style={{ marginTop: 0 }}>
             {t('detail')}
           </h2>
           <AntTable
             refetch={refetchDetail}
             isLoading={isDataLoadingDetail}
             numberOfSkeletons={4}
-            scroll={{ x: '', y: convertVhToPixels('20vh') }}
+            scroll={{ x: '', y: convertVhToPixels('15vh') }}
             data={requisitionDetail?.data?.Data?.Result?.WsRmRequisitionPoDetailsList || []}
             columns={detailColumns(t)}
             style={{ marginTop: 0 }}

@@ -17,8 +17,10 @@ export const columns = (
     dataIndex: 'ItemName',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.ItemName.localeCompare(b.ItemName),
+    showCount: true,
   },
   {
+    align: 'right',
     title: t('item_qty'),
     width: 150,
     showTotal: true,
@@ -26,7 +28,7 @@ export const columns = (
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.ReqQty - b.ReqQty,
     render: (_, { ReqQty }) => (
-      <span style={{ display: 'flex', justifyContent: 'end', marginRight: '20%' }}>{numberFormatter(ReqQty)}</span>
+      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(ReqQty)}</span>
     ),
   },
   {
@@ -38,6 +40,7 @@ export const columns = (
     sorter: (a, b) => a.PackUom.localeCompare(b.PackUom),
   },
   {
+    align: 'right',
     title: t('weight'),
     width: 150,
     showTotal: true,
@@ -45,10 +48,11 @@ export const columns = (
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.BillWeight - b.BillWeight,
     render: (_, { BillWeight }) => (
-      <span style={{ display: 'flex', justifyContent: 'end', marginRight: '10%' }}>{numberFormatter(BillWeight)}</span>
+      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(BillWeight)}</span>
     ),
   },
   {
+    align: 'right',
     title: t('item_price'),
     width: 150,
     showTotal: true,
@@ -56,10 +60,11 @@ export const columns = (
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.ReqRate - b.ReqRate,
     render: (_, { ReqRate }) => (
-      <span style={{ display: 'flex', justifyContent: 'end', marginRight: '10%' }}>{numberFormatter(ReqRate)}</span>
+      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(ReqRate)}</span>
     ),
   },
   {
+    align: 'right',
     title: t('amount'),
     width: 150,
     showTotal: true,
@@ -67,13 +72,13 @@ export const columns = (
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.ReqAmount - b.ReqAmount,
     render: (_, { ReqAmount }) => (
-      <span style={{ display: 'flex', justifyContent: 'end', marginRight: '10%' }}>{numberFormatter(ReqAmount)}</span>
+      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(ReqAmount)}</span>
     ),
   },
 
   {
     title: t('remarks'),
-    width: 220,
+    width: 350,
     dataIndex: 'RemarksDetail',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
@@ -81,20 +86,20 @@ export const columns = (
   },
   {
     title: t('action'),
-    width: 120,
+    width: 96,
     render: (_, record) => (
       <>
         <Tooltip title={t('edit')}>
-          <Space>
+          <Space style={{ position: 'absolute', top: 10, left: 15 }}>
             <AntButton
               type="text"
-              icon={<EditFilled style={{ color: 'blue' }} />}
+              icon={<EditFilled style={{ color: '#006640' }} />}
               onClick={() => handleEditRow(record)}
             />
           </Space>
         </Tooltip>
         <Tooltip title={t('delete')}>
-          <Space>
+          <Space style={{ position: 'absolute', top: 10, right: 10 }}>
             <AntButton
               type="text"
               icon={<DeleteOutlined style={{ color: 'red' }} />}

@@ -1,14 +1,14 @@
-import { AntButton, AntTable } from '@tradePro/components';
-import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
-import { Card, Col, Row, theme } from 'antd';
-import { columns } from './columns';
-import { useTranslation } from 'react-i18next';
-import { useGetBankPaymentVoucherTable } from '../queries/queries';
-import { useState } from 'react';
 import './Card.scss';
 import './DetailTableFile.scss';
+import { useState } from 'react';
 import CardView from './CardView';
+import { columns } from './columns';
+import { Col, Row, theme } from 'antd';
+import { useTranslation } from 'react-i18next';
 import BankPaymentDetailTable from './DetailTable';
+import { AntButton, AntTable } from '@tradePro/components';
+import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
+import { useGetBankPaymentVoucherTable } from '../queries/queries';
 
 function BankPaymentTable({ setSelectedRecordId, setActiveTab, setSelectedRecordDetailId, refetch, isLoading }: TFrom) {
   const { t } = useTranslation();
@@ -53,7 +53,7 @@ function BankPaymentTable({ setSelectedRecordId, setActiveTab, setSelectedRecord
         </Col>
 
         {showComponent ? (
-          <CardView />
+          <CardView setSelectedRecordId={setSelectedRecordId} setActiveTab={setActiveTab} />
         ) : (
           <Col span={24}>
             <>

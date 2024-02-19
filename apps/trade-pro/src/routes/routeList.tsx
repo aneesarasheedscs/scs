@@ -112,6 +112,7 @@ const BankPaymentVoucher = lazy(() => import('@tradePro/pages/AccountTransaction
 const CashPaymentVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/cashPaymentVoucher'));
 const CashReceiptVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/cashReceiptVoucher'));
 const JournalVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/JournalVoucher/JournalVoucher'));
+const BillsPayableAccounts = lazy(() => import('@tradePro/pages/AccountTransaction/billsPayableAccounts'));
 
 //Sale Trading
 const SaleOrder = lazy(() => import('@tradePro/pages/SaleTrading/saleOrder'));
@@ -151,7 +152,8 @@ export const protectedRoutes: RouteObject[] = [
   { path: route.BANK_PAYMENT_VOUCHER, element: <BankPaymentVoucher /> },
   { path: route.CASH_PAYMENT_VOUCHER, element: <CashPaymentVoucher /> },
   { path: route.CASH_RECEIPT_VOUCHER, element: <CashReceiptVoucher /> },
-  { path: route.JOURNAL_Voucher, element: <JournalVoucher /> },
+  { path: route.JOURNAL_VOUCHER, element: <JournalVoucher /> },
+  { path: route.BILLS_PAYABLE_ACCOUNTS, element: <BillsPayableAccounts /> },
 
   //Account Reports
   { path: route.ACTIVITY_SUMMARY, element: <ActivitySummary /> },

@@ -1,14 +1,15 @@
-import { AntButton, AntTable } from '@tradePro/components';
-import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
-import { Card, Col, Row, theme } from 'antd';
-import { columns } from './columns';
-import { useTranslation } from 'react-i18next';
-import { useGetExpenseVoucherTable } from '../queries/queries';
-import { useState } from 'react';
-import CardView from './CardView';
 import './Card.scss';
 import './DetailTableFile.scss';
+import { columns } from './columns';
+import { useState } from 'react';
+import CardView from './CardView';
+import { Card, Col, Row, theme } from 'antd';
+import { useTranslation } from 'react-i18next';
 import ExpenseVoucherDetailTable from './DetailTable';
+import { AntButton, AntTable } from '@tradePro/components';
+import { useGetExpenseVoucherTable } from '../queries/queries';
+import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
+
 function ExpenseVoucherTable({
   setSelectedRecordId,
   setActiveTab,
@@ -40,12 +41,33 @@ function ExpenseVoucherTable({
     <>
       <Row gutter={10}>
         <Col span={24} style={{ marginLeft: '0.5%', borderTop: '1px solid #dfdfdf' }}>
-          <AntButton onClick={toggleCardView} className="" label={t('card_view')} />
-          <AntButton onClick={toggleGridView} className="" style={{ marginLeft: '0.2%' }} label={t('grid_view')} />
+          <AntButton
+            onClick={toggleGridView}
+            className=""
+            style={{
+              background: showComponent ? '' : '#fff',
+              color: showComponent ? '' : `${colorPrimary}`,
+              fontWeight: 'bold',
+              border: showComponent ? '' : `1px solid ${colorPrimary}`,
+            }}
+            label={t('grid_view')}
+          />
+          <AntButton
+            onClick={toggleCardView}
+            style={{
+              background: showComponent ? '#fff' : '',
+              color: showComponent ? `${colorPrimary}` : '',
+              fontWeight: 'bold',
+              border: showComponent ? `1px solid ${colorPrimary}` : '',
+              marginLeft: '0.2%',
+            }}
+            className=""
+            label={t('card_view')}
+          />
         </Col>
 
         {showComponent ? (
-          <CardView />
+          <CardView setSelectedRecordId={setSelectedRecordId} setActiveTab={setActiveTab} />
         ) : (
           <Col span={24}>
             <>

@@ -30,23 +30,35 @@ function RequisitionOrderTable({
     setShowComponent(true);
   };
   return (
-    <div>
+    <>
       <Row style={{ marginTop: '' }}>
-        <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }} xxl={24}>
-          <h2 className="form-heading2">
-            <Row gutter={10} style={{ display: 'flex' }}>
-              <div style={{ display: 'flex' }}>
-                <AntButton onClick={toggleGridView} className="btn" label={t('grid_view')} />
+        <Col span={24} style={{ marginLeft: '0.5%', borderTop: '1px solid #dfdfdf' }}>
+          <AntButton
+            onClick={toggleGridView}
+            className=""
+            style={{
+              background: showComponent ? '' : '#fff',
+              color: showComponent ? '' : `${colorPrimary}`,
+              fontWeight: 'bold',
+              border: showComponent ? '' : `1px solid ${colorPrimary}`,
+            }}
+            label={t('grid_view')}
+          />
+          <AntButton
+            onClick={toggleCardView}
+            style={{
+              background: showComponent ? '#fff' : '',
+              color: showComponent ? `${colorPrimary}` : '',
+              fontWeight: 'bold',
+              border: showComponent ? `1px solid ${colorPrimary}` : '',
+              marginLeft: '0.2%',
+            }}
+            className=""
+            label={t('card_view')}
+          />
+        </Col>
 
-                <AntButton
-                  onClick={toggleCardView}
-                  className="btn"
-                  label={t('card_view')}
-                  style={{ marginLeft: '2%' }}
-                />
-              </div>
-            </Row>
-          </h2>
+        <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }} xxl={24}>
           <div>
             {showComponent ? (
               <>
@@ -73,7 +85,7 @@ function RequisitionOrderTable({
           </div>
         </Col>
       </Row>
-    </div>
+    </>
   );
 }
 

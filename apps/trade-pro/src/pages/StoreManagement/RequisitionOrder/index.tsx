@@ -6,7 +6,6 @@ import { viewDetailList } from './form/Atom';
 import './style.scss';
 import RequisitionOrderForm from './form';
 import RequisitionOrderTable from './table/RequisitionOrderTable';
-import RequisitionOrderDetailTable from './table/DetailTable';
 import { useGetRequisitionOrderById, useGetRequisitionOrderByIdforDetail } from './quries';
 
 function RequisitionOrder() {
