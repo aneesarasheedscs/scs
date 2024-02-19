@@ -25,7 +25,6 @@ const InventryTransactionTable: React.FC<{
     <>
       <Row gutter={10} style={{ marginTop: '1%' }}>
         <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24, offset: 0 }}>
-          {/* <Card style={{ boxShadow: '2px 4px 12px 1px gray', textAlign: 'left' }}> */}
           <AntTable
             rowKey="Id"
             isError={isError}
@@ -43,7 +42,6 @@ const InventryTransactionTable: React.FC<{
             }
             columns={columns(t)}
           />
-          {/* </Card> */}
         </Col>
       </Row>
     </>

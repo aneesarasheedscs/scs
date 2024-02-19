@@ -1,7 +1,7 @@
 export type TStockReportTable = {
   ItemId: string;
   ItemName: string;
-  PackUom: string;
+  PackUom: number;
   TotalQty: number;
   OpWeight: number;
   WeightIn: number;

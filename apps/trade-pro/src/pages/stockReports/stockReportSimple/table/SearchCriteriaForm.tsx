@@ -13,8 +13,9 @@ import {
   useGetStockReportParentCategory,
   useGetStockReportSimpleTable,
   useGetStockReportWareHouse,
-} from '../queries/queries';
+} from '../queries';
 import { useAtom } from 'jotai';
+import { valid } from 'joi';
 
 const { useForm, useWatch } = Form;
 
@@ -76,15 +77,15 @@ function SearchCriteriaForm() {
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
       <Form form={form} onFinish={onFinish} layout="inline" initialValues={formValues}>
         <Row gutter={[10, 10]} justify={'space-between'}>
-          <Col xs={24} sm={24} md={11} style={formfield}>
+          <Col xs={20} sm={24} md={11} style={formfield}>
             <AntDatePicker name="FromDate" required label={t('from_date')} bordered={false} />
           </Col>
 
-          <Col xs={24} sm={24} md={11} style={formfield}>
+          <Col xs={20} sm={24} md={11} style={formfield}>
             <AntDatePicker name="ToDate" required label={t('to_date')} bordered={false} />
           </Col>
 
-          <Col xs={24} sm={24} md={11} style={formfield}>
+          <Col xs={20} sm={24} md={11} style={formfield}>
             <AntSelectDynamic
               bordered={false}
               name="ParentCategoryId"
@@ -98,7 +99,7 @@ function SearchCriteriaForm() {
             />
           </Col>
 
-          <Col xs={24} sm={24} md={11} style={formfield}>
+          <Col xs={20} sm={24} md={11} style={formfield}>
             <AntSelectDynamic
               bordered={false}
               name="ItemCategoryId"
@@ -112,7 +113,7 @@ function SearchCriteriaForm() {
             />
           </Col>
 
-          <Col xs={24} sm={24} md={11} style={formfield}>
+          <Col xs={20} sm={24} md={11} style={formfield}>
             <AntSelectDynamic
               bordered={false}
               fieldValue="Id"
@@ -126,7 +127,7 @@ function SearchCriteriaForm() {
             />
           </Col>
 
-          <Col xs={24} sm={24} md={11} style={formfield}>
+          <Col xs={20} sm={24} md={11} style={formfield}>
             <AntSelectDynamic
               bordered={false}
               fieldValue="Id"
@@ -140,7 +141,7 @@ function SearchCriteriaForm() {
             />
           </Col>
 
-          <Col xs={24} sm={24} md={11} style={formfield}>
+          <Col xs={20} sm={24} md={11} style={formfield}>
             <AntSelectDynamic
               bordered={false}
               fieldValue="Id"
@@ -154,7 +155,7 @@ function SearchCriteriaForm() {
             />
           </Col>
 
-          <Col xs={24} sm={24} md={11} style={formfield}>
+          <Col xs={20} sm={24} md={11} style={formfield}>
             <AntSelectDynamic
               required
               bordered={false}
@@ -169,7 +170,7 @@ function SearchCriteriaForm() {
             />
           </Col>
 
-          <Col xs={24} sm={24} md={6}>
+          <Col xs={20} sm={24} md={6}>
             <Radio.Group
               onChange={(e) => {
                 form.setFieldsValue({ stockUOM: e.target.value });
@@ -182,7 +183,7 @@ function SearchCriteriaForm() {
             <AntInput label="" name="ActionId" type="hidden" />
           </Col>
 
-          <Col xs={24} sm={24} md={8}>
+          <Col xs={5} sm={4} md={3} xxl={3}>
             <AntButton
               label={t('show')}
               htmlType="submit"

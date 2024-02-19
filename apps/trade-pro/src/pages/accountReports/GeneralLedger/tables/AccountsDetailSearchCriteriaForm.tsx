@@ -80,11 +80,11 @@ const AccountsDetailSearchCriteriaForm: React.FC<{
       <Form style={style} form={form} onFinish={onFinish} layout="horizontal">
         <Row gutter={[12, 12]} align="middle" justify="space-between">
           <Col span={6} className="formfield">
-            <AntDatePicker bordered={false} name="FromDate" label={t('from_date')} />
+            <AntDatePicker bordered={false} name="FromDate" label={t('from_date')} placeholder="" />
           </Col>
 
           <Col span={6} className="formfield">
-            <AntDatePicker bordered={false} name="ToDate" label={t('to_date')} />
+            <AntDatePicker bordered={false} name="ToDate" label={t('to_date')} placeholder="" />
           </Col>
 
           <Col span={11} className="formfield">

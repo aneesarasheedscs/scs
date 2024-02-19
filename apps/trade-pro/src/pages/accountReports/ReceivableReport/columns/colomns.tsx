@@ -7,7 +7,7 @@ import { Space, Tooltip } from 'antd';
 import { AntButton } from '@scs/ui';
 import { PhoneOutlined } from '@ant-design/icons';
 
-export const ReceivablColumn = (t: any): AntColumnType<ReceivableReportTypeHistory>[] => [
+export const ReceivablColumn = (t: any, handleAccountCodeClick: any): AntColumnType<ReceivableReportTypeHistory>[] => [
   {
     title: t('account_title'),
     dataIndex: 'AccountTitle',
@@ -24,8 +24,7 @@ export const ReceivablColumn = (t: any): AntColumnType<ReceivableReportTypeHisto
 
     render: (_, { AccountCode, AccountId }) => (
       <>
-        {/* <a onClick={() => handleAccountCodeClick(AccountId)}>{AccountCode}</a> */}
-        <a>{AccountCode}</a>
+        <a onClick={() => handleAccountCodeClick(AccountId)}>{AccountCode}</a>
       </>
     ),
   },
@@ -192,7 +191,7 @@ export const ReceivablColumn = (t: any): AntColumnType<ReceivableReportTypeHisto
   {
     title: t('company_logo_image'),
     dataIndex: 'CompLogoImage',
-    width: 170,
+    width: 200,
     searchableInput: true,
   },
 

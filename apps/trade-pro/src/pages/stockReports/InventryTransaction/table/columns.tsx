@@ -11,11 +11,7 @@ export const columns = (t: any): AntColumnType<TInventryReportHistory>[] => [
     searchableInput: true,
     dataIndex: 'DocumentType',
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => {
-      const dateA = dayjs(a.DocumentType);
-      const dateB = dayjs(b.DocumentType);
-      return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
-    },
+    sorter: (a, b) => a.DocumentType.localeCompare(b.DocumentType),
   },
   {
     title: <>{t('doc_date')}</>,
@@ -36,11 +32,7 @@ export const columns = (t: any): AntColumnType<TInventryReportHistory>[] => [
     dataIndex: 'DocNo',
     render: (_, { DocNo }) => <span>{numberFormatter(DocNo)}</span>,
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => {
-      const dateA = dayjs(a.DocNo);
-      const dateB = dayjs(b.DocNo);
-      return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
-    },
+    sorter: (a, b) => a.DocNo - b.DocNo,
   },
   {
     title: <>{t('ware_house')}</>,
@@ -48,11 +40,7 @@ export const columns = (t: any): AntColumnType<TInventryReportHistory>[] => [
     width: 200,
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => {
-      const dateA = dayjs(a.WareHouse);
-      const dateB = dayjs(b.WareHouse);
-      return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
-    },
+    sorter: (a, b) => a.WareHouse.localeCompare(b.WareHouse),
   },
   {
     title: <>{t('job_lot')}</>,
@@ -60,11 +48,7 @@ export const columns = (t: any): AntColumnType<TInventryReportHistory>[] => [
     width: 200,
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => {
-      const dateA = dayjs(a.JobLot);
-      const dateB = dayjs(b.JobLot);
-      return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
-    },
+    sorter: (a, b) => a.JobLot.localeCompare(b.JobLot),
   },
   {
     title: <>{t('item_code')}</>,
@@ -72,11 +56,7 @@ export const columns = (t: any): AntColumnType<TInventryReportHistory>[] => [
     width: 200,
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => {
-      const dateA = dayjs(a.ItemCode);
-      const dateB = dayjs(b.ItemCode);
-      return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
-    },
+    sorter: (a, b) => a.ItemCode - b.ItemCode,
   },
   {
     title: <>{t('item_name')}</>,
@@ -84,11 +64,7 @@ export const columns = (t: any): AntColumnType<TInventryReportHistory>[] => [
     width: 200,
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => {
-      const dateA = dayjs(a.ItemName);
-      const dateB = dayjs(b.ItemName);
-      return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
-    },
+    sorter: (a, b) => a.ItemName.localeCompare(b.ItemName),
   },
   {
     title: <>{t('base_uom')}</>,
@@ -96,11 +72,7 @@ export const columns = (t: any): AntColumnType<TInventryReportHistory>[] => [
     width: 200,
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => {
-      const dateA = dayjs(a.BaseUom);
-      const dateB = dayjs(b.BaseUom);
-      return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
-    },
+    sorter: (a, b) => a.BaseUom.localeCompare(b.BaseUom),
   },
   {
     title: <>{t('qty_in')}</>,
@@ -109,11 +81,7 @@ export const columns = (t: any): AntColumnType<TInventryReportHistory>[] => [
     showTotal: true,
     render: (_, { QtyIn }) => <span>{numberFormatter(QtyIn)}</span>,
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => {
-      const dateA = dayjs(a.QtyIn);
-      const dateB = dayjs(b.QtyIn);
-      return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
-    },
+    sorter: (a, b) => a.QtyIn - b.QtyIn,
   },
   {
     title: <>{t('qty_out')}</>,

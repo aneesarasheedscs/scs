@@ -1,8 +1,9 @@
-import { Card, theme } from 'antd';
+import { Card, Col, Row, theme } from 'antd';
 import { useAtom } from 'jotai';
 import InventryTransactionTable from './table';
 import { selectedItems } from '../stockReportSimple/table/Atom';
 import { useTranslation } from 'react-i18next';
+import { BackButton } from '@tradePro/components';
 
 function InventryTransactions() {
   const [selectedItem] = useAtom(selectedItems);
@@ -29,6 +30,15 @@ function InventryTransactions() {
   };
   return (
     <>
+      <Row justify={'space-between'} align={'middle'}>
+        <Col xs={10} sm={10} md={12} lg={12} xl={12} xxl={16} className="">
+          <h1 className="report_heading">{t('stock_report')}</h1>
+        </Col>
+        <Col xs={3} sm={2} xxl={1} md={2} lg={2} xl={2} style={{ marginRight: '50px' }}>
+          <BackButton goToDashboard={false} />
+        </Col>
+      </Row>
+
       <h2 style={{ textAlign: 'center' }}>{t('inventry_transaction')}</h2>
 
       {/* <Card style={{ background: 'transparent' }}> */}
