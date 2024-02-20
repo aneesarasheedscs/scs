@@ -6,7 +6,7 @@ import { viewDetailList } from '../form/Atom';
 import { detailColumns } from './Detailcolumn';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 
-function BillsPayableAccountsDetailTable({ refetch, isLoading }: any) {
+function BillsReceivableAccountsDetailTable({ refetch, isLoading }: any) {
   const { t } = useTranslation();
   const [viewDetail, setViewDetail] = useAtom(viewDetailList);
   const {
@@ -33,4 +33,4 @@ function BillsPayableAccountsDetailTable({ refetch, isLoading }: any) {
   );
 }
 
-export default BillsPayableAccountsDetailTable;
+export default BillsReceivableAccountsDetailTable;

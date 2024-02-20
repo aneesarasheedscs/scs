@@ -519,5 +519,8 @@
   "tax_percent": "Pourcentage d'impôt",
   "bills_payable_accounts": "Comptes de factures à payer",
   "invoice_date": "Date de facture",
-  "bill_invoice_no": "Numéro de facture/facture"
+  "bill_invoice_no": "Numéro de facture/facture",
+  "tax_account": "Compte de taxes",
+  "due_percent": "Exigible %",
+  "bills_receivables_accounts": "Comptes de factures à recevoir"
 }

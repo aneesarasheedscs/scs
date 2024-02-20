@@ -1,14 +1,14 @@
 import './style.scss';
 import { useAtom } from 'jotai';
-import BillsPayableForm from './form';
+import BillsReceivableForm from './form';
 import { Col, Row, Tabs, theme } from 'antd';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { viewDetailList } from './form/Atom';
-import BillsPayableHistory from './table/billsPayableHistory';
-import { useGetBillsPayableAccountsDetailById, useGetBillsPayableVoucherById } from './query';
+import BillsReceivableHistory from './table/billsPayableHistory';
+import { useGetBillsReceivableAccountsDetailById, useGetBillsReceivableVoucherById } from './query';
 
-function BillsPayableAccounts() {
+function BillsReceivableAccounts() {
   const { t } = useTranslation();
   const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
   const [selectedRecordDetailId, setSelectedRecordDetailId] = useState<number | null>();
@@ -18,8 +18,8 @@ function BillsPayableAccounts() {
     data: addBillsPayable,
     refetch: refetchBillsPayable,
     isSuccess: isDataSuccess,
-  } = useGetBillsPayableVoucherById(selectedRecordId);
-  const { data, refetch, isSuccess, isLoading } = useGetBillsPayableAccountsDetailById(selectedRecordDetailId);
+  } = useGetBillsReceivableVoucherById(selectedRecordId);
+  const { data, refetch, isSuccess, isLoading } = useGetBillsReceivableAccountsDetailById(selectedRecordDetailId);
   useEffect(() => {
     if (isSuccess) {
       setViewDetail(data?.data?.Data?.Result?.voucherDetailList);
@@ -32,7 +32,7 @@ function BillsPayableAccounts() {
     <>
       <Row style={{ background: '', marginLeft: '', marginTop: '0%' }}>
         <Col span={24}>
-          <h2 className="form-heading">{t('bills_payable_accounts')}</h2>
+          <h2 className="form-heading">{t('bills_receivables_accounts')}</h2>
           <Tabs
             type="card"
             size="large"
@@ -41,7 +41,7 @@ function BillsPayableAccounts() {
             onChange={(key) => setActiveTab(key)}
           >
             <Tabs.TabPane key="1" tab={t('history')}>
-              <BillsPayableHistory
+              <BillsReceivableHistory
                 setSelectedRecordId={setSelectedRecordId}
                 setActiveTab={setActiveTab}
                 setSelectedRecordDetailId={setSelectedRecordDetailId}
@@ -50,7 +50,7 @@ function BillsPayableAccounts() {
               />
             </Tabs.TabPane>
             <Tabs.TabPane key="2" tab={t('form')}>
-              <BillsPayableForm
+              <BillsReceivableForm
                 selectedRecordId={selectedRecordId}
                 setSelectedRecordId={setSelectedRecordId}
                 addBillsPayable={addBillsPayable}
@@ -65,4 +65,4 @@ function BillsPayableAccounts() {
   );
 }
 
-export default BillsPayableAccounts;
+export default BillsReceivableAccounts;

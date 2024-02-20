@@ -1,4 +1,5 @@
 import '../style.scss';
+import dayjs from 'dayjs';
 import { useAtom } from 'jotai';
 import { map, sumBy } from 'lodash';
 import {
@@ -84,10 +85,8 @@ const DynamicForm = ({ form }: TDynamicForm) => {
       console.log('New tableData:', combinedData);
       return combinedData;
     });
-    form.setFieldValue(['voucherDetailList', 0, 'AccountId'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'JobLotId'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'DebitAmount'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'Comments'], null);
+    form.setFieldValue(['voucherDetailList', 0], null);
+    form.setFieldValue(['voucherDetailList', 0, 'DCheqDate'], dayjs(new Date()));
     setIsEditMode(false);
     setRefAccountId(0);
   };
@@ -130,18 +129,14 @@ const DynamicForm = ({ form }: TDynamicForm) => {
         return updatedData;
       });
     }
-    form.setFieldValue(['voucherDetailList', 0, 'AccountId'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'JobLotId'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'DebitAmount'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'Comments'], null);
+    form.setFieldValue(['voucherDetailList', 0], null);
+    form.setFieldValue(['voucherDetailList', 0, 'DCheqDate'], dayjs(new Date()));
     setIsEditMode(false);
     setRefAccountId(0);
   };
   const handleResetForm = () => {
-    form.setFieldValue(['voucherDetailList', 0, 'AccountId'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'JobLotId'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'DebitAmount'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'Comments'], null);
+    form.setFieldValue(['voucherDetailList', 0], null);
+    form.setFieldValue(['voucherDetailList', 0, 'DCheqDate'], dayjs(new Date()));
     setRefAccountId(0);
   };
   const handleDeleteRow = (record: any) => {

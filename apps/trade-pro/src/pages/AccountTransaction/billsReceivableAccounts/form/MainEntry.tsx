@@ -80,14 +80,14 @@ function MainEntry({
                 className="formfield"
               >
                 <p style={{ marginTop: -18, marginLeft: '65%' }} className="cr">
-                  Cr :<b> {numberFormatter(data?.data?.Data?.Result?.[0]?.Balance)}</b>
+                  Dr :<b> {numberFormatter(data?.data?.Data?.Result?.[0]?.Balance)}</b>
                 </p>
 
                 <p style={{ marginTop: -4 }}>
                   <AntSelectDynamic
                     required
                     bordered={false}
-                    label={t('credit_account')}
+                    label={t('debit_account')}
                     fieldValue="Id"
                     fieldLabel="AccountTitle"
                     name="RefAccountId"

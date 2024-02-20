@@ -26,5 +26,8 @@
   "tax_percent": "세율",
   "bills_payable_accounts": "지급 청구서 계정",
   "invoice_date": "송장 날짜",
-  "bill_invoice_no": "청구서/송장 번호"
+  "bill_invoice_no": "청구서/송장 번호",
+  "tax_account": "세금 계정",
+  "due_percent": "로 인한 %",
+  "bills_receivables_accounts": "AR 계정"
 }

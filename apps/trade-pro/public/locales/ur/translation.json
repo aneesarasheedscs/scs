@@ -718,5 +718,8 @@
   "tax_percent": "ٹیکس فیصد",
   "bills_payable_accounts": "بلز قابل ادائیگی اکاؤنٹس",
   "invoice_date": "رسید کی تاریخ",
-  "bill_invoice_no": "بل/انوائس نمبر"
+  "bill_invoice_no": "بل/انوائس نمبر",
+  "tax_account": "ٹیکس اکاؤنٹ",
+  "due_percent": "واجب الادا %",
+  "bills_receivables_accounts": "بل وصول کرنے والے اکاؤنٹس"
 }

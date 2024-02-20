@@ -3,7 +3,7 @@ import { requestManager } from '@tradePro/configs/requestManager';
 import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 import { AxiosError, AxiosResponse } from 'axios';
 import { notification } from 'antd';
-import { AccountData, TBillsPayables } from './types';
+import { AccountData, TBillsReceivable } from './types';
 import { queryClient } from '@scs/configs';
 
 const userDetail = storedUserDetail();
@@ -19,14 +19,14 @@ const params = { CompanyId, OrganizationId, BranchesId };
 
 export const useGetBillsPayablesAccountsVoucherTable = (enabled = true, params?: any) => {
   return useQuery(
-    'bills-payable-history',
+    'bills-receivable-history',
     () => {
       return requestManager.post('/api/Voucher/VoucherFormHistory', {
         OrganizationId: userDetail?.OrganizationId,
         BranchesId: userDetail?.BranchesId,
         CompanyId: userDetail?.CompanyId,
         FinancialYearId: financialYear?.Id,
-        Ids: '6',
+        Ids: '7',
         PostState: true,
         // NoOfRecords: 50,
         ...params,
@@ -36,9 +36,9 @@ export const useGetBillsPayablesAccountsVoucherTable = (enabled = true, params?:
   );
 };
 // Get ById
-export const useGetBillsPayableVoucherById = (Id?: number | null | any) => {
+export const useGetBillsReceivableVoucherById = (Id?: number | null | any) => {
   return useQuery(
-    ['Bills-Payable-getById', Id],
+    ['Bills-Receivable-getById', Id],
     () => {
       return getBillsPayableVoucherById(Id);
     },
@@ -56,11 +56,11 @@ export const useGetBillsPayableVoucherById = (Id?: number | null | any) => {
 const getBillsPayableVoucherById = (Id?: number | null) => {
   return requestManager.get('/api/Voucher/GetByID', { params: { Id } });
 };
-export const useGetBillsPayableAccountsDetailById = (Id?: number | null | any) => {
+export const useGetBillsReceivableAccountsDetailById = (Id?: number | null | any) => {
   return useQuery(
-    ['bills-payable-accounts-detail-getById', Id],
+    ['bills-receivable-accounts-detail-getById', Id],
     () => {
-      return getBillsPayableAccountsDetailById(Id);
+      return getBillsReceivableAccountsDetailById(Id);
     },
     {
       cacheTime: 0,
@@ -73,7 +73,7 @@ export const useGetBillsPayableAccountsDetailById = (Id?: number | null | any) =
     }
   );
 };
-const getBillsPayableAccountsDetailById = (Id?: number | null) => {
+const getBillsReceivableAccountsDetailById = (Id?: number | null) => {
   return requestManager.get('/api/Voucher/GetByID', { params: { Id } });
 };
 // Get Voucher No
@@ -98,7 +98,7 @@ export const useGetVoucherNo = (DocumentTypeId: number) => {
 // Get Project
 export const useGetBPAProjectSelect = () => {
   return useQuery(
-    'BPA_Project',
+    'BRA_Project',
     () => {
       return requestManager.get('/api/Projects/GetByOrganizationCompanyId', {
         params: { ...params },
@@ -128,7 +128,7 @@ const GetCreditAccountSelect: QueryFunction<AxiosResponse<any, any>> = async () 
 //Get JobLot Select
 export const useGetBPAJobLotSelect = () => {
   return useQuery(
-    'JobLot-for-bills-payable',
+    'JobLot-for-bills-receivable',
     () => {
       return requestManager.get('/api/JobLot/GetByOrganizationCompanyId', { params: { ...params } });
     },
@@ -166,16 +166,16 @@ export const useGetTaxSchedule = (DocDate?: Date, TaxNameId?: number) => {
   );
 };
 
-export const useAddBillsPayableVoucher = (DocumentTypeId?: number, params?: TBillsPayables) => {
+export const useAddBillsReceivablesVoucher = (DocumentTypeId?: number, params?: TBillsReceivable) => {
   return useMutation(
-    'add-bills-payable',
-    (data: TBillsPayables) => {
+    'add-bills-receivable',
+    (data: TBillsReceivable) => {
       let dataToSubmit = {};
       const userDetail = storedUserDetail();
       dataToSubmit = {
         ...data,
         Id: 0,
-        Type: 'JournalCredit',
+        Type: 'JournalDebit',
         OrganizationId: userDetail?.OrganizationId,
         CompanyId: userDetail?.CompanyId,
         BranchId: userDetail?.BranchesId,
@@ -198,7 +198,7 @@ export const useAddBillsPayableVoucher = (DocumentTypeId?: number, params?: TBil
             description: response?.data?.Message || 'An error occurred.',
           });
         } else if (response?.data && response?.data?.Status === true) {
-          queryClient.invalidateQueries('bills-payable-history');
+          queryClient.invalidateQueries('bills-receivable-history');
           const msg = 'Record added successfully!';
           notification.success({ description: '', message: msg });
         }
@@ -211,17 +211,21 @@ export const useAddBillsPayableVoucher = (DocumentTypeId?: number, params?: TBil
   );
 };
 
-export const useUpdateBillsPayableVoucher = (DocumentTypeId?: number, Id?: number | null, params?: TBillsPayables) => {
+export const useUpdateBillsReceivablesVoucher = (
+  DocumentTypeId?: number,
+  Id?: number | null,
+  params?: TBillsReceivable
+) => {
   console.log(Id);
   return useMutation(
-    'update-bills-payable',
-    (data: TBillsPayables) => {
+    'update-bills-receivable',
+    (data: TBillsReceivable) => {
       let dataToSubmit = {};
       const userDetail = storedUserDetail();
       dataToSubmit = {
         ...data,
         Id: Id,
-        Type: 'JournalCredit',
+        Type: 'JournalDebit',
         OrganizationId: userDetail?.OrganizationId,
         CompanyId: userDetail?.CompanyId,
         BranchId: userDetail?.BranchesId,
@@ -243,7 +247,7 @@ export const useUpdateBillsPayableVoucher = (DocumentTypeId?: number, Id?: numbe
             description: response?.data?.Message || 'An error occurred.',
           });
         } else if (response?.data && response?.data?.Status === true) {
-          queryClient.invalidateQueries('bills-payable-history');
+          queryClient.invalidateQueries('bills-receivable-history');
           const msg = 'Record updated successfully!';
           notification.success({ description: '', message: msg });
         }

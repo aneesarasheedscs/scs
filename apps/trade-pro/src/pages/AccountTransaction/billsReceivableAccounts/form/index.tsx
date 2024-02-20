@@ -6,29 +6,33 @@ import { isNumber } from 'lodash';
 import MainEntry from './MainEntry';
 import DynamicForm from './DetailEntry';
 import { addtableData } from './Atom';
-import { TBillsPayables } from '../types';
+import { TBillsReceivable } from '../types';
 import { useEffect, useState } from 'react';
 import { Card, Form, notification } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { useAddBillsPayableVoucher, useGetTaxSchedule, useUpdateBillsPayableVoucher } from '../query';
+import { useAddBillsReceivablesVoucher, useGetTaxSchedule, useUpdateBillsReceivablesVoucher } from '../query';
 
 const { useForm } = Form;
 
-function BillsPayableForm({
+function BillsReceivableForm({
   selectedRecordId,
   setSelectedRecordId,
   addBillsPayable,
   refetchBillsPayable,
   isDataSuccess,
 }: TAddUpdateRecord) {
-  const [form] = useForm<TBillsPayables>();
+  const [form] = useForm<TBillsReceivable>();
   const { t } = useTranslation();
   const [bankId, setBankId] = useState<number | null>(null);
-  const DocumentTypeId = 6;
+  const DocumentTypeId = 7;
   const [tableData, setTableData] = useAtom(addtableData);
   const [isAddButtonClicked, setIsAddButtonClicked] = useState(true);
-  const { mutate: addBillsPayableVoucher, data: saveData, isSuccess } = useAddBillsPayableVoucher(DocumentTypeId);
-  const { mutate: updateBillsPayableVoucher, data: updateData } = useUpdateBillsPayableVoucher(
+  const {
+    mutate: addBillsReceivableVoucher,
+    data: saveData,
+    isSuccess,
+  } = useAddBillsReceivablesVoucher(DocumentTypeId);
+  const { mutate: updateBillsReceivableVoucher, data: updateData } = useUpdateBillsReceivablesVoucher(
     DocumentTypeId,
     selectedRecordId
   );
@@ -52,10 +56,9 @@ function BillsPayableForm({
     }
   }, [SharedStateIncludeWHT, VoucherDate, TaxTypeId]);
 
-  const onFinish = (values: TBillsPayables) => {
+  const onFinish = (values: TBillsReceivable) => {
     values.PrintPreview = printPreview;
     values.AgainstAccountId = tableData?.[0]?.AccountId;
-
     const TaxableEntry: any = {};
     TaxableEntry.RefdocNoId = values.voucherDetailList[0]?.RefdocNoId;
     TaxableEntry.TaxPrcnt = values.voucherDetailList[0]?.TaxPrcnt;
@@ -104,7 +107,7 @@ function BillsPayableForm({
         });
         return;
       }
-      updateBillsPayableVoucher(values);
+      updateBillsReceivableVoucher(values);
       console.log(values);
       console.log(tableData);
     } else if (tableData.length === 0) {
@@ -114,7 +117,7 @@ function BillsPayableForm({
       });
     } else {
       console.log(values);
-      addBillsPayableVoucher(values);
+      addBillsReceivableVoucher(values);
     }
   };
 
@@ -132,7 +135,7 @@ function BillsPayableForm({
       //   addBillsPayable?.data?.Data?.Result?.voucherDetailList?.[0]?.AgainstAccountId
       // );
       const DetailList = addBillsPayable?.data?.Data?.Result?.voucherDetailList.filter(
-        (row: any) => row.DebitAmount > 0
+        (row: any) => row.CreditAmount > 0
       );
       setTableData(DetailList);
     }
@@ -186,4 +189,4 @@ type TAddUpdateRecord = {
   isDataSuccess: any;
 };
 
-export default BillsPayableForm;
+export default BillsReceivableForm;

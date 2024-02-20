@@ -27,6 +27,7 @@ export const route = {
   EXPENSE_VOUCHER: '/expense-voucher',
   JOURNAL_VOUCHER: '/journal-voucher',
   BILLS_PAYABLE_ACCOUNTS: '/bills-payable-accounts',
+  BILLS_RECEIVABLES_ACCOUNTS: '/bills-receivables-accounts',
 
   //Account Reports
   CASH_BALANCES: '/cash-balances',

@@ -8,9 +8,9 @@ import { useTranslation } from 'react-i18next';
 import { AntButton, AntTable } from '@tradePro/components';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { useGetBillsPayablesAccountsVoucherTable } from '../query';
-import BillsPayableAccountsDetailTable from './DetailTable';
+import BillsReceivableAccountsDetailTable from './DetailTable';
 
-function BillsPayableHistory({
+function BillsReceivableHistory({
   setSelectedRecordId,
   setActiveTab,
   setSelectedRecordDetailId,
@@ -79,7 +79,7 @@ function BillsPayableHistory({
                 columns={columns(t, setSelectedRecordId, setActiveTab, setSelectedRecordDetailId)}
               />
 
-              <BillsPayableAccountsDetailTable refetch={refetch} isLoading={isLoading} />
+              <BillsReceivableAccountsDetailTable refetch={refetch} isLoading={isLoading} />
             </>
           </Col>
         )}
@@ -96,4 +96,4 @@ type TFrom = {
   isLoading: any;
 };
 
-export default BillsPayableHistory;
+export default BillsReceivableHistory;

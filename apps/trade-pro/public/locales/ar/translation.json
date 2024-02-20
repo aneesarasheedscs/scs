@@ -526,5 +526,8 @@
   "tax_percent": "نسبة الضريبة",
   "bills_payable_accounts": "حسابات الفواتير المستحقة الدفع",
   "invoice_date": "تاريخ الفاتورة",
-  "bill_invoice_no": "رقم الفاتورة/الفاتورة"
+  "bill_invoice_no": "رقم الفاتورة/الفاتورة",
+  "tax_account": "حساب الضريبة",
+  "due_percent": "حق ٪",
+  "bills_receivables_accounts": "حسابات الفواتير المستحقة القبض"
 }

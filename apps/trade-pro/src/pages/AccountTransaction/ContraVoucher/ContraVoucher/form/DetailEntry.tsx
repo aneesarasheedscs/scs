@@ -1,11 +1,12 @@
-import { map, sumBy } from 'lodash';
 import '../style.scss';
+import dayjs from 'dayjs';
 import { useAtom } from 'jotai';
-import { addtableData, dataforCreditAmount } from './Atom';
+import { map, sumBy } from 'lodash';
 import { columns2 } from '../table/columns';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TContraDetailEntry, TjobLot } from './types';
+import { addtableData, dataforCreditAmount } from './Atom';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { Card, Col, FormInstance, Row, Form, Button, notification } from 'antd';
@@ -91,10 +92,8 @@ const DynamicForm = ({ form }: TDynamicForm) => {
       setTableDataforCreditAmount((prevTableData: any) => [...prevTableData, TaxableEntry]);
       return combinedData;
     });
-    form.setFieldValue(['voucherDetailList', 0, 'AccountId'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'JobLotId'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'DebitAmount'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'Comments'], null);
+    form.setFieldValue(['voucherDetailList', 0], null);
+    form.setFieldValue(['voucherDetailList', 0, 'DCheqDate'], dayjs(new Date()));
     setIsEditMode(false);
     setRefAccountId(0);
   };
@@ -154,19 +153,15 @@ const DynamicForm = ({ form }: TDynamicForm) => {
         return updatedData;
       });
     }
-    form.setFieldValue(['voucherDetailList', 0, 'AccountId'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'JobLotId'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'DebitAmount'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'Comments'], null);
+    form.setFieldValue(['voucherDetailList', 0], null);
+    form.setFieldValue(['voucherDetailList', 0, 'DCheqDate'], dayjs(new Date()));
     setIsEditMode(false);
     setRefAccountId(0);
   };
   console.log(tableDataforCreditAmount);
   const handleResetForm = () => {
-    form.setFieldValue(['voucherDetailList', 0, 'AccountId'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'JobLotId'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'DebitAmount'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'Comments'], null);
+    form.setFieldValue(['voucherDetailList', 0], null);
+    form.setFieldValue(['voucherDetailList', 0, 'DCheqDate'], dayjs(new Date()));
     setRefAccountId(0);
   };
   const handleDeleteRow = (record: any) => {

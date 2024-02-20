@@ -5,13 +5,14 @@ import { Space, Tooltip } from 'antd';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import dayjs from 'dayjs';
-import { TBillsPayableAccountsHistory, TvoucherDetailList } from '../types';
+import { TBillsReceivableAccountsHistory, TvoucherDetailList } from '../types';
+
 export const columns = (
   t: any,
   setSelectedRecordId?: any,
   setActiveTab?: any,
   setSelectedRecordDetailId?: any
-): AntColumnType<TBillsPayableAccountsHistory>[] => [
+): AntColumnType<TBillsReceivableAccountsHistory>[] => [
   {
     title: t('code'),
     width: 120,
@@ -71,19 +72,6 @@ export const columns = (
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.CheqNo.localeCompare(b.CheqNo),
   },
-  // {
-  //   title: t('cheque_date'),
-  //   dataIndex: 'ChequeDate',
-  //   sortDirections: ['ascend', 'descend'],
-  //   searchableDate: true,
-  //   render: (_, { ChequeDate }) => formateDate(ChequeDate),
-  //   sorter: (a, b) => {
-  //     const dateA = dayjs(a.ChequeDate);
-  //     const dateB = dayjs(b.ChequeDate);
-  //     return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
-  //   },
-  //   width: 140,
-  // },
   {
     title: t('remarks'),
     width: 220,
@@ -145,7 +133,7 @@ export const detailcolumns = (
   handleEditRow?: any
 ): AntColumnType<TvoucherDetailList>[] => [
   {
-    title: t('debit_account'),
+    title: t('credit_account'),
     width: 300,
     searchableInput: true,
     dataIndex: 'AccountTitle',
@@ -194,12 +182,12 @@ export const detailcolumns = (
     align: 'right',
     title: t('debit_amount'),
     width: 180,
-    dataIndex: 'DebitAmount',
+    dataIndex: 'CreditAmount',
     showTotal: true,
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.DebitAmount - b.DebitAmount,
-    render: (_, { DebitAmount }) => (
-      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(DebitAmount)}</span>
+    sorter: (a, b) => a.CreditAmount - b.CreditAmount,
+    render: (_, { CreditAmount }) => (
+      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(CreditAmount)}</span>
     ),
   },
 

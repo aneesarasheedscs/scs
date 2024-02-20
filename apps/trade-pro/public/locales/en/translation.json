@@ -726,5 +726,8 @@
   "tax_percent": "Tax Percent",
   "bills_payable_accounts": "Bills Payable Accounts",
   "invoice_date": "Invoice Date",
-  "bill_invoice_no": "Bill/Invoice No"
+  "bill_invoice_no": "Bill/Invoice No",
+  "tax_account": "Tax Account",
+  "due_percent": "Due %",
+  "bills_receivables_accounts": "Bills Receivables Accounts"
 }

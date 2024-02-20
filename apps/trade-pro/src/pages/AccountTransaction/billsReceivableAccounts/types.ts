@@ -1,4 +1,4 @@
-export type TBillsPayableAccountsHistory = {
+export type TBillsReceivableAccountsHistory = {
   Id: string;
   VoucherCode: number;
   DocumentTypeId: string;
@@ -10,7 +10,6 @@ export type TBillsPayableAccountsHistory = {
   VoucherAmount: number;
   UserName: string;
   CheqNo: string;
-
   ChequeDate: Date | string;
   PayTitle: string;
   TaxAmount: number;
@@ -34,7 +33,7 @@ export type AccountData = {
   GLPageNo: number | null;
   AccountTypeId: number;
 };
-export type TBillsPayables = {
+export type TBillsReceivable = {
   PrintPreview: boolean;
   BranchId: number;
   ProjectId: number;
@@ -65,7 +64,7 @@ export type TvoucherDetailList = {
   QtyIn: number;
   ItemRate: number;
   ItemAmount: number;
-  DebitAmount: number;
+  CreditAmount: number;
   IsTaxable: string;
   DueDays: number;
   DueDate: Date | string;
@@ -85,6 +84,7 @@ export type TPaymentDuesSchedules = {
   Amount: number;
   DuePercentage: number;
   DueDays: number;
+  TaxPrcnt: number;
   RefdocNoId: number;
   refDocumentTypeId: number;
   PaymentDueScheduleId: number;

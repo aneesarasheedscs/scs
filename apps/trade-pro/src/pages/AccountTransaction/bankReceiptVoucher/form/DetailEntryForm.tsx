@@ -161,12 +161,8 @@ const DynamicForm = ({ form, handleTaxTypeChange, SharedStateIncludeWHT, Schedul
       console.log('New tableData:', combinedData);
       return combinedData;
     });
-    form.setFieldValue(['voucherDetailList', 0, 'AccountId'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'AccountTitle'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'JobLotId'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'JobLotDescription'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'CreditAmount'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'Comments'], null);
+    form.setFieldValue(['voucherDetailList', 0], null);
+    form.setFieldValue(['voucherDetailList', 0, 'DCheqDate'], dayjs(new Date()));
     setIsEditMode(false);
   };
   const handleUpdateToTable = () => {
@@ -213,23 +209,14 @@ const DynamicForm = ({ form, handleTaxTypeChange, SharedStateIncludeWHT, Schedul
         return updatedData;
       });
     }
-
-    form.setFieldValue(['voucherDetailList', 0, 'AccountId'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'AccountTitle'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'JobLotId'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'JobLotDescription'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'CreditAmount'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'Comments'], null);
+    form.setFieldValue(['voucherDetailList', 0], null);
+    form.setFieldValue(['voucherDetailList', 0, 'DCheqDate'], dayjs(new Date()));
     setIsEditMode(false);
   };
   const handleResetForm = () => {
     setRefAccountId(0);
-    form.setFieldValue(['voucherDetailList', 0, 'AccountId'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'AccountTitle'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'JobLotId'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'JobLotDescription'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'CreditAmount'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'Comments'], null);
+    form.setFieldValue(['voucherDetailList', 0], null);
+    form.setFieldValue(['voucherDetailList', 0, 'DCheqDate'], dayjs(new Date()));
     setIsEditMode(false);
   };
   const handleDeleteRow = (record: any) => {
