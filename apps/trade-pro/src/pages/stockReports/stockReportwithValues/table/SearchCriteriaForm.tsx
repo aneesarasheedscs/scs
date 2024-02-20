@@ -17,6 +17,7 @@ import { map, values } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { useAtom } from 'jotai';
 import { selectedItems } from './Atom';
+import { storedFinancialYear } from '@tradePro/utils/storageService';
 const { useForm, useWatch } = Form;
 interface TReportType {
   Id: string;
@@ -53,6 +54,9 @@ function SearchCriteriaForm() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const financialYear = storedFinancialYear();
+  const FStartPeriod = dayjs(financialYear?.Start_Period);
+
   const onFinish = (values: TStockReportsSearchCriteria) => {
     console.log(values);
 
@@ -60,12 +64,14 @@ function SearchCriteriaForm() {
     console.log(selectedItem);
     refetch().then(() => handleClose());
   };
+
   useEffect(() => {
-    const januaryFirst = dayjs().startOf('year').set('month', 0).set('date', 1);
-    form.setFields([{ name: 'FromDate', value: januaryFirst }]);
+    // const januaryFirst = dayjs().startOf('year').set('month', 0).set('date', 1);
+    form.setFields([{ name: 'FromDate', value: FStartPeriod }]);
     form.setFields([{ name: 'ToDate', value: dayjs(new Date()) }]);
     form.setFieldsValue({ ActionId: 2 });
   }, []);
+
   return (
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
       <Form form={form} onFinish={onFinish} layout="inline" initialValues={formValues}>
@@ -197,6 +203,7 @@ function SearchCriteriaForm() {
             </Radio.Group>
             <AntInput label="" name="ActionId" type="hidden" />
           </Col>
+
           <Col xs={24} sm={24} md={4}>
             <AntButton
               label={t('show')}

@@ -1,7 +1,7 @@
 import { QueryFunction, useQuery } from 'react-query';
 import { requestManager } from '@tradePro/configs/requestManager';
 import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
-import { InventoryReport, TInventryReportSearchCriteria } from '../table/types';
+import { InventoryReport, TInventryReportSearchCriteria } from './table/types';
 import { AxiosResponse } from 'axios';
 
 const userDetail = storedUserDetail();

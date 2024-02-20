@@ -20,20 +20,19 @@ const AccountDetailCard: React.FC<{ DetailData: any; BalanceData: any }> = (prop
           hoverable
           style={{
             border: `1px solid ${colorPrimary}`,
-            height: 158,
+            height: 'auto',
           }}
         >
           <Col span={24} xs={24}>
-            <Title
-              level={4}
-              className="custom-title1"
+            <h3
+              className="custom-title-general"
               style={{
                 backgroundColor: colorPrimary,
                 color: '#fff',
               }}
             >
-              <p style={{ marginTop: '-15px' }}> {t('account_detail')}</p>
-            </Title>
+              <p style={{ marginTop: '5px' }}> {t('account_detail')}</p>
+            </h3>
           </Col>
 
           <div>

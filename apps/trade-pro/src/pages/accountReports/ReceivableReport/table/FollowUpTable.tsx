@@ -23,6 +23,7 @@ const FollowUpTable = () => {
             isLoading={isAccountTitleLoading}
             data={AccountTitle?.data?.Data?.Result || []}
             scroll={{ x: 'max-content' }}
+            // scroll={{ x: '', y: convertVhToPixels('40vh') }}
           />
         </Col>
       </Row>

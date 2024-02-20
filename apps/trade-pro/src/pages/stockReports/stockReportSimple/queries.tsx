@@ -2,7 +2,7 @@ import { QueryFunction, useQuery } from 'react-query';
 import { requestManager } from '@tradePro/configs/requestManager';
 import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 import { AxiosResponse } from 'axios';
-import { StockReport, TStockReportSearchCriteria } from '../table/types';
+import { StockReport, TStockReportSearchCriteria } from './table/types';
 
 const userDetail = storedUserDetail();
 const financialYear = storedFinancialYear();
@@ -24,7 +24,7 @@ export const useGetStockReportSimpleTable = (enabled = true, params?: TStockRepo
         CompanyId: userDetail?.CompanyId,
         FromDate: new Date(),
         ToDate: new Date(),
-        // Activity: 'ItemStockSummary',
+        Activity: params?.Activity || 'ItemStockSummary',
         ...params,
       });
     },

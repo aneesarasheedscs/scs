@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Checkbox, Col, Form, Row, Select } from 'antd';
+import { Checkbox, Col, Form, Row } from 'antd';
 import dayjs from 'dayjs';
 import type { CheckboxProps } from 'antd';
 
 import {
   AntButton,
   AntDatePicker,
-  AntInput,
   AntInputNumber,
   AntSelectDynamic,
   SearchCriteriaWrapper,
@@ -23,14 +22,11 @@ import { ReceivableReportTypeCriteria } from './type';
 import { storedFinancialYear } from '@tradePro/utils/storageService';
 import { map } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { CheckBox } from '../GeneralLedger/tables/Atom';
-import { useLifecycles } from 'react-use';
-import { use } from 'i18next';
 
 const financialYear = storedFinancialYear();
 const { useForm, useWatch } = Form;
 const ReceivableFormCriteria = () => {
-  const [AccountTypeId, setAccountTypeId] = useState<any>([]);
+  const [AccountTypeIds, setAccountTypeId] = useState<any>([]);
   const [AccountData, setAccountData] = useState<any>([]);
 
   const handleAccountTypeChange = (value: number) => {
@@ -38,7 +34,7 @@ const ReceivableFormCriteria = () => {
   };
 
   const { data: AccountTypes } = useGetAccountTypeId();
-  const { data: accountTitleData } = useGetAccountTitle(AccountTypeId);
+  const { data: accountTitleData } = useGetAccountTitle(AccountTypeIds);
 
   useEffect(() => {
     if (accountTitleData) {
@@ -58,6 +54,8 @@ const ReceivableFormCriteria = () => {
   useEffect(() => {
     setFields([{ name: 'FromDate', value: dayjs(financialYear?.Start_Period) }]);
     setFields([{ name: 'ToDate', value: dayjs() }]);
+    setFields([{ name: 'AccountId', value: 3 }]);
+    setAccountTypeId(3);
   }, []);
   const {
     refetch,
@@ -140,10 +138,10 @@ const ReceivableFormCriteria = () => {
                 mode="multiple"
                 name="AccountType"
                 label={t('reveiable_account')}
-                fieldValue="AccountCode"
+                fieldValue="AccountTypeId"
                 fieldLabel="AccountTitle"
                 options={map(AccountData, (Item: any) => ({
-                  value: Item?.Id,
+                  value: Item?.AccountClass,
                   label: Item?.AccountTitle,
                 }))}
               />

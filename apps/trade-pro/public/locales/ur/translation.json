@@ -721,5 +721,6 @@
   "bill_invoice_no": "بل/انوائس نمبر",
   "tax_account": "ٹیکس اکاؤنٹ",
   "due_percent": "واجب الادا %",
-  "bills_receivables_accounts": "بل وصول کرنے والے اکاؤنٹس"
+  "bills_receivables_accounts": "بل وصول کرنے والے اکاؤنٹس",
+  "inventry_evaluation_item_ledger": "انوینٹری اہلیہ آئٹم لیجر"
 }

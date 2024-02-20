@@ -1,6 +1,7 @@
-import { Card, theme } from 'antd';
+import { Card, Col, Row, theme } from 'antd';
 import StockReportSimpleTable from '../stockReportSimple/table';
 import { useTranslation } from 'react-i18next';
+import { BackButton } from '@tradePro/components';
 
 function StockReportSimple() {
   const {
@@ -16,13 +17,17 @@ function StockReportSimple() {
     fontSize: '1.8rem',
   };
   return (
-    <>
-      <h2 style={formHeading}>{t('stock_report')}</h2>
-
-      <Card style={{ background: 'transparent' }}>
-        <StockReportSimpleTable />
-      </Card>
-    </>
+    <div style={{ background: '#fff' }}>
+      <Row justify={'space-between'} align={'middle'}>
+        <Col xs={10} sm={10} md={12} lg={12} xl={12} xxl={16} className="">
+          <h1 className="report_heading">{t('stock_report')}</h1>
+        </Col>
+        <Col xs={3} sm={2} xxl={1} md={2} lg={2} xl={2} style={{ marginRight: '50px' }}>
+          <BackButton goToDashboard={false} />
+        </Col>
+      </Row>
+      <StockReportSimpleTable />
+    </div>
   );
 }
 

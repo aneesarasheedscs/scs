@@ -1,12 +1,13 @@
 export type TStockReportTable = {
-  ItemId: string;
+  ItemId: number;
   ItemName: string;
-  PackUom: string;
+  PackUom: number;
   TotalQty: number;
   OpWeight: number;
   WeightIn: number;
   WeightOut: number;
   BalWeight: number;
+  AccountId:number
 };
 
 export type TStockReportSearchCriteria = {

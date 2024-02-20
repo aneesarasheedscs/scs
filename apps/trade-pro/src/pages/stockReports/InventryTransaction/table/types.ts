@@ -7,7 +7,7 @@ export type TInventryReportHistory = {
   WareHouse: string;
   JobLot: string;
   ItemId: string;
-  ItemCode: string;
+  ItemCode: number;
   ItemName: string;
   BaseUom: string;
   QtyIn: number;

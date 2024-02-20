@@ -31,7 +31,7 @@ function HeaderSection() {
     <div style={{ backgroundColor: '#fff' }}>
       <Row>
         <Col>
-          <Card>
+          <Card style={{ height: '13vh' }}>
             <Form form={form} onFinish={onFinish}>
               <Col xxl={23}>
                 <Row gutter={[10, 0]} justify={'space-between'}>

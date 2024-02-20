@@ -8,10 +8,12 @@ import {
   useGetInventryReportSupplierCustomer,
   useGetInventryReportTable,
   useGetInventryReportWareHouse,
-} from '../queries/queries';
-import { TInventryReportSearchCriteria } from './types';
+} from '../queries';
+import { InventoryReport, TInventryReportSearchCriteria } from './types';
 import { map } from 'lodash';
 import dayjs from 'dayjs';
+import { useLocation } from 'react-router-dom';
+import { storedFinancialYear } from '@tradePro/utils/storageService';
 
 const { useForm, useWatch } = Form;
 
@@ -23,22 +25,36 @@ const SearchCriteriaForm: React.FC<{
 }> = (props) => {
   const { FromdateProp, ToDateProp, WarehouseId, ItemId } = props;
   const { t } = useTranslation();
+
+  const location = useLocation();
+  const { ItemIds } = location.state || {};
+
   const [open, setOpen] = useState(false);
   const [form] = useForm<TInventryReportSearchCriteria>();
   const { setFieldValue } = form;
   const formValues = useWatch<TInventryReportSearchCriteria>([], form);
 
   const { data: warehouse } = useGetInventryReportWareHouse();
-  const { data: Items } = useGetInventryReportItems();
+  const { data: Items, isLoading } = useGetInventryReportItems();
   const { data: supplierCustomer } = useGetInventryReportSupplierCustomer();
-
+  console.log(Items);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  console.log(ItemIds);
 
+  const financialYear = storedFinancialYear();
+  const FStartPeriod = dayjs(financialYear?.Start_Period);
   useEffect(() => {
+    if (!isLoading && ItemIds && Array.isArray(Items)) {
+      const ItemName = Items.filter((item: InventoryReport) => item.Id === parseInt(ItemIds));
+      console.log(ItemName);
+      form.setFields([{ name: 'ItemId', value: ItemName?.[0]?.Id }]);
+    } else if (Array.isArray(Items)) {
+      form.setFields([{ name: 'ItemId', value: null }]);
+    }
     if (WarehouseId === undefined && ItemId === undefined) {
-      const januaryFirst = dayjs().startOf('year').set('month', 0).set('date', 1);
-      form.setFields([{ name: 'FromDate', value: januaryFirst }]);
+      // const januaryFirst = dayjs().subtract(1, 'year').set('month', 0).set('date', 1);
+      form.setFields([{ name: 'FromDate', value: FStartPeriod }]);
       form.setFields([{ name: 'ToDate', value: dayjs(new Date()) }]);
     } else {
       setFieldValue('FromDate', dayjs(FromdateProp));
@@ -46,7 +62,7 @@ const SearchCriteriaForm: React.FC<{
       setFieldValue('WarehouseId', WarehouseId);
       setFieldValue('ItemId', ItemId);
     }
-  }, []);
+  }, [!isLoading, Items]);
 
   const {
     refetch,
@@ -73,15 +89,15 @@ const SearchCriteriaForm: React.FC<{
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
       <Form form={form} onFinish={onFinish} layout="inline" initialValues={formValues}>
         <Row gutter={[10, 10]} justify={'space-between'}>
-          <Col xs={24} sm={24} md={11} style={formfield}>
+          <Col xs={20} sm={24} md={11} style={formfield}>
             <AntDatePicker name="FromDate" label={t('from_date')} required bordered={false} />
           </Col>
 
-          <Col xs={24} sm={24} md={11} style={formfield}>
+          <Col xs={20} sm={24} md={11} style={formfield}>
             <AntDatePicker name="ToDate" label={t('to_date')} required bordered={false} />
           </Col>
 
-          <Col xs={24} sm={24} md={11} style={formfield}>
+          <Col xs={12} sm={24} md={11} style={formfield}>
             <AntSelectDynamic
               bordered={false}
               name="SupplierCustomerId"
@@ -95,7 +111,7 @@ const SearchCriteriaForm: React.FC<{
             />
           </Col>
 
-          <Col xs={24} sm={24} md={11} style={formfield}>
+          <Col xs={13} sm={24} md={11} style={formfield}>
             <AntSelectDynamic
               bordered={false}
               name="ItemId"
@@ -109,7 +125,7 @@ const SearchCriteriaForm: React.FC<{
             />
           </Col>
 
-          <Col xs={24} sm={24} md={11} style={formfield}>
+          <Col xs={12} sm={24} md={11} style={formfield}>
             <AntSelectDynamic
               bordered={false}
               name="WarehouseId"
@@ -123,7 +139,7 @@ const SearchCriteriaForm: React.FC<{
             />
           </Col>
 
-          <Col xs={24} sm={24} md={11} style={formfield}>
+          <Col xs={13} sm={24} md={11} style={formfield}>
             <AntSelectDynamic
               bordered={false}
               name="DocumentTypeId"
@@ -134,7 +150,7 @@ const SearchCriteriaForm: React.FC<{
             />
           </Col>
 
-          <Col xs={24} sm={24} md={8}>
+          <Col xs={12} sm={4} md={4} xxl={4}>
             <AntButton
               label={t('show')}
               htmlType="submit"

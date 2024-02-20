@@ -299,7 +299,7 @@ const PayablesReceivables: React.FC<{
         footer={null}
         bodyStyle={{ maxHeight: '80vh', overflowY: 'auto', paddingRight: '20px', marginRight: '20px' }}
       >
-        <div style={{ maxHeight: '100%', overflowY: 'auto' }}>
+        <div style={{ maxHeight: '100%', overflowX: 'hidden' }}>
           <GeneralLedgerReport
             FromDateProp={form.getFieldValue('FromDate')}
             ToDateProp={form.getFieldValue('ToDate')}

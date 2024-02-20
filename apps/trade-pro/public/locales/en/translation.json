@@ -729,5 +729,6 @@
   "bill_invoice_no": "Bill/Invoice No",
   "tax_account": "Tax Account",
   "due_percent": "Due %",
-  "bills_receivables_accounts": "Bills Receivables Accounts"
+  "bills_receivables_accounts": "Bills Receivables Accounts",
+  "inventry_evaluation_item_ledger": "Inventry Evaluation Item Ledger"
 }

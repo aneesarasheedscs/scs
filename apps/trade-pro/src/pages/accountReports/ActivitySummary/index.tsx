@@ -269,7 +269,7 @@ const ActivitySummaryReport: React.FC<{
       </div>
 
       <Modal
-        width={1800}
+        width={1300}
         key={SelectedAccount}
         open={SelectedAccount !== undefined}
         onCancel={() => setSelectedAccount(undefined)}
@@ -277,7 +277,7 @@ const ActivitySummaryReport: React.FC<{
         footer={null}
         bodyStyle={{ maxHeight: '80vh', overflowY: 'auto' }}
       >
-        <div style={{ maxHeight: '100%', overflowY: 'auto' }}>
+        <div style={{ maxHeight: '100%', overflowX: 'hidden' }}>
           <GeneralLedgerReport
             FromDateProp={form.getFieldValue('FromDate')}
             ToDateProp={form.getFieldValue('ToDate')}

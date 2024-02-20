@@ -133,7 +133,7 @@ const GeneralLedgerReport: React.FC<{
           <h1 className="report_heading">{t('general_ledger')}</h1>
         </Col>
         <Col xxl={1} style={{ marginRight: '50px' }}>
-          <BackButton />
+          <BackButton goToDashboard={false} />
         </Col>
       </Row>
       <Row>
@@ -158,7 +158,7 @@ const GeneralLedgerReport: React.FC<{
       )}
       {/* <br /> */}
       <Row gutter={[16, 16]} justify={'space-around'}>
-        <Col span={23}>
+        <Col span={23} style={{ marginTop: '10px' }}>
           {formState !== undefined && (formState.ReportType == undefined || formState?.ReportType == 1) && (
             <AntTable
               isError={detailError}

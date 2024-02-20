@@ -179,7 +179,7 @@ const CashBalances: React.FC<{ DateType?: string; FromDateProp?: Date; ToDatePro
       </Col>
 
       <Modal
-        width={1800}
+        width={1300}
         key={SelectedAccount}
         open={SelectedAccount !== undefined}
         onCancel={() => setSelectedAccount(undefined)}
@@ -187,7 +187,7 @@ const CashBalances: React.FC<{ DateType?: string; FromDateProp?: Date; ToDatePro
         footer={null}
         bodyStyle={{ maxHeight: '80vh', overflowY: 'auto' }}
       >
-        <div style={{ maxHeight: '100%', overflowY: 'auto' }}>
+        <div style={{ maxHeight: '100%', overflowX: 'hidden' }}>
           <GeneralLedgerReport
             FromDateProp={form.getFieldValue('FromDate')}
             ToDateProp={form.getFieldValue('ToDate')}

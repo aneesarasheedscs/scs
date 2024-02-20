@@ -2,7 +2,6 @@ import { AntTable, BackButton } from '@scs/ui';
 import { Col, Row } from 'antd';
 import { useGetVoucherReport } from './queries';
 import { columnsVoucherReport } from './columns';
-import { t } from 'i18next';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { useTranslation } from 'react-i18next';
 import './style.scss';
@@ -18,7 +17,7 @@ function VoucherReport() {
           <h1 className="report_heading">{t('voucher_report')}</h1>
         </Col>
         <Col xxl={1} style={{ marginRight: '50px' }}>
-          <BackButton />
+          <BackButton goToDashboard={false} />
         </Col>
       </Row>
 
