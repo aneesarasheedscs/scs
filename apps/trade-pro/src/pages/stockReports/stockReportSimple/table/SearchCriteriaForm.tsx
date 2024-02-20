@@ -16,6 +16,7 @@ import {
 } from '../queries';
 import { useAtom } from 'jotai';
 import { valid } from 'joi';
+import { storedFinancialYear } from '@tradePro/utils/storageService';
 
 const { useForm, useWatch } = Form;
 
@@ -31,6 +32,8 @@ function SearchCriteriaForm() {
   const formValues = useWatch<TStockReportSearchCriteria>([], form);
   const [selectedItem, setSelectedItems] = useAtom(selectedItems);
 
+  const financialYear = storedFinancialYear();
+  const FStartPeriod = dayjs(financialYear?.Start_Period);
   const {
     refetch,
     isFetching,
@@ -61,8 +64,8 @@ function SearchCriteriaForm() {
   };
 
   useEffect(() => {
-    const januaryFirst = dayjs().startOf('year').set('month', 0).set('date', 1);
-    form.setFields([{ name: 'FromDate', value: januaryFirst }]);
+    // const januaryFirst = dayjs().subtract(1, 'year').set('month', 0).set('date', 1);
+    form.setFields([{ name: 'FromDate', value: FStartPeriod }]);
     form.setFields([{ name: 'ToDate', value: dayjs(new Date()) }]);
     form.setFieldsValue({ stockUOM: 2 });
   }, []);

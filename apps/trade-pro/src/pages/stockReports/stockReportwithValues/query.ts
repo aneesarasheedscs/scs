@@ -126,6 +126,8 @@ export const useGetStockReportHistory = (enabled = true, params?: TStockReportsS
         OrganizationId: userDetail?.OrganizationId,
         FromDate: new Date(),
         ToDate: new Date(),
+        ActionId:params?.ActionId ||  2,
+        Activity:params?.Activity || "ItemStockSummary",
         ...params,
       });
     },

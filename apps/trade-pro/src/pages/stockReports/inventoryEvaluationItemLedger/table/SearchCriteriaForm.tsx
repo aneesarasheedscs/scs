@@ -16,6 +16,8 @@ import {
 } from '../query';
 import { map } from 'lodash';
 import { useTranslation } from 'react-i18next';
+import { storedFinancialYear } from '@tradePro/utils/storageService';
+import { useLocation } from 'react-router-dom';
 
 const { useForm, useWatch } = Form;
 
@@ -43,8 +45,11 @@ const SearchCriteriaForm: React.FC<{
     form.getFieldsValue()
   );
 
+  const location = useLocation();
+  const { ItemIds } = location.state || {};
+
   const { data: itemType } = useGetItemType();
-  const { data: itemName } = useGetItemName();
+  const { data: Items, isLoading } = useGetItemName();
   const { data: parentCategory } = useGetParentCategory();
   const { data: classGroup } = useGetItemClassGroup();
   const { data: itemCategory } = useGetItemCategory();
@@ -58,10 +63,22 @@ const SearchCriteriaForm: React.FC<{
     console.log(values);
     refetch().then(() => handleClose());
   };
+
+  const financialYear = storedFinancialYear();
+  const FStartPeriod = dayjs(financialYear?.Start_Period);
+
   useEffect(() => {
+    if (!isLoading && ItemIds && Array.isArray(Items)) {
+      const ItemName = Items.filter((item: any) => item.Id === parseInt(ItemIds));
+      console.log(ItemName);
+      form.setFields([{ name: 'ItemId', value: ItemName?.[0]?.Id }]);
+    } else if (Array.isArray(Items)) {
+      form.setFields([{ name: 'ItemId', value: null }]);
+    }
+
     if (WarehouseId === undefined && ItemId === undefined) {
-      const januaryFirst = dayjs().startOf('year').set('month', 0).set('date', 1);
-      form.setFields([{ name: 'FromDate', value: januaryFirst }]);
+      // const januaryFirst = dayjs().startOf('year').set('month', 0).set('date', 1);
+      form.setFields([{ name: 'FromDate', value: FStartPeriod }]);
       form.setFields([{ name: 'ToDate', value: dayjs(new Date()) }]);
     } else {
       setFieldValue('FromDate', dayjs(FromdateProp));
@@ -69,7 +86,7 @@ const SearchCriteriaForm: React.FC<{
       setFieldValue('WarehouseId', WarehouseId);
       setFieldValue('ItemId', ItemId);
     }
-  }, []);
+  }, [!isLoading, Items]);
 
   return (
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
@@ -117,7 +134,7 @@ const SearchCriteriaForm: React.FC<{
               label={t('item_name')}
               fieldLabel="name"
               name="ItemId"
-              options={map(itemName, (item: any) => ({
+              options={map(Items, (item: any) => ({
                 value: item.Id,
                 label: item.name,
               }))}
@@ -201,7 +218,7 @@ const SearchCriteriaForm: React.FC<{
             </Radio.Group>
             <AntInput label="" name="ActionId" type="hidden" />
           </Col>
-          <Col xs={24} sm={24} md={4}>
+          <Col xs={24} sm={24} md={4} xxl={3}>
             <AntButton
               label={t('show')}
               htmlType="submit"

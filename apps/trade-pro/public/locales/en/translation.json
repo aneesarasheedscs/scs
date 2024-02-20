@@ -726,5 +726,6 @@
   "tax_percent": "Tax Percent",
   "bills_payable_accounts": "Bills Payable Accounts",
   "invoice_date": "Invoice Date",
-  "bill_invoice_no": "Bill/Invoice No"
+  "bill_invoice_no": "Bill/Invoice No",
+  "inventry_evaluation_item_ledger": "Inventry Evaluation Item Ledger"
 }

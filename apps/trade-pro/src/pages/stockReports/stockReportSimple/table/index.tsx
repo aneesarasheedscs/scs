@@ -7,15 +7,28 @@ import '../style2.scss';
 import SearchCriteriaForm from './SearchCriteriaForm';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { useGetStockReportSimpleTable } from '../queries';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
-function StockReportSimpleTable() {
-  const { data, isError, isLoading } = useGetStockReportSimpleTable();
+function StockReportSimpleTable({ ItemId }: any) {
+  const { data, isError, isLoading, refetch, isFetching } = useGetStockReportSimpleTable();
+  const [SelectedItems, setSelectedItems] = useState<number | undefined>(undefined);
 
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const {
     token: { colorPrimary },
   } = theme.useToken();
+
+  const handleItemNameClick = (ItemIds: number) => {
+    console.log(ItemIds);
+    navigate('/inventory-transaction-report-retail', {
+      state: {
+        ItemIds,
+      },
+    });
+  };
 
   return (
     <>
@@ -31,12 +44,13 @@ function StockReportSimpleTable() {
           <AntTable
             rowKey="Id"
             isError={isError}
-            numberOfSkeletons={8}
-            isLoading={isLoading}
+            numberOfSkeletons={12}
+            refetch={refetch}
+            isLoading={isLoading || isFetching}
             scroll={{ x: '', y: convertVhToPixels('60vh') }}
             data={data?.data?.Data?.Result}
             searchCriteriaForm={<SearchCriteriaForm />}
-            columns={columns(t)}
+            columns={columns(t, handleItemNameClick)}
           />
         </Col>
       </Row>

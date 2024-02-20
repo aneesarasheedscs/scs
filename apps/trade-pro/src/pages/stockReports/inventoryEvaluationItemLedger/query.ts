@@ -3,6 +3,7 @@ import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageSe
 import { AxiosResponse } from 'axios';
 import { QueryFunction, useQuery } from 'react-query';
 import { TInventoryEvaluationLedgerSearchCriteria } from './types';
+import dayjs from 'dayjs'
 
 const userDetail = storedUserDetail();
 const financialYear = storedFinancialYear();
@@ -139,6 +140,8 @@ export const useInventoryReportHistory = (enabled?: boolean, params?: TInventory
       return requestManager.post('/api/InventoryReports/InventoryEvaluationItemLedger', {
         CompanyId: userDetail?.CompanyId,
         OrganizationId: userDetail?.OrganizationId,
+        FromDate:financialYear?.Start_Period,
+        ToDate:dayjs(new Date()),
         ...params,
       });
     },

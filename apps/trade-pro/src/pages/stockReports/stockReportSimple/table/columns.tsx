@@ -5,15 +5,21 @@ import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { Link } from 'react-router-dom';
 import { Space } from 'antd';
 
-export const columns = (t: any): AntColumnType<TStockReportTable>[] => [
+export const columns = (t: any, handleAccountCodeClick: any): AntColumnType<TStockReportTable>[] => [
   {
     title: t('item_name'),
-    width: 250,
+    width: 300,
     dataIndex: 'ItemName',
     showCount: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.ItemName.localeCompare(b.ItemName),
-    render: (_, { ItemName }) => <Link to={`/inventory-transaction-report-retail`}>{ItemName}</Link>,
+    // render: (_, { ItemName }) => <Link to={`/inventory-transaction-report-retail`}>{ItemName}</Link>,
+
+    render: (_, { ItemName, ItemId }) => (
+      <>
+        <a onClick={() => handleAccountCodeClick(ItemId)}>{ItemName}</a>
+      </>
+    ),
   },
 
   {

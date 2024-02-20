@@ -718,5 +718,6 @@
   "tax_percent": "ٹیکس فیصد",
   "bills_payable_accounts": "بلز قابل ادائیگی اکاؤنٹس",
   "invoice_date": "رسید کی تاریخ",
-  "bill_invoice_no": "بل/انوائس نمبر"
+  "bill_invoice_no": "بل/انوائس نمبر",
+  "inventry_evaluation_item_ledger": "انوینٹری اہلیہ آئٹم لیجر"
 }

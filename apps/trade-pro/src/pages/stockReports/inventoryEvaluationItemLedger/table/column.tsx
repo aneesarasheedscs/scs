@@ -3,15 +3,16 @@ import { formateDate } from '@tradePro/utils/formateDate';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { TInventoryEvaluationLedger } from '../types';
 import dayjs from 'dayjs';
+import { Space } from 'antd';
 
 export const columns = (t?: any): AntColumnType<TInventoryEvaluationLedger>[] => [
   {
-    title: <>{t('document_no')}</>,
+    title: t('document_no'),
     dataIndex: 'DocNo',
     width: 140,
   },
   {
-    title: <>{t('transaction_date')}</>,
+    title: t('transaction_date'),
     dataIndex: 'TranDate',
     width: 150,
     sortDirections: ['ascend', 'descend'],
@@ -24,7 +25,7 @@ export const columns = (t?: any): AntColumnType<TInventoryEvaluationLedger>[] =>
   },
   {
     width: 300,
-    title: <>{t('document_type')}</>,
+    title: t('document_type'),
     dataIndex: 'DocumentTypeDescription',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
@@ -32,9 +33,11 @@ export const columns = (t?: any): AntColumnType<TInventoryEvaluationLedger>[] =>
   },
 
   {
-    title: <>{t('party_name')}</>,
+    title: t('party_name'),
     dataIndex: 'PartyName',
+
     width: 250,
+    searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.PartyName.localeCompare(b.PartyName),
   },
@@ -42,7 +45,7 @@ export const columns = (t?: any): AntColumnType<TInventoryEvaluationLedger>[] =>
   {
     width: 250,
     searchableInput: true,
-    title: <>{t('ware_house_code')}</>,
+    title: t('ware_house_code'),
     dataIndex: 'WareHouseCode',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.WareHouseCode.localeCompare(b.WareHouseCode),
@@ -50,20 +53,20 @@ export const columns = (t?: any): AntColumnType<TInventoryEvaluationLedger>[] =>
   {
     width: 200,
     searchableInput: true,
-    title: <>{t('item_category')}</>,
+    title: t('item_category'),
     dataIndex: 'CategoryDescription',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.CategoryDescription.localeCompare(b.CategoryDescription),
   },
   {
     width: 180,
-    title: <>{t('item_type')}</>,
+    title: t('item_type'),
     dataIndex: 'TypeDescription',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.TypeDescription.localeCompare(b.TypeDescription),
   },
   {
-    title: <>{t('item_name')}</>,
+    title: t('item_name'),
     dataIndex: 'ItemName',
     width: 300,
     searchableInput: true,
@@ -72,7 +75,7 @@ export const columns = (t?: any): AntColumnType<TInventoryEvaluationLedger>[] =>
   },
   {
     width: 150,
-    title: <>{t('pack_size')}</>,
+    title: t('pack_size'),
     dataIndex: 'PackSize',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.PackSize.localeCompare(b.PackSize),
@@ -80,92 +83,113 @@ export const columns = (t?: any): AntColumnType<TInventoryEvaluationLedger>[] =>
   {
     width: 150,
     showTotal: true,
-    title: <>{t('quantity_in')}</>,
+    title: t('quantity_in'),
     showAverage: true,
     dataIndex: 'QtyIn',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.QtyIn - b.QtyIn,
-    render: (_, { QtyIn }) => <span style={{ marginLeft: '20%' }}>{numberFormatter(QtyIn)}</span>,
+    render: (_, { QtyIn }) => (
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(QtyIn)}</Space>
+    ),
   },
   {
     width: 150,
     showTotal: true,
-    title: <>{t('quantity_out')}</>,
+    title: t('quantity_out'),
     dataIndex: 'QtyOut',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.QtyOut - b.QtyOut,
-    render: (_, { QtyOut }) => <span style={{ marginLeft: '20%' }}>{numberFormatter(QtyOut)}</span>,
+    render: (_, { QtyOut }) => (
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(QtyOut)}</Space>
+    ),
   },
   {
     width: 160,
     showTotal: true,
-    title: <>{t('balance_quantity')}</>,
+    title: t('balance_quantity'),
     dataIndex: 'BalQty',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.BalQty - b.BalQty,
-    render: (_, { BalQty }) => <span style={{ marginLeft: '20%' }}>{numberFormatter(BalQty)}</span>,
+    render: (_, { BalQty }) => (
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(BalQty)}</Space>
+    ),
   },
   {
     width: 140,
-    title: <>{t('weight_in')}</>,
+    title: t('weight_in'),
     dataIndex: 'WeightIn',
+    showTotal: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.WeightIn - b.WeightIn,
-    render: (_, { WeightIn }) => <span style={{ marginLeft: '20%' }}>{numberFormatter(WeightIn)}</span>,
+    render: (_, { WeightIn }) => (
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(WeightIn)}</Space>
+    ),
   },
 
   {
     width: 150,
     showTotal: true,
-    title: <>{t('weight_out')}</>,
+    title: t('weight_out'),
     dataIndex: 'WeightOut',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.WeightOut - b.WeightOut,
-    render: (_, { WeightOut }) => <span style={{ marginLeft: '20%' }}>{numberFormatter(WeightOut)}</span>,
+    render: (_, { WeightOut }) => (
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(WeightOut)}</Space>
+    ),
   },
   {
     width: 180,
     showTotal: true,
-    title: <>{t('balance_weight')}</>,
+    title: t('balance_weight'),
     dataIndex: 'BalWeight',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.BalWeight - b.BalWeight,
-    render: (_, { BalWeight }) => <span style={{ marginLeft: '20%' }}>{numberFormatter(BalWeight)}</span>,
+    render: (_, { BalWeight }) => (
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(BalWeight)}</Space>
+    ),
   },
   {
     width: 150,
     showTotal: true,
-    title: <>{t('item_rate')}</>,
+    title: t('item_rate'),
     dataIndex: 'ItemRate',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.ItemRate - b.ItemRate,
-    render: (_, { ItemRate }) => <span style={{ marginLeft: '20%' }}>{numberFormatter(ItemRate)}</span>,
+    render: (_, { ItemRate }) => (
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(ItemRate)}</Space>
+    ),
   },
   {
     width: 150,
     showTotal: true,
-    title: <>{t('amount_in')}</>,
+    title: t('amount_in'),
     dataIndex: 'AmountIn',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.AmountIn - b.AmountIn,
-    render: (_, { AmountIn }) => <span style={{ marginLeft: '20%' }}>{numberFormatter(AmountIn)}</span>,
+    render: (_, { AmountIn }) => (
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(AmountIn)}</Space>
+    ),
   },
   {
     width: 150,
     showTotal: true,
-    title: <>{t('amount_out')}</>,
+    title: t('amount_out'),
     dataIndex: 'AmountOut',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.AmountOut - b.AmountOut,
-    render: (_, { AmountOut }) => <span style={{ marginLeft: '20%' }}>{numberFormatter(AmountOut)}</span>,
+    render: (_, { AmountOut }) => (
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(AmountOut)}</Space>
+    ),
   },
   {
     width: 180,
     showTotal: true,
-    title: <>{t('balance_amount')}</>,
+    title: t('balance_amount'),
     dataIndex: 'BalAmount',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.BalAmount - b.BalAmount,
-    render: (_, { BalAmount }) => <span style={{ marginLeft: '20%' }}>{numberFormatter(BalAmount)}</span>,
+    render: (_, { BalAmount }) => (
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(BalAmount)}</Space>
+    ),
   },
 ];
