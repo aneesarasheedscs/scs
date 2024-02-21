@@ -40,5 +40,7 @@
   "bill_invoice_no": "請求書/請求書番号",
   "tax_account": "税務口座",
   "due_percent": "期限 ％",
-  "bills_receivables_accounts": "受取手形勘定"
+  "bills_receivables_accounts": "受取手形勘定",
+  "receipts_voucher": "領収書バウチャー",
+  "payment_voucher": "支払い伝票"
 }

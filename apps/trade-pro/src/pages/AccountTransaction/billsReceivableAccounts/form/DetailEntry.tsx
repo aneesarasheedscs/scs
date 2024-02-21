@@ -502,7 +502,7 @@ const DynamicForm = ({
                           />
                         </Col>
                       </Row>
-                      <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }}>
+                      {/* <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }}>
                         <Row gutter={14} style={{ marginTop: '1%' }}>
                           <>
                             <Card style={{ width: '100%' }}>
@@ -649,7 +649,7 @@ const DynamicForm = ({
                             </Card>
                           </>
                         </Row>
-                      </Col>
+                      </Col> */}
                     </div>
                   ))}
                 </>

@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { Card, Form, notification } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useAddBillsReceivablesVoucher, useGetTaxSchedule, useUpdateBillsReceivablesVoucher } from '../query';
+import SalesTaxEntry from './SalesTaxEntry';
 
 const { useForm } = Form;
 
@@ -59,44 +60,15 @@ function BillsReceivableForm({
   const onFinish = (values: TBillsReceivable) => {
     values.PrintPreview = printPreview;
     values.AgainstAccountId = tableData?.[0]?.AccountId;
-    const TaxableEntry: any = {};
-    TaxableEntry.RefdocNoId = values.voucherDetailList[0]?.RefdocNoId;
-    TaxableEntry.TaxPrcnt = values.voucherDetailList[0]?.TaxPrcnt;
-    TaxableEntry.DueDays = values.voucherDetailList[0]?.DueDays;
-    TaxableEntry.DueDate = values.voucherDetailList[0]?.DueDate;
-    TaxableEntry.DuePercentage = values.voucherDetailList[0]?.DuePercentage;
-    TaxableEntry.Amount = values.voucherDetailList[0]?.Amount;
-    values.PaymentDuesSchedules = [TaxableEntry];
-    // if (values.IncludeWHT) {
-    //   TaxableEntry.AccountId = values.RefAccountId;
-    //   TaxableEntry.AgainstAccountId = values.voucherDetailList[0].AgainstAccountId;
+    // const TaxableEntry: any = {};
+    // TaxableEntry.RefdocNoId = values.voucherDetailList[0]?.RefdocNoId;
+    // TaxableEntry.TaxPrcnt = values.voucherDetailList[0]?.TaxPrcnt;
+    // TaxableEntry.DueDays = values.voucherDetailList[0]?.DueDays;
+    // TaxableEntry.DueDate = values.voucherDetailList[0]?.DueDate;
+    // TaxableEntry.DuePercentage = values.voucherDetailList[0]?.DuePercentage;
+    // TaxableEntry.Amount = values.voucherDetailList[0]?.Amount;
+    // values.PaymentDuesSchedules = [TaxableEntry];
 
-    //   TaxableEntry.TaxTypeId = values.voucherDetailList?.[0]?.TaxTypeId;
-    //   TaxableEntry.IsTaxable = 'True';
-    //   TaxableEntry.Comments =
-    //     'Tax Name' +
-    //     '    ' +
-    //     values.voucherDetailList?.[0]?.TaxName +
-    //     '   ' +
-    //     'Tax %' +
-    //     '   ' +
-    //     values.voucherDetailList?.[0]?.TaxPrcnt;
-    //   TaxableEntry.TaxPrcnt = values.voucherDetailList?.[0]?.TaxPrcnt;
-    //   TaxableEntry.TaxesTotalAmount = values.voucherDetailList?.[0]?.TotalAmount;
-    //   TaxableEntry.CreditAmount = values.voucherDetailList?.[0]?.TaxAmount;
-    //   // if (SharedStateIncludeWHT && getTaxSchedule) {
-    //   //   const updatedData = tableData?.map((item: any) => ({
-    //   //     ...item,
-    //   //     AgainstAccountId: AgainstAccountId,
-    //   //   }));
-
-    //   //   values.voucherDetailList = [...updatedData, TaxableEntry];
-    //   // } else {
-    //   //   values.voucherDetailList = values.voucherDetailList && tableData;
-    //   // }
-    // } else {
-    //   values.voucherDetailList = values.voucherDetailList && tableData;
-    // }
     values.voucherDetailList = values.voucherDetailList && tableData;
 
     if (isNumber(selectedRecordId)) {
@@ -129,11 +101,12 @@ function BillsReceivableForm({
       form.setFieldValue('AgainstAccountId', addBillsPayable?.data?.Data?.Result?.AgainstAccountId);
       form.setFieldValue('ManualBillNo', addBillsPayable?.data?.Data?.Result?.ManualBillNo);
       form.setFieldValue('Remarks', addBillsPayable?.data?.Data?.Result?.Remarks);
+      form.setFieldValue('PaymentDuesSchedules', addBillsPayable?.data?.Data?.Result?.PaymentDuesSchedules);
+      form.setFieldValue(
+        ['PaymentDuesSchedules', 0, 'DueDate'],
+        dayjs(addBillsPayable?.data?.Data?.Result?.PaymentDuesSchedules?.DueDate)
+      );
       setBankId(addBillsPayable?.data?.Data?.Result?.RefAccountId);
-      // form.setFieldValue(
-      //   ['voucherDetailList', 0, 'AgainstAccountId'],
-      //   addBillsPayable?.data?.Data?.Result?.voucherDetailList?.[0]?.AgainstAccountId
-      // );
       const DetailList = addBillsPayable?.data?.Data?.Result?.voucherDetailList.filter(
         (row: any) => row.CreditAmount > 0
       );
@@ -170,6 +143,14 @@ function BillsReceivableForm({
           isAddButtonClicked={isAddButtonClicked}
         />
         <DynamicForm
+          form={form}
+          bankId={bankId}
+          handleTaxTypeChange={handleTaxTypeChange}
+          setIsAddButtonClicked={setIsAddButtonClicked}
+          SharedStateIncludeWHT={SharedStateIncludeWHT}
+          ScheduleData={getTaxSchedule?.data?.Data?.Result?.[0]}
+        />
+        <SalesTaxEntry
           form={form}
           bankId={bankId}
           handleTaxTypeChange={handleTaxTypeChange}

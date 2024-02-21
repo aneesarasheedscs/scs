@@ -851,5 +851,7 @@
   "bill_invoice_no": "Número de factura/factura",
   "tax_account": "Cuenta de impuestos",
   "due_percent": "Pendiente %",
-  "bills_receivables_accounts": "Cuentas de cuentas por cobrar"
+  "bills_receivables_accounts": "Cuentas de cuentas por cobrar",
+  "receipts_voucher": "Vale de recibos",
+  "payment_voucher": "Comprobante de pago"
 }

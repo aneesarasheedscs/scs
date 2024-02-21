@@ -730,5 +730,7 @@
   "tax_account": "Tax Account",
   "due_percent": "Due %",
   "bills_receivables_accounts": "Bills Receivables Accounts",
-  "inventry_evaluation_item_ledger": "Inventry Evaluation Item Ledger"
+  "inventry_evaluation_item_ledger": "Inventry Evaluation Item Ledger",
+  "receipts_voucher": "Receipts Voucher",
+  "payment_voucher": "Payment Voucher"
 }

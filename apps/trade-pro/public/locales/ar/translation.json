@@ -529,5 +529,7 @@
   "bill_invoice_no": "رقم الفاتورة/الفاتورة",
   "tax_account": "حساب الضريبة",
   "due_percent": "حق ٪",
-  "bills_receivables_accounts": "حسابات الفواتير المستحقة القبض"
+  "bills_receivables_accounts": "حسابات الفواتير المستحقة القبض",
+  "receipts_voucher": "قسيمة الإيصالات",
+  "payment_voucher": "قسيمة دفع"
 }

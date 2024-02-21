@@ -108,8 +108,10 @@ const OpeningBalance = lazy(() => import('@tradePro/pages/accountDefination/open
 const ContraVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/ContraVoucher/ContraVoucher'));
 const ExpenseVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/ExpenseVoucher/ExpenseVoucher'));
 const BankReceiptVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/bankReceiptVoucher'));
+const ReceiptsVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/ReceiptsVoucher'));
 const BankPaymentVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/bankPaymentVoucher'));
 const CashPaymentVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/cashPaymentVoucher'));
+const PaymentVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/PaymentVoucher'));
 const CashReceiptVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/cashReceiptVoucher'));
 const JournalVoucher = lazy(() => import('@tradePro/pages/AccountTransaction/JournalVoucher/JournalVoucher'));
 const BillsPayableAccounts = lazy(() => import('@tradePro/pages/AccountTransaction/billsPayableAccounts'));
@@ -150,8 +152,10 @@ export const protectedRoutes: RouteObject[] = [
   { path: route.CONTRA_VOUCHER, element: <ContraVoucher /> },
   { path: route.EXPENSE_VOUCHER, element: <ExpenseVoucher /> },
   { path: route.BANK_RECEIPT_VOUCHER, element: <BankReceiptVoucher /> },
+  { path: route.RECEIPTS_VOUCHER, element: <ReceiptsVoucher /> },
   { path: route.BANK_PAYMENT_VOUCHER, element: <BankPaymentVoucher /> },
   { path: route.CASH_PAYMENT_VOUCHER, element: <CashPaymentVoucher /> },
+  { path: route.PAYMENT_VOUCHER, element: <PaymentVoucher /> },
   { path: route.CASH_RECEIPT_VOUCHER, element: <CashReceiptVoucher /> },
   { path: route.JOURNAL_VOUCHER, element: <JournalVoucher /> },
   { path: route.BILLS_PAYABLE_ACCOUNTS, element: <BillsPayableAccounts /> },

@@ -59,7 +59,6 @@ function MainEntry({
                 className="formfield"
               >
                 <AntSelectDynamic
-                  disabled
                   aria-readonly
                   bordered={false}
                   label={t('project')}

@@ -46,6 +46,7 @@ function Buttons({
     form.setFieldValue('Remarks', null);
     form.setFieldValue('Balance', null);
     form.setFieldValue(['voucherDetailList', 0], null);
+    form.setFieldValue(['PaymentDuesSchedules', 0], null);
   };
   useEffect(() => {
     if (successVoucherNo) form.setFieldValue('VoucherCode', data?.data?.Data?.Result?.[0]?.VoucherCode);

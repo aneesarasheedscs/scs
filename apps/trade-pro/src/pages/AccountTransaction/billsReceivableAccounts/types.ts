@@ -88,6 +88,7 @@ export type TPaymentDuesSchedules = {
   RefdocNoId: number;
   refDocumentTypeId: number;
   PaymentDueScheduleId: number;
+  TaxAmount: number;
 };
 export type TJobLot = {
   Id: number;

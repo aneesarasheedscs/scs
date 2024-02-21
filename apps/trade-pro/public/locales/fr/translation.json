@@ -522,5 +522,7 @@
   "bill_invoice_no": "Numéro de facture/facture",
   "tax_account": "Compte de taxes",
   "due_percent": "Exigible %",
-  "bills_receivables_accounts": "Comptes de factures à recevoir"
+  "bills_receivables_accounts": "Comptes de factures à recevoir",
+  "receipts_voucher": "Bon de réception",
+  "payment_voucher": "Bon de paiement"
 }

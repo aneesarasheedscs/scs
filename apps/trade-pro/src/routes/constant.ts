@@ -21,7 +21,9 @@ export const route = {
   //Account Transactions
   CASH_RECEIPT_VOUCHER: '/cash-receipt-voucher',
   BANK_RECEIPT_VOUCHER: '/bank-receipt-voucher',
+  RECEIPTS_VOUCHER: '/receipts-voucher',
   CASH_PAYMENT_VOUCHER: '/cash-payment-voucher',
+  PAYMENT_VOUCHER: '/payment-voucher',
   BANK_PAYMENT_VOUCHER: '/bank-paymentvoucher',
   CONTRA_VOUCHER: '/contra-voucher',
   EXPENSE_VOUCHER: '/expense-voucher',
