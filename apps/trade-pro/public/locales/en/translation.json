@@ -752,5 +752,10 @@
   "pack_uOM": "Pack Uom",
   "wareHouse_name": "WareHouse",
   "jobLot_name": "Job Lot",
-  "good_dispatch_notes": "Good Dispatch Notes"
+  "good_dispatch_notes": "Good Dispatch Notes",
+  "tax_account": "Tax Account",
+  "due_percent": "Due %",
+  "bills_receivables_accounts": "Bills Receivables Accounts",
+  "receipts_voucher": "Receipts Voucher",
+  "payment_voucher": "Payment Voucher"
 }

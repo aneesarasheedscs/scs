@@ -719,7 +719,6 @@
   "bills_payable_accounts": "بلز قابل ادائیگی اکاؤنٹس",
   "invoice_date": "رسید کی تاریخ",
   "bill_invoice_no": "بل/انوائس نمبر",
-  "inventry_evaluation_item_ledger": "انوینٹری اہلیہ آئٹم لیجر",
   "sale_order_history": "فروخت کی آرڈر کی تاریخ",
   "approved_status": "منظور شدہ حالت",
   "type_item": "آئٹم کی قسم",
@@ -742,5 +741,11 @@
   "sale_order_no": "فروخت کا آرڈر نمبر",
   "pack_uOM": "پیک یو او ایم",
   "wareHouse_name": "گودام کا نام",
-  "jobLot_name": "جاب لاٹ کا نام"
+  "jobLot_name": "جاب لاٹ کا نام",
+  "tax_account": "ٹیکس اکاؤنٹ",
+  "due_percent": "واجب الادا %",
+  "bills_receivables_accounts": "بل وصول کرنے والے اکاؤنٹس",
+  "inventry_evaluation_item_ledger": "انوینٹری اہلیہ آئٹم لیجر",
+  "receipts_voucher": "رسیدوں کا واؤچر",
+  "payment_voucher": "ادائیگی کی رسید"
 }

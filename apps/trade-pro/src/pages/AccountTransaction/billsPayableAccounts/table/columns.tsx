@@ -4,9 +4,8 @@ import { AntButton } from '@tradePro/components';
 import { Space, Tooltip } from 'antd';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import { DataType } from '../form/types';
 import dayjs from 'dayjs';
-import { TBillsPayableAccountsHistory } from '../types';
+import { TBillsPayableAccountsHistory, TvoucherDetailList } from '../types';
 export const columns = (
   t: any,
   setSelectedRecordId?: any,
@@ -140,36 +139,61 @@ export const columns = (
   },
 ];
 
-export const column2 = (t: any, handleDeleteRow?: any, handleEditRow?: any): AntColumnType<DataType>[] => [
-  {
-    title: t('payment_type'),
-    width: 150,
-    showCount: true,
-    searchableInput: true,
-    dataIndex: 'PaymentType',
-    sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.PaymentType.localeCompare(b.PaymentType),
-  },
+export const detailcolumns = (
+  t: any,
+  handleDeleteRow?: any,
+  handleEditRow?: any
+): AntColumnType<TvoucherDetailList>[] => [
   {
     title: t('debit_account'),
-    width: 250,
+    width: 300,
     searchableInput: true,
     dataIndex: 'AccountTitle',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
+    showCount: true,
   },
   {
     title: t('job_lot'),
-    width: 150,
+    width: 200,
     dataIndex: 'JobLotDescription',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.JobLotDescription.localeCompare(b.JobLotDescription),
   },
   {
+    title: t('bill_invoice_no'),
+    width: 150,
+    dataIndex: 'RefInvoiceNo',
+    sorter: (a, b) => a.RefInvoiceNo - b.RefInvoiceNo,
+    render: (_, { RefInvoiceNo }) => <span>{numberFormatter(RefInvoiceNo)}</span>,
+  },
+  {
+    align: 'right',
+    title: t('qty'),
+    width: 130,
+    dataIndex: 'QtyIn',
+    showTotal: true,
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.QtyIn - b.QtyIn,
+    render: (_, { QtyIn }) => <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(QtyIn)}</span>,
+  },
+  {
+    align: 'right',
+    title: t('rate'),
+    width: 130,
+    dataIndex: 'ItemRate',
+    showTotal: true,
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.ItemRate - b.ItemRate,
+    render: (_, { ItemRate }) => (
+      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(ItemRate)}</span>
+    ),
+  },
+  {
     align: 'right',
     title: t('debit_amount'),
-    width: 130,
+    width: 180,
     dataIndex: 'DebitAmount',
     showTotal: true,
     sortDirections: ['ascend', 'descend'],
@@ -178,39 +202,10 @@ export const column2 = (t: any, handleDeleteRow?: any, handleEditRow?: any): Ant
       <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(DebitAmount)}</span>
     ),
   },
-  {
-    title: t('cheque_date'),
-    width: 140,
-    dataIndex: 'DCheqDate',
-    searchableDate: true,
-    sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => {
-      const dateA = dayjs(a.DCheqDate);
-      const dateB = dayjs(b.DCheqDate);
-      return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
-    },
-    render: (_, { DCheqDate }) => formateDate(DCheqDate),
-  },
-  {
-    title: t('cheque_no'),
-    width: 120,
-    dataIndex: 'CheqNoDetail',
-    sorter: (a, b) => a.CheqNoDetail - b.CheqNoDetail,
-    render: (_, { CheqNoDetail }) => (
-      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(CheqNoDetail)}</span>
-    ),
-  },
-  {
-    title: t('payee_title'),
-    width: 230,
-    dataIndex: 'PayeeTitle',
-    searchableInput: true,
-    sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.PayeeTitle.localeCompare(b.PayeeTitle),
-  },
+
   {
     title: t('remarks'),
-    width: 211,
+    width: 300,
     dataIndex: 'Comments',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
@@ -218,7 +213,7 @@ export const column2 = (t: any, handleDeleteRow?: any, handleEditRow?: any): Ant
   },
   {
     title: t('action'),
-    width: 90,
+    width: 87,
     render: (_, record) => (
       <Tooltip title="Delete">
         <Space>

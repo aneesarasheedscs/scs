@@ -35,6 +35,7 @@ export type AccountData = {
   AccountTypeId: number;
 };
 export type TBillsPayables = {
+  PrintPreview: boolean;
   BranchId: number;
   ProjectId: number;
   DocumentTypeId: string;
@@ -53,6 +54,7 @@ export type TBillsPayables = {
   ModifyUser: number;
   Type: string;
   voucherDetailList: TvoucherDetailList[];
+  PaymentDuesSchedules: TPaymentDuesSchedules[];
 };
 export type TvoucherDetailList = {
   AccountId: number;
@@ -69,15 +71,23 @@ export type TvoucherDetailList = {
   DueDate: Date | string;
   // ,"DuePercentage":0.25
   refDocumentTypeId: number;
-
   AccountTitle: string;
   JobLotDescription: string;
   Amount: number;
   TaxTypeId: number;
   TaxName: string;
   TaxPrcnt: number;
-  TaxAmount: number;
-  TotalAmount: number;
+  RefdocNoId: number;
+  DuePercentage: number;
+};
+export type TPaymentDuesSchedules = {
+  DueDate: Date | string;
+  Amount: number;
+  DuePercentage: number;
+  DueDays: number;
+  RefdocNoId: number;
+  refDocumentTypeId: number;
+  PaymentDueScheduleId: number;
 };
 export type TJobLot = {
   Id: number;

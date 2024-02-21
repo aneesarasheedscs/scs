@@ -203,14 +203,9 @@ const DynamicForm = ({
       console.log('New tableData:', combinedData);
       return combinedData;
     });
-    form.setFieldValue(['voucherDetailList', 0, 'AccountIdDebit'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'AccountTitle'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'JobLotId'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'JobLotDescription'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'DebitAmount'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'Comments'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'CheqNoDetail'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'PayeeTitle'], null);
+    form.setFieldValue(['voucherDetailList', 0], null);
+    form.setFieldValue(['voucherDetailList', 0, 'DCheqDate'], dayjs(new Date()));
+
     setIsEditMode(false);
   };
   const handleUpdateToTable = () => {
@@ -260,25 +255,13 @@ const DynamicForm = ({
       });
     }
 
-    form.setFieldValue(['voucherDetailList', 0, 'AccountIdDebit'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'AccountTitle'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'JobLotId'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'JobLotDescription'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'DebitAmount'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'Comments'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'CheqNoDetail'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'PayeeTitle'], null);
+    form.setFieldValue(['voucherDetailList', 0], null);
+    form.setFieldValue(['voucherDetailList', 0, 'DCheqDate'], dayjs(new Date()));
     setIsEditMode(false);
   };
   const handleResetForm = () => {
-    form.setFieldValue(['voucherDetailList', 0, 'AccountIdDebit'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'AccountTitle'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'JobLotId'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'JobLotDescription'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'DebitAmount'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'Comments'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'CheqNoDetail'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'PayeeTitle'], null);
+    form.setFieldValue(['voucherDetailList', 0], null);
+    form.setFieldValue(['voucherDetailList', 0, 'DCheqDate'], dayjs(new Date()));
     setIsEditMode(false);
   };
   const handleDeleteRow = (record: any) => {

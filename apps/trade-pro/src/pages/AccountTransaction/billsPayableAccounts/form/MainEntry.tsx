@@ -1,11 +1,11 @@
 import { map } from 'lodash';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AntDatePicker, AntInput, AntInputNumber, AntSelectDynamic } from '@tradePro/components';
-import { Card, Checkbox, Col, Row, Form, FormInstance } from 'antd';
-import { useGetAccountsBalance, useGetBPAProjectSelect, useGetCreditAccountSelect } from '../query';
+import { Card, Col, Row, FormInstance } from 'antd';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
-// import { useGetAccountsBalance, useGetCreditAccountSelect, useGetWHTAgainstAcSelect } from '../queries/queries';
+import { AntDatePicker, AntInput, AntInputNumber, AntSelectDynamic } from '@tradePro/components';
+import { useGetAccountsBalance, useGetBPAProjectSelect, useGetCreditAccountSelect } from '../query';
+
 import dayjs from 'dayjs';
 function MainEntry({
   form,
@@ -19,7 +19,6 @@ function MainEntry({
   const { t } = useTranslation();
   const { data: credit } = useGetCreditAccountSelect();
   const { data } = useGetAccountsBalance(bankId);
-  // const { data: filter } = useGetWHTAgainstAcSelect();
   const { data: project, isSuccess, isLoading } = useGetBPAProjectSelect();
   useEffect(() => {
     if (isSuccess && !isLoading) {
@@ -43,20 +42,7 @@ function MainEntry({
   const handleCreditAccountChange = (accountId?: any, index?: any) => {
     setBankId(accountId);
   };
-  const handleAgainstAccountChange = (accountId?: any) => {};
 
-  const handleCheckboxChangeforWHT = (isChecked: boolean, fieldName: string) => {
-    setSharedStateIncludeWHT(isChecked);
-    form.setFieldsValue({
-      [fieldName]: isChecked,
-    });
-  };
-
-  interface TVoucherType {
-    Id: number;
-    Type: string;
-  }
-  const voucherType: TVoucherType[] = [{ Id: 1, Type: 'BPV' }];
   return (
     <>
       <Row gutter={[10, 10]} style={{ marginTop: '-0.5%' }}>
@@ -68,12 +54,11 @@ function MainEntry({
                 sm={{ span: 23 }}
                 md={{ span: 11 }}
                 lg={{ span: 11 }}
-                xl={{ span: 5 }}
+                xl={{ span: 7 }}
                 xxl={{ span: 6 }}
                 className="formfield"
               >
                 <AntSelectDynamic
-                  disabled
                   aria-readonly
                   bordered={false}
                   label={t('project')}
@@ -89,7 +74,7 @@ function MainEntry({
                 sm={{ span: 23 }}
                 md={{ span: 12 }}
                 lg={{ span: 12 }}
-                xl={{ span: 7 }}
+                xl={{ span: 9 }}
                 xxl={{ span: 7 }}
                 className="formfield"
               >
@@ -117,22 +102,22 @@ function MainEntry({
               </Col>
 
               <Col
-                xs={{ span: 19 }}
-                sm={{ span: 19 }}
-                md={{ span: 9 }}
-                lg={{ span: 9 }}
+                xs={{ span: 24 }}
+                sm={{ span: 23 }}
+                md={{ span: 11 }}
+                lg={{ span: 11 }}
                 xl={{ span: 7 }}
                 xxl={{ span: 5 }}
-                className="formfield against"
+                className="formfield"
               >
                 <AntDatePicker bordered={false} name="DueDate" label={t('invoice_date')} />
               </Col>
               <Col
-                xs={{ span: 2 }}
-                sm={{ span: 4 }}
-                md={{ span: 2 }}
-                lg={{ span: 2 }}
-                xl={{ span: 2 }}
+                xs={{ span: 24 }}
+                sm={{ span: 23 }}
+                md={{ span: 12 }}
+                lg={{ span: 12 }}
+                xl={{ span: 7 }}
                 xxl={{ span: 4 }}
                 style={{ marginTop: '0%' }}
                 className="formfield"
@@ -142,12 +127,12 @@ function MainEntry({
               <Col
                 xs={{ span: 24 }}
                 sm={{ span: 23 }}
-                md={{ span: 12 }}
-                lg={{ span: 12 }}
-                xl={{ span: 13 }}
+                md={{ span: 24 }}
+                lg={{ span: 24 }}
+                xl={{ span: 16 }}
                 xxl={{ span: 13 }}
                 style={{ marginTop: '0%' }}
-                className="formfield remarks"
+                className="formfield"
               >
                 <AntInput bordered={false} name="Remarks" label={t('remarks')} />
                 <AntInput bordered={false} label={t('')} name="VoucherAmount" style={{ display: 'none' }} />

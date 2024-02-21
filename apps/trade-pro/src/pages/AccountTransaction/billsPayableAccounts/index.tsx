@@ -1,12 +1,12 @@
-import { Col, Row, Tabs, theme } from 'antd';
-import React, { useEffect, useState } from 'react';
 import './style.scss';
-import { useTranslation } from 'react-i18next';
-import BillsPayableForm from './form';
-import BillsPayableHistory from './table/billsPayableHistory';
-import { useGetBillsPayableAccountsDetailById } from './query';
 import { useAtom } from 'jotai';
+import BillsPayableForm from './form';
+import { Col, Row, Tabs, theme } from 'antd';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { viewDetailList } from './form/Atom';
+import BillsPayableHistory from './table/billsPayableHistory';
+import { useGetBillsPayableAccountsDetailById, useGetBillsPayableVoucherById } from './query';
 
 function BillsPayableAccounts() {
   const { t } = useTranslation();
@@ -14,11 +14,11 @@ function BillsPayableAccounts() {
   const [selectedRecordDetailId, setSelectedRecordDetailId] = useState<number | null>();
   const [activeTab, setActiveTab] = useState<string>('1');
   const [viewDetail, setViewDetail] = useAtom(viewDetailList);
-  // const {
-  //   data: addBankPayment,
-  //   refetch: refetchBankPayment,
-  //   isSuccess: isDataSuccess,
-  // } = useGetBankPaymentVoucherById(selectedRecordId);
+  const {
+    data: addBillsPayable,
+    refetch: refetchBillsPayable,
+    isSuccess: isDataSuccess,
+  } = useGetBillsPayableVoucherById(selectedRecordId);
   const { data, refetch, isSuccess, isLoading } = useGetBillsPayableAccountsDetailById(selectedRecordDetailId);
   useEffect(() => {
     if (isSuccess) {
@@ -53,9 +53,9 @@ function BillsPayableAccounts() {
               <BillsPayableForm
                 selectedRecordId={selectedRecordId}
                 setSelectedRecordId={setSelectedRecordId}
-                // addBankPayment={addBankPayment}
-                // refetchBankPayment={refetchBankPayment}
-                // isDataSuccess={isDataSuccess}
+                addBillsPayable={addBillsPayable}
+                refetchBillsPayable={refetchBillsPayable}
+                isDataSuccess={isDataSuccess}
               />
             </Tabs.TabPane>
           </Tabs>

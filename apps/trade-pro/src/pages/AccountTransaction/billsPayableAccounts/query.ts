@@ -36,7 +36,26 @@ export const useGetBillsPayablesAccountsVoucherTable = (enabled = true, params?:
   );
 };
 // Get ById
-
+export const useGetBillsPayableVoucherById = (Id?: number | null | any) => {
+  return useQuery(
+    ['Bills-Payable-getById', Id],
+    () => {
+      return getBillsPayableVoucherById(Id);
+    },
+    {
+      cacheTime: 0,
+      staleTime: 0,
+      enabled: !!Id,
+      onError: (error: AxiosError) => {
+        const msg = error.response?.data || 'Something went wrong';
+        notification.error({ description: '', message: msg as string });
+      },
+    }
+  );
+};
+const getBillsPayableVoucherById = (Id?: number | null) => {
+  return requestManager.get('/api/Voucher/GetByID', { params: { Id } });
+};
 export const useGetBillsPayableAccountsDetailById = (Id?: number | null | any) => {
   return useQuery(
     ['bills-payable-accounts-detail-getById', Id],
@@ -134,6 +153,18 @@ export const useGetAccountsBalance = (accountId: number) => {
     { enabled: !!accountId }
   );
 };
+//Get TaxSchedule
+export const useGetTaxSchedule = (DocDate?: Date, TaxNameId?: number) => {
+  return useQuery(
+    'TaxSchedule',
+    () => {
+      return requestManager.get('/api/TaxScheduleMain/GetTaxSchedule', {
+        params: { ...params, EffectedDate: DocDate, TaxNameId: TaxNameId },
+      });
+    },
+    { enabled: !!DocDate && !!TaxNameId, cacheTime: 5000 }
+  );
+};
 
 export const useAddBillsPayableVoucher = (DocumentTypeId?: number, params?: TBillsPayables) => {
   return useMutation(
@@ -144,7 +175,7 @@ export const useAddBillsPayableVoucher = (DocumentTypeId?: number, params?: TBil
       dataToSubmit = {
         ...data,
         Id: 0,
-        Type: 0,
+        Type: 'JournalCredit',
         OrganizationId: userDetail?.OrganizationId,
         CompanyId: userDetail?.CompanyId,
         BranchId: userDetail?.BranchesId,
@@ -167,7 +198,7 @@ export const useAddBillsPayableVoucher = (DocumentTypeId?: number, params?: TBil
             description: response?.data?.Message || 'An error occurred.',
           });
         } else if (response?.data && response?.data?.Status === true) {
-          queryClient.invalidateQueries('bankPaymentVoucher-history');
+          queryClient.invalidateQueries('bills-payable-history');
           const msg = 'Record added successfully!';
           notification.success({ description: '', message: msg });
         }
@@ -190,7 +221,7 @@ export const useUpdateBillsPayableVoucher = (DocumentTypeId?: number, Id?: numbe
       dataToSubmit = {
         ...data,
         Id: Id,
-        Type: 0,
+        Type: 'JournalCredit',
         OrganizationId: userDetail?.OrganizationId,
         CompanyId: userDetail?.CompanyId,
         BranchId: userDetail?.BranchesId,
@@ -212,7 +243,7 @@ export const useUpdateBillsPayableVoucher = (DocumentTypeId?: number, Id?: numbe
             description: response?.data?.Message || 'An error occurred.',
           });
         } else if (response?.data && response?.data?.Status === true) {
-          queryClient.invalidateQueries('bankPaymentVoucher-history');
+          queryClient.invalidateQueries('bills-payable-history');
           const msg = 'Record updated successfully!';
           notification.success({ description: '', message: msg });
         }

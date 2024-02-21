@@ -1,4 +1,4 @@
-import { Menu, Result, Row } from 'antd';
+import { Collapse, Menu, Result, Row } from 'antd';
 import { TSideMenu } from './types';
 import { useGetMenu } from './queries';
 import { groupBy, map, size } from 'lodash';
@@ -17,9 +17,10 @@ import {
   SettingOutlined,
   ShoppingOutlined,
   FileDoneOutlined,
+  MoneyCollectOutlined,
 } from '@ant-design/icons';
 
-function SideMenu({ setCollapsed }: any) {
+function SideMenu({ collapsed, setCollapsed }: any) {
   const { pathname } = useLocation();
   const { data, isError, refetch, isSuccess, isLoading } = useGetMenu();
 
@@ -42,7 +43,7 @@ function SideMenu({ setCollapsed }: any) {
     // <ShoppingOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />,
     // <FileTextOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />,
     <ShopOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />,
-    <FileOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />,
+    <MoneyCollectOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />,
     <AppstoreOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />,
     // <FileTextOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />,
     <AppstoreOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />,
@@ -117,6 +118,7 @@ function SideMenu({ setCollapsed }: any) {
       <Menu mode="inline" style={{ paddingTop: 10, height: '100%' }}>
         {map(filteredList, ({ ModuleDescription, children }: TSideMenu & { children: TSideMenu[] }, index: number) => (
           <Menu.SubMenu
+            // className={collapsed ? 'ant-menu-submenu-arrow' : 'ant-menu-submenu-arrow'}
             key={index}
             title={
               <Row className="menus">

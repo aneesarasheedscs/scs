@@ -35,7 +35,7 @@ function AppLayout({ children }: TAppLayout) {
       />
       <Layout style={{ marginTop: 65 }}>
         <Sidebar collapsed={collapsed}>
-          <SideMenu setCollapsed={setCollapsed} />
+          <SideMenu collapsed={collapsed} setCollapsed={setCollapsed} />
         </Sidebar>
         <Content className={collapsed ? 'content-container' : 'content-container-expanded'}>{children}</Content>
       </Layout>

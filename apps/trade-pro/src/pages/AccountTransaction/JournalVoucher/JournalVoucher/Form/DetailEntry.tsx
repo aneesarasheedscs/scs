@@ -99,21 +99,13 @@ const DynamicForm = ({ form }: TDynamicForm) => {
       console.log('New tableData:', combinedData);
       return combinedData;
     });
-    form.setFieldValue(['voucherDetailList', 0, 'AccountIdC'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'AccountIdD'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'CheqNoDetail'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'DebitAmount'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'Comments'], null);
+    form.setFieldValue(['voucherDetailList', 0], null);
     setRefAccountId(0);
     setRefAccountIdforDebit(0);
     setIsEditMode(false);
   };
   const handleResetForm = () => {
-    form.setFieldValue(['voucherDetailList', 0, 'AccountIdC'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'AccountIdD'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'CheqNoDetail'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'DebitAmount'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'Comments'], null);
+    form.setFieldValue(['voucherDetailList', 0], null);
     setRefAccountId(0);
     setRefAccountIdforDebit(0);
     setIsEditMode(false);
@@ -173,12 +165,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
       console.log('New tableData:', updatedData);
       return updatedData;
     });
-
-    form.setFieldValue(['voucherDetailList', 0, 'AccountIdC'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'AccountIdD'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'CheqNoDetail'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'DebitAmount'], null);
-    form.setFieldValue(['voucherDetailList', 0, 'Comments'], null);
+    form.setFieldValue(['voucherDetailList', 0], null);
     setRefAccountId(0);
     setIsEditMode(false);
     setRefAccountIdforDebit(0);

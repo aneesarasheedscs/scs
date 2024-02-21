@@ -5,12 +5,10 @@ import CardView from './CardView';
 import { columns } from './columns';
 import { Col, Row, theme } from 'antd';
 import { useTranslation } from 'react-i18next';
-import BankPaymentDetailTable from './DetailTable';
 import { AntButton, AntTable } from '@tradePro/components';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { useGetBillsPayablesAccountsVoucherTable } from '../query';
 import BillsPayableAccountsDetailTable from './DetailTable';
-// import { useGetBankPaymentVoucherTable } from '../queries/queries';
 
 function BillsPayableHistory({
   setSelectedRecordId,
