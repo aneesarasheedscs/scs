@@ -9,6 +9,7 @@ export type SaleOrderRetailCriteria = {
   ItemCategoryId: number;
   ItemTypeId: number;
   Status: string;
+  DocumentTypeId:number;
   ApprovedFilter: string;
   IsApproved: boolean;
 };
@@ -16,7 +17,7 @@ export type SaleOrderRetailCriteria = {
 export type SaleOrderHistory = {
   DocDate: Date;
   DocNo: number;
-  DueDays: number | string;
+  DueDays: number ;
   DueDate: number | string | Date;
   CustomerName: string;
   CommissionAgent: string;
@@ -34,4 +35,5 @@ export type SaleOrderHistory = {
   BalWeight: number;
   Rate: number;
   ExpiryDate: Date;
+  NoOfAttachments:number
 };

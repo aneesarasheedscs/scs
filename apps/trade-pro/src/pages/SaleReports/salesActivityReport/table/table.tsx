@@ -1,4 +1,4 @@
-import { AntTable } from '@tradePro/components';
+import { AntTable, BackButton } from '@tradePro/components';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { useTranslation } from 'react-i18next';
 import { Col, Row } from 'antd';
@@ -19,6 +19,7 @@ import {
 } from './columns';
 import SearchCriteria from '../searchCriteria.tsx/SearchCriteriaForm';
 import { actvititySaleAtom } from '../searchCriteria.tsx/atom';
+import { storedFinancialYear } from '@tradePro/utils/storageService';
 
 function SalesActivityTable() {
   const {
@@ -61,57 +62,31 @@ function SalesActivityTable() {
   })();
 
   return (
-    <>
-      <Row
-        style={{
-          marginBottom: '5px',
-          width: '100%',
-        }}
-        className="row-border"
-      >
-        <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }}>
-          <h2 className="tableTitle">{t('sale_activity')}</h2>
+    <div style={{ background: '#fff' }}>
+      <Row justify={'space-between'} align={'middle'}>
+        <Col xs={15} sm={10} md={12} lg={12} xl={20} xxl={16} className="">
+          <h1 className="report_heading">{t('sale_reports')}</h1>
+        </Col>
+        <Col xs={3} sm={2} xxl={1} md={2} lg={2} xl={2} style={{ marginRight: '50px' }}>
+          <BackButton goToDashboard={false} />
         </Col>
       </Row>
 
-      <AntTable
-        refetch={SaleRefetch}
-        isError={SaleError}
-        columns={selectedColumns}
-        numberOfSkeletons={12}
-        isLoading={SaleLoading || SaleFetching}
-        data={Sale?.data?.Data?.Result || []}
-        searchCriteriaForm={<SearchCriteria />}
-        scroll={{ x: '', y: convertVhToPixels('62vh') }}
-        footer={() => (
-          <>
-            {/* <div>
-              <Row justify="center" gutter={[16, 16]}>
-                <Col xs={24} sm={12} md={8} lg={6} xl={2}>
-                  <p>{t('detail_total')}:</p>
-                </Col>
-                <Col xs={24} sm={12} md={8} lg={6} xl={2}>
-                  <p>{numberFormatter(totalSaleQty)}</p>
-                </Col>
-                <Col xs={24} sm={12} md={8} lg={6} xl={2}>
-                  <p>{numberFormatter(totalSaleWeight)}</p>
-                </Col>
-                <Col xs={24} sm={12} md={8} lg={6} xl={2}>
-                  <p>{numberFormatter(totalSaleAmount)}</p>
-                </Col>
-                <Col xs={24} sm={12} md={8} lg={6} xl={2}>
-                  <p>{numberFormatter(totalCgsAmount)}</p>
-                </Col>
-
-                <Col xs={24} sm={12} md={8} lg={6} xl={2}>
-                  <p>{numberFormatter(totalGrossProfitLosst)}</p>
-                </Col>
-              </Row>
-            </div> */}
-          </>
-        )}
-      />
-    </>
+      <Row justify={'space-around'}>
+        <Col xxl={23} xs={23} xl={23} lg={23} sm={23} md={23}>
+          <AntTable
+            refetch={SaleRefetch}
+            isError={SaleError}
+            columns={selectedColumns}
+            numberOfSkeletons={12}
+            isLoading={SaleLoading || SaleFetching}
+            data={Sale?.data?.Data?.Result || []}
+            searchCriteriaForm={<SearchCriteria />}
+            scroll={{ x: '', y: convertVhToPixels('62vh') }}
+          />
+        </Col>
+      </Row>
+    </div>
   );
 }
 

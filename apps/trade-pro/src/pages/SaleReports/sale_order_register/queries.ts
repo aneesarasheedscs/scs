@@ -1,9 +1,8 @@
-import { queryClient } from '@tradePro/configs';
-import { useMutation, useQuery } from 'react-query';
 import { requestManager } from '@tradePro/configs/requestManager';
 import { storedUserDetail } from '@tradePro/utils/storageService';
 import { SaleOrderRetailCriteria } from './type';
-import { table } from 'console';
+import { useQuery } from 'react-query';
+
 
 const userDetail = storedUserDetail();
 
@@ -33,7 +32,7 @@ export const useGetItemCategory = (enabled = true) => {
     { enabled }
   );
 };
-// useGetItemDescription
+// useGetItemType
 export const useGetItemDescription = (enabled = true) => {
   return useQuery(
     'item-description',
@@ -42,6 +41,7 @@ export const useGetItemDescription = (enabled = true) => {
         params: {
           OrganizationId: userDetail?.OrganizationId,
           CompanyId: userDetail?.CompanyId,
+          Type:15,
         },
       });
     },
@@ -105,6 +105,23 @@ export const useGetOrderStatus = (enabled = true) => {
           OrganizationId: userDetail?.OrganizationId,
           CompanyId: userDetail?.CompanyId,
         },
+      });
+    },
+    { enabled }
+  );
+};
+
+
+
+export const useSalesReportTable = (enabled = true, params?: SaleOrderRetailCriteria) => {
+  return useQuery(
+    'saleOrder-table',
+    () => {
+      return requestManager.post('api/Inventory/SaleOrderRetailRegister', {
+        OrganizationId: userDetail?.OrganizationId,
+        CompanyId: userDetail?.CompanyId,
+        DocumentTypeId: 81,
+        ...params,
       });
     },
     { enabled }
