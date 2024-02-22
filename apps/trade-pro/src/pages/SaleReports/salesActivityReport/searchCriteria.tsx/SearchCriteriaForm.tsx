@@ -11,10 +11,15 @@ import { useGetSaleInvoice, useSaleInvoiceTable } from '../query';
 import { TSearchCritariaSaleActivity } from '../types';
 import { map } from 'lodash';
 import dayjs from 'dayjs';
+import { storedFinancialYear } from '@tradePro/utils/storageService';
 
 const { useForm, useWatch } = Form;
 
 function SearchCriteria() {
+  const financialYear = storedFinancialYear();
+
+  const FromDate = dayjs(financialYear?.Start_Period);
+  const ToDate = dayjs(new Date());
   const { data: SaleInvoice } = useGetSaleInvoice();
 
   interface TReportType {
@@ -108,31 +113,12 @@ function SearchCriteria() {
 
   const [, setSelectedActivity] = useAtom(actvititySaleAtom);
 
-  const today = dayjs();
-  const startOfMonth = today.startOf('month');
-  const currentDate = today;
-
-  useEffect(() => {
-    setFields([{ name: 'FromDate', value: startOfMonth }]);
-    setFields([{ name: 'ToDate', value: currentDate }]);
-  }, []);
-
-  const handleFromDateChange = (value: any) => {
-    setFields([{ name: 'FromDate', value }]);
-  };
-
   return (
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
-      <Form form={form} onFinish={onFinish} layout="inline">
+      <Form form={form} onFinish={onFinish} layout="inline" initialValues={{ FromDate, ToDate }}>
         <Row gutter={[10, 10]}>
           <Col xs={24} sm={12} md={12} className="formfield">
-            <AntDatePicker
-              name="FromDate"
-              label="From Date"
-              bordered={false}
-              value={getFieldValue('FromDate')}
-              onChange={handleFromDateChange}
-            />
+            <AntDatePicker name="FromDate" label="From Date" bordered={false} />
           </Col>
 
           <Col xs={24} sm={12} md={11} className="formfield" offset={1}>
@@ -257,14 +243,14 @@ function SearchCriteria() {
               </Col>
             </Radio.Group>
           </Col>
-          <Col xs={24} sm={20} md={20} lg={20} xl={24}>
+          <Col xs={24} sm={20} md={20} lg={20} xl={24} xxl={24}>
             <AntButton
               className="buttons"
               htmlType="submit"
               style={{ marginTop: 4 }}
               isError={saleError}
               isLoading={saleLoading || saleFetching}
-              label={t('Show')}
+              label={t('show')}
             />
             <AntButton className="buttons" danger ghost htmlType="reset" label={t('reset')} icon={<SyncOutlined />} />
           </Col>

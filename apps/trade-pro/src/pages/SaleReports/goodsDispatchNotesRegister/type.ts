@@ -26,12 +26,13 @@ StockWeight:number
 NetBillWeight:number
 WareHouse:string
 JobLot:string
-VehicleNo:number|string
+VehicleNo:number
 BiltyNo:number
 EntryDate:Date
 EntryUser:string
 ModifyDate:Date
 ModifyUser:string
 NoOfAttachments:string
+
 
 }

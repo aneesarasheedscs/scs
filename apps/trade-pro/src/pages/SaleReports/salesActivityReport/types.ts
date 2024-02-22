@@ -1,5 +1,4 @@
-import exp from 'constants';
-export type commontype = {
+export type TSalesReportsByActivity ={
   SaleQty: number;
   SaleWeight: number;
   SaleRate: number;
@@ -9,58 +8,22 @@ export type commontype = {
   GrossProfitLoss: number;
   PrcntOfTotal: number;
   PrctofTotalWeight: number;
-};
-export type TsaleByDetail = {
   Id: number;
   InvoiceDate: Date | string;
-  InvoiceNo: string;
+  InvoiceNo: number;
   ItemName: string;
   PackUom: string;
-};
-export type TSalesByInvoices = {
-  Id: number;
-  InvoiceDate: string;
-  InvoiceNo: string;
-};
-export type TSalesByCustomer = {
-  Customer: string;
-  PackUom: string;
-};
-export type TSalesByCustomerandItem = {
-  Customer: string;
-  ItemName: string;
-  PackUom: string;
-};
-export type TSalesByCustomerItemAndInvoice = {
-  Id: number;
-  InvoiceDate: Date | string;
-  InvoiceNo: string;
-  ItemName: string;
-  PackUom: string;
-};
-export type TSalesByItemCategoryandItemType = {
+  Customer:string
   CategoryDescription: string;
   TypeDescription: string;
-  ItemName: string;
-  PackUom: string;
-};
-export type TSalesByCategory = {
-  CategoryDescription: string;
-};
-export type TSalesByItemType = {
-  TypeDescription: string;
-};
-export type TSalesByPaymentTerm = {
   PaymentTerm: string;
-};
-export type TSalesByCategoryAndPackSize = {
-  CategoryDescription: string;
-};
-export type TItemPurchaseAndSaleSummary = {
   WareHouseName: string;
   Category: string;
-  ItemName: string;
+  PurchaseQty:number
+  BalQty:number
+  AvgRate:number  
 };
+
 export type TSearchCritariaSaleActivity = {
   OrganizationId: number;
   CompanyId: number;
@@ -78,17 +41,4 @@ export type TSearchCritariaSaleActivity = {
   PaymentTermId: number;
   ReportType: string;
 };
-export type AccountAllocationTypes = {
-  OrganizationId: number;
-  CompanyId: number;
-  BranchId: number;
-  FinancialYearId: number;
-  EntryUserId: number;
-  ChartofAccountId: number;
-  AccountTitle: string;
-  GLPageNo: string;
-  IsActive: boolean;
-  Id: number;
-  DocumentTypeId: number;
-  AccountTypeId: number;
-};
+
