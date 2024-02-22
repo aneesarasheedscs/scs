@@ -27,7 +27,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
   const [newtableData, setNewTableData] = useAtom(newTableData);
   const [isEditMode, setIsEditMode] = useState(false);
   const [useFocus, setUseFocus] = useState(false);
-  const [edit, setEdit] = useState<any>([]);
+  const [edit, setEdit] = useState<TWsRmRequisitionPoDetailsList[]>([]);
   const initialValues = {
     Id: null,
     ItemId: null,
@@ -49,7 +49,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
   const {
     token: { colorPrimary },
   } = theme.useToken();
-  const [counter, setCounter] = useState<any>(0);
+  const [counter, setCounter] = useState<number>(0);
 
   const handleAddToTable = () => {
     const newData = formValues.map((item, index) => ({
@@ -83,7 +83,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
       return;
     }
     setUseFocus(true);
-    setCounter((prevCounter: any) => prevCounter + 1);
+    setCounter((prevCounter: number) => prevCounter + 1);
     setTableData((prevData: any[]) => {
       const updatedData = newData.map((item) => ({
         ...item,
@@ -164,7 +164,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
       notification.error({ message: message });
       return;
     }
-    const editedRowIndex = tableData.findIndex((row: any) => row.ItemId === edit?.ItemId);
+    const editedRowIndex = tableData.findIndex((row: any) => row.ItemId === edit?.[0]?.ItemId);
 
     if (editedRowIndex >= 0) {
       setTableData((prevData: any[]) => {
@@ -172,10 +172,10 @@ const DynamicForm = ({ form }: TDynamicForm) => {
         updatedData[editedRowIndex] = {
           ...newData[0],
           ActionTypeId: 1,
-          LineId: edit.LineId,
-          Id: edit.Id,
-          WsRmRequisitionPoId: edit.WsRmRequisitionPoId,
-          DestinationLocationId: edit.DestinationLocationId,
+          LineId: edit?.[0]?.LineId,
+          Id: edit?.[0]?.Id,
+          WsRmRequisitionPoId: edit?.[0]?.WsRmRequisitionPoId,
+          DestinationLocationId: edit?.[0]?.DestinationLocationId,
         };
         console.log('New tableData:', updatedData);
         return updatedData;
@@ -219,51 +219,55 @@ const DynamicForm = ({ form }: TDynamicForm) => {
       { name: ['WsRmRequisitionPoDetailsList', 0, 'RemarksDetail'], value: null },
     ]);
   };
-  const handleDeleteRow = (record: any | any[]) => {
-    if (record?.Id > 0) {
+  const handleDeleteRow = (record: TWsRmRequisitionPoDetailsList[]) => {
+    if (record?.[0]?.Id > 0) {
       const recordsToDelete = Array.isArray(record) ? record : [record];
       setDeleteTableData((prevData) => [...prevData, ...recordsToDelete]);
       // return;
     }
     console.log(record);
     setTableData((prevData: any[]) => {
-      const updatedData = prevData.filter((item: any) => item.LineId !== record?.LineId || item.Id !== record?.Id);
+      const updatedData = prevData.filter(
+        (item: any) => item.LineId !== record?.[0]?.LineId || item.Id !== record?.[0]?.Id
+      );
       console.log('New tableData:', updatedData);
       return updatedData;
     });
     setNewTableData((prevData: any[]) => {
-      const updatedData = prevData.filter((item: any) => item.LineId !== record?.LineId || item.Id !== record?.Id);
+      const updatedData = prevData.filter(
+        (item: any) => item.LineId !== record?.[0]?.LineId || item.Id !== record?.[0]?.Id
+      );
       console.log('New tableData:', updatedData);
       return updatedData;
     });
   };
   // console.log(edit);
-  const handleEditRow = (record: any | any[]) => {
+  const handleEditRow = (record: TWsRmRequisitionPoDetailsList[]) => {
     setEdit(record);
     setTableData((prevData: any[]) => {
       const updatedData = [...prevData];
-      const rowIndex = updatedData.findIndex((item: any) => item.Id === record.Id);
+      const rowIndex = updatedData.findIndex((item: any) => item.Id === record?.[0]?.Id);
 
       if (rowIndex !== -1) {
         updatedData[rowIndex] = {
           ...updatedData[rowIndex],
-          Item: record.ItemName,
-          Id: record.Id,
-          ItemId: record.ItemId,
-          ItemName: record.ItemName,
-          ItemUomId: record.ItemUomId,
-          ItemUom: record.ItemUom,
-          ReqQty: record.ReqQty,
-          BillWeight: record.BillWeight,
-          StockWeight: record.StockWeight,
-          NetWeight: record.BillWeight,
-          PackUom: record.PackUom,
-          ReqRate: record.ReqRate,
-          ReqAmount: record.ReqAmount,
-          PackEquivalent: record.PackEquivalent,
-          WsRmRequisitionPoId: record.WsRmRequisitionPoId,
-          RemarksDetail: record.RemarksDetail,
-          DestinationLocationId: record.DestinationLocationId,
+          Item: record?.[0]?.ItemName,
+          Id: record?.[0]?.Id,
+          ItemId: record?.[0]?.ItemId,
+          ItemName: record?.[0]?.ItemName,
+          ItemUomId: record?.[0]?.ItemUomId,
+          ItemUom: record?.[0]?.ItemUom,
+          ReqQty: record?.[0]?.ReqQty,
+          BillWeight: record?.[0]?.BillWeight,
+          StockWeight: record?.[0]?.StockWeight,
+          NetWeight: record?.[0]?.BillWeight,
+          PackUom: record?.[0]?.PackUom,
+          ReqRate: record?.[0]?.ReqRate,
+          ReqAmount: record?.[0]?.ReqAmount,
+          PackEquivalent: record?.[0]?.PackEquivalent,
+          WsRmRequisitionPoId: record?.[0]?.WsRmRequisitionPoId,
+          RemarksDetail: record?.[0]?.RemarksDetail,
+          DestinationLocationId: record?.[0]?.DestinationLocationId,
         };
 
         form.setFieldValue(['WsRmRequisitionPoDetailsList', 0], updatedData[rowIndex]); // Update form values

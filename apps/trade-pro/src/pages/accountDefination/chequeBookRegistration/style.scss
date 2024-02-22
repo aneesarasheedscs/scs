@@ -1,47 +1,47 @@
-.formfield {
-  border-bottom: 1px solid gray;
-  padding: 0px;
-  height: 38px;
-}
-.ant-checkbox-inner,
-.ant-checkbox-input {
-  height: 1.5rem !important;
-  width: 1.5rem !important;
-}
+// .formfield {
+//   border-bottom: 1px solid gray;
+//   padding: 0px;
+//   height: 38px;
+// }
+// .ant-checkbox-inner,
+// .ant-checkbox-input {
+//   height: 1.5rem !important;
+//   width: 1.5rem !important;
+// }
 
-//        Responsivenesss
+// //        Responsivenesss
 
-@media screen and (min-width: 993px) and (max-width: 1200px) {
-  .serial-from,
-  .prefix,
-  .serial-to,
-  .remarks {
-    margin-top: 2% !important;
-  }
-}
+// @media screen and (min-width: 993px) and (max-width: 1200px) {
+//   .serial-from,
+//   .prefix,
+//   .serial-to,
+//   .remarks {
+//     margin-top: 2% !important;
+//   }
+// }
 
-@media screen and (min-width: 768px) and (max-width: 992px) {
-  .prefix {
-    margin-bottom: -2%;
-  }
-  .serial-from {
-    margin-top: 2% !important;
-  }
-  .serial-to,
-  .remarks {
-    margin-top: 2% !important;
-  }
-}
+// @media screen and (min-width: 768px) and (max-width: 992px) {
+//   .prefix {
+//     margin-bottom: -2%;
+//   }
+//   .serial-from {
+//     margin-top: 2% !important;
+//   }
+//   .serial-to,
+//   .remarks {
+//     margin-top: 2% !important;
+//   }
+// }
 
-@media screen and (min-width: 576px) and (max-width: 768px) {
-  .bankaccount,
-  .doc-date,
-  .prefix,
-  .serial-from,
-  .serial-to {
-    margin-bottom: 1.5%;
-  }
-  .doc-date {
-    margin-top: -2.5%;
-  }
-}
+// @media screen and (min-width: 576px) and (max-width: 768px) {
+//   .bankaccount,
+//   .doc-date,
+//   .prefix,
+//   .serial-from,
+//   .serial-to {
+//     margin-bottom: 1.5%;
+//   }
+//   .doc-date {
+//     margin-top: -2.5%;
+//   }
+// }

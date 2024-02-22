@@ -7,6 +7,7 @@ import { useRequisitionOrderHistory } from '../quries';
 import { useState } from 'react';
 import RequisitionOrderDetailTable from './DetailTable';
 import CardView from './cardView';
+import { TRequisitionOrder } from '../types';
 
 function RequisitionOrderTable({
   setSelectedRecordId,
@@ -15,7 +16,7 @@ function RequisitionOrderTable({
   requisitionDetail,
   isDataLoadingDetail,
   refetchDetail,
-}: TFrom) {
+}: THistoryProps) {
   const { t } = useTranslation();
   const { data, isError, isLoading, refetch, isFetching } = useRequisitionOrderHistory();
   const {
@@ -89,14 +90,13 @@ function RequisitionOrderTable({
   );
 }
 
-type TFrom = {
+type THistoryProps = {
   setSelectedRecordId: (id: number | null) => void;
   setSelectedRecordIdforDetail: (id: number | null) => void;
   setActiveTab: (tab: string) => void;
-
-  requisitionDetail: any;
-  isDataLoadingDetail: any;
-  refetchDetail: any;
+  requisitionDetail: TRequisitionOrder;
+  isDataLoadingDetail: boolean;
+  refetchDetail: () => void;
 };
 
 export default RequisitionOrderTable;

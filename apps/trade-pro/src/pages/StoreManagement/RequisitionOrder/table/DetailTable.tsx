@@ -3,8 +3,9 @@ import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { Card, Col, Row, theme } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { detailColumns } from './Detailcolumn';
+import { TRequisitionOrder } from '../types';
 
-function RequisitionOrderDetailTable({ requisitionDetail, isDataLoadingDetail, refetchDetail }: any) {
+function RequisitionOrderDetailTable({ requisitionDetail, isDataLoadingDetail, refetchDetail }: THistoryProps) {
   const { t } = useTranslation();
 
   const {
@@ -23,7 +24,7 @@ function RequisitionOrderDetailTable({ requisitionDetail, isDataLoadingDetail, r
             isLoading={isDataLoadingDetail}
             numberOfSkeletons={4}
             scroll={{ x: '', y: convertVhToPixels('15vh') }}
-            data={requisitionDetail?.data?.Data?.Result?.WsRmRequisitionPoDetailsList || []}
+            data={requisitionDetail?.WsRmRequisitionPoDetailsList || []}
             columns={detailColumns(t)}
             style={{ marginTop: 0 }}
           />
@@ -33,9 +34,10 @@ function RequisitionOrderDetailTable({ requisitionDetail, isDataLoadingDetail, r
   );
 }
 
-type TFrom = {
-  setSelectedRecordId: (id: number | null) => void;
-  setActiveTab: (tab: string) => void;
+type THistoryProps = {
+  requisitionDetail: TRequisitionOrder;
+  isDataLoadingDetail: boolean;
+  refetchDetail: () => void;
 };
 
 export default RequisitionOrderDetailTable;

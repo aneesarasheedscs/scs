@@ -6,12 +6,13 @@ import { formateDate } from '@tradePro/utils/formateDate';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { TRequisitionOrderHistory } from '../types';
 import dayjs from 'dayjs';
+import { TFunction } from 'i18next';
 
 export const columns = (
-  t?: any,
-  setSelectedRecordId?: any,
-  setActiveTab?: any,
-  setSelectedRecordIdforDetail?: any
+  t: TFunction,
+  setSelectedRecordId: (id: number | null) => void,
+  setActiveTab: (tab: string) => void,
+  setSelectedRecordIdforDetail: (id: number | null) => void
 ): AntColumnType<TRequisitionOrderHistory>[] => [
   {
     title: t('doc_no'),

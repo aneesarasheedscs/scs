@@ -1,8 +1,9 @@
 import { AntColumnType } from '@tradePro/globalTypes';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { TWsRmRequisitionPoDetailsList } from '../types';
+import { TFunction } from 'i18next';
 
-export const detailColumns = (t?: any): AntColumnType<TWsRmRequisitionPoDetailsList>[] => [
+export const detailColumns = (t: TFunction): AntColumnType<TWsRmRequisitionPoDetailsList>[] => [
   {
     title: t('item_name'),
     width: 400,

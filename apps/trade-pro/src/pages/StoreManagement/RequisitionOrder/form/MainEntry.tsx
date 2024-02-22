@@ -10,20 +10,17 @@ import { map } from 'lodash';
 function MainEntry({ form }: TDynamicForm) {
   const { t } = useTranslation();
   const [disablefields, setDisablefields] = useState(true);
-  const { data } = useGetDestinationLoc();
+  const { data, isSuccess, isLoading } = useGetDestinationLoc();
 
   const userDetail = storedUserDetail();
   useEffect(() => {
     form.setFieldValue('DocDate', dayjs(new Date()));
     form.setFieldValue('ReqStatus', 1);
     form.setFieldValue('SourceLocationId', userDetail?.CompanyId);
-    form.setFieldValue('DestinationLocationId', 2);
-  }, ['DocDate']);
-  const handleCheckboxChange = (isChecked: boolean, fieldName: string) => {
-    form.setFieldsValue({
-      [fieldName]: isChecked,
-    });
-  };
+    if (isSuccess && !isLoading) {
+      form.setFieldValue('DestinationLocationId', data?.[0]?.Id);
+    }
+  }, [isSuccess, 'DocDate']);
 
   return (
     <>

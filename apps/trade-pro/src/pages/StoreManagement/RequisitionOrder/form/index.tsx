@@ -24,13 +24,11 @@ function RequisitionOrderForm({
 }: TAddUpdateRecord) {
   const [form] = useForm<TRequisitionOrder>();
   const DocumentTypeId = 105;
+  const { t } = useTranslation();
   const [printPreview, setPrintPreview] = useState(true);
-
   const { data, isError, refetch, isLoading, isSuccess } = useGetDocumentNumber(DocumentTypeId);
   const [delettableData, setDeleteTableData] = useAtom(deleteData);
   const [newtableData, setNewTableData] = useAtom(newTableData);
-
-  const { t } = useTranslation();
   const [tableData, setTableData] = useAtom(addtableData);
   const {
     mutate: addRequisitionOrder,
@@ -47,7 +45,6 @@ function RequisitionOrderForm({
 
     if (selectedRecordId) {
       const Ids = tableData?.map((item: any) => item.Id);
-      console.log(Ids);
       if (Ids?.[0] >= 0) {
         const newRecord = newtableData?.map((item: any) => ({
           ...item,
@@ -64,15 +61,6 @@ function RequisitionOrderForm({
           ActionTypeId: 3,
         }));
         values.WsRmRequisitionPoDetailsList = [...newRecord, ...updatedRecord, ...deletedRecord];
-        if (values.WsRmRequisitionPoDetailsList?.[0] === null || values.WsRmRequisitionPoDetailsList.length === 0) {
-          const message = 'Please fill Detail!';
-          notification.error({ message: message });
-          return;
-        }
-        updateRequisitionOrder(values);
-        console.log(values);
-      } else if (Ids?.[0] === 0) {
-        values.WsRmRequisitionPoDetailsList = [...tableData];
         if (values.WsRmRequisitionPoDetailsList?.[0] === null || values.WsRmRequisitionPoDetailsList.length === 0) {
           const message = 'Please fill Detail!';
           notification.error({ message: message });
@@ -111,32 +99,21 @@ function RequisitionOrderForm({
       form.setFieldValue('RemarksHeader', null);
     }
   }, [successAdd, addRequisition, successUpdate, updateRequistion]);
-  useEffect(() => {
-    if (selectedRecordId) {
-      setDeleteTableData([]);
-    }
-  }, [selectedRecordId]);
-  console.log(delettableData);
 
   useEffect(() => {
     if (isDataSuccess && !isDataLoading) {
-      form.setFieldValue('DocNo', requisitionById?.data?.Data?.Result?.DocNo);
-      form.setFieldValue('DocDate', dayjs(requisitionById?.data?.Data?.Result?.DocDate));
-      if (requisitionById?.data?.Data?.Result?.ReqStatus === '1') {
-        form.setFieldValue('ReqStatus', 1);
-      } else if (requisitionById?.data?.Data?.Result?.ReqStatus === '2') {
-        form.setFieldValue('ReqStatus', 2);
-      } else if (requisitionById?.data?.Data?.Result?.ReqStatus === '3') {
-        form.setFieldValue('ReqStatus', 3);
-      } else if (requisitionById?.data?.Data?.Result?.ReqStatus === '4') {
-        form.setFieldValue('ReqStatus', 4);
-      }
-      form.setFieldValue('DestinationLocationId', requisitionById?.data?.Data?.Result?.DestinationLocationId);
-      form.setFieldValue('SourceLocationId', requisitionById?.data?.Data?.Result?.SourceLocationId);
-      form.setFieldValue('RemarksHeader', requisitionById?.data?.Data?.Result?.RemarksHeader);
-      setTableData(requisitionById?.data?.Data?.Result?.WsRmRequisitionPoDetailsList);
+      form.setFieldValue('DocNo', requisitionById?.DocNo);
+      form.setFieldValue('DocDate', dayjs(requisitionById?.DocDate));
+      form.setFieldValue('ReqStatus', parseInt(requisitionById?.ReqStatus));
+      form.setFieldValue('DestinationLocationId', requisitionById?.DestinationLocationId);
+      form.setFieldValue('SourceLocationId', requisitionById?.SourceLocationId);
+      form.setFieldValue('RemarksHeader', requisitionById?.RemarksHeader);
+      setTableData(requisitionById?.WsRmRequisitionPoDetailsList);
     }
-  }, [isDataSuccess, !isDataLoading, selectedRecordId]);
+    if (selectedRecordId) {
+      setDeleteTableData([]);
+    }
+  }, [isDataSuccess, isDataLoading, selectedRecordId]);
   useEffect(() => {
     if (isSuccess) form.setFieldValue('DocNo', data?.data?.Data?.Result);
   }, [data, isSuccess]);
@@ -165,7 +142,7 @@ function RequisitionOrderForm({
                     isError={isError}
                     refetch={refetch}
                     isLoading={isLoading}
-                    data={isDataSuccess ? requisitionById?.data?.Data?.Result?.DocNo : data?.data?.Data?.Result}
+                    data={isDataSuccess ? requisitionById?.DocNo : data?.data?.Data?.Result}
                   />
                   <Form.Item name="DocNo" style={{ display: 'none' }}>
                     <Input />
@@ -229,11 +206,11 @@ function RequisitionOrderForm({
   );
 }
 type TAddUpdateRecord = {
-  selectedRecordId?: number | null;
-  requisitionById?: any;
-  refetchReqesition?: any;
-  isDataSuccess?: any;
-  isDataLoading?: any;
-  setSelectedRecordId?: any;
+  selectedRecordId: number | null;
+  requisitionById: TRequisitionOrder;
+  refetchReqesition: () => void;
+  isDataSuccess: boolean;
+  isDataLoading: boolean;
+  setSelectedRecordId: (id: number | null) => void;
 };
 export default RequisitionOrderForm;

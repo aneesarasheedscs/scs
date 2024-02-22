@@ -42,11 +42,14 @@ export const useGetBankSelect = () => {
   );
 };
 
-export const useGetChequeBookSelect = () => {
+export const useGetChequeBookSelect = (BankId: number) => {
+  console.log(BankId);
   return useQuery(
-    'cheque-book-Select',
+    ['cheque-book-Select', BankId],
     () => {
-      return requestManager.get('/api/CheqBookHeader/OutstandingCheqNo', { params: { ...params, AccountId: 21657 } });
+      return requestManager.get('/api/CheqBookHeader/OutstandingCheqNo', {
+        params: { ...params, AccountId: BankId === null ? 0 : BankId },
+      });
     },
     { cacheTime: 5000 }
   );

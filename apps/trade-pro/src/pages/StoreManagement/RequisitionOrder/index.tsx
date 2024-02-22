@@ -10,7 +10,7 @@ import { useGetRequisitionOrderById, useGetRequisitionOrderByIdforDetail } from 
 
 function RequisitionOrder() {
   const { t } = useTranslation();
-  const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
+  const [selectedRecordId, setSelectedRecordId] = useState<number | null>(null);
   const [selectedRecordIdforDetail, setSelectedRecordIdforDetail] = useState<number | null>();
   const [activeTab, setActiveTab] = useState<string>('1');
   const [viewDetail, setViewDetail] = useAtom(viewDetailList);
@@ -31,12 +31,11 @@ function RequisitionOrder() {
     if (isDataSuccessforDetail && !isDataLoadingDetail) {
       setViewDetail(requisitionById?.data?.Data?.Result?.WsRmRequisitionPoDetailsList);
     }
-  }, [isDataSuccessforDetail, !isDataLoadingDetail]);
+  }, [isDataSuccessforDetail, isDataLoadingDetail]);
   return (
     <>
       <h2 className="" style={{ textAlign: 'center' }}>
-        {' '}
-        {t('requisition_order')}{' '}
+        {t('requisition_order')}
       </h2>
 
       <Tabs
@@ -51,7 +50,7 @@ function RequisitionOrder() {
             setSelectedRecordId={setSelectedRecordId}
             setActiveTab={setActiveTab}
             setSelectedRecordIdforDetail={setSelectedRecordIdforDetail}
-            requisitionDetail={requisitionDetail}
+            requisitionDetail={requisitionDetail?.data?.Data?.Result}
             isDataLoadingDetail={isDataLoadingDetail}
             refetchDetail={refetchDetail}
           />
@@ -59,7 +58,7 @@ function RequisitionOrder() {
         <Tabs.TabPane key="2" tab={t('form')}>
           <RequisitionOrderForm
             selectedRecordId={selectedRecordId}
-            requisitionById={requisitionById}
+            requisitionById={requisitionById?.data?.Data?.Result}
             refetchReqesition={refetchReqesition}
             isDataSuccess={isDataSuccess}
             isDataLoading={isDataLoading}

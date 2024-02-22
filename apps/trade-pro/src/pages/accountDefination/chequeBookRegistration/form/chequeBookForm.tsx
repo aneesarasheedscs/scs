@@ -4,24 +4,33 @@ import { useTranslation } from 'react-i18next';
 import '../style.scss';
 import { useGetChequeBookRegistrationSelect } from '../queries/queries';
 import { useState } from 'react';
-
-const ChequeBook = () => {
+interface Props {
+  form: FormInstance;
+}
+const ChequeBook = ({ form }: Props) => {
   const { t } = useTranslation();
-  const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(true); // Step 1
-  const handleInputChange = () => {
-    // Step 2: This function is called when input values change
-    setIsSaveButtonDisabled(true); // Disable the save button
+  const { data: bankAccount } = useGetChequeBookRegistrationSelect();
+
+  const handleInputChange = (value: number) => {
+    console.log(bankAccount);
+    const selectedAccount = bankAccount?.data?.Data?.Result?.find((item: any) => item.Id === value);
+    if (selectedAccount) {
+      const accountTitle = selectedAccount.AccountTitle;
+      console.log(accountTitle);
+      form.setFieldValue('AccountTitle', accountTitle);
+    }
   };
 
   return (
-    <div className="form-heading">
-      <Row gutter={[16, 16]}>
+    <>
+      <Row gutter={[10, 10]} style={{ marginTop: '-0.5%' }}>
         <Col
-          xs={{ span: 24, offset: 0 }}
-          sm={{ span: 24, offset: 0 }}
-          md={{ span: 24, offset: 0 }}
-          lg={{ span: 24, offset: 0 }}
-          xl={{ span: 24, offset: 0 }}
+          xs={{ span: 24 }}
+          sm={{ span: 24 }}
+          md={{ span: 24 }}
+          lg={{ span: 24 }}
+          xl={{ span: 24 }}
+          xxl={{ span: 18 }}
         >
           <Card style={{ height: 'auto', paddingBottom: '1%', boxShadow: '2px 4px 12px 1px gray' }}>
             <div className="form-list-container">
@@ -39,7 +48,7 @@ const ChequeBook = () => {
                   fieldValue="Id"
                   fieldLabel="AccountTitle"
                   name="BankId"
-                  onChange={handleInputChange}
+                  onChange={(value) => handleInputChange(value)}
                   query={useGetChequeBookRegistrationSelect}
                 />
               </Col>
@@ -51,7 +60,12 @@ const ChequeBook = () => {
                 xl={{ span: 7, offset: 1 }}
                 className="formfield doc-date"
               >
-                <AntDatePicker bordered={false} label={t('doc_date')} name="DocDate" onChange={handleInputChange} />
+                <AntDatePicker
+                  bordered={false}
+                  label={t('doc_date')}
+                  name="DocDate"
+                  onChange={() => handleInputChange}
+                />
               </Col>
               <Col
                 xs={{ span: 23, offset: 0 }}
@@ -61,7 +75,7 @@ const ChequeBook = () => {
                 xl={{ span: 7, offset: 1 }}
                 className="formfield prefix"
               >
-                <AntInput bordered={false} label={t('prefix')} name="CbPrefix" onChange={handleInputChange} />
+                <AntInput bordered={false} label={t('prefix')} name="CbPrefix" onChange={() => handleInputChange} />
               </Col>
               <Col
                 xs={{ span: 23, offset: 0 }}
@@ -77,7 +91,7 @@ const ChequeBook = () => {
                   bordered={false}
                   label={t('serial_from')}
                   name="CbSrFrom"
-                  onChange={handleInputChange}
+                  onChange={() => handleInputChange}
                 />
               </Col>
 
@@ -95,7 +109,7 @@ const ChequeBook = () => {
                   bordered={false}
                   label={t('serial_to')}
                   name="CbSrTo"
-                  onChange={handleInputChange}
+                  onChange={() => handleInputChange}
                 />
               </Col>
 
@@ -108,13 +122,19 @@ const ChequeBook = () => {
                 style={{ marginTop: '1%' }}
                 className="formfield remarks"
               >
-                <AntInput bordered={false} label={t('remarks')} name="Remarks" onChange={handleInputChange} />
+                <AntInput bordered={false} label={t('remarks')} name="Remarks" onChange={() => handleInputChange} />
+                <AntInput
+                  bordered={false}
+                  label={''}
+                  name="AccountTitle"
+                  style={{ display: 'none', visibility: 'hidden' }}
+                />
               </Col>
             </div>
           </Card>
         </Col>
       </Row>
-    </div>
+    </>
   );
 };
 

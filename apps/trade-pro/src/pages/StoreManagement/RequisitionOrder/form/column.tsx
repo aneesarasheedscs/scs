@@ -4,9 +4,10 @@ import { Popconfirm, Space, Tooltip } from 'antd';
 import { DeleteOutlined, EditFilled } from '@ant-design/icons';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { TWsRmRequisitionPoDetailsList } from '../types';
+import { TFunction } from 'i18next';
 
 export const columns = (
-  t: any,
+  t: TFunction,
   handleDeleteRow: any,
   handleEditRow: any
 ): AntColumnType<TWsRmRequisitionPoDetailsList>[] => [

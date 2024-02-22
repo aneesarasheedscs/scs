@@ -7,6 +7,7 @@ export type TSaveChequeStatus = {
   EntryDate: string | Date;
   ModifyDate: string | Date;
   PostDate: string;
+  BankId: number;
   Cheqbookdetaillist: TChequeDetail[];
 };
 

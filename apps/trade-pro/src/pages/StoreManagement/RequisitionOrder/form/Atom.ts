@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
-export const totalValue = atom<any>(0);
-export const listAtom = atom([]);
-export const addtableData = atom<any>([]);
-export const deleteData = atom<any[]>([]);
-export const newTableData = atom<any[]>([]);
-export const viewDetailList = atom<any>([]);
+import { TRequisitionOrder, TWsRmRequisitionPoDetailsList } from '../types';
+
+export const addtableData = atom<TWsRmRequisitionPoDetailsList[]>([]);
+export const deleteData = atom<TWsRmRequisitionPoDetailsList[]>([]);
+export const newTableData = atom<TWsRmRequisitionPoDetailsList[]>([]);
+export const viewDetailList = atom<TRequisitionOrder[]>([]);
