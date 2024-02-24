@@ -37,6 +37,7 @@ const StockTransferNoteDirect = lazy(() => import('@tradePro/pages/StoreManageme
 const RequisitionOrder = lazy(() => import('@tradePro/pages/StoreManagement/RequisitionOrder'));
 const StockTranferNotes = lazy(() => import('@tradePro/pages/StoreManagement/StockTransferNotes'));
 const StockReceivedNotes = lazy(() => import('@tradePro/pages/StoreManagement/StockReceivedNotes'));
+const StockAdjustment = lazy(() => import('@tradePro/pages/StoreManagement/StockAdjustment'));
 
 const Login = lazy(() => import('@tradePro/pages/login'));
 const CompanyBranchDetail = lazy(() => import('@tradePro/pages/login/CompanyBranchDetails'));
@@ -245,7 +246,7 @@ export const protectedRoutes: RouteObject[] = [
 
   // { path: route.STOCK_TRANSFER_NOTE, element: <ItemBaseScheduleUOM /> },
   // { path: route.STOCK_RECEIVING_NOTE, element: <ItemBaseScheduleUOM /> },
-  // { path: route.STOCK_ADJUSTMENT, element: <ItemBaseScheduleUOM /> },
+  { path: route.STOCK_ADJUSTMENT, element: <StockAdjustment /> },
 
   //Hrm + system Utilities
   { path: route.DEFINE_DIVISION, element: <DefineDivision /> },
