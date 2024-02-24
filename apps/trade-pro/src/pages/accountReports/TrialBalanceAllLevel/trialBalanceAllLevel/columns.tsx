@@ -87,7 +87,7 @@ export const FourTrialBalanceAllLevelHistoryColumns = (t: any): AntColumnType<Tt
 export const SixTrialBalanceAllLevelHistoryColumns = (t: any): AntColumnType<TtrialBalanceAllLevel>[] => [
   {
     title: t('account_title'),
-    width: 250,
+    width: 300,
     dataIndex: 'AccountTitle',
     showCount: true,
     searchableInput: true,

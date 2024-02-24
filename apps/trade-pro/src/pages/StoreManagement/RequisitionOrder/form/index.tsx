@@ -155,7 +155,7 @@ function RequisitionOrderForm({
   return (
     <>
       <Card>
-        <Form form={form} onFinish={onFinish} layout="horizontal" style={{ marginBottom: 20 }}>
+        <Form form={form} onFinish={onFinish} layout="horizontal" style={{ marginBottom: 20 }} labelWrap>
           <Row justify="space-between" style={{ marginLeft: 10, marginRight: 10 }}>
             <Col xxl={8} xl={11} lg={16} style={{ marginTop: '0.5%' }}>
               <Row gutter={10} align="middle" style={{ border: '' }} justify={'space-between'}>
@@ -172,7 +172,14 @@ function RequisitionOrderForm({
                   </Form.Item>
                 </Col>
                 <Col xl={15} xxl={15} sm={15} lg={15} xs={23} md={15} className="formfield">
-                  <AntDatePicker autoFocus required name="DocDate" label={t('document_date')} bordered={false} />
+                  <AntDatePicker
+                    autoFocus
+                    required
+                    name="DocDate"
+                    label={t('document_date')}
+                    bordered={false}
+                    placeholder=""
+                  />
                 </Col>
               </Row>
             </Col>
