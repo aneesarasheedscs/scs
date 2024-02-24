@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { detailColumns } from './Detailcolumn';
 import { TRequisitionOrder } from '../types';
 
-function RequisitionOrderDetailTable({ requisitionDetail, isDataLoadingDetail, refetchDetail }: THistoryProps) {
+function StockAdjustmentDetailTable({ requisitionDetail, isDataLoadingDetail, refetchDetail }: THistoryProps) {
   const { t } = useTranslation();
 
   const {
@@ -38,4 +38,4 @@ type THistoryProps = {
   refetchDetail: () => void;
 };
 
-export default RequisitionOrderDetailTable;
+export default StockAdjustmentDetailTable;

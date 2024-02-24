@@ -1,32 +1,90 @@
-import { AntButton } from '@tradePro/components';
-import { Col, Row } from 'antd';
+import { AntButton, AntTable } from '@tradePro/components';
+import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
+import { Col, Row, theme } from 'antd';
+import { columns } from './columns';
 import { useTranslation } from 'react-i18next';
+import { useStockAdjustmentHistory } from '../quries';
+import { useState } from 'react';
+import RequisitionOrderDetailTable from './DetailTable';
+import CardView from './cardView';
+import { TRequisitionOrder } from '../types';
+import StockAdjustmentDetailTable from './DetailTable';
 
-function StockAdjustmentTable() {
+function StockAdjustmentTable({
+  setSelectedRecordId,
+  setActiveTab,
+  setSelectedRecordIdforDetail,
+  requisitionDetail,
+  isDataLoadingDetail,
+  refetchDetail,
+}: THistoryProps) {
   const { t } = useTranslation();
+  const { data, isError, isLoading, refetch, isFetching } = useStockAdjustmentHistory();
+  const {
+    token: { colorPrimary },
+  } = theme.useToken();
+  const [showComponent, setShowComponent] = useState(false);
+
+  const toggleGridView = () => {
+    setShowComponent(false);
+  };
+  const toggleCardView = () => {
+    setShowComponent(true);
+  };
   return (
-    <div>
+    <>
       <Row>
-        <Col
-          xs={{ span: 24 }}
-          sm={{ span: 24 }}
-          md={{ span: 24 }}
-          lg={{ span: 24 }}
-          xxl={{ span: 24 }}
-          xl={{ span: 24 }}
-        >
-          <h2 style={{ marginLeft: '0.5%' }}>
-            <Row gutter={10}>
-              <div style={{ display: 'flex' }}>
-                <AntButton label={t('grid_view')} className="btn" />
-                <AntButton label={t('card_view')} className="btn" style={{ marginLeft: '2%' }} />
-              </div>
-            </Row>
-          </h2>
+        <Col span={24} style={{ marginLeft: '0.5%', borderTop: '1px solid #dfdfdf' }}>
+          <AntButton
+            onClick={toggleGridView}
+            className={showComponent ? 'toggleGridView' : 'toggleCardView'}
+            label={t('grid_view')}
+          />
+          <AntButton
+            onClick={toggleCardView}
+            className={showComponent ? 'toggleCardView' : 'toggleGridView'}
+            label={t('card_view')}
+          />
+        </Col>
+
+        <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }} xxl={24}>
+          <div>
+            {showComponent ? (
+              <>
+                <CardView setActiveTab={setActiveTab} setSelectedRecordId={setSelectedRecordId} />
+              </>
+            ) : (
+              <>
+                <AntTable
+                  refetch={refetch}
+                  isError={isError}
+                  numberOfSkeletons={8}
+                  isLoading={isLoading}
+                  scroll={{ x: '', y: convertVhToPixels('30vh') }}
+                  data={data?.data?.Data?.Result || []}
+                  columns={columns(t, setSelectedRecordId, setActiveTab, setSelectedRecordIdforDetail)}
+                />
+                <StockAdjustmentDetailTable
+                  requisitionDetail={requisitionDetail}
+                  isDataLoadingDetail={isDataLoadingDetail}
+                  refetchDetail={refetchDetail}
+                />
+              </>
+            )}
+          </div>
         </Col>
       </Row>
-    </div>
+    </>
   );
 }
+
+type THistoryProps = {
+  setSelectedRecordId: (id: number | null) => void;
+  setSelectedRecordIdforDetail: (id: number | null) => void;
+  setActiveTab: (tab: string) => void;
+  requisitionDetail: TRequisitionOrder;
+  isDataLoadingDetail: boolean;
+  refetchDetail: () => void;
+};
 
 export default StockAdjustmentTable;

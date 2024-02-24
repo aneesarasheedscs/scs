@@ -14,7 +14,6 @@ export function LanguageSwitcher() {
     { value: 'en', label: 'English', flag: <Us /> },
     { value: 'es', label: 'Español', flag: <Es /> },
     { value: 'ar', label: 'العربية', flag: <Sa /> },
-    { value: 'ur', label: 'اردو', flag: <Pk /> },
     { value: 'zh', label: '中国人', flag: <Cn /> },
     { value: 'fr', label: 'Français', flag: <Fr /> },
     { value: 'ja', label: '日本語', flag: <Jp /> },

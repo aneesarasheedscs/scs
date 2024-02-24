@@ -3,7 +3,7 @@ import { useAtom } from 'jotai';
 import Buttons from './Buttons';
 import MainEntry from './MainEntry';
 import DynamicForm from './DetailEntry';
-import { TRequisitionOrder } from '../types';
+import { TStockAdjustment } from '../types';
 import { useEffect, useState } from 'react';
 import { Card, Form, notification } from 'antd';
 import { useTranslation } from 'react-i18next';
@@ -12,15 +12,15 @@ import { useAddRequisitionOrder, useUpdateRequisitionOrder } from '../quries';
 
 const { useForm } = Form;
 
-function RequisitionOrderForm({
+function StockAdjustmentForm({
   selectedRecordId,
   requisitionById,
   isDataSuccess,
   isDataLoading,
   setSelectedRecordId,
 }: TAddUpdateRecord) {
-  const [form] = useForm<TRequisitionOrder>();
-  const DocumentTypeId = 105;
+  const [form] = useForm<TStockAdjustment>();
+  const DocumentTypeId = 70;
   const { t } = useTranslation();
   const [printPreview, setPrintPreview] = useState<boolean>(true);
   const [delettableData, setDeleteTableData] = useAtom(deleteData);
@@ -36,7 +36,7 @@ function RequisitionOrderForm({
     isSuccess: successUpdate,
     data: updateRequistion,
   } = useUpdateRequisitionOrder(selectedRecordId, DocumentTypeId);
-  const handleUpdateRequisitionOrder = (values: TRequisitionOrder) => {
+  const handleUpdateRequisitionOrder = (values: TStockAdjustment) => {
     const Ids = tableData?.map((item) => item.Id);
     if (Ids?.[0] >= 0) {
       const newRecord = newtableData?.map((item) => ({
@@ -53,8 +53,8 @@ function RequisitionOrderForm({
         ...item,
         ActionTypeId: 3,
       }));
-      values.WsRmRequisitionPoDetailsList = [...newRecord, ...updatedRecord, ...deletedRecord];
-      if (values.WsRmRequisitionPoDetailsList?.[0] === null || values.WsRmRequisitionPoDetailsList.length === 0) {
+      values.InvStockAdjustmentDetailslist = [...newRecord, ...updatedRecord, ...deletedRecord];
+      if (values.InvStockAdjustmentDetailslist?.[0] === null || values.InvStockAdjustmentDetailslist.length === 0) {
         const message = 'Please fill Detail!';
         notification.error({ message: message });
         return;
@@ -64,9 +64,9 @@ function RequisitionOrderForm({
     }
     setSelectedRecordId(null);
   };
-  const handleAddRequisitionOrder = (values: TRequisitionOrder) => {
-    values.WsRmRequisitionPoDetailsList = tableData;
-    if (values.WsRmRequisitionPoDetailsList?.[0] === null || values.WsRmRequisitionPoDetailsList.length === 0) {
+  const handleAddRequisitionOrder = (values: TStockAdjustment) => {
+    values.InvStockAdjustmentDetailslist = tableData;
+    if (values.InvStockAdjustmentDetailslist?.[0] === null || values.InvStockAdjustmentDetailslist.length === 0) {
       const message = 'Please fill Detail!';
       notification.error({ message: message });
       return;
@@ -74,7 +74,7 @@ function RequisitionOrderForm({
     addRequisitionOrder(values);
     console.log(values);
   };
-  const onFinish = (values: TRequisitionOrder) => {
+  const onFinish = (values: TStockAdjustment) => {
     values.PrintPreview = printPreview;
     if (selectedRecordId) {
       handleUpdateRequisitionOrder(values);
@@ -109,7 +109,7 @@ function RequisitionOrderForm({
       form.setFieldValue('DestinationLocationId', requisitionById?.DestinationLocationId);
       form.setFieldValue('SourceLocationId', requisitionById?.SourceLocationId);
       form.setFieldValue('RemarksHeader', requisitionById?.RemarksHeader);
-      setTableData(requisitionById?.WsRmRequisitionPoDetailsList);
+      setTableData(requisitionById?.InvStockAdjustmentDetailslist);
     }
     if (selectedRecordId) {
       setDeleteTableData([]);
@@ -139,9 +139,9 @@ function RequisitionOrderForm({
 }
 type TAddUpdateRecord = {
   selectedRecordId: number | null;
-  requisitionById: TRequisitionOrder;
+  requisitionById: TStockAdjustment;
   isDataSuccess: boolean;
   isDataLoading: boolean;
   setSelectedRecordId: (id: number | null) => void;
 };
-export default RequisitionOrderForm;
+export default StockAdjustmentForm;

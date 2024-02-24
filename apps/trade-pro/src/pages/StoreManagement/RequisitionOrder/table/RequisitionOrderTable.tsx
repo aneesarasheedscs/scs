@@ -7,6 +7,7 @@ import { useRequisitionOrderHistory } from '../quries';
 import { useState } from 'react';
 import RequisitionOrderDetailTable from './DetailTable';
 import CardView from './cardView';
+import { TRequisitionOrder } from '../types';
 
 function RequisitionOrderTable({
   setSelectedRecordId,
@@ -15,7 +16,7 @@ function RequisitionOrderTable({
   requisitionDetail,
   isDataLoadingDetail,
   refetchDetail,
-}: TFrom) {
+}: THistoryProps) {
   const { t } = useTranslation();
   const { data, isError, isLoading, refetch, isFetching } = useRequisitionOrderHistory();
   const {
@@ -31,29 +32,16 @@ function RequisitionOrderTable({
   };
   return (
     <>
-      <Row style={{ marginTop: '' }}>
+      <Row>
         <Col span={24} style={{ marginLeft: '0.5%', borderTop: '1px solid #dfdfdf' }}>
           <AntButton
             onClick={toggleGridView}
-            className=""
-            style={{
-              background: showComponent ? '' : '#fff',
-              color: showComponent ? '' : `${colorPrimary}`,
-              fontWeight: 'bold',
-              border: showComponent ? '' : `1px solid ${colorPrimary}`,
-            }}
+            className={showComponent ? 'toggleGridView' : 'toggleCardView'}
             label={t('grid_view')}
           />
           <AntButton
             onClick={toggleCardView}
-            style={{
-              background: showComponent ? '#fff' : '',
-              color: showComponent ? `${colorPrimary}` : '',
-              fontWeight: 'bold',
-              border: showComponent ? `1px solid ${colorPrimary}` : '',
-              marginLeft: '0.2%',
-            }}
-            className=""
+            className={showComponent ? 'toggleCardView' : 'toggleGridView'}
             label={t('card_view')}
           />
         </Col>
@@ -89,14 +77,13 @@ function RequisitionOrderTable({
   );
 }
 
-type TFrom = {
+type THistoryProps = {
   setSelectedRecordId: (id: number | null) => void;
   setSelectedRecordIdforDetail: (id: number | null) => void;
   setActiveTab: (tab: string) => void;
-
-  requisitionDetail: any;
-  isDataLoadingDetail: any;
-  refetchDetail: any;
+  requisitionDetail: TRequisitionOrder;
+  isDataLoadingDetail: boolean;
+  refetchDetail: () => void;
 };
 
 export default RequisitionOrderTable;

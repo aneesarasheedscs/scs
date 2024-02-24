@@ -8,15 +8,13 @@ import { TSaveChequeBook } from '../form/types';
 
 // save form
 
-const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
-const financialYear: any = JSON.parse(localStorage.getItem('financialYear') || '{}');
-
+const userDetail = storedUserDetail();
 export const useAddChequeBookRegistration = (params?: TSaveChequeBook) => {
   return useMutation(
-    'chequebookregistration-history',
+    'chequebookregistration-add',
     (data: TSaveChequeBook) => {
       let dataToSubmit = {};
-      const userDetail = storedUserDetail();
+
       const { CbSrFrom, CbSrTo, Remarks, BankId } = data; // Assuming 'CbSrFrom' and 'CbSrTo' correspond to form fields
 
       // Parse 'CbSrFrom' and 'CbSrTo' as integers
@@ -47,7 +45,7 @@ export const useAddChequeBookRegistration = (params?: TSaveChequeBook) => {
         PostDate: new Date().toISOString(),
         DocNo: 0,
         ChartOfAccountId: BankId,
-        EntryUser: 2,
+        EntryUser: userDetail?.UserId,
         Cheqbookdetaillist,
         ...params,
       };

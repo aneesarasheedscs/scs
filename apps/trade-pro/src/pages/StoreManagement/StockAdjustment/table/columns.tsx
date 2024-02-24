@@ -1,19 +1,19 @@
-import { EditFilled, EyeOutlined, EyeTwoTone } from '@ant-design/icons';
+import { EditFilled, EyeTwoTone } from '@ant-design/icons';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { AntButton } from '@tradePro/components';
 import { Space, Tooltip } from 'antd';
 import { formateDate } from '@tradePro/utils/formateDate';
-import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import { TRequisitionOrderHistory } from '../types';
+
 import dayjs from 'dayjs';
 import { TFunction } from 'i18next';
+import { TStockAdjustmentHistory } from '../types';
 
 export const columns = (
   t: TFunction,
   setSelectedRecordId: (id: number | null) => void,
   setActiveTab: (tab: string) => void,
   setSelectedRecordIdforDetail: (id: number | null) => void
-): AntColumnType<TRequisitionOrderHistory>[] => [
+): AntColumnType<TStockAdjustmentHistory>[] => [
   {
     title: t('doc_no'),
     dataIndex: 'DocNo',
@@ -36,41 +36,26 @@ export const columns = (
     },
   },
   {
-    title: t('location_from'),
-    dataIndex: 'LocationFrom',
-    width: 280,
-    searchableInput: true,
-    sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.EntryUser.localeCompare(b.EntryUser),
-  },
-  {
-    title: t('location_to'),
-    dataIndex: 'LocationTo',
-    width: 280,
-    searchableInput: true,
-    sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.EntryUser.localeCompare(b.EntryUser),
-  },
-  {
-    title: t('request_status'),
-    dataIndex: 'RequestStatus',
+    title: t('entry_type'),
+    dataIndex: 'EntryType',
     width: 200,
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.EntryUser.localeCompare(b.EntryUser),
+    sorter: (a, b) => a.EntryType.localeCompare(b.EntryType),
   },
   {
     title: t('entry_user'),
     dataIndex: 'EntryUser',
-    width: 150,
+    width: 210,
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.EntryUser.localeCompare(b.EntryUser),
   },
+
   {
     title: t('entry_date'),
-    dataIndex: 'EntryDate',
     searchableDate: true,
+    dataIndex: 'EntryDate',
     render: (_, { EntryDate }) => formateDate(EntryDate),
     width: 150,
     sorter: (a, b) => {
@@ -82,15 +67,15 @@ export const columns = (
   {
     title: t('modify_user'),
     dataIndex: 'ModifyUser',
-    width: 150,
+    width: 210,
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
-    // sorter: (a, b) => a.ModifyUser.localeCompare(b.ModifyUser),
+    sorter: (a, b) => a.ModifyUser.localeCompare(b.ModifyUser),
   },
   {
     title: t('modify_date'),
-    searchableDate: true,
     dataIndex: 'ModifyDate',
+    searchableDate: true,
     render: (_, { ModifyDate }) => formateDate(ModifyDate),
     width: 150,
     sorter: (a, b) => {
@@ -99,60 +84,17 @@ export const columns = (
       return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
     },
   },
-  {
-    title: t('approved_user'),
-    dataIndex: 'ApprovedUser',
-    width: 180,
-    searchableInput: true,
-    sortDirections: ['ascend', 'descend'],
-    // sorter: (a, b) => a.ApprovedUser.localeCompare(b.ApprovedUser),
-  },
-  {
-    title: t('approved_date'),
-    searchableDate: true,
-    dataIndex: 'ApprovedDate',
-    render: (_, { ApprovedDate }) => formateDate(ApprovedDate),
-    width: 150,
-    sorter: (a, b) => {
-      const dateA = dayjs(a.ApprovedDate);
-      const dateB = dayjs(b.ApprovedDate);
-      return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
-    },
-  },
-  {
-    title: t('is_approved'),
-    dataIndex: 'IsApproved',
-    width: 120,
-    sortDirections: ['ascend', 'descend'],
-    render: (IsApproved) => (
-      <Space
-        style={{
-          color: IsApproved === 'Approved' ? 'lightgreen' : 'red',
-          borderRadius: '5px',
-          fontWeight: 'bold',
-          width: '95%',
-          paddingLeft: 8,
-          position: 'absolute',
-          top: 10,
-          left: 0,
-          textAlign: 'center',
-        }}
-      >
-        {IsApproved === 'Approved' ? 'Approved' : 'Not Approved'}
-      </Space>
-    ),
-  },
 
   {
     title: t('remarks'),
-    dataIndex: 'RemarksHeader',
+    dataIndex: 'Remarks',
     width: 150,
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.RemarksHeader.localeCompare(b.RemarksHeader),
+    sorter: (a, b) => a.Remarks.localeCompare(b.Remarks),
   },
   {
-    title: t('attachment'),
+    title: t('no_of_attachments'),
     dataIndex: '',
     width: 150,
   },

@@ -5,25 +5,24 @@ import { columns } from './columns';
 import { useTranslation } from 'react-i18next';
 import { useGetChequeStatusTable } from '../queries/queries';
 
-function ChequeBookStatusTable() {
+function ChequeBookStatusTable({ setSelectedRecordId }: Props) {
   const { t } = useTranslation();
 
-  const { data, isError, isLoading } = useGetChequeStatusTable();
+  const { data, isError, isLoading, refetch, isFetching } = useGetChequeStatusTable();
 
   return (
     <>
-      <Row>
-        <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24, offset: 0 }}>
-          <Card style={{ boxShadow: '2px 4px 12px 1px gray', textAlign: 'left' }}>
-            <AntTable
-              isError={isError}
-              numberOfSkeletons={8}
-              isLoading={isLoading}
-              scroll={{ x: '', y: convertVhToPixels('38vh') }}
-              data={data?.data?.Data?.Result}
-              columns={columns(t)}
-            />
-          </Card>
+      <Row style={{ marginTop: '0.8%' }}>
+        <Col span={24}>
+          <AntTable
+            refetch={refetch}
+            isError={isError}
+            numberOfSkeletons={8}
+            isLoading={isLoading || isFetching}
+            scroll={{ x: '', y: convertVhToPixels('34vh') }}
+            data={data?.data?.Data?.Result}
+            columns={columns(t, setSelectedRecordId)}
+          />
         </Col>
       </Row>
     </>
@@ -31,3 +30,6 @@ function ChequeBookStatusTable() {
 }
 
 export default ChequeBookStatusTable;
+interface Props {
+  setSelectedRecordId: (id: number | null) => void;
+}

@@ -5,7 +5,12 @@ import { queryClient } from '@tradePro/configs';
 import { notification } from 'antd';
 import { AxiosError, AxiosResponse } from 'axios';
 import { TRequisitionOrderHistory, TRequisitionOrder } from './types';
-
+interface TLocation {
+  CompName: string;
+  CompReportingTitle: string;
+  CompType: string;
+  Id: number;
+}
 const userDetail = storedUserDetail();
 const financialYear = storedFinancialYear();
 
@@ -71,18 +76,19 @@ export const useGetDestinationAndSourceLoc = () => {
     });
   });
 };
-
+type ResponseData = TLocation[];
 export const useGetDestinationLoc = () => {
   return useQuery('destination_location', getDestination, {
     cacheTime: userDetail?.expires_in,
   });
 };
-const getDestination: QueryFunction<AxiosResponse<any, any>> = async () => {
+
+const getDestination: QueryFunction<ResponseData> = async () => {
   const response = await requestManager.get('/api/Company/GetAlldt', {
     params: { OrgCompanyTypeId: 2 },
   });
   const rawData = response.data?.Data.Result || [];
-  const filteredData = rawData.filter((item: any) => item.CompType === 'HeadOffice');
+  const filteredData = rawData.filter((item: TLocation) => item.CompType === 'HeadOffice');
   console.log(filteredData);
   return filteredData;
 };
@@ -124,6 +130,7 @@ export const useGetRequisitionOrderByIdforDetail = (Id?: number | null) => {
     }
   );
 };
+
 const getRequisitionOrderByIdforDetail = (Id?: number | null) => {
   return requestManager.get(`/api/WsRmRequisitionPo/GetByID`, { params: { Id } });
 };

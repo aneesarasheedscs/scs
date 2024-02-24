@@ -1,43 +1,45 @@
-import { PrinterOutlined } from '@ant-design/icons';
+import { PrinterOutlined, PrinterTwoTone } from '@ant-design/icons';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { AntButton } from '@revisionary/components';
-// import { TDistrictList } from '../../types';
-import { Tooltip } from 'antd';
+import { Space, Tooltip } from 'antd';
 import { TChequeBookRegistration } from './types';
-// import { TJobLotHistory } from '../types';
 
 export const columns = (t: any): AntColumnType<TChequeBookRegistration>[] => [
   {
-    title: <>{t('bank_name')}</>,
-    width: 500,
+    title: t('bank_name'),
+    width: 400,
     searchableInput: true,
     dataIndex: 'AccountTitle',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
+    showCount: true,
   },
   {
-    title: <>{t('cheque_book_payment')}</>,
-    width: 500,
+    title: t('cheque_book_payment'),
+    width: 300,
     searchableInput: true,
     dataIndex: 'CbPrefix',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.CbPrefix.localeCompare(b.CbPrefix),
   },
   {
-    title: <>{t('cheque_no')}</>,
-    width: 500,
+    title: t('cheque_no'),
+    width: 240,
     searchableInput: true,
     dataIndex: 'CheqNo',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.CheqNo.localeCompare(b.CheqNo),
   },
   {
-    title: <>{t('action')}</>,
+    align: 'center',
+    title: t('action'),
     dataIndex: '',
-    width: 300,
+    width: 100,
     render: (_, record) => (
       <Tooltip title="Print">
-        <AntButton type="text" icon={<PrinterOutlined style={{ color: 'red', fontSize: 20 }} />} />
+        <Space style={{ position: 'absolute', top: 10, right: 15 }}>
+          <AntButton type="text" icon={<PrinterTwoTone style={{}} />} />
+        </Space>
       </Tooltip>
     ),
   },
@@ -45,35 +47,38 @@ export const columns = (t: any): AntColumnType<TChequeBookRegistration>[] => [
 
 export const generatecolumns = (t: any): AntColumnType<TChequeBookRegistration>[] => [
   {
-    title: <>{t('bank_name')}</>,
-    width: 400,
+    title: t('bank_name'),
+    width: 480,
     searchableInput: true,
-    dataIndex: ' ChartOfAccountId',
+    dataIndex: 'ChartOfAccountId',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
   },
   {
-    title: <>{t('cheque_book_payment')}</>,
-    width: 400,
+    title: t('cheque_book_payment'),
+    width: 360,
     searchableInput: true,
     dataIndex: 'CbPrefix',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.CbPrefix.localeCompare(b.CbPrefix),
   },
   {
-    title: <>{t('cheque_no')}</>,
-    width: 400,
+    title: t('cheque_no'),
+    width: 200,
     searchableInput: true,
     dataIndex: 'CheqNo',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.CheqNo.localeCompare(b.CheqNo),
   },
   {
-    title: <>{t('action')}</>,
-    width: 200,
+    align: 'center',
+    title: t('action'),
+    width: 100,
     render: (_, record) => (
       <Tooltip title="Print">
-        <AntButton type="text" icon={<PrinterOutlined style={{ color: 'red', fontSize: 20 }} />} />
+        <Space style={{ position: 'absolute', top: 10, right: 15 }}>
+          <AntButton type="text" icon={<PrinterTwoTone style={{}} />} />
+        </Space>
       </Tooltip>
     ),
   },
