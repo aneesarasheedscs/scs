@@ -84,7 +84,40 @@ export type TFormDetailList = {
   TaxesTotalAmount: number;
   Amount: number;
 };
-
+export type TCashPaymentDetailEntry = {
+  AccountIdCredit: number;
+  CheqId: number;
+  AccountTitle: string;
+  JobLotDescription: string;
+  JobLotId: number;
+  DCheqDate: Date | string;
+  PaymentTypeId: number;
+  PaymentType: string;
+  Id: number;
+  DebitAmount: number;
+  CreditAmount: number;
+  AdvanceAmount: number;
+  CheqNoDetail: number;
+  InvoiceNoRefId: number;
+  PayeeTitle: string;
+  Comments: string;
+  IsTaxable: boolean;
+  AccountId: number;
+  ChequeDate: Date | string;
+  Amount: number;
+  CheqNo: number;
+  AgainstAccountId: number;
+  TaxTypeId: number;
+  TaxPrcnt: number;
+  TaxesTotalAmount: number;
+  IsDetailExpanded: boolean;
+  AccountCode: number;
+  AgainstAccount: string;
+  AccountIdDebit: string;
+  TaxName: string;
+  TaxAmount: number;
+  TotalAmount: number;
+};
 export type DataType = {
   Id: number;
   AccountTitle: string;

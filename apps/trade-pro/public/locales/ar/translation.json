@@ -531,5 +531,6 @@
   "due_percent": "حق ٪",
   "bills_receivables_accounts": "حسابات الفواتير المستحقة القبض",
   "receipts_voucher": "قسيمة الإيصالات",
-  "payment_voucher": "قسيمة دفع"
+  "payment_voucher": "قسيمة دفع",
+  "app_modules": "وحدات التطبيق"
 }

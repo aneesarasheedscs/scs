@@ -1,74 +1,54 @@
-import React, { useEffect, useState, useTransition } from 'react';
-import { Card, Row, Col, Typography, Modal, Button, Tabs, Radio, Space, Input } from 'antd';
-import { HeartFilled, ExportOutlined, LayoutFilled, BankFilled, AudioOutlined } from '@ant-design/icons';
-import { Routes, Route, useNavigate, Link, useLocation } from 'react-router-dom';
-import type { RadioChangeEvent } from 'antd';
+import { TChildren } from './types';
 import {
-  ExperimentOutlined,
   AccountBookOutlined,
   DollarOutlined,
   DashboardOutlined,
-  SafetyCertificateOutlined,
   TransactionOutlined,
   FileDoneOutlined,
   ShoppingOutlined,
-  LineChartOutlined,
   FileTextOutlined,
   ShopOutlined,
   AppstoreOutlined,
   FileOutlined,
   SettingOutlined,
+  HeartFilled,
 } from '@ant-design/icons';
-
-const { useToken } = theme;
-
-type TabPosition = 'left' | 'right' | 'top' | 'bottom';
-
-import { Layout, Menu, theme } from 'antd';
-import HCards from './HCards';
-import TabPane from 'antd/es/tabs/TabPane';
-import File from './File';
-import { useGetMenu } from '@tradePro/components/layout/queries';
+import { theme } from 'antd';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { groupBy, map, size } from 'lodash';
-import { TSideMenu } from '@tradePro/components/layout/types';
 import { useTranslation } from 'react-i18next';
-import { AntButton } from '@tradePro/components';
-
-const { Header, Content, Footer, Sider } = Layout;
-
-const { Search } = Input;
-
-const suffix = (
-  <AudioOutlined
-    style={{
-      fontSize: 16,
-      color: '#1677ff',
-    }}
-  />
-);
-
-const onSearch = (value: string) => console.log(value);
+import { HeartOutlined } from '@ant-design/icons';
+import { Card, Row, Col, Typography, Modal } from 'antd';
+import { useGetMenu } from '@tradePro/components/layout/queries';
+import { TSideMenu } from '@tradePro/components/layout/types';
+import { AntSelectDynamic } from '@tradePro/components';
 
 const { Title, Text } = Typography;
 
 export default function MenuDashboard() {
-  const [tabPosition, setTabPosition] = useState<TabPosition>('left');
-  const { data: Menu, isError: isMenu, isLoading: isLoadingMenu, isSuccess } = useGetMenu();
+  const { data: Menu, isError, isLoading: isLoadingMenu, isSuccess } = useGetMenu();
   const { t } = useTranslation();
-
-  const changeTabPosition = (e: RadioChangeEvent) => {
-    setTabPosition(e.target.value);
-  };
-
+  const [list, setList] = useState<TSideMenu[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [childrenList, setChildrenList] = useState<TChildren[]>([]);
   const navigate = useNavigate();
-
+  const handleNavigate = (RouteUrl: string) => {
+    navigate(RouteUrl);
+  };
+  const handleNavigatewithSelectOption = (value: string) => {
+    console.log(value);
+    const RouteUrl = Menu?.data?.Data?.Result?.find((item: any) => item.ScreenID === value);
+    console.log(RouteUrl?.RouteUrl);
+    navigate(RouteUrl?.RouteUrl);
+  };
   const {
-    token: { colorBgContainer, colorPrimary },
+    token: { colorPrimary },
   } = theme.useToken();
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
+  const showModal = (index: any) => {
+    console.log(list?.[index]?.children);
+    setChildrenList(list?.[index]?.children);
     setIsModalOpen(true);
   };
 
@@ -80,17 +60,16 @@ export default function MenuDashboard() {
     setIsModalOpen(false);
   };
 
-  const [list, setList] = useState<any>([]);
-  const { pathname } = useLocation();
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && !isLoadingMenu) {
+      console.log(menuList2(Menu?.data?.Data?.Result));
       setList(menuList2(Menu?.data?.Data?.Result));
     }
   }, [Menu, isSuccess]);
   const menuList2 = (data: any[]) => {
     if (size(data) > 0) {
       const groupedData = groupBy(data, (item) => `${item.ModuleID}-${item.ModuleDescription}`);
-
+      console.log(groupedData);
       return map(groupedData, (group) => {
         const [firstItem] = group;
         return {
@@ -102,28 +81,21 @@ export default function MenuDashboard() {
 
     return [];
   };
-
+  console.log(childrenList);
   const childrenLengths = map(list, (item) => item.children.length);
 
-  // Now 'childrenLengths' contains the lengths of the 'children' arrays for each item in the 'list' array
-  console.log('chi', childrenLengths);
-
-  console.log(list?.[0]?.children.length);
-
-  const { TabPane } = Tabs;
   const defaultIcons = [
     <DashboardOutlined />,
     <AccountBookOutlined />,
     <TransactionOutlined />,
     <FileDoneOutlined />,
-    <ShoppingOutlined />,
-    <FileTextOutlined />,
     <ShopOutlined />,
+    <FileTextOutlined />,
+    <ShoppingOutlined />,
     <FileOutlined />,
     <AppstoreOutlined />,
     <FileTextOutlined />,
     <FileTextOutlined />,
-
     <AppstoreOutlined />,
     <DollarOutlined />,
     <SettingOutlined />,
@@ -142,37 +114,34 @@ export default function MenuDashboard() {
               width: '100%',
             }}
           >
-            <Col
-              xs={24}
-              sm={24}
-              md={24}
-              xl={24}
-              xxl={24}
-              className="formHeading"
-              style={{ backgroundColor: colorPrimary }}
-            >
-              <Row gutter={[16, 16]}>
-                <Col xxl={24} xs={24} xl={24} md={24} className="headerstyle" style={{}}>
+            <Col xs={24} sm={24} md={24} xl={24} xxl={24} className="formHeading">
+              <Row gutter={[10, 10]} className="app_header" style={{ backgroundColor: colorPrimary }}>
+                <Col xxl={24} xs={24} xl={24} md={24} className="headerstyle">
                   <Col xxl={13} xl={10} md={5} className="module-heading">
                     <h2>{t('app_modules')}</h2>
                   </Col>
-                  {/* <Row gutter={[16, 16]} justify={'space-evenly'}>
-                    <Col xxl={7} xl={11} className="">
-                      <AntButton className="btn-hover color-9" label={t('module_wise')} />
-                    </Col>
-                    <Col xxl={4} xl={12} className="">
-                      <AntButton
-                        className="btn-hover color-9"
-                        label={t('module_wise')}
-                        style={{ textDecoration: 'none', border: '1px solid #fff' }}
-                      />
-                    </Col>
-                  </Row> */}
 
-                  <Col xxl={4} xl={6} className="menu-search-bar">
-                    <p className="searchBarSize">
-                      <Search placeholder="search" onSearch={onSearch} style={{ width: 200 }} />
-                    </p>
+                  <Col xxl={4} xl={6} lg={12} md={12} sm={12} xs={24} className="menu-search-bar">
+                    <AntSelectDynamic
+                      showSearch={true}
+                      placeholder="Search"
+                      label=""
+                      fieldValue="Id"
+                      fieldLabel="ModuleDescription"
+                      name=""
+                      options={list
+                        .flatMap((menuItem, index) => menuItem.children)
+                        .map((item) => ({
+                          value: item.ScreenID,
+                          label: item.ScreenAlias,
+                        }))}
+                      onChange={(value) => handleNavigatewithSelectOption(value)}
+                    />
+                    {/* <Search
+                        onChange={(e) => handleSearch(e.target.value)}
+                        placeholder="Search"
+                        style={{ width: 200 }}
+                      /> */}
                   </Col>
                 </Col>
               </Row>
@@ -180,16 +149,15 @@ export default function MenuDashboard() {
             <Col xxl={24} xs={23} sm={23} md={24} lg={24} xl={24} style={{ marginLeft: '-1%' }}>
               <Row justify={'center'} gutter={10} style={{ marginLeft: '' }}>
                 {map(list, ({ ModuleDescription }: TSideMenu & { children: TSideMenu[] }, index: number) => (
-                  <Col xs={24} xxl={4} sm={12} md={11} lg={6}>
+                  <Col xs={24} xxl={4} sm={12} md={11} lg={6} key={index}>
                     <Card
                       hoverable
-                      onClick={showModal}
+                      onClick={() => showModal(index)}
                       className="container_menuCard"
                       style={{
                         border: `1px solid ${colorPrimary}`,
                       }}
                     >
-                      {' '}
                       <div
                         className="menuCard_div"
                         style={{
@@ -205,7 +173,6 @@ export default function MenuDashboard() {
                         className="menu_icon_div"
                         style={{
                           color: colorPrimary,
-                          // backgroundColor: 'rgba(0,255,0,0.25)',
                         }}
                       >
                         {defaultIcons[index % defaultIcons.length]}
@@ -217,6 +184,7 @@ export default function MenuDashboard() {
                             alignItems: 'center',
                             justifyContent: 'center',
                             marginTop: -20,
+                            fontWeight: 'bold',
                           }}
                         >
                           {ModuleDescription}
@@ -229,79 +197,33 @@ export default function MenuDashboard() {
             </Col>
 
             <Modal
-              title="Dashboards"
+              title={childrenList?.[0]?.ModuleDescription}
               open={isModalOpen}
               onOk={handleOk}
               onCancel={handleCancel}
               width={'75%'}
               footer={null}
             >
-              <Tabs style={{ height: '65vh' }} tabPosition={tabPosition}>
-                <TabPane tab="" style={{}}>
-                  <h1
-                    style={{
-                      color: colorPrimary,
-                      fontSize: '3rem',
-                      // background: '#333333',
-                      textAlign: 'center',
-                      textShadow: '2px 2px 0 #bcbcbc, 4px 4px 0 #9c9c9c',
-                    }}
-                  >
-                    Welcome to this EccountBook Cloud ERP Dashboards
-                  </h1>
-                </TabPane>
-
-                <TabPane
-                  tab={
-                    <Card className="side-cards" style={{ color: colorPrimary }}>
-                      <HeartFilled />
-                      Account
-                    </Card>
-                  }
-                  key="1"
-                >
-                  <HCards />
-                </TabPane>
-                <TabPane
-                  tab={
-                    <Card className="side-cards" style={{ color: colorPrimary }}>
-                      <LayoutFilled />
-                      Sales
-                    </Card>
-                  }
-                  key="2"
-                >
-                  <File />
-                </TabPane>
-                <TabPane
-                  tab={
-                    <Card className="side-cards" style={{ color: colorPrimary }}>
-                      <BankFilled />
-                      Oranizations
-                    </Card>
-                  }
-                  key="3"
-                >
-                  <HCards />
-                </TabPane>
-
-                <TabPane
-                  tab={
-                    <Card className="side-cards" style={{ color: colorPrimary }}>
-                      <ExportOutlined />
-                      Export
-                    </Card>
-                  }
-                  key="4"
-                >
-                  <File />
-                </TabPane>
-              </Tabs>
+              <Card bordered={false} className="dashboard_children">
+                <Row gutter={[10, 10]} justify={'center'}>
+                  {childrenList?.map((item: any, index: number) => (
+                    <Col xxl={5} xl={6} lg={8} md={12} sm={24} xs={24} key={index}>
+                      <Card hoverable className="children_cards">
+                        <h3 className="chilren_route_heading1">
+                          {item.IsFavorite ? <HeartFilled style={{ color: 'red' }} /> : <HeartOutlined />}
+                        </h3>
+                        <h3 className="chilren_route_heading" onClick={() => handleNavigate(item.RouteUrl)}>
+                          {item.ScreenAlias}
+                        </h3>
+                      </Card>
+                    </Col>
+                  ))}
+                </Row>
+              </Card>
             </Modal>
           </Row>
         </Col>
       </Row>
-      {/* <h1 style={{textAlign:'center',fontSize:'35px'}}> ∈ccountBook <sup>Cloud ERP</sup></h1> */}
     </>
   );
 }

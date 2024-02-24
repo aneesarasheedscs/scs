@@ -68,10 +68,8 @@ export function AppHeader({ appLogo, sideMenu, languageSwitcher }: TAppHeader) {
               <Col xxl={5} xl={5} lg={5} md={5} sm={6} xs={24}>
                 <CreateButton />
               </Col>
-              <Col xxl={2} xl={2} lg={2} md={2} sm={3} xs={24}>
-                <p className="headerBellIcon">
-                  <NotificationButton />
-                </p>
+              <Col xxl={2} xl={2} lg={2} md={2} sm={3} xs={24} className="headerBellIcon">
+                <NotificationButton />
               </Col>
               <Col xxl={5} xl={5} lg={5} md={5} sm={6} xs={24}>
                 <UserInfoButton />
@@ -102,10 +100,8 @@ export function AppHeader({ appLogo, sideMenu, languageSwitcher }: TAppHeader) {
           <Col xxl={13} xl={13} lg={13} md={13} sm={13} xs={24}>
             <CreateButton />
           </Col>
-          <Col xxl={11} xl={11} lg={11} md={11} sm={11} xs={24}>
-            <p className="headerBellIcon">
-              <NotificationButton />
-            </p>
+          <Col xxl={11} xl={11} lg={11} md={11} sm={11} xs={24} className="headerBellIcon">
+            <NotificationButton />
           </Col>
           <Col xxl={13} xl={13} lg={13} md={13} sm={13} xs={24}>
             <UserInfoButton />

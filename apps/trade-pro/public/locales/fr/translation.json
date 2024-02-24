@@ -524,5 +524,6 @@
   "due_percent": "Exigible %",
   "bills_receivables_accounts": "Comptes de factures à recevoir",
   "receipts_voucher": "Bon de réception",
-  "payment_voucher": "Bon de paiement"
+  "payment_voucher": "Bon de paiement",
+  "app_modules": "Modules d'application"
 }
