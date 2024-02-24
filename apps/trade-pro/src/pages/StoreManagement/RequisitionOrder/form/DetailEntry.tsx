@@ -1,33 +1,29 @@
-import { AntButton, AntInput, AntInputNumber, AntSelectDynamic, AntTable } from '@tradePro/components';
-import { Card, Col, Row, Form, FormInstance, Button, theme, notification, Modal } from 'antd';
-import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
-import { useTranslation } from 'react-i18next';
-import { useEffect, useRef, useState } from 'react';
-import { columns } from './column';
-import { useGetAvailableStock, useGetItemName } from '../quries';
 import { useAtom } from 'jotai';
-import { addtableData, deleteData, newTableData } from './Atom';
+import { useTranslation } from 'react-i18next';
+import DetailEntryTable from './DetailEntryTable';
+import { useEffect, useRef, useState } from 'react';
+import { addtableData, newTableData } from './Atom';
+import { useGetAvailableStock, useGetItemName } from '../quries';
 import { TDetailItem, TWsRmRequisitionPoDetailsList } from '../types';
+import { Card, Col, Row, Form, FormInstance, notification } from 'antd';
+import { AntButton, AntInput, AntInputNumber, AntSelectDynamic } from '@tradePro/components';
 
 const { useWatch } = Form;
 
 const DynamicForm = ({ form }: TDynamicForm) => {
-  const [disablefields, setDisablefields] = useState(true);
-  const formValues = useWatch<TWsRmRequisitionPoDetailsList[]>('WsRmRequisitionPoDetailsList', form);
   const { t } = useTranslation();
+  const formValues = useWatch<TWsRmRequisitionPoDetailsList[]>('WsRmRequisitionPoDetailsList', form);
   const { setFields, getFieldValue } = form;
   const equivalentRate = getFieldValue(['WsRmRequisitionPoDetailsList', 0, 'PackEquivalent']);
   const itemId = getFieldValue(['WsRmRequisitionPoDetailsList', 0, 'ItemId']);
   const antSelectRef = useRef<any>(null);
-
   const { data, isSuccess, isLoading } = useGetAvailableStock(true, itemId);
-
   const [tableData, setTableData] = useAtom(addtableData);
-  const [delettableData, setDeleteTableData] = useAtom(deleteData);
   const [newtableData, setNewTableData] = useAtom(newTableData);
-  const [isEditMode, setIsEditMode] = useState(false);
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [useFocus, setUseFocus] = useState(false);
-  const [edit, setEdit] = useState<TWsRmRequisitionPoDetailsList[]>([]);
+  const [edit, setEdit] = useState<TWsRmRequisitionPoDetailsList>();
+  const [counter, setCounter] = useState<number>(0);
   const initialValues = {
     Id: null,
     ItemId: null,
@@ -46,14 +42,8 @@ const DynamicForm = ({ form }: TDynamicForm) => {
     ActionTypeId: null,
     ItemUom: null,
   };
-  const {
-    token: { colorPrimary },
-  } = theme.useToken();
-  const [counter, setCounter] = useState<number>(0);
-
   const handleAddToTable = () => {
     const newData = formValues.map((item, index) => ({
-      // Id: item.Id,
       ItemId: item.ItemId,
       ItemName: item.ItemName,
       ItemUomId: item.ItemUomId,
@@ -114,28 +104,12 @@ const DynamicForm = ({ form }: TDynamicForm) => {
       antSelectRef.current.focus();
     }
 
-    setFields([
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'Item'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'ItemId'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'ItemName'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'PackUom'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'ItemUom'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'PackEquivalent'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'ReqQty'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'BillWeight'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'StockWeight'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'NetWeight'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'ItemUomId'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'ReqRate'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'ReqAmount'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'RemarksDetail'], value: null },
-    ]);
+    form.setFieldValue(['WsRmRequisitionPoDetailsList', 0], null);
     setIsEditMode(false);
   };
 
   const handleUpdateToTable = () => {
     const newData = formValues.map((item, index) => ({
-      // Id: item.Id,
       ItemId: item.ItemId,
       ItemName: item.ItemName,
       ItemUomId: item.ItemUomId,
@@ -164,7 +138,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
       notification.error({ message: message });
       return;
     }
-    const editedRowIndex = tableData.findIndex((row: any) => row.ItemId === edit?.[0]?.ItemId);
+    const editedRowIndex = tableData.findIndex((row: any) => row.ItemId === edit?.ItemId);
 
     if (editedRowIndex >= 0) {
       setTableData((prevData: any[]) => {
@@ -172,112 +146,22 @@ const DynamicForm = ({ form }: TDynamicForm) => {
         updatedData[editedRowIndex] = {
           ...newData[0],
           ActionTypeId: 1,
-          LineId: edit?.[0]?.LineId,
-          Id: edit?.[0]?.Id,
-          WsRmRequisitionPoId: edit?.[0]?.WsRmRequisitionPoId,
-          DestinationLocationId: edit?.[0]?.DestinationLocationId,
+          LineId: edit?.LineId,
+          Id: edit?.Id,
+          WsRmRequisitionPoId: edit?.WsRmRequisitionPoId,
+          DestinationLocationId: edit?.DestinationLocationId,
         };
         console.log('New tableData:', updatedData);
         return updatedData;
       });
     }
-
     setUseFocus(true);
     setIsEditMode(false);
-    setFields([
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'Item'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'ItemId'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'ItemName'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'PackUom'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'ItemUom'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'PackEquivalent'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'ReqQty'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'BillWeight'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'StockWeight'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'NetWeight'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'ItemUomId'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'ReqRate'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'ReqAmount'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'RemarksDetail'], value: null },
-    ]);
+    form.setFieldValue(['WsRmRequisitionPoDetailsList', 0], null);
   };
   const handleResetForm = () => {
-    setFields([
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'Item'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'ItemId'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'ItemName'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'PackUom'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'ItemUom'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'PackEquivalent'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'ReqQty'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'BillWeight'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'StockWeight'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'NetWeight'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'ItemUomId'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'ReqRate'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'ReqAmount'], value: null },
-      { name: ['WsRmRequisitionPoDetailsList', 0, 'RemarksDetail'], value: null },
-    ]);
+    form.setFieldValue(['WsRmRequisitionPoDetailsList', 0], null);
   };
-  const handleDeleteRow = (record: TWsRmRequisitionPoDetailsList[]) => {
-    if (record?.[0]?.Id > 0) {
-      const recordsToDelete = Array.isArray(record) ? record : [record];
-      setDeleteTableData((prevData) => [...prevData, ...recordsToDelete]);
-      // return;
-    }
-    console.log(record);
-    setTableData((prevData: any[]) => {
-      const updatedData = prevData.filter(
-        (item: any) => item.LineId !== record?.[0]?.LineId || item.Id !== record?.[0]?.Id
-      );
-      console.log('New tableData:', updatedData);
-      return updatedData;
-    });
-    setNewTableData((prevData: any[]) => {
-      const updatedData = prevData.filter(
-        (item: any) => item.LineId !== record?.[0]?.LineId || item.Id !== record?.[0]?.Id
-      );
-      console.log('New tableData:', updatedData);
-      return updatedData;
-    });
-  };
-  // console.log(edit);
-  const handleEditRow = (record: TWsRmRequisitionPoDetailsList[]) => {
-    setEdit(record);
-    setTableData((prevData: any[]) => {
-      const updatedData = [...prevData];
-      const rowIndex = updatedData.findIndex((item: any) => item.Id === record?.[0]?.Id);
-
-      if (rowIndex !== -1) {
-        updatedData[rowIndex] = {
-          ...updatedData[rowIndex],
-          Item: record?.[0]?.ItemName,
-          Id: record?.[0]?.Id,
-          ItemId: record?.[0]?.ItemId,
-          ItemName: record?.[0]?.ItemName,
-          ItemUomId: record?.[0]?.ItemUomId,
-          ItemUom: record?.[0]?.ItemUom,
-          ReqQty: record?.[0]?.ReqQty,
-          BillWeight: record?.[0]?.BillWeight,
-          StockWeight: record?.[0]?.StockWeight,
-          NetWeight: record?.[0]?.BillWeight,
-          PackUom: record?.[0]?.PackUom,
-          ReqRate: record?.[0]?.ReqRate,
-          ReqAmount: record?.[0]?.ReqAmount,
-          PackEquivalent: record?.[0]?.PackEquivalent,
-          WsRmRequisitionPoId: record?.[0]?.WsRmRequisitionPoId,
-          RemarksDetail: record?.[0]?.RemarksDetail,
-          DestinationLocationId: record?.[0]?.DestinationLocationId,
-        };
-
-        form.setFieldValue(['WsRmRequisitionPoDetailsList', 0], updatedData[rowIndex]); // Update form values
-        setIsEditMode(true);
-      }
-      console.log('New tableData:', updatedData);
-      return updatedData;
-    });
-  };
-
   const calculateWeight = (ReqQty: number, equivalentRate: number) => ReqQty * equivalentRate;
   const calculateAmount = (weight: number, rateUOM: number, itemRate: number) => {
     return (weight / rateUOM) * itemRate;
@@ -377,11 +261,8 @@ const DynamicForm = ({ form }: TDynamicForm) => {
         },
       ]);
     }
-
-    console.log(tableData);
   }, [form, data, tableData]);
   useEffect(() => {
-    // Set focus to AntSelectDynamic after it has been rendered
     if (antSelectRef.current) {
       antSelectRef.current.focus();
     }
@@ -389,18 +270,14 @@ const DynamicForm = ({ form }: TDynamicForm) => {
 
   return (
     <>
-      <Row gutter={[10, 10]} style={{ marginTop: '0%' }}>
+      <Row gutter={[10, 10]}>
         <Col xs={24} sm={24} md={24} lg={{ span: 24 }} xl={{ span: 24 }}>
-          <Card style={{ boxShadow: '2px 4px 12px 1px gray', paddingTop: '-15%' }}>
+          <Card className="detail_card">
             <Form.List name="WsRmRequisitionPoDetailsList" initialValue={[initialValues]}>
               {(fields, {}) => (
                 <>
                   {fields.map((field) => (
-                    <div
-                      key={field.key}
-                      className="form-list-container"
-                      style={{ display: 'flex', justifyContent: 'space-between', marginTop: -15 }}
-                    >
+                    <div key={field.key} className="form-list-container detail_entry">
                       <Col
                         xs={{ span: 24 }}
                         sm={{ span: 20 }}
@@ -409,11 +286,8 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         xl={{ span: 8 }}
                         xxl={{ span: 8 }}
                         className="formfield"
-                        style={{ marginTop: 15 }}
                       >
                         <AntSelectDynamic
-                          // mode={undefined}
-                          // ref={antSelectRef}
                           autoFocus={useFocus}
                           bordered={false}
                           label={t('item_name')}
@@ -433,7 +307,6 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         xl={{ span: 5 }}
                         xxl={{ span: 3 }}
                         className="formfield"
-                        style={{ marginTop: 15 }}
                       >
                         <AntInputNumber
                           bordered={false}
@@ -451,17 +324,13 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         xl={{ span: 5 }}
                         xxl={{ span: 4 }}
                         className="formfield"
-                        style={{ marginTop: 15 }}
                       >
-                        <p style={{ marginTop: 5 }}>
-                          <AntInput
-                            bordered={false}
-                            readOnly
-                            label={t('pack_uom')}
-                            formItemProps={{ ...field, name: [field.name, 'PackUom'] }}
-                            disabled={disablefields}
-                          />
-                        </p>
+                        <AntInput
+                          bordered={false}
+                          readOnly
+                          label={t('pack_uom')}
+                          formItemProps={{ ...field, name: [field.name, 'PackUom'] }}
+                        />
                       </Col>
 
                       <Col
@@ -472,17 +341,13 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         xl={{ span: 4 }}
                         xxl={{ span: 4 }}
                         className="formfield"
-                        style={{ marginTop: 15 }}
                       >
-                        <p>
-                          <AntInputNumber
-                            bordered={false}
-                            readOnly
-                            label={t('weight')}
-                            formItemProps={{ ...field, name: [field.name, 'NetWeight'] }}
-                            disabled={disablefields}
-                          />
-                        </p>
+                        <AntInputNumber
+                          bordered={false}
+                          readOnly
+                          label={t('weight')}
+                          formItemProps={{ ...field, name: [field.name, 'NetWeight'] }}
+                        />
                       </Col>
 
                       <Col
@@ -493,17 +358,13 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         xl={{ span: 8 }}
                         xxl={{ span: 4 }}
                         className="formfield"
-                        style={{ marginTop: 15 }}
                       >
-                        <p>
-                          <AntInputNumber
-                            bordered={false}
-                            readOnly
-                            label={t('available_quantity')}
-                            formItemProps={{ ...field, name: [field.name, 'BillWeight'] }}
-                            disabled={disablefields}
-                          />
-                        </p>
+                        <AntInputNumber
+                          bordered={false}
+                          readOnly
+                          label={t('available_quantity')}
+                          formItemProps={{ ...field, name: [field.name, 'BillWeight'] }}
+                        />
                       </Col>
                       <Col
                         xs={{ span: 24 }}
@@ -515,15 +376,12 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         className="formfield"
                         style={{ marginTop: 15 }}
                       >
-                        <p>
-                          <AntInputNumber
-                            bordered={false}
-                            readOnly
-                            label={t('available_weight')}
-                            formItemProps={{ ...field, name: [field.name, 'StockWeight'] }}
-                            disabled={disablefields}
-                          />
-                        </p>
+                        <AntInputNumber
+                          bordered={false}
+                          readOnly
+                          label={t('available_weight')}
+                          formItemProps={{ ...field, name: [field.name, 'StockWeight'] }}
+                        />
                       </Col>
                       <Col
                         xs={{ span: 24 }}
@@ -535,16 +393,13 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         className="formfield"
                         style={{ marginTop: 15, marginLeft: '-1%' }}
                       >
-                        <p>
-                          <AntInputNumber
-                            bordered={false}
-                            readOnly
-                            label={t('item_price')}
-                            formItemProps={{ ...field, name: [field.name, 'ReqRate'] }}
-                            onChange={(itemRate) => handleItemRateChange(itemRate, field.name)}
-                            disabled={disablefields}
-                          />
-                        </p>
+                        <AntInputNumber
+                          bordered={false}
+                          readOnly
+                          label={t('item_price')}
+                          formItemProps={{ ...field, name: [field.name, 'ReqRate'] }}
+                          onChange={(itemRate) => handleItemRateChange(itemRate, field.name)}
+                        />
                       </Col>
                       <Col
                         xs={{ span: 24 }}
@@ -556,15 +411,12 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         className="formfield"
                         style={{ marginTop: 15, marginLeft: '-1%' }}
                       >
-                        <p>
-                          <AntInputNumber
-                            bordered={false}
-                            readOnly
-                            label={t('amount')}
-                            formItemProps={{ ...field, name: [field.name, 'ReqAmount'] }}
-                            disabled={disablefields}
-                          />
-                        </p>
+                        <AntInputNumber
+                          bordered={false}
+                          readOnly
+                          label={t('amount')}
+                          formItemProps={{ ...field, name: [field.name, 'ReqAmount'] }}
+                        />
                       </Col>
 
                       <Col
@@ -593,7 +445,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         xl={{ span: 8 }}
                         xxl={{ span: 4 }}
                       >
-                        <Row style={{ marginTop: '0%' }} gutter={10}>
+                        <Row gutter={10}>
                           <Col
                             xs={{ span: 10 }}
                             sm={{ span: 6 }}
@@ -617,7 +469,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                             xxl={8}
                           >
                             <AntButton
-                              style={{ backgroundColor: '#FFAF0C', marginTop: 15 }}
+                              className="reset_btn"
                               onClick={() => {
                                 handleResetForm();
                                 setIsEditMode(false);
@@ -633,18 +485,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
               )}
             </Form.List>
           </Card>
-
-          <Row gutter={[16, 16]} style={{ marginTop: 10 }}>
-            <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }}>
-              <AntTable
-                numberOfSkeletons={12}
-                scroll={{ x: '', y: convertVhToPixels('18vh') }}
-                data={tableData || []}
-                columns={columns(t, handleDeleteRow, handleEditRow)}
-              />
-            </Col>
-          </Row>
-          <br />
+          <DetailEntryTable form={form} t={t} setIsEditMode={setIsEditMode} setEdit={setEdit} />
         </Col>
       </Row>
     </>

@@ -1,17 +1,16 @@
-import { Card, Checkbox, Col, Form, FormInstance, Row } from 'antd';
-import { useEffect, useState } from 'react';
-import { AntDatePicker, AntInput, AntSelectDynamic } from '@tradePro/components';
-import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
-import { useGetDestinationAndSourceLoc, useGetDestinationLoc, useGetRequestStatus } from '../quries';
-import { storedUserDetail } from '@tradePro/utils/storageService';
 import { map } from 'lodash';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Card, Col, FormInstance, Row } from 'antd';
+import { storedUserDetail } from '@tradePro/utils/storageService';
+import { AntInput, AntSelectDynamic } from '@tradePro/components';
+import { useGetDestinationAndSourceLoc, useGetDestinationLoc, useGetRequestStatus } from '../quries';
 
 function MainEntry({ form }: TDynamicForm) {
   const { t } = useTranslation();
   const [disablefields, setDisablefields] = useState(true);
   const { data, isSuccess, isLoading } = useGetDestinationLoc();
-
   const userDetail = storedUserDetail();
   useEffect(() => {
     form.setFieldValue('DocDate', dayjs(new Date()));
@@ -24,8 +23,8 @@ function MainEntry({ form }: TDynamicForm) {
 
   return (
     <>
-      <Card style={{ boxShadow: '2px 4px 12px 1px gray', paddingTop: '-15%', marginBottom: '0.5%' }}>
-        <Row gutter={[10, 10]} style={{ marginLeft: 10 }} justify={'space-between'}>
+      <Card className="header_card">
+        <Row gutter={[10, 10]} justify={'space-between'}>
           <Col xl={7} xxl={4} sm={18} xs={23} lg={12} md={12} className="formfield">
             <AntSelectDynamic
               bordered={false}

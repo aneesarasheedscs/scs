@@ -1,10 +1,10 @@
-import { Tabs } from 'antd';
-import { useTranslation } from 'react-i18next';
-import { useEffect, useState } from 'react';
-import { useAtom } from 'jotai';
-import { viewDetailList } from './form/Atom';
 import './style.scss';
+import { Tabs } from 'antd';
+import { useAtom } from 'jotai';
 import RequisitionOrderForm from './form';
+import { viewDetailList } from './form/Atom';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import RequisitionOrderTable from './table/RequisitionOrderTable';
 import { useGetRequisitionOrderById, useGetRequisitionOrderByIdforDetail } from './quries';
 
@@ -59,7 +59,6 @@ function RequisitionOrder() {
           <RequisitionOrderForm
             selectedRecordId={selectedRecordId}
             requisitionById={requisitionById?.data?.Data?.Result}
-            refetchReqesition={refetchReqesition}
             isDataSuccess={isDataSuccess}
             isDataLoading={isDataLoading}
             setSelectedRecordId={setSelectedRecordId}

@@ -1,4 +1,4 @@
-import { AntButton } from '@scs/ui';
+import { AntButton } from '@tradePro/components';
 import { SyncOutlined } from '@ant-design/icons';
 import { Row, Col, Typography, Skeleton, theme } from 'antd';
 
@@ -10,8 +10,12 @@ function DocNumber({ data, isError, refetch, isLoading }: TDocNumber) {
   if (isError)
     return (
       <Row gutter={5} align="middle">
-        <Col>{/* <Typography.Text type="danger">Error</Typography.Text> */}</Col>
-        <Col>{/* <AntButton title="Refetch" type="text" icon={<SyncOutlined />} onClick={refetch} /> */}</Col>
+        <Col>
+          <Typography.Text type="danger">Error</Typography.Text>
+        </Col>
+        <Col>
+          <AntButton title="Refetch" type="text" icon={<SyncOutlined />} onClick={refetch} />
+        </Col>
       </Row>
     );
 

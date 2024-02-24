@@ -1,15 +1,15 @@
+import { TFunction } from 'i18next';
+import { Space, Tooltip } from 'antd';
 import { AntButton } from '@tradePro/components';
 import { AntColumnType } from '@tradePro/globalTypes';
-import { Popconfirm, Space, Tooltip } from 'antd';
+import { TWsRmRequisitionPoDetailsList } from '../types';
 import { DeleteOutlined, EditFilled } from '@ant-design/icons';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import { TWsRmRequisitionPoDetailsList } from '../types';
-import { TFunction } from 'i18next';
 
 export const columns = (
   t: TFunction,
-  handleDeleteRow: any,
-  handleEditRow: any
+  handleDeleteRow: (record: TWsRmRequisitionPoDetailsList) => void,
+  handleEditRow: (record: TWsRmRequisitionPoDetailsList) => void
 ): AntColumnType<TWsRmRequisitionPoDetailsList>[] => [
   {
     title: t('item_name'),
