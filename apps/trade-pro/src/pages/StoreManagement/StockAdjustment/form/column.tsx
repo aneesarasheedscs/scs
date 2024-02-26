@@ -12,7 +12,7 @@ export const columns = (
   handleEditRow: (record: InvStockAdjustmentDetail) => void
 ): AntColumnType<InvStockAdjustmentDetail>[] => [
   {
-    title: t('where_house'),
+    title: t('item_name'),
     width: 320,
     searchableInput: true,
     dataIndex: 'ItemName',
@@ -21,13 +21,12 @@ export const columns = (
     showCount: true,
   },
   {
-    title: t('item_name'),
-    width: 320,
+    title: t('where_house'),
+    width: 250,
     searchableInput: true,
-    dataIndex: 'ItemName',
+    dataIndex: 'WareHouseName',
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.ItemName.localeCompare(b.ItemName),
-    showCount: true,
+    sorter: (a, b) => a.WareHouseName.localeCompare(b.WareHouseName),
   },
   {
     title: t('pack_uom'),
@@ -42,12 +41,10 @@ export const columns = (
     title: t('item_qty'),
     width: 150,
     showTotal: true,
-    dataIndex: 'ReqQty',
+    dataIndex: 'Qty',
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.ReqQty - b.ReqQty,
-    render: (_, { ReqQty }) => (
-      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(ReqQty)}</span>
-    ),
+    sorter: (a, b) => a.Qty - b.Qty,
+    render: (_, { Qty }) => <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(Qty)}</span>,
   },
 
   {
@@ -55,11 +52,11 @@ export const columns = (
     title: t('weight'),
     width: 150,
     showTotal: true,
-    dataIndex: 'BillWeight',
+    dataIndex: 'NetWeight',
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.BillWeight - b.BillWeight,
-    render: (_, { BillWeight }) => (
-      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(BillWeight)}</span>
+    sorter: (a, b) => a.NetWeight - b.NetWeight,
+    render: (_, { NetWeight }) => (
+      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(NetWeight)}</span>
     ),
   },
   {
@@ -67,40 +64,40 @@ export const columns = (
     title: t('item_price'),
     width: 150,
     showTotal: true,
-    dataIndex: 'ReqRate',
+    dataIndex: 'ItemRate',
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.ReqRate - b.ReqRate,
-    render: (_, { ReqRate }) => (
-      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(ReqRate)}</span>
+    sorter: (a, b) => a.ItemRate - b.ItemRate,
+    render: (_, { ItemRate }) => (
+      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(ItemRate)}</span>
     ),
   },
   {
     title: t('rate_uom'),
     width: 160,
     searchableInput: true,
-    dataIndex: 'PackUom',
+    dataIndex: 'RateUom',
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.PackUom.localeCompare(b.PackUom),
+    sorter: (a, b) => a.RateUom.localeCompare(b.RateUom),
   },
   {
     align: 'right',
     title: t('amount'),
     width: 150,
     showTotal: true,
-    dataIndex: 'ReqAmount',
+    dataIndex: 'Amount',
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.ReqAmount - b.ReqAmount,
-    render: (_, { ReqAmount }) => (
-      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(ReqAmount)}</span>
+    sorter: (a, b) => a.Amount - b.Amount,
+    render: (_, { Amount }) => (
+      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(Amount)}</span>
     ),
   },
   {
     title: t('account_title'),
-    width: 160,
+    width: 300,
     searchableInput: true,
-    dataIndex: 'PackUom',
+    dataIndex: 'AccountTitle',
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.PackUom.localeCompare(b.PackUom),
+    sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
   },
   {
     title: t('comments'),

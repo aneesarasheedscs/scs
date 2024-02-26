@@ -6,30 +6,30 @@ import { viewDetailList } from './form/Atom';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import StockAdjustmentTable from './table/StockAdjustmentTable';
-import { useGetRequisitionOrderById, useGetRequisitionOrderByIdforDetail } from './quries';
+import { useGetStockAdjustmentById, useGetStockByIdforDetail } from './quries';
 
-function RequisitionOrder() {
+function StockAdjustment() {
   const { t } = useTranslation();
   const [selectedRecordId, setSelectedRecordId] = useState<number | null>(null);
   const [selectedRecordIdforDetail, setSelectedRecordIdforDetail] = useState<number | null>();
   const [activeTab, setActiveTab] = useState<string>('1');
   const [viewDetail, setViewDetail] = useAtom(viewDetailList);
   const {
-    data: requisitionById,
+    data: stockAdjustmentById,
     refetch: refetchReqesition,
     isSuccess: isDataSuccess,
     isLoading: isDataLoading,
-  } = useGetRequisitionOrderById(selectedRecordId);
+  } = useGetStockAdjustmentById(selectedRecordId);
   const {
-    data: requisitionDetail,
+    data: stockAdjustmentDetail,
     refetch: refetchDetail,
     isSuccess: isDataSuccessforDetail,
     isLoading: isDataLoadingDetail,
-  } = useGetRequisitionOrderByIdforDetail(selectedRecordIdforDetail);
+  } = useGetStockByIdforDetail(selectedRecordIdforDetail);
 
   useEffect(() => {
     if (isDataSuccessforDetail && !isDataLoadingDetail) {
-      setViewDetail(requisitionById?.data?.Data?.Result?.WsRmRequisitionPoDetailsList);
+      setViewDetail(stockAdjustmentById?.data?.Data?.Result?.WsRmRequisitionPoDetailsList);
     }
   }, [isDataSuccessforDetail, isDataLoadingDetail]);
   return (
@@ -50,7 +50,7 @@ function RequisitionOrder() {
             setSelectedRecordId={setSelectedRecordId}
             setActiveTab={setActiveTab}
             setSelectedRecordIdforDetail={setSelectedRecordIdforDetail}
-            requisitionDetail={requisitionDetail?.data?.Data?.Result}
+            stockAdjustmentDetail={stockAdjustmentDetail?.data?.Data?.Result}
             isDataLoadingDetail={isDataLoadingDetail}
             refetchDetail={refetchDetail}
           />
@@ -58,7 +58,7 @@ function RequisitionOrder() {
         <Tabs.TabPane key="2" tab={t('form')}>
           <RequisitionOrderForm
             selectedRecordId={selectedRecordId}
-            requisitionById={requisitionById?.data?.Data?.Result}
+            stockAdjustmentById={stockAdjustmentById?.data?.Data?.Result}
             isDataSuccess={isDataSuccess}
             isDataLoading={isDataLoading}
             setSelectedRecordId={setSelectedRecordId}
@@ -69,4 +69,4 @@ function RequisitionOrder() {
   );
 }
 
-export default RequisitionOrder;
+export default StockAdjustment;

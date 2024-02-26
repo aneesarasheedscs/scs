@@ -110,10 +110,13 @@ export type TStockAdjustment = {
 }
 export type InvStockAdjustmentDetail = {
   Id: number;
+  PackUom:string;
+  Qty:number;
+  ItemName:string;
   WarehouseId: number;
+  WareHouseName:string
   ItemId: number;
   PackUomId: number;
-  Qty: number;
   NetWeight: number;
   ItemRate: number;
   RateUomId: number;
@@ -122,6 +125,19 @@ export type InvStockAdjustmentDetail = {
   RemarksDetail: string;
   ActionTypeId: number;
   RateUom: string;
+  AccountTitle:string
+  
+ 
+}
+export type TWareHouse={
+  Id: number,
+  WareHouseName: string
+                
+}
+
+export type TAccountTitle={
+  Id:number,
+  AccountTitle:string
 }
 export type TStockAdjustmentHistory = {
   Id: number;

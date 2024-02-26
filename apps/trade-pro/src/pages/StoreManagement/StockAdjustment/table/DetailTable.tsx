@@ -1,11 +1,11 @@
 import { AntTable } from '@tradePro/components';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
-import { Card, Col, Row, theme } from 'antd';
+import { Col, Row, theme } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { detailColumns } from './Detailcolumn';
-import { TRequisitionOrder } from '../types';
+import { TStockAdjustment } from '../types';
 
-function StockAdjustmentDetailTable({ requisitionDetail, isDataLoadingDetail, refetchDetail }: THistoryProps) {
+function StockAdjustmentDetailTable({ stockAdjustmentDetail, isDataLoadingDetail, refetchDetail }: THistoryProps) {
   const { t } = useTranslation();
 
   const {
@@ -22,7 +22,7 @@ function StockAdjustmentDetailTable({ requisitionDetail, isDataLoadingDetail, re
             isLoading={isDataLoadingDetail}
             numberOfSkeletons={4}
             scroll={{ x: '', y: convertVhToPixels('15vh') }}
-            data={requisitionDetail?.WsRmRequisitionPoDetailsList || []}
+            data={stockAdjustmentDetail?.InvStockAdjustmentDetailslist || []}
             columns={detailColumns(t)}
             style={{ marginTop: 0 }}
           />
@@ -33,7 +33,7 @@ function StockAdjustmentDetailTable({ requisitionDetail, isDataLoadingDetail, re
 }
 
 type THistoryProps = {
-  requisitionDetail: TRequisitionOrder;
+  stockAdjustmentDetail: TStockAdjustment;
   isDataLoadingDetail: boolean;
   refetchDetail: () => void;
 };
