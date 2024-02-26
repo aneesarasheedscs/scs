@@ -152,7 +152,18 @@ export const useRequisitionOrderHistory = (enabled = true, params?: TRequisition
         ...params,
       });
     },
-    { enabled }
+    {
+      enabled,
+      onSuccess: (response: AxiosResponse) => {
+        if (response?.data && response?.data?.Status === false) {
+          notification.error({
+            message: 'Error',
+            description: response?.data?.Message || 'An error occurred.',
+          });
+        } else if (response?.data && response?.data?.Status === true) {
+        }
+      },
+    }
   );
 };
 

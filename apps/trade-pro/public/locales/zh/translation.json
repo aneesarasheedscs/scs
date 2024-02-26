@@ -524,5 +524,6 @@
   "due_percent": "到期的 ％",
   "bills_receivables_accounts": "应收票据账户",
   "receipts_voucher": "收据凭证",
-  "payment_voucher": "付款凭证"
+  "payment_voucher": "付款凭证",
+  "app_modules": "应用程序模块"
 }

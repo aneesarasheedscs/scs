@@ -31,5 +31,6 @@
   "due_percent": "로 인한 %",
   "bills_receivables_accounts": "AR 계정",
   "receipts_voucher": "영수증 바우처",
-  "payment_voucher": "결제 바우처"
+  "payment_voucher": "결제 바우처",
+  "app_modules": "앱 모듈"
 }
