@@ -1,12 +1,12 @@
 import { AntTable } from '@tradePro/components';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
-import { Card, Col, Row, theme } from 'antd';
+import { Col, Row, theme } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useAtom } from 'jotai';
 import { viewDetailList } from '../form/Atom';
 import { detailColumns } from './Detailcolumn';
 
-function BankPaymentDetailTable({ refetch, isLoading }: any) {
+function BankPaymentDetailTable({ refetch, isLoading }: TBPVHistory) {
   const { t } = useTranslation();
   const [viewDetail, setViewDetail] = useAtom(viewDetailList);
   const {
@@ -15,7 +15,7 @@ function BankPaymentDetailTable({ refetch, isLoading }: any) {
 
   return (
     <>
-      <Row style={{ marginTop: '0%' }}>
+      <Row>
         <Col span={24}>
           <h2 className="form-heading2">{t('detail')}</h2>
           <AntTable
@@ -32,5 +32,8 @@ function BankPaymentDetailTable({ refetch, isLoading }: any) {
     </>
   );
 }
-
+type TBPVHistory = {
+  refetch: () => void;
+  isLoading: boolean;
+};
 export default BankPaymentDetailTable;

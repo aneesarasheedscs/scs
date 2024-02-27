@@ -21,7 +21,7 @@ export type TSideMenu = {
   MenuControllName: null | string;
   RouteUrl: string;
   ScreenDescription: string;
-  children: TChildren[];
+  // children: TChildren[];
 };
 export type TChildren = {
   App: string;

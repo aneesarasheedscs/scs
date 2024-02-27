@@ -1,33 +1,18 @@
-import { TChildren } from './types';
-import {
-  AccountBookOutlined,
-  DollarOutlined,
-  DashboardOutlined,
-  TransactionOutlined,
-  FileDoneOutlined,
-  ShoppingOutlined,
-  FileTextOutlined,
-  ShopOutlined,
-  AppstoreOutlined,
-  FileOutlined,
-  SettingOutlined,
-  HeartFilled,
-} from '@ant-design/icons';
+import { TChildren, TSideMenu } from './types';
+import * as AntIcons from '@ant-design/icons';
 import { theme } from 'antd';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { groupBy, map, size } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { HeartOutlined } from '@ant-design/icons';
 import { Card, Row, Col, Typography, Modal } from 'antd';
 import { useGetMenu } from '@tradePro/components/layout/queries';
-import { TSideMenu } from '@tradePro/components/layout/types';
-import { AntSelectDynamic } from '@tradePro/components';
+import { AntSelectDynamic, TableLoader } from '@tradePro/components';
+import { groupBy, map, size } from '@tradePro/utils/lodashUtils';
 
 const { Title, Text } = Typography;
 
 export default function MenuDashboard() {
-  const { data: Menu, isError, isLoading: isLoadingMenu, isSuccess } = useGetMenu();
+  const { data: Menu, isLoading: isLoadingMenu, isSuccess } = useGetMenu();
   const { t } = useTranslation();
   const [list, setList] = useState<TSideMenu[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -36,6 +21,7 @@ export default function MenuDashboard() {
   const handleNavigate = (RouteUrl: string) => {
     navigate(RouteUrl);
   };
+
   const handleNavigatewithSelectOption = (value: string) => {
     console.log(value);
     const RouteUrl = Menu?.data?.Data?.Result?.find((item: any) => item.ScreenID === value);
@@ -81,24 +67,31 @@ export default function MenuDashboard() {
 
     return [];
   };
+  if (isLoadingMenu) {
+    return (
+      <div style={{ padding: 15 }}>
+        <TableLoader numberOfSkeletons={13} />
+      </div>
+    );
+  }
+
   console.log(childrenList);
   const childrenLengths = map(list, (item) => item.children.length);
-
   const defaultIcons = [
-    <DashboardOutlined />,
-    <AccountBookOutlined />,
-    <TransactionOutlined />,
-    <FileDoneOutlined />,
-    <ShopOutlined />,
-    <FileTextOutlined />,
-    <ShoppingOutlined />,
-    <FileOutlined />,
-    <AppstoreOutlined />,
-    <FileTextOutlined />,
-    <FileTextOutlined />,
-    <AppstoreOutlined />,
-    <DollarOutlined />,
-    <SettingOutlined />,
+    <AntIcons.DashboardOutlined />,
+    <AntIcons.AccountBookOutlined />,
+    <AntIcons.TransactionOutlined />,
+    <AntIcons.FileDoneOutlined />,
+    <AntIcons.ShopOutlined />,
+    <AntIcons.FileTextOutlined />,
+    <AntIcons.ShoppingOutlined />,
+    <AntIcons.FileOutlined />,
+    <AntIcons.AppstoreOutlined />,
+    <AntIcons.FileTextOutlined />,
+    <AntIcons.FileTextOutlined />,
+    <AntIcons.AppstoreOutlined />,
+    <AntIcons.DollarOutlined />,
+    <AntIcons.SettingOutlined />,
   ];
 
   return (
@@ -210,7 +203,11 @@ export default function MenuDashboard() {
                     <Col xxl={5} xl={6} lg={8} md={12} sm={24} xs={24} key={index}>
                       <Card hoverable className="children_cards">
                         <h3 className="chilren_route_heading1">
-                          {item.IsFavorite ? <HeartFilled style={{ color: 'red' }} /> : <HeartOutlined />}
+                          {item.IsFavorite ? (
+                            <AntIcons.HeartFilled style={{ color: 'red' }} />
+                          ) : (
+                            <AntIcons.HeartOutlined />
+                          )}
                         </h3>
                         <h3 className="chilren_route_heading" onClick={() => handleNavigate(item.RouteUrl)}>
                           {item.ScreenAlias}

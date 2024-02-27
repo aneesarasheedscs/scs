@@ -78,6 +78,7 @@ const MainEntry = ({
                 className="formfield project"
               >
                 <AntSelectDynamic
+                  disabled
                   bordered={false}
                   label={t('cost_center')}
                   fieldValue="Id"
@@ -96,6 +97,7 @@ const MainEntry = ({
                 className="formfield voucher"
               >
                 <AntSelectDynamic
+                  disabled
                   aria-readonly
                   bordered={false}
                   label={t('voucher_type')}
@@ -186,12 +188,7 @@ const MainEntry = ({
                 style={{ marginTop: '1%' }}
                 className="formfield"
               >
-                <AntInput
-                  bordered={false}
-                  name="Remarks"
-                  label={t('remarks')}
-                  // style={{ border: '1px solid red', width: '100%' }}
-                />
+                <AntInput bordered={false} name="Remarks" label={t('remarks')} />
               </Col>
               <AntInput
                 bordered={false}
@@ -209,10 +206,10 @@ const MainEntry = ({
 
 type TDynamicForm = {
   form: FormInstance;
-  setBankId: any;
-  bankId: any;
-  setSharedStateIncludeWHT: any;
-  SharedStateIncludeWHT: any;
+  setBankId: (id: number) => void;
+  bankId: number | null;
+  setSharedStateIncludeWHT: (id: boolean) => void;
+  SharedStateIncludeWHT: boolean;
   ScheduleData: any;
 };
 

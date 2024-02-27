@@ -10,7 +10,7 @@ import { useGetCashReceiptVoucherById, useGetCashReceiptVoucherDetailById } from
 
 function CashReceiptVoucher() {
   const { t } = useTranslation();
-  const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
+  const [selectedRecordId, setSelectedRecordId] = useState<number | null>(null);
   const [selectedRecordIdforDetail, setSelectedRecordIdforDetail] = useState<number | null>();
   const [activeTab, setActiveTab] = useState<string>('1');
   const [viewDetail, setViewDetail] = useAtom(viewDetailList);
@@ -33,7 +33,7 @@ function CashReceiptVoucher() {
 
   return (
     <>
-      <Row style={{ background: '' }}>
+      <Row>
         <Col span={24}>
           <h2 className="form-heading">{t('cash_receipt_voucher')}</h2>
           <Tabs
@@ -56,7 +56,6 @@ function CashReceiptVoucher() {
               <CashReceiptVoucherForm
                 selectedRecordId={selectedRecordId}
                 setSelectedRecordId={setSelectedRecordId}
-                refetchCashReceipt={refetchCashReceipt}
                 addCashReceipt={addCashReceipt}
                 isDataSuccess={isDataSuccess}
               />

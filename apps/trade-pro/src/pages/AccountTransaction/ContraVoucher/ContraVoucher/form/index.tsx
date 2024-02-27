@@ -16,7 +16,6 @@ const { useForm } = Form;
 function ContraVoucherForm({
   selectedRecordId,
   setSelectedRecordId,
-  refetchContra,
   ContraVoucherById,
   isDataSuccess,
 }: TAddUpdateRecord) {
@@ -106,13 +105,10 @@ function ContraVoucherForm({
 }
 
 type TAddUpdateRecord = {
-  selectedRecordId?: null | number;
+  selectedRecordId: null | number;
   setSelectedRecordId: (Id: number | null) => void;
-
-  refetchContra: any;
   ContraVoucherById: any;
-
-  isDataSuccess: any;
+  isDataSuccess: boolean;
 };
 
 export default ContraVoucherForm;

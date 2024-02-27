@@ -5,13 +5,14 @@ import { Space, Tooltip } from 'antd';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { TBankPaymentVoucherTable } from './types';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import { DataType } from '../form/types';
+import { DataType, TBankPaymentDetailEntry } from '../form/types';
 import dayjs from 'dayjs';
+import { TFunction } from 'i18next';
 export const columns = (
-  t: any,
-  setSelectedRecordId?: any,
-  setActiveTab?: any,
-  setSelectedRecordDetailId?: any
+  t: TFunction,
+  setSelectedRecordId: (id: number | null) => void,
+  setActiveTab: (tab: string) => void,
+  setSelectedRecordDetailId: (id: number | null) => void
 ): AntColumnType<TBankPaymentVoucherTable>[] => [
   {
     title: t('code'),
@@ -162,7 +163,11 @@ export const columns = (
   },
 ];
 
-export const column2 = (t: any, handleDeleteRow?: any, handleEditRow?: any): AntColumnType<DataType>[] => [
+export const detailEntrycolumn = (
+  t: TFunction,
+  handleDeleteRow: (record: TBankPaymentDetailEntry) => void,
+  handleEditRow: (record: TBankPaymentDetailEntry) => void
+): AntColumnType<TBankPaymentDetailEntry>[] => [
   {
     title: t('payment_type'),
     width: 150,

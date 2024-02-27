@@ -19,7 +19,7 @@ function BankPaymentVoucherForm({
   selectedRecordId,
   setSelectedRecordId,
   addBankReceipt,
-  refetchBankReceipt,
+
   isDataSuccess,
 }: TAddUpdateRecord) {
   const [form] = useForm<TSaveBankReceipt>();
@@ -27,8 +27,9 @@ function BankPaymentVoucherForm({
   const DocumentTypeId = 4;
   const [bankId, setBankId] = useState<number | null>(null);
   const [tableData, setTableData] = useAtom(addtableData);
-  const [SharedStateIncludeWHT, setSharedStateIncludeWHT] = useState(false);
+  const [SharedStateIncludeWHT, setSharedStateIncludeWHT] = useState<boolean>(false);
   const [TaxTypeId, setTaxTypeId] = useState<number | undefined>();
+  const [printPreview, setPrintPreview] = useState<boolean>(true);
   const [VoucherDate, setVoucherDate] = useState<Date>(new Date());
   const BankReceiptGetById = addBankReceipt?.data?.Data?.Result;
   const {
@@ -53,14 +54,9 @@ function BankPaymentVoucherForm({
     selectedRecordId,
     DocumentTypeId
   );
-  const [printPreview, setPrintPreview] = useState(true);
-  const AgainstAccountId = form.getFieldValue('AgainstAccountId');
-  console.log(AgainstAccountId);
-
-  const onFinish = (values: TSaveBankReceipt) => {
-    const AgainstAccountId = form.getFieldValue('AgainstAccountId');
-
+  const handleAddBankReceipt = (values: TSaveBankReceipt) => {
     values.PrintPreview = printPreview;
+    const AgainstAccountId = form.getFieldValue('AgainstAccountId');
     const TaxableEntry: any = {};
     if (values.IncludeWHT) {
       TaxableEntry.AccountId = values.RefAccountId;
@@ -91,18 +87,63 @@ function BankPaymentVoucherForm({
     } else {
       values.voucherDetailList = values.voucherDetailList && tableData;
     }
+    if (values.voucherDetailList?.[0] === null || values.voucherDetailList.length === 0) {
+      const message = 'Please fill Detail!';
+      notification.error({ message: message });
+      return;
+    }
+    addBankReceiptVoucher(values);
+  };
 
+  const handleUpdateBankReceipt = (values: TSaveBankReceipt) => {
+    values.PrintPreview = printPreview;
+    const AgainstAccountId = form.getFieldValue('AgainstAccountId');
+    const TaxableEntry: any = {};
+    if (values.IncludeWHT) {
+      TaxableEntry.AccountId = values.RefAccountId;
+      TaxableEntry.AgainstAccountId = values.voucherDetailList[0].AgainstAccountId;
+      TaxableEntry.TaxTypeId = values.voucherDetailList?.[0]?.TaxTypeId;
+      TaxableEntry.IsTaxable = 'True';
+      TaxableEntry.Comments =
+        'Tax Name' +
+        '    ' +
+        values.voucherDetailList?.[0]?.TaxName +
+        '   ' +
+        'Tax %' +
+        '   ' +
+        values.voucherDetailList?.[0]?.TaxPrcnt;
+      TaxableEntry.TaxPrcnt = values.voucherDetailList?.[0]?.TaxPrcnt;
+      TaxableEntry.TaxesTotalAmount = values.voucherDetailList?.[0]?.TotalAmount;
+      TaxableEntry.CreditAmount = values.voucherDetailList?.[0]?.TaxAmount;
+      if (SharedStateIncludeWHT && getTaxSchedule) {
+        const updatedData = tableData?.map((item: any) => ({
+          ...item,
+          AgainstAccountId: AgainstAccountId,
+        }));
+
+        values.voucherDetailList = [...updatedData, TaxableEntry];
+      } else {
+        values.voucherDetailList = values.voucherDetailList && tableData;
+      }
+    } else {
+      values.voucherDetailList = values.voucherDetailList && tableData;
+    }
+    if (values.voucherDetailList?.[0] === null || values.voucherDetailList.length === 0) {
+      const message = 'Please fill Detail!';
+      notification.error({ message: message });
+      return;
+    }
+    updateBankReceiptVoucher(values);
+  };
+
+  const onFinish = (values: TSaveBankReceipt) => {
+    values.PrintPreview = printPreview;
     if (isNumber(selectedRecordId)) {
-      updateBankReceiptVoucher(values);
+      handleUpdateBankReceipt(values);
       console.log(values);
-    } else if (tableData.length === 0) {
-      notification.error({
-        message: 'Error',
-        description: 'Please enter data in the grid before saving.',
-      });
     } else {
       console.log(values);
-      addBankReceiptVoucher(values);
+      handleAddBankReceipt(values);
     }
   };
 
@@ -159,10 +200,10 @@ function BankPaymentVoucherForm({
         <MainEntry
           form={form}
           setBankId={setBankId}
+          bankId={bankId}
           setSharedStateIncludeWHT={setSharedStateIncludeWHT}
           SharedStateIncludeWHT={SharedStateIncludeWHT}
           ScheduleData={getTaxSchedule?.data?.Data?.Result?.[0]}
-          bankId={bankId}
         />
         <DynamicForm
           form={form}
@@ -176,11 +217,10 @@ function BankPaymentVoucherForm({
 }
 
 type TAddUpdateRecord = {
-  selectedRecordId?: number | null;
+  selectedRecordId: number | null;
   setSelectedRecordId: (id: number | null) => void;
   addBankReceipt: any;
-  refetchBankReceipt: any;
-  isDataSuccess: any;
+  isDataSuccess: boolean;
 };
 
 export default BankPaymentVoucherForm;

@@ -10,7 +10,13 @@ import { AntButton, AntTable } from '@tradePro/components';
 import { useGetBankReceiptVoucherTable } from '../queries/queries';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 
-function BankReceiptTable({ setSelectedRecordId, setActiveTab, setSelectedRecordDetailId, refetch, isLoading }: TFrom) {
+function BankReceiptTable({
+  setSelectedRecordId,
+  setActiveTab,
+  setSelectedRecordDetailId,
+  refetch,
+  isLoading,
+}: TBRVHistory) {
   const { t } = useTranslation();
   const { data, isError, isLoading: isLoadingBRV, refetch: refetchBRV, isFetching } = useGetBankReceiptVoucherTable();
   const [showComponent, setShowComponent] = useState(false);
@@ -31,25 +37,12 @@ function BankReceiptTable({ setSelectedRecordId, setActiveTab, setSelectedRecord
         <Col span={24} style={{ marginLeft: '0.5%', borderTop: '1px solid #dfdfdf' }}>
           <AntButton
             onClick={toggleGridView}
-            className=""
-            style={{
-              background: showComponent ? '' : '#fff',
-              color: showComponent ? '' : `${colorPrimary}`,
-              fontWeight: 'bold',
-              border: showComponent ? '' : `1px solid ${colorPrimary}`,
-            }}
+            className={showComponent ? 'toggleGridView' : 'toggleCardView'}
             label={t('grid_view')}
           />
           <AntButton
             onClick={toggleCardView}
-            style={{
-              background: showComponent ? '#fff' : '',
-              color: showComponent ? `${colorPrimary}` : '',
-              fontWeight: 'bold',
-              border: showComponent ? `1px solid ${colorPrimary}` : '',
-              marginLeft: '0.2%',
-            }}
-            className=""
+            className={showComponent ? 'toggleCardView' : 'toggleGridView'}
             label={t('card_view')}
           />
         </Col>
@@ -74,12 +67,12 @@ function BankReceiptTable({ setSelectedRecordId, setActiveTab, setSelectedRecord
   );
 }
 
-type TFrom = {
+type TBRVHistory = {
   setSelectedRecordId: (id: number | null) => void;
   setActiveTab: (tab: string) => void;
   setSelectedRecordDetailId: (id: number | null) => void;
-  refetch: any;
-  isLoading: any;
+  refetch: () => void;
+  isLoading: boolean;
 };
 
 export default BankReceiptTable;

@@ -16,11 +16,11 @@ function Buttons({
   saveData,
   updateData,
   addCashReceipt,
+  DocumentTypeId,
   selectedRecordId,
   setSelectedRecordId,
   setPrintPreview,
   printPreview,
-  DocumentTypeId,
   setSharedStateIncludeWHT,
 }: TAddUpdateRecord) {
   const { t } = useTranslation();
@@ -148,16 +148,16 @@ function Buttons({
 }
 type TAddUpdateRecord = {
   form: FormInstance;
-  setBankId: any;
-  isSuccess: any;
+  setBankId: (id: number | null) => void;
+  isSuccess: boolean;
   saveData: any;
   updateData: any;
   addCashReceipt: any;
   DocumentTypeId: number;
-  selectedRecordId: any;
+  selectedRecordId: number | null;
   setSelectedRecordId: (id: number | null) => void;
-  setPrintPreview: any;
-  printPreview: any;
-  setSharedStateIncludeWHT: any;
+  setPrintPreview: (id: boolean) => void;
+  printPreview: boolean;
+  setSharedStateIncludeWHT: (id: boolean) => void;
 };
 export default Buttons;

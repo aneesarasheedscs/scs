@@ -1,18 +1,19 @@
 import dayjs from 'dayjs';
 import { Space, Tooltip } from 'antd';
-import { DataType } from '../form/types';
+import { DataType, TCashPaymentDetailEntry } from '../form/types';
 import { AntButton } from '@tradePro/components';
 import { TCashPaymentVoucherTable } from './types';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { EditFilled, EyeTwoTone, DeleteOutlined } from '@ant-design/icons';
+import { TFunction } from 'i18next';
 
 export const columns = (
-  t: any,
-  setSelectedRecordId?: any,
-  setActiveTab?: any,
-  setSelectedRecordIdforDetail?: any
+  t: TFunction,
+  setSelectedRecordId: (id: number | null) => void,
+  setActiveTab: (tab: string) => void,
+  setSelectedRecordIdforDetail: (id: number | null) => void
 ): AntColumnType<TCashPaymentVoucherTable>[] => [
   {
     title: t('code'),
@@ -130,7 +131,11 @@ export const columns = (
   },
 ];
 
-export const column2 = (t: any, handleDeleteRow: any, handleEditRow: any): AntColumnType<DataType>[] => [
+export const detailEntrycolumns = (
+  t: TFunction,
+  handleDeleteRow: (record: TCashPaymentDetailEntry, index: number) => void,
+  handleEditRow: (record: TCashPaymentDetailEntry, index: number) => void
+): AntColumnType<TCashPaymentDetailEntry>[] => [
   {
     title: t('payment_type'),
     width: 200,
@@ -186,7 +191,7 @@ export const column2 = (t: any, handleDeleteRow: any, handleEditRow: any): AntCo
             <AntButton
               type="text"
               icon={<EditFilled style={{ color: '#006640' }} />}
-              onClick={() => handleEditRow(record)}
+              onClick={() => handleEditRow(record, index)}
             />
           </Space>
         </Tooltip>
@@ -195,7 +200,7 @@ export const column2 = (t: any, handleDeleteRow: any, handleEditRow: any): AntCo
             <AntButton
               type="text"
               icon={<DeleteOutlined style={{ color: 'red' }} />}
-              onClick={() => handleDeleteRow(record)}
+              onClick={() => handleDeleteRow(record, index)}
             />
           </Space>
         </Tooltip>

@@ -16,11 +16,11 @@ function Buttons({
   saveData,
   updateData,
   ContraVoucher,
+  DocumentTypeId,
   selectedRecordId,
   setSelectedRecordId,
   setPrintPreview,
   printPreview,
-  DocumentTypeId,
 }: TAddUpdateRecord) {
   const { t } = useTranslation();
   const [tableData, setTableData] = useAtom(addtableData);
@@ -139,15 +139,15 @@ function Buttons({
 }
 type TAddUpdateRecord = {
   form: FormInstance;
-  setBankId: any;
-  isSuccess: any;
+  setBankId: (id: number | null) => void;
+  isSuccess: boolean;
   saveData: any;
   updateData: any;
   ContraVoucher: any;
   DocumentTypeId: number;
-  selectedRecordId: any;
+  selectedRecordId: number | null;
   setSelectedRecordId: (id: number | null) => void;
-  setPrintPreview: any;
-  printPreview: any;
+  setPrintPreview: (id: boolean) => void;
+  printPreview: boolean;
 };
 export default Buttons;

@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
-import { map } from 'lodash';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { map } from '@tradePro/utils/lodashUtils';
 import { Card, Col, FormInstance, Row } from 'antd';
 import { storedUserDetail } from '@tradePro/utils/storageService';
 import { AntInput, AntSelectDynamic } from '@tradePro/components';

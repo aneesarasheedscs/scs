@@ -1,12 +1,12 @@
 import { AntTable } from '@tradePro/components';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
-import { Card, Col, Row, theme } from 'antd';
+import { Col, Row, theme } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useAtom } from 'jotai';
 import { viewDetailList } from '../form/Atom';
 import { detailColumns } from './Detailcolumn';
 
-function CashReceiptDetailTable({ refetch, isLoading }: any) {
+function CashReceiptDetailTable({ refetch, isLoading }: TCRVHistory) {
   const { t } = useTranslation();
   const [viewDetail, setViewDetail] = useAtom(viewDetailList);
   const {
@@ -32,5 +32,8 @@ function CashReceiptDetailTable({ refetch, isLoading }: any) {
     </>
   );
 }
-
+type TCRVHistory = {
+  refetch: () => void;
+  isLoading: boolean;
+};
 export default CashReceiptDetailTable;

@@ -90,6 +90,7 @@ const MainEntry = ({
                 className="formfield project"
               >
                 <AntSelectDynamic
+                  disabled
                   bordered={false}
                   label={t('cost_center')}
                   fieldValue="Id"
@@ -108,6 +109,7 @@ const MainEntry = ({
                 className="formfield voucher"
               >
                 <AntSelectDynamic
+                  disabled
                   aria-readonly
                   bordered={false}
                   label={t('voucher_type')}
@@ -268,10 +270,10 @@ const MainEntry = ({
 
 type TDynamicForm = {
   form: FormInstance;
-  setBankId: any;
-  bankId: any;
-  setSharedStateIncludeWHT: any;
-  SharedStateIncludeWHT: any;
+  setBankId: (id: number) => void;
+  bankId: number | null;
+  setSharedStateIncludeWHT: (id: boolean) => void;
+  SharedStateIncludeWHT: boolean;
   ScheduleData: any;
 };
 

@@ -3,7 +3,7 @@ import './DetailTableFile.scss';
 import { columns } from './columns';
 import { useState } from 'react';
 import CardView from './CardView';
-import { Col, Row, theme } from 'antd';
+import { Col, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
 import ContraVoucherDetailTable from './DetailTable';
 import { useGetContraVoucherTable } from '../queries/queries';
@@ -16,13 +16,10 @@ function ContraVoucherTable({
   setActiveTab,
   refetch,
   isLoading,
-}: TFrom) {
+}: TCVHistory) {
   const { t } = useTranslation();
   const { data, isError, isLoading: isLoadingContra, refetch: refetchContra, isFetching } = useGetContraVoucherTable();
   const [showComponent, setShowComponent] = useState(false);
-  const {
-    token: { colorPrimary },
-  } = theme.useToken();
 
   const toggleCardView = () => {
     setShowComponent(true);
@@ -37,25 +34,12 @@ function ContraVoucherTable({
         <Col span={24} style={{ marginLeft: '0.5%', borderTop: '1px solid #dfdfdf' }}>
           <AntButton
             onClick={toggleGridView}
-            className=""
-            style={{
-              background: showComponent ? '' : '#fff',
-              color: showComponent ? '' : `${colorPrimary}`,
-              fontWeight: 'bold',
-              border: showComponent ? '' : `1px solid ${colorPrimary}`,
-            }}
+            className={showComponent ? 'toggleGridView' : 'toggleCardView'}
             label={t('grid_view')}
           />
           <AntButton
             onClick={toggleCardView}
-            style={{
-              background: showComponent ? '#fff' : '',
-              color: showComponent ? `${colorPrimary}` : '',
-              fontWeight: 'bold',
-              border: showComponent ? `1px solid ${colorPrimary}` : '',
-              marginLeft: '0.2%',
-            }}
-            className=""
+            className={showComponent ? 'toggleCardView' : 'toggleGridView'}
             label={t('card_view')}
           />
         </Col>
@@ -85,12 +69,12 @@ function ContraVoucherTable({
   );
 }
 
-type TFrom = {
+type TCVHistory = {
   setSelectedRecordId: (Id: number | null) => void;
   setSelectedRecordIdforDetail: (Id: number | null) => void;
   setActiveTab: (tab: string) => void;
-  refetch: any;
-  isLoading: any;
+  refetch: () => void;
+  isLoading: boolean;
 };
 
 export default ContraVoucherTable;

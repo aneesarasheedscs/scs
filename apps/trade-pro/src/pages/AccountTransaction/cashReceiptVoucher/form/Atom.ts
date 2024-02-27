@@ -1,4 +1,5 @@
 import { atom } from 'jotai';
+import { TCashReceiptDetailEntry } from './types';
 
-export const addtableData = atom<any>([]);
-export const viewDetailList = atom<any>([]);
+export const addtableData = atom<TCashReceiptDetailEntry[]>([]);
+export const viewDetailList = atom<TCashReceiptDetailEntry[]>([]);

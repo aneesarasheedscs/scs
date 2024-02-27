@@ -183,8 +183,8 @@ const MainEntry = ({ form, setBankId, bankId }: TDynamicForm) => {
 
 type TDynamicForm = {
   form: FormInstance;
-  setBankId: any;
-  bankId: any;
+  setBankId: (id: number | null) => void;
+  bankId: number | null;
 };
 
 export default MainEntry;

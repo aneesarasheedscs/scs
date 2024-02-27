@@ -10,7 +10,7 @@ import { useGetCashPaymentVoucherById, useGetCashPaymentVoucherDetailById } from
 
 function CashPaymentVoucher() {
   const { t } = useTranslation();
-  const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
+  const [selectedRecordId, setSelectedRecordId] = useState<number | null>(null);
   const [selectedRecordIdforDetail, setSelectedRecordIdforDetail] = useState<number | null>();
   const [activeTab, setActiveTab] = useState<string>('1');
   const [viewDetail, setViewDetail] = useAtom(viewDetailList);
@@ -66,7 +66,6 @@ function CashPaymentVoucher() {
                 selectedRecordId={selectedRecordId}
                 setSelectedRecordId={setSelectedRecordId}
                 isDataSuccess={isDataSuccess}
-                refetchCashPayment={refetchCashPayment}
                 addCashPayment={addCashPayment}
               />
             </Tabs.TabPane>

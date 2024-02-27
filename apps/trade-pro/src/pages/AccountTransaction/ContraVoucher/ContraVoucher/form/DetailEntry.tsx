@@ -353,8 +353,6 @@ const DynamicForm = ({ form }: TDynamicForm) => {
           <br />
 
           <AntTable
-            // isError={isError}
-            // isLoading={isLoading}
             numberOfSkeletons={4}
             scroll={{ x: '', y: convertVhToPixels('15vh') }}
             data={tableData}

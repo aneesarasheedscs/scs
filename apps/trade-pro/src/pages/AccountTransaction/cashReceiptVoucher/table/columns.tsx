@@ -1,18 +1,19 @@
 import dayjs from 'dayjs';
 import { Space, Tooltip } from 'antd';
-import { DataType } from '../form/types';
+import { TCashReceiptDetailEntry } from '../form/types';
 import { AntButton } from '@tradePro/components';
 import { TCashReceiptVoucherTable } from './types';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { EditFilled, EyeTwoTone, DeleteOutlined } from '@ant-design/icons';
+import { TFunction } from 'i18next';
 
 export const columns = (
-  t: any,
-  setSelectedRecordId?: any,
-  setActiveTab?: any,
-  setSelectedRecordIdforDetail?: any
+  t: TFunction,
+  setSelectedRecordId: (id: number | null) => void,
+  setActiveTab: (tab: string) => void,
+  setSelectedRecordIdforDetail: (id: number | null) => void
 ): AntColumnType<TCashReceiptVoucherTable>[] => [
   {
     title: t('code'),
@@ -130,7 +131,11 @@ export const columns = (
   },
 ];
 
-export const column2 = (t: any, handleDeleteRow: any, handleEditRow: any): AntColumnType<DataType>[] => [
+export const detailEntrycolumns = (
+  t: TFunction,
+  handleDeleteRow: (record: TCashReceiptDetailEntry) => void,
+  handleEditRow: (record: TCashReceiptDetailEntry) => void
+): AntColumnType<TCashReceiptDetailEntry>[] => [
   {
     title: t('payment_type'),
     width: 200,

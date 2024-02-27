@@ -55,7 +55,7 @@ const getBankPaymentVoucherDetailById = (Id?: number | null) => {
 
 export const useAddBankPaymentVoucher = (DocumentTypeId?: number, params?: TSaveBankPaymentVoucher) => {
   return useMutation(
-    'bankPaymentVoucher-history',
+    'add-bankPaymentVoucher-history',
     (data: TSaveBankPaymentVoucher) => {
       let dataToSubmit = {};
       const userDetail = storedUserDetail();
@@ -105,7 +105,7 @@ export const useUpdateBankPaymentVoucher = (
 ) => {
   console.log(Id);
   return useMutation(
-    'bankPaymentVoucher-history',
+    'update-bankPaymentVoucher-history',
     (data: TSaveBankPaymentVoucher) => {
       let dataToSubmit = {};
       const userDetail = storedUserDetail();
