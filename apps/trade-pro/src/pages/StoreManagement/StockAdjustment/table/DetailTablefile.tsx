@@ -4,9 +4,10 @@ import { useTranslation } from 'react-i18next';
 import './detail.scss';
 import _ from 'lodash';
 import { Col, Image, Row } from 'antd';
-import { TWsRmRequisitionPoDetailsList } from '../types';
+
 import { formateDate } from '@tradePro/utils/formateDate';
-import { useGetRequisitionOrderById } from '../quries';
+import { useGetStockAdjustmentById } from '../quries';
+import { InvStockAdjustmentDetail } from '../types';
 
 const Tablefile: React.FC<{ selectedRecordId?: number | any; stockTransfer: any }> = ({
   selectedRecordId,
@@ -19,9 +20,9 @@ const Tablefile: React.FC<{ selectedRecordId?: number | any; stockTransfer: any 
     refetch: refetchStock,
     isSuccess: isDataSuccess,
     isLoading: isDataLoading,
-  } = useGetRequisitionOrderById(selectedRecordId);
+  } = useGetStockAdjustmentById(selectedRecordId);
   const DetailData = stockTransfergetById?.data?.Data?.Result?.WsRmRequisitionPoDetailsList;
-  const [mainDataSourc, setMainDataSourc] = useState<TWsRmRequisitionPoDetailsList[]>([]);
+  const [mainDataSourc, setMainDataSourc] = useState<InvStockAdjustmentDetail[]>([]);
   console.log(DetailData);
 
   useEffect(() => {
@@ -66,7 +67,7 @@ const Tablefile: React.FC<{ selectedRecordId?: number | any; stockTransfer: any 
               </div>
             </div>
 
-            {mainDataSourc?.map((item: TWsRmRequisitionPoDetailsList | any, index: number) => (
+            {mainDataSourc?.map((item: InvStockAdjustmentDetail | any, index: number) => (
               <div className={`table-data ${index % 2 === 0 ? '' : 'alternate'}`} key={index}>
                 <div className="table-Row">
                   <div

@@ -14,7 +14,7 @@ const { useForm } = Form;
 
 function StockAdjustmentForm({
   selectedRecordId,
-  requisitionById,
+  stockAdjustmentById,
   isDataSuccess,
   isDataLoading,
   setSelectedRecordId,
@@ -26,6 +26,7 @@ function StockAdjustmentForm({
   const [delettableData, setDeleteTableData] = useAtom(deleteData);
   const [newtableData, setNewTableData] = useAtom(newTableData);
   const [tableData, setTableData] = useAtom(addtableData);
+  const [AdjustmentTypeId, setAjusmentTypeId] = useState<number>();
   const {
     mutate: addRequisitionOrder,
     isSuccess: successAdd,
@@ -103,13 +104,13 @@ function StockAdjustmentForm({
 
   useEffect(() => {
     if (isDataSuccess && !isDataLoading) {
-      form.setFieldValue('DocNo', requisitionById?.DocNo);
-      form.setFieldValue('DocDate', dayjs(requisitionById?.DocDate));
-      form.setFieldValue('ReqStatus', parseInt(requisitionById?.ReqStatus));
-      form.setFieldValue('DestinationLocationId', requisitionById?.DestinationLocationId);
-      form.setFieldValue('SourceLocationId', requisitionById?.SourceLocationId);
-      form.setFieldValue('RemarksHeader', requisitionById?.RemarksHeader);
-      setTableData(requisitionById?.InvStockAdjustmentDetailslist);
+      form.setFieldValue('DocNo', stockAdjustmentById?.DocNo);
+      form.setFieldValue('DocDate', dayjs(stockAdjustmentById?.DocDate));
+      // form.setFieldValue('ReqStatus', parseInt(stockAdjustmentById?.ReqStatus));
+      // form.setFieldValue('DestinationLocationId', stockAdjustmentById?.DestinationLocationId);
+      // form.setFieldValue('SourceLocationId', stockAdjustmentById?.SourceLocationId);
+      form.setFieldValue('RemarksHeader', stockAdjustmentById?.RemarksHeader);
+      setTableData(stockAdjustmentById?.InvStockAdjustmentDetailslist);
     }
     if (selectedRecordId) {
       setDeleteTableData([]);
@@ -125,13 +126,13 @@ function StockAdjustmentForm({
             selectedRecordId={selectedRecordId}
             setSelectedRecordId={setSelectedRecordId}
             DocumentTypeId={DocumentTypeId}
-            requisitionById={requisitionById}
+            stockAdjustmentById={stockAdjustmentById}
             isDataSuccess={isDataSuccess}
             printPreview={printPreview}
             setPrintPreview={setPrintPreview}
           />
-          <MainEntry form={form} />
-          <DynamicForm form={form} />
+          <MainEntry form={form} setAjusmentTypeId={setAjusmentTypeId} />
+          <DynamicForm form={form} AdjustmentTypeId={AdjustmentTypeId} />
         </Form>
       </Card>
     </>
@@ -139,7 +140,7 @@ function StockAdjustmentForm({
 }
 type TAddUpdateRecord = {
   selectedRecordId: number | null;
-  requisitionById: TStockAdjustment;
+  stockAdjustmentById: TStockAdjustment;
   isDataSuccess: boolean;
   isDataLoading: boolean;
   setSelectedRecordId: (id: number | null) => void;

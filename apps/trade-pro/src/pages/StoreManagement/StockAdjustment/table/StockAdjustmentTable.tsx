@@ -7,14 +7,15 @@ import { useStockAdjustmentHistory } from '../quries';
 import { useState } from 'react';
 import RequisitionOrderDetailTable from './DetailTable';
 import CardView from './cardView';
-import { TRequisitionOrder } from '../types';
+
 import StockAdjustmentDetailTable from './DetailTable';
+import { TStockAdjustment } from '../types';
 
 function StockAdjustmentTable({
   setSelectedRecordId,
   setActiveTab,
   setSelectedRecordIdforDetail,
-  requisitionDetail,
+  stockAdjustmentDetail,
   isDataLoadingDetail,
   refetchDetail,
 }: THistoryProps) {
@@ -65,7 +66,7 @@ function StockAdjustmentTable({
                   columns={columns(t, setSelectedRecordId, setActiveTab, setSelectedRecordIdforDetail)}
                 />
                 <StockAdjustmentDetailTable
-                  requisitionDetail={requisitionDetail}
+                  stockAdjustmentDetail={stockAdjustmentDetail}
                   isDataLoadingDetail={isDataLoadingDetail}
                   refetchDetail={refetchDetail}
                 />
@@ -82,7 +83,7 @@ type THistoryProps = {
   setSelectedRecordId: (id: number | null) => void;
   setSelectedRecordIdforDetail: (id: number | null) => void;
   setActiveTab: (tab: string) => void;
-  requisitionDetail: TRequisitionOrder;
+  stockAdjustmentDetail: TStockAdjustment;
   isDataLoadingDetail: boolean;
   refetchDetail: () => void;
 };

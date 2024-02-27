@@ -39,33 +39,44 @@ export const useGetDocumentNumber = (DocumentTypeId?: number) => {
   );
 };
 
-export const useGetAvailableStock = (enabled = true, itemId?: number, params?: TStockAdjustmentHistory) => {
+// export const useGetAvailableStock = (enabled = true, itemId?: number, params?: TStockAdjustmentHistory) => {
+//   return useQuery(
+//     ['available_stocks', itemId],
+//     () => {
+//       return requestManager.post('/api/GetAvgRatesAndStockInHand/GetStockInHandFromStockEvaluation', {
+//         OrganizationId: userDetail?.OrganizationId,
+//         CompanyId: userDetail?.CompanyId,
+//         DocDate: new Date(),
+//         ItemId: itemId,
+//         ...params,
+//       });
+//     },
+//     { enabled: !!itemId }
+//   );
+// };
+
+
+export const useGetUomByItemId = (ItemId?: number | null) => () => {
   return useQuery(
-    ['available_stocks', itemId],
+    ['uom', ItemId],
     () => {
-      return requestManager.post('/api/GetAvgRatesAndStockInHand/GetStockInHandFromStockEvaluation', {
-        OrganizationId: userDetail?.OrganizationId,
-        CompanyId: userDetail?.CompanyId,
-        DocDate: new Date(),
-        ItemId: itemId,
-        ...params,
-      });
+      return requestManager.get('/api/UOMSchedule/SearchByObject', { params: { ...params, ItemId } });
     },
-    { enabled: !!itemId }
+    { enabled: !!ItemId }
   );
 };
 
 
 
 
-
 //get accounttitle
-export const useGetAccountTitle = () => {
-  return useQuery('account_title', () => {
+export const useGetAccountTitle = (AdjustmentTypeId:number | undefined) => {
+  console.log(AdjustmentTypeId)
+  return useQuery(['account_title',AdjustmentTypeId], () => {
     return requestManager.get('/api/COAAllocation/GetAccountTitleByAccountTypeIds', {
-      params: { ...params ,AccountTypeIds:10},
+      params: { ...params ,AccountTypeIds:AdjustmentTypeId === 1? 10 : [11,12,13,20,21]},
     });
-  });
+  },{ enabled: !! AdjustmentTypeId});
 };
 
 //get item Combo
@@ -97,44 +108,12 @@ export const useGetEntryType = () => {
 };
 
 
-
-
-
-
-
-
-
-
-
-export const useGetDestinationAndSourceLoc = () => {
-  return useQuery('destination_source_location', () => {
-    return requestManager.get('/api/Company/GetAlldt', {
-      params: { OrgCompanyTypeId: 2 },
-    });
-  });
-};
-type ResponseData = TLocation[];
-export const useGetDestinationLoc = () => {
-  return useQuery('destination_location', getDestination, {
-    cacheTime: userDetail?.expires_in,
-  });
-};
-
-const getDestination: QueryFunction<ResponseData> = async () => {
-  const response = await requestManager.get('/api/Company/GetAlldt', {
-    params: { OrgCompanyTypeId: 2 },
-  });
-  const rawData = response.data?.Data.Result || [];
-  const filteredData = rawData.filter((item: TLocation) => item.CompType === 'HeadOffice');
-  console.log(filteredData);
-  return filteredData;
-};
 //Get ById
-export const useGetRequisitionOrderById = (Id?: number | null) => {
+export const useGetStockAdjustmentById = (Id?: number | null) => {
   return useQuery(
-    ['requisition-getById', Id],
+    ['stockAdjustment-getById', Id],
     () => {
-      return getRequisitionOrderById(Id);
+      return getStockAdjustmentById(Id);
     },
     {
       cacheTime: 0,
@@ -147,14 +126,16 @@ export const useGetRequisitionOrderById = (Id?: number | null) => {
     }
   );
 };
-const getRequisitionOrderById = (Id?: number | null) => {
-  return requestManager.get(`/api/WsRmRequisitionPo/GetByID`, { params: { Id } });
+const getStockAdjustmentById = (Id?: number | null) => {
+  return requestManager.get(`/api/InvStockAdjustment/GetByID`, { params: { Id } });
 };
-export const useGetRequisitionOrderByIdforDetail = (Id?: number | null) => {
+
+//get by id for detail
+export const useGetStockByIdforDetail = (Id?: number | null) => {
   return useQuery(
-    ['requisition-getById-detail', Id],
+    ['stockAdjustment-getById-detail', Id],
     () => {
-      return getRequisitionOrderByIdforDetail(Id);
+      return getStockAdjustmentByIdforDetail(Id);
     },
     {
       cacheTime: 0,
@@ -168,9 +149,46 @@ export const useGetRequisitionOrderByIdforDetail = (Id?: number | null) => {
   );
 };
 
-const getRequisitionOrderByIdforDetail = (Id?: number | null) => {
-  return requestManager.get(`/api/WsRmRequisitionPo/GetByID`, { params: { Id } });
+const getStockAdjustmentByIdforDetail = (Id?: number | null) => {
+  return requestManager.get(`/api/InvStockAdjustment/GetByID`, { params: { Id } });
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+// export const useGetDestinationAndSourceLoc = () => {
+//   return useQuery('destination_source_location', () => {
+//     return requestManager.get('/api/Company/GetAlldt', {
+//       params: { OrgCompanyTypeId: 2 },
+//     });
+//   });
+// };
+// type ResponseData = TLocation[];
+// export const useGetDestinationLoc = () => {
+//   return useQuery('destination_location', getDestination, {
+//     cacheTime: userDetail?.expires_in,
+//   });
+// };
+
+// const getDestination: QueryFunction<ResponseData> = async () => {
+//   const response = await requestManager.get('/api/Company/GetAlldt', {
+//     params: { OrgCompanyTypeId: 2 },
+//   });
+//   const rawData = response.data?.Data.Result || [];
+//   const filteredData = rawData.filter((item: TLocation) => item.CompType === 'HeadOffice');
+//   console.log(filteredData);
+//   return filteredData;
+// };
+
 
 //Get  History
 export const useStockAdjustmentHistory = (enabled = true, params?: TStockAdjustmentHistory) => {
@@ -195,9 +213,9 @@ export const useStockAdjustmentHistory = (enabled = true, params?: TStockAdjustm
   );
 };
 
-export const useAddRequisitionOrder = (DocumentTypeId?: number, params?: TStockAdjustment) => {
+export const useAddStockAdjustment = (DocumentTypeId?: number, params?: TStockAdjustment) => {
   return useMutation(
-    'add-requisition-order',
+    'add-stock-adjustment',
     (data: TStockAdjustment) => {
       let dataToSubmit = {};
       dataToSubmit = {
@@ -220,7 +238,7 @@ export const useAddRequisitionOrder = (DocumentTypeId?: number, params?: TStockA
         HoIsApproved: false,
         ...params,
       };
-      return requestManager.post('/api/WsRmRequisitionPo/Save', dataToSubmit);
+      return requestManager.post('/api/InvStockAdjustment/Save', dataToSubmit);
     },
     {
       onSuccess: (response: AxiosResponse) => {
@@ -232,7 +250,7 @@ export const useAddRequisitionOrder = (DocumentTypeId?: number, params?: TStockA
         } else if (response?.data && response?.data?.Status === true) {
           const msg = 'Record Approved successfully!';
           notification.success({ description: '', message: msg });
-          queryClient.invalidateQueries('requisition_order');
+          queryClient.invalidateQueries('stock_adjustment');
         }
       },
       onError: (error: AxiosError) => {
@@ -242,9 +260,9 @@ export const useAddRequisitionOrder = (DocumentTypeId?: number, params?: TStockA
     }
   );
 };
-export const useUpdateRequisitionOrder = (Id?: number | null, DocumentTypeId?: number, params?: TStockAdjustment) => {
+export const useUpdateStockAdjustment = (Id?: number | null, DocumentTypeId?: number, params?: TStockAdjustment) => {
   return useMutation(
-    'update-requisition-order',
+    'update-stock-adjustment',
     (data: TStockAdjustment) => {
       let dataToSubmit = {};
       dataToSubmit = {
@@ -267,7 +285,7 @@ export const useUpdateRequisitionOrder = (Id?: number | null, DocumentTypeId?: n
         HoIsApproved: false,
         ...params,
       };
-      return requestManager.post('/api/WsRmRequisitionPo/Save', dataToSubmit);
+      return requestManager.post('/api/InvStockAdjustment/Save', dataToSubmit);
     },
     {
       onSuccess: (response: AxiosResponse) => {
@@ -279,7 +297,7 @@ export const useUpdateRequisitionOrder = (Id?: number | null, DocumentTypeId?: n
         } else if (response?.data && response?.data?.Status === true) {
           const msg = 'Record Updated successfully!';
           notification.success({ description: '', message: msg });
-          queryClient.invalidateQueries('requisition_order');
+          queryClient.invalidateQueries('stock_adjustment');
         }
       },
       onError: (error: AxiosError) => {

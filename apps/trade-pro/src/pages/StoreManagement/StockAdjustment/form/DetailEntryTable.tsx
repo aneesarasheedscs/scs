@@ -18,12 +18,12 @@ function DetailEntryTable({ form, t, setIsEditMode, setEdit }: TDetailEntryProps
     }
     console.log(record);
     setTableData((prevData: any[]) => {
-      const updatedData = prevData.filter((item: any) => item.LineId !== record?.LineId || item.Id !== record?.Id);
+      const updatedData = prevData.filter((item: any) => item.Id !== record?.Id || item.Id !== record?.Id);
       console.log('New tableData:', updatedData);
       return updatedData;
     });
     setNewTableData((prevData: any[]) => {
-      const updatedData = prevData.filter((item: any) => item.LineId !== record?.LineId || item.Id !== record?.Id);
+      const updatedData = prevData.filter((item: any) => item.LineId !== record?.Id || item.Id !== record?.Id);
       console.log('New tableData:', updatedData);
       return updatedData;
     });
@@ -36,26 +36,26 @@ function DetailEntryTable({ form, t, setIsEditMode, setEdit }: TDetailEntryProps
       if (rowIndex !== -1) {
         updatedData[rowIndex] = {
           ...updatedData[rowIndex],
-          // Item: record?.ItemName,
           Id: record?.Id,
           ItemId: record?.ItemId,
-          // ItemName: record?.ItemName,
-          // ItemUomId: record?.ItemUomId,
-          // ItemUom: record?.ItemUom,
-          // ReqQty: record?.ReqQty,
-          // BillWeight: record?.BillWeight,
-          // StockWeight: record?.StockWeight,
-          // NetWeight: record?.BillWeight,
-          // PackUom: record?.PackUom,
-          // ReqRate: record?.ReqRate,
-          // ReqAmount: record?.ReqAmount,
-          // PackEquivalent: record?.PackEquivalent,
-          // WsRmRequisitionPoId: record?.WsRmRequisitionPoId,
-          RemarksDetail: record?.RemarksDetail,
-          // DestinationLocationId: record?.DestinationLocationId,
+          Item: record?.ItemName,
+          PackUom: record.PackUom,
+          Qty: record.Qty,
+          ItemRate: record.ItemRate,
+          NetWeight: record.NetWeight,
+          Amount: record.Amount,
+          RemarksDetail: record.RemarksDetail,
+          WarehouseId: record.WarehouseId,
+          WareHouseName: record.WareHouseName,
+          PackUomId: record.PackUomId,
+          RateUomId: record.RateUomId,
+          DebitAccountId: record.DebitAccountId,
+          ActionTypeId: 1,
+          RateUom: record.RateUom,
+          AccountTitle: record.AccountTitle,
         };
 
-        form.setFieldValue(['WsRmRequisitionPoDetailsList', 0], updatedData[rowIndex]);
+        form.setFieldValue(['InvStockAdjustmentDetailslist', 0], updatedData[rowIndex]);
         setIsEditMode(true);
       }
       console.log('New tableData:', updatedData);

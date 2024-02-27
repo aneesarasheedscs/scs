@@ -5,22 +5,25 @@ import { useTranslation } from 'react-i18next';
 import { Card, Col, FormInstance, Row } from 'antd';
 import { storedUserDetail } from '@tradePro/utils/storageService';
 import { AntInput, AntSelectDynamic } from '@tradePro/components';
-import { useGetDestinationAndSourceLoc, useGetDestinationLoc, useGetEntryType } from '../quries';
+import { useGetEntryType } from '../quries';
 
-function MainEntry({ form }: TDynamicForm) {
+function MainEntry({ form, setAjusmentTypeId }: TDynamicForm) {
   const { t } = useTranslation();
   const [disablefields, setDisablefields] = useState(true);
-  const { data, isSuccess, isLoading } = useGetDestinationLoc();
+  // const { data, isSuccess, isLoading } = useGetDestinationLoc();
   const userDetail = storedUserDetail();
   useEffect(() => {
     form.setFieldValue('DocDate', dayjs(new Date()));
-    form.setFieldValue('AdjustmentTypeId', 1);
+    // form.setFieldValue('AdjustmentTypeId', 1);
     form.setFieldValue('SourceLocationId', userDetail?.CompanyId);
-    if (isSuccess && !isLoading) {
-      form.setFieldValue('DestinationLocationId', data?.[0]?.Id);
-    }
-  }, [isSuccess, 'DocDate']);
-
+    // if (isSuccess && !isLoading) {
+    //   form.setFieldValue('DestinationLocationId', data?.[0]?.Id);
+    // }
+  }, ['DocDate']);
+  console.log(form.getFieldValue('AdjustmentTypeId'));
+  const handleTypeChange = (value: number) => {
+    setAjusmentTypeId(value);
+  };
   return (
     <>
       <Card className="header_card">
@@ -33,8 +36,9 @@ function MainEntry({ form }: TDynamicForm) {
               fieldLabel="type"
               query={useGetEntryType}
               name="AdjustmentTypeId"
-              aria-readonly
-              disabled={disablefields}
+              // aria-readonly
+              onChange={(value) => handleTypeChange(value)}
+              // disabled={disablefields}
             />
           </Col>
 
@@ -47,6 +51,6 @@ function MainEntry({ form }: TDynamicForm) {
     </>
   );
 }
-type TDynamicForm = { form: FormInstance };
+type TDynamicForm = { form: FormInstance; setAjusmentTypeId: (Id: number) => void };
 
 export default MainEntry;

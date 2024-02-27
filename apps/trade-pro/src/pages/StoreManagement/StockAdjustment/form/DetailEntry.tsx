@@ -3,21 +3,21 @@ import { useTranslation } from 'react-i18next';
 import DetailEntryTable from './DetailEntryTable';
 import { useEffect, useRef, useState } from 'react';
 import { addtableData, newTableData } from './Atom';
-import { useGetAccountTitle, useGetAvailableStock, useGetItemName, useGetWhereHouse } from '../quries';
-import { InvStockAdjustmentDetail, TDetailItem } from '../types';
+import { useGetAccountTitle, useGetItemName, useGetUomByItemId, useGetWhereHouse } from '../quries';
+import { InvStockAdjustmentDetail, TAccountTitle, TDetailItem, TWareHouse } from '../types';
 import { Card, Col, Row, Form, FormInstance, notification } from 'antd';
 import { AntButton, AntInput, AntInputNumber, AntSelectDynamic } from '@tradePro/components';
 
 const { useWatch } = Form;
 
-const DynamicForm = ({ form }: TDynamicForm) => {
+const DynamicForm = ({ form, AdjustmentTypeId }: TDynamicForm) => {
   const { t } = useTranslation();
   const formValues = useWatch<InvStockAdjustmentDetail[]>('InvStockAdjustmentDetailslist', form);
   const { setFields, getFieldValue } = form;
   const equivalentRate = getFieldValue(['InvStockAdjustmentDetailslist', 0, 'PackEquivalent']);
   const itemId = getFieldValue(['InvStockAdjustmentDetailslist', 0, 'ItemId']);
   const antSelectRef = useRef<any>(null);
-  const { data, isSuccess, isLoading } = useGetAvailableStock(true, itemId);
+  const { data, isSuccess, isLoading } = useGetAccountTitle(AdjustmentTypeId);
   const [tableData, setTableData] = useAtom(addtableData);
   const [newtableData, setNewTableData] = useAtom(newTableData);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
@@ -34,44 +34,63 @@ const DynamicForm = ({ form }: TDynamicForm) => {
     PackEquivalent: null,
     BillWeight: null,
     StockWeight: null,
-    ReqQty: null,
+    Qty: null,
     NetWeight: null,
     ReqRate: null,
-    ReqAmount: null,
+    Amount: null,
     RemarksDetail: null,
+    WareHouseName: '',
+    AccountTitle: '',
     ActionTypeId: null,
     ItemUom: null,
   };
+  const [rateUomEquivalent, setRateUomEquivalent] = useState<{ [key: number]: number }>({});
+
   const handleAddToTable = () => {
     const newData = formValues.map((item, index) => ({
       ItemId: item.ItemId,
       ItemName: item.ItemName,
-      ItemUomId: item.ItemUomId,
-      ItemUom: item.ItemUom,
       PackUom: item.PackUom,
-      ReqQty: item.ReqQty,
-      ReqRate: item.ReqRate,
-      BillWeight: item.BillWeight,
-      StockWeight: item.StockWeight,
+      Qty: item.Qty,
+      ItemRate: item.ItemRate,
       NetWeight: item.NetWeight,
-      ReqAmount: item.ReqAmount,
-      PackEquivalent: item.PackEquivalent,
+      Amount: item.Amount,
       RemarksDetail: item.RemarksDetail,
+      WarehouseId: item.WarehouseId,
+      WareHouseName: item.WareHouseName,
+      PackUomId: item.PackUomId,
+      RateUomId: item.RateUomId,
+      DebitAccountId: item.DebitAccountId,
+      ActionTypeId: 1,
+      RateUom: item.RateUom,
+      AccountTitle: item.AccountTitle,
     }));
-
-    if (newData.some((item) => item.ItemId === null || item.ItemId === undefined)) {
+    if (newData.some((item) => item.WarehouseId === null || item.WarehouseId === undefined)) {
+      const message = 'Please Select WareHouse!';
+      notification.error({ message: message });
+      return;
+    } else if (newData.some((item) => item.ItemId === null || item.ItemId === undefined)) {
       const message = 'Please select Item!';
       notification.error({ message: message });
       return;
-    } else if (newData.some((item) => item.ReqQty === null || item.ReqQty === undefined)) {
+    } else if (newData.some((item) => item.Qty === null || item.Qty === undefined)) {
       const message = 'Please fill  Request Amount!';
       notification.error({ message: message });
       return;
-    } else if (newData.some((item) => item.ReqQty < 0 || item.ReqQty === undefined)) {
+    } else if (newData.some((item) => item.Qty < 0 || item.Qty === undefined)) {
       const message = 'Item Qty must be positive or greater then 0!';
       notification.error({ message: message });
       return;
+    } else if (newData.some((item) => item.ItemRate === null || item.ItemRate === undefined)) {
+      const message = 'Please Fill ItemRate';
+      notification.error({ message: message });
+      return;
+    } else if (newData.some((item) => item.DebitAccountId === null || item.DebitAccountId === undefined)) {
+      const message = 'AccountTitle Is Required';
+      notification.error({ message: message });
+      return;
     }
+
     setUseFocus(true);
     setCounter((prevCounter: number) => prevCounter + 1);
     setTableData((prevData: any[]) => {
@@ -111,33 +130,49 @@ const DynamicForm = ({ form }: TDynamicForm) => {
   const handleUpdateToTable = () => {
     const newData = formValues.map((item, index) => ({
       ItemId: item.ItemId,
-      // ItemName: item.ItemName,
-      // ItemUomId: item.ItemUomId,
-      // PackUom: item.PackUom,
-      // ReqQty: item.ReqQty,
-      // ReqRate: item.ReqRate,
-      // BillWeight: item.BillWeight,
-      // StockWeight: item.StockWeight,
-      // ItemUom: item.ItemUom,
-      // NetWeight: item.NetWeight,
-      // ReqAmount: item.ReqAmount,
-      // PackEquivalent: item.PackEquivalent,
+      ItemName: item.ItemName,
+      PackUom: item.PackUom,
+      Qty: item.Qty,
+      ItemRate: item.ItemRate,
+      NetWeight: item.NetWeight,
+      Amount: item.Amount,
       RemarksDetail: item.RemarksDetail,
+      WarehouseId: item.WarehouseId,
+      WareHouseName: item.WareHouseName,
+      PackUomId: item.PackUomId,
+      RateUomId: item.RateUomId,
+      DebitAccountId: item.DebitAccountId,
+      ActionTypeId: 1,
+      RateUom: item.RateUom,
+      AccountTitle: item.AccountTitle,
     }));
 
-    if (newData.some((item) => item.ItemId === null || item.ItemId === undefined)) {
+    if (newData.some((item) => item.WarehouseId === null || item.WarehouseId === undefined)) {
+      const message = 'Please Select WareHouse!';
+      notification.error({ message: message });
+      return;
+    } else if (newData.some((item) => item.ItemId === null || item.ItemId === undefined)) {
       const message = 'Please select Item!';
       notification.error({ message: message });
       return;
-    } else if (newData.some((item) => item.ReqQty < 0 || item.ReqQty === undefined)) {
-      const message = 'Item Qty must be positive or greater then 0!';
-      notification.error({ message: message });
-      return;
-    } else if (newData.some((item) => item.ReqAmount === null || item.ReqAmount === undefined)) {
+    } else if (newData.some((item) => item.Qty === null || item.Qty === undefined)) {
       const message = 'Please fill  Request Amount!';
       notification.error({ message: message });
       return;
+    } else if (newData.some((item) => item.Qty < 0 || item.Qty === undefined)) {
+      const message = 'Item Qty must be positive or greater then 0!';
+      notification.error({ message: message });
+      return;
+    } else if (newData.some((item) => item.ItemRate === null || item.ItemRate === undefined)) {
+      const message = 'Please Fill ItemRate';
+      notification.error({ message: message });
+      return;
+    } else if (newData.some((item) => item.DebitAccountId === null || item.DebitAccountId === undefined)) {
+      const message = 'AccountTitle Is Required';
+      notification.error({ message: message });
+      return;
     }
+
     const editedRowIndex = tableData.findIndex((row: any) => row.ItemId === edit?.ItemId);
 
     if (editedRowIndex >= 0) {
@@ -146,10 +181,10 @@ const DynamicForm = ({ form }: TDynamicForm) => {
         updatedData[editedRowIndex] = {
           ...newData[0],
           ActionTypeId: 1,
-          LineId: edit?.LineId,
+          // LineId: edit?.LineId,
           Id: edit?.Id,
-          WsRmRequisitionPoId: edit?.WsRmRequisitionPoId,
-          DestinationLocationId: edit?.DestinationLocationId,
+          // WsRmRequisitionPoId: edit?.WsRmRequisitionPoId,
+          // DestinationLocationId: edit?.DestinationLocationId,
         };
         console.log('New tableData:', updatedData);
         return updatedData;
@@ -173,12 +208,11 @@ const DynamicForm = ({ form }: TDynamicForm) => {
 
     setFields([
       { name: ['InvStockAdjustmentDetailslist', index, 'PackUom'], value: obj?.UOMCode },
+      { name: ['InvStockAdjustmentDetailslist', index, 'RateUomId'], value: obj?.UOMCode },
       { name: ['InvStockAdjustmentDetailslist', index, 'ItemName'], value: obj?.ItemName },
-      { name: ['InvStockAdjustmentDetailslist', index, 'ItemUom'], value: obj?.RateUom },
-      { name: ['InvStockAdjustmentDetailslist', index, 'ItemId'], value: obj?.ItemId },
+      { name: ['InvStockAdjustmentDetailslist', index, 'ItemId'], value: obj?.Id },
       { name: ['InvStockAdjustmentDetailslist', index, 'PackEquivalent'], value: obj?.Equivalent },
-      { name: ['InvStockAdjustmentDetailslist', index, 'ReqRate'], value: obj?.ItemPrice },
-      { name: ['InvStockAdjustmentDetailslist', index, 'ItemUomId'], value: obj?.ItemUomId },
+      { name: ['InvStockAdjustmentDetailslist', index, 'PackUomId'], value: obj?.ItemUomId },
       { name: ['InvStockAdjustmentDetailslist', index, 'ActionTypeId'], value: 1 },
     ]);
 
@@ -204,6 +238,14 @@ const DynamicForm = ({ form }: TDynamicForm) => {
       setFields([{ name: ['InvStockAdjustmentDetailslist', index, 'ReqAmount'], value: null }]);
     }
   };
+  const WareHouseChange = (obj: TWareHouse, index: number) => {
+    setFields([{ name: ['InvStockAdjustmentDetailslist', index, 'WareHouseName'], value: obj?.WareHouseName }]);
+  };
+
+  const AccountTitleChange = (obj: TAccountTitle, index: number) => {
+    console.log(obj.AccountTitle);
+    setFields([{ name: ['InvStockAdjustmentDetailslist', index, 'AccountTitle'], value: obj?.AccountTitle }]);
+  };
   const handleReqQtyChange = (ReqQty: number | string | null, index: number) => {
     const equivalentRate = getFieldValue(['InvStockAdjustmentDetailslist', index, 'PackEquivalent']);
     if (ReqQty && typeof ReqQty === 'number' && equivalentRate) {
@@ -228,45 +270,38 @@ const DynamicForm = ({ form }: TDynamicForm) => {
 
   const handleItemRateChange = (itemRate: number | string | null, index: number) => {
     const weight = getFieldValue(['InvStockAdjustmentDetailslist', index, 'NetWeight']);
+
     if (itemRate && typeof itemRate === 'number' && weight && equivalentRate) {
       const amount = calculateAmount(weight, equivalentRate, itemRate);
-      setFields([{ name: ['InvStockAdjustmentDetailslist', index, 'ItemAmount'], value: amount }]);
+      console.log(amount);
+      setFields([{ name: ['InvStockAdjustmentDetailslist', index, 'Amount'], value: amount }]);
     } else {
-      setFields([{ name: ['InvStockAdjustmentDetailslist', index, 'ItemAmount'], value: null }]);
+      setFields([{ name: ['InvStockAdjustmentDetailslist', index, 'Amount'], value: null }]);
     }
   };
+  const handleRateUOMChange = (UOMCod: string, equivalentRate: number, id: number, index: number) => {
+    console.log(UOMCod);
+    const weight = getFieldValue(['InvStockAdjustmentDetailslist', index, 'NetWeight']);
+    const itemRate = getFieldValue(['InvStockAdjustmentDetailslist', index, 'ItemRate']);
+    setFields([{ name: ['InvStockAdjustmentDetailslist', index, 'RateUom'], value: UOMCod }]);
+    if (itemRate && weight && equivalentRate && id) {
+      const amount = calculateAmount(weight, equivalentRate, itemRate);
+      setFields([{ name: ['InvStockAdjustmentDetailslist', index, 'Amount'], value: amount }]);
 
-  useEffect(() => {
-    const weight = getFieldValue(['InvStockAdjustmentDetailslist', 0, 'NetWeight']);
-    if (isSuccess && data?.data?.Data?.Result !== null) {
-      setFields([
-        {
-          name: ['InvStockAdjustmentDetailslist', 0, 'BillWeight'],
-          value: data?.data?.Data?.Result?.[0]?.BillWeight,
-        },
-        {
-          name: ['InvStockAdjustmentDetailslist', 0, 'StockWeight'],
-          value: data?.data?.Data?.Result?.[0]?.StockWeight,
-        },
-      ]);
-    } else if (data?.data?.Data?.Result === null) {
-      setFields([
-        {
-          name: ['InvStockAdjustmentDetailslist', 0, 'BillWeight'],
-          value: weight,
-        },
-        {
-          name: ['InvStockAdjustmentDetailslist', 0, 'StockWeight'],
-          value: weight,
-        },
-      ]);
+      setRateUomEquivalent({ ...rateUomEquivalent, [index]: equivalentRate });
+    } else {
+      setFields([{ name: ['InvStockAdjustmentDetailslist', index, 'Amount'], value: null }]);
     }
-  }, [form, data, tableData]);
+  };
   useEffect(() => {
-    if (antSelectRef.current) {
-      antSelectRef.current.focus();
+    if (isSuccess && !isLoading) {
+      form.setFieldValue(['InvStockAdjustmentDetailslist', 0, 'DebitAccountId'], data?.data?.Data?.Result?.[0]?.Id);
+      form.setFieldValue(
+        ['InvStockAdjustmentDetailslist', 0, 'AccountTitle'],
+        data?.data?.Data?.Result?.[0]?.AccountTitle
+      );
     }
-  }, [antSelectRef]);
+  }, [form, isSuccess]);
 
   return (
     <>
@@ -283,7 +318,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         sm={{ span: 20 }}
                         md={{ span: 12 }}
                         lg={{ span: 12 }}
-                        xl={{ span: 8 }}
+                        xl={{ span: 6 }}
                         xxl={{ span: 4 }}
                         className="formfield"
                       >
@@ -294,6 +329,8 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                           fieldValue="Id"
                           fieldLabel="WareHouseName"
                           query={useGetWhereHouse}
+                          name={[field.name, 'WarehouseId']}
+                          onSelectChange={(obj) => WareHouseChange(obj, field.name)}
                         />
                       </Col>
 
@@ -301,8 +338,8 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         xs={{ span: 24 }}
                         sm={{ span: 20 }}
                         md={{ span: 12 }}
-                        lg={{ span: 12 }}
-                        xl={{ span: 8 }}
+                        lg={{ span: 11 }}
+                        xl={{ span: 12 }}
                         xxl={{ span: 7 }}
                         className="formfield"
                       >
@@ -339,15 +376,16 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         sm={{ span: 20 }}
                         md={{ span: 11 }}
                         lg={{ span: 11 }}
-                        xl={{ span: 5 }}
+                        xl={{ span: 6 }}
                         xxl={{ span: 3 }}
                         className="formfield"
                       >
                         <AntInputNumber
                           bordered={false}
                           onChange={(ReqQty) => handleReqQtyChange(ReqQty, field.name)}
-                          formItemProps={{ ...field, name: [field.name, 'ReqQty'] }}
+                          formItemProps={{ ...field, name: [field.name, 'Qty'] }}
                           label={t('item_qty')}
+                          type="number"
                         />
                       </Col>
 
@@ -355,8 +393,8 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         xs={{ span: 24 }}
                         sm={{ span: 20 }}
                         md={{ span: 11 }}
-                        lg={{ span: 11 }}
-                        xl={{ span: 4 }}
+                        lg={{ span: 12 }}
+                        xl={{ span: 12 }}
                         xxl={{ span: 4 }}
                         className="formfield"
                       >
@@ -405,7 +443,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         xs={{ span: 24 }}
                         sm={{ span: 20 }}
                         md={{ span: 12 }}
-                        lg={{ span: 12 }}
+                        lg={{ span: 11 }}
                         xl={{ span: 5 }}
                         xxl={{ span: 4 }}
                         className="formfield"
@@ -413,10 +451,10 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                       >
                         <AntInputNumber
                           bordered={false}
-                          readOnly
-                          label={t('item_price')}
-                          formItemProps={{ ...field, name: [field.name, 'ReqRate'] }}
+                          label={t('item_rate')}
+                          formItemProps={{ ...field, name: [field.name, 'ItemRate'] }}
                           onChange={(itemRate) => handleItemRateChange(itemRate, field.name)}
+                          type="number"
                         />
                       </Col>
 
@@ -425,16 +463,21 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         sm={{ span: 20 }}
                         md={{ span: 12 }}
                         lg={{ span: 12 }}
-                        xl={{ span: 5 }}
+                        xl={{ span: 6 }}
                         xxl={{ span: 7 }}
                         className="formfield"
                         style={{ marginTop: 15, marginLeft: '-0.2%' }}
                       >
-                        <AntInput
+                        <AntSelectDynamic
                           bordered={false}
-                          readOnly
+                          fieldValue="Id"
                           label={t('rate_uom')}
-                          formItemProps={{ ...field, name: [field.name, 'PackUom'] }}
+                          fieldLabel="UOMCode"
+                          name={[field.name, 'RateUomId']}
+                          query={useGetUomByItemId(formValues?.[field.name]?.ItemId)}
+                          onSelectChange={(obj) =>
+                            handleRateUOMChange(obj?.UOMCode, obj?.Equivalent, obj?.Id, field.name)
+                          }
                         />
                       </Col>
                       <Col
@@ -442,7 +485,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         sm={{ span: 20 }}
                         md={{ span: 11 }}
                         lg={{ span: 11 }}
-                        xl={{ span: 4 }}
+                        xl={{ span: 8 }}
                         xxl={{ span: 4 }}
                         className="formfield"
                         style={{ marginTop: 15, marginLeft: '0%' }}
@@ -451,7 +494,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                           bordered={false}
                           readOnly
                           label={t('amount')}
-                          formItemProps={{ ...field, name: [field.name, 'ReqAmount'] }}
+                          formItemProps={{ ...field, name: [field.name, 'Amount'] }}
                         />
                       </Col>
 
@@ -471,10 +514,9 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                           label={t('account_title')}
                           fieldValue="Id"
                           fieldLabel="AccountTitle"
-                          query={useGetAccountTitle}
-                          name=""
-                          // name={[field.name, 'Item']}
-                          // onSelectChange={(obj) => handleItemChange(obj, field.name)}
+                          query={() => useGetAccountTitle(AdjustmentTypeId)}
+                          name={[field.name, 'DebitAccountId']}
+                          onSelectChange={(obj) => AccountTitleChange(obj, field.name)}
                         />
                       </Col>
                       <Col
@@ -499,7 +541,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         md={{ span: 6 }}
                         lg={{ span: 6 }}
                         xl={{ span: 8 }}
-                        xxl={{ span: 4 }}
+                        xxl={{ span: 7 }}
                       >
                         <Row gutter={10}>
                           <Col
@@ -508,7 +550,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                             md={{ span: 12 }}
                             lg={{ span: 12 }}
                             xl={{ span: 6 }}
-                            xxl={8}
+                            xxl={5}
                           >
                             <AntButton
                               style={{ marginTop: 15 }}
@@ -547,5 +589,5 @@ const DynamicForm = ({ form }: TDynamicForm) => {
     </>
   );
 };
-type TDynamicForm = { form: FormInstance };
+type TDynamicForm = { form: FormInstance; AdjustmentTypeId: number | undefined };
 export default DynamicForm;

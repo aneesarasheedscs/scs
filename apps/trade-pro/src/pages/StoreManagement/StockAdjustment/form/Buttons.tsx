@@ -15,7 +15,7 @@ function Buttons({
   selectedRecordId,
   setSelectedRecordId,
   DocumentTypeId,
-  requisitionById,
+  stockAdjustmentById,
   isDataSuccess,
   printPreview,
   setPrintPreview,
@@ -48,7 +48,7 @@ function Buttons({
                 isError={isError}
                 refetch={refetch}
                 isLoading={isLoading}
-                data={isDataSuccess ? requisitionById?.DocNo : data?.data?.Data?.Result}
+                data={isDataSuccess ? stockAdjustmentById?.DocNo : data?.data?.Data?.Result}
               />
               <Form.Item name="DocNo" style={{ display: 'none' }}>
                 <Input />
@@ -105,7 +105,7 @@ interface TButtonsProps {
   selectedRecordId: number | null;
   setSelectedRecordId: (id: number | null) => void;
   DocumentTypeId: number;
-  requisitionById: TStockAdjustment;
+  stockAdjustmentById: TStockAdjustment;
   isDataSuccess: boolean;
   printPreview: boolean;
   setPrintPreview: (id: boolean) => void;
