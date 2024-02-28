@@ -1,4 +1,4 @@
-import { map, values } from 'lodash';
+import { map } from 'lodash';
 import {
   useGetAccountsBalance,
   useGetBankReceiptProjectSelect,
@@ -254,12 +254,7 @@ const MainEntry = ({
                 style={{ marginTop: '1%' }}
                 className="formfield"
               >
-                <AntInput
-                  bordered={false}
-                  name="Remarks"
-                  label={t('remarks')}
-                  // style={{ border: '1px solid red', width: '100%' }}
-                />
+                <AntInput bordered={false} name="Remarks" label={t('remarks')} />
               </Col>
               <AntInput
                 bordered={false}
@@ -277,12 +272,12 @@ const MainEntry = ({
 
 type TDynamicForm = {
   form: FormInstance;
-  setBankId: any;
-  bankId: any;
-  setSharedStateIncludeWHT: any;
-  SharedStateIncludeWHT: any;
+  setBankId: (id: number | null) => void;
+  bankId: number | null;
+  setSharedStateIncludeWHT: (id: boolean) => void;
+  SharedStateIncludeWHT: boolean;
   ScheduleData: any;
-  setType: any;
+  setType: (value: number) => void;
 };
 
 export default MainEntry;

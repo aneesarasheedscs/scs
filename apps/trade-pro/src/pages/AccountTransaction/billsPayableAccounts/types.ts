@@ -1,5 +1,5 @@
 export type TBillsPayableAccountsHistory = {
-  Id: string;
+  Id: number;
   VoucherCode: number;
   DocumentTypeId: string;
   DocumentTypeCode: string;
@@ -66,6 +66,7 @@ export type TvoucherDetailList = {
   ItemRate: number;
   ItemAmount: number;
   DebitAmount: number;
+  CreditAmount: number;
   IsTaxable: string;
   DueDays: number;
   DueDate: Date | string;

@@ -8,7 +8,6 @@ import { addtableData } from './Atom';
 import DynamicForm from './DetailEntry';
 import { useEffect, useState } from 'react';
 import { Card, Form, notification } from 'antd';
-import { useTranslation } from 'react-i18next';
 import { TJournalVoucherData } from '../types';
 import { useAddJournalVoucher, useUpdateJournalVoucher } from '../quries';
 
@@ -17,12 +16,10 @@ const { useForm } = Form;
 function JournalVoucherForm({
   selectedRecordId,
   setSelectedRecordId,
-  refetchJournal,
   journalVoucherData,
   isDataSuccess,
 }: TAddUpdateRecord) {
   const [form] = useForm<TJournalVoucherData>();
-  const { t } = useTranslation();
   const DocumentTypeId = 5;
 
   const [tableData, setTableData] = useAtom(addtableData);
@@ -50,11 +47,7 @@ function JournalVoucherForm({
       }
     }
   };
-  useEffect(() => {
-    if (isNumber(selectedRecordId)) {
-      refetchJournal();
-    }
-  }, [selectedRecordId]);
+
   useEffect(() => {
     const VoucherDate = form.getFieldValue('VoucherDate');
     if (VoucherDate === null) {
@@ -96,10 +89,9 @@ function JournalVoucherForm({
   );
 }
 type TAddUpdateRecord = {
-  selectedRecordId?: number | null;
+  selectedRecordId: number | null;
   setSelectedRecordId: (id: number | null) => void;
-  refetchJournal: any;
   journalVoucherData: any;
-  isDataSuccess: any;
+  isDataSuccess: boolean;
 };
 export default JournalVoucherForm;

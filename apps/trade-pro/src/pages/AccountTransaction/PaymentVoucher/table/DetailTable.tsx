@@ -1,21 +1,18 @@
-import { AntTable } from '@tradePro/components';
-import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
-import { Card, Col, Row, theme } from 'antd';
-import { useTranslation } from 'react-i18next';
 import { useAtom } from 'jotai';
+import { Col, Row } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { viewDetailList } from '../form/Atom';
 import { detailColumns } from './Detailcolumn';
+import { AntTable } from '@tradePro/components';
+import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 
-function PaymentVoucherDetailTable({ refetch, isLoading }: any) {
+function PaymentVoucherDetailTable({ refetch, isLoading }: TEVHistory) {
   const { t } = useTranslation();
   const [viewDetail, setViewDetail] = useAtom(viewDetailList);
-  const {
-    token: { colorPrimary },
-  } = theme.useToken();
 
   return (
     <>
-      <Row style={{ marginTop: '0%' }}>
+      <Row>
         <Col span={24}>
           <h2 className="form-heading2">{t('detail')}</h2>
           <AntTable
@@ -32,5 +29,8 @@ function PaymentVoucherDetailTable({ refetch, isLoading }: any) {
     </>
   );
 }
-
+type TEVHistory = {
+  refetch: () => void;
+  isLoading: boolean;
+};
 export default PaymentVoucherDetailTable;

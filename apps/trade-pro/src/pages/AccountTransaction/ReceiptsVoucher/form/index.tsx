@@ -8,7 +8,6 @@ import MainEntry from './MainEntry';
 import { TSaveReceiptsVoucher } from './types';
 import { useEffect, useState } from 'react';
 import DynamicForm from './DetailEntryForm';
-import { useTranslation } from 'react-i18next';
 import { Card, Form, notification } from 'antd';
 import { useGetTaxSchedule } from '../queries/queries';
 import { useAddReceiptsVoucher, useUpdateReceiptsVoucher } from '../queries/querySave';
@@ -19,26 +18,18 @@ function ReceiptsVoucherForm({
   selectedRecordId,
   setSelectedRecordId,
   addBankReceipt,
-  refetchBankReceipt,
   isDataSuccess,
 }: TAddUpdateRecord) {
   const [form] = useForm<TSaveReceiptsVoucher>();
-  const { t } = useTranslation();
   const [type, setType] = useState<number | null>(null);
-
   const DocumentTypeId = type === null ? 4 : type;
   const [bankId, setBankId] = useState<number | null>(null);
   const [tableData, setTableData] = useAtom(addtableData);
-  const [SharedStateIncludeWHT, setSharedStateIncludeWHT] = useState(false);
+  const [SharedStateIncludeWHT, setSharedStateIncludeWHT] = useState<boolean>(false);
   const [TaxTypeId, setTaxTypeId] = useState<number | undefined>();
   const [VoucherDate, setVoucherDate] = useState<Date>(new Date());
   const BankReceiptGetById = addBankReceipt?.data?.Data?.Result;
-  const {
-    data: getTaxSchedule,
-    isSuccess: TaxSuccess,
-    refetch: TaxScheduleRefetch,
-    isLoading: TaxLoading,
-  } = useGetTaxSchedule(VoucherDate, TaxTypeId);
+  const { data: getTaxSchedule, refetch: TaxScheduleRefetch } = useGetTaxSchedule(VoucherDate, TaxTypeId);
   const handleTaxTypeChange = (TaxId: number) => {
     setTaxTypeId(TaxId);
   };
@@ -52,13 +43,12 @@ function ReceiptsVoucherForm({
   }, [SharedStateIncludeWHT, VoucherDate, TaxTypeId]);
   const { mutate: addReceiptVoucher, data: saveData, isSuccess } = useAddReceiptsVoucher(DocumentTypeId);
   const { mutate: updateReceiptVoucher, data: updateData } = useUpdateReceiptsVoucher(selectedRecordId, DocumentTypeId);
-  const [printPreview, setPrintPreview] = useState(true);
+  const [printPreview, setPrintPreview] = useState<boolean>(true);
   const AgainstAccountId = form.getFieldValue('AgainstAccountId');
   console.log(AgainstAccountId);
 
   const onFinish = (values: TSaveReceiptsVoucher) => {
     const AgainstAccountId = form.getFieldValue('AgainstAccountId');
-
     values.PrintPreview = printPreview;
     const TaxableEntry: any = {};
     if (values.IncludeWHT) {
@@ -166,10 +156,10 @@ function ReceiptsVoucherForm({
         <MainEntry
           form={form}
           setBankId={setBankId}
+          bankId={bankId}
           setSharedStateIncludeWHT={setSharedStateIncludeWHT}
           SharedStateIncludeWHT={SharedStateIncludeWHT}
           ScheduleData={getTaxSchedule?.data?.Data?.Result?.[0]}
-          bankId={bankId}
           setType={setType}
         />
         <DynamicForm
@@ -182,13 +172,11 @@ function ReceiptsVoucherForm({
     </Card>
   );
 }
-
 type TAddUpdateRecord = {
-  selectedRecordId?: number | null;
+  selectedRecordId: number | null;
   setSelectedRecordId: (id: number | null) => void;
   addBankReceipt: any;
-  refetchBankReceipt: any;
-  isDataSuccess: any;
+  isDataSuccess: boolean;
 };
 
 export default ReceiptsVoucherForm;

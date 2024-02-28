@@ -47,10 +47,7 @@ const MainEntry = ({ form, setBankId, bankId }: TDynamicForm) => {
       <Row gutter={[10, 10]} style={{ marginTop: '-0.3%', marginBottom: '0.5%' }}>
         <Col span={24}>
           <Card style={{ paddingBottom: '0.5%', boxShadow: '2px 4px 12px 1px gray' }}>
-            <div
-              className="form-list-container"
-              style={{ border: ' ', display: 'flex', justifyContent: 'space-between' }}
-            >
+            <div className="form-list-container" style={{ display: 'flex', justifyContent: 'space-between' }}>
               <Col
                 xs={{ span: 23 }}
                 sm={{ span: 22 }}
@@ -61,6 +58,7 @@ const MainEntry = ({ form, setBankId, bankId }: TDynamicForm) => {
                 className="formfield"
               >
                 <AntSelectDynamic
+                  disabled
                   bordered={false}
                   label={t('cost_center')}
                   fieldValue="Id"

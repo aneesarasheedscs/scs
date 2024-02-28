@@ -1,18 +1,19 @@
-import { EditFilled, PrinterOutlined, EyeTwoTone, DeleteOutlined } from '@ant-design/icons';
-import { AntColumnType } from '@tradePro/globalTypes';
-import { AntButton } from '@tradePro/components';
-import { Space, Tooltip } from 'antd';
-import { formateDate } from '@tradePro/utils/formateDate';
-import { TExpenseVoucherHistory } from './types';
-import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import { DataType } from '../form/types';
 import dayjs from 'dayjs';
+import { TFunction } from 'i18next';
+import { Space, Tooltip } from 'antd';
+import { TExpenseDetailEntry } from '../form/types';
+import { AntButton } from '@tradePro/components';
+import { TExpenseVoucherHistory } from './types';
+import { AntColumnType } from '@tradePro/globalTypes';
+import { formateDate } from '@tradePro/utils/formateDate';
+import { numberFormatter } from '@tradePro/utils/numberFormatter';
+import { EditFilled, EyeTwoTone, DeleteOutlined } from '@ant-design/icons';
 
 export const columns = (
-  t: any,
-  setSelectedRecordId?: any,
-  setActiveTab?: any,
-  setSelectedRecordDetailId?: any
+  t: TFunction,
+  setSelectedRecordId: (Id: number | null) => void,
+  setActiveTab: (tab: string) => void,
+  setSelectedRecordDetailId: (Id: number | null) => void
 ): AntColumnType<TExpenseVoucherHistory>[] => [
   {
     title: t('code'),
@@ -126,7 +127,11 @@ export const columns = (
   },
 ];
 
-export const columns2 = (t: any, handleDeleteRow: any, handleEditRow: any): AntColumnType<DataType>[] => [
+export const columns2 = (
+  t: TFunction,
+  handleDeleteRow: (record: TExpenseDetailEntry) => void,
+  handleEditRow: (record: TExpenseDetailEntry) => void
+): AntColumnType<TExpenseDetailEntry>[] => [
   {
     title: t('debit_account'),
     width: 400,

@@ -1,19 +1,3 @@
-export type ReceiptVoucher = {
-  AccountId: number;
-  AgainstAccountId: number;
-  JobLotId: number;
-  Comments: string;
-  PaymentType: 'Advance' | 'Other';
-  AdvanceAmount: number;
-  DebitAmount: number;
-  CreditAmount: number;
-  InvoiceNoRefId: number;
-  CheqNoDetail: number;
-  DCheqDate: string;
-  PayeeTitle: string;
-  IsTaxable: boolean;
-};
-
 export type AccountData = {
   Id: number;
   ChartofAccountId: number;

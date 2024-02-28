@@ -1,15 +1,15 @@
 import dayjs from 'dayjs';
 import '../style.scss';
-import MainEntry from './MainEntry';
-import DynamicForm from './DetailEntry';
 import { useAtom } from 'jotai';
 import Buttons from './Buttons';
 import { isNumber } from 'lodash';
+import { addtableData } from './Atom';
+import MainEntry from './MainEntry';
+import DynamicForm from './DetailEntry';
 import { useEffect, useState } from 'react';
 import { Card, Form, notification } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { TSavePaymentVoucher } from './types';
-import { addtableData } from './Atom';
 import DynamicFormCPV from './DetailEntryCPV';
 import { useGetTaxSchedule } from '../queries/queries';
 import { useAddPaymentsVoucher, useUpdatePaymentsVoucher } from '../queries/querySave';
@@ -19,7 +19,6 @@ const { useForm } = Form;
 function PaymentVoucherForm({
   selectedRecordId,
   setSelectedRecordId,
-  refetchBankPayment,
   isDataSuccess,
   addBankPayment,
 }: TAddUpdateRecord) {
@@ -27,10 +26,10 @@ function PaymentVoucherForm({
   const { t } = useTranslation();
   const [bankId, setBankId] = useState<number | null>(null);
   const [type, setType] = useState<number | null>(null);
-
   const DocumentTypeId = type === null ? 2 : type;
   const [tableData, setTableData] = useAtom(addtableData);
-  const [isAddButtonClicked, setIsAddButtonClicked] = useState(true);
+  const [isAddButtonClicked, setIsAddButtonClicked] = useState<boolean>(true);
+  const [SharedStateIncludeWHT, setSharedStateIncludeWHT] = useState<boolean>(false);
   const { mutate: addPaymentVoucher, data: saveData, isSuccess } = useAddPaymentsVoucher(DocumentTypeId);
   const { mutate: updatePaymentVoucher, data: updateData } = useUpdatePaymentsVoucher(DocumentTypeId, selectedRecordId);
   const [printPreview, setPrintPreview] = useState(true);
@@ -42,7 +41,6 @@ function PaymentVoucherForm({
     refetch: TaxScheduleRefetch,
     isLoading: TaxLoading,
   } = useGetTaxSchedule(VoucherDate, TaxTypeId);
-  const [SharedStateIncludeWHT, setSharedStateIncludeWHT] = useState(false);
   const AgainstAccountId = form.getFieldValue('AgainstAccountId');
   console.log(AgainstAccountId);
   useEffect(() => {
@@ -185,10 +183,9 @@ function PaymentVoucherForm({
   );
 }
 type TAddUpdateRecord = {
-  selectedRecordId?: number | null;
+  selectedRecordId: number | null;
   setSelectedRecordId: (id: number | null) => void;
-  refetchBankPayment: any;
-  isDataSuccess: any;
+  isDataSuccess: boolean;
   addBankPayment: any;
 };
 

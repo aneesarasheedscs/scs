@@ -17,7 +17,6 @@ const { useForm } = Form;
 function ExpenseVoucherForm({
   selectedRecordId,
   setSelectedRecordId,
-  refetchExpense,
   ExpenseVoucherById,
   isDataSuccess,
 }: TAddUpdateRecord) {
@@ -102,10 +101,9 @@ function ExpenseVoucherForm({
 }
 
 type TAddUpdateRecord = {
-  selectedRecordId?: number | null;
+  selectedRecordId: number | null;
   setSelectedRecordId: (Id: number | null) => void;
-  refetchExpense: any;
   ExpenseVoucherById: any;
-  isDataSuccess: any;
+  isDataSuccess: boolean;
 };
 export default ExpenseVoucherForm;

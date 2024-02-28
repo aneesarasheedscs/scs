@@ -35,17 +35,9 @@ export type TSaveExpenseVoucher = {
   IncludeWHT: boolean;
   Remarks: string;
   VoucherAmount: number;
-  voucherDetailList: ExpenseVoucherDetail[];
+  voucherDetailList: TExpenseDetailEntry[];
 };
 
-export type ExpenseVoucherDetail = {
-  AccountId: number;
-  AgainstAccountId: number;
-  JobLotId: number;
-  Comments: string;
-  DebitAmount: number;
-  CreditAmount: number;
-};
 export type TExpenseDetailEntry = {
   AccountId: number;
   AccountTitle: string;
@@ -58,17 +50,7 @@ export type TExpenseDetailEntry = {
   key: number;
   AccountCode: number;
   AgainstAccount: string;
-};
-export type DataType = {
-  AccountId: number;
-  AccountTitle: string;
-  debitAccount: any;
-  JobLotId: number;
   LineId: number;
-  AgainstAccountId: number;
-  JobLotDescription: string;
-  DebitAmount: number;
-  Comments: string;
 };
 
 export type TjobLot = {

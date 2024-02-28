@@ -23,10 +23,10 @@ function ContraVoucher() {
   } = useGetContraVoucherById(selectedRecordId);
   const { data, refetch, isSuccess, isLoading } = useGetContraVoucherDetailById(selectedRecordIdforDetail);
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && !isLoading) {
       setViewDetail(data?.data?.Data?.Result?.voucherDetailList);
     }
-  }, [isSuccess, !isLoading]);
+  }, [isSuccess, isLoading]);
 
   return (
     <>

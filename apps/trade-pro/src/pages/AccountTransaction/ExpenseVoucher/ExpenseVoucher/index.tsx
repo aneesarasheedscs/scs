@@ -1,17 +1,17 @@
 import './style.scss';
 import { useAtom } from 'jotai';
+import { Col, Row, Tabs } from 'antd';
 import ExpenseVoucherForm from './form';
 import { useEffect, useState } from 'react';
 import { viewDetailList } from './form/Atom';
 import { useTranslation } from 'react-i18next';
-import { Card, Col, Row, Tabs, theme } from 'antd';
 import ExpenseVoucherTable from './table/expenseVoucherTable';
 import { useGetExpenseVoucherById, useGetExpenseVoucherDetail } from './queries/querySave';
 
 function ExpenseVoucher() {
   const { t } = useTranslation();
-  const [selectedRecordId, setSelectedRecordId] = useState<any>();
-  const [selectedRecordDetailId, setSelectedRecordDetailId] = useState<any>();
+  const [selectedRecordId, setSelectedRecordId] = useState<number | null>(null);
+  const [selectedRecordDetailId, setSelectedRecordDetailId] = useState<number | null>();
   const [activeTab, setActiveTab] = useState<string>('1');
   const [viewDetail, setViewDetail] = useAtom(viewDetailList);
 
@@ -23,13 +23,10 @@ function ExpenseVoucher() {
   } = useGetExpenseVoucherById(selectedRecordId);
   const { data, refetch, isSuccess, isLoading } = useGetExpenseVoucherDetail(selectedRecordDetailId);
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && !isLoading) {
       setViewDetail(data?.data?.Data?.Result?.voucherDetailList);
     }
-  }, [isSuccess, !isLoading]);
-  const {
-    token: { colorPrimary },
-  } = theme.useToken();
+  }, [isSuccess, isLoading]);
 
   return (
     <>
@@ -56,7 +53,6 @@ function ExpenseVoucher() {
               <ExpenseVoucherForm
                 selectedRecordId={selectedRecordId}
                 setSelectedRecordId={setSelectedRecordId}
-                refetchExpense={refetchExpense}
                 ExpenseVoucherById={ExpenseVoucherById}
                 isDataSuccess={isDataSuccess}
               />

@@ -1,23 +1,22 @@
 import _ from 'lodash';
 import { sumBy } from 'lodash';
 import { useAtom } from 'jotai';
-import { columns } from './column';
 import { addtableData } from './Atom';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import DetailEntryTable from './DetailEntryTable';
 import { TAccountsCombo, TVoucherDetailList } from '../types';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { Card, Col, Row, Form, FormInstance, notification } from 'antd';
 import { useGetAccountsBalances, useGetAccountsCombo } from '../quries';
-import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
-import { AntButton, AntInput, AntInputNumber, AntSelectDynamic, AntTable } from '@tradePro/components';
+import { AntButton, AntInput, AntInputNumber, AntSelectDynamic } from '@tradePro/components';
 
 const { useWatch } = Form;
 
 const DynamicForm = ({ form }: TDynamicForm) => {
   const formValues = useWatch<TVoucherDetailList[]>('voucherDetailList', form);
-  const [refAccountId, setRefAccountId] = useState(0);
-  const [refAccountIdforDebit, setRefAccountIdforDebit] = useState(0);
+  const [refAccountId, setRefAccountId] = useState<number>(0);
+  const [refAccountIdforDebit, setRefAccountIdforDebit] = useState<number>(0);
   const { t } = useTranslation();
   const { data } = useGetAccountsBalances(refAccountId);
   const { data: balanceforDebitAccount } = useGetAccountsBalances(refAccountIdforDebit);
@@ -171,45 +170,6 @@ const DynamicForm = ({ form }: TDynamicForm) => {
     setRefAccountIdforDebit(0);
   };
 
-  const handleDeleteRow = (record: any) => {
-    setTableData((prevData: any[]) => {
-      const updatedData = prevData.filter(
-        (item: any) => item.LineId !== record.LineId && item.LineId !== record.LineId - 1
-      );
-      console.log('New tableData:', updatedData);
-      return updatedData;
-    });
-  };
-  const handleEditRow = (record: any) => {
-    console.log(record);
-    setEdit(record);
-    setTableData((prevData: any[]) => {
-      const editedRowIndex = prevData.findIndex((item: any) => item.LineId === record.LineId);
-
-      if (editedRowIndex >= 0) {
-        const currentRow = { ...prevData[editedRowIndex] };
-
-        if (editedRowIndex > 0) {
-          const aboveRow = { ...prevData[editedRowIndex - 1] };
-          form.setFieldValue(['voucherDetailList', 0, 'AccountIdD'], aboveRow.AccountId);
-          form.setFieldValue(['voucherDetailList', 0, 'AccountTitleD'], aboveRow.AccountTitle);
-        } else {
-          form.setFieldValue(['voucherDetailList', 0, 'AccountIdD'], '');
-          form.setFieldValue(['voucherDetailList', 0, 'AccountTitleD'], '');
-        }
-
-        form.setFieldValue(['voucherDetailList', 0, 'AccountIdC'], currentRow.AccountId);
-        form.setFieldValue(['voucherDetailList', 0, 'AccountTitleC'], currentRow.AccountTitle);
-        form.setFieldValue(['voucherDetailList', 0, 'CheqNoDetail'], record.CheqNoDetail);
-        form.setFieldValue(['voucherDetailList', 0, 'DebitAmount'], record.CreditAmount);
-        form.setFieldValue(['voucherDetailList', 0, 'Comments'], record.Comments);
-      }
-
-      setIsEditMode(true);
-      console.log('New tableData:', prevData);
-      return prevData;
-    });
-  };
   const handleChange = (value: any) => {
     if (value < 0) {
       notification.error({ description: 'Amount must be non-negative!', message: '' });
@@ -246,17 +206,15 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         xl={{ span: 7 }}
                         className="formfield"
                       >
-                        <p style={{ marginTop: 0 }}>
-                          <AntSelectDynamic
-                            bordered={false}
-                            label={t('debit_account')}
-                            fieldValue="Id"
-                            fieldLabel="AccountTitle"
-                            name={[field.name, 'AccountIdD']}
-                            query={useGetAccountsCombo}
-                            onSelectChange={(obj) => handleDebitAccountChange(obj, field.name)}
-                          />
-                        </p>
+                        <AntSelectDynamic
+                          bordered={false}
+                          label={t('debit_account')}
+                          fieldValue="Id"
+                          fieldLabel="AccountTitle"
+                          name={[field.name, 'AccountIdD']}
+                          query={useGetAccountsCombo}
+                          onSelectChange={(obj) => handleDebitAccountChange(obj, field.name)}
+                        />
                       </Col>
                       <Col
                         xs={{ span: 24 }}
@@ -267,7 +225,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         xxl={{ span: 3 }}
                         className="formfield"
                       >
-                        <p style={{ marginTop: 10, marginLeft: '0%' }}>
+                        <p style={{ marginTop: 10 }}>
                           Dr:
                           <b> {numberFormatter(balanceforDebitAccount?.data?.Data?.Result?.[0]?.Balance)}</b>
                         </p>
@@ -280,13 +238,11 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         xl={{ span: 7 }}
                         className="formfield"
                       >
-                        <p style={{ marginTop: 0 }}>
-                          <AntInput
-                            bordered={false}
-                            formItemProps={{ ...field, name: [field.name, 'Comments'] }}
-                            label={'Cr Comments'}
-                          />
-                        </p>
+                        <AntInput
+                          bordered={false}
+                          formItemProps={{ ...field, name: [field.name, 'Comments'] }}
+                          label={'Cr Comments'}
+                        />
                       </Col>
 
                       <Col
@@ -298,13 +254,11 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         xxl={{ span: 3 }}
                         className="formfield"
                       >
-                        <p style={{ marginTop: 0 }}>
-                          <AntInput
-                            bordered={false}
-                            formItemProps={{ ...field, name: [field.name, 'CheqNoDetail'] }}
-                            label={'Cheq / Ref'}
-                          />
-                        </p>
+                        <AntInput
+                          bordered={false}
+                          formItemProps={{ ...field, name: [field.name, 'CheqNoDetail'] }}
+                          label={'Cheq / Ref'}
+                        />
                       </Col>
 
                       <Col
@@ -316,14 +270,12 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         xxl={{ span: 3 }}
                         className="formfield"
                       >
-                        <p style={{ marginTop: 0 }}>
-                          <AntInputNumber
-                            bordered={false}
-                            label={t('amount')}
-                            formItemProps={{ ...field, name: [field.name, 'DebitAmount'] }}
-                            onChange={(value) => handleChange(value)}
-                          />
-                        </p>
+                        <AntInputNumber
+                          bordered={false}
+                          label={t('amount')}
+                          formItemProps={{ ...field, name: [field.name, 'DebitAmount'] }}
+                          onChange={(value) => handleChange(value)}
+                        />
                       </Col>
 
                       <Col
@@ -334,17 +286,15 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         xl={{ span: 7 }}
                         className="formfield"
                       >
-                        <p style={{ marginTop: 0 }}>
-                          <AntSelectDynamic
-                            bordered={false}
-                            label={t('credit_account')}
-                            fieldValue="Id"
-                            fieldLabel="AccountTitle"
-                            query={useGetAccountsCombo}
-                            name={[field.name, 'AccountIdC']}
-                            onSelectChange={(obj) => handleCreditAccountChange(obj, field.name)}
-                          />
-                        </p>
+                        <AntSelectDynamic
+                          bordered={false}
+                          label={t('credit_account')}
+                          fieldValue="Id"
+                          fieldLabel="AccountTitle"
+                          query={useGetAccountsCombo}
+                          name={[field.name, 'AccountIdC']}
+                          onSelectChange={(obj) => handleCreditAccountChange(obj, field.name)}
+                        />
                       </Col>
                       <Col
                         xs={{ span: 24 }}
@@ -370,13 +320,11 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         xxl={{ span: 7 }}
                         className="formfield"
                       >
-                        <p>
-                          <AntInput
-                            bordered={false}
-                            formItemProps={{ ...field, name: [field.name, 'Comments'] }}
-                            label={'Dr Comments'}
-                          />
-                        </p>
+                        <AntInput
+                          bordered={false}
+                          formItemProps={{ ...field, name: [field.name, 'Comments'] }}
+                          label={'Dr Comments'}
+                        />
                       </Col>
 
                       <Col
@@ -387,7 +335,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         xl={{ span: 11 }}
                         xxl={{ span: 6 }}
                       >
-                        <Row style={{ marginTop: '0%' }} gutter={10}>
+                        <Row gutter={10}>
                           <Col
                             xs={{ span: 10 }}
                             sm={{ span: 6 }}
@@ -436,19 +384,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
               )}
             </Form.List>
           </Card>
-
-          <Row gutter={[16, 16]} style={{ marginTop: 10 }}>
-            <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }}>
-              <Card style={{ boxShadow: '2px 4px 12px 1px gray', textAlign: 'left' }}>
-                <AntTable
-                  numberOfSkeletons={12}
-                  scroll={{ x: '', y: convertVhToPixels('20vh') }}
-                  data={tableData || []}
-                  columns={columns(t, handleDeleteRow, handleEditRow)}
-                />
-              </Card>
-            </Col>
-          </Row>
+          <DetailEntryTable form={form} setIsEditMode={setIsEditMode} setEdit={setEdit} />
           <br />
         </Col>
       </Row>

@@ -1,8 +1,9 @@
+import { TFunction } from 'i18next';
+import { TvoucherDetailList } from '../types';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import { DataType } from '../form/types';
 
-export const detailColumns = (t?: any): AntColumnType<DataType>[] => [
+export const detailColumns = (t: TFunction): AntColumnType<TvoucherDetailList>[] => [
   {
     title: t('account_title'),
     width: 400,

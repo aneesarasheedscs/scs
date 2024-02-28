@@ -136,7 +136,7 @@ export const useGetBPAJobLotSelect = () => {
   );
 };
 //Get Accounts Balances
-export const useGetAccountsBalance = (accountId: number) => {
+export const useGetAccountsBalance = (accountId: number | null) => {
   return useQuery(
     ['Accounts-Balances', accountId],
     () => {

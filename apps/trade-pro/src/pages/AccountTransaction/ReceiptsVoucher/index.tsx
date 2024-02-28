@@ -1,7 +1,7 @@
 import './style.scss';
 import { useAtom } from 'jotai';
 import { useEffect, useState } from 'react';
-import { Col, Row, Tabs, theme } from 'antd';
+import { Col, Row, Tabs } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { viewDetailList } from './form/Atom';
 import ReceiptsVoucherForm from './form';
@@ -10,16 +10,12 @@ import { useGetBankReceiptVoucherById, useGetBankReceiptVoucherDetailById } from
 
 function ReceiptsVouchers() {
   const { t } = useTranslation();
-  const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
+  const [selectedRecordId, setSelectedRecordId] = useState<number | null>(null);
   const [selectedRecordDetailId, setSelectedRecordDetailId] = useState<number | null>();
   const [activeTab, setActiveTab] = useState<string>('1');
   const [viewDetail, setViewDetail] = useAtom(viewDetailList);
 
-  const {
-    data: addBankReceipt,
-    refetch: refetchBankReceipt,
-    isSuccess: isDataSuccess,
-  } = useGetBankReceiptVoucherById(selectedRecordId);
+  const { data: addBankReceipt, isSuccess: isDataSuccess } = useGetBankReceiptVoucherById(selectedRecordId);
   const { data, refetch, isSuccess, isLoading } = useGetBankReceiptVoucherDetailById(selectedRecordDetailId);
   useEffect(() => {
     if (isSuccess) {
@@ -27,9 +23,6 @@ function ReceiptsVouchers() {
       setViewDetail(DetailList);
     }
   }, [isSuccess, !isLoading]);
-  const {
-    token: { colorPrimary },
-  } = theme.useToken();
 
   return (
     <>
@@ -57,7 +50,6 @@ function ReceiptsVouchers() {
                 selectedRecordId={selectedRecordId}
                 setSelectedRecordId={setSelectedRecordId}
                 addBankReceipt={addBankReceipt}
-                refetchBankReceipt={refetchBankReceipt}
                 isDataSuccess={isDataSuccess}
               />
             </Tabs.TabPane>

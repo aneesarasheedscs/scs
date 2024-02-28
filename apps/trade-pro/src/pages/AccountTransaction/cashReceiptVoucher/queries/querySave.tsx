@@ -3,11 +3,11 @@ import { useMutation, useQuery } from 'react-query';
 import { notification } from 'antd';
 import { AxiosError, AxiosResponse } from 'axios';
 import { requestManager } from '@tradePro/configs/requestManager';
-import { storedUserDetail } from '@tradePro/utils/storageService';
+import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 import { TSaveCashReceiptVoucher } from '../form/types';
 
-const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
-const financialYear: any = JSON.parse(localStorage.getItem('financialYear') || '{}');
+const userDetail = storedUserDetail();
+const financialYear = storedFinancialYear();
 
 //Get ById
 export const useGetCashReceiptVoucherById = (Id?: number | null | any) => {

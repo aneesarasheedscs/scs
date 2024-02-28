@@ -2,7 +2,7 @@ import './Card.scss';
 import './DetailTableFile.scss';
 import { useState } from 'react';
 import CardView from './CardView';
-import { Col, Row, theme } from 'antd';
+import { Col, Row } from 'antd';
 import { columns } from './columns';
 import { useTranslation } from 'react-i18next';
 import BankReceiptDetailTable from './DetailTable';
@@ -20,9 +20,6 @@ function BankReceiptTable({
   const { t } = useTranslation();
   const { data, isError, isLoading: isLoadingBRV, refetch: refetchBRV, isFetching } = useGetBankReceiptVoucherTable();
   const [showComponent, setShowComponent] = useState(false);
-  const {
-    token: { colorPrimary },
-  } = theme.useToken();
 
   const toggleCardView = () => {
     setShowComponent(true);

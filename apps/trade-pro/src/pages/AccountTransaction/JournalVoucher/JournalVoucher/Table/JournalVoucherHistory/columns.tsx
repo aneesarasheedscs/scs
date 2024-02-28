@@ -6,12 +6,13 @@ import { TJournalVoucherHistory } from '../../types';
 import { EditFilled, EyeTwoTone } from '@ant-design/icons';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
+import { TFunction } from 'i18next';
 
 export const columns = (
-  t?: any,
-  setSelectedRecordId?: any,
-  setActiveTab?: any,
-  setSelectedRecordDetailId?: any
+  t: TFunction,
+  setSelectedRecordId: (id: number | null) => void,
+  setActiveTab: (tab: string) => void,
+  setSelectedRecordDetailId: (id: number | null) => void
 ): AntColumnType<TJournalVoucherHistory>[] => [
   {
     title: t('voucher_code'),

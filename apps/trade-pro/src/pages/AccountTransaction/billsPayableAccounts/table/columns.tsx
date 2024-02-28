@@ -1,16 +1,18 @@
-import { EditFilled, EyeTwoTone, DeleteOutlined } from '@ant-design/icons';
-import { AntColumnType } from '@tradePro/globalTypes';
-import { AntButton } from '@tradePro/components';
+import dayjs from 'dayjs';
+import { TFunction } from 'i18next';
 import { Space, Tooltip } from 'antd';
+import { AntButton } from '@tradePro/components';
+import { AntColumnType } from '@tradePro/globalTypes';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import dayjs from 'dayjs';
+import { EditFilled, EyeTwoTone, DeleteOutlined } from '@ant-design/icons';
 import { TBillsPayableAccountsHistory, TvoucherDetailList } from '../types';
+
 export const columns = (
-  t: any,
-  setSelectedRecordId?: any,
-  setActiveTab?: any,
-  setSelectedRecordDetailId?: any
+  t: TFunction,
+  setSelectedRecordId: (id: number | null) => void,
+  setActiveTab: (tab: string) => void,
+  setSelectedRecordDetailId: (id: number | null) => void
 ): AntColumnType<TBillsPayableAccountsHistory>[] => [
   {
     title: t('code'),
@@ -118,7 +120,7 @@ export const columns = (
               type="text"
               icon={<EditFilled style={{ color: '#006640' }} />}
               onClick={() => {
-                setSelectedRecordId(record?.Id), setActiveTab('2');
+                setSelectedRecordId(record.Id), setActiveTab('2');
               }}
             />
           </Space>

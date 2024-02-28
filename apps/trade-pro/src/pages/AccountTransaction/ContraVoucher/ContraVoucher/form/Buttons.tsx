@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { addtableData } from '../form/Atom';
 import { useGetVoucherNo } from '../queries/queries';
 import { AntButton, AntDatePicker } from '@tradePro/components';
-import { Badge, Col, Form, FormInstance, Input, Row, notification } from 'antd';
+import { Badge, Col, Form, FormInstance, Input, Row } from 'antd';
 import { SaveOutlined, SyncOutlined, RedoOutlined, PaperClipOutlined, PrinterFilled } from '@ant-design/icons';
 
 function Buttons({

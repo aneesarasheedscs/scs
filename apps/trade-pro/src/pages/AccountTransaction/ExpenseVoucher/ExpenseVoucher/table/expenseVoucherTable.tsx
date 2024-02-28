@@ -3,7 +3,7 @@ import './DetailTableFile.scss';
 import { columns } from './columns';
 import { useState } from 'react';
 import CardView from './CardView';
-import { Card, Col, Row, theme } from 'antd';
+import { Col, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
 import ExpenseVoucherDetailTable from './DetailTable';
 import { AntButton, AntTable } from '@tradePro/components';
@@ -16,7 +16,7 @@ function ExpenseVoucherTable({
   setSelectedRecordDetailId,
   refetch,
   isLoading,
-}: TFrom) {
+}: TEVHistory) {
   const { t } = useTranslation();
   const {
     data,
@@ -25,10 +25,7 @@ function ExpenseVoucherTable({
     refetch: refetchExpense,
     isFetching,
   } = useGetExpenseVoucherTable();
-  const [showComponent, setShowComponent] = useState(false);
-  const {
-    token: { colorPrimary },
-  } = theme.useToken();
+  const [showComponent, setShowComponent] = useState<boolean>(false);
 
   const toggleCardView = () => {
     setShowComponent(true);
@@ -43,25 +40,12 @@ function ExpenseVoucherTable({
         <Col span={24} style={{ marginLeft: '0.5%', borderTop: '1px solid #dfdfdf' }}>
           <AntButton
             onClick={toggleGridView}
-            className=""
-            style={{
-              background: showComponent ? '' : '#fff',
-              color: showComponent ? '' : `${colorPrimary}`,
-              fontWeight: 'bold',
-              border: showComponent ? '' : `1px solid ${colorPrimary}`,
-            }}
+            className={showComponent ? 'toggleGridView' : 'toggleCardView'}
             label={t('grid_view')}
           />
           <AntButton
             onClick={toggleCardView}
-            style={{
-              background: showComponent ? '#fff' : '',
-              color: showComponent ? `${colorPrimary}` : '',
-              fontWeight: 'bold',
-              border: showComponent ? `1px solid ${colorPrimary}` : '',
-              marginLeft: '0.2%',
-            }}
-            className=""
+            className={showComponent ? 'toggleCardView' : 'toggleGridView'}
             label={t('card_view')}
           />
         </Col>
@@ -89,12 +73,12 @@ function ExpenseVoucherTable({
   );
 }
 
-type TFrom = {
+type TEVHistory = {
   setSelectedRecordId: (Id: number | null) => void;
   setActiveTab: (tab: string) => void;
   setSelectedRecordDetailId: (Id: number | null) => void;
-  refetch: any;
-  isLoading: any;
+  refetch: () => void;
+  isLoading: boolean;
 };
 
 export default ExpenseVoucherTable;

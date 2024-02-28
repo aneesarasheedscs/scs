@@ -1,8 +1,9 @@
+import { TFunction } from 'i18next';
+import { TExpenseDetailEntry } from '../form/types';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import { TExpenseDetailEntry } from '../form/types';
 
-export const detailColumns = (t?: any): AntColumnType<TExpenseDetailEntry>[] => [
+export const detailColumns = (t: TFunction): AntColumnType<TExpenseDetailEntry>[] => [
   {
     title: t('account_title'),
     width: 400,

@@ -10,7 +10,7 @@ import { useGetBillsPayableAccountsDetailById, useGetBillsPayableVoucherById } f
 
 function BillsPayableAccounts() {
   const { t } = useTranslation();
-  const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
+  const [selectedRecordId, setSelectedRecordId] = useState<number | null>(null);
   const [selectedRecordDetailId, setSelectedRecordDetailId] = useState<number | null>();
   const [activeTab, setActiveTab] = useState<string>('1');
   const [viewDetail, setViewDetail] = useAtom(viewDetailList);
@@ -30,7 +30,7 @@ function BillsPayableAccounts() {
   } = theme.useToken();
   return (
     <>
-      <Row style={{ background: '', marginLeft: '', marginTop: '0%' }}>
+      <Row>
         <Col span={24}>
           <h2 className="form-heading">{t('bills_payable_accounts')}</h2>
           <Tabs
@@ -54,7 +54,6 @@ function BillsPayableAccounts() {
                 selectedRecordId={selectedRecordId}
                 setSelectedRecordId={setSelectedRecordId}
                 addBillsPayable={addBillsPayable}
-                refetchBillsPayable={refetchBillsPayable}
                 isDataSuccess={isDataSuccess}
               />
             </Tabs.TabPane>

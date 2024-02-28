@@ -6,7 +6,7 @@ import { useAtom } from 'jotai';
 import { viewDetailList } from '../form/Atom';
 import { detailColumns } from './Detailcolumn';
 
-function ReceiptsDetailTables({ refetch, isLoading }: any) {
+function ReceiptsDetailTables({ refetch, isLoading }: TRVHistory) {
   const { t } = useTranslation();
   const [viewDetail, setViewDetail] = useAtom(viewDetailList);
   const {
@@ -32,5 +32,8 @@ function ReceiptsDetailTables({ refetch, isLoading }: any) {
     </>
   );
 }
-
+type TRVHistory = {
+  refetch: () => void;
+  isLoading: boolean;
+};
 export default ReceiptsDetailTables;
