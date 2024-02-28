@@ -21,7 +21,7 @@ const Tablefile: React.FC<{ selectedRecordId?: number | any; stockTransfer: any 
     isSuccess: isDataSuccess,
     isLoading: isDataLoading,
   } = useGetStockAdjustmentById(selectedRecordId);
-  const DetailData = stockTransfergetById?.data?.Data?.Result?.WsRmRequisitionPoDetailsList;
+  const DetailData = stockTransfergetById?.data?.Data?.Result?.InvStockAdjustmentDetailslist;
   const [mainDataSourc, setMainDataSourc] = useState<InvStockAdjustmentDetail[]>([]);
   console.log(DetailData);
 
@@ -30,11 +30,11 @@ const Tablefile: React.FC<{ selectedRecordId?: number | any; stockTransfer: any 
       setMainDataSourc(DetailData);
     }
   }, [isDataSuccess, !isDataLoading]);
-  const totalQty = _.sumBy(DetailData, 'ReqQty');
-  const totalAmount = _.sumBy(DetailData, 'ReqAmount');
+  const totalQty = _.sumBy(DetailData, 'Qty');
+  const totalAmount = _.sumBy(DetailData, 'Amount');
   const totalItemRate = _.sumBy(DetailData, 'ReqRate');
-  const totalNetWeight = _.sumBy(DetailData, 'BillWeight');
-  const totalDetailAmount = _.sumBy(DetailData, 'ReqAmount');
+  const totalNetWeight = _.sumBy(DetailData, 'NetWeight');
+  const totalDetailAmount = _.sumBy(DetailData, 'Amount');
   console.log(totalAmount);
 
   return (
@@ -79,19 +79,19 @@ const Tablefile: React.FC<{ selectedRecordId?: number | any; stockTransfer: any 
                   </div>
 
                   <div style={{ textAlign: 'center' }} className="jobLOt">
-                    {item.ReqQty > 0 ? numberFormatter(item.ReqQty) : 0}
+                    {item.Qty > 0 ? numberFormatter(item.Qty) : 0}
                   </div>
                   <div style={{ textAlign: 'center' }} className="Debit">
                     {item.PackUom}
                   </div>
                   <div style={{ textAlign: 'right' }} className="Credit">
-                    {item.BillWeight > 0 ? numberFormatter(item.BillWeight) : 0}
+                    {item.NetWeight > 0 ? numberFormatter(item.NetWeight) : 0}
                   </div>
                   <div style={{ textAlign: 'right' }} className="Credit">
-                    {item.ReqRate > 0 ? numberFormatter(item.ReqRate) : 0}
+                    {item.ItemRate > 0 ? numberFormatter(item.ItemRate) : 0}
                   </div>
                   <div style={{ textAlign: 'right' }} className="Credit">
-                    {item.ReqAmount > 0 ? numberFormatter(item.ReqAmount) : 0}
+                    {item.Amount > 0 ? numberFormatter(item.Amount) : 0}
                   </div>
                 </div>
 

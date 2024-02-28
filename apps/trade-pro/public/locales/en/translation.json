@@ -758,5 +758,9 @@
   "bills_receivables_accounts": "Bills Receivables Accounts",
   "receipts_voucher": "Receipts Voucher",
   "payment_voucher": "Payment Voucher",
-  "app_modules": "App Modules"
+  "app_modules": "App Modules",
+  "where_house": "WareHouse",
+  "entry_type": "Entry Type",
+  "stock_adjustment": "Stock Adjustment",
+  "doc_#": "Doc#"
 }

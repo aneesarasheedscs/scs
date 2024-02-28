@@ -748,5 +748,9 @@
   "inventry_evaluation_item_ledger": "انوینٹری اہلیہ آئٹم لیجر",
   "receipts_voucher": "رسیدوں کا واؤچر",
   "payment_voucher": "ادائیگی کی رسید",
-  "app_modules": "ایپ ماڈیولز"
+  "app_modules": "ایپ ماڈیولز",
+  "where_house": "گودام",
+  "entry_type": "داخلہ کی قسم",
+  "stock_adjustment": "اسٹاک ایڈجسٹمنٹ",
+  "doc_#": "دستاویز #"
 }

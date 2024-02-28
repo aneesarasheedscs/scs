@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
-import { TRequisitionOrder, TWsRmRequisitionPoDetailsList } from '../types';
+import { InvStockAdjustmentDetail, TStockAdjustment } from '../types';
 
-export const addtableData = atom<TWsRmRequisitionPoDetailsList[]>([]);
-export const deleteData = atom<TWsRmRequisitionPoDetailsList[]>([]);
-export const newTableData = atom<TWsRmRequisitionPoDetailsList[]>([]);
-export const viewDetailList = atom<TRequisitionOrder[]>([]);
+export const addtableData = atom<InvStockAdjustmentDetail[]>([]);
+export const deleteData = atom<InvStockAdjustmentDetail[]>([]);
+export const newTableData = atom<InvStockAdjustmentDetail[]>([]);
+export const viewDetailList = atom<TStockAdjustment[]>([]);

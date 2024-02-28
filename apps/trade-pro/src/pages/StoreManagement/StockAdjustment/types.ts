@@ -38,61 +38,10 @@ export type TDetailPackUom = {
   PreviousRateUom: string;
   RateUom: number;
 };
-
-// export type TRequisitionOrder = {
-//   Id: number;
-//   DocumentTypeId: number;
-//   PrintPreview: boolean;
-//   DocDate: string;
-//   DocNo: number;
-//   SourceLocationId: number; //Branch
-//   DestinationLocationId: number; // Head Office
-//   ReqStatus: string; // Pending
-//   RemarksHeader: string;
-//   OrganizationId: number;
-//   CompanyId: number;
-//   BranchesId: number;
-//   FinancialYearId: number;
-//   EntryUserId: number;
-//   EntryDate: Date;
-//   ModifyDate: Date;
-//   ModifyUserId: number;
-//   ApprovedUserId: number;
-//   ApprovedDate: Date;
-//   HoApprovalDate: Date;
-//   IsApproved: boolean;
-//   HoIsApproved: boolean;
-//   HoApprovedUserId: number;
-//   WsRmRequisitionPoDetailsList: TWsRmRequisitionPoDetailsList[];
-// };
-// export type TWsRmRequisitionPoDetailsList = {
-//   Id: number;
-//   ItemId: number;
-//   ItemUomId: number;
-//   ReqQty: number;
-//   BillWeight: number;
-//   StockWeight: number;
-//   ReqRate: number;
-//   ReqAmount: number;
-//   RemarksDetail: string;
-//   ActionTypeId: number;
-//   // EquivalentRate: number;
-//   ItemName: string;
-//   ItemUomCode: string;
-//   WsRmRequisitionPoId: number;
-//   NetWeight: number;
-//   LineId: number;
-//   ItemUom: number;
-//   PackUom: string;
-//   PackEquivalent: number;
-//   DestinationLocationId: number;
-// };
-
-
 export type TStockAdjustment = {
   Id: number;
   DocumentTypeId: number;
-  DocDate: string;
+  DocDate: Date;
   DocNo: number;
   RemarksHeader: string;
   AdjustmentTypeId: number;
@@ -101,20 +50,21 @@ export type TStockAdjustment = {
   BranchesId: number;
   FinancialYearId: number;
   EnteryUserId: number;
-  EnteryDate: string;
+  EnteryDate: Date;
   ModifyUserId: number;
-  ModifyDate: string;
+  ModifyDate: Date;
   ApprovalUserId: number;
-  ApprovedDate: string;
+  ApprovedDate: Date;
+  PrintPreview: boolean;
   InvStockAdjustmentDetailslist: InvStockAdjustmentDetail[];
-}
+};
 export type InvStockAdjustmentDetail = {
   Id: number;
-  PackUom:string;
-  Qty:number;
-  ItemName:string;
+  PackUom: string;
+  Qty: number;
+  ItemName: string;
   WarehouseId: number;
-  WareHouseName:string
+  WareHouseName: string;
   ItemId: number;
   PackUomId: number;
   NetWeight: number;
@@ -125,28 +75,27 @@ export type InvStockAdjustmentDetail = {
   RemarksDetail: string;
   ActionTypeId: number;
   RateUom: string;
-  AccountTitle:string
-  
- 
-}
-export type TWareHouse={
-  Id: number,
-  WareHouseName: string
-                
-}
+  AccountTitle: string;
+  CreditAccountId: number;
+};
+export type TWareHouse = {
+  Id: number;
+  WareHouseName: string;
+};
 
-export type TAccountTitle={
-  Id:number,
-  AccountTitle:string
-}
+export type TAccountTitle = {
+  Id: number;
+  AccountTitle: string;
+};
 export type TStockAdjustmentHistory = {
   Id: number;
   DocNo: number;
   DocDate: Date | string;
-  VoucherHeadId:number;
-  EntryType:string;
-  EntryDate:Date
-  ModifyUser:string;
-  ModifyDate:Date;
-  Remarks:string
+  VoucherHeadId: number;
+  EntryType: string;
+  EntryUser: number;
+  EnteryDate: Date;
+  ModifyUser: string;
+  ModifyDate: Date;
+  Remarks: string;
 };

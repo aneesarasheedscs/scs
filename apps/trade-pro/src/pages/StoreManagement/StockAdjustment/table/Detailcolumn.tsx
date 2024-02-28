@@ -95,7 +95,7 @@ export const detailColumns = (t: TFunction): AntColumnType<InvStockAdjustmentDet
   },
   {
     title: t('comments'),
-    width: 350,
+    width: 200,
     dataIndex: 'RemarksDetail',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
