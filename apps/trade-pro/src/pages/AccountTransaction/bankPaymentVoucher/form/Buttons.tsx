@@ -1,13 +1,12 @@
 import dayjs from 'dayjs';
 import { useAtom } from 'jotai';
-import { map } from 'lodash';
 import VoucherNo from './VoucherNo';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { addtableData } from '../form/Atom';
 import { useGetVoucherNo } from '../queries/queries';
 import { AntButton, AntDatePicker } from '@tradePro/components';
-import { Badge, Col, Form, FormInstance, Input, Row, notification } from 'antd';
+import { Badge, Col, Form, FormInstance, Input, Row } from 'antd';
 import { SaveOutlined, SyncOutlined, RedoOutlined, PaperClipOutlined, PrinterFilled } from '@ant-design/icons';
 
 function Buttons({
@@ -17,11 +16,11 @@ function Buttons({
   saveData,
   updateData,
   addBankPayment,
+  DocumentTypeId,
   selectedRecordId,
   setSelectedRecordId,
   setPrintPreview,
   printPreview,
-  DocumentTypeId,
   setSharedStateIncludeWHT,
 }: TAddUpdateRecord) {
   const { t } = useTranslation();
@@ -49,12 +48,7 @@ function Buttons({
     form.setFieldValue(['voucherDetailList', 0, 'TaxTypeId'], null);
   };
   useEffect(() => {
-    if (successVoucherNo)
-      form.setFieldValue(
-        'VoucherCode',
-        // map(data?.data?.Data?.Result, (item) => item.VoucherCode)
-        data?.data?.Data?.Result?.[0]?.VoucherCode
-      );
+    if (successVoucherNo) form.setFieldValue('VoucherCode', data?.data?.Data?.Result?.[0]?.VoucherCode);
     form.setFields([{ name: 'VoucherDate', value: dayjs(new Date()) }]);
   }, [data, successVoucherNo]);
   useEffect(() => {
@@ -149,16 +143,16 @@ function Buttons({
 }
 type TAddUpdateRecord = {
   form: FormInstance;
-  setBankId: any;
-  isSuccess: any;
+  setBankId: (id: number | null) => void;
+  isSuccess: boolean;
   saveData: any;
   updateData: any;
   addBankPayment: any;
   DocumentTypeId: number;
-  selectedRecordId: any;
+  selectedRecordId: number | null;
   setSelectedRecordId: (id: number | null) => void;
-  setPrintPreview: any;
-  printPreview: any;
-  setSharedStateIncludeWHT: any;
+  setPrintPreview: (id: boolean) => void;
+  printPreview: boolean;
+  setSharedStateIncludeWHT: (id: boolean) => void;
 };
 export default Buttons;

@@ -3,11 +3,11 @@ import { useMutation, useQuery } from 'react-query';
 import { notification } from 'antd';
 import { AxiosError, AxiosResponse } from 'axios';
 import { requestManager } from '@tradePro/configs/requestManager';
-import { storedUserDetail } from '@tradePro/utils/storageService';
+import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 import { TSaveBankPaymentVoucher } from '../form/types';
 
-const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
-const financialYear: any = JSON.parse(localStorage.getItem('financialYear') || '{}');
+const userDetail = storedUserDetail();
+const financialYear = storedFinancialYear();
 
 //Get ById
 export const useGetBankPaymentVoucherById = (Id?: number | null | any) => {
@@ -55,7 +55,7 @@ const getBankPaymentVoucherDetailById = (Id?: number | null) => {
 
 export const useAddBankPaymentVoucher = (DocumentTypeId?: number, params?: TSaveBankPaymentVoucher) => {
   return useMutation(
-    'bankPaymentVoucher-history',
+    'add-bankPaymentVoucher-history',
     (data: TSaveBankPaymentVoucher) => {
       let dataToSubmit = {};
       const userDetail = storedUserDetail();
@@ -105,7 +105,7 @@ export const useUpdateBankPaymentVoucher = (
 ) => {
   console.log(Id);
   return useMutation(
-    'bankPaymentVoucher-history',
+    'update-bankPaymentVoucher-history',
     (data: TSaveBankPaymentVoucher) => {
       let dataToSubmit = {};
       const userDetail = storedUserDetail();

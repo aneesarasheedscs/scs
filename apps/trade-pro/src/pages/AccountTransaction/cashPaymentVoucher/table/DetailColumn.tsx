@@ -1,8 +1,9 @@
 import { AntColumnType } from '@tradePro/globalTypes';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { DataType } from '../form/types';
+import { TFunction } from 'i18next';
 
-export const detailColumns = (t?: any): AntColumnType<DataType>[] => [
+export const detailColumns = (t: TFunction): AntColumnType<DataType>[] => [
   {
     title: t('account_title'),
     width: 350,

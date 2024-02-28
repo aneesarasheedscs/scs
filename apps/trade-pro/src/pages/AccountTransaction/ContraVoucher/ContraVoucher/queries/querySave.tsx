@@ -55,7 +55,7 @@ const getContraVoucherDetailById = (Id?: string | null) => {
 
 export const useAddContraVoucher = (DocumentTypeId: number, params?: TSaveContraVoucher) => {
   return useMutation(
-    'contraVoucher-history',
+    'contraVoucher-add',
     (data: TSaveContraVoucher) => {
       let dataToSubmit = {};
       dataToSubmit = {
@@ -98,7 +98,7 @@ export const useAddContraVoucher = (DocumentTypeId: number, params?: TSaveContra
 
 export const useUpdateContraVoucher = (Id?: number | null, DocumentTypeId?: number, params?: TSaveContraVoucher) => {
   return useMutation(
-    'contraVoucher-history',
+    'contraVoucher-update',
     (data: TSaveContraVoucher) => {
       let dataToSubmit = {};
       dataToSubmit = {

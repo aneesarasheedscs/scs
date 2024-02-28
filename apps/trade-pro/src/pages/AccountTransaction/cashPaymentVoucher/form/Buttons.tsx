@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import { useAtom } from 'jotai';
 import { map } from 'lodash';
 import VoucherNo from './VoucherNo';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { addtableData } from '../form/Atom';
 import { useGetVoucherNo } from '../queries/queries';
@@ -17,11 +17,11 @@ function Buttons({
   UpdateData,
   isUpdateEntrySuccessful,
   addCashPayment,
+  DocumentTypeId,
   selectedRecordId,
   setSelectedRecordId,
   setPrintPreview,
   printPreview,
-  DocumentTypeId,
   setBankId,
   setSharedStateIncludeWHT,
 }: TAddUpdateRecord) {
@@ -39,7 +39,7 @@ function Buttons({
     setSelectedRecordId(null);
     setTableData([]);
     refetch();
-    setBankId();
+    setBankId(null);
     setSharedStateIncludeWHT(false);
     form.setFieldValue('VoucherNo', data?.data?.Data?.Result);
     form.setFieldValue('IncludeWHT', false);
@@ -145,16 +145,16 @@ function Buttons({
 type TAddUpdateRecord = {
   form: FormInstance;
   entryData: any;
-  isEntrySuccessful: any;
+  isEntrySuccessful: boolean;
   UpdateData: any;
-  isUpdateEntrySuccessful: any;
+  isUpdateEntrySuccessful: boolean;
   addCashPayment: any;
   DocumentTypeId: number;
-  selectedRecordId: any;
+  selectedRecordId: number | null;
   setSelectedRecordId: (id: number | null) => void;
-  setPrintPreview: any;
-  printPreview: any;
-  setBankId: any;
-  setSharedStateIncludeWHT: any;
+  setPrintPreview: (id: boolean) => void;
+  printPreview: boolean;
+  setBankId: (id: number | null) => void;
+  setSharedStateIncludeWHT: (id: boolean) => void;
 };
 export default Buttons;

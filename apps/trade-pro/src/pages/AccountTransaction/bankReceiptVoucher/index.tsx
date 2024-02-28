@@ -10,7 +10,7 @@ import { useGetBankReceiptVoucherById, useGetBankReceiptVoucherDetailById } from
 
 function BankReceiptVoucher() {
   const { t } = useTranslation();
-  const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
+  const [selectedRecordId, setSelectedRecordId] = useState<number | null>(null);
   const [selectedRecordDetailId, setSelectedRecordDetailId] = useState<number | null>();
   const [activeTab, setActiveTab] = useState<string>('1');
   const [viewDetail, setViewDetail] = useAtom(viewDetailList);
@@ -57,7 +57,6 @@ function BankReceiptVoucher() {
                 selectedRecordId={selectedRecordId}
                 setSelectedRecordId={setSelectedRecordId}
                 addBankReceipt={addBankReceipt}
-                refetchBankReceipt={refetchBankReceipt}
                 isDataSuccess={isDataSuccess}
               />
             </Tabs.TabPane>

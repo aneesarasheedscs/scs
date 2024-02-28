@@ -6,12 +6,13 @@ import { AntColumnType } from '@tradePro/globalTypes';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { EditFilled, DeleteOutlined, EyeOutlined, EyeTwoTone } from '@ant-design/icons';
+import { TFunction } from 'i18next';
 
 export const columns = (
-  t: any,
-  setSelectedRecordId?: any,
-  setSelectedRecordIdforDetail?: any,
-  setActiveTab?: any
+  t: TFunction,
+  setSelectedRecordId: (Id: number | null) => void,
+  setSelectedRecordIdforDetail: (Id: number | null) => void,
+  setActiveTab: (tab: string) => void
 ): AntColumnType<TContraVoucherHistory>[] => [
   {
     title: t('code'),

@@ -6,7 +6,7 @@ import { useAtom } from 'jotai';
 import { viewDetailList } from '../form/Atom';
 import { detailColumns } from './Detailcolumn';
 
-function BankReceiptDetailTable({ refetch, isLoading }: any) {
+function BankReceiptDetailTable({ refetch, isLoading }: TBRVHistory) {
   const { t } = useTranslation();
   const [viewDetail, setViewDetail] = useAtom(viewDetailList);
   const {
@@ -15,7 +15,7 @@ function BankReceiptDetailTable({ refetch, isLoading }: any) {
 
   return (
     <>
-      <Row style={{ marginTop: '0%' }}>
+      <Row>
         <Col span={24}>
           <h2 className="form-heading2">{t('detail')}</h2>
           <AntTable
@@ -32,5 +32,8 @@ function BankReceiptDetailTable({ refetch, isLoading }: any) {
     </>
   );
 }
-
+type TBRVHistory = {
+  refetch: () => void;
+  isLoading: boolean;
+};
 export default BankReceiptDetailTable;

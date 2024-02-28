@@ -248,9 +248,9 @@ const SalesTaxEntry = ({
 };
 type TDynamicForm = {
   form: FormInstance;
-  bankId: any;
-  handleTaxTypeChange: any;
-  setIsAddButtonClicked: any;
+  bankId: number | null;
+  handleTaxTypeChange: (TaxId: number) => void;
+  setIsAddButtonClicked: (id: boolean) => void;
   SharedStateIncludeWHT: boolean;
   ScheduleData: any;
 };

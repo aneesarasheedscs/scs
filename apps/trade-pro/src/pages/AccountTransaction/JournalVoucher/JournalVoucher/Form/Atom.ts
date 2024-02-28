@@ -1,3 +1,4 @@
 import { atom } from 'jotai';
-export const addtableData = atom<any>([]);
-export const viewDetailList = atom<any>([]);
+import { TVoucherDetailList } from '../types';
+export const addtableData = atom<TVoucherDetailList[]>([]);
+export const viewDetailList = atom<TVoucherDetailList[]>([]);

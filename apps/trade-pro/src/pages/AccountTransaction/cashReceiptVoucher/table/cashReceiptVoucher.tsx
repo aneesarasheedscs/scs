@@ -16,7 +16,7 @@ function CashReceiptTable({
   setSelectedRecordIdforDetail,
   refetch,
   isLoading,
-}: TFrom) {
+}: TCRVHistory) {
   const { t } = useTranslation();
   const { data, isError, isLoading: isLoadingCRV, refetch: refetchCRV, isFetching } = useGetCashReceiptVoucherTable();
   const [showComponent, setShowComponent] = useState(false);
@@ -37,25 +37,12 @@ function CashReceiptTable({
         <Col span={24} style={{ marginLeft: '0.5%', borderTop: '1px solid #dfdfdf' }}>
           <AntButton
             onClick={toggleGridView}
-            className=""
-            style={{
-              background: showComponent ? '' : '#fff',
-              color: showComponent ? '' : `${colorPrimary}`,
-              fontWeight: 'bold',
-              border: showComponent ? '' : `1px solid ${colorPrimary}`,
-            }}
+            className={showComponent ? 'toggleGridView' : 'toggleCardView'}
             label={t('grid_view')}
           />
           <AntButton
             onClick={toggleCardView}
-            style={{
-              background: showComponent ? '#fff' : '',
-              color: showComponent ? `${colorPrimary}` : '',
-              fontWeight: 'bold',
-              border: showComponent ? `1px solid ${colorPrimary}` : '',
-              marginLeft: '0.2%',
-            }}
-            className=""
+            className={showComponent ? 'toggleCardView' : 'toggleGridView'}
             label={t('card_view')}
           />
         </Col>
@@ -84,12 +71,12 @@ function CashReceiptTable({
   );
 }
 
-type TFrom = {
+type TCRVHistory = {
   setSelectedRecordId: (id: number | null) => void;
   setActiveTab: (tab: string) => void;
   setSelectedRecordIdforDetail: (id: number | null) => void;
-  refetch: any;
-  isLoading: any;
+  refetch: () => void;
+  isLoading: boolean;
 };
 
 export default CashReceiptTable;

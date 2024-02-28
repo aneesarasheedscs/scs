@@ -1,16 +1,16 @@
 import './style.scss';
 import { useAtom } from 'jotai';
+import ContraVoucherForm from './form';
+import { Col, Row, Tabs } from 'antd';
 import { viewDetailList } from './form/Atom';
 import { useEffect, useState } from 'react';
-import ContraVoucherForm from './form';
 import { useTranslation } from 'react-i18next';
-import { Card, Col, Row, Tabs, theme } from 'antd';
 import ContraVoucherTable from './table/contraVoucherTable';
 import { useGetContraVoucherById, useGetContraVoucherDetailById } from './queries/querySave';
 
 function ContraVoucher() {
   const { t } = useTranslation();
-  const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
+  const [selectedRecordId, setSelectedRecordId] = useState<number | null>(null);
   const [selectedRecordIdforDetail, setSelectedRecordIdforDetail] = useState<number | null>();
   const [activeTab, setActiveTab] = useState<string>('1');
   const [viewDetail, setViewDetail] = useAtom(viewDetailList);
@@ -23,13 +23,10 @@ function ContraVoucher() {
   } = useGetContraVoucherById(selectedRecordId);
   const { data, refetch, isSuccess, isLoading } = useGetContraVoucherDetailById(selectedRecordIdforDetail);
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && !isLoading) {
       setViewDetail(data?.data?.Data?.Result?.voucherDetailList);
     }
-  }, [isSuccess, !isLoading]);
-  const {
-    token: { colorPrimary },
-  } = theme.useToken();
+  }, [isSuccess, isLoading]);
 
   return (
     <>
@@ -56,7 +53,6 @@ function ContraVoucher() {
               <ContraVoucherForm
                 selectedRecordId={selectedRecordId}
                 setSelectedRecordId={setSelectedRecordId}
-                refetchContra={refetchContra}
                 ContraVoucherById={ContraVoucherById}
                 isDataSuccess={isDataSuccess}
               />

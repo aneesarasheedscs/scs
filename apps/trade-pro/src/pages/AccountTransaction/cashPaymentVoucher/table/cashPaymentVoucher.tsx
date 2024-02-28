@@ -3,7 +3,7 @@ import './Table.scss';
 import { columns } from './columns';
 import { useState } from 'react';
 import CardView from './CardView';
-import { Col, Row, theme } from 'antd';
+import { Col, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
 import CashPaymentDetailTable from './DetailTable';
 import { AntButton, AntTable } from '@tradePro/components';
@@ -20,9 +20,6 @@ function CashPaymentTable({
   const { t } = useTranslation();
   const { data, isError, isLoading, refetch: refetchCPV, isFetching } = useGetCashPaymentVoucherTable();
   const [showComponent, setShowComponent] = useState(false);
-  const {
-    token: { colorPrimary },
-  } = theme.useToken();
 
   const toggleCardView = () => {
     setShowComponent(true);
@@ -36,25 +33,12 @@ function CashPaymentTable({
         <Col span={24} style={{ marginLeft: '0.5%', borderTop: '1px solid #dfdfdf' }}>
           <AntButton
             onClick={toggleGridView}
-            className=""
-            style={{
-              background: showComponent ? '' : '#fff',
-              color: showComponent ? '' : `${colorPrimary}`,
-              fontWeight: 'bold',
-              border: showComponent ? '' : `1px solid ${colorPrimary}`,
-            }}
+            className={showComponent ? 'toggleGridView' : 'toggleCardView'}
             label={t('grid_view')}
           />
           <AntButton
             onClick={toggleCardView}
-            style={{
-              background: showComponent ? '#fff' : '',
-              color: showComponent ? `${colorPrimary}` : '',
-              fontWeight: 'bold',
-              border: showComponent ? `1px solid ${colorPrimary}` : '',
-              marginLeft: '0.2%',
-            }}
-            className=""
+            className={showComponent ? 'toggleCardView' : 'toggleGridView'}
             label={t('card_view')}
           />
         </Col>
@@ -87,8 +71,8 @@ type TFrom = {
   setSelectedRecordId: (id: number | null) => void;
   setActiveTab: (tab: string) => void;
   setSelectedRecordIdforDetail: (id: number | null) => void;
-  refetch: any;
-  isLoadingDetail: any;
+  refetch: () => void;
+  isLoadingDetail: boolean;
 };
 
 export default CashPaymentTable;

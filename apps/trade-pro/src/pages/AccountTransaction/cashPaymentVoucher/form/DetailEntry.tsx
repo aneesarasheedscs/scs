@@ -12,12 +12,11 @@ import {
 import { addtableData } from './Atom';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
-import { column2 } from '../table/columns';
-import { TCashPaymentDetailEntry, TTaxType, TjobLot } from './types';
-import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
+import DetailEntryTable from './DetailEntryTable';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import { Card, Col, Row, Form, FormInstance, theme, notification } from 'antd';
-import { AntButton, AntInput, AntInputNumber, AntSelectDynamic, AntTable } from '@tradePro/components';
+import { TCashPaymentDetailEntry, TTaxType, TjobLot } from './types';
+import { Card, Col, Row, Form, FormInstance, notification } from 'antd';
+import { AntButton, AntInput, AntInputNumber, AntSelectDynamic } from '@tradePro/components';
 
 const { useWatch } = Form;
 
@@ -33,7 +32,6 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
     },
     { typeId: 2, PaymentType: 'Advance' },
   ];
-
   const initialValues = {
     PaymentTypeId: null,
     AccountId: null,
@@ -56,9 +54,7 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
   const { data, isSuccess, isLoading } = useGetAccountsBalance(refAccountId);
   const { data: debit, isSuccess: isSuccessDebitAc, isLoading: isLoadingDeibtAc } = useGetDebitAccountSelect();
   const allowedAccountTypes = isExpenseAccountAllowed ? [2, 15] : [2, 11, 12, 13, 14, 15, 20, 21];
-  // const filteredDebitAccounts = debit?.data?.Data?.Result.filter(
-  //   (item: any) => !allowedAccountTypes.includes(item.AccountTypeId)
-  // );
+
   useEffect(() => {
     if (isSuccessConfig && isSuccessDebitAc && !isLoadingDeibtAc) {
       const filteredDebitAccount = debit?.data?.Data?.Result.filter(
@@ -70,10 +66,7 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
   console.log(filteredDebitAccounts);
 
   const [isEditMode, setIsEditMode] = useState(false);
-  const [rowIndex, setrowIndex] = useState(-1);
-  const {
-    token: { colorPrimary },
-  } = theme.useToken();
+  const [rowIndex, setrowIndex] = useState<number | null>(-1);
 
   const { data: filter } = useGetWHTAgainstAcSelect();
 
@@ -117,7 +110,6 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
     }
   }, [form, tableData]);
 
-  // For Debit Account
   const handleCreditAccountChange = (accountId: number) => {
     setRefAccountId(accountId);
     const balance2 = numberFormatter(data?.data?.Data?.Result?.[0]?.Balance);
@@ -222,22 +214,6 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
     form.setFieldValue(['voucherDetailList', 0, 'Comments'], null);
     setIsEditMode(false);
   };
-  const handleDeleteRow = (record: any, rowIndex: number) => {
-    setTableData((prevData: any[]) => {
-      const updatedData = prevData.filter((item: any, index) => index !== rowIndex);
-      console.log('New tableData:', updatedData);
-      return updatedData;
-    });
-  };
-
-  const handleEditRow = (record: any, index: number) => {
-    console.log('Row Index: ', index);
-    setrowIndex(index);
-
-    form.setFieldValue(['voucherDetailList', 0], record); // Update form values
-    setIsEditMode(true);
-  };
-
   const handleSelectjobLotChange = (obj: TjobLot, index: number) => {
     form.setFieldValue(['voucherDetailList', 0, 'JobLotDescription'], obj?.JobLotDescription);
   };
@@ -255,7 +231,6 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
   };
 
   const handleTaxChange = (obj: TTaxType, index: number) => {
-    // form.setFields([{ name: ['voucherDetailList', index, 'TaxPrcnt'], value: obj?.Id }]);
     form.setFields([{ name: ['voucherDetailList', index, 'TaxName'], value: obj?.TaxName }]);
     handleTaxTypeChange(obj.Id);
   };
@@ -422,17 +397,7 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
                           </Col>
                         </Row>
                       </Col>
-
-                      <Row gutter={[16, 16]} style={{ marginTop: '1%' }}>
-                        <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }}>
-                          <AntTable
-                            numberOfSkeletons={12}
-                            scroll={{ x: '', y: convertVhToPixels('15vh') }}
-                            data={tableData}
-                            columns={column2(t, handleDeleteRow, handleEditRow)}
-                          />
-                        </Col>
-                      </Row>
+                      <DetailEntryTable form={form} t={t} setIsEditMode={setIsEditMode} setrowIndex={setrowIndex} />
                       <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }}>
                         <Row gutter={10} style={{ marginTop: '2%' }}>
                           <>
@@ -466,7 +431,7 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
                                 >
                                   <AntInputNumber
                                     readOnly
-                                    // disabled={!form.getFieldValue('IncludeWHT') /*isWithHoldingChecked*/}
+                                    disabled={!form.getFieldValue('IncludeWHT')}
                                     bordered={false}
                                     label={t('tax_percentage')}
                                     formItemProps={{ ...field, name: [field.name, 'TaxPrcnt'] }}
@@ -565,6 +530,11 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
   );
 };
 
-type TDynamicForm = { form: FormInstance; SharedStateIncludeWHT: boolean; handleTaxTypeChange: any; ScheduleData: any };
+type TDynamicForm = {
+  form: FormInstance;
+  SharedStateIncludeWHT: boolean;
+  handleTaxTypeChange: (id: number) => void;
+  ScheduleData: any;
+};
 
 export default DynamicForm;

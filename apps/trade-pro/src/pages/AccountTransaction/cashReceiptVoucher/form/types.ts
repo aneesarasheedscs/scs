@@ -20,7 +20,8 @@ export type TSaveCashReceiptVoucher = {
   ChequeDate: string;
   Remarks: string;
   VoucherAmount: number;
-  voucherDetailList: PaymentVoucher[];
+  PrintPreview: boolean;
+  voucherDetailList: TCashReceiptDetailEntry[];
 };
 export type TTaxType = {
   Id: number;
@@ -86,6 +87,14 @@ export type TCashReceiptDetailEntry = {
   AccountCode: number;
   AgainstAccount: string;
   IsDetailExpanded: boolean;
+  AdvanceAmount?: number;
+  DCheqDate: string;
+  IsTaxable: boolean;
+  ChequeDate: Date | string;
+  CheqNo: number;
+  TaxName: string;
+  TaxAmount: number;
+  TotalAmount: number;
 };
 
 export type TFormDetailList = {
@@ -96,76 +105,6 @@ export type TFormDetailList = {
   TaxAmount: number;
   IncludeWHT: boolean | string;
   AgainstAccountId: number;
-};
-
-export type TSaveCashReceipt = {
-  PrintPreview: boolean;
-  Id: number;
-  Type: number;
-  BranchId: number;
-  ProjectId: number;
-  OrganizationId: number;
-  CompanyId: number;
-  FinancialYearId: number;
-  EntryUser: number;
-  ModifyUser: number;
-  EntryDate: string;
-  ModifyDate: string;
-  DocumentTypeId: number;
-  VoucherCode: number;
-  VoucherDate: string;
-  RefAccountId: number;
-  AgainstAccountId: number;
-  RefDocNoId: number;
-  IncludeWHT: boolean;
-  ChequeDate: string;
-  Remarks: string;
-  VoucherAmount: number;
-  voucherDetailList: VoucherDetail[];
-};
-
-type VoucherDetail = {
-  CheqId: number;
-  AccountTitle: string;
-  JobLotDescription: string;
-  JobLotId: number;
-  DCheqDate: Date | string;
-  PaymentTypeId: number;
-  PaymentType: string;
-  Id: number;
-  DebitAmount: number;
-  CreditAmount: number;
-  AdvanceAmount: number;
-  CheqNoDetail: number;
-  InvoiceNoRefId: number;
-  PayeeTitle: string;
-  Comments: string;
-  IsTaxable: boolean;
-  AccountId: number;
-  ChequeDate: Date | string;
-  Amount: number;
-  CheqNo: number;
-  AgainstAccountId: number;
-  TaxTypeId: number;
-  TaxPrcnt: number;
-  TaxesTotalAmount: number;
-  IsDetailExpanded: boolean;
-  AccountCode: number;
-  AgainstAccount: string;
-  AccountIdDebit: string;
-  TaxName: string;
-  TaxAmount: number;
-  TotalAmount: number;
-};
-
-export type DataType = {
-  key: number;
-  PaymentType: string;
-  AccountTitle: string;
-  JobLotDescription: string;
-  CreditAmount: number;
-  DebitAmount: number;
-  Comments: string;
 };
 
 export type TCreditAccountBind = {

@@ -25,7 +25,6 @@ const DynamicForm = ({ form }: TDynamicForm) => {
   const [edit, setEdit] = useState<TWsRmRequisitionPoDetailsList>();
   const [counter, setCounter] = useState<number>(0);
   const initialValues = {
-    Id: null,
     ItemId: null,
     ItemName: null,
     UOMCode: null,

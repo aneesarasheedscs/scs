@@ -56,7 +56,7 @@ export const useGetVoucherNo = (DocumentTypeId: number | null) => {
   );
 };
 
-export const useGetAccountsBalance = (accountId: number) => {
+export const useGetAccountsBalance = (accountId: number | null) => {
   return useQuery(
     ['Accounts-Balance', accountId],
     () => {

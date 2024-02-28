@@ -2,6 +2,7 @@ import { map } from 'lodash';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AntInput, AntSelectDynamic } from '@tradePro/components';
+import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { Card, Checkbox, Col, Row, Form, FormInstance } from 'antd';
 import { useGetAccountsBalance, useGetCreditAccountSelect, useGetWHTAgainstAcSelect } from '../queries/queries';
 
@@ -9,8 +10,8 @@ function MainEntry({
   form,
   setBankId,
   bankId,
-  setSharedStateIncludeWHT,
   SharedStateIncludeWHT,
+  setSharedStateIncludeWHT,
   ScheduleData,
   isAddButtonClicked,
 }: TDynamicForm) {
@@ -21,9 +22,9 @@ function MainEntry({
 
   useEffect(() => {
     if (data?.data?.Data?.Result?.[0]?.Balance !== undefined) {
-      form.setFieldsValue({ Balance: data?.data?.Data?.Result?.[0]?.Balance.toFixed(2) });
+      form.setFieldsValue({ Balance: numberFormatter(data?.data?.Data?.Result?.[0]?.Balance) });
     }
-  }, [credit, bankId, data?.data?.Data?.Result]);
+  }, [credit, data?.data?.Data?.Result]);
   useEffect(() => {
     if (SharedStateIncludeWHT && ScheduleData) {
       form.setFieldValue('AgainstAccountId', ScheduleData?.TaxGLAccountId);
@@ -31,7 +32,7 @@ function MainEntry({
       form.setFieldValue('AgainstAccountId', ScheduleData?.TaxGLAccountId);
     }
   }, [form, SharedStateIncludeWHT, ScheduleData]);
-  const handleCreditAccountChange = (accountId?: any, index?: any) => {
+  const handleCreditAccountChange = (accountId: number, index?: any) => {
     setBankId(accountId);
   };
   const handleAgainstAccountChange = (accountId?: any) => {};
@@ -87,7 +88,7 @@ function MainEntry({
                 className="formfield"
               >
                 <p style={{ marginTop: -18, marginLeft: '65%' }} className="cr">
-                  Cr : <b> {data?.data?.Data?.Result?.[0]?.Balance.toFixed(2)}</b>
+                  Cr : <b> {numberFormatter(data?.data?.Data?.Result?.[0]?.Balance)}</b>
                 </p>
 
                 <p style={{ marginTop: -4 }}>
@@ -167,12 +168,12 @@ function MainEntry({
 }
 type TDynamicForm = {
   form: FormInstance;
-  setBankId: any;
-  bankId: any;
-  setSharedStateIncludeWHT: any;
-  SharedStateIncludeWHT: any;
+  setBankId: (id: number | null) => void;
+  bankId: number | null;
+  SharedStateIncludeWHT: boolean;
+  setSharedStateIncludeWHT: (id: boolean) => void;
   ScheduleData: any;
-  isAddButtonClicked: any;
+  isAddButtonClicked: boolean;
 };
 
 export default MainEntry;

@@ -16,23 +16,18 @@ function Buttons({
   saveData,
   updateData,
   addBankReceipt,
+  DocumentTypeId,
   selectedRecordId,
   setSelectedRecordId,
   setPrintPreview,
   printPreview,
-  DocumentTypeId,
   setSharedStateIncludeWHT,
 }: TAddUpdateRecord) {
   const { t } = useTranslation();
   const [tableData, setTableData] = useAtom(addtableData);
-
   const { data, isError, refetch, isLoading, isSuccess: successVoucherNo } = useGetVoucherNo(DocumentTypeId);
 
-  console.log(tableData);
-  const handleButtonClick = () => {
-    setPrintPreview(!printPreview);
-    console.log(printPreview);
-  };
+  const handleButtonClick = () => setPrintPreview(!printPreview);
   const handleResetForm = () => {
     setSelectedRecordId(null);
     setTableData([]);
@@ -76,9 +71,9 @@ function Buttons({
   }, [form]);
   return (
     <>
-      <Row justify="space-between" gutter={[10, 16]} style={{ marginLeft: 0, marginRight: 10 }}>
-        <Col xxl={8} xl={9} lg={18} md={18} sm={18} xs={24} style={{ marginTop: '0%' }}>
-          <Row gutter={10} align="middle" style={{ border: '' }} justify={'space-evenly'}>
+      <Row justify="space-between" gutter={[10, 16]} style={{ marginRight: 10 }}>
+        <Col xxl={8} xl={9} lg={18} md={18} sm={18} xs={24}>
+          <Row gutter={10} align="middle" justify={'space-evenly'}>
             <Col xl={9} xxl={7} lg={8} md={7} sm={18} xs={18} className="formfield1 voucherNo">
               <b style={{ fontSize: 18 }}> {t('voucher_no')}</b> &nbsp;
               <VoucherNo
@@ -101,13 +96,9 @@ function Buttons({
           </Row>
         </Col>
 
-        <Col
-          style={{
-            marginTop: '0%',
-          }}
-        >
+        <Col>
           <Form.Item>
-            <Row align="middle" gutter={10} style={{ marginTop: '0%', border: '' }}>
+            <Row align="middle" gutter={10}>
               <Col>
                 <AntButton
                   title="PrintPreview"
@@ -148,16 +139,16 @@ function Buttons({
 }
 type TAddUpdateRecord = {
   form: FormInstance;
-  setBankId: any;
-  isSuccess: any;
+  setBankId: (id: number | null) => void;
+  isSuccess: boolean;
   saveData: any;
   updateData: any;
   addBankReceipt: any;
   DocumentTypeId: number | null;
-  selectedRecordId: any;
+  selectedRecordId: number | null;
   setSelectedRecordId: (id: number | null) => void;
-  setPrintPreview: any;
-  printPreview: any;
-  setSharedStateIncludeWHT: any;
+  setPrintPreview: (id: boolean) => void;
+  printPreview: boolean;
+  setSharedStateIncludeWHT: (id: boolean) => void;
 };
 export default Buttons;

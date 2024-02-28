@@ -1,21 +1,18 @@
-import { AntTable } from '@tradePro/components';
-import { Card, Col, Row, theme } from 'antd';
-import { useTranslation } from 'react-i18next';
+import { Col, Row } from 'antd';
 import { useAtom } from 'jotai';
+import { useTranslation } from 'react-i18next';
+import { AntTable } from '@tradePro/components';
 import { viewDetailList } from '../form/Atom';
 import { detailColumns } from './Detailcolumn';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 
-function BillsPayableAccountsDetailTable({ refetch, isLoading }: any) {
+function BillsPayableAccountsDetailTable({ refetch, isLoading }: TBPVHistory) {
   const { t } = useTranslation();
   const [viewDetail, setViewDetail] = useAtom(viewDetailList);
-  const {
-    token: { colorPrimary },
-  } = theme.useToken();
 
   return (
     <>
-      <Row style={{ marginTop: '0%' }}>
+      <Row>
         <Col span={24}>
           <h2 className="form-heading2">{t('detail')}</h2>
           <AntTable
@@ -32,5 +29,8 @@ function BillsPayableAccountsDetailTable({ refetch, isLoading }: any) {
     </>
   );
 }
-
+type TBPVHistory = {
+  refetch: () => void;
+  isLoading: boolean;
+};
 export default BillsPayableAccountsDetailTable;

@@ -20,7 +20,8 @@ import { AntButton, AntInput, AntInputNumber, AntSelectDynamic, AntTable } from 
 const { useWatch } = Form;
 
 const DynamicForm = ({ form }: TDynamicForm) => {
-  const [refAccountId, setRefAccountId] = useState(0);
+  const { t } = useTranslation();
+  const [refAccountId, setRefAccountId] = useState<number>(0);
   const { data } = useGetAccountsBalance(refAccountId);
   const [tableData, setTableData] = useAtom(addtableData);
   const formValues = useWatch<TExpenseDetailEntry[]>('voucherDetailList', form);
@@ -32,9 +33,8 @@ const DynamicForm = ({ form }: TDynamicForm) => {
     DebitAmount: null,
     Comments: null,
   };
-  const [isEditMode, setIsEditMode] = useState(false);
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const { data: filteredDebitAccounts, isLoading } = useGetExpenseFetchDebitAccountSelect();
-  const { t } = useTranslation();
 
   const handleDebitAccountChange = async (value: any) => {
     setRefAccountId(value);
@@ -48,7 +48,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
     }
   };
   const AgainstAccountId = form.getFieldValue('RefAccountId');
-  const [counter, setCounter] = useState<any>(0);
+  const [counter, setCounter] = useState<number>(0);
   const handleAddToTable = () => {
     const newData = formValues.map((item, index) => ({
       AccountId: item.AccountId,
@@ -139,7 +139,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
     form.setFieldValue(['voucherDetailList', 0, 'DCheqDate'], dayjs(new Date()));
     setRefAccountId(0);
   };
-  const handleDeleteRow = (record: any) => {
+  const handleDeleteRow = (record: TExpenseDetailEntry) => {
     setTableData((prevData: any[]) => {
       const updatedData = prevData.filter((item: any) => item.LineId !== record.LineId);
       console.log('New tableData:', updatedData);
@@ -147,7 +147,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
     });
   };
 
-  const handleEditRow = (record: any) => {
+  const handleEditRow = (record: TExpenseDetailEntry) => {
     setEdit(record);
     setTableData((prevData: any[]) => {
       const updatedData = [...prevData];
@@ -230,7 +230,6 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         xl={{ span: 7 }}
                         xxl={{ span: 4 }}
                         className="formfield job"
-                        // style={{ marginTop: '0.8rem' }}
                       >
                         <AntSelectDynamic
                           bordered={false}
@@ -251,7 +250,6 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         xl={{ span: 7 }}
                         xxl={{ span: 4 }}
                         className="formfield"
-                        // style={{ marginTop: '0.8rem' }}
                       >
                         <AntInputNumber
                           bordered={false}
@@ -302,7 +300,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         md={6}
                         sm={7}
                         xs={24}
-                        style={{ display: 'flex', justifyContent: 'start', border: '' }}
+                        style={{ display: 'flex', justifyContent: 'start' }}
                       >
                         <Row align={'middle'} gutter={10}>
                           <Col span={12}>
@@ -328,10 +326,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
             </Form.List>
           </Card>
           <br />
-
           <AntTable
-            // isError={isError}
-            // isLoading={isLoading}
             numberOfSkeletons={6}
             scroll={{ x: '', y: convertVhToPixels('15vh') }}
             data={tableData}

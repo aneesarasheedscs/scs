@@ -163,6 +163,10 @@ export const useRequisitionOrderHistory = (enabled = true, params?: TRequisition
         } else if (response?.data && response?.data?.Status === true) {
         }
       },
+      onError: (error: AxiosError) => {
+        console.error('Error occurred:', error);
+        notification.error({ description: '', message: error?.message });
+      },
     }
   );
 };

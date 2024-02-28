@@ -10,13 +10,13 @@ import {
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, Col, Row, FormInstance } from 'antd';
-import { AntDatePicker, AntInput, AntSelectDynamic } from '@tradePro/components';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
+import { AntDatePicker, AntInput, AntSelectDynamic } from '@tradePro/components';
 
 function MainEntry({ form, setBankId, bankId }: TDynamicForm) {
   const { t } = useTranslation();
 
-  const [chequeNoEnabled, setChequeNoEnabled] = useState(false);
+  const [chequeNoEnabled, setChequeNoEnabled] = useState<boolean>(false);
   const { data } = useGetAccountsBalance(bankId);
   const { data: credit } = useGetExpenseFetchAccountSelect();
   const { data: chequeBooks } = useGetExpenseChequeNoSelect(bankId);
@@ -58,6 +58,7 @@ function MainEntry({ form, setBankId, bankId }: TDynamicForm) {
                 className="formfield"
               >
                 <AntSelectDynamic
+                  disabled
                   bordered={false}
                   label={t('cost_center')}
                   fieldValue="Id"
@@ -178,6 +179,6 @@ function MainEntry({ form, setBankId, bankId }: TDynamicForm) {
   );
 }
 
-type TDynamicForm = { form: FormInstance; setBankId: any; bankId: any };
+type TDynamicForm = { form: FormInstance; setBankId: (id: number | null) => void; bankId: number | null };
 
 export default MainEntry;

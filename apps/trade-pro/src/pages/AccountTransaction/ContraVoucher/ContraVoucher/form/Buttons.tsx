@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { addtableData } from '../form/Atom';
 import { useGetVoucherNo } from '../queries/queries';
 import { AntButton, AntDatePicker } from '@tradePro/components';
-import { Badge, Col, Form, FormInstance, Input, Row, notification } from 'antd';
+import { Badge, Col, Form, FormInstance, Input, Row } from 'antd';
 import { SaveOutlined, SyncOutlined, RedoOutlined, PaperClipOutlined, PrinterFilled } from '@ant-design/icons';
 
 function Buttons({
@@ -16,11 +16,11 @@ function Buttons({
   saveData,
   updateData,
   ContraVoucher,
+  DocumentTypeId,
   selectedRecordId,
   setSelectedRecordId,
   setPrintPreview,
   printPreview,
-  DocumentTypeId,
 }: TAddUpdateRecord) {
   const { t } = useTranslation();
   const [tableData, setTableData] = useAtom(addtableData);
@@ -139,15 +139,15 @@ function Buttons({
 }
 type TAddUpdateRecord = {
   form: FormInstance;
-  setBankId: any;
-  isSuccess: any;
+  setBankId: (id: number | null) => void;
+  isSuccess: boolean;
   saveData: any;
   updateData: any;
   ContraVoucher: any;
   DocumentTypeId: number;
-  selectedRecordId: any;
+  selectedRecordId: number | null;
   setSelectedRecordId: (id: number | null) => void;
-  setPrintPreview: any;
-  printPreview: any;
+  setPrintPreview: (id: boolean) => void;
+  printPreview: boolean;
 };
 export default Buttons;

@@ -186,11 +186,11 @@ function MainEntry({
 
 type TDynamicForm = {
   form: FormInstance;
-  setBankId: any;
-  bankId: any;
-  isAddButtonClicked: any;
-  setSharedStateIncludeWHT: any;
-  SharedStateIncludeWHT: any;
+  setBankId: (id: number) => void;
+  bankId: number | null;
+  isAddButtonClicked: boolean;
+  setSharedStateIncludeWHT: (id: boolean) => void;
+  SharedStateIncludeWHT: boolean;
   ScheduleData: any;
 };
 

@@ -1,17 +1,19 @@
-import { EditFilled, EyeTwoTone, DeleteOutlined } from '@ant-design/icons';
+import dayjs from 'dayjs';
+import { TFunction } from 'i18next';
+import { Space, Tooltip } from 'antd';
+import { DataType, TReceiptsDetailEntry } from '../form/types';
+import { TBankReceiptVoucherTable } from './types';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { AntButton } from '@tradePro/components';
-import { Space, Tooltip } from 'antd';
 import { formateDate } from '@tradePro/utils/formateDate';
-import { TBankReceiptVoucherTable } from './types';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import { DataType } from '../form/types';
-import dayjs from 'dayjs';
+import { EditFilled, EyeTwoTone, DeleteOutlined } from '@ant-design/icons';
+
 export const columns = (
-  t: any,
-  setSelectedRecordId?: any,
-  setActiveTab?: any,
-  setSelectedRecordDetailId?: any
+  t: TFunction,
+  setSelectedRecordId: (id: number | null) => void,
+  setActiveTab: (tab: string) => void,
+  setSelectedRecordDetailId: (id: number | null) => void
 ): AntColumnType<TBankReceiptVoucherTable>[] => [
   {
     title: t('code'),
@@ -139,7 +141,11 @@ export const columns = (
   },
 ];
 
-export const column2 = (t: any, handleDeleteRow?: any, handleEditRow?: any): AntColumnType<DataType>[] => [
+export const detailEntrycolumns = (
+  t: TFunction,
+  handleDeleteRow: (record: TReceiptsDetailEntry) => void,
+  handleEditRow: (record: TReceiptsDetailEntry, index: number) => void
+): AntColumnType<TReceiptsDetailEntry>[] => [
   {
     title: t('payment_type'),
     width: 250,
@@ -187,14 +193,14 @@ export const column2 = (t: any, handleDeleteRow?: any, handleEditRow?: any): Ant
   {
     title: t('action'),
     width: 100,
-    render: (_, record) => (
+    render: (_, record, index) => (
       <>
         <Tooltip title={t('edit')}>
           <Space>
             <AntButton
               type="text"
               icon={<EditFilled style={{ color: '#006640' }} />}
-              onClick={() => handleEditRow(record)}
+              onClick={() => handleEditRow(record, index)}
             />
           </Space>
         </Tooltip>

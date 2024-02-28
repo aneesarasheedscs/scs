@@ -6,13 +6,10 @@ import { viewDetailList } from '../form/Atom';
 import { detailColumns } from './DetailColumn';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 
-function CashPaymentDetailTable({ refetch, isLoadingDetail }: any) {
+function CashPaymentDetailTable({ refetch, isLoadingDetail }: TFrom) {
   const { t } = useTranslation();
   const [viewDetail, setViewDetail] = useAtom(viewDetailList);
   console.log(viewDetail);
-  const {
-    token: { colorPrimary },
-  } = theme.useToken();
 
   return (
     <>
@@ -33,5 +30,8 @@ function CashPaymentDetailTable({ refetch, isLoadingDetail }: any) {
     </>
   );
 }
-
+type TFrom = {
+  refetch: () => void;
+  isLoadingDetail: boolean;
+};
 export default CashPaymentDetailTable;

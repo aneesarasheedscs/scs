@@ -19,7 +19,7 @@ function BillsPayableForm({
   selectedRecordId,
   setSelectedRecordId,
   addBillsPayable,
-  refetchBillsPayable,
+
   isDataSuccess,
 }: TAddUpdateRecord) {
   const [form] = useForm<TBillsPayables>();
@@ -27,7 +27,7 @@ function BillsPayableForm({
   const [bankId, setBankId] = useState<number | null>(null);
   const DocumentTypeId = 6;
   const [tableData, setTableData] = useAtom(addtableData);
-  const [isAddButtonClicked, setIsAddButtonClicked] = useState(true);
+  const [isAddButtonClicked, setIsAddButtonClicked] = useState<boolean>(true);
   const { mutate: addBillsPayableVoucher, data: saveData, isSuccess } = useAddBillsPayableVoucher(DocumentTypeId);
   const { mutate: updateBillsPayableVoucher, data: updateData } = useUpdateBillsPayableVoucher(
     DocumentTypeId,
@@ -42,7 +42,7 @@ function BillsPayableForm({
     refetch: TaxScheduleRefetch,
     isLoading: TaxLoading,
   } = useGetTaxSchedule(VoucherDate, TaxTypeId);
-  const [SharedStateIncludeWHT, setSharedStateIncludeWHT] = useState(false);
+  const [SharedStateIncludeWHT, setSharedStateIncludeWHT] = useState<boolean>(false);
   const AgainstAccountId = form.getFieldValue('AgainstAccountId');
   console.log(AgainstAccountId);
   useEffect(() => {
@@ -134,10 +134,10 @@ function BillsPayableForm({
         <MainEntry
           form={form}
           setBankId={setBankId}
+          bankId={bankId}
           setSharedStateIncludeWHT={setSharedStateIncludeWHT}
           SharedStateIncludeWHT={SharedStateIncludeWHT}
           ScheduleData={getTaxSchedule?.data?.Data?.Result?.[0]}
-          bankId={bankId}
           isAddButtonClicked={isAddButtonClicked}
         />
         <DynamicForm
@@ -161,11 +161,10 @@ function BillsPayableForm({
   );
 }
 type TAddUpdateRecord = {
-  selectedRecordId?: number | null;
+  selectedRecordId: number | null;
   setSelectedRecordId: (id: number | null) => void;
   addBillsPayable: any;
-  refetchBillsPayable: any;
-  isDataSuccess: any;
+  isDataSuccess: boolean;
 };
 
 export default BillsPayableForm;

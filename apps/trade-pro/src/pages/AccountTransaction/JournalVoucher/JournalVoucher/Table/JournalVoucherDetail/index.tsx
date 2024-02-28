@@ -1,17 +1,14 @@
 import { useAtom } from 'jotai';
 import { detailColumns } from './column';
-import { Col, Row, theme } from 'antd';
+import { Col, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { viewDetailList } from '../../Form/Atom';
 import { AntTable } from '@tradePro/components';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 
-function JournalVoucherDetailTable({ refetch, isLoading }: any) {
+function JournalVoucherDetailTable({ refetch, isLoading }: TJVHistory) {
   const { t } = useTranslation();
   const [viewDetail, setViewDetail] = useAtom(viewDetailList);
-  const {
-    token: { colorPrimary },
-  } = theme.useToken();
 
   return (
     <>
@@ -35,9 +32,9 @@ function JournalVoucherDetailTable({ refetch, isLoading }: any) {
   );
 }
 
-type TFrom = {
-  setSelectedRecordId: (id: number | null) => void;
-  setActiveTab: (tab: string) => void;
+type TJVHistory = {
+  refetch: () => void;
+  isLoading: boolean;
 };
 
 export default JournalVoucherDetailTable;

@@ -4,11 +4,16 @@ import { AntButton } from '@tradePro/components';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { DeleteOutlined, EditFilled } from '@ant-design/icons';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
+import { TFunction } from 'i18next';
 
-export const columns = (t: any, handleDeleteRow: any, handleEditRow: any): AntColumnType<TVoucherDetailList>[] => [
+export const detailcolumns = (
+  t: TFunction,
+  handleDeleteRow: (record: TVoucherDetailList) => void,
+  handleEditRow: (record: TVoucherDetailList) => void
+): AntColumnType<TVoucherDetailList>[] => [
   {
     title: t('account_title'),
-    width: 350,
+    width: 400,
     searchableInput: true,
     dataIndex: 'AccountTitle',
     sortDirections: ['ascend', 'descend'],

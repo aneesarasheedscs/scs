@@ -4,10 +4,10 @@ import { useMutation, useQuery } from 'react-query';
 import { TSaveReceiptsVoucher } from '../form/types';
 import { queryClient } from '@tradePro/configs/index';
 import { requestManager } from '@tradePro/configs/requestManager';
-import { storedUserDetail } from '@tradePro/utils/storageService';
+import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 
-const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
-const financialYear: any = JSON.parse(localStorage.getItem('financialYear') || '{}');
+const userDetail = storedUserDetail();
+const financialYear = storedFinancialYear();
 
 //Get ById
 export const useGetBankReceiptVoucherById = (Id?: number | null | any) => {

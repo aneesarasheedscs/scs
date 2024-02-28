@@ -3,12 +3,12 @@ import './DetailTableFile.scss';
 import { useState } from 'react';
 import CardView from './CardView';
 import { columns } from './columns';
-import { Col, Row, theme } from 'antd';
+import { Col, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { AntButton, AntTable } from '@tradePro/components';
-import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
-import { useGetBillsPayablesAccountsVoucherTable } from '../query';
 import BillsPayableAccountsDetailTable from './DetailTable';
+import { useGetBillsPayablesAccountsVoucherTable } from '../query';
+import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 
 function BillsPayableHistory({
   setSelectedRecordId,
@@ -16,7 +16,7 @@ function BillsPayableHistory({
   setSelectedRecordDetailId,
   refetch,
   isLoading,
-}: TFrom) {
+}: TBPVHistory) {
   const { t } = useTranslation();
   const {
     data,
@@ -26,9 +26,7 @@ function BillsPayableHistory({
     isFetching,
   } = useGetBillsPayablesAccountsVoucherTable();
   const [showComponent, setShowComponent] = useState(false);
-  const {
-    token: { colorPrimary },
-  } = theme.useToken();
+
   const toggleCardView = () => {
     setShowComponent(true);
   };
@@ -41,25 +39,12 @@ function BillsPayableHistory({
         <Col span={24} style={{ marginLeft: '0.5%', borderTop: '1px solid #dfdfdf' }}>
           <AntButton
             onClick={toggleGridView}
-            style={{
-              background: showComponent ? '' : '#fff',
-              color: showComponent ? '' : `${colorPrimary}`,
-              fontWeight: 'bold',
-              border: showComponent ? '' : `1px solid ${colorPrimary}`,
-            }}
-            className=""
+            className={showComponent ? 'toggleGridView' : 'toggleCardView'}
             label={t('grid_view')}
           />
           <AntButton
-            style={{
-              background: showComponent ? '#fff' : '',
-              color: showComponent ? `${colorPrimary}` : '',
-              border: showComponent ? `1px solid ${colorPrimary}` : '',
-              fontWeight: 'bold',
-              marginLeft: '0.2%',
-            }}
             onClick={toggleCardView}
-            className=""
+            className={showComponent ? 'toggleCardView' : 'toggleGridView'}
             label={t('card_view')}
           />
         </Col>
@@ -88,12 +73,12 @@ function BillsPayableHistory({
   );
 }
 
-type TFrom = {
+type TBPVHistory = {
   setSelectedRecordId: (id: number | null) => void;
   setActiveTab: (tab: string) => void;
   setSelectedRecordDetailId: (id: number | null) => void;
-  refetch: any;
-  isLoading: any;
+  refetch: () => void;
+  isLoading: boolean;
 };
 
 export default BillsPayableHistory;

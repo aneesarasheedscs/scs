@@ -66,7 +66,7 @@ export const useGetVoucherNo = (DocumentTypeId: number) => {
     { cacheTime: 5000 }
   );
 };
-export const useGetAccountsBalances = (accountId: number) => {
+export const useGetAccountsBalances = (accountId: number | null) => {
   return useQuery(
     ['Accounts-Balances', accountId],
     () => {

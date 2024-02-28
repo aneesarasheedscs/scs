@@ -3,14 +3,14 @@ import { useAtom } from 'jotai';
 import { viewDetailList } from './form/Atom';
 import BankPaymentVoucherForm from './form';
 import { useEffect, useState } from 'react';
-import { Card, Col, Row, Tabs, theme } from 'antd';
+import { Col, Row, Tabs, theme } from 'antd';
 import { useTranslation } from 'react-i18next';
 import BankPaymentTable from './table/bankPaymentVoucher';
 import { useGetBankPaymentVoucherById, useGetBankPaymentVoucherDetailById } from './queries/querySave';
 
 function BankPaymentVoucher() {
   const { t } = useTranslation();
-  const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
+  const [selectedRecordId, setSelectedRecordId] = useState<number | null>(null);
   const [selectedRecordDetailId, setSelectedRecordDetailId] = useState<number | null>();
   const [activeTab, setActiveTab] = useState<string>('1');
   const [viewDetail, setViewDetail] = useAtom(viewDetailList);
@@ -31,7 +31,7 @@ function BankPaymentVoucher() {
 
   return (
     <>
-      <Row style={{ background: '', marginLeft: '', marginTop: '0%' }}>
+      <Row>
         <Col span={24}>
           <h2 className="form-heading">{t('bank_payment_voucher')}</h2>
           <Tabs
@@ -54,8 +54,7 @@ function BankPaymentVoucher() {
               <BankPaymentVoucherForm
                 selectedRecordId={selectedRecordId}
                 setSelectedRecordId={setSelectedRecordId}
-                addBankPayment={addBankPayment}
-                refetchBankPayment={refetchBankPayment}
+                addBankPayment={addBankPayment?.data?.Data?.Result}
                 isDataSuccess={isDataSuccess}
               />
             </Tabs.TabPane>

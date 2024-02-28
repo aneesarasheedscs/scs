@@ -16,7 +16,6 @@ const { useForm } = Form;
 
 function CashPaymentVoucherForm({
   selectedRecordId,
-  refetchCashPayment,
   isDataSuccess,
   addCashPayment,
   setSelectedRecordId,
@@ -196,11 +195,10 @@ function CashPaymentVoucherForm({
 }
 
 type TAddUpdateRecord = {
-  selectedRecordId?: number | null;
-  refetchCashPayment: any;
-  isDataSuccess: any;
+  selectedRecordId: number | null;
+  setSelectedRecordId: (id: number | null) => void;
+  isDataSuccess: boolean;
   addCashPayment: any;
-  setSelectedRecordId: any;
 };
 
 export default CashPaymentVoucherForm;

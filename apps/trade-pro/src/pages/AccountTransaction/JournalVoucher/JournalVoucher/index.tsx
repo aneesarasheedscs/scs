@@ -10,7 +10,7 @@ import { useGetJournalVoucherById, useGetJournalVoucherDetailById } from './quri
 
 function JournalVoucher() {
   const { t } = useTranslation();
-  const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
+  const [selectedRecordId, setSelectedRecordId] = useState<number | null>(null);
   const [selectedRecordDetailId, setSelectedRecordDetailId] = useState<number | null>();
   const [activeTab, setActiveTab] = useState<string>('1');
   const [viewDetail, setViewDetail] = useAtom(viewDetailList);
@@ -49,7 +49,6 @@ function JournalVoucher() {
           <JournalVoucherForm
             selectedRecordId={selectedRecordId}
             setSelectedRecordId={setSelectedRecordId}
-            refetchJournal={refetchJournal}
             journalVoucherData={journalVoucherData}
             isDataSuccess={isDataSuccess}
           />

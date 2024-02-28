@@ -17,11 +17,11 @@ function Buttons({
   saveData,
   updateData,
   addBankReceipt,
+  DocumentTypeId,
   selectedRecordId,
   setSelectedRecordId,
   setPrintPreview,
   printPreview,
-  DocumentTypeId,
   setSharedStateIncludeWHT,
 }: TAddUpdateRecord) {
   const { t } = useTranslation();
@@ -44,6 +44,7 @@ function Buttons({
     form.setFieldValue('RefAccountId', null);
     form.setFieldValue('VoucherDate', dayjs(new Date()));
     form.setFieldValue('Remarks', null);
+    form.setFieldValue('CheqId', null);
     form.setFieldValue('IncludeWHT', false);
     form.setFieldValue('Balance', null);
     form.setFieldValue('PayeeTitle', null);
@@ -149,16 +150,16 @@ function Buttons({
 }
 type TAddUpdateRecord = {
   form: FormInstance;
-  setBankId: any;
-  isSuccess: any;
+  setBankId: (id: number | null) => void;
+  isSuccess: boolean;
   saveData: any;
   updateData: any;
   addBankReceipt: any;
   DocumentTypeId: number;
-  selectedRecordId: any;
+  selectedRecordId: number | null;
   setSelectedRecordId: (id: number | null) => void;
-  setPrintPreview: any;
-  printPreview: any;
-  setSharedStateIncludeWHT: any;
+  setPrintPreview: (id: boolean) => void;
+  printPreview: boolean;
+  setSharedStateIncludeWHT: (id: boolean) => void;
 };
 export default Buttons;

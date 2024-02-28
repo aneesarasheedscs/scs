@@ -6,7 +6,7 @@ import { useAtom } from 'jotai';
 import { detailColumns } from './DetailColumn';
 import { viewDetailList } from '../form/Atom';
 
-function ContraVoucherDetailTable({ refetch, isLoading }: any) {
+function ContraVoucherDetailTable({ refetch, isLoading }: TCVHistory) {
   const { t } = useTranslation();
   const [viewDetail, setViewDetail] = useAtom(viewDetailList);
   const {
@@ -32,9 +32,8 @@ function ContraVoucherDetailTable({ refetch, isLoading }: any) {
   );
 }
 
-type TFrom = {
-  setSelectedRecordId: (id: number | null) => void;
-  setActiveTab: (tab: string) => void;
+type TCVHistory = {
+  refetch: () => void;
+  isLoading: boolean;
 };
-
 export default ContraVoucherDetailTable;
