@@ -1,8 +1,8 @@
+import { Card } from 'antd';
+import { columns } from './column';
+import { useTranslation } from 'react-i18next';
 import { AntTable } from '@tradePro/components';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
-import { useTranslation } from 'react-i18next';
-import { columns } from './column';
-import { Card } from 'antd';
 
 function BSNotesBreakupTable({
   shareCapital,

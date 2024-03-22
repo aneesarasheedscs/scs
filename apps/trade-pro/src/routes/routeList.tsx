@@ -206,8 +206,8 @@ export const protectedRoutes: RouteObject[] = [
   { path: route.ALLOCATE_BRAND_ITEM_TO_DISC_TYPE, element: <AllocateBrandItemtoDiscountType /> },
   { path: route.CUSTOMER_DISCOUNT_POLICY, element: <CustomerDiscountPolicy /> },
   { path: route.POS_ITEM_ALLOCATION, element: <ItemAllocationForm /> },
-  { path: route.DISCOUNT_POLICY_FOR_PARTY, element: <ItemBaseScheduleUOM /> },
-  { path: route.SALE_PRICING_SCHEDULE, element: <ItemBaseScheduleUOM /> },
+  { path: route.DISCOUNT_POLICY_FOR_PARTY, element: <ItemBaseScheduleUOM openItemSchudleUnit={openItemSchudleUnit} /> },
+  { path: route.SALE_PRICING_SCHEDULE, element: <ItemBaseScheduleUOM openItemSchudleUnit={openItemSchudleUnit} /> },
 
   //Purchase Trading
   { path: route.PURCHASE_ORDER, element: <PurchaseOrder /> },

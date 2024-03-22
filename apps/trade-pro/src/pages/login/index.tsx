@@ -8,9 +8,9 @@ import CardWrapper from './CardWrapper';
 import { useNavigate } from 'react-router-dom';
 import { route } from '@tradePro/routes/constant';
 import { AntButton, AntInput } from '@tradePro/components';
-import { LockOutlined, UserOutlined, EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 import { isTokenExpired } from '@tradePro/utils/isTokenExpired';
 import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
+import { LockOutlined, UserOutlined, EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 
 function LoginPage() {
   const navigate = useNavigate();

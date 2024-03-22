@@ -1,14 +1,12 @@
 import { TUser } from './types';
+import { useAtom } from 'jotai';
 import { notification } from 'antd';
+import { financialYearObject } from './Atom';
 import { useMutation, useQuery } from 'react-query';
+import { TUserDetail } from '@tradePro/globalTypes';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { requestManager } from '@tradePro/configs/requestManager';
 import { storedUserDetail } from '@tradePro/utils/storageService';
-import { TUserDetail } from '@tradePro/globalTypes';
-import { boolean } from 'joi';
-import { useState } from 'react';
-import { useAtom } from 'jotai';
-import { financialYearObject } from './Atom';
 
 export const useLogin = () => {
   return useMutation('token', (data: TUser) => getAccessToken(data), {

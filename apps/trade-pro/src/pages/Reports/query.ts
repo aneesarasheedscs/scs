@@ -1,10 +1,10 @@
-import { useMutation, useQuery } from 'react-query';
-import { requestManager } from '@tradePro/configs/requestManager';
+import { notification } from 'antd';
 import { AxiosError, AxiosResponse } from 'axios';
 import { queryClient } from '@tradePro/configs';
-import { notification } from 'antd';
-import { storedUserDetail } from '@tradePro/utils/storageService';
 import { TAddtoFavoriteScreens } from './types';
+import { useMutation, useQuery } from 'react-query';
+import { requestManager } from '@tradePro/configs/requestManager';
+import { storedUserDetail } from '@tradePro/utils/storageService';
 
 const userDetail = storedUserDetail();
 

@@ -1,17 +1,18 @@
 import './style.scss';
-import { Col, Form, Row, Select } from 'antd';
+import { useAtom } from 'jotai';
 import { map, merge } from 'lodash';
 import CardWrapper from './CardWrapper';
 import { useEffect, useState } from 'react';
-import { Company, TCompanyBranchDetail } from './types';
 import { useNavigate } from 'react-router-dom';
+import { financialYearObject } from './Atom';
+import { Col, Form, Row, Select } from 'antd';
 import { route } from '@tradePro/routes/constant';
+import { TUserDetail } from '@tradePro/globalTypes';
+import { Company, TCompanyBranchDetail } from './types';
 import { storedUserDetail } from '@tradePro/utils/storageService';
 import { AntButton, AntSelectDynamic } from '@tradePro/components';
 import { useGetBranch, useGetCompany, useGetFinancialYear } from './queries';
-import { TUserDetail } from '@tradePro/globalTypes';
-import { useAtom } from 'jotai';
-import { financialYearObject } from './Atom';
+
 const { useForm, useWatch } = Form;
 function CompanyBranchDetails() {
   const navigate = useNavigate();

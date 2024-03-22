@@ -88,7 +88,6 @@ export type TDetailPackUom = {
 //   DestinationLocationId: number;
 // };
 
-
 export type TStockAdjustment = {
   Id: number;
   DocumentTypeId: number;
@@ -107,14 +106,14 @@ export type TStockAdjustment = {
   ApprovalUserId: number;
   ApprovedDate: string;
   InvStockAdjustmentDetailslist: InvStockAdjustmentDetail[];
-}
+};
 export type InvStockAdjustmentDetail = {
   Id: number;
-  PackUom:string;
-  Qty:number;
-  ItemName:string;
+  PackUom: string;
+  Qty: number;
+  ItemName: string;
   WarehouseId: number;
-  WareHouseName:string
+  WareHouseName: string;
   ItemId: number;
   PackUomId: number;
   NetWeight: number;
@@ -125,28 +124,26 @@ export type InvStockAdjustmentDetail = {
   RemarksDetail: string;
   ActionTypeId: number;
   RateUom: string;
-  AccountTitle:string
-  
- 
-}
-export type TWareHouse={
-  Id: number,
-  WareHouseName: string
-                
-}
+  AccountTitle: string;
+};
+export type TWareHouse = {
+  Id: number;
+  WareHouseName: string;
+};
 
-export type TAccountTitle={
-  Id:number,
-  AccountTitle:string
-}
+export type TAccountTitle = {
+  Id: number;
+  AccountTitle: string;
+};
 export type TStockAdjustmentHistory = {
   Id: number;
   DocNo: number;
   DocDate: Date | string;
-  VoucherHeadId:number;
-  EntryType:string;
-  EntryDate:Date
-  ModifyUser:string;
-  ModifyDate:Date;
-  Remarks:string
+  VoucherHeadId: number;
+  EntryType: string;
+  EntryUser: string;
+  EntryDate: Date;
+  ModifyUser: string;
+  ModifyDate: Date;
+  Remarks: string;
 };

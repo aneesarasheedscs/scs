@@ -1,6 +1,6 @@
-import { Alert, Button, Card, Col, Divider, Row, theme } from 'antd';
-import { map, sumBy } from 'lodash';
+import { map } from 'lodash';
 import { useNavigate } from 'react-router-dom';
+import { Alert, Card, Col, Divider, Row, theme } from 'antd';
 
 function BalanceSheetAssetsCards({
   totalstockAmount,
@@ -92,7 +92,6 @@ function BalanceSheetAssetsCards({
   } = theme.useToken();
   const totalNonCurrentAssets = totalpropertyPlantEquipment;
   const totalCurrentAssets = totalcashBankBalancesAmount + totalstockAmount + totaltradeDebtorLocalAmount;
-  // console.log(totalCurrentAssets);
   const totalAssets = totalCurrentAssets + totalNonCurrentAssets;
   return (
     <>

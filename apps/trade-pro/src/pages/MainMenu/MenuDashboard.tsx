@@ -1,6 +1,6 @@
+import { theme } from 'antd';
 import { TChildren, TSideMenu } from './types';
 import * as AntIcons from '@ant-design/icons';
-import { theme } from 'antd';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';

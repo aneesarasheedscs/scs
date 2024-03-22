@@ -1,7 +1,7 @@
-import { AntColumnType } from '@tradePro/globalTypes';
-import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { Link } from 'react-router-dom';
 import { TAccountsData } from '../../types';
+import { AntColumnType } from '@tradePro/globalTypes';
+import { numberFormatter } from '@tradePro/utils/numberFormatter';
 
 export const columns = (t?: any): AntColumnType<TAccountsData>[] => [
   {

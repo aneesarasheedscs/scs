@@ -1,10 +1,11 @@
-import { Card, Col, Row, Space, theme } from 'antd';
 import { map } from 'lodash';
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 import { StarFilled } from '@ant-design/icons';
 import { TableLoader } from '@tradePro/components';
+import { Card, Col, Row, Space, theme } from 'antd';
 import { useGetDeleteFavouiteScreens, useGetFavouiteScreens } from '../query';
-import { useNavigate } from 'react-router';
+
 function Favorites() {
   const { data: favoriteScreens, isSuccess, isLoading } = useGetFavouiteScreens();
   const [ScreenName, setScreenName] = useState<string>();

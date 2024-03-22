@@ -1,6 +1,6 @@
-import { Alert, Card, Col, Divider, Row, message, theme } from 'antd';
 import { map } from 'lodash';
 import { useNavigate } from 'react-router-dom';
+import { Alert, Card, Col, Divider, Row, message, theme } from 'antd';
 
 function LiabilitiesCards({
   totalCreditorsAmount,

@@ -1,11 +1,11 @@
 import { groupBy, map, size } from 'lodash';
-import React, { useEffect, useState } from 'react';
-import { TAddtoFavoriteScreens, TSideMenu } from './types';
-import { Card, Col, Divider, Menu, Row, Space, notification, theme } from 'antd';
+import { useEffect, useState } from 'react';
 import { StarOutlined } from '@ant-design/icons';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { TableLoader } from '@tradePro/components';
 import { useAddFavoriteScreens } from './query';
+import { TAddtoFavoriteScreens, TSideMenu } from './types';
+import { Card, Col, Divider, Row, Space, theme } from 'antd';
 
 function FilteredReports({ data, isSuccess, isLoading }: any) {
   const [list, setList] = useState<TSideMenu[]>([]);

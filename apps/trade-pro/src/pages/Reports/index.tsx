@@ -1,9 +1,9 @@
-import { Card, Col, Divider, Row, theme } from 'antd';
 import './style.scss';
+import { useGetMenu } from './query';
 import Search from 'antd/es/input/Search';
 import Favorites from './Favorites/Favorites';
 import FilteredReports from './FilteredReports';
-import { useGetMenu } from './query';
+import { Card, Col, Divider, Row, theme } from 'antd';
 
 function Reports() {
   const onSearch = (value: string) => console.log(value);
