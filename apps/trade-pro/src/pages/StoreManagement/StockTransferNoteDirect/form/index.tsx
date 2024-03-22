@@ -42,7 +42,7 @@ function StockTransferNoteDirectForm({ selectedRecordId, setSelectedRecordId }: 
   useEffect(() => {
     if (isSuccess) form.setFieldValue('DocNo', data?.data?.Data?.Result);
     form.setFields([{ name: 'DocDate', value: dayjs(new Date()) }]);
-    form.setFields([{ name: 'SourceLocationId', value: source?.[0]?.Id }]);
+    // form.setFields([{ name: 'SourceLocationId', value: source?.[0]?.Id }]);
     form.setFieldValue('ReqStatus', request?.data?.Data?.Result?.[2]?.Id);
   }, [data, isSuccess]);
 

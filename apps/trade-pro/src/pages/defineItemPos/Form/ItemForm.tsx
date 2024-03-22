@@ -77,13 +77,7 @@ function FormFile() {
                 />
               </Col>
               <Col xl={{ span: 4 }} sm={{ span: 12 }} style={{ marginRight: 15 }}>
-                <AntInput
-                  required
-                  label={t('item_name')}
-                  name="ItemName"
-                  className="input"
-                  style={{ width: '100%' }}
-                />
+                <AntInput required label={t('item_name')} name="ItemName" className="input" style={{ width: '100%' }} />
               </Col>{' '}
               <Col xl={{ span: 5 }} sm={{ span: 10 }} style={{ marginRight: 35 }}>
                 <AntInput
@@ -242,19 +236,13 @@ function FormFile() {
                 <Col xl={6} md={7} lg={10} sm={12}>
                   <p>{t('product_image')}</p>
                   <img
-                    src={localStorage.getItem('img') ? localStorage.getItem('img') : image}
+                    // src={localStorage.getItem('img') ? localStorage.getItem('img') : image}
                     alt=""
                     style={{ border: '1px solid gray', borderRadius: 10 }}
                     height={150}
                     width={200}
                   />
-                  <AntInput
-                    label={''}
-                    type="file"
-                    name="Product-Image"
-                    onChange={handleImage}
-                    style={{ width: 200 }}
-                  />
+                  <AntInput label={''} type="file" name="Product-Image" onChange={handleImage} style={{ width: 200 }} />
                 </Col>{' '}
                 <Col xl={4}>
                   <p>{t('barcode_image')}</p>

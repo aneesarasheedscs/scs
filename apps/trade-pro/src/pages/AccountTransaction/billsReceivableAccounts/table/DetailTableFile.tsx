@@ -2,9 +2,11 @@ import { isNumber } from 'lodash';
 import { Row, Col, theme, Image } from 'antd';
 import { useTranslation } from 'react-i18next';
 import React, { useEffect, useState } from 'react';
-import { TBankPaymentDetailEntry } from '../form/types';
+// import { TBankPaymentDetailEntry } from '../form/types';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import { useGetBankPaymentVoucherById } from '../queries/querySave';
+import { useGetBankPaymentVoucherById } from '../../bankPaymentVoucher/queries/querySave';
+import { TBankPaymentDetailEntry } from '../../bankPaymentVoucher/form/types';
+// import { useGetBankPaymentVoucherById } from '../queries/querySave';
 
 const Tablefile: React.FC<{ selectedRecordId?: number | null; voucherData: any }> = ({
   selectedRecordId,
@@ -277,7 +279,7 @@ const Tablefile: React.FC<{ selectedRecordId?: number | null; voucherData: any }
                   >
                     <div className="caption">{t('tax_amount')}</div>
                     <div style={{ textAlign: 'right' }} className="value">
-                      {numberFormatter(isNumber(TaxableEntry?.TaxAmount) ? TaxableEntry?.TaxAmount : 0)}
+                      {numberFormatter(TaxableEntry?.TaxAmount ? TaxableEntry?.TaxAmount : 0)}
                     </div>
                   </div>
                 </div>

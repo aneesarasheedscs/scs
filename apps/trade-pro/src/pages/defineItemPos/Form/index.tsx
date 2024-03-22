@@ -29,7 +29,7 @@ function ItemFormtoSave() {
     console.log(values);
     mutate(values);
     if (isNumber(selectedRecordId)) {
-      mutate({ ...values, rowVersion: ItemgetbyId?.data?.Data?.Result?.rowVersion });
+      mutate({ ...values });
     } else {
       mutate(values);
     }

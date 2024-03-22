@@ -25,7 +25,7 @@ function TrialBalanceSelectedReport() {
         </Col>
         <Col xxl={1} style={{ marginRight: '50px' }}>
           {' '}
-          <BackButton />
+          <BackButton goToDashboard={true} />
         </Col>
       </Row>
 

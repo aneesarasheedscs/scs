@@ -70,40 +70,42 @@ function SalesPersonalInfo({ form }: TDynamicForm) {
   const handleOrderStatusChange = (value: number) => {
     setIsOrderOpen(value === 1);
   };
-  const handleAddToTable = () => {
-    const newData =
-      formValues.SaleOrderDetailList?.map((item) => ({
-        ...item,
-        CommissionType: getFieldValue('CommissionType'),
-      })) || [];
+  // const handleAddToTable = () => {
+  //   const newData =
+  //     formValues.SaleOrderDetailList?.map((item) => ({
+  //       ...item,
+  //       CommissionType: getFieldValue('CommissionType'),
+  //     })) || [];
 
-    // Assuming `updatedData` is declared somewhere in your component
-    const updatedData: UpdatedDataItem[] = /* Your logic to get or initialize updatedData */ [];
+  //   // Assuming `updatedData` is declared somewhere in your component
+  //   // const updatedData: UpdatedDataItem[] = /* Your logic to get or initialize updatedData */ [];
 
-    const combinedData = [...newData, ...updatedData];
+  //   const combinedData = [...newData, ...updatedData];
 
-    console.log('New tableData:', combinedData);
+  //   console.log('New tableData:', combinedData);
 
-    // Calculate commissionAmount based on commissionType
-    const commissionType = getFieldValue('CommissionType');
-    combinedData.forEach((item) => {
-      if ('CommissionRate' in item) {
-        if (commissionType === 'Percent') {
-          item.CommissionAmount = (item.Amount * item.CommissionRate) / 100;
-        } else if (commissionType === 'Flat') {
-          item.CommissionAmount = item.CommissionRate;
-        }
-        // Add other conditions as needed
-      }
-    });
+  //   // Calculate commissionAmount based on commissionType
+  //   const commissionType = getFieldValue('CommissionType');
+  //   combinedData.forEach((item) => {
+  //     if ('CommissionRate' in item) {
+  //       if (commissionType === 'Percent') {
+  //         item.CommissionAmount = (item.Amount * item.CommissionRate) / 100;
+  //       } else if (commissionType === 'Flat') {
+  //         item.CommissionAmount = item.CommissionRate;
+  //       }
+  //       // Add other conditions as needed
+  //     }
+  //   });
 
-    return combinedData;
-  };
+  //   return combinedData;
+  // };
 
   return (
     // <Card style={{  boxShadow: '2px 4px 12px 1px gray',marginTop:'20px' }}>
 
-    <Row gutter={[16,16]}  justify={'space-between'} >      {/* <Row> */}
+    <Row gutter={[16, 16]} justify={'space-between'}>
+      {' '}
+      {/* <Row> */}
       {/* <h6
         style={{
           fontFamily: 'times-roman',
@@ -121,7 +123,7 @@ function SalesPersonalInfo({ form }: TDynamicForm) {
             {' '}
             <DownOutlined />
           </Button> */}
-      {/* </h6> */} 
+      {/* </h6> */}
       {/* {toggle ? ( */}
       {/* <Card className="antCard card-shadow" style={{ overflowX: 'auto', width: '100%' }}>
           <Form.List name="SaleOrderDetailList" initialValue={[]}>
@@ -183,7 +185,6 @@ function SalesPersonalInfo({ form }: TDynamicForm) {
       <br></br>
     </Row>
     // </Card >
-
   );
 }
 type TDynamicForm = { form: FormInstance };

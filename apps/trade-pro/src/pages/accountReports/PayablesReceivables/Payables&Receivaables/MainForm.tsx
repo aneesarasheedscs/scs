@@ -23,7 +23,7 @@ const PayablesReceivablesReport: React.FC<{
             </h1>
           </Col>
           <Col xxl={1} style={{ marginRight: '20px' }}>
-            <BackButton />
+            <BackButton goToDashboard={true} />
           </Col>
         </Row>
 

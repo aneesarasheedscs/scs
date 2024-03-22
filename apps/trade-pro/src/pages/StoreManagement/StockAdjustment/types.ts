@@ -93,9 +93,11 @@ export type TStockAdjustmentHistory = {
   DocDate: Date | string;
   VoucherHeadId: number;
   EntryType: string;
-  EntryUser: number;
+  EntryUser: string;
   EnteryDate: Date;
   ModifyUser: string;
   ModifyDate: Date;
   Remarks: string;
+  EntryDate: Date;
+  CompLogoImage: string;
 };

@@ -1,9 +1,9 @@
 import { Card, Tabs, theme } from 'antd';
 import { useTranslation } from 'react-i18next';
-import Main from './DutyRoaster/form';
 import './style.scss';
 import { useState } from 'react';
-import DutyRoasterHistory from './DutyRoaster/table/DutyRoasterTable';
+import Main from './form';
+import DutyRoasterHistory from './table/DutyRoasterTable';
 
 function DutyRoasterForm() {
   const { t } = useTranslation();

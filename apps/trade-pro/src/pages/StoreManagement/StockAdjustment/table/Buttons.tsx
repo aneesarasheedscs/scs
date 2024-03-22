@@ -1,11 +1,11 @@
 import { AntButton } from '@scs/ui';
 import { Badge, Col, Row, Tooltip } from 'antd';
 import { PrinterFilled, LinkOutlined, EditFilled, FileTextOutlined } from '@ant-design/icons';
-import { TRequisitionOrderHistory } from '../types';
+import { TStockAdjustmentHistory } from '../types';
 
 interface TButtons {
   setActiveTab: (tab: string) => void;
-  selectedCardData: TRequisitionOrderHistory;
+  selectedCardData: TStockAdjustmentHistory;
   setSelectedRecordId: (id: number | null) => void;
 }
 const Buttons = ({ selectedCardData, setActiveTab, setSelectedRecordId }: TButtons) => {

@@ -277,7 +277,7 @@ const Tablefile: React.FC<{ selectedRecordId?: number | null; voucherData: any }
                   >
                     <div className="caption">{t('tax_amount')}</div>
                     <div style={{ textAlign: 'right' }} className="value">
-                      {numberFormatter(isNumber(TaxableEntry?.TaxAmount) ? TaxableEntry?.TaxAmount : 0)}
+                      {numberFormatter(TaxableEntry?.TaxAmount ? TaxableEntry?.TaxAmount : 0)}
                     </div>
                   </div>
                 </div>

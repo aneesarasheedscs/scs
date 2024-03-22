@@ -2,18 +2,18 @@ import { isNumber } from 'lodash';
 import { Row, Col, theme, Image } from 'antd';
 import { useTranslation } from 'react-i18next';
 import React, { useEffect, useState } from 'react';
-import { TBankPaymentDetailEntry } from '../form/types';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import { useGetBankPaymentVoucherById } from '../queries/querySave';
+import { useGetBillsPayableVoucherById } from '../query';
+import { TvoucherDetailList } from '../types';
 
 const Tablefile: React.FC<{ selectedRecordId?: number | null; voucherData: any }> = ({
   selectedRecordId,
   voucherData,
 }) => {
   const { t } = useTranslation();
-  const { data, isLoading, isSuccess } = useGetBankPaymentVoucherById(selectedRecordId);
+  const { data, isLoading, isSuccess } = useGetBillsPayableVoucherById(selectedRecordId);
   const voucherDetailData = data?.data?.Data?.Result?.voucherDetailList;
-  const [mainDataSource, setMainDataSource] = useState<TBankPaymentDetailEntry[]>([]);
+  const [mainDataSource, setMainDataSource] = useState<TvoucherDetailList[]>([]);
   console.log(data?.data?.Data?.Result.IncludeWHT);
   type TaxEntry = {
     Wht_Account: string;
@@ -77,7 +77,7 @@ const Tablefile: React.FC<{ selectedRecordId?: number | null; voucherData: any }
             </div>
           </div>
 
-          {voucherDetailData?.map((item: TBankPaymentDetailEntry, index: number) => (
+          {voucherDetailData?.map((item: TvoucherDetailList, index: number) => (
             <div className={`table-data ${index % 2 === 0 ? '' : 'alternate'}`} key={index}>
               <div className="table-Row">
                 <div
@@ -277,7 +277,7 @@ const Tablefile: React.FC<{ selectedRecordId?: number | null; voucherData: any }
                   >
                     <div className="caption">{t('tax_amount')}</div>
                     <div style={{ textAlign: 'right' }} className="value">
-                      {numberFormatter(isNumber(TaxableEntry?.TaxAmount) ? TaxableEntry?.TaxAmount : 0)}
+                      {numberFormatter(TaxableEntry?.TaxAmount ? TaxableEntry?.TaxAmount : 0)}
                     </div>
                   </div>
                 </div>

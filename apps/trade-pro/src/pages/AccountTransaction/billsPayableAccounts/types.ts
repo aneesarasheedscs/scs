@@ -57,7 +57,9 @@ export type TBillsPayables = {
   PaymentDuesSchedules: TPaymentDuesSchedules[];
 };
 export type TvoucherDetailList = {
+  AccountCode: number;
   AccountId: number;
+  AgainstAccount: string;
   AgainstAccountId: number;
   JobLotId: number;
   Comments: string;

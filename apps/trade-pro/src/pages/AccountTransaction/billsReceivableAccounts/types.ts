@@ -64,6 +64,7 @@ export type TvoucherDetailList = {
   QtyIn: number;
   ItemRate: number;
   ItemAmount: number;
+  DebitAmount: number;
   CreditAmount: number;
   IsTaxable: string;
   DueDays: number;
