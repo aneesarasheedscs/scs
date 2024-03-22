@@ -28,6 +28,7 @@ function Buttons({
     console.log(printPreview);
   };
   const handleResetForm = () => {
+    form.setFieldValue(['InvStockAdjustmentDetailslist', 0], null);
     setSelectedRecordId(null);
     setTableData([]);
     refetch();
@@ -55,7 +56,7 @@ function Buttons({
               </Form.Item>
             </Col>
             <Col xl={15} xxl={15} sm={15} lg={15} xs={23} md={15} className="formfield">
-              <AntDatePicker autoFocus required name="DocDate" label={t('document_date')} bordered={false} />
+              <AntDatePicker autoFocus name="DocDate" label={t('document_date')} bordered={false} />
             </Col>
           </Row>
         </Col>

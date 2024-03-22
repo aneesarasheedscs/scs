@@ -29,7 +29,7 @@ function StockAdjustment() {
 
   useEffect(() => {
     if (isDataSuccessforDetail && !isDataLoadingDetail) {
-      setViewDetail(stockAdjustmentById?.data?.Data?.Result?.WsRmRequisitionPoDetailsList);
+      setViewDetail(stockAdjustmentById?.data?.Data?.Result?.InvStockAdjustmentDetailslist);
     }
   }, [isDataSuccessforDetail, isDataLoadingDetail]);
   return (

@@ -9,7 +9,6 @@ import { Card, Col, Row, Form, FormInstance, notification } from 'antd';
 import { AntButton, AntInput, AntInputNumber, AntSelectDynamic } from '@tradePro/components';
 
 const { useWatch } = Form;
-
 const DynamicForm = ({ form, AdjustmentTypeId }: TDynamicForm) => {
   const { t } = useTranslation();
   const formValues = useWatch<InvStockAdjustmentDetail[]>('InvStockAdjustmentDetailslist', form);
@@ -17,6 +16,7 @@ const DynamicForm = ({ form, AdjustmentTypeId }: TDynamicForm) => {
   const equivalentRate = getFieldValue(['InvStockAdjustmentDetailslist', 0, 'PackEquivalent']);
   const itemId = getFieldValue(['InvStockAdjustmentDetailslist', 0, 'ItemId']);
   const antSelectRef = useRef<any>(null);
+  const { data: RateUom, isSuccess: successRateUom } = useGetUomByItemId(formValues?.[0]?.ItemId);
   const { data, isSuccess, isLoading } = useGetAccountTitle(AdjustmentTypeId);
   const [tableData, setTableData] = useAtom(addtableData);
   const [newtableData, setNewTableData] = useAtom(newTableData);
@@ -24,6 +24,7 @@ const DynamicForm = ({ form, AdjustmentTypeId }: TDynamicForm) => {
   const [useFocus, setUseFocus] = useState(false);
   const [edit, setEdit] = useState<InvStockAdjustmentDetail>();
   const [counter, setCounter] = useState<number>(0);
+
   const initialValues = {
     Id: null,
     ItemId: null,
@@ -61,7 +62,6 @@ const DynamicForm = ({ form, AdjustmentTypeId }: TDynamicForm) => {
       PackUomId: item.PackUomId,
       RateUomId: item.RateUomId,
       DebitAccountId: item.DebitAccountId,
-      ActionTypeId: 1,
       RateUom: item.RateUom,
       AccountTitle: item.AccountTitle,
     }));
@@ -142,7 +142,7 @@ const DynamicForm = ({ form, AdjustmentTypeId }: TDynamicForm) => {
       PackUomId: item.PackUomId,
       RateUomId: item.RateUomId,
       DebitAccountId: item.DebitAccountId,
-      ActionTypeId: 1,
+
       RateUom: item.RateUom,
       AccountTitle: item.AccountTitle,
     }));
@@ -208,7 +208,6 @@ const DynamicForm = ({ form, AdjustmentTypeId }: TDynamicForm) => {
 
     setFields([
       { name: ['InvStockAdjustmentDetailslist', index, 'PackUom'], value: obj?.UOMCode },
-      { name: ['InvStockAdjustmentDetailslist', index, 'RateUomId'], value: obj?.UOMCode },
       { name: ['InvStockAdjustmentDetailslist', index, 'ItemName'], value: obj?.ItemName },
       { name: ['InvStockAdjustmentDetailslist', index, 'ItemId'], value: obj?.Id },
       { name: ['InvStockAdjustmentDetailslist', index, 'PackEquivalent'], value: obj?.Equivalent },
@@ -301,7 +300,13 @@ const DynamicForm = ({ form, AdjustmentTypeId }: TDynamicForm) => {
         data?.data?.Data?.Result?.[0]?.AccountTitle
       );
     }
-  }, [form, isSuccess]);
+    if (successRateUom) {
+      const PackUom = RateUom?.data?.Data?.Result?.find((item: any) => item.BasePackUom);
+      if (PackUom.BasePackUom === true)
+        form.setFieldValue(['InvStockAdjustmentDetailslist', 0, 'RateUomId'], PackUom.Id);
+      form.setFieldValue(['InvStockAdjustmentDetailslist', 0, 'RateUom'], PackUom.UOMCode);
+    }
+  }, [form, isSuccess, RateUom, successRateUom]);
 
   return (
     <>
@@ -474,7 +479,7 @@ const DynamicForm = ({ form, AdjustmentTypeId }: TDynamicForm) => {
                           label={t('rate_uom')}
                           fieldLabel="UOMCode"
                           name={[field.name, 'RateUomId']}
-                          query={useGetUomByItemId(formValues?.[field.name]?.ItemId)}
+                          query={() => useGetUomByItemId(formValues?.[field.name]?.ItemId)}
                           onSelectChange={(obj) =>
                             handleRateUOMChange(obj?.UOMCode, obj?.Equivalent, obj?.Id, field.name)
                           }

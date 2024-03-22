@@ -1,15 +1,18 @@
 import dayjs from 'dayjs';
-import { map } from 'lodash';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, Col, FormInstance, Row } from 'antd';
 import { storedUserDetail } from '@tradePro/utils/storageService';
 import { AntInput, AntSelectDynamic } from '@tradePro/components';
 import { useGetEntryType } from '../quries';
+import { useAtom } from 'jotai';
+import { addtableData } from './Atom';
 
 function MainEntry({ form, setAjusmentTypeId }: TDynamicForm) {
+  const [tableData, setTableData] = useAtom(addtableData);
+
   const { t } = useTranslation();
-  const [disablefields, setDisablefields] = useState(true);
+  const [disablefields, setDisablefields] = useState(false);
   // const { data, isSuccess, isLoading } = useGetDestinationLoc();
   const userDetail = storedUserDetail();
   useEffect(() => {
@@ -19,7 +22,10 @@ function MainEntry({ form, setAjusmentTypeId }: TDynamicForm) {
     // if (isSuccess && !isLoading) {
     //   form.setFieldValue('DestinationLocationId', data?.[0]?.Id);
     // }
-  }, ['DocDate']);
+    if (tableData.length > 0) {
+      setDisablefields(true);
+    }
+  }, ['DocDate', disablefields, tableData]);
   console.log(form.getFieldValue('AdjustmentTypeId'));
   const handleTypeChange = (value: number) => {
     setAjusmentTypeId(value);
@@ -38,7 +44,7 @@ function MainEntry({ form, setAjusmentTypeId }: TDynamicForm) {
               name="AdjustmentTypeId"
               // aria-readonly
               onChange={(value) => handleTypeChange(value)}
-              // disabled={disablefields}
+              disabled={disablefields}
             />
           </Col>
 

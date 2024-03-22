@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { Card, Form, notification } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { deleteData, addtableData, newTableData } from '../form/Atom';
-import { useAddRequisitionOrder, useUpdateRequisitionOrder } from '../quries';
+import { useAddStockAdjustment, useUpdateStockAdjustment } from '../quries';
 
 const { useForm } = Form;
 
@@ -28,16 +28,18 @@ function StockAdjustmentForm({
   const [tableData, setTableData] = useAtom(addtableData);
   const [AdjustmentTypeId, setAjusmentTypeId] = useState<number>();
   const {
-    mutate: addRequisitionOrder,
+    mutate: addStockAdjustment,
     isSuccess: successAdd,
     data: addRequisition,
-  } = useAddRequisitionOrder(DocumentTypeId);
+  } = useAddStockAdjustment(DocumentTypeId);
   const {
-    mutate: updateRequisitionOrder,
+    mutate: updateStockAdjustment,
     isSuccess: successUpdate,
     data: updateRequistion,
-  } = useUpdateRequisitionOrder(selectedRecordId, DocumentTypeId);
-  const handleUpdateRequisitionOrder = (values: TStockAdjustment) => {
+  } = useUpdateStockAdjustment(selectedRecordId, DocumentTypeId);
+  const handleUpdateStockAdjustment = (values: TStockAdjustment) => {
+    const AdjustmentTypeId = form.getFieldValue('AdjustmentTypeId');
+
     const Ids = tableData?.map((item) => item.Id);
     if (Ids?.[0] >= 0) {
       const newRecord = newtableData?.map((item) => ({
@@ -54,33 +56,59 @@ function StockAdjustmentForm({
         ...item,
         ActionTypeId: 3,
       }));
+
       values.InvStockAdjustmentDetailslist = [...newRecord, ...updatedRecord, ...deletedRecord];
+      if (AdjustmentTypeId === 1) {
+        const newData = values.InvStockAdjustmentDetailslist.map((item: any) => ({
+          ...item,
+          CreditAccountId: item.CreditAccountId,
+          DebitAccountId: null,
+        }));
+        values.InvStockAdjustmentDetailslist = newData;
+        console.log(values);
+      } else {
+        values.InvStockAdjustmentDetailslist = values.InvStockAdjustmentDetailslist;
+        console.log(values);
+      }
       if (values.InvStockAdjustmentDetailslist?.[0] === null || values.InvStockAdjustmentDetailslist.length === 0) {
         const message = 'Please fill Detail!';
         notification.error({ message: message });
         return;
       }
-      updateRequisitionOrder(values);
+      updateStockAdjustment(values);
       console.log(values);
     }
     setSelectedRecordId(null);
   };
-  const handleAddRequisitionOrder = (values: TStockAdjustment) => {
+  const handleAddStockAdjustment = (values: TStockAdjustment) => {
     values.InvStockAdjustmentDetailslist = tableData;
+    const AdjustmentTypeId = form.getFieldValue('AdjustmentTypeId');
+    if (AdjustmentTypeId === 1) {
+      const newData = tableData.map((item: any) => ({
+        ...item,
+        CreditAccountId: item.DebitAccountId,
+        DebitAccountId: null,
+      }));
+      values.InvStockAdjustmentDetailslist = newData;
+      console.log(values);
+    } else {
+      values.InvStockAdjustmentDetailslist = tableData;
+      console.log(values);
+    }
     if (values.InvStockAdjustmentDetailslist?.[0] === null || values.InvStockAdjustmentDetailslist.length === 0) {
       const message = 'Please fill Detail!';
       notification.error({ message: message });
       return;
     }
-    addRequisitionOrder(values);
+    addStockAdjustment(values);
     console.log(values);
   };
   const onFinish = (values: TStockAdjustment) => {
     values.PrintPreview = printPreview;
     if (selectedRecordId) {
-      handleUpdateRequisitionOrder(values);
+      handleUpdateStockAdjustment(values);
     } else {
-      handleAddRequisitionOrder(values);
+      handleAddStockAdjustment(values);
     }
   };
   useEffect(() => {
@@ -97,7 +125,7 @@ function StockAdjustmentForm({
       setSelectedRecordId(null);
       setDeleteTableData([]);
       setNewTableData([]);
-      form.setFieldValue('DocDate', dayjs(new Date()));
+      // form.setFieldValue('DocDate', dayjs(new Date()));
       form.setFieldValue('RemarksHeader', null);
     }
   }, [successAdd, addRequisition, successUpdate, updateRequistion]);
@@ -105,10 +133,9 @@ function StockAdjustmentForm({
   useEffect(() => {
     if (isDataSuccess && !isDataLoading) {
       form.setFieldValue('DocNo', stockAdjustmentById?.DocNo);
+      form.setFieldValue('AdjustmentTypeId', stockAdjustmentById?.AdjustmentTypeId);
       form.setFieldValue('DocDate', dayjs(stockAdjustmentById?.DocDate));
-      // form.setFieldValue('ReqStatus', parseInt(stockAdjustmentById?.ReqStatus));
-      // form.setFieldValue('DestinationLocationId', stockAdjustmentById?.DestinationLocationId);
-      // form.setFieldValue('SourceLocationId', stockAdjustmentById?.SourceLocationId);
+      setAjusmentTypeId(stockAdjustmentById?.AdjustmentTypeId);
       form.setFieldValue('RemarksHeader', stockAdjustmentById?.RemarksHeader);
       setTableData(stockAdjustmentById?.InvStockAdjustmentDetailslist);
     }

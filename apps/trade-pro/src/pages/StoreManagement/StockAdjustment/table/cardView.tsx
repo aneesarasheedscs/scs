@@ -21,11 +21,8 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
   const { data, isError, isLoading, refetch, isFetching } = useStockAdjustmentHistory();
   const stockTransfer = data?.data?.Data?.Result;
   const logoImageBytes = data?.data?.Data?.Result?.[0]?.CompLogoImage;
-  // Convert Uint8Array to a regular array of numbers
   const byteArray = Array.from(new Uint8Array(logoImageBytes));
-  // Convert the array to a base64-encoded string
   const base64String = btoa(String.fromCharCode.apply(null, byteArray));
-  // Assuming the image format is PNG, you can change it based on the actual format
   const dataUrl = `data:image/png;base64,${base64String}`;
   const [records, setRecords] = useState<TStockAdjustmentHistory[]>([]);
   const [selectedCardData, setSelectedCardData] = useState<TStockAdjustmentHistory>();
@@ -88,18 +85,18 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
     const newSortOrder = sortOrderAmount === 'asc' ? 'desc' : 'asc';
     setSortOrderAmount(newSortOrder);
 
-    const sortedRecords = [...(records || [])].sort((a, b) => {
-      const comparison = newSortOrder === 'asc' ? 1 : -1;
-      return a.IssuedAmount > b.IssuedAmount ? comparison : -comparison;
-    });
+    // const sortedRecords = [...(records || [])].sort((a, b) => {
+    //   const comparison = newSortOrder === 'asc' ? 1 : -1;
+    //   return a.IssuedAmount > b.IssuedAmount ? comparison : -comparison;
+    // });
 
-    setRecords(sortedRecords);
+    // setRecords(sortedRecords);
   };
 
   const handleSearch = (value: any) => {
     console.log(value);
     const trimmedValue = value.trim();
-    const filteredRecords = stockTransfer?.filter((record: TRequisitionOrderHistory) => {
+    const filteredRecords = stockTransfer?.filter((record: TStockAdjustmentHistory) => {
       return record.EntryUser.toLowerCase().includes(trimmedValue.toLowerCase());
     });
     setRecords(filteredRecords || []);
@@ -118,20 +115,20 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
           </Row>
           <Row gutter={10} className="row" style={{ fontSize: 14, fontWeight: '700', padding: 4 }}>
             <Col lg={{ span: 6 }} md={{ span: 6 }} sm={{ span: 6 }} className="column">
-              Doc No# <SortAscendingOutlined onClick={() => handleSortDocNo()} />{' '}
+              {t('doc_no')} <SortAscendingOutlined onClick={() => handleSortDocNo()} />{' '}
               <SortDescendingOutlined onClick={() => handleSortDocNo()} />
             </Col>
             <Col lg={{ span: 6 }} md={{ span: 6 }} sm={{ span: 6 }} className="column">
-              Doc Date <SortAscendingOutlined onClick={() => handleSortDocDate()} />{' '}
+              {t('doc_date')} <SortAscendingOutlined onClick={() => handleSortDocDate()} />{' '}
               <SortDescendingOutlined onClick={() => handleSortDocDate()} />
             </Col>
             <Col lg={{ span: 6 }} md={{ span: 6 }} sm={{ span: 6 }} className="column">
-              Entry User
+              {t('entry_user')}
               <SortAscendingOutlined onClick={() => handleSortEntryUser()} />{' '}
               <SortDescendingOutlined onClick={() => handleSortEntryUser()} />
             </Col>
             <Col lg={{ span: 6 }} md={{ span: 6 }} sm={{ span: 6 }} className="column">
-              Amount <SortAscendingOutlined onClick={() => handleSortAmount()} />{' '}
+              {t('amount')} <SortAscendingOutlined onClick={() => handleSortAmount()} />{' '}
               <SortDescendingOutlined onClick={() => handleSortAmount()} />
             </Col>
           </Row>
@@ -144,11 +141,14 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
                 width: '99%',
               }}
             >
-              {records?.map((card: TRequisitionOrderHistory | any) => (
+              {records?.map((card: TStockAdjustmentHistory | any) => (
                 <Col span={24} key={card.Id}>
                   <Card className="singleCard" onClick={() => setSelectedCardData(card)}>
                     <Row justify={'space-between'} style={{ marginTop: '-3%' }}>
-                      <p className="list-item2">Doc# {card.DocNo}</p>
+                      <p className="list-item2">
+                        {t('doc_#')}
+                        {card.DocNo}
+                      </p>
                       <h3>{formateDate(card.DocDate)}</h3>
                     </Row>
                     <Row justify={'space-between'}>
@@ -249,22 +249,8 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
                           <div className="value">{selectedCardData?.DocNo}</div>
                         </div>
                         <div className="caption-value-wrape">
-                          <div className="caption">{t('location_from')}:</div>
-                          <div className="value">{selectedCardData?.LocationFrom}</div>
-                        </div>
-
-                        <div className="caption-value-wrape">
-                          <div className="caption">{t('qty')}:</div>
-                          <div className="value">
-                            {selectedCardData?.IssuedQty > 0 ? numberFormatter(selectedCardData?.IssuedQty) : 0}
-                          </div>
-                        </div>
-
-                        <div className="caption-value-wrape">
-                          <div className="caption">{t('remarks')}:</div>
-                          <div className="value">
-                            <div className="value">{selectedCardData?.RemarksHeader}</div>
-                          </div>
+                          <div className="caption">{t('entry_type')}:</div>
+                          <div className="value">{selectedCardData?.EntryType}</div>
                         </div>
                       </div>
                     </Col>
@@ -288,26 +274,12 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
                             {selectedCardData ? dayjs(selectedCardData.DocDate).format('YYYY-MM-DD') : ''}
                           </div>
                         </div>
-                        <div
-                          style={{ display: 'flex', justifyContent: 'space-between' }}
-                          className="caption-value-wrape"
-                        >
-                          <div className="caption">{t('location_to')}:</div>
-                          <div className="value">{selectedCardData?.LocationTo}</div>
-                        </div>
-                        <div
-                          style={{ display: 'flex', justifyContent: 'space-between' }}
-                          className="caption-value-wrape"
-                        >
-                          <div className="caption">{t('amount')}:</div>
-                          <div className="value">
-                            {selectedCardData?.IssuedAmount > 0 ? numberFormatter(selectedCardData?.IssuedAmount) : 0}
-                          </div>
-                        </div>
                       </div>
                       <div className="caption-value-wrape">
-                        <div className="caption">{t('req_status')}:</div>
-                        <div className="value">{selectedCardData?.RequestStatus}</div>
+                        <div className="caption">{t('remarks')}:</div>
+                        <div className="value">
+                          <div className="value">{selectedCardData?.Remarks}</div>
+                        </div>
                       </div>
                     </Col>
                   </div>

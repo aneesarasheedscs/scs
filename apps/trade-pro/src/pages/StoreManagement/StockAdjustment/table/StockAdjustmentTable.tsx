@@ -5,7 +5,6 @@ import { columns } from './columns';
 import { useTranslation } from 'react-i18next';
 import { useStockAdjustmentHistory } from '../quries';
 import { useState } from 'react';
-import RequisitionOrderDetailTable from './DetailTable';
 import CardView from './cardView';
 
 import StockAdjustmentDetailTable from './DetailTable';
@@ -35,7 +34,7 @@ function StockAdjustmentTable({
   return (
     <>
       <Row>
-        <Col span={24} style={{ marginLeft: '0.5%', borderTop: '1px solid #dfdfdf' }}>
+        <Col span={24} style={{ borderTop: '1px solid #dfdfdf' }}>
           <AntButton
             onClick={toggleGridView}
             className={showComponent ? 'toggleGridView' : 'toggleCardView'}
