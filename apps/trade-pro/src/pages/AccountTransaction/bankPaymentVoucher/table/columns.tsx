@@ -15,6 +15,7 @@ export const columns = (
   setSelectedRecordDetailId: (id: number | null) => void
 ): AntColumnType<TBankPaymentVoucherTable>[] => [
   {
+    fixed: 'left',
     title: t('code'),
     width: 120,
     searchableInput: true,
@@ -34,7 +35,7 @@ export const columns = (
 
   {
     title: t('voucher_date'),
-    width: 140,
+    width: 180,
     dataIndex: 'VoucherDate',
     searchableDate: true,
     render: (_, { VoucherDate }) => formateDate(VoucherDate),
@@ -56,8 +57,9 @@ export const columns = (
   {
     align: 'right',
     title: t('voucher_amount'),
-    width: 150,
+    width: 180,
     showTotal: true,
+    searchableInput: true,
     dataIndex: 'VoucherAmount',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.VoucherAmount - b.VoucherAmount,
@@ -84,7 +86,7 @@ export const columns = (
       const dateB = dayjs(b.ChequeDate);
       return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
     },
-    width: 140,
+    width: 180,
   },
   {
     title: t('remarks'),
@@ -132,6 +134,7 @@ export const columns = (
     sortDirections: ['ascend', 'descend'],
   },
   {
+    fixed: 'right',
     title: t('action'),
     width: 95,
     render: (_, record) => (

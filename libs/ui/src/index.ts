@@ -16,4 +16,5 @@ export * from './rangePicker/AntRangePicker';
 export * from './table/SearchCriteriaWrapper';
 export * from './languageSwitcher/LanguageSwitcher';
 export * from './notificationPopUp/notificationPopup';
-export * from './button/BackButton'
+export * from './button/BackButton';
+export * from './table/AntTablecopy';

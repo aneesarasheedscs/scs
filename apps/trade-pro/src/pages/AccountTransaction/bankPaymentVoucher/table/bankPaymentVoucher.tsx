@@ -6,7 +6,7 @@ import { columns } from './columns';
 import { Col, Row, theme } from 'antd';
 import { useTranslation } from 'react-i18next';
 import BankPaymentDetailTable from './DetailTable';
-import { AntButton, AntTable } from '@tradePro/components';
+import { AntButton, AntTablecopy } from '@tradePro/components';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { useGetBankPaymentVoucherTable } from '../queries/queries';
 
@@ -29,6 +29,9 @@ function BankPaymentTable({
   const toggleGridView = () => {
     setShowComponent(false);
   };
+  const [pageSize, setPageSize] = useState<number | undefined>(10);
+  const [currentPage, setCurrentPage] = useState<number | undefined>(1);
+  const mainData = data?.data?.Data?.Result || [];
   return (
     <>
       <Row gutter={10}>
@@ -50,7 +53,16 @@ function BankPaymentTable({
         ) : (
           <Col span={24}>
             <>
-              <AntTable
+              <AntTablecopy
+                paginate
+                tableId="pagination-example-id" // id must be unique
+                pageSize={pageSize}
+                currentPage={currentPage}
+                totalItems={mainData[0]?.row_count}
+                onChange={(pagination) => {
+                  setPageSize(pagination?.pageSize);
+                  setCurrentPage(pagination?.current);
+                }}
                 refetch={refetchBPV}
                 isError={isError}
                 numberOfSkeletons={8}
@@ -58,6 +70,7 @@ function BankPaymentTable({
                 scroll={{ x: '', y: convertVhToPixels('35vh') }}
                 data={data?.data?.Data?.Result || []}
                 columns={columns(t, setSelectedRecordId, setActiveTab, setSelectedRecordDetailId)}
+                // printSlip={{ data: reportData?.data, enabled: true, onClick: () => mutate(), isSuccess, isPending }}
               />
 
               <BankPaymentDetailTable refetch={refetch} isLoading={isLoading} />

@@ -17,5 +17,6 @@ export {
   AntSelectDynamic,
   AntSelectDynamicMultiple,
   SearchCriteriaWrapper,
-  BackButton
+  BackButton,
+  AntTablecopy,
 } from '@scs/ui';
