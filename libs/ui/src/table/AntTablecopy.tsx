@@ -1,11 +1,9 @@
 import './style.scss';
 import dayjs from 'dayjs';
 import PrintData from './PrintData';
-// import PrintSlip from './PrintSlip';
 import DownloadPdf from './DownloadPdf';
 import RefreshData from './RefreshData';
 import TableSummary from './TableSummary';
-// import AntButton from '../button/AntButton';
 import ColumnChooser from './ColumnChooser';
 import DownloadExcel from './DownloadExcel';
 import GroupByColumns from './GroupByColumns';
@@ -14,7 +12,6 @@ import Highlighter from 'react-highlight-words';
 import { useMemo, useRef, useState } from 'react';
 import { DatePickerProps, Select, Typography } from 'antd';
 import { AntColumnType, TAntTable } from './types';
-// import { numberFormatter } from '@/utils/numberFormatter';
 import { CalendarOutlined, SearchOutlined, FilterFilled } from '@ant-design/icons';
 import { ColumnType, FilterConfirmProps } from 'antd/es/table/interface';
 import { Button, Card, Col, DatePicker, Input, InputRef, Result, Row, Space, Table } from 'antd';
@@ -49,6 +46,7 @@ export function AntTablecopy({
   showTotalRecords,
   numberOfSkeletons,
   searchCriteriaForm,
+  reportCriteriaString,
   getSelectedRowKeys,
   showSorterTooltip = true,
   columnChooser: columnChooserOptions,
@@ -303,6 +301,7 @@ export function AntTablecopy({
   const handleGrouping = (groupedData: { [key: string]: any[] }) => setGroupedColNData(groupedData);
 
   const criteriaForm = useMemo(() => searchCriteriaForm, [isError, isLoading]);
+  const criteriaString = useMemo(() => reportCriteriaString, [isError, isLoading]);
   const columnChooser = useMemo(
     () => (
       <ColumnChooser
@@ -330,9 +329,16 @@ export function AntTablecopy({
 
   return (
     <Card className={isChild ? '' : 'table-card'}>
-      <Row align="middle" justify="space-between">
-        <Col>{criteriaForm}</Col>
-        <Col>
+      <Row gutter={[0, 0]} align="middle" justify="space-between">
+        <Col xxl={20} lg={16} md={16} xl={19} sm={24} xs={24}>
+          <Row>
+            <Col xxl={criteriaForm ? 3 : 0}>{criteriaForm}</Col>
+            <Col xxl={criteriaForm ? 21 : 24} xs={24} md={17} lg={17} xl={criteriaForm ? 20 : 24} sm={18}>
+              {criteriaString}
+            </Col>
+          </Row>
+        </Col>
+        <Col xxl={4} xl={5} lg={8} md={8} sm={11} xs={24} style={{ border: '1px solid #25A7DF', borderRadius: 5 }}>
           <Row gutter={10}>
             <RefreshData handleRefresh={refetch} options={refreshData} disabled={isError || isLoading} />
 

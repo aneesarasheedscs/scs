@@ -34,6 +34,7 @@ export function AntTable({
   groupByColumns,
   numberOfSkeletons,
   searchCriteriaForm,
+  searchCriteriaReport,
   isVirtualized = true,
   rowSelection,
   refreshData: refreshDataOptions,
@@ -141,7 +142,14 @@ export function AntTable({
   const handleGrouping = (groupedData: any[]) => setGroupedData(groupedData);
 
   const criteriaForm = useMemo(() => searchCriteriaForm, [isError, isLoading]);
+  // const criteriaString = useMemo(() => ReportCriteriaString, [isError, isLoading]);
   const refreshData = useMemo(
+    () => <RefreshData handleRefresh={refetch} options={refreshDataOptions} disabled={isError || isLoading} />,
+    [isError, isLoading]
+  );
+
+  const ReportCriteriaString = useMemo(() => searchCriteriaReport, [isError, isLoading]);
+  const refreshDataString = useMemo(
     () => <RefreshData handleRefresh={refetch} options={refreshDataOptions} disabled={isError || isLoading} />,
     [isError, isLoading]
   );
@@ -162,10 +170,18 @@ export function AntTable({
 
   return (
     <Card className="table-card">
-      <Row align="middle" justify="space-between">
-        <Col>{criteriaForm}</Col>
+      <Row align="middle" justify={criteriaForm ? 'space-between' : 'end'}>
+        <Col xxl={20} lg={16} md={16} xl={18} style={{}}>
+          <Row>
+            <Col>{criteriaForm}</Col>
+            <Col xxl={criteriaForm? 21:24} xs={24} md={17} lg={24} xl={18}>
+              {ReportCriteriaString}
+            </Col>
+          </Row>
+        </Col>
+
         <Col>
-          <Row gutter={10}>
+          <Row gutter={10} style={{ border: '1px solid #25A7DF', padding: 0, borderRadius: 5 }}>
             {refreshData}
 
             <PrintData
@@ -269,7 +285,9 @@ type TAntTable = {
   isVirtualized?: boolean;
   numberOfSkeletons?: number;
   searchCriteriaForm?: ReactNode;
+  searchCriteriaReport?: ReactNode;
   refreshData?: { enabled?: boolean; show?: boolean };
+  refreshDataString?: { enabled?: boolean; show?: boolean };
   columnChooser?: { enabled?: boolean; show?: boolean };
   groupByColumns?: { enabled?: boolean; show?: boolean };
   downloadExcel?: { enabled?: boolean; show?: boolean; fileName?: string };

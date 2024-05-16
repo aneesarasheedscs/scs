@@ -24,6 +24,7 @@ export type TAntTable = {
   showTotalRecords?: boolean;
   numberOfSkeletons?: number;
   searchCriteriaForm?: ReactNode;
+  reportCriteriaString?: ReactNode;
   refreshData?: { enabled?: boolean; show?: boolean };
   columnChooser?: { enabled?: boolean; show?: boolean };
   groupByColumns?: { enabled?: boolean; show?: boolean };

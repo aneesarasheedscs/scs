@@ -48,7 +48,7 @@ export function AppHeader({ appLogo, sideMenu, languageSwitcher }: TAppHeader) {
           </Col>
           <Col xxl={6} xl={6} lg={6} md={6} sm={14} xs={20}>
             <Row align="middle" justify={'center'} style={{}}>
-              <Col xxl={16} xl={22} lg={24} md={24} sm={24} xs={24}>
+              <Col xxl={17} xl={22} lg={24} md={24} sm={24} xs={24}>
                 <p style={{ marginTop: '-5%' }} className="companyInformation">
                   <BankOutlined style={{ color: 'green', fontSize: '18px', marginRight: '2%' }} />
                   <b>{userDetail?.CompanyName}</b>

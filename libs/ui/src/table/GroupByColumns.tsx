@@ -32,7 +32,7 @@ function GroupByColumns({
 
     if (data && size(data) > 0) {
       const result = handleGrouping(data, selectedColumns);
-      handleDataGrouping(result);
+      // handleDataGrouping(result);
     }
   }, [checkedList]);
 
@@ -92,7 +92,7 @@ type TGroupByColumns = {
   disabled?: boolean;
   columns?: ColumnsType<any>;
   options?: { enabled?: boolean; show?: boolean };
-  handleDataGrouping: (groupedData: any[]) => void;
+  handleDataGrouping?: (groupedData: any[]) => void;
 };
 
 export default GroupByColumns;
