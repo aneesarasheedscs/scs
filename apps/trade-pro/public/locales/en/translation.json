@@ -53,7 +53,7 @@
   "payment_term": "Payment Term",
   "due_days": "Due Days",
   "due_date": "Due Date",
-  "supplier_ref_no": "Supplier Reference Number",
+  "supplier_ref_no": "Supplier Ref Number",
   "delivery_start_date": "Delivery Start Date",
   "delivery_days": "Delivery Days",
   "job_lot": "Job Lot",
@@ -762,5 +762,21 @@
   "where_house": "WareHouse",
   "entry_type": "Entry Type",
   "stock_adjustment": "Stock Adjustment",
-  "doc_#": "Doc#"
+  "doc_#": "Doc#",
+
+  "vo_from": "Vo From",
+  "vo_to": "Vo To",
+  "purchase_order_retail_register": "Purchase Order Retail Register",
+
+  "payables_aging": "Payables Aging",
+  "aging_days": "Aging Days",
+  "r_no": "RNo",
+
+  "purchase_activity": "Purchase Activity",
+  "sale_order": "Sale Order",
+  "inventory_transaction": "Inventory Transaction",
+  "net_receivable": "Net Receivable",
+
+  "not_yet_due": "Not Yet Due",
+  "over_due": "Over Due"
 }

@@ -27,7 +27,7 @@ function AppLayout({ children }: TAppLayout) {
             </Col>
             <Col xxl={21} xl={20} md={20} lg={16} sm={24} xs={24}>
               {' '}
-              <img src={LogoImage} className="headerlogoImage" width={'70%'} height={'40%'} style={{ marginTop: '' }} />
+              <img src={LogoImage} className="headerlogoImage" width={'70%'} height={'40%'} style={{ marginTop: 2 }} />
             </Col>
           </Row>
         }

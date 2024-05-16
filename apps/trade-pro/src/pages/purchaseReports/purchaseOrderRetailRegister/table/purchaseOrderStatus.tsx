@@ -7,23 +7,24 @@ function PurchaseOrderStatus() {
 
   return (
     <>
-      <Card style={{ marginBottom: 5 }}>
-        <Row gutter={6}>
-          {map(purchaseOrderStatus?.data?.Data?.Result, (heading, index) => (
-            <Col xl={6} xs={6} key={index}>
-              <Card
-                className="purchase-cards"
-                cover={
-                  <h3 style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <span className="purchase_span">{heading.Activity}</span>
-                    <span className="purchase_span_status">{heading.OrderStatus}</span>
-                  </h3>
-                }
-              ></Card>
-            </Col>
-          ))}
-        </Row>
-      </Card>
+      {/* <Card style={{height:'12vh'}}> */}
+      <Row gutter={6} justify={'end'}>
+        {map(purchaseOrderStatus?.data?.Data?.Result, (heading, index) => (
+          <Col xxl={3} xl={4} lg={6} md={5} sm={7} xs={12} key={index}>
+            <Card
+              className="purchase-cards"
+              cover={
+                <h4 style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span className="">{heading.Activity}</span>
+                  <span className="">{heading.OrderStatus}</span>
+                </h4>
+              }
+            ></Card>
+          </Col>
+        ))}
+      </Row>
+
+      {/* </Card> */}
     </>
   );
 }

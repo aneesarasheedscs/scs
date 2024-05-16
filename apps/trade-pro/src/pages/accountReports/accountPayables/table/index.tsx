@@ -76,7 +76,8 @@ function AccountPayablesTable() {
             // isLoading={isLoading}
             scroll={{ x: '', y: convertVhToPixels('60vh') }}
             data={tableDataforPayables || []}
-            searchCriteriaForm={<SearchCriteriaForm onRadioChange={handleRadioChange} />}
+            // searchCriteriaForm={<SearchCriteriaForm onRadioChange={handleRadioChange} />}
+            
             // columns={selectedRadios == 1 ? columns(t) : columns2(t)}
             columns={tableColumns}
           />

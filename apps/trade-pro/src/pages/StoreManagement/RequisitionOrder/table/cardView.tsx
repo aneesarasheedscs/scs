@@ -29,7 +29,11 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
   const dataUrl = `data:image/png;base64,${base64String}`;
   const [records, setRecords] = useState<TRequisitionOrderHistory[]>([]);
   const [selectedCardData, setSelectedCardData] = useState<TRequisitionOrderHistory>();
+
+
   const totalRecords = data?.data?.Data?.Result.length || 0;
+
+  const totalRecordsDataCheck = data?.data?.Data?.Result ? totalRecords:''
 
   const { t } = useTranslation();
   useEffect(() => {
@@ -175,7 +179,7 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
             </Row>
           </div>
           <h3 style={{ textAlign: 'center' }}>
-            {t('total_records')} {numberFormatter(totalRecords)}{' '}
+            {t('total_records')} {numberFormatter(totalRecordsDataCheck)}{' '}
           </h3>
         </Col>
 

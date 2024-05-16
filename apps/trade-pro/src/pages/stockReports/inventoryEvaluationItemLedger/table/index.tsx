@@ -17,6 +17,14 @@ const InventoryEvaluationLedgerHistory: React.FC<{
   const { FromdateProp, ToDateProp, WarehouseId, ItemId } = props;
   const { data, isError, isFetching, isLoading, refetch } = useInventoryReportHistory();
 
+  function CriteriaString() {
+    return (
+      <Row style={{ border: '1px solid #25A7DF', padding: 7, borderRadius: 5 }}>
+        <h5> {data?.data?.Data?.Result?.[0]?.ReportCriteria}</h5>
+      </Row>
+    );
+  }
+
   return (
     <Row justify={'space-around'}>
       <Col xxl={23} xl={23} lg={23} xs={23} sm={23} md={23}>
@@ -28,6 +36,10 @@ const InventoryEvaluationLedgerHistory: React.FC<{
           numberOfSkeletons={12}
           isLoading={isLoading || isFetching}
           data={data?.data?.Data?.Result || []}
+          // searchCriteriaReport={data?.data?.Data?.Result ? <CriteriaString/> : 'string is not edded'}
+          searchCriteriaReport={
+            <h5 style={{ border: '1px solid #25A7DF', padding: 7, borderRadius: 5 }}>string is not edded</h5>
+          }
           searchCriteriaForm={
             <SearchCriteriaForm
               FromdateProp={FromdateProp}

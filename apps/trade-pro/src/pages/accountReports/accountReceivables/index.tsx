@@ -10,6 +10,8 @@ function AccountReceivables() {
   return (
     <>
       <div style={{ background: '#fff' }}>
+
+        
         <AccountReceivablesTable />
       </div>
     </>

@@ -104,15 +104,15 @@ body {
   // box-shadow: 2px 4px 12px 2px lightgray;
 }
 //Purchase Order CSS***************************
-.purchase-cards h3 {
-  // margin: 15px 0px 0px 5px;
-  padding: 0px 5px 0px 5px;
-  height: 100%;
-}
+// .purchase-cards h3 {
+//   // margin: 15px 0px 0px 5px;
+//   padding: 0px 5px 0px 5px;
+//   height: 100%;
+// }
 .purchase-cards {
   box-shadow: 4px 4px 12px 1px #cde4fd;
   // background: linear-gradient(to bottom right, var(--color-primary), #ffff);
-  height: 100%;
+  height: 35px;
   padding: 3px;
   transition: transform 0.2s;
   color: #272799;
@@ -124,9 +124,10 @@ body {
   box-shadow: 4px 4px 12px 2px #cde4fd;
   // background: linear-gradient(to bottom right, var(--color-primary), #ffff);
 }
-.purchase-cards h3 {
+.purchase-cards h4 {
   // margin-top: 10px;
-  border-radius: 5pc;
+  border-radius: 5px;
+  padding: 3px;
   box-shadow: 2px 2px 12px 1px #ffff;
   background: linear-gradient(to bottom right, var(--color-primary), #ffff);
 }
@@ -147,7 +148,7 @@ body {
 .formfield {
   border-bottom: 1px solid gray;
   padding: 0px;
-  height: 38px;
+  height: 30px;
 }
 .formfield2 {
   border-bottom: 1px solid gray;

@@ -17,12 +17,11 @@ export const columns = (
 ): AntColumnType<TBankPaymentVoucherTable>[] => [
   {
     title: t('code'),
-    width: 120,
+    width: 100,
     searchableInput: true,
     dataIndex: 'VoucherCode',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.VoucherCode - b.VoucherCode,
-    showCount: true,
   },
   {
     title: t('type'),
@@ -35,7 +34,7 @@ export const columns = (
 
   {
     title: t('voucher_date'),
-    width: 140,
+    width: 150,
     dataIndex: 'VoucherDate',
     searchableDate: true,
     render: (_, { VoucherDate }) => formateDate(VoucherDate),
@@ -85,7 +84,7 @@ export const columns = (
       const dateB = dayjs(b.ChequeDate);
       return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
     },
-    width: 140,
+    width: 150,
   },
   {
     title: t('remarks'),
@@ -134,7 +133,7 @@ export const columns = (
   },
   {
     title: t('action'),
-    width: 95,
+    width: 90,
     render: (_, record) => (
       <>
         <Tooltip title="Edit">

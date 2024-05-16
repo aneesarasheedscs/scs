@@ -1,23 +1,21 @@
 import { useEffect, useState } from 'react';
-import DocNumber from './DocNumber';
 import MainEntry from './MainEntry';
 import DynamicForm from './DetailEntry';
 import { TPurchaseOrderEntry } from '../type';
-import { AntButton } from '@tradePro/components';
 import { useAddPurchaseOrder, useGetPurchaseOrderById, useUpdatePurchaseOrder } from '../queries';
-import { Card, Col, Form, Input, Row } from 'antd';
+import { Card, Col, Form } from 'antd';
 import { useGetDocumentNumber } from '../queryOptions';
-import { SaveOutlined, SyncOutlined } from '@ant-design/icons';
+
 import { useTranslation } from 'react-i18next';
 import { isNumber } from 'lodash';
 import dayjs from 'dayjs';
+import Buttons from './Buttons';
 
 const { useForm } = Form;
 
-function PurchaseOrderForm({ selectedRecordId }: TAddUpdateRecord) {
+function PurchaseOrderForm({ selectedRecordId, setSelectedRecordId }: TAddUpdateRecord) {
   const [form] = useForm<TPurchaseOrderEntry>();
-  const { data, isError, refetch, isLoading, isSuccess } = useGetDocumentNumber();
-
+  const DocumentTypeId = 41;
   const { t } = useTranslation();
   const {
     data: purchaseOrderData,
@@ -25,12 +23,12 @@ function PurchaseOrderForm({ selectedRecordId }: TAddUpdateRecord) {
     isSuccess: isDataSuccess,
     isLoading: isDataLoading,
   } = useGetPurchaseOrderById(selectedRecordId);
-  const { mutate: addPurchaseOrder } = useAddPurchaseOrder();
-  const { mutate: updatePurchaseOrder } = useUpdatePurchaseOrder(selectedRecordId);
-
-  useEffect(() => {
-    if (isSuccess) form.setFieldValue('DocNo', data?.data?.Data?.Result);
-  }, [data, isSuccess]);
+  const { mutate: addPurchaseOrder, data: saveData, isSuccess } = useAddPurchaseOrder();
+  const { mutate: updatePurchaseOrder, data: updateData } = useUpdatePurchaseOrder(selectedRecordId);
+  const [printPreview, setPrintPreview] = useState<boolean>(true);
+  // useEffect(() => {
+  //   if (isSuccess) form.setFieldValue('DocNo', data?.data?.Data?.Result);
+  // }, [data, isSuccess]);
 
   const onFinish = (values: TPurchaseOrderEntry) => {
     console.log(values);
@@ -66,8 +64,8 @@ function PurchaseOrderForm({ selectedRecordId }: TAddUpdateRecord) {
 
   return (
     <Card>
-      <Form form={form} layout="vertical" onFinish={onFinish}>
-        <Row align="middle" justify="space-between">
+      <Form form={form} layout="horizontal" onFinish={onFinish}>
+        {/* <Row align="middle" justify="space-between">
           <Col>
             <Row gutter={10} align="middle">
               <Col style={{ fontSize: 18 }}> {t('document_no')}</Col>
@@ -98,8 +96,19 @@ function PurchaseOrderForm({ selectedRecordId }: TAddUpdateRecord) {
               </Row>
             </Form.Item>
           </Col>
-        </Row>
-
+        </Row> */}
+        <Buttons
+          form={form}
+          isSuccess={isSuccess}
+          saveData={saveData}
+          updateData={updateData}
+          purchaseOrderData={purchaseOrderData}
+          DocumentTypeId={DocumentTypeId}
+          selectedRecordId={selectedRecordId}
+          setSelectedRecordId={setSelectedRecordId}
+          setPrintPreview={setPrintPreview}
+          printPreview={printPreview}
+        />
         <MainEntry form={form} />
         <DynamicForm form={form} />
       </Form>
@@ -107,6 +116,7 @@ function PurchaseOrderForm({ selectedRecordId }: TAddUpdateRecord) {
   );
 }
 type TAddUpdateRecord = {
-  selectedRecordId?: number | null;
+  selectedRecordId: number | null;
+  setSelectedRecordId: (id: number | null) => void;
 };
 export default PurchaseOrderForm;

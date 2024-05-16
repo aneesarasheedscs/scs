@@ -1,0 +1,127 @@
+.heading{
+    font-size: 1.5rem;
+    text-align: center;
+    border: 2px solid #fff;
+    background:#5a54f9;
+    color: #fff;
+    padding: 1%;
+    // margin-top: ;
+ }
+ .main{
+     margin-top: 5%;
+     width: 80%;
+     margin-left: -20%;
+ }
+ .save-btn,
+ .reset-btn{
+     width: 5rem;
+     background: #5A54F9;
+     color: #fff;
+     border: 2px double #fff;
+     padding: 5px;
+     height: 35px;
+     box-shadow: 2px 4px 12px 1px gray;
+     border-radius: 1px;
+ }
+ .row-border{
+     border: 2px solid #5A54F9;
+ }
+ .history-heading{
+     border: 2px solid #fff;
+     background: #5A54F9;
+     color: #fff;
+     padding: 2%;
+ }
+ //      Responsiveness     //
+ @media screen and (min-width:200px) and (max-width:480px)  {
+     .division-main,
+     .district-main,
+     .tehsil-main,
+     .town-main{
+         // border: 1px solid red;
+         margin-left: 3%;
+         width: 110%;
+     }
+     .save-btn,
+     .reset-btn{
+         margin-left: -4.9rem;
+         width: 4rem !important;
+     }
+ }
+ @media screen and (min-width:481px) and (max-width:575px)  {
+     .division-main,
+     .district-main,
+     .tehsil-main,
+     .town-main{
+         // border: 1px solid red;
+         margin-left: 3%;
+         width: 110%;
+     }
+     .save-btn,
+     .reset-btn{
+         margin-left: -6.2rem;
+         width: 5rem !important;
+     }
+     .divisionCode-input,
+     .divisionName-input{
+         margin-left: 1% !important;
+     }
+     .districtCode-input{
+         margin-left: 1.1% !important;
+     }
+     .districtName-input{
+         margin-left: 1.8% !important;
+     }
+     .tehsilCode-input,
+     .tehsilName-input{
+         margin-left: 2.5% !important;
+     }
+     .townCode-input{
+         margin-left: 3.5% !important;
+     }
+ }
+ @media screen and (min-width:576px) and (max-width:768px)  {
+     .division-main,
+     .district-main,
+     .tehsil-main,
+     .town-main{
+         // border: 1px solid red;
+         margin-left: 7.5%;
+         width: 100%;
+     }
+     .save-btn,
+     .reset-btn{
+         margin-left: -0.4rem;
+         width: 5rem !important;
+     }
+ }
+ @media screen and (min-width:769px) and (max-width:992px)  {
+     .division-main,
+     .district-main,
+     .tehsil-main,
+     .town-main{
+         // border: 1px solid red;
+         margin-left: 15%;
+         width: 100%;
+     }
+     .save-btn,
+     .reset-btn{
+         margin-left: -0.8rem;
+         width: 5.5rem !important;
+     }
+ }
+ @media screen and (min-width:993px) and (max-width:1200px)  {
+     .division-main,
+     .district-main,
+     .tehsil-main,
+     .town-main{
+         // border: 1px solid red;
+         margin-left: 13%;
+         width: 110%;
+     }
+     .save-btn,
+     .reset-btn{
+         margin-left: -1.5rem;
+         width: 7rem !important;
+     }
+ }

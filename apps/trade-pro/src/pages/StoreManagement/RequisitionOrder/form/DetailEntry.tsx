@@ -7,6 +7,7 @@ import { useGetAvailableStock, useGetItemName } from '../quries';
 import { TDetailItem, TWsRmRequisitionPoDetailsList } from '../types';
 import { Card, Col, Row, Form, FormInstance, notification } from 'antd';
 import { AntButton, AntInput, AntInputNumber, AntSelectDynamic } from '@tradePro/components';
+import { FormRowGutter } from '@tradePro/globalAtoms';
 
 const { useWatch } = Form;
 
@@ -269,7 +270,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
 
   return (
     <>
-      <Row gutter={[10, 10]}>
+      <Row gutter={FormRowGutter}>
         <Col xs={24} sm={24} md={24} lg={{ span: 24 }} xl={{ span: 24 }}>
           <Card className="detail_card">
             <Form.List name="WsRmRequisitionPoDetailsList" initialValue={[initialValues]}>

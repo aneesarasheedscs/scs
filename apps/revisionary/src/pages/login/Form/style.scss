@@ -1,0 +1,30 @@
+.login-bg {
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.login-container {
+  min-height: 100vh;
+  flex-direction: column !important;
+  background-image: url('./istockphoto-866433760-2048x2048\ copy.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0px 55%;
+}
+
+.login-card {
+  width: 100%;
+  margin-top: 10%;
+  padding: 0px 0px 0px 0px;
+  box-shadow: 0px 3px 6px #00000029;
+}
+.login_header {
+  background-color: #010f29;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 5%;
+}

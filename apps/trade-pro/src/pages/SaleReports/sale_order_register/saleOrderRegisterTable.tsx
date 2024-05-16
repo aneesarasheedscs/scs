@@ -11,6 +11,14 @@ import { Col, Row } from 'antd';
 const SaleOrderRegisterTable = () => {
   const { data, refetch, isError, isLoading, isFetching } = useSalesReportTable();
 
+  function CriteriaString() {
+    return (
+      <Row style={{ border: '1px solid #25A7DF', padding: 7, borderRadius: 5 }}>
+        <h5> {data?.data?.Data?.Result?.[0]?.ReportCriteria}</h5>
+      </Row>
+    );
+  }
+
   return (
     <div style={{ background: '#fff' }}>
       <Row justify={'space-between'} align={'middle'}>
@@ -33,6 +41,7 @@ const SaleOrderRegisterTable = () => {
             columns={ColumnsSaleOrderRegisterReport(t)}
             data={data?.data?.Data?.Result || []}
             searchCriteriaForm={<SaleOrderFormCriteria />}
+            searchCriteriaReport={data?.data?.Data?.Result ? <CriteriaString /> : ''}
             scroll={{ x: '', y: convertVhToPixels('60vh') }}
             // rowKey={(row: SaleOrderHistory) => row.DocNo}
             rowKey="Id"

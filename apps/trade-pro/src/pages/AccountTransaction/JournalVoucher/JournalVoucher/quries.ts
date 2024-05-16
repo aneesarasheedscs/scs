@@ -4,7 +4,7 @@ import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageSe
 import { queryClient } from '@tradePro/configs';
 import { notification } from 'antd';
 import { AxiosError, AxiosResponse } from 'axios';
-import { TJournalVoucherData, TJournalVoucherHistory } from './types';
+import { TJournalVoucherData, TJournalVoucherHistory, TSearchCriteria } from './types';
 
 const userDetail = storedUserDetail();
 const financialYear = storedFinancialYear();
@@ -60,7 +60,7 @@ export const useGetAccountsBalances = (accountId: number) => {
   );
 };
 //history
-export const useGetJournalVocherHistory = (enabled = true, params?: TJournalVoucherHistory) => {
+export const useGetJournalVocherHistory = (enabled = true, params?: TSearchCriteria) => {
   return useQuery(
     'journal_voucher',
     () => {
@@ -71,8 +71,21 @@ export const useGetJournalVocherHistory = (enabled = true, params?: TJournalVouc
         FinancialYearId: financialYear?.Id,
         Ids: '5',
         PostState: true,
-        NoOfRecords: 50,
+        // NoOfRecords: 50,
+
+        EntryDateTo: params?.DateType === 2 && params?.ToDate !== undefined ? params?.ToDate : '',
+        EntryDateFrom: params?.DateType === 2 && params?.FromDate !== undefined ? params?.FromDate : '',
+        ModifyDateTo: params?.DateType === 3 && params?.ToDate !== undefined ? params?.ToDate : '',
+        ModifyDateFrom: params?.DateType === 3 && params?.FromDate !== undefined ? params?.FromDate : '',
+        ApprovedDateTo: params?.DateType === 4 && params?.ToDate !== undefined ? params?.ToDate : '',
+        ApprovedDateFrom: params?.DateType === 4 && params?.FromDate !== undefined ? params?.FromDate : '',
         ...params,
+        FromDate:
+          params?.FromDate === undefined ? financialYear?.Start_Period : params?.DateType === 1 ? params?.FromDate : '',
+        ToDate: params?.ToDate === undefined ? financialYear?.End_Period : params?.DateType === 1 ? params?.ToDate : '',
+        IsApproved:
+          params?.ApprovedStatus === 'Approved' ? true : params?.ApprovedStatus === 'Not Approved' ? false : '',
+        ApprovedFilter: params?.ApprovedStatus === 'All' ? 'All' : '',
       });
     },
     { enabled }

@@ -17,6 +17,7 @@ import { TVoucherReportCriterias } from '../types';
 import { useGetAccountTitle, useGetCustomGroup, useGetDocumentType, useGetVoucherReport } from './queries';
 import { useTranslation } from 'react-i18next';
 import './style.scss';
+import { CriteriaRowGutter } from '@tradePro/globalAtoms';
 
 const financialYear = storedFinancialYear();
 const { useForm, useWatch } = Form;
@@ -57,7 +58,7 @@ function SearchCriteriaVoucherReport(dataa: any) {
   return (
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
       <Form form={form} onFinish={onFinish} layout="inline" initialValues={{ FromDate, ToDate }}>
-        <Row gutter={[16, 16]} justify={'space-between'}>
+        <Row gutter={CriteriaRowGutter} justify={'space-between'}>
           <Col xs={24} sm={12} md={12} className="form_field">
             <AntDatePicker name="FromDate" label={t('from_date')} bordered={false} />
           </Col>
@@ -113,8 +114,8 @@ function SearchCriteriaVoucherReport(dataa: any) {
 
           <Col xs={15} sm={12} md={12} xl={12}>
             <Form.Item name="ApprovedFilter" label={t('report_type')}>
-              <Radio.Group defaultValue={'3'}>
-                <Space direction="vertical">
+              <Radio.Group defaultValue={'3'} >
+                <Space direction="horizontal">
                   <Radio value="1">{t('approved')}</Radio>
                   <Radio value="2">{t('un_approved')}</Radio>
                   <Radio value="3">{t('all')}</Radio>
@@ -122,7 +123,7 @@ function SearchCriteriaVoucherReport(dataa: any) {
               </Radio.Group>
             </Form.Item>
           </Col>
-          <Col xs={10} sm={24} lg={5} md={6} xl={4}>
+          <Col xs={10} sm={24} lg={5} md={6} xl={3}>
             <AntButton
               label={t('show')}
               htmlType="submit"
@@ -132,7 +133,6 @@ function SearchCriteriaVoucherReport(dataa: any) {
             />
           </Col>
         </Row>
-        <AntInput label="" name="" />
       </Form>
     </SearchCriteriaWrapper>
   );

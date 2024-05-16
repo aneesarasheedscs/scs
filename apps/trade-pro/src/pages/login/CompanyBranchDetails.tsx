@@ -38,12 +38,11 @@ function CompanyBranchDetails() {
     const userDetail = storedUserDetail();
     if (!userDetail?.access_token) navigate(route.LOGIN);
   }, []);
-
   useEffect(() => {
     if (isSuccess && !isLoading) {
       setcompanyList(CompanyData?.data?.Data?.Result);
       form.setFieldsValue({
-        BranchId: 2,
+        BranchId: form.getFieldValue('CompanyId'),
       });
       form.setFieldsValue({
         FinancialYearId: financialYearObjec?.[0]?.Id,
@@ -61,7 +60,7 @@ function CompanyBranchDetails() {
     //   });
     // }
     CompanyData;
-  }, [isSuccess, !isLoading, financialYearObjec]);
+  }, [isSuccess, financialYearObjec]);
   // const handleCompanyChange = (obj: Company) => {
   //   console.log(obj);
   //   if (obj !== null && obj !== undefined) {

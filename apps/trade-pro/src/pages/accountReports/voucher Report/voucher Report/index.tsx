@@ -10,6 +10,15 @@ import SearchCriteriaVoucherReport from './searchCriteria';
 function VoucherReport() {
   const { data, refetch, isError, isLoading, isFetching } = useGetVoucherReport();
   const { t } = useTranslation();
+
+
+  const CriteriaString =()=>{
+  return(
+    <Row  style={{border: '1px solid #25A7DF',padding:7,borderRadius:5}}>
+      <h5>{data?.data?.Data?.Result?.[0]?.ReportCriteria}</h5>
+    </Row>
+  )
+  }
   return (
     <div style={{ background: '#fff' }}>
       <Row justify={'space-between'} align={'middle'}>
@@ -31,6 +40,7 @@ function VoucherReport() {
             isLoading={isLoading || isFetching}
             data={data?.data?.Data?.Result || []}
             searchCriteriaForm={<SearchCriteriaVoucherReport data={data} />}
+            searchCriteriaReport={data?.data?.Data?.Result?.[0]?.ReportCriteria ? <CriteriaString/>:''}
             scroll={{ x: '', y: convertVhToPixels('55vh') }}
           />
         </Col>

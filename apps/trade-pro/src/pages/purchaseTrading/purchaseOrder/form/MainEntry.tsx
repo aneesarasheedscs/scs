@@ -1,4 +1,4 @@
-import { Col, Form, FormInstance, Row } from 'antd';
+import { Card, Col, Form, FormInstance, Row } from 'antd';
 import { useState } from 'react';
 import { TPaymentTerms } from '../type';
 import { AntDatePicker, AntInput, AntInputNumber, AntSelectDynamic } from '@tradePro/components';
@@ -22,77 +22,79 @@ function MainEntry({ form }: TDynamicForm) {
   };
 
   return (
-    <Row gutter={10}>
-      <Col xl={4} sm={6} xs={8}>
-        <AntDatePicker required name="DocDate" label={t('document_date')} />
-      </Col>
+    <Card style={{ paddingBottom: '0.2%', marginBottom: 10, boxShadow: '2px 4px 12px 1px gray' }}>
+      <Row gutter={[10, 6]} justify={'space-between'}>
+        <Col xl={6} lg={16} sm={17} xs={13} className="formfield">
+          <AntSelectDynamic
+            required
+            fieldValue="Id"
+            label={t('supplier_name')}
+            name="OrderSupCustId"
+            fieldLabel="CompanyName"
+            query={useGetSupplierCustomer}
+            bordered={false}
+          />
+        </Col>
 
-      <Col xl={7} lg={16} sm={17} xs={13}>
-        <AntSelectDynamic
-          required
-          fieldValue="Id"
-          label={t('supplier_name')}
-          name="OrderSupCustId"
-          fieldLabel="CompanyName"
-          query={useGetSupplierCustomer}
-        />
-      </Col>
+        <Col xl={4} sm={6} xs={12} className="formfield">
+          <AntSelectDynamic
+            required
+            fieldValue="Id"
+            label={t('payment_term')}
+            name="PaymentTermsId"
+            query={useGetPaymentTerms}
+            fieldLabel="TermsDescription"
+            onSelectChange={handlePaymentTermChange}
+            bordered={false}
+          />
+        </Col>
+        <Col xl={4} sm={6} xs={10} className="formfield">
+          <AntInputNumber
+            label={t('order_due_days')}
+            name="OrderDueDays"
+            disabled={isDueFieldsDisabled}
+            required={!isDueFieldsDisabled}
+            bordered={false}
+          />
+        </Col>
+        <Col xl={4} sm={6} xs={10} className="formfield">
+          <AntDatePicker
+            label={t('order_due_date')}
+            name="OrderDueDate"
+            disabled={isDueFieldsDisabled}
+            required={!isDueFieldsDisabled}
+            bordered={false}
+          />
+        </Col>
 
-      <Col xl={9} lg={23} sm={23} xs={23}>
-        <AntInput name="RemarksHeader" label={t('remarks')} />
-      </Col>
+        <Col xl={5} lg={6} className="formfield">
+          <AntInputNumber required name="SupplierRefNo" label={t('supplier_ref_no')} bordered={false} />
+        </Col>
 
-      <Col xl={4} sm={6} xs={12}>
-        <AntSelectDynamic
-          required
-          fieldValue="Id"
-          label={t('payment_term')}
-          name="PaymentTermsId"
-          query={useGetPaymentTerms}
-          fieldLabel="TermsDescription"
-          onSelectChange={handlePaymentTermChange}
-        />
-      </Col>
-      <Col xl={4} sm={6} xs={10}>
-        <AntInputNumber
-          label={t('order_due_days')}
-          name="OrderDueDays"
-          disabled={isDueFieldsDisabled}
-          required={!isDueFieldsDisabled}
-        />
-      </Col>
-      <Col xl={4} sm={6} xs={10}>
-        <AntDatePicker
-          label={t('order_due_date')}
-          name="OrderDueDate"
-          disabled={isDueFieldsDisabled}
-          required={!isDueFieldsDisabled}
-        />
-      </Col>
+        <Col xl={5} sm={6} xs={12} className="formfield">
+          <AntSelectDynamic
+            required
+            name="DeliveryTerm"
+            label={t('delivery_term')}
+            fieldValue="DeliveryTerm"
+            fieldLabel="DeliveryTerm"
+            query={useGetDeliveryTerms}
+            bordered={false}
+          />
+        </Col>
 
-      <Col xl={5} lg={6}>
-        <AntInputNumber required name="SupplierRefNo" label={t('supplier_ref_no')} />
-      </Col>
+        <Col xl={5} lg={6} className="formfield">
+          <AntDatePicker required name="DeliveryStartDate" label={t('delivery_start_date')} bordered={false} />
+        </Col>
 
-      <Col xl={4} sm={6} xs={12}>
-        <AntSelectDynamic
-          required
-          name="DeliveryTerm"
-          label={t('delivery_term')}
-          fieldValue="DeliveryTerm"
-          fieldLabel="DeliveryTerm"
-          query={useGetDeliveryTerms}
-        />
-      </Col>
-
-      <Col xl={4} lg={6}>
-        <AntDatePicker required name="DeliveryStartDate" label={t('delivery_start_date')} />
-      </Col>
-
-      <Col xl={3} sm={6}>
-        <AntInputNumber required name="DeliveryDays" label={t('delivery_days')} />
-      </Col>
-    </Row>
+        <Col xl={4} sm={6} className="formfield">
+          <AntInputNumber required name="DeliveryDays" label={t('delivery_days')} bordered={false} />
+        </Col>
+        <Col xl={9} lg={23} sm={23} xs={23} className="formfield">
+          <AntInput name="RemarksHeader" label={t('remarks')} bordered={false} />
+        </Col>
+      </Row>
+    </Card>
   );
 }
 type TDynamicForm = { form: FormInstance };

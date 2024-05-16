@@ -752,5 +752,15 @@
   "where_house": "گودام",
   "entry_type": "داخلہ کی قسم",
   "stock_adjustment": "اسٹاک ایڈجسٹمنٹ",
-  "doc_#": "دستاویز #"
+  "doc_#": "دستاویز #",
+  "purchase_activity": "خریداری کی سرگرمی",
+
+  "payables_aging": "قابل ادائیگی عمر رسیدہ",
+  "aging_days": "بڑھاپے کے دن",
+  "r_no": "RNo",
+
+  "net_receivable": "نیٹ قابل وصول",
+
+  "not_yet_due": "ابھی باقی نہیں ہے۔",
+  "over_due": "اوور ڈیو"
 }

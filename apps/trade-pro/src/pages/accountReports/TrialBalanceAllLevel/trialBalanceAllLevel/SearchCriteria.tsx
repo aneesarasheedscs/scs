@@ -164,21 +164,24 @@ function CriteriaTrialBalanceSelected({
               // defaultValue={viewOpetions[1]?.Id}
             />
           </Col>
-          <Col xxl={3} style={{ marginTop: '0px' }}>
-            <Radio.Group value={expandedRowKeys.length > 0 ? 'expand' : 'collapse'} onChange={handleRowExpandChange}>
+          <Col xxl={7} style={{ marginTop: '15px' }}>
+            <Radio.Group value={expandedRowKeys.length > 0 ? 'expand' : 'collapse'} onChange={handleRowExpandChange} >
               <Radio value="collapse">{t('collapse')}</Radio>
               <Radio value="expand">{t('expand')}</Radio>
             </Radio.Group>
           </Col>
 
-          <Col xxl={7} style={{ marginTop: '15px' }}>
+          <Col xxl={8} style={{ marginTop: '15px' }}>
             <Radio.Group value={selectedColumnss} onChange={handleColumnChange}>
               <Radio value="four"> {t('four_columns')}</Radio>
               <Radio value="six">{t('six_columns')}</Radio>
             </Radio.Group>
           </Col>
 
-          <Col xs={6} sm={6} md={4} xxl={3} lg={4}>
+   
+        </Row>
+  <Col xxl={24} style={{display:'flex',justifyContent:'end',marginTop:10}}>
+  <Col xs={6} sm={6} md={4} xxl={3} lg={4}>
             <AntButton
               label={t('show')}
               htmlType="submit"
@@ -187,7 +190,7 @@ function CriteriaTrialBalanceSelected({
               isLoading={isLoading || isFetching}
             />
           </Col>
-        </Row>
+  </Col>
       </Form>
     </SearchCriteriaWrapper>
   );

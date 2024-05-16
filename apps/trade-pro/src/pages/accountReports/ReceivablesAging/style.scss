@@ -1,11 +1,86 @@
 .form_field {
   border-bottom: 1px solid gray;
   padding: 0px;
-  height: 40px;
+  height: 30px;
 }
 .report_heading {
   font-family: Poppins !important;
   font-size: 19px;
   padding: 10px;
   margin-left: -10%;
+}
+.CardHight{
+  height: 15vh;
+}
+.marginRight{
+  margin-right: -20;
+}
+
+.marginTop{
+  margin-top: -20;
+}
+  @media screen and (max-width: 1280px) and (max-height: 800px) {
+    .CardHight{
+      /* Set height for 1280x800 screen size */
+      height: 35vh; /* Adjust this value as needed */
+    }
+  }
+@media screen and (max-width:1024px) and (max-height:600px) {
+  .CardHight{
+    height: 42vh;
+  }
+  .marginRight{
+    margin-right: 0;
+  }
+  
+}
+@media screen and (max-width:1304px) and (max-height:873px) {
+  .CardHight{
+    height: 26vh;
+  }
+
+  
+}
+@media screen and (max-width:1154px) and (max-height:873px) {
+  .CardHight{
+    height: 35vh;
+  }
+
+  
+}
+@media screen and (max-width:985px) and (max-height:737px) {
+  .CardHight{
+    height: 38vh;
+  }
+
+  
+}
+@media screen and (max-width:739px) and (max-height:737px) {
+  .CardHight{
+    height: 60vh;
+  }
+
+  
+}
+@media screen and (max-width:739px) and (max-height:737px) {
+  .CardHight{
+    height: 38vh;
+  }
+
+  
+}
+@media screen and (max-width:673px) and (max-height:737px) {
+  .CardHight{
+    height: 40vh;
+  }
+}
+@media screen and (max-width:607px) and (max-height:737px) {
+  .CardHight{
+    height: 43vh;
+  }
+}
+@media screen and (max-width:499px) and (max-height:737px) {
+  .CardHight{
+    height: 62vh;
+  }
 }

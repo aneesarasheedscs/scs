@@ -12,6 +12,7 @@ import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import PayablesReceivablesTable from '../Table/tables';
 import './style.scss';
 import GeneralLedgerReport from '../../GeneralLedger';
+import { CriteriaRowGutter } from '@tradePro/globalAtoms';
 const { Title, Text } = Typography;
 const { useToken } = theme;
 
@@ -136,34 +137,14 @@ const PayablesReceivables: React.FC<{
 
   return (
     <div className="cash-balances-container">
-      {/* <Row gutter={[24, 24]}>
-        <Col xs={24} md={12} lg={8} xl={23} style={{ marginLeft: '15px', display: 'flex', alignItems: 'end' }}>
-          <Text className="breadcrumb">{t('account_reports')}</Text>
-          <Text className="breadcrumb">{' >'}</Text>
-          <div
-            style={{
-              flex: 1,
-              display: 'flex',
-              justifyContent: 'flex-end',
-            }}
-          >
-            <Text strong>
-              {t(
-                AccountClassId == 2
-                  ? 'receivables_report_accounts_classification_wise'
-                  : 'payables_report_accounts_classification_wise'
-              )}
-            </Text>
-          </div>
-        </Col>
-      </Row> */}
+
 
       <Row style={{ marginTop: '1%', marginLeft: '10px' }}>
         <div>
           <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
             <Form name="basic" form={form} onFinish={onFinish} layout="inline">
-              <Row gutter={16}>
-                <Col xl={14} className="formfield" style={{ marginTop: '10px' }}>
+              <Row gutter={CriteriaRowGutter} justify={'space-between'}>
+                <Col xl={6} className="formfields" style={{}} >
                   <AntSelectDynamic
                     bordered={false}
                     label={t('date_type')}
@@ -176,21 +157,21 @@ const PayablesReceivables: React.FC<{
                   />
                 </Col>
 
-                <Col xl={11} className="formfield" style={{ marginTop: '10px' }}>
+                <Col xl={8} className="formfields" style={{}} offset={1}>
                   <AntDatePicker name="FromDate" label={t('from_date')} bordered={false} />
                 </Col>
-                <Col xl={12} className="formfield" offset={1} style={{ marginTop: '10px' }}>
+                <Col xl={8} className="formfields" offset={1} style={{}}>
                   <AntDatePicker name="ToDate" label={t('to_date')} bordered={false} />
                 </Col>
 
-                <Col span={11} style={{ marginTop: '10px' }} className="formfield">
+                <Col span={11} style={{}} className="formfields">
                   <AntInput size="middle" label={t('balance_from')} name="BalanceFrom" bordered={false} />
                 </Col>
-                <Col span={12} style={{ marginTop: '10px' }} className="formfield" offset={1}>
+                <Col span={12} style={{}} className="formfields" offset={1}>
                   <AntInput size="middle" label={t('balance_to')} name="BalanceTo" bordered={false} />
                 </Col>
 
-                <Col xl={11} style={{ marginTop: '10px' }} className="formfield">
+                <Col xl={11} style={{}} className="formfields">
                   <AntSelectDynamic
                     bordered={false}
                     mode="multiple"
@@ -208,7 +189,7 @@ const PayablesReceivables: React.FC<{
                   />
                 </Col>
 
-                <Col xl={12} style={{ marginTop: '10px' }} className="formfield" offset={1}>
+                <Col xl={12} style={{}} className="formfields" offset={1}>
                   <AntSelectDynamic
                     bordered={false}
                     size="middle"
@@ -220,7 +201,7 @@ const PayablesReceivables: React.FC<{
                   />
                 </Col>
 
-                <Col xl={14} style={{ marginTop: '10px' }} className="formfield">
+                <Col xl={11} style={{}} className="formfields">
                   <AntSelectDynamic
                     bordered={false}
                     size="middle"
@@ -272,11 +253,13 @@ const PayablesReceivables: React.FC<{
                 </Form.Item>
               </Col>
 
-              <Row gutter={24} justify={'center'}>
-                <Col xs={12} sm={6} md={24} className="Col-margin-top">
+        <Col xxl={24} style={{display:'flex',justifyContent:'end'}}>
+      
+                <Col xxl={3} xs={12} sm={6} md={24} className="Col-margin-top" >
                   <AntButton label={t('show')} htmlType="submit" isError={isError} isLoading={isLoading} />
                 </Col>
-              </Row>
+              
+        </Col>
             </Form>
           </SearchCriteriaWrapper>
         </div>

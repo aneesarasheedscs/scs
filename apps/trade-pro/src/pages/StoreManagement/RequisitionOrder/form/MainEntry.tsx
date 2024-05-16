@@ -6,6 +6,7 @@ import { Card, Col, FormInstance, Row } from 'antd';
 import { storedUserDetail } from '@tradePro/utils/storageService';
 import { AntInput, AntSelectDynamic } from '@tradePro/components';
 import { useGetDestinationAndSourceLoc, useGetDestinationLoc, useGetRequestStatus } from '../quries';
+import { FormRowGutter } from '@tradePro/globalAtoms';
 
 function MainEntry({ form }: TDynamicForm) {
   const { t } = useTranslation();
@@ -24,7 +25,7 @@ function MainEntry({ form }: TDynamicForm) {
   return (
     <>
       <Card className="header_card">
-        <Row gutter={[10, 10]} justify={'space-between'}>
+        <Row gutter={FormRowGutter} justify={'space-between'}>
           <Col xl={7} xxl={4} sm={18} xs={23} lg={12} md={12} className="formfield">
             <AntSelectDynamic
               bordered={false}

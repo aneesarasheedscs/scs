@@ -17,12 +17,11 @@ export const columns = (
 ): AntColumnType<TCashReceiptVoucherTable>[] => [
   {
     title: t('code'),
-    width: 110,
+    width: 100,
     searchableInput: true,
     dataIndex: 'VoucherCode',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.VoucherCode - b.VoucherCode,
-    showCount: true,
   },
   {
     title: t('type'),
@@ -100,8 +99,9 @@ export const columns = (
     dataIndex: 'Attachment',
   },
   {
+    fixed: 'right',
     title: t('action'),
-    width: 97,
+    width: 95,
     render: (_, record) => (
       <>
         <Tooltip title="Edit">

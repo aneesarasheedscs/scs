@@ -1,4 +1,4 @@
-$background-color-invoice: #5a54f9;
+$background-color-invoice: #25a7df;
 $background-color-company_info: #e1e1e1;
 
 .main-voucher-design {
@@ -12,16 +12,17 @@ $background-color-company_info: #e1e1e1;
   background-color: rgb(236, 234, 234); /* Change this color as needed */
 }
 .caption-value-wrape {
-  padding: 0px 20px;
+  padding: 0px 10px;
   display: flex;
   // border: 1px solid red;
 
   .caption {
     color: $background-color-invoice;
-    padding-right: 14px;
+    // padding-right: 14px;
     font-size: 15px;
     font-weight: 600;
-    width: 50%;
+    width: 75%;
+    // border: 1px solid red;
     // border: 1px solid blue;
 
     @media screen and (max-width: 1480px) {
@@ -50,7 +51,7 @@ $background-color-company_info: #e1e1e1;
   margin-top: 5px;
   text-transform: uppercase;
   text-rendering: optimizeLegibility;
-  color: #5a54f9;
+  color: #25a7df;
   letter-spacing: 5px;
   text-shadow: 4px 4px 0px #d5d5d5, 7px 4px 0px rgba(10, 110, 110, 0.2);
   font-size: 27px;
@@ -73,7 +74,7 @@ $background-color-company_info: #e1e1e1;
 
   .detail-title {
     color: White;
-    background-color: #5a54f9;
+    background-color: #25a7df;
     width: 147px;
     padding: 7px;
     font-size: 18px;
@@ -96,7 +97,7 @@ $background-color-company_info: #e1e1e1;
     color: white;
     font-size: 16px;
     font-weight: 700;
-    background-color: #8a86f7;
+    background-color: #25a7df;
 
     .show-hide-icon {
       display: block;
@@ -146,7 +147,7 @@ $background-color-company_info: #e1e1e1;
       margin-top: -1px;
       font-size: 18px;
       padding: 0px 8px;
-      color: #5a54f9;
+      color: 'black';
       cursor: pointer;
       @media screen and (max-width: 1250px) {
         margin-top: 0px;
@@ -194,7 +195,7 @@ $background-color-company_info: #e1e1e1;
       display: flex;
       padding: 0px 10px;
       .caption {
-        color: #5a54f9;
+        color: 'black';
         font-size: 14px;
         padding: 0px 11px;
         @media screen and (max-width: 1250px) {
@@ -215,7 +216,7 @@ $background-color-company_info: #e1e1e1;
       width: 33.3%;
       padding: 0px 10px;
       .caption {
-        color: #5a54f9;
+        color: #25a7df;
         font-size: 14px;
         padding: 0px 11px;
         @media screen and (max-width: 1250px) {
@@ -237,7 +238,7 @@ $background-color-company_info: #e1e1e1;
       .values {
         display: flex;
         padding: 5px;
-        background-color: #8a86f7;
+        background-color: #25a7df;
         font-size: 16px;
         color: white;
         font-weight: 600;
@@ -276,7 +277,7 @@ $background-color-company_info: #e1e1e1;
 }
 .table-title {
   color: White;
-  background-color: #5a54f9b0;
+  background-color: 'black';
   width: 168px;
   padding: 4px;
   font-size: 18px;
@@ -301,7 +302,7 @@ $background-color-company_info: #e1e1e1;
     width: 421px;
     margin: 16px 11px;
     color: #121212;
-    border: 2px solid #5a54f9;
+    border: 2px solid #25a7df;
     .calculate-wrape {
       display: flex;
       padding: 3px;
@@ -321,25 +322,25 @@ $background-color-company_info: #e1e1e1;
       }
     }
     .grand-total {
-      color: #5a54f9;
+      color: #25a7df;
       padding: 6px 10px;
     }
   }
 }
 .Footer {
-  border: 2px solid #5a54f9;
+  border: 2px solid #25a7df;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   .Thanks {
-    color: #5a54f9;
+    color: #25a7df;
     font-size: 22px;
     padding: 0px 20px;
     font-weight: bold;
     font-family: inherit;
     .heart-icon {
-      color: #5a54f9;
+      color: #25a7df;
     }
     @media screen and (max-width: 1250px) {
       font-size: 28px;
@@ -347,7 +348,7 @@ $background-color-company_info: #e1e1e1;
   }
   .powered-by {
     padding: 12px;
-    color: #5a54f9;
+    color: #25a7df;
     font-weight: bold;
     font-size: 1rem;
   }
@@ -365,7 +366,7 @@ $background-color-company_info: #e1e1e1;
   margin: 0px 10px 0px 0px;
 }
 .Wrap {
-  border: 1px solid #5a54f9;
+  border: 1px solid #25a7df;
   width: 421px;
   margin: 20px 0px 0px 0px;
 }
@@ -375,7 +376,7 @@ $background-color-company_info: #e1e1e1;
 }
 .Wht-Title {
   font-size: 17px;
-  color: #5a54f9;
+  color: #25a7df;
 }
 .Wht-Value {
   font-size: 17px;

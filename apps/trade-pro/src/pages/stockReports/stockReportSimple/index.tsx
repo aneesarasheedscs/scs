@@ -2,6 +2,7 @@ import { Card, Col, Row, theme } from 'antd';
 import StockReportSimpleTable from '../stockReportSimple/table';
 import { useTranslation } from 'react-i18next';
 import { BackButton } from '@tradePro/components';
+import './style2.scss'
 
 function StockReportSimple() {
   const {

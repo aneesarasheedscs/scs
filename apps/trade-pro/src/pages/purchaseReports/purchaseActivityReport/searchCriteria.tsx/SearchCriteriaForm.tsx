@@ -12,6 +12,7 @@ import { useGetPurchaseInvoice, usePurchaseInvoiceTable } from '../query';
 import { TSearchCritariaPurchaseActivity } from '../types';
 import { map } from 'lodash';
 import dayjs from 'dayjs';
+import { CriteriaRowGutter } from '@tradePro/globalAtoms';
 
 const { useForm, useWatch } = Form;
 
@@ -132,7 +133,18 @@ function SearchCriteria() {
   return (
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
       <Form form={form} onFinish={onFinish} layout="inline">
-        <Row gutter={[10, 10]}>
+        <Row
+          style={{
+            marginBottom: '5px',
+            width: '100%',
+          }}
+          className="row-border"
+        >
+          <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }}>
+            <h2 className="tableTitle">{t('search_criteria')}</h2>
+          </Col>
+        </Row>
+        <Row gutter={CriteriaRowGutter}>
           <Col xs={24} sm={12} md={12} className="formfield">
             <AntDatePicker
               name="FromDate"
@@ -230,7 +242,7 @@ function SearchCriteria() {
               options={filteredWarehouse}
             />
           </Col>
-          <Col xs={24} sm={12} md={11} className="formfield" offset={1}>
+          <Col xs={24} sm={12} md={11} xl={11} xxl={11} className="formfield" offset={1}>
             <AntSelectDynamic
               bordered={false}
               label={t('activity')}
@@ -247,35 +259,72 @@ function SearchCriteria() {
             />
           </Col>
 
-          <Col xs={24} sm={24} md={12} lg={21}>
-            <p>{t('transaction_type')}:</p>
-          </Col>
-          <Col xs={24} sm={24} md={12} lg={21}>
-            <Radio.Group onChange={handleRadioChange} value={selectedOption} name="PaymenetTermId">
-              <Col xs={24} sm={24} md={12} lg={24}>
-                <Radio value="cashPurchase">{t('cash_purchase')}</Radio>
+          <Row
+            style={{
+              marginBottom: '5px',
+              marginTop: '10px',
+              width: '100%',
+            }}
+          >
+            <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 4 }}>
+              <h4 className="">{t('transaction_type')}</h4>
+            </Col>
+
+            <Col xs={24} sm={24} md={24} lg={20}>
+              <Row
+                style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
+              >
+                <Col xxl={12} xs={10}>
+                  <Radio.Group
+                    onChange={handleRadioChange}
+                    value={selectedOption}
+                    name="PaymentTermId"
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Col xs={24} sm={24} md={6} lg={12} >
+                      <Radio value="cashPurchase">{t('cash_purchase')}</Radio>
+                    </Col>
+                    <Col xs={24} sm={24} md={6} lg={12}>
+                      <Radio value="creditPurchase">{t('credit_purchase')}</Radio>
+                    </Col>
+                    <Col xs={24} sm={24} md={6} lg={12}>
+                      <Radio value="purchaseReturn">{t('purchase_return')}</Radio>
+                    </Col>
+                    <Col xs={24} sm={24} md={6} lg={24}>
+                      <Radio value="NetTotal">{t('net_total')}</Radio>
+                    </Col>
+                  </Radio.Group>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+          <Col xs={24} sm={20} md={20} lg={20} xl={24} xxl={24}>
+            <Row justify={'end'}>
+              <Col xxl={3}>
+                <AntButton
+                  // className="buttons"
+                  htmlType="submit"
+                  isError={purchaseError}
+                  isLoading={purchaseLoading || purchaseFetching}
+                  label={t('Show')}
+                />
               </Col>
-              <Col xs={24} sm={24} md={12} lg={24}>
-                <Radio value="creditPurchase">{t('credit_purchase')}</Radio>
+              <Col xxl={3}>
+                <AntButton
+                  danger
+                  ghost
+                  htmlType="reset"
+                  label={t('reset')}
+                  icon={<SyncOutlined />}
+                  style={{ marginLeft: 8 }}
+                />
               </Col>
-              <Col xs={24} sm={24} md={12} lg={24}>
-                <Radio value="purchaseReturn">{t('purchase_return')}</Radio>
-              </Col>
-              <Col xs={24} sm={24} md={12} lg={22}>
-                <Radio value="NetTotal">{t('net_total')}</Radio>
-              </Col>
-            </Radio.Group>
-          </Col>
-          <Col xs={24} sm={20} md={20} lg={20} xl={24}>
-            <AntButton
-              className="buttons"
-              htmlType="submit"
-              style={{ marginTop: 4 }}
-              isError={purchaseError}
-              isLoading={purchaseLoading || purchaseFetching}
-              label={t('Show')}
-            />
-            <AntButton className="buttons" danger ghost htmlType="reset" label={t('reset')} icon={<SyncOutlined />} />
+            </Row>
           </Col>
         </Row>
       </Form>

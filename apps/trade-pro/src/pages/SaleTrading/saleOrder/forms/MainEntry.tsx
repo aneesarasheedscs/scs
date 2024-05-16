@@ -8,8 +8,12 @@ import { useGetPaymentTerms } from '@tradePro/pages/purchaseTrading/purchaseOrde
 import { useWatch } from 'antd/es/form/Form';
 import dayjs from 'dayjs';
 import SalesPersonalInfo from './SalesInfo';
+import {FormRowGutter} from '@tradePro/globalAtoms'
+
 
 function MainEntry({ form }: TDynamicForm) {
+
+  console.log(FormRowGutter,'gutter')
   const [paymentTerm, setPaymentTerm] = useState('');
   const { setFields, getFieldValue } = form;
   const [isOrderOpen, setIsOrderOpen] = useState(true);
@@ -77,121 +81,125 @@ function MainEntry({ form }: TDynamicForm) {
 
   return (
     <Card style={{ boxShadow: '2px 4px 12px 1px gray', marginTop: '20px' }}>
-      <Row gutter={[16, 16]} justify={'space-between'}>
+ <Col>
+ <Row gutter={FormRowGutter} justify={'space-between'}>
 
 
-        <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={7} className="formfields">
-          <AntSelectDynamic
-            bordered={false}
-            required
-            fieldValue="Id"
-            label="Customer Name"
-            name="CompanyId"
-            fieldLabel="CompanyName"
-            query={useGetCustomerNameSalesManAgent}
-          />
-        </Col>
+<Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={7} className="formfields">
+  <AntSelectDynamic
+    bordered={false}
+    required
+    fieldValue="Id"
+    label="Customer Name"
+    name="CompanyId"
+    fieldLabel="CompanyName"
+    query={useGetCustomerNameSalesManAgent}
+  />
+</Col>
 
-        <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={5} className="formfields">
-          <AntSelectDynamic
-            bordered={false}
-            required
-            fieldValue="Id"
-            label="Payment Term"
-            name="PaymentTermsId"
-            query={useGetPaymentTerms}
-            fieldLabel="TermsDescription"
-            onSelectChange={handlePaymentTermChange}
-          />
-        </Col>
+<Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={5} className="formfields">
+  <AntSelectDynamic
+    bordered={false}
+    required
+    fieldValue="Id"
+    label="Payment Term"
+    name="PaymentTermsId"
+    query={useGetPaymentTerms}
+    fieldLabel="TermsDescription"
+    onSelectChange={handlePaymentTermChange}
+  />
+</Col>
 
-        <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={5} className="formfields">
-          <AntInputNumber
-            bordered={false}
-            label="Due Days"
-            name="OrderDueDays"
-            disabled={isDueFieldsDisabled}
-            required={!isDueFieldsDisabled}
-            onChange={(value) => handleDueDaysChange(value)}
-          />
-        </Col>
+<Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={5} className="formfields">
+  <AntInputNumber
+    bordered={false}
+    label="Due Days"
+    name="OrderDueDays"
+    disabled={isDueFieldsDisabled}
+    required={!isDueFieldsDisabled}
+    onChange={(value) => handleDueDaysChange(value)}
+  />
+</Col>
 
-        <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={5} className="formfields">
-          <AntDatePicker
-            bordered={false}
-            placeholder=""
-            label="Due Date"
-            name="OrderDueDate"
-            disabled={isDueFieldsDisabled}
-            required={!isDueFieldsDisabled}
-          />
-        </Col>
+<Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={5} className="formfields">
+  <AntDatePicker
+    bordered={false}
+    placeholder=""
+    label="Due Date"
+    name="OrderDueDate"
+    disabled={isDueFieldsDisabled}
+    required={!isDueFieldsDisabled}
+  />
+</Col>
 
-        <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={7} className="formfields">
-          <AntSelectDynamic
-            bordered={false}
-            required
-            fieldValue="Id"
-            label="Ship to Address"
-            name="ShiptoAddress"
-            query={useGetShiptToAddress(formValues?.CompanyId)}
-            fieldLabel="CompanyName"
-            onSelectChange={handlePaymentTermChange}
-          />
-        </Col>
+<Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={7} className="formfields">
+  <AntSelectDynamic
+    bordered={false}
+    required
+    fieldValue="Id"
+    label="Ship to Address"
+    name="ShiptoAddress"
+    query={useGetShiptToAddress(formValues?.CompanyId)}
+    fieldLabel="CompanyName"
+    onSelectChange={handlePaymentTermChange}
+  />
+</Col>
 
-        <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={5} className="formfields">
-          <AntSelectDynamic
-            bordered={false}
-            required
-            name="DeliveryTerm"
-            label="Delivery Term"
-            fieldValue="DeliveryTerm"
-            fieldLabel=""
-            options={map(status, (item: any) => ({
-              value: item.Id,
-              label: item.Cost,
-            }))}
-          />
-        </Col>
+<Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={5} className="formfields">
+  <AntSelectDynamic
+    bordered={false}
+    required
+    name="DeliveryTerm"
+    label="Delivery Term"
+    fieldValue="DeliveryTerm"
+    fieldLabel=""
+    options={map(status, (item: any) => ({
+      value: item.Id,
+      label: item.Cost,
+    }))}
+  />
+</Col>
 
-        <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={5} className="formfields">
-          <AntSelectDynamic
-            bordered={false}
-            required
-            fieldValue="Id"
-            label="Sub Party Account"
-            name="SubPartyAccount"
-            query={useGetSubPartyAccount(formValues?.CompanyId)}
-            fieldLabel="CompanyName"
-          />
-        </Col>
+<Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={5} className="formfields">
+  <AntSelectDynamic
+    bordered={false}
+    required
+    fieldValue="Id"
+    label="Sub Party Account"
+    name="SubPartyAccount"
+    query={useGetSubPartyAccount(formValues?.CompanyId)}
+    fieldLabel="CompanyName"
+  />
+</Col>
 
-        <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={5} className="formfields">
-          <AntSelectDynamic
-            bordered={false}
-            required
-            name=""
-            label="Order Status"
-            fieldValue=""
-            fieldLabel=""
-            options={map(Oderstatus, (item: TOrderStatus) => ({
-              value: item.Id,
-              label: item.Open,
-              disabled: item.Id !== 1,
-            }))}
-            // defaultValue={1}
-            onSelectChange={handleOrderStatusChange}
-          />
-        </Col>
+<Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={5} className="formfields">
+  <AntSelectDynamic
+    bordered={false}
+    required
+    name=""
+    label="Order Status"
+    fieldValue=""
+    fieldLabel=""
+    options={map(Oderstatus, (item: TOrderStatus) => ({
+      value: item.Id,
+      label: item.Open,
+      disabled: item.Id !== 1,
+    }))}
+    // defaultValue={1}
+    onSelectChange={handleOrderStatusChange}
+  />
+</Col>
 
-        <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={13} className="formfields">
-          <AntInput name="RemarksHeader" label="Remarks" bordered={false} />
-        </Col>
-      </Row>
-      <Row style={{ marginTop: '15px' }}>
+<Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={13} className="formfields">
+  <AntInput name="RemarksHeader" label="Remarks" bordered={false} />
+</Col>
+
+</Row  >
+  <Row style={{ marginTop: '15px' }}>
         <SalesPersonalInfo form={form} />
       </Row>
+ </Col>
+  
     </Card>
   );
 }

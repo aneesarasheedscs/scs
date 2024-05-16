@@ -33,3 +33,13 @@ export type TBankHistory = {
   PostState: boolean;
   NoOfRecords: number;
 };
+export type TSearchCriteria = {
+  FromDate: Date;
+  ToDate: Date;
+  FromVoucherNo: number;
+  ToVoucherNo: number;
+  AccountTitle: string;
+  EntryDate: Date;
+  EntryUser: string;
+  ModifyDate: Date;
+};

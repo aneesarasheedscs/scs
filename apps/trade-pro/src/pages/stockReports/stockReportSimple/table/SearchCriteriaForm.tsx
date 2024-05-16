@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { selectedItems } from './Atom';
 import { map } from 'lodash';
 import dayjs from 'dayjs';
+
 import { TStockReportSearchCriteria } from './types';
 import {
   useGetStockReportItemCategory,
@@ -17,6 +18,7 @@ import {
 import { useAtom } from 'jotai';
 import { valid } from 'joi';
 import { storedFinancialYear } from '@tradePro/utils/storageService';
+import { CriteriaRowGutter } from '@tradePro/globalAtoms';
 
 const { useForm, useWatch } = Form;
 
@@ -73,13 +75,14 @@ function SearchCriteriaForm() {
   const formfield = {
     borderBottom: '1px solid gray',
     padding: '0px',
-    height: '40px',
+    height: '30px',
   };
 
   return (
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
       <Form form={form} onFinish={onFinish} layout="inline" initialValues={formValues}>
-        <Row gutter={[10, 10]} justify={'space-between'}>
+   
+        <Row gutter={CriteriaRowGutter} justify={'space-between'}>
           <Col xs={20} sm={24} md={11} style={formfield}>
             <AntDatePicker name="FromDate" required label={t('from_date')} bordered={false} />
           </Col>
@@ -173,27 +176,34 @@ function SearchCriteriaForm() {
             />
           </Col>
 
-          <Col xs={20} sm={24} md={6}>
-            <Radio.Group
-              onChange={(e) => {
-                form.setFieldsValue({ stockUOM: e.target.value });
-              }}
-              defaultValue={2}
-            >
-              <Radio value={1}> {t('stock_uom')}</Radio>
-              <Radio value={2}> {t('rate_uom')}</Radio>
-            </Radio.Group>
-            <AntInput label="" name="ActionId" type="hidden" />
+          <Col xs={20} sm={24} md={6} lg={10} xxl={18}>
+            <Row>
+              <Radio.Group
+                style={{ display: 'flex', justifyContent: 'space-between' }}
+                onChange={(e) => {
+                  form.setFieldsValue({ stockUOM: e.target.value });
+                }}
+                defaultValue={2}
+              >
+                <Radio value={1}> {t('stock_uom')}</Radio>
+                <Radio value={2}> {t('rate_uom')}</Radio>
+              </Radio.Group>
+              <AntInput label="" name="ActionId" type="hidden" />
+            </Row>
           </Col>
 
-          <Col xs={5} sm={4} md={3} xxl={3}>
-            <AntButton
-              label={t('show')}
-              htmlType="submit"
-              style={{ marginTop: 4 }}
-              isError={isStockReportError}
-              isLoading={isStockReportLoading || isFetching}
-            />
+          <Col xxl={3} lg={14}>
+            <Row justify={'end'}>
+              <Col xs={5} sm={4} md={3} xxl={24}>
+                <AntButton
+                  label={t('show')}
+                  htmlType="submit"
+                  style={{ marginTop: 4 }}
+                  isError={isStockReportError}
+                  isLoading={isStockReportLoading || isFetching}
+                />
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Form>

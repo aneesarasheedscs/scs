@@ -3,7 +3,7 @@ import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { useTranslation } from 'react-i18next';
 import './detail.scss';
 import _ from 'lodash';
-import { Col, Row } from 'antd';
+import { Col, Image, Row } from 'antd';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { useGetPurchaseOrderById } from '../queries';
 import { TPurchaseOrderDetailEntry } from '../type';
@@ -79,7 +79,7 @@ const Tablefile: React.FC<{ selectedRecordId?: number | any; purchaseOrderHistor
                 <div className="table-Row">
                   <div
                     className="offset_Account"
-                    style={{ color: '#8a86f7', cursor: 'pointer', fontWeight: 'bold', marginLeft: '0%' }}
+                    style={{ color: 'black', cursor: 'pointer', fontWeight: 'bold', marginLeft: '0%' }}
                     title="Click to View General Ledger"
                   >
                     {item.ItemName}
@@ -163,13 +163,13 @@ const Tablefile: React.FC<{ selectedRecordId?: number | any; purchaseOrderHistor
               marginTop: '1%',
             }}
           >
-            <div style={{ color: '#5A54F9', fontWeight: 'bold' }}>{t('prepared_by')}:</div>
+            <div style={{ fontWeight: 'bold' }}>{t('prepared_by')}:</div>
             <div>
-              {/* <img className="Img" src={stockTransfer?.[0]?.EntryUserProfileImageUrl}></img> */}
-              {/* <img className="Img" src={convertFilePathToUrl(stockTransfer?.[0]?.EntryUserProfileImageUrl)} alt="Prepared By" /> */}
-              <img className="Img" src={`file://${purchaseOrderHistory?.[0]?.EntryUserProfileImageUrl}`}></img>
-              {/* <img className="Img" src={'\\DESKTOP-GAMC9GTAttachmentsProfilePicture.jpg'}></img> */}
-              {/* <img className="Img" src={require(`.${purchaseOrderHistory?.[0]?.EntryUserProfileImageUrl}`)} alt="Prepared By" /> */}
+              <Image
+                className="Img"
+                src={'data:image/jpeg;base64,' + purchaseOrderHistory?.[0]?.EntryUserProfileImageUrl}
+                style={{ width: '4rem', height: '4rem' }}
+              />
             </div>
             <p>{purchaseOrderHistory?.[0]?.EntryUser}</p>
             <p>{formateDate(purchaseOrderHistory?.[0]?.EntryDate)}</p>
@@ -187,9 +187,13 @@ const Tablefile: React.FC<{ selectedRecordId?: number | any; purchaseOrderHistor
               marginTop: '1%',
             }}
           >
-            <div style={{ color: '#5A54F9', fontWeight: 'bold' }}>{t('approved_by')}:</div>
+            <div style={{ fontWeight: 'bold' }}>{t('approved_by')}:</div>
             <div>
-              <img className="Img" src={purchaseOrderHistory?.[0]?.ApprovalUserProfileImageUrl}></img>
+              <Image
+                className="Img"
+                src={'data:image/jpeg;base64,' + purchaseOrderHistory?.[0]?.ApprovalUserProfileImageUrl}
+                style={{ width: '4rem', height: '4rem' }}
+              />
             </div>
             <p>{purchaseOrderHistory?.[0]?.ApprovedUser}</p>
             <p>{formateDate(purchaseOrderHistory?.[0]?.ApprovedDate)}</p>
@@ -207,13 +211,13 @@ const Tablefile: React.FC<{ selectedRecordId?: number | any; purchaseOrderHistor
               marginTop: '1%',
             }}
           >
-            <div style={{ color: '#5A54F9', fontWeight: 'bold' }}>{t('modify_user')}:</div>
+            <div style={{ fontWeight: 'bold' }}>{t('modify_user')}:</div>
             <div>
-              <img
+              <Image
                 className="Img"
-                // src={'file://C:UsershpPictures.bg33-1.jpg'}
-                src={purchaseOrderHistory?.[0]?.ModifyUserProfileImageUrl}
-              ></img>
+                src={'data:image/jpeg;base64,' + purchaseOrderHistory?.[0]?.ModifyUserProfileImageUrl}
+                style={{ width: '4rem', height: '4rem' }}
+              />
             </div>
             <div>
               <p>{purchaseOrderHistory?.[0]?.ModifyUser}</p>

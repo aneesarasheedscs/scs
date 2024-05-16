@@ -16,12 +16,11 @@ export const columns = (
 ): AntColumnType<TContraVoucherHistory>[] => [
   {
     title: t('code'),
-    width: 120,
+    width: 100,
     searchableInput: true,
     dataIndex: 'VoucherCode',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.VoucherCode - b.VoucherCode,
-    showCount: true,
   },
   {
     title: t('type'),
@@ -96,8 +95,9 @@ export const columns = (
     sorter: (a, b) => a.Attachment - b.Attachment,
   },
   {
+    fixed: 'right',
     title: t('action'),
-    width: 100,
+    width: 90,
     render: (_, record) => (
       <>
         <Tooltip title="Edit">

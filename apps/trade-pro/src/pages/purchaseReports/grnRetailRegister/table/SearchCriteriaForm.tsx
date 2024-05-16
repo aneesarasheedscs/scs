@@ -11,6 +11,8 @@ import { useGRNDetailTableHistory } from '../query';
 import { TGRNSearchCriteria } from '../types';
 import { useGetItems, useGetSuppliers, useGetWarehouseName, useGetGRNJobLot, useGetGRNCityName } from './queryOption';
 import dayjs from 'dayjs';
+import { CriteriaRowGutter } from '@tradePro/globalAtoms';
+
 
 const { useForm, useWatch } = Form;
 
@@ -39,7 +41,7 @@ function SearchCriteria() {
   return (
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
       <Form form={form} onFinish={onFinish} layout="inline" initialValues={formValues}>
-        <Row gutter={[10, 16]} justify={'space-between'}>
+        <Row gutter={CriteriaRowGutter} justify={'space-between'}>
           <Col xs={24} sm={24} md={11} className="formfield">
             <p className="formfielddropdown">
               <AntDatePicker name="FromDate" bordered={false} label="From Date" />
@@ -118,7 +120,7 @@ function SearchCriteria() {
             />
           </Col>
 
-          <Col xs={24} sm={24} md={4}>
+          <Col xs={24} sm={24} md={4} xl={3}>
             <AntButton
               label="Show"
               htmlType="submit"

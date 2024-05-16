@@ -78,14 +78,14 @@ const Tablefile: React.FC<{ selectedRecordId?: number | null; historyData: any }
                 <div
                   className="Account"
                   title="Click to View General Ledger"
-                  style={{ color: '#8a86f7', cursor: 'pointer', fontWeight: 'bold' }}
+                  style={{ color: 'blue', cursor: 'pointer', fontWeight: 'bold' }}
                 >
                   {item.WareHouseName}
                 </div>
 
                 <div
                   className="offset_Account"
-                  style={{ color: '#8a86f7', cursor: 'pointer', fontWeight: 'bold', marginLeft: '5%' }}
+                  style={{ color: 'blue', cursor: 'pointer', fontWeight: 'bold', marginLeft: '5%' }}
                   title="Click to View General Ledger"
                 >
                   {item.ItemName}
@@ -115,7 +115,7 @@ const Tablefile: React.FC<{ selectedRecordId?: number | null; historyData: any }
                 <div>
                   <p
                     style={{
-                      color: '#8a86f7',
+                      color: 'blue',
                       cursor: 'pointer',
                       fontWeight: 'bold',
                       marginLeft: '0.5%',
@@ -169,7 +169,7 @@ const Tablefile: React.FC<{ selectedRecordId?: number | null; historyData: any }
             marginTop: '2%',
           }}
         >
-          <div style={{ color: '#5A54F9', fontWeight: 'bold' }}>{t('prepared_by')}:</div>
+          <div style={{  fontWeight: 'bold' }}>{t('prepared_by')}:</div>
           <div>
             {/* <img className="Img" src={historyData?.[0]?.EntryUserProfileImageUrl}></img> */}
             {/* <img className="Img" src={convertFilePathToUrl(historyData?.[0]?.EntryUserProfileImageUrl)} alt="Prepared By" /> */}
@@ -193,7 +193,7 @@ const Tablefile: React.FC<{ selectedRecordId?: number | null; historyData: any }
             marginTop: '2%',
           }}
         >
-          <div style={{ color: '#5A54F9', fontWeight: 'bold' }}>{t('approved_by')}:</div>
+          <div style={{  fontWeight: 'bold' }}>{t('approved_by')}:</div>
           <div>
             <img className="Img" src={historyData?.[0]?.ApprovalUserProfileImageUrl}></img>
           </div>
@@ -213,7 +213,7 @@ const Tablefile: React.FC<{ selectedRecordId?: number | null; historyData: any }
             marginTop: '2%',
           }}
         >
-          <div style={{ color: '#5A54F9', fontWeight: 'bold' }}>{t('modify_user')}:</div>
+          <div style={{  fontWeight: 'bold' }}>{t('modify_user')}:</div>
           <div>
             <img
               className="Img"

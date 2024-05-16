@@ -17,12 +17,11 @@ export const columns = (
 ): AntColumnType<TExpenseVoucherHistory>[] => [
   {
     title: t('code'),
-    width: 120,
+    width: 100,
     searchableInput: true,
     dataIndex: 'VoucherCode',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.VoucherCode - b.VoucherCode,
-    showCount: true,
   },
   {
     title: t('type'),
@@ -96,8 +95,9 @@ export const columns = (
   },
 
   {
+    fixed: 'right',
     title: t('action'),
-    width: 95,
+    width: 90,
     render: (_, record) => (
       <>
         <Tooltip title="Edit">

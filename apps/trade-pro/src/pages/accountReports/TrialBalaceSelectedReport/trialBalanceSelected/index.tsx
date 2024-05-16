@@ -15,6 +15,15 @@ function TrialBalanceSelectedReport() {
   const { t } = useTranslation();
   const { data, refetch, isError, isLoading, isFetching } = useGetTrialBalanceSelectedReport(true);
   const [selectedColumnss, setSelectedColumnss] = useAtom(selectedColumnAtom);
+
+
+  const CriteriaString =()=>{
+    return(
+      <Row style={{border:'1px solid #25A7DF',padding:7,borderRadius:5}}>
+
+      </Row>
+    )
+  }
   return (
     <div style={{ backgroundColor: '#fff' }}>
       <Row justify={'space-between'} align={'middle'}>
@@ -36,6 +45,7 @@ function TrialBalanceSelectedReport() {
             refetch={refetch}
             isError={isError}
             numberOfSkeletons={12}
+            searchCriteriaReport={data?.data?.Data?.Result?.[0]?.ReportCriteria? <CriteriaString/>:''}
             isLoading={isLoading || isFetching}
             columns={
               selectedColumnss === 'four'

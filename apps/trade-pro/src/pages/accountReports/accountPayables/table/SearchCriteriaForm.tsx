@@ -106,6 +106,7 @@ function SearchCriteriaForm({ onRadioChange }: SearchCriteriaFormProps) {
     form.setFields([{ name: 'DueDateFrom', value: januaryFirst }]);
     form.setFields([{ name: 'DueDateTo', value: dayjs(new Date()) }]);
     form.setFieldsValue({ ActionId: 1 });
+
     setTableColumns(columns(t));
   }, []);
 

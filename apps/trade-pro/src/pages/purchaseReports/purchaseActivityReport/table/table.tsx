@@ -1,4 +1,4 @@
-import { AntTable } from '@tradePro/components';
+import { AntTable ,BackButton} from '@tradePro/components';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { useTranslation } from 'react-i18next';
 import { Col, Row } from 'antd';
@@ -17,6 +17,7 @@ import {
 } from './columns';
 import SearchCriteria from '../searchCriteria.tsx/SearchCriteriaForm';
 import { actvitityPAtom } from '../searchCriteria.tsx/atom';
+import { useEffect, useState } from 'react';
 
 function PurchaseTable() {
   const {
@@ -27,7 +28,8 @@ function PurchaseTable() {
     isFetching: PurchaseFetching,
     refetch: PurchaseRefetch,
   } = usePurchaseInvoiceTable(true);
-  console.log(Purchase?.data?.Data?.Result);
+  console.log(Purchase?.data?.Data?.Result, 'puchase');
+
   const { t } = useTranslation();
 
   const [selectedActivity] = useAtom(actvitityPAtom);
@@ -55,20 +57,32 @@ function PurchaseTable() {
     }
   })();
 
+  const ReportCriteriaa = Purchase?.data?.Data?.Result;
+
+  const ReportCriteriaArray = Purchase?.data?.Data?.Result?.[0]?.ReportCriteria;
+
+  function CriteriaString() {
+    return (
+      <Row  style={{ border: '1px solid #25A7DF', padding: 7, borderRadius: 5 }}>
+        <h5> {Purchase?.data?.Data?.Result?.[0]?.ReportCriteria}</h5>
+      </Row>
+    );
+  }
+
   return (
-    <>
-      <Row
-        style={{
-          marginBottom: '5px',
-          width: '100%',
-        }}
-        className="row-border"
-      >
-        <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }}>
-          <h2 className="tableTitle">{t('purchase_activity')}</h2>
+    <div style={{ background: '#fff' }}>
+      <Row justify={'space-between'} align={'middle'}>
+        <Col xs={12} sm={10} md={12} lg={12} xl={14} xxl={16} className="forms-heading-container">
+          <h1 className="report_heading">{t('purchase_activity')}</h1>
+        </Col>
+
+        <Col xxl={1} style={{ marginRight: '50px' }}>
+          <BackButton goToDashboard={true} />
         </Col>
       </Row>
 
+      <Row justify={'space-around'}>
+        <Col xl={23} xxl={23} xs={23} md={23} lg={23} sm={23} style={{ marginTop: '10px' }}>
       <AntTable
         refetch={PurchaseRefetch}
         isError={PurchaseError}
@@ -77,36 +91,13 @@ function PurchaseTable() {
         isLoading={PurchaseLoading || PurchaseFetching}
         data={Purchase?.data?.Data?.Result || []}
         searchCriteriaForm={<SearchCriteria />}
+        searchCriteriaReport={Purchase?.data?.Data?.Result?.[0]?.ReportCriteria  ? <CriteriaString/> : ''}
         scroll={{ x: '', y: convertVhToPixels('62vh') }}
-        footer={() => (
-          <>
-            {/* <div>
-              <Row justify="center" gutter={[16, 16]}>
-                <Col xs={24} sm={12} md={8} lg={6} xl={2}>
-                  <p>{t('detail_total')}:</p>
-                </Col>
-                <Col xs={24} sm={12} md={8} lg={6} xl={2}>
-                  <p>{numberFormatter(totalSaleQty)}</p>
-                </Col>
-                <Col xs={24} sm={12} md={8} lg={6} xl={2}>
-                  <p>{numberFormatter(totalSaleWeight)}</p>
-                </Col>
-                <Col xs={24} sm={12} md={8} lg={6} xl={2}>
-                  <p>{numberFormatter(totalSaleAmount)}</p>
-                </Col>
-                <Col xs={24} sm={12} md={8} lg={6} xl={2}>
-                  <p>{numberFormatter(totalCgsAmount)}</p>
-                </Col>
-
-                <Col xs={24} sm={12} md={8} lg={6} xl={2}>
-                  <p>{numberFormatter(totalGrossProfitLosst)}</p>
+        footer={() => <></>}
+          />
                 </Col>
               </Row>
-            </div> */}
-          </>
-        )}
-      />
-    </>
+    </div>
   );
 }
 

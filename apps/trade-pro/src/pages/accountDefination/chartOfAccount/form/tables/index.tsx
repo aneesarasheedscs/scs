@@ -64,7 +64,7 @@ function ChildAccountTable({ data, selectedRows }: AnotherComponentProps) {
           textAlign: 'center',
           border: '2px ridge #ffeeee',
         }}
-      >
+      > 
         <h3>
           {t('child_account_of')} {title} {t('level')} {level}
         </h3>
@@ -76,6 +76,7 @@ function ChildAccountTable({ data, selectedRows }: AnotherComponentProps) {
         columns={columns(t)}
         isLoading={tableLoading}
         numberOfSkeletons={14}
+     
         scroll={{ x: '', y: convertVhToPixels('62vh') }}
       />
     </div>

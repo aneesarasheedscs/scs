@@ -3,7 +3,7 @@ import { requestManager } from '@tradePro/configs/requestManager';
 import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 import { AxiosResponse } from 'axios';
 import { AccountData } from '../form/types';
-import { TVoucherHistory } from '../table/types';
+import { TSearchCriteria, TVoucherHistory } from '../table/types';
 
 const userDetail = storedUserDetail();
 const financialYear = storedFinancialYear();
@@ -15,8 +15,20 @@ const [BranchesId, CompanyId, OrganizationId] = [
 ];
 
 const params = { CompanyId, OrganizationId, BranchesId };
-
-export const useGetExpenseVoucherTable = (enabled = true, params?: TVoucherHistory) => {
+export const useGetAccountTitle = (enabled = true) => {
+  return useQuery(
+    'account-title-Exp',
+    () => {
+      return requestManager.post('/api/AccountsReports/LedgerByJobLotDropDownAndLists', {
+        OrganizationId: userDetail?.OrganizationId,
+        CompanyId: userDetail?.CompanyId,
+        DocumentTypeIds: '26',
+      });
+    },
+    { enabled }
+  );
+};
+export const useGetExpenseVoucherTable = (enabled = true, params?: TSearchCriteria) => {
   return useQuery(
     'ExpenseVoucher-history',
     () => {
@@ -27,8 +39,21 @@ export const useGetExpenseVoucherTable = (enabled = true, params?: TVoucherHisto
         FinancialYearId: financialYear?.Id,
         Ids: '26',
         PostState: true,
-        NoOfRecords: 50,
+        // NoOfRecords: 50,
+        // ...params,
+        EntryDateTo: params?.DateType === 2 && params?.ToDate !== undefined ? params?.ToDate : '',
+        EntryDateFrom: params?.DateType === 2 && params?.FromDate !== undefined ? params?.FromDate : '',
+        ModifyDateTo: params?.DateType === 3 && params?.ToDate !== undefined ? params?.ToDate : '',
+        ModifyDateFrom: params?.DateType === 3 && params?.FromDate !== undefined ? params?.FromDate : '',
+        ApprovedDateTo: params?.DateType === 4 && params?.ToDate !== undefined ? params?.ToDate : '',
+        ApprovedDateFrom: params?.DateType === 4 && params?.FromDate !== undefined ? params?.FromDate : '',
         ...params,
+        FromDate:
+          params?.FromDate === undefined ? financialYear?.Start_Period : params?.DateType === 1 ? params?.FromDate : '',
+        ToDate: params?.ToDate === undefined ? financialYear?.End_Period : params?.DateType === 1 ? params?.ToDate : '',
+        IsApproved:
+          params?.ApprovedStatus === 'Approved' ? true : params?.ApprovedStatus === 'Not Approved' ? false : '',
+        ApprovedFilter: params?.ApprovedStatus === 'All' ? 'All' : '',
       });
     },
     { enabled }

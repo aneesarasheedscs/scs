@@ -14,6 +14,7 @@ import { map } from 'lodash';
 import dayjs from 'dayjs';
 import { useLocation } from 'react-router-dom';
 import { storedFinancialYear } from '@tradePro/utils/storageService';
+import { CriteriaRowGutter } from '@tradePro/globalAtoms';
 
 const { useForm, useWatch } = Form;
 
@@ -82,13 +83,13 @@ const SearchCriteriaForm: React.FC<{
   const formfield = {
     borderBottom: '1px solid gray',
     padding: '0px',
-    height: '40px',
+    height: '30px',
   };
 
   return (
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
       <Form form={form} onFinish={onFinish} layout="inline" initialValues={formValues}>
-        <Row gutter={[10, 10]} justify={'space-between'}>
+        <Row gutter={CriteriaRowGutter} justify={'space-between'}>
           <Col xs={20} sm={24} md={11} style={formfield}>
             <AntDatePicker name="FromDate" label={t('from_date')} required bordered={false} />
           </Col>
@@ -149,17 +150,18 @@ const SearchCriteriaForm: React.FC<{
               query={useGetInventryReportDocumentTypeCombo}
             />
           </Col>
-
-          <Col xs={12} sm={4} md={4} xxl={4}>
+        </Row>
+        <Col xxl={24} style={{ display: 'flex', justifyContent: 'end' }}>
+          <Col xs={12} sm={4} md={4} xxl={3}>
             <AntButton
               label={t('show')}
               htmlType="submit"
-              style={{ marginTop: 4 }}
+              style={{ marginTop: 6 }}
               isError={isInventryError}
               isLoading={isInventryLoading || isFetching}
             />
           </Col>
-        </Row>
+        </Col>
       </Form>
     </SearchCriteriaWrapper>
   );

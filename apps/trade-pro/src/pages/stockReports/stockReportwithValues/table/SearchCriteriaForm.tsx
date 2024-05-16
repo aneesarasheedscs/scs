@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next';
 import { useAtom } from 'jotai';
 import { selectedItems } from './Atom';
 import { storedFinancialYear } from '@tradePro/utils/storageService';
+import { CriteriaRowGutter } from '@tradePro/globalAtoms';
 const { useForm, useWatch } = Form;
 interface TReportType {
   Id: string;
@@ -75,7 +76,7 @@ function SearchCriteriaForm() {
   return (
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
       <Form form={form} onFinish={onFinish} layout="inline" initialValues={formValues}>
-        <Row gutter={[10, 10]} justify={'space-between'}>
+        <Row gutter={CriteriaRowGutter} justify={'space-between'}>
           <Col xs={24} sm={24} md={11} className="formfield">
             <AntDatePicker name="FromDate" bordered={false} label={t('from_date')} />
           </Col>
@@ -191,17 +192,21 @@ function SearchCriteriaForm() {
               bordered={false}
             />
           </Col>
-          <Col xs={24} sm={24} md={6}>
-            <Radio.Group
-              onChange={(e) => {
-                form.setFieldsValue({ ActionId: e.target.value });
-              }}
-              defaultValue={2}
-            >
-              <Radio value={1}> {t('sale_value')}</Radio>
-              <Radio value={2}> {t('cgs_value')}</Radio>
-            </Radio.Group>
-            <AntInput label="" name="ActionId" type="hidden" />
+  
+                    <Col xs={24} sm={24} md={6} lg={18}>
+            <Row>
+              <Radio.Group
+                style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10 }}
+                onChange={(e) => {
+                  form.setFieldsValue({ ActionId: e.target.value });
+                }}
+                defaultValue={2}
+              >
+                <Radio value={1}> {t('sale_value')}</Radio>
+                <Radio value={2}> {t('cgs_value')}</Radio>
+              </Radio.Group>
+              <AntInput label="" name="ActionId" type="hidden" />
+            </Row>
           </Col>
 
           <Col xs={24} sm={24} md={4}>

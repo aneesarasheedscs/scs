@@ -16,10 +16,10 @@ export const columns = (
 ): AntColumnType<TBankReceiptVoucherTable>[] => [
   {
     title: t('code'),
-    width: 110,
+    width: 90,
     searchableInput: true,
     dataIndex: 'VoucherCode',
-    showCount: true,
+
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.VoucherCode - b.VoucherCode,
   },
@@ -91,7 +91,6 @@ export const columns = (
   {
     title: t('entry_date'),
     dataIndex: 'EntryDate',
-    searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     searchableDate: true,
     render: (_, { EntryDate }) => formateDate(EntryDate),
@@ -109,8 +108,9 @@ export const columns = (
     dataIndex: 'Attachment',
   },
   {
+    fixed: 'right',
     title: t('action'),
-    width: 96,
+    width: 90,
     render: (_, record) => (
       <>
         <Tooltip title="Edit">

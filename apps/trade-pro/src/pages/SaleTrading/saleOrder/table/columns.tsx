@@ -14,21 +14,21 @@ export const saleOrderFormcolumns = (
   { title: <>t{'Item Name'}</>, dataIndex: 'ItemName', width: 300 },
   {
     width: 150,
-    title: <>{t('Pack Uom')}</>,
+    title: <>{t('pack_uom')}</>,
     searchableDate: true,
     dataIndex: 'UOMCode',
   },
   {
     width: 150,
     searchableInput: true,
-    title: <>{t('QTY')}</>,
+    title: <>{t('qty')}</>,
     dataIndex: 'OrderItemQty',
     sortDirections: ['ascend', 'descend'],
   },
 
   { title: <>{t('weight')}</>, dataIndex: 'NetWeight', width: 150 },
   {
-    title: <>{t('Item Price')}</>,
+    title: <>{t('item_price')}</>,
     dataIndex: 'BagPrice',
     width: 150,
     render: (Amount, record) => (
@@ -39,12 +39,12 @@ export const saleOrderFormcolumns = (
   // { title: 'Base UOM', dataIndex: 'UOMCodeItm', width: 120 },
   {
     width: 120,
-    title: <>{t('Add Less')}</>,
+    title: <>{t('add_less')}</>,
     dataIndex: 'AddLess',
   },
   {
     width: 120,
-    title: <>{t('Net Rate')}</>,
+    title: <>{t('net_rate')}</>,
     dataIndex: 'RetailRate',
   },
   {
@@ -53,7 +53,7 @@ export const saleOrderFormcolumns = (
     dataIndex: 'RateUom',
   },
   {
-    title: <>{t('Amount')}</>,
+    title: <>{t('amount')}</>,
     width: 120,
     showTotal: true,
     dataIndex: 'Amount',
@@ -63,7 +63,7 @@ export const saleOrderFormcolumns = (
   },
   {
     width: 120,
-    title: <>{t('Remarks')}</>,
+    title: <>{t('remarks')}</>,
     dataIndex: 'OrderRemarks',
   },
 

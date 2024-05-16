@@ -525,5 +525,22 @@
   "bills_receivables_accounts": "Comptes de factures à recevoir",
   "receipts_voucher": "Bon de réception",
   "payment_voucher": "Bon de paiement",
-  "app_modules": "Modules d'application"
+  "app_modules": "Modules d'application",
+
+  "supplier_ref_no": "Numéro de référence du fournisseur",
+  "vo_from": "Bon à partir de",
+  "vo_to": "Bon à",
+  "purchase_order_retail_register": "Registre de vente au détail des bons de commande",
+  "payables_aging": "Vieillissement des dettes",
+  "aging_days": "Jours de vieillissement",
+
+  "purchase_activity": "Activité d'achat",
+  "search_criteria": "Critères de recherche",
+  "to_doc_no": "Vers le document n°",
+  "from_doc_no": "Extrait du document n°",
+  "cash_purchase": "",
+  "net_receivable": "Créance nette",
+  "r_no": "RNon",
+  "not_yet_due": "Pas encore dû",
+  "over_due": "En retard"
 }

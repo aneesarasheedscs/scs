@@ -1,6 +1,6 @@
 import { Col, Row } from 'antd';
 import Division from './forms/division/division';
-import District from './forms/district/district';
+import District from './forms/district/district'
 import Tehsil from './forms/tehsil/tehsil';
 import Town from './forms/town/town';
 

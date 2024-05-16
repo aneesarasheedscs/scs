@@ -79,6 +79,16 @@ function TrialBalanceAllLevelReport() {
   // const sum = _.sum(Opening); // Using _.sum to calculate the sum of all Opening values
   // console.log(sum);
 
+
+  const CriteriaString = ()=>{
+    return(
+      <Row style={{border:'',padding:7,borderRadius:5}}>
+        <h5>{tableData?.data?.Data?.Result?.[0]?.ReportCriteria}</h5>
+      </Row>
+    )
+
+  }
+
   return (
     <>
       <Row justify={'space-around'}>
@@ -88,6 +98,7 @@ function TrialBalanceAllLevelReport() {
             refetch={refetch}
             isError={isError}
             // summary={() => []}
+            searchCriteriaReport={tableData?.data?.Data?.Result?.[0]?.ReportCriteria? <CriteriaString/>:''}
             numberOfSkeletons={12}
             isLoading={isLoading || isFetching}
             columns={
@@ -130,6 +141,7 @@ function TrialBalanceAllLevelReport() {
                                 downloadExcel={{ enabled: false, show: false }}
                                 groupByColumns={{ enabled: false, show: false }}
                                 refreshData={{ enabled: false, show: false }}
+                                
                                 rowKey={'AccountId'}
                                 columns={
                                   selectedColumnss === 'four'
@@ -159,6 +171,7 @@ function TrialBalanceAllLevelReport() {
                                                     downloadExcel={{ enabled: false, show: false }}
                                                     groupByColumns={{ enabled: false, show: false }}
                                                     refreshData={{ enabled: false, show: false }}
+                                                
                                                     rowKey={'AccountId'}
                                                     columns={
                                                       selectedColumnss === 'four'

@@ -26,4 +26,4 @@ export function Sidebar({ collapsed, children }: TSidebar) {
   );
 }
 
-type TSidebar = { collapsed: any; children?: ReactNode };
+type TSidebar = { collapsed: boolean; children?: ReactNode };

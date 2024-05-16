@@ -1,0 +1,42 @@
+import { type } from 'os';
+
+export type saleOrder = {
+  Id: number;
+  DocDate: Date | string;
+  DocNo: number;
+  DueDays: Date | string;
+  DueDate: string;
+  CustomerName: string;
+  CommissionAgent: null | string;
+  OrderSupCustId: string;
+  OrderItemId: string;
+  SaleGLAC: string;
+  DeliveryTerm: string;
+  ItemName: string;
+  PackUom: string;
+  ItemQty: number;
+  DispatchQty: number;
+  BalQty: number;
+  Weight: number;
+  DispatchWeight: number;
+  BalWeight: number;
+  Rate: number;
+  ExpiryDate: Date | string;
+};
+export type SaleOrderSearchCriteria = {
+  OrganizationId: number;
+  CompanyId: number;
+  DocumentTypeId: number;
+  FromDate: Date | string;
+  ToDate: Date | string;
+  FromDocNo: number;
+  ToDocNo: number;
+  SupplierCustomerId: number;
+  ItemId: number;
+  InventoryParentCategories: number;
+  ItemCategoryId: number;
+  ItemTypeId: number;
+  Status: string;
+  ApprovedFilter: 'All' | null;
+  IsApproved: boolean | null;
+};

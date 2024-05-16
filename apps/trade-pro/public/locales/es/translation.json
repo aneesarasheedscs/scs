@@ -854,5 +854,20 @@
   "bills_receivables_accounts": "Cuentas de cuentas por cobrar",
   "receipts_voucher": "Vale de recibos",
   "payment_voucher": "Comprobante de pago",
-  "app_modules": "Módulos de aplicación"
+  "app_modules": "Módulos de aplicación",
+
+  "vo_from": "Vale de",
+  "vo_to": "Vale para",
+  "purchase_order_retail_register": "Registro minorista de órdenes de compra",
+  "payables_aging": "Antigüedad de cuentas por pagar",
+  "aging_days": "Días de envejecimiento",
+
+  "purchase_activity": "Actividad de compra",
+  "to_doc_no": "Al doctor no",
+  "from_doc_no": "Del doctor no",
+  "cash_purchase": "",
+  "net_receivable": "Por cobrar neto",
+  "r_no": "RNo",
+  "not_yet_due": "Todavía no se debe",
+  "over_due": "Atrasado"
 }

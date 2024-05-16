@@ -1,7 +1,8 @@
-import { Card, Col, Row } from 'antd';
+import { Card, Col, Image, Row } from 'antd';
 import { SortAscendingOutlined, SortDescendingOutlined, HeartFilled } from '@ant-design/icons';
 import '../style.scss';
 import Search from 'antd/es/input/Search';
+
 import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { formateDate } from '@tradePro/utils/formateDate';
@@ -20,20 +21,12 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
   const userDetail = storedUserDetail();
   const { data, isError, isLoading, refetch, isFetching } = useGetPurchaseOrder();
   const purchaseOrderHistory = data?.data?.Data?.Result;
-  const logoImageBytes = data?.data?.Data?.Result?.[0]?.CompLogoImage;
-  // Convert Uint8Array to a regular array of numbers
-  const byteArray = Array.from(new Uint8Array(logoImageBytes));
-  // Convert the array to a base64-encoded string
-  const base64String = btoa(String.fromCharCode.apply(null, byteArray));
-  // Assuming the image format is PNG, you can change it based on the actual format
-  const dataUrl = `data:image/png;base64,${base64String}`;
+
   const [records, setRecords] = useState<TPurchaseOrderHistory[]>([]);
   const [selectedCardData, setSelectedCardData] = useState<TPurchaseOrderHistory | any>();
-  // const totalRecords = data?.data?.Data?.Result.length || 0;
+  const totalRecords = data?.data?.Data?.Result ? data?.data?.Data?.Result.length : 0;
   const { t } = useTranslation();
-  useEffect(() => {
-    setRecords(purchaseOrderHistory);
-  }, [purchaseOrderHistory]);
+
   console.log('records', records);
 
   const [sortOrderAmount, setSortOrderAmount] = useState<'asc' | 'desc' | undefined>(undefined);
@@ -97,22 +90,32 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
   };
 
   const handleSearch = (value: any) => {
-    console.log(value);
     const trimmedValue = value.trim();
     const filteredRecords = purchaseOrderHistory?.filter((record: TPurchaseOrderHistory) => {
       return record.EntryUser.toLowerCase().includes(trimmedValue.toLowerCase());
     });
-    setRecords(filteredRecords || []);
+
     if (!filteredRecords || filteredRecords.length === 0) {
       setRecords([]);
       console.log('No matching records found');
+    } else {
+      setRecords(filteredRecords);
     }
   };
+
+  useEffect(() => {
+    setRecords(purchaseOrderHistory);
+    console.log('records', records);
+  }, [purchaseOrderHistory]);
+  useEffect(() => {
+    // Log the updated records when the state changes
+    console.log('Updated records:', records);
+  }, [records]); // Trigger effect when records state changes
 
   return (
     <>
       <div>
-        <Row className="card_view_row" style={{ height: '100%', marginTop: '4%' }}>
+        <Row className="card_view_row" style={{ height: '100%', marginTop: '0%' }}>
           <Col lg={{ span: 8 }} xl={6} xxl={6} sm={{ span: 24 }} className="columns">
             <Row className="col" align="middle">
               <Search onChange={(e) => handleSearch(e.target.value)} placeholder="Filter" />
@@ -137,7 +140,7 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
               </Col>
             </Row>
 
-            <div style={{ backgroundColor: ' #d6d6e7', height: '52vh', overflowY: 'auto' }}>
+            <div style={{ backgroundColor: ' #d6d6e7', height: 'calc(100vh - 300px)', overflowY: 'auto' }}>
               <Row
                 gutter={[14, 14]}
                 style={{
@@ -145,8 +148,8 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
                   width: '99%',
                 }}
               >
-                {records?.map((card: TPurchaseOrderHistory | any) => (
-                  <Col span={24} key={card.Id}>
+                {records.map((card: TPurchaseOrderHistory | any) => (
+                  <Col span={24} key={card.PoDetailId}>
                     <Card className="singleCard" onClick={() => setSelectedCardData(card)}>
                       <Row justify={'space-between'} style={{ marginTop: '-3%' }}>
                         <p className="list-item2">Doc# {card.OrderNo}</p>
@@ -170,7 +173,7 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
                         <span
                           className="list-items2"
                           style={{
-                            color: 'purple',
+                            color: '#5a54f9',
                           }}
                         >
                           {card.ItemName}
@@ -185,28 +188,31 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
                 ))}
               </Row>
             </div>
-            <h3 style={{ textAlign: 'center' }}>{/* {t('total_records')} {numberFormatter(totalRecords)} */}</h3>
+            <h3 style={{ textAlign: 'center' }}>
+              {t('total_records')} {numberFormatter(totalRecords)}
+            </h3>
           </Col>
 
           {selectedCardData && (
-            <Col lg={{ span: 24 }} xl={18} xxl={18} sm={{ span: 24 }} className="columns">
+            <Col lg={{ span: 24 }} md={24} xl={17} xxl={18} xs={24} className="columns">
               <Buttons
                 setActiveTab={setActiveTab}
                 selectedCardData={selectedCardData}
                 setSelectedRecordId={setSelectedRecordId}
-              />
+              />{' '}
               <Row align="middle">
                 <Col xs={16} sm={16} className="columns">
                   <div className="main-voucher-design" id="Rice_Invoice_Main_Box">
                     <div className="row">
                       <Row>
                         <Col
-                          xs={{ span: 6 }}
-                          sm={{ span: 5 }}
+                          xs={{ span: 4 }}
+                          sm={{ span: 4 }}
                           md={{ span: 4 }}
-                          lg={{ span: 6 }}
-                          xl={{ span: 4 }}
-                          xxl={{ span: 3 }}
+                          lg={{ span: 4 }}
+                          xl={{ span: 3 }}
+                          xxl={{ span: 2 }}
+                          style={{ marginRight: '1%' }}
                         >
                           <div
                             style={{
@@ -217,37 +223,30 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
                             }}
                           >
                             <div>
-                              {/* <img className="Img" src={dataUrl} style={{ width: '6rem', height: '6rem' }}></img> */}
-                              {/* <img
-                              className="Img"
-                              src={`data:image/png;base64,${logoimage}`}
-                              style={{ width: '6rem', height: '6rem' }}
-                              // alt="Company Logo"
-                            /> */}
-                              <img
+                              <Image
                                 className="Img"
-                                // src={dataUrl}
-                                src={'data:image/png;base64,' + selectedCardData?.CompLogoImage}
+                                src={'data:image/jpeg;base64,' + selectedCardData?.CompLogoImage}
                                 style={{ width: '6rem', height: '6rem' }}
-                                // alt="Company Logo"
                               />
                             </div>
                           </div>
                         </Col>
                         <Col
-                          xs={{ span: 18 }}
-                          sm={{ span: 19 }}
-                          md={{ span: 20 }}
+                          xs={{ span: 24 }}
+                          sm={{ span: 24 }}
+                          md={{ span: 18 }}
                           lg={{ span: 18 }}
                           xl={{ span: 20 }}
                           xxl={{ span: 20 }}
                         >
                           <div>
                             <div className="">
-                              <div style={{ fontSize: '1.5rem', color: 'green', textAlign: 'left' }}>
+                              <div
+                                style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'green', textAlign: 'left' }}
+                              >
                                 {userDetail?.CompanyName}
                               </div>
-                              <div style={{ fontSize: '1.1rem', color: 'green', textAlign: 'left' }}>
+                              <div style={{ fontSize: '1rem', color: 'green', textAlign: 'left' }}>
                                 {userDetail?.CompanyAddress}
                               </div>
                               <div style={{ fontSize: '0.8rem', color: 'green', textAlign: 'left' }}>
@@ -260,7 +259,7 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
                     </div>
 
                     <div className="Wrapper">
-                      <Col xxl={9} xl={9} lg={9} md={9} sm={9} style={{ marginTop: '0.5%' }}>
+                      <Col xxl={8} xl={9} lg={9} md={9} sm={9} style={{ marginTop: '0.5%' }}>
                         <div className="">
                           <div className="caption-value-wrape">
                             <div className="caption">{t('doc_no')} #</div>
@@ -326,7 +325,7 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
                           </div>
                         </div>
                       </Col>
-                      <Col xxl={10} xl={9} lg={9} md={9} sm={10} style={{ marginTop: '0.5%' }}>
+                      <Col xxl={8} xl={9} lg={9} md={9} sm={10} style={{ marginTop: '0.5%' }}>
                         <div className="">
                           <div
                             style={{ display: 'flex', justifyContent: 'space-between' }}
@@ -352,7 +351,6 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
                         </div>
                       </Col>
                     </div>
-
                     <Tablefile selectedRecordId={selectedRecordId} purchaseOrderHistory={purchaseOrderHistory} />
                   </div>
                 </Col>

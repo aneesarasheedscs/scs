@@ -35,20 +35,16 @@ function StockReceivedNoteTable({
     <div>
       <Row style={{ marginTop: '0%' }}>
         <Col span={24}>
-          <h2 className="form-heading2">
-            <Row gutter={10} style={{ display: 'flex', justifyContent: '' }}>
-              <div style={{ display: 'flex' }}>
-                <AntButton onClick={toggleGridView} className="btn" label={t('grid_view')} />
-
-                <AntButton
-                  onClick={toggleCardView}
-                  className="btn"
-                  label={t('card_view')}
-                  style={{ marginLeft: '2%' }}
-                />
-              </div>
-            </Row>
-          </h2>
+          <AntButton
+            onClick={toggleGridView}
+            className={showComponent ? 'toggleGridView' : 'toggleCardView'}
+            label={t('grid_view')}
+          />
+          <AntButton
+            onClick={toggleCardView}
+            className={showComponent ? 'toggleCardView' : 'toggleGridView'}
+            label={t('card_view')}
+          />
         </Col>
         {showComponent ? (
           <>

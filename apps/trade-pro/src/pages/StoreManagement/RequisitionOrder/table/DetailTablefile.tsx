@@ -60,7 +60,11 @@ const Tablefile: React.FC<{ selectedRecordId?: number | any; stockTransfer: any 
               </div>
               {/* <div style={{ textAlign: 'right' }} className="Credit">
                 {t('expense')}
+            
+            
               </div> */}
+
+           
               <div style={{ textAlign: 'right' }} className="Credit">
                 {t('amount')}
               </div>

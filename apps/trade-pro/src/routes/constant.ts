@@ -7,7 +7,7 @@ export const route = {
   //Dashboards
   ACCOUNTS_DASHBOARD: '/accounts-dashboard',
   APPROVAL_DASHBOARD: '/approval-dashboard',
-  MONTH_QUARTER_WISE_SALE_REPORT: '/month-and-quarterly-report-',
+  MONTH_QUARTER_WISE_SALE_REPORT: '/month-wise-and-quarterly-report',
   SALES_COMPARISON: '/Sale-Comparison-Report',
   SALE_ANALYTICS: '/sale-analytics',
   MONTHLY_DATE_REPORT: '/monthly-sale-report',
@@ -84,7 +84,7 @@ export const route = {
   INVENTORY_EVALUATION_LEDGER: '/Inventory-Evaluation-Item-Ledger',
 
   //Sales Trading
-  SALE_ORDER: '/order-booking',
+  SALE_ORDER: '/sale-order',
   SALE_INVOICE_DIRECT: '/Sale-Invoice-Direct',
 
   //Sale Reports

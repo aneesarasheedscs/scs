@@ -61,10 +61,18 @@ function SalesActivityTable() {
     }
   })();
 
+  function CriteriaString() {
+    return (
+      <Row style={{ border: '1px solid #25A7DF', padding: 7, borderRadius: 5 }}>
+        <h5> {Sale?.data?.Data?.Result?.[0]?.ReportCriteria}</h5>
+      </Row>
+    );
+  }
+
   return (
     <div style={{ background: '#fff' }}>
       <Row justify={'space-between'} align={'middle'}>
-        <Col xs={15} sm={10} md={12} lg={12} xl={20} xxl={16} className="">
+        <Col xs={15} sm={10} md={12} lg={12} xl={20} xxl={20} style={{ marginLeft: '25px' }}>
           <h1 className="report_heading">{t('sale_reports')}</h1>
         </Col>
         <Col xs={3} sm={2} xxl={1} md={2} lg={2} xl={2} style={{ marginRight: '50px' }}>
@@ -82,6 +90,7 @@ function SalesActivityTable() {
             isLoading={SaleLoading || SaleFetching}
             data={Sale?.data?.Data?.Result || []}
             searchCriteriaForm={<SearchCriteria />}
+            searchCriteriaReport={Sale?.data?.Data?.Result ? <CriteriaString /> : ''}
             scroll={{ x: '', y: convertVhToPixels('62vh') }}
           />
         </Col>

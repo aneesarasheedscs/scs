@@ -3,13 +3,35 @@ import { AntColumnType } from '@tradePro/globalTypes';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { Space } from 'antd';
 
-export const columns = (t: any): AntColumnType<ReceivablesAgingRegisterHistory>[] => [
+export const columns = (t: any,handleAccountCodeClick:any,firstCaption:any,secondtCaption:any,thirdCaption:any,aboveCaption:any): AntColumnType<ReceivablesAgingRegisterHistory>[] => [
+  {
+    title: t('r_no'),
+    width: 100,
+    dataIndex: 'RNo',
+    showCount:true,
+    // searchableInput: true,
+    // showCount:true,
+    // sortDirections: ['ascend', 'descend'],
+    // sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
+  },
+  {
+    width: 150,
+    title: t('account_code'),
+    dataIndex: 'AccountCode',
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.AccountCode - b.AccountCode,
+    render: (_, { AccountCode, AccountId }) => (
+      <>
+        <a onClick={() => handleAccountCodeClick(AccountId)}>{AccountCode}</a>
+      </>
+    ),
+  },
   {
     title: t('account_title'),
     width: 250,
     dataIndex: 'AccountTitle',
     searchableInput: true,
-    showCount:true,
+
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
   },
@@ -17,7 +39,7 @@ export const columns = (t: any): AntColumnType<ReceivablesAgingRegisterHistory>[
   {
     title: t('opening'),
     dataIndex: 'Opening',
-    width: 220,
+    width: 200,
     align: 'right',
     showTotal:true,
     sortDirections: ['ascend', 'descend'],
@@ -28,52 +50,52 @@ export const columns = (t: any): AntColumnType<ReceivablesAgingRegisterHistory>[
   },
 
   {
-    title: t('1st_interval'),
+    title: t(firstCaption),
     width: 210,
     align: 'right',
     showTotal: true,
-    dataIndex: '1stInterval',
-    sorter: (a, b) => a['1stInterval'] - b['1stInterval'], // Sorting based on the '2ndInterval' data
-    render: (FirstIntervall, record) => ( // Applying number formatting to '2ndInterval'
-      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(FirstIntervall)}</Space>
+    dataIndex: 'IstIntervale',
+    // sorter: (a, b) => a['FirstIntervalCaption'] - b['FirstIntervalCaption'], // Sorting based on the '2ndInterval' data
+    render: (IstIntervale, record) => ( // Applying number formatting to '2ndInterval'
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(IstIntervale)}</Space>
     ),
   },
   
   {
-    title: t('2nd_interval'),
+    title: t(secondtCaption),
     width: 210,
     showTotal: true,
     align: 'right',
-    dataIndex: '2ndInterval',
-    sorter: (a, b) => a['2ndInterval'] - b['2ndInterval'], 
-    render: (SecondIntervall, record) => ( 
-      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(SecondIntervall)}</Space>
+    dataIndex: 'ScnInterval',
+    // sorter: (a, b) => a['2ndInterval'] - b['2ndInterval'], 
+    render: (ScnInterval, record) => ( 
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(ScnInterval)}</Space>
     ),
   },
   
 
   {
-    title: t('3rd_interval'),
+    title: t(thirdCaption),
     width: 220,
     showTotal:true,
     align: 'right',
-    dataIndex: '3rdInterval',
-    sorter: (a, b) => a['3rdInterval'] - b['3rdInterval'], 
-    render: (ThirdIntervall, record) => ( 
-      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(ThirdIntervall)}</Space>
+    dataIndex: 'TrdIntarval',
+    // sorter: (a, b) => a['3rdInterval'] - b['3rdInterval'], 
+    render: (TrdIntarval, record) => ( 
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(TrdIntarval)}</Space>
     ),
   },
 
   {
-    title: t('interval_above'),
+    title: t(aboveCaption),
     width: 210,
     align: 'right',
     showTotal:true,
-    dataIndex: 'IntervalAbove',
-    sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.IntervalAbove - b.IntervalAbove,
-    render: (IntervalAbove, record) => (
-      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(IntervalAbove)}</Space>
+    dataIndex: 'Above',
+    // sortDirections: ['ascend', 'descend'],
+    // sorter: (a, b) => a.IntervalAbove - b.IntervalAbove,
+    render: (Above, record) => (
+      <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(Above)}</Space>
     ),
   },
 

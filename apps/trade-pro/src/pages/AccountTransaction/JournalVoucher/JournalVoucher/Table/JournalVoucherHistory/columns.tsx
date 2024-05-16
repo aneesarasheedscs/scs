@@ -16,12 +16,11 @@ export const columns = (
 ): AntColumnType<TJournalVoucherHistory>[] => [
   {
     title: t('voucher_code'),
-    width: 160,
+    width: 150,
     searchableInput: true,
     dataIndex: 'VoucherCode',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.VoucherCode - b.VoucherCode,
-    showCount: true,
   },
   {
     title: t('voucher_type'),
@@ -73,8 +72,9 @@ export const columns = (
     searchableInput: true,
   },
   {
+    fixed: 'right',
     title: t('action'),
-    width: 100,
+    width: 70,
     render: (_, record) => (
       <>
         <Tooltip title="Edit">
@@ -92,7 +92,7 @@ export const columns = (
           <Space style={{ position: 'absolute', top: 10, right: 10 }}>
             <AntButton
               type="text"
-              icon={<EyeTwoTone style={{ color: '', marginLeft: 4 }} />}
+              icon={<EyeTwoTone style={{}} />}
               onClick={() => {
                 setSelectedRecordDetailId(record.Id);
               }}

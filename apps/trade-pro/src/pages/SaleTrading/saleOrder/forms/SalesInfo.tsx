@@ -6,6 +6,7 @@ import { useGetCustomerNameSalesManAgent, useGetShiptToAddress, useGetSubPartyAc
 import { map } from 'lodash';
 import { useWatch } from 'antd/es/form/Form';
 import dayjs from 'dayjs';
+import { FormRowGutter } from '@tradePro/globalAtoms';
 
 function SalesPersonalInfo({ form }: TDynamicForm) {
   const [paymentTerm, setPaymentTerm] = useState('');
@@ -70,7 +71,7 @@ function SalesPersonalInfo({ form }: TDynamicForm) {
   const handleOrderStatusChange = (value: number) => {
     setIsOrderOpen(value === 1);
   };
-  // const handleAddToTable = () => {
+
   //   const newData =
   //     formValues.SaleOrderDetailList?.map((item) => ({
   //       ...item,
@@ -101,36 +102,8 @@ function SalesPersonalInfo({ form }: TDynamicForm) {
   // };
 
   return (
-    // <Card style={{  boxShadow: '2px 4px 12px 1px gray',marginTop:'20px' }}>
-
-    <Row gutter={[16, 16]} justify={'space-between'}>
-      {' '}
-      {/* <Row> */}
-      {/* <h6
-        style={{
-          fontFamily: 'times-roman',
-          fontSize: '20px',
-          // marginBottom: '15px',
-          marginTop: '0px',
-          padding: '5px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          width: '100%',
-        }}
-      >
-        Sales Personal Information
-        {/* <Button onClick={toggler}>
-            {' '}
-            <DownOutlined />
-          </Button> */}
-      {/* </h6> */}
-      {/* {toggle ? ( */}
-      {/* <Card className="antCard card-shadow" style={{ overflowX: 'auto', width: '100%' }}>
-          <Form.List name="SaleOrderDetailList" initialValue={[]}>
-            {(fields, { add, remove }) => ( */}
+    <Row gutter={FormRowGutter} justify={'space-between'} style={{ width: '100%' }}>
       <>
-        {/* {fields.map((field) => (
-                  <div key={field.key} className="form-list-container"> */}
         <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={7} className="formfields">
           <AntSelectDynamic
             bordered={false}
@@ -150,7 +123,7 @@ function SalesPersonalInfo({ form }: TDynamicForm) {
           />
         </Col>
 
-        <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={4} className="formfields">
+        <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={5} className="formfields">
           <AntSelectDynamic
             bordered={false}
             fieldValue="Id"
@@ -166,25 +139,16 @@ function SalesPersonalInfo({ form }: TDynamicForm) {
         <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={5} className="formfields">
           <AntInput label="Commission Rate" bordered={false} />
         </Col>
-        <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={6} className="formfields">
-          <AntInput label="Commission Amount" bordered={false} />
+        <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={5} className="formfields">
+          <AntInput label="Commission Amount:tt" bordered={false} />
         </Col>
-        <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={12} className="formfields">
+        <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={13} className="formfields">
           <AntInput label="Commission Remarks" bordered={false} />
         </Col>
-        {/* </div>
-                ))} */}
       </>
-      {/* )}
-          </Form.List>
-        </Card> */}
-      {/* ) : (
-          ''
-        )} */}
-      {/* </Row> */}
+
       <br></br>
     </Row>
-    // </Card >
   );
 }
 type TDynamicForm = { form: FormInstance };

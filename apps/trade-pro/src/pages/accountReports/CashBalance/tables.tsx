@@ -22,6 +22,7 @@ const CashReceiptPaymentTables: React.FC<{
   RefetchSummary: any;
   isFetchingCashSummary: any;
   isFetchingCashReceipt: any;
+
 }> = (props) => {
   const {
     PaymentReceiptData,
@@ -44,6 +45,14 @@ const CashReceiptPaymentTables: React.FC<{
     token: { colorPrimary },
   } = theme.useToken();
 
+  const CriteriaString = () => {
+    return(
+      <Row style={{border: '1px solid #25A7DF',padding:7,borderRadius:5}}>
+        <h5>{SummaryData?.[0]?.ReportParamCSV}</h5>
+      </Row>
+    )
+  }
+
   return (
     <>
       <Col xl={22} style={{ marginLeft: '3%', marginBottom: '0.5%' }}>
@@ -59,6 +68,7 @@ const CashReceiptPaymentTables: React.FC<{
             columns={CashBalancesSummaryCash(t, handleAccountCodeClick)}
             isError={IsSummaryError}
             isLoading={IsSummaryLoading || isFetchingCashSummary}
+            searchCriteriaReport={SummaryData?.[0]?.ReportParamCSV? <CriteriaString/>:''}
             data={SummaryData || []}
             // scroll={{ x: 'max-content' }}
             scroll={{ y: convertVhToPixels('10vh') }}

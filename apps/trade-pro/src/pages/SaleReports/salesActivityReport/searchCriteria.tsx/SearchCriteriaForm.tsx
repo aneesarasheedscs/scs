@@ -12,6 +12,7 @@ import { TSearchCritariaSaleActivity } from '../types';
 import { map } from 'lodash';
 import dayjs from 'dayjs';
 import { storedFinancialYear } from '@tradePro/utils/storageService';
+import { CriteriaRowGutter } from '@tradePro/globalAtoms';
 
 const { useForm, useWatch } = Form;
 
@@ -116,7 +117,7 @@ function SearchCriteria() {
   return (
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
       <Form form={form} onFinish={onFinish} layout="inline" initialValues={{ FromDate, ToDate }}>
-        <Row gutter={[10, 10]}>
+        <Row gutter={CriteriaRowGutter}>
           <Col xs={24} sm={12} md={12} className="formfield">
             <AntDatePicker name="FromDate" label="From Date" bordered={false} />
           </Col>
@@ -224,35 +225,66 @@ function SearchCriteria() {
             />
           </Col>
 
-          <Col xs={24} sm={24} md={12} lg={21}>
-            <p>{t('transaction_type')}:</p>
-          </Col>
-          <Col xs={24} sm={24} md={12} lg={21}>
-            <Radio.Group onChange={handleRadioChange} value={selectedOption} name="PaymenetTermId">
-              <Col xs={24} sm={24} md={12} lg={24}>
-                <Radio value="cashSale">{t('cash_sale')}</Radio>
-              </Col>
-              <Col xs={24} sm={24} md={12} lg={24}>
-                <Radio value="creditSale">{t('credit_sale')}</Radio>
-              </Col>
-              <Col xs={24} sm={24} md={12} lg={24}>
-                <Radio value="saleReturn">{t('sale_return')}</Radio>
-              </Col>
-              <Col xs={24} sm={24} md={12} lg={22}>
-                <Radio value="NetTotal">{t('net_total')}</Radio>
-              </Col>
-            </Radio.Group>
-          </Col>
+          <Row
+            style={{
+              marginBottom: '5px',
+              marginTop: '10px',
+              width: '100%',
+            }}
+          >
+            <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 4 }}>
+              <h4 className="">{t('transaction_type')}</h4>
+            </Col>
+
+            <Col xs={24} sm={24} md={24} lg={20}>
+              <Row
+                style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
+              >
+                <Col xxl={12} xs={10}>
+                  <Radio.Group
+                    onChange={handleRadioChange}
+                    value={selectedOption}
+                    name="PaymentTermId"
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Col xs={24} sm={24} md={6} lg={12}>
+                      <Radio value="cashSale">{t('cash_sale')}</Radio>
+                    </Col>
+                    <Col xs={24} sm={24} md={6} lg={12}>
+                      <Radio value="creditSale">{t('credit_sale')}</Radio>
+                    </Col>
+                    <Col xs={24} sm={24} md={6} lg={12}>
+                      <Radio value="saleReturn">{t('sale_return')}</Radio>
+                    </Col>
+                    <Col xs={24} sm={24} md={6} lg={24}>
+                      <Radio value="NetTotal">{t('net_total')}</Radio>
+                    </Col>
+                  </Radio.Group>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+
           <Col xs={24} sm={20} md={20} lg={20} xl={24} xxl={24}>
-            <AntButton
-              className="buttons"
-              htmlType="submit"
-              style={{ marginTop: 4 }}
-              isError={saleError}
-              isLoading={saleLoading || saleFetching}
-              label={t('show')}
-            />
-            <AntButton className="buttons" danger ghost htmlType="reset" label={t('reset')} icon={<SyncOutlined />} />
+            <Row justify={'end'}>
+              <Col xxl={3} style={{ marginRight: 5 }}>
+                <AntButton
+                  htmlType="submit"
+                  style={{ marginTop: 0 }}
+                  isError={saleError}
+                  isLoading={saleLoading || saleFetching}
+                  label={t('show')}
+                />
+              </Col>
+              <Col xxl={3}>
+                <AntButton danger ghost htmlType="reset" label={t('reset')} icon={<SyncOutlined />} />
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Form>

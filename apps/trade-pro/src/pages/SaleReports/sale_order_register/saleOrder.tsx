@@ -22,6 +22,7 @@ import { useSalesReportTable } from './tableQueries';
 import { SaleOrderRetailCriteria } from './type';
 import { storedFinancialYear } from '@tradePro/utils/storageService';
 import { useTranslation } from 'react-i18next';
+import { CriteriaRowGutter } from '@tradePro/globalAtoms';
 
 const financialYear = storedFinancialYear();
 const { useForm, useWatch } = Form;
@@ -62,7 +63,7 @@ function SaleOrderFormCriteria() {
           // initialValues={formValues}
           initialValues={{ FromDate, ToDate }}
         >
-          <Row gutter={[10, 10]} justify={'space-between'}>
+          <Row gutter={CriteriaRowGutter} justify={'space-between'}>
             <Col xs={20} sm={22} md={12} xxl={12} className="formfield">
               <AntDatePicker name="FromDate" label={t('from_date')} bordered={false} />
             </Col>
@@ -151,7 +152,7 @@ function SaleOrderFormCriteria() {
               />
             </Col>
 
-            <Col xs={3} sm={4} md={4} xxl={4}>
+            <Col xs={3} sm={4} md={4} xxl={3}>
               <br />
               <AntButton
                 label="Show"

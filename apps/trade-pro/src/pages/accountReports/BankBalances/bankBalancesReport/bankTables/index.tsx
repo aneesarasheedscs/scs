@@ -45,6 +45,14 @@ const BankPaymentTables: React.FC<{
     token: { colorPrimary },
   } = theme.useToken();
 
+  const CriteriaString =()=>{
+    return(
+      <Row style={{border: '1px solid #25A7DF',padding:5,borderRadius:5}}>
+        {SummaryData?.[0]?.ReportParamCSV}
+      </Row>
+    )
+  }
+
   return (
     <>
       <Col xl={22} style={{ marginLeft: '3%', marginBottom: '0.5%' }}></Col>
@@ -58,6 +66,7 @@ const BankPaymentTables: React.FC<{
             isError={IsSummaryError}
             isLoading={IsSummaryLoading || isFetchingBankSummary}
             data={SummaryData || []}
+        searchCriteriaReport={SummaryData?.[0]?.ReportParamCSV? <CriteriaString/>:''}
             scroll={{ y: convertVhToPixels('45vh') }}
             refetch={RefetchSummary}
             numberOfSkeletons={12}

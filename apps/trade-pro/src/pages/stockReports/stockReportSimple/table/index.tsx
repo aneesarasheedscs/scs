@@ -2,7 +2,7 @@ import { AntTable } from '@tradePro/components';
 import { Card, Col, Row, theme } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { columns } from './columns';
-import '../style2.scss';
+
 
 import SearchCriteriaForm from './SearchCriteriaForm';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
@@ -29,6 +29,13 @@ function StockReportSimpleTable({ ItemId }: any) {
       },
     });
   };
+  function CriteriaString() {
+    return (
+      <Row  style={{ border: '1px solid #25A7DF', padding: 7, borderRadius: 5 }}>
+        <h5> {data?.data?.Data?.Result?.[0]?.ReportCriteria}</h5>
+      </Row>
+    );
+  }
 
   return (
     <>
@@ -50,6 +57,8 @@ function StockReportSimpleTable({ ItemId }: any) {
             scroll={{ x: '', y: convertVhToPixels('60vh') }}
             data={data?.data?.Data?.Result}
             searchCriteriaForm={<SearchCriteriaForm />}
+            // searchCriteriaReport={data?.data?.Data?.Result ? <CriteriaString/> : 'string is not edded'}
+            searchCriteriaReport={<h5 style={{ border: '1px solid #25A7DF', padding: 7, borderRadius: 5}}>string is not edded</h5>}
             columns={columns(t, handleItemNameClick)}
           />
         </Col>

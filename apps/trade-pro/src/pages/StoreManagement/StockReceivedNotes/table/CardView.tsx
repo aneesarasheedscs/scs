@@ -95,10 +95,8 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
                       </span>
                     </p>
                     <Row justify={'space-between'} style={{ marginBottom: '-2%' }}>
-                      <p className="list-item1">
-                        {card.TotalReceivedQty > 0 ? numberFormatter(card.TotalReceivedQty) : 0}{' '}
-                      </p>
-                      <h3>{card.TotalReceivedAmount > 0 ? numberFormatter(card.TotalReceivedAmount) : 0}</h3>
+                      <p className="list-item1">{card.IssuedQty > 0 ? numberFormatter(card.IssuedQty) : 0} </p>
+                      <h3>{card.IssuedAmount > 0 ? numberFormatter(card.IssuedAmount) : 0}</h3>
                     </Row>
                   </Card>
                 </Col>
@@ -206,6 +204,15 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
                             >
                               {selectedCardData?.RemarksHeader}
                             </div>
+                          </div>
+                        </div>
+                      </div>
+                    </Col>
+                    <Col xxl={2} xl={5} lg={8} md={7}>
+                      <div className="">
+                        <div className="caption-value-wrape">
+                          <div className="voucher_Account_title">
+                            <div className="Account_title">{selectedCardData?.EntryUser}</div>
                           </div>
                         </div>
                       </div>

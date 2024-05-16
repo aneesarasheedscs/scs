@@ -10,6 +10,14 @@ import { Col, Row } from 'antd';
 function GdnRegisterTable() {
   const { data, refetch, isError, isLoading, isFetching } = useGetGdnRegister();
 
+  function CriteriaString() {
+    return (
+      <Row style={{ border: '1px solid #25A7DF', padding: 7, borderRadius: 5 }}>
+        <h5> {data?.data?.Data?.Result?.[0]?.ReportCriteria}</h5>
+      </Row>
+    );
+  }
+
   return (
     <div style={{ background: '#fff' }}>
       <Row justify={'space-between'} align={'middle'}>
@@ -31,6 +39,7 @@ function GdnRegisterTable() {
             isLoading={isLoading || isFetching}
             data={data?.data?.Data?.Result || []}
             searchCriteriaForm={<SearchCriteria />}
+            searchCriteriaReport={data?.data?.Data?.Result?.[0]?.ReportCriteria ? <CriteriaString /> : ''}
             scroll={{ x: '', y: convertVhToPixels('60vh') }}
           />
         </Col>

@@ -1,7 +1,6 @@
 import './Card.scss';
 import './DetailTableFile.scss';
 import { useState } from 'react';
-// import CardView from './CardView';
 import { columns } from './columns';
 import { Col, Row } from 'antd';
 import { useTranslation } from 'react-i18next';

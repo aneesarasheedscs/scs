@@ -48,7 +48,7 @@ export const columns = (
   },
   {
     title: t('account_title'),
-    width: 180,
+    width: 300,
     dataIndex: 'AccountTitle',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],

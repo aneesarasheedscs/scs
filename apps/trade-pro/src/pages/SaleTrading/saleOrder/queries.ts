@@ -6,11 +6,12 @@ import { queryClient } from '@scs/configs';
 import { notification } from 'antd';
 import { AxiosError } from 'axios';
 import dayjs from 'dayjs';
+import { SaleOrderRetailCriteria } from './table/type';
 
 const userDetail = storedUserDetail();
 const financialYear = storedUserDetail();
 
-export const useGetSaleOrder = (params?: TSaleOrder) => {
+export const useGetSaleOrder = (enabled:true,params?: SaleOrderRetailCriteria) => {
   return useQuery('sale-order-detail', () => {
     return requestManager.post('/api/SaleOrder/FormHistory', {
       DocumentTypeId: 81,
@@ -178,5 +179,21 @@ export const useGetBranch = (CompanyId: number | null) => () => {
       });
     },
     { enabled: !!CompanyId }
+  );
+};
+
+
+export const useGetPurchaseOrderStatus = (enabled = true, params?: any) => {
+  return useQuery(
+    'purchase-order-status',
+    () => {
+      return requestManager.post('/api/PurchaseOrder/GetPurchaseOrderStatus', {
+        DocumentTypeId: 41,
+        CompanyId: userDetail?.CompanyId,
+        OrganizationId: userDetail?.OrganizationId,
+        ...params,
+      });
+    },
+    { enabled }
   );
 };

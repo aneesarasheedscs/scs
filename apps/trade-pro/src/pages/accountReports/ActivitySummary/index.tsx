@@ -155,6 +155,14 @@ const ActivitySummaryReport: React.FC<{
       setFieldValue('ApprovedFilter', null);
     }
   };
+  const CriteriaString =()=>{
+    return(
+      <Row style={{border: '1px solid #25A7DF', padding:7,borderRadius:5}}>
+        <h5>{ActivitySummary?.data?.Data?.Result?.[0]?.ReportCriteria}</h5>
+      </Row>
+    )
+  }
+  
 
   return (
     <div style={{ backgroundColor: '#fff', overflowX: 'hidden' }}>
@@ -253,6 +261,7 @@ const ActivitySummaryReport: React.FC<{
               data={ActivitySummary?.data?.Data?.Result || []}
               isError={isActivitySummaryError}
               isLoading={isActivitySummaryLoading}
+              searchCriteriaReport={ActivitySummary?.data?.Data?.Result?.[0]?.ReportCriteria? <CriteriaString/>:''}
               refetch={refetch}
               scroll={{ y: convertVhToPixels('35vh') }}
               pagination={{

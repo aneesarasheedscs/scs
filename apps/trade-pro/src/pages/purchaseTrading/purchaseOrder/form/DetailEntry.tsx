@@ -90,13 +90,13 @@ const DynamicForm = ({ form }: TDynamicForm) => {
   };
 
   return (
-    <Card className="antCard card-shadow">
+    <Card style={{ paddingBottom: '0.5%', boxShadow: '2px 4px 12px 1px gray' }}>
       <Form.List name="purchaseOrderDetailList" initialValue={[initialValues]}>
         {(fields, { add, remove }) => (
           <>
             {fields.map((field) => (
-              <div key={field.key} className="form-list-container">
-                <Col xl={5} lg={7} sm={10} xs={14}>
+              <Row justify={'space-between'} key={field.key}>
+                <Col xl={5} lg={7} sm={10} xs={14} className="formfield">
                   <AntSelectDynamic
                     required
                     fieldValue="Id"
@@ -105,10 +105,11 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                     query={useGetItemsWithBaseUom}
                     name={[field.name, 'OrderItemId']}
                     onSelectChange={(obj) => handleItemChange(obj, field.name)}
+                    bordered={false}
                   />
                 </Col>
 
-                <Col xl={3} lg={4} sm={5} xs={9}>
+                <Col xl={3} lg={4} sm={5} xs={9} className="formfield">
                   <AntSelectDynamic
                     required
                     fieldValue="Id"
@@ -116,67 +117,74 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                     query={useGetJobLot}
                     fieldLabel="JobLotDescription"
                     name={[field.name, 'JobLotId']}
+                    bordered={false}
                   />
                 </Col>
 
-                <Col xl={2}>
+                <Col xl={3} className="formfield">
                   <AntInput
                     required
                     readOnly
-                    label={t('base_pack_uom')}
+                    label={t('pack_uom')}
                     formItemProps={{ ...field, name: [field.name, 'UOMCode'] }}
+                    bordered={false}
                   />
                 </Col>
 
-                <Col xl={2}>
+                <Col xl={3} className="formfield">
                   <AntInputNumber
                     required
                     label={t('item_quantity')}
                     onChange={(itemQty) => handleItemQtyChange(itemQty, field.name)}
                     formItemProps={{ ...field, name: [field.name, 'OrderItemQty'] }}
+                    bordered={false}
                   />
                 </Col>
 
-                <Col xl={2}>
+                <Col xl={3} className="formfield">
                   <AntInputNumber
                     required
                     readOnly
                     label={t('weight')}
                     formItemProps={{ ...field, name: [field.name, 'NetWeight'] }}
+                    bordered={false}
                   />
                 </Col>
 
-                <Col xl={2}>
+                <Col xl={3} className="formfield">
                   <AntInputNumber
                     required
                     label={t('item_rate')}
                     formItemProps={{ ...field, name: [field.name, 'OrderItemRate'] }}
                     onChange={(itemRate) => handleItemRateChange(itemRate, field.name)}
+                    bordered={false}
                   />
                 </Col>
 
-                <Col xl={2} lg={3} sm={5} xs={7}>
+                <Col xl={3} lg={3} sm={5} xs={7} className="formfield">
                   <AntSelectDynamic
                     required
                     fieldValue="Id"
                     label={t('rate_uom')}
                     fieldLabel="UOMCode"
                     name={[field.name, 'RateUom']}
+                    bordered={false}
                     query={useGetUomByItemId(formValues?.[field.name]?.OrderItemId)}
                     onSelectChange={(obj) => handleRateUOMChange(obj?.Equivalent, obj?.Id, field.name)}
                   />
                 </Col>
 
-                <Col xl={2}>
+                <Col xl={3} className="formfield">
                   <AntInputNumber
                     required
                     label={t('amount')}
                     formItemProps={{ ...field, name: [field.name, 'Amount'] }}
+                    bordered={false}
                   />
                 </Col>
 
-                <Col xl={2} lg={2}>
-                  <Row>
+                <Col xl={20} lg={2}>
+                  <Row style={{ marginTop: 10 }}>
                     <Col>
                       <AntButton
                         type="text"
@@ -195,7 +203,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                     </Col>
                   </Row>
                 </Col>
-              </div>
+              </Row>
             ))}
           </>
         )}

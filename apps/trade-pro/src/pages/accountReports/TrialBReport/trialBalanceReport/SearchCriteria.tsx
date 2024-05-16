@@ -16,6 +16,7 @@ import '../style.scss';
 import { useTranslation } from 'react-i18next';
 import { selectedColumnAtom } from './atom';
 import { useAtom } from 'jotai';
+import { CriteriaRowGutter } from '@tradePro/globalAtoms';
 
 const financialYear = storedFinancialYear();
 const { useForm, useWatch } = Form;
@@ -94,7 +95,7 @@ function searchCriteriaTrialBalanceReport() {
   return (
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
       <Form form={form} onFinish={onFinish} layout="inline" initialValues={formValues}>
-        <Row gutter={[16, 16]} justify={'space-between'}>
+        <Row gutter={CriteriaRowGutter} justify={'space-between'}>
           <Col xs={24} sm={12} md={24} xxl={9} className="form_field">
             <AntSelectDynamic
               bordered={false}
@@ -153,13 +154,13 @@ function searchCriteriaTrialBalanceReport() {
               </Checkbox>
             </Form.Item>
           </Col>
-          <Col xxl={10}>
+          <Col xxl={12} >
             <Radio.Group value={selectedColumnss} onChange={handleColumnChange}>
               <Radio value="four"> {t('four_columns')}</Radio>
               <Radio value="six">{t('six_columns')}</Radio>
             </Radio.Group>
           </Col>
-          <Col xs={24} sm={24} md={8} xxl={4} className="btn-margin-tops">
+          <Col xs={24} sm={24} md={8} xxl={3} className="btn-margin-tops">
             <AntButton
               label={t('show')}
               htmlType="submit"

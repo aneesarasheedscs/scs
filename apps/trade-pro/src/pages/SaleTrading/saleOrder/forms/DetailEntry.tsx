@@ -1,6 +1,6 @@
 import { map, size } from 'lodash';
 import { Button, Card, Col, Form, FormInstance, Row, Space, notification, theme } from 'antd';
-import { TDetailItem, TPriceItem, TPurchaseOrderDetailEntry, TRateUomCombo, TSaleOrderDetail } from '../type';
+import { TDetailItem, TPriceItem, TRateUomCombo, TSaleOrderDetail } from '../type';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { useGetCustomerNameSalesManAgent, useGetItemsWithBaseUom, useGetUomByItemId } from '../queryOptions';
 import { AntButton, AntInput, AntInputNumber, AntSelectDynamic, AntTable } from '@tradePro/components';
@@ -17,6 +17,7 @@ import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { saleOrderFormcolumns, saleOrderFormcolumns2 } from '../table/columns';
 import { useAtom } from 'jotai';
 import SalesPersonalInfo from './SalesInfo';
+import { FormRowGutter } from '@tradePro/globalAtoms';
 
 const { useToken } = theme;
 const { useWatch } = Form;
@@ -403,7 +404,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
   };
 
   return (
-    <Row gutter={[16, 16]} justify={'space-between'}>
+    <Row gutter={[0, 16]} justify={'space-between'}>
       {' '}
       {/* <Card className="antCard card-shadow" style={{ overflowX: 'auto' }}> */}
       {/* <h2 style={{ padding: '10px' }}>Detail</h2> */}
@@ -431,7 +432,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                   className="form-list-container"
                   style={{ display: 'flex', justifyContent: 'space-between' }}
                 >
-                  <Row gutter={[16, 16]} justify={'space-between'}>
+                  <Row gutter={FormRowGutter} justify={'space-between'}>
                     {/* <h6
         style={{
           fontFamily: 'times-roman',
@@ -481,7 +482,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         bordered={false}
                         required={validation}
                         readOnly
-                        label="Base UOM"
+                        label="Base UOM :"
                         formItemProps={{ ...field, name: [field.name, 'UOMCode'] }}
                       />
                     </Col>
@@ -543,7 +544,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         bordered={false}
                         required
                         readOnly
-                        label="Net Rate"
+                        label="Net Rate "
                         formItemProps={{ ...field, name: [field.name, 'RetailRate'] }}
                         onChange={(netRate) => handleNetRateChange(netRate, field.name)}
                       />
@@ -578,42 +579,20 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         bordered={false}
                       />
                     </Col>
-                    {/* <Col xs={24} sm={24} md={24} lg={24} xl={3}>
-                    <Row>
-                      <Col>
-                        <AntButton
-                          label={t('Add')}
-                          htmlType="submit"
-                          // isError={isFromToDateError}
-                          // isLoading={isFromToDateLoading}
-                        />
-                      </Col> */}
-                    <Col xs={12} sm={12} md={8} lg={6} xl={3} xxl={2}>
+
+                    <Col xs={12} sm={12} md={8} lg={6} xl={3} xxl={2} style={{ marginTop: '0.5%' }}>
                       <AntButton
-                        className="add"
                         onClick={isEditMode ? handleUpdateToTable : handleAddToTable}
                         label={isEditMode ? <>{t('update')}</> : <>{t('add')}</>}
                       />
                     </Col>
                   </Row>
-                  {/* </Row>
-                  </Col> */}
                 </div>
               </Card>
             ))}
           </>
         )}
       </Form.List>
-      {/* </Card> */}
-      {/* <AntTable
-        refetch={refetch}
-        isError={isError}
-        columns={saleOrderFormcolumns2(handleEditRow, handleDeleteRow)}
-        numberOfSkeletons={12}
-        isLoading={isLoading || isFetching}
-        data={data?.data?.Data?.Result || []}
-        scroll={{ x: '', y: convertVhToPixels('18vh') }}
-      /> */}
       <Row gutter={[10, 10]}>
         <Col>
           <AntTable

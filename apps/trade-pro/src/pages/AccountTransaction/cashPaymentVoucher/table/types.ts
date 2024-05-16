@@ -35,3 +35,21 @@ export type TCashHistory = {
   PostState: boolean;
   NoOfRecords: number;
 };
+export type TSearchCriteria = {
+  FromDate: Date;
+  ToDate: Date;
+
+  FromDocNo: number;
+  ToDocNo: number;
+  ApprovedStatus: string;
+  AccountTitle: string;
+  DateType: number;
+  AccountId: number;
+
+  EntryDateTo: Date;
+  EntryDateFrom: Date;
+  ApprovedDateFrom: Date;
+  ApprovedDateTo: Date;
+  ModifyDateFrom: Date;
+  ModifyDateTo: Date;
+};

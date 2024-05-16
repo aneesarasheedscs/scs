@@ -6,10 +6,11 @@ import { storedFinancialYear } from '@tradePro/utils/storageService';
 import { TtrialBalanceSelectedSearchCriteria } from './type';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { useGetAccountTitle, useGetCityName, useGetDateTypes, useGetTrialBalanceSelectedReport } from './queries';
-import '../style.scss';
+// import '../style.scss';
 import { useTranslation } from 'react-i18next';
 import { useAtom } from 'jotai';
 import { selectedColumnAtom } from './atom';
+import { CriteriaRowGutter } from '@tradePro/globalAtoms';
 
 const financialYear = storedFinancialYear();
 const { useForm, useWatch } = Form;
@@ -84,7 +85,7 @@ function CriteriaTrialBalanceSelected() {
   return (
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
       <Form form={form} onFinish={onFinish} layout="inline" initialValues={formValues}>
-        <Row gutter={[16, 16]} justify={'space-between'}>
+        <Row gutter={CriteriaRowGutter} justify={'space-between'}>
           <Col xs={24} sm={24} md={9} xxl={10} className="form_field">
             <p className="datetype_icon_width">
               <AntSelectDynamic
@@ -137,21 +138,21 @@ function CriteriaTrialBalanceSelected() {
             />
           </Col>
 
-          <Col xs={12} sm={6} md={6} xxl={4}>
+          <Col xs={12} sm={6} md={6} xxl={3}>
             <Form.Item name="ActionId">
               <Checkbox checked={getFieldValue('ActionId') === 1} onChange={onChangeIsActive}>
                 {t('is_active')}
               </Checkbox>
             </Form.Item>
           </Col>
-          <Col xxl={8}>
+          <Col xxl={16}>
             <Radio.Group value={selectedColumnss} onChange={handleColumnChange}>
               <Radio value="four"> {t('four_columns')}</Radio>
               <Radio value="six">{t('six_columns')}</Radio>
             </Radio.Group>
           </Col>
 
-          <Col xs={8} sm={4} md={4}>
+          <Col xs={8} sm={4} md={4} xxl={3}>
             <AntButton
               label={t('show')}
               htmlType="submit"

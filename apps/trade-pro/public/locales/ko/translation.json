@@ -32,5 +32,29 @@
   "bills_receivables_accounts": "AR 계정",
   "receipts_voucher": "영수증 바우처",
   "payment_voucher": "결제 바우처",
-  "app_modules": "앱 모듈"
+  "app_modules": "앱 모듈",
+  "supplier_ref_no": "공급업체 참조 번호",
+  "vo_from": "바우처 출처",
+  "vo_to": "바우처 대상",
+  "purchase_order_retail_register": "구매 주문 소매 등록",
+  "amount": "양",
+  "modify_user": "사용자 수정",
+
+  "payables_aging": "AP 월령",
+  "aging_days": "노화의 날",
+
+  "document date": "문서 날짜",
+  "document_no": "문서 번호",
+  "purchase_activity": "구매 활동",
+  "search_criteria": "검색 조건",
+  "class_group": "클래스 그룹",
+  "to_doc_no": "문서로 번호",
+  "from_doc_no": "문서 번호에서",
+  "item_name": "상품명",
+  "cash_purchase": "",
+  "warehouse": "창고",
+  "net_receivable": "순미수금",
+  "r_no": "R아니오",
+  "not_yet_due": "아직 마감되지 않음",
+  "over_due": "기한 초과"
 }

@@ -14,6 +14,14 @@ function TrialBalanceReport({}) {
 
   const { t } = useTranslation();
   const { data, refetch, isError, isLoading, isFetching } = useGetTrialBalanceReport(false);
+  console.log(data,'data')
+  const CriteriaString =()=>{
+    return(
+      <Row style={{border: '1px solid #25A7DF',padding:7,borderRadius:5}}>
+        <h5>{data?.data?.Data?.Result?.[0]?.ReportCriteria}</h5>
+      </Row>
+    )
+  }
 
   return (
     <div style={{ backgroundColor: '#fff' }}>
@@ -28,6 +36,8 @@ function TrialBalanceReport({}) {
         </Col>
       </Row>
 
+      
+
       <Row justify={'space-around'}>
         <Col xxl={23}>
           <AntTable
@@ -39,8 +49,10 @@ function TrialBalanceReport({}) {
             columns={selectedColumnss === 'four' ? FourColumnsTrialBalanceReport(t) : SixColumnsTrialBalanceReport(t)}
             data={data?.data?.Data?.Result || []}
             searchCriteriaForm={<SearchCriteria />}
+            searchCriteriaReport={data?.data?.Data?.Result?.[0]?.ReportCriteria? <CriteriaString/> : ''}
             scroll={{ x: '', y: convertVhToPixels('60vh') }}
             rowKey={(row: TrialBalanceHistory) => row.AccountId}
+
           />
         </Col>
       </Row>

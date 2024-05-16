@@ -17,10 +17,10 @@ export const columns = (
 ): AntColumnType<TBankReceiptVoucherTable>[] => [
   {
     title: t('code'),
-    width: 110,
+    width: 100,
     searchableInput: true,
     dataIndex: 'VoucherCode',
-    showCount: true,
+
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.VoucherCode - b.VoucherCode,
   },
@@ -111,7 +111,7 @@ export const columns = (
   },
   {
     title: t('action'),
-    width: 96,
+    width: 80,
     render: (_, record) => (
       <>
         <Tooltip title="Edit">
@@ -129,7 +129,7 @@ export const columns = (
           <Space style={{ position: 'absolute', top: 10, right: 10 }}>
             <AntButton
               type="text"
-              icon={<EyeTwoTone style={{ color: '', marginLeft: 4 }} />}
+              icon={<EyeTwoTone style={{}} />}
               onClick={() => {
                 setSelectedRecordDetailId(record.Id);
               }}

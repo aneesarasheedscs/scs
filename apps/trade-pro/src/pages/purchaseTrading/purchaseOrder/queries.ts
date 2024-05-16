@@ -17,7 +17,7 @@ export const useGetPurchaseOrder = (enabled = true, params?: TPurchaseOrderSearc
         DocumentTypeId: 41,
         CompanyId: userDetail?.CompanyId,
         OrganizationId: userDetail?.OrganizationId,
-        FromDate: new Date(),
+        FromDate: financialYear?.Start_Period,
         ToDate: new Date(),
         ...params,
       });

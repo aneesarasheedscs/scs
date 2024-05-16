@@ -12,6 +12,7 @@ import { gdnRegisterCriteria } from './type';
 import { useTranslation } from 'react-i18next';
 import { storedFinancialYear } from '@tradePro/utils/storageService';
 import dayjs from 'dayjs';
+import { CriteriaRowGutter } from '@tradePro/globalAtoms';
 
 const { useForm, useWatch } = Form;
 
@@ -43,7 +44,7 @@ function SearchCriteria() {
   return (
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
       <Form form={form} onFinish={onFinish} layout="inline" initialValues={{ FromDate, ToDate }}>
-        <Row gutter={[10, 10]} justify={'space-between'}>
+        <Row gutter={CriteriaRowGutter} justify={'space-between'}>
           <Col xs={20} sm={12} md={12} xxl={12} className="formfield">
             <AntDatePicker name="FromDate" label={t('from_date')} bordered={false} />
           </Col>
@@ -71,7 +72,7 @@ function SearchCriteria() {
             />
           </Col>
 
-          <Col xs={6} sm={5} md={4} xxl={4}>
+          <Col xs={6} xl={3} lg={3} sm={5} md={3} xxl={3}>
             <AntButton
               label={t('show')}
               htmlType="submit"

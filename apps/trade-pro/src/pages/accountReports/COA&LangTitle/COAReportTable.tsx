@@ -33,6 +33,14 @@ const ChartOfAccountReportTable = () => {
   useEffect(() => {
     form.setFieldValue('CompanyId', 2);
   }, [form]);
+
+  function CriteriaString() {
+    return (
+      <Row style={{ border: '1px solid #25A7DF', padding: 7, borderRadius: 5 }}>
+        <h5> {data?.data?.Data?.Result?.[0]?.ReportCriteria}</h5>
+      </Row>
+    );
+  }
   return (
     <div style={{ background: '#fff' }}>
       <Row justify={'space-between'} align={'middle'}>
@@ -48,9 +56,9 @@ const ChartOfAccountReportTable = () => {
         <Col xxl={23} xl={23} sm={23} xs={23} lg={23}>
           <Card>
             <Form form={form} onFinish={onFinish}>
-              <Col xxl={10} xl={24} lg={24} xs={24}>
+              <Col xxl={10} xl={17} md={20} lg={24} xs={24} >
                 <Row gutter={[16, 16]} justify={'space-between'}>
-                  <Col xs={24} sm={24} md={17} xl={17} xxl={15} className="formsfield">
+                  <Col xs={24} sm={24} md={17} xl={18} xxl={15} className="formsfield" >
                     <AntSelectDynamic
                       bordered={false}
                       name="CompanyId"
@@ -91,7 +99,9 @@ const ChartOfAccountReportTable = () => {
             isLoading={isReportLoading || isFetching}
             columns={ChartOfAccountColumn()}
             data={data?.data?.Data?.Result || []}
-            // searchCriteriaForm={<ChartOfAccountReport />}
+            searchCriteriaForm={<ChartOfAccountReport />}
+           searchCriteriaReport={data?.data?.Data?.Result?.[0]?.ReportCriteria? <CriteriaString/> : ''}
+       
             scroll={{ x: '', y: convertVhToPixels('45vh') }}
             rowKey="Id"
           />

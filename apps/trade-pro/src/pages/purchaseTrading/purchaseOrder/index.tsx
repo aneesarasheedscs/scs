@@ -7,7 +7,7 @@ import './style.scss';
 
 function PurchaseOrder() {
   const { t } = useTranslation();
-  const [selectedRecordId, setSelectedRecordId] = useState<number | null>();
+  const [selectedRecordId, setSelectedRecordId] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState<string>('1');
 
   return (
@@ -25,7 +25,7 @@ function PurchaseOrder() {
           <PurchaseOrderTable setSelectedRecordId={setSelectedRecordId} setActiveTab={setActiveTab} />
         </Tabs.TabPane>
         <Tabs.TabPane key="2" tab={t('form')}>
-          <PurchaseOrderForm selectedRecordId={selectedRecordId} />
+          <PurchaseOrderForm selectedRecordId={selectedRecordId} setSelectedRecordId={setSelectedRecordId} />
         </Tabs.TabPane>
       </Tabs>
     </>

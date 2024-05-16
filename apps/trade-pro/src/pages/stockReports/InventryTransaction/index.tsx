@@ -4,7 +4,7 @@ import InventryTransactionTable from './table';
 import { selectedItems } from '../stockReportSimple/table/Atom';
 import { useTranslation } from 'react-i18next';
 import { BackButton } from '@tradePro/components';
-import './style.scss';
+import  './style.scss'
 
 function InventryTransactions() {
   const [selectedItem] = useAtom(selectedItems);
@@ -29,7 +29,7 @@ function InventryTransactions() {
       </Row>
 
       <Row>
-        <Col>
+        <Col span={24}>
           <InventryTransactionTable
             FromdateProp={FromdateProp}
             ToDateProp={ToDateProp}

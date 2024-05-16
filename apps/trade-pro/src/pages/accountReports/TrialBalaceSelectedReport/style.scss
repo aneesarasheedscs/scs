@@ -1,26 +1,30 @@
-.form_field {
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+boyd {
+  font-family: 'Poppins' !important;
+}
+.form_field{
   border-bottom: 1px solid gray;
   padding: 0px;
-  height: 40px;
+  height: 30px;
 }
-@media (max-width: 768px) {
-  .form_field {
-    display: grid;
-    justify-content: start;
+// @media (max-width: 768px) {
+//   .form_field {
+//     display: grid;
+//     justify-content: start;
 
-    margin: 0;
-  }
+//     margin: 0;
+//   }
 
-  .date_icon_width {
-    width: 85%;
-  }
-  .datetype_icon_width {
-    width: 95%;
-  }
-}
-.report_heading {
-  font-family: Poppins !important;
-  font-size: 19px;
-  padding: 10px;
-  margin-left: 2.5%;
-}
+//   .date_icon_width {
+//     width: 85%;
+//   }
+//   .datetype_icon_width {
+//     width: 95%;
+//   }
+// }
+// .report_heading {
+//   font-family: Poppins !important;
+//   font-size: 19px;
+//   padding: 10px;
+//   margin-left: 2.5%;
+// }

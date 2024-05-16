@@ -28,10 +28,22 @@
   transition: box-shadow 0.15s, transform 0.15s;
   will-change: box-shadow, transform;
 }
+.toggleGridView {
+  background-color: var(--color-primary);
+  color: #fff;
+  font-weight: bold;
+  border: 1px solid var(--color-primary);
+}
+.toggleCardView {
+  background-color: #fff;
+  color: var(--color-primary);
+  font-weight: bold;
+  border: 1px solid var(--color-primary);
+}
 .formfield {
   border-bottom: 1px solid gray;
   padding: 0px;
-  height: 34px;
+  height: 30px;
 }
 .AccountHeading {
   background: linear-gradient(-45deg, #cccaf5, #5a54f9);
@@ -43,20 +55,30 @@
   color: white;
 }
 
+// .singleCard:hover {
+//   color: white;
+//   background: linear-gradient(-45deg, #5551d5, white);
+//   border: 2px solid white;
+//   background-size: 400% 400%;
+//   animation: gradient 15s ease infinite;
+//   box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+//     rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
+//     rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+// }
+// .singleCard {
+//   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+//   border-bottom-right-radius: 40px;
+//   border-top-left-radius: 40px;
+//   display: table;
+//   width: 100%;
+//   height: 90%;
+//   margin: 10px 5px -20px 10px;
+// }
 .singleCard:hover {
-  color: white;
-  background: linear-gradient(-45deg, #5551d5, white);
-  border: 2px solid white;
-  background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
-  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
-    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
-    rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  box-shadow: 2px 4px 12px 1px gray;
 }
 .singleCard {
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
-  border-bottom-right-radius: 40px;
-  border-top-left-radius: 40px;
+  border-radius: 10px;
   display: table;
   width: 100%;
   height: 90%;
@@ -147,7 +169,7 @@
 }
 .list-item1 {
   font-weight: bold;
-  color: #5a54f9;
+  color: 'black';
   font-size: 16px;
 }
 

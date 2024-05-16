@@ -17,6 +17,14 @@ const InventryTransactionTable: React.FC<{
   const { FromdateProp, ToDateProp, WarehouseId, ItemId } = props;
   const { data, isError, isLoading, refetch, isFetching } = useGetInventryReportTable(true);
 
+  function CriteriaString() {
+    return (
+      <Row style={{ border: '1px solid #25A7DF', padding: 7, borderRadius: 5 }}>
+        <h5> {data?.data?.Data?.Result?.[0]?.ReportCriteria}</h5>
+      </Row>
+    );
+  }
+
   return (
     <>
       <Row gutter={10} justify={'space-around'}>
@@ -29,6 +37,7 @@ const InventryTransactionTable: React.FC<{
             refetch={refetch}
             scroll={{ x: '', y: convertVhToPixels('60vh') }}
             data={data?.data?.Data?.Result || []}
+            searchCriteriaReport={data?.data?.Data?.Result ? <CriteriaString /> : ''}
             searchCriteriaForm={
               <SearchCriteriaForm
                 FromdateProp={FromdateProp}

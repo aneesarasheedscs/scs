@@ -1,7 +1,9 @@
-import { Tabs } from 'antd';
+import { Col, Row, Tabs } from 'antd';
 import PurchaseOrderTable from './table';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
+import { BackButton } from '@scs/ui';
+import './style.scss';
 
 function PurchaseOrderRetailRegister() {
   const { t } = useTranslation();
@@ -9,7 +11,7 @@ function PurchaseOrderRetailRegister() {
 
   return (
     <>
-      <h2 className="form-heading"> {t('purchase_order_history')}</h2>
+      <h2 className="form-heading"> {t('purchase_order_retail_register')}</h2>
 
       <PurchaseOrderTable />
     </>

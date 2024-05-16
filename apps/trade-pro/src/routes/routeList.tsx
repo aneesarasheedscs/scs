@@ -71,7 +71,7 @@ const AccountPayables = lazy(() => import('@tradePro/pages/accountReports/accoun
 const AccountReceivables = lazy(() => import('@tradePro/pages/accountReports/accountReceivables'));
 const ChartOfAccountReportTable = lazy(() => import('@tradePro/pages/accountReports/COA&LangTitle/COAReportTable'));
 const PayablesTable = lazy(() => import('@tradePro/pages/accountReports/Payables/payablesTable'));
-const PayableAgingRegisterTable = lazy(() => import('@tradePro/pages/accountReports/PayablesAging/payablesAgingTable'));
+const PayableAgingRegisterTable = lazy(() => import('@tradePro/pages/accountReports/PayablesAging/payablesAging'));
 const ReceivablesAgingRegisterTable = lazy(
   () => import('@tradePro/pages/accountReports/ReceivablesAging/receivablesAging')
 );

@@ -43,5 +43,29 @@
   "bills_receivables_accounts": "受取手形勘定",
   "receipts_voucher": "領収書バウチャー",
   "payment_voucher": "支払い伝票",
-  "app_modules": "アプリモジュール"
+  "app_modules": "アプリモジュール",
+  "supplier_ref_no": "サプライヤー参照番号",
+  "vo_from": "バウチャーの送信元",
+  "vo_to": "バウチャー宛先",
+  "purchase_order_retail_register": "発注書小売登録",
+  "amount": "額",
+  "modify_user": "ユーザーの変更",
+
+  "payables_aging": "買掛金の高齢化",
+  "aging_days": "老化の日々",
+
+  "document date": "文書の日付",
+  "document_no": "文書番号",
+  "purchase_activity": "購入活動",
+  "search_criteria": "検索条件",
+  "class_group": "クラスグループ",
+  "to_doc_no": "ドキュメント番号へ",
+  "from_doc_no": "ドキュメント番号より",
+  "item_name": "項目名",
+  "cash_purchase": "",
+  "warehouse": "倉庫",
+  "net_receivable": "純売掛金",
+  "r_no": "Rいいえ",
+  "not_yet_due": "まだ期限が切れていない",
+  "over_due": "期限超過"
 }

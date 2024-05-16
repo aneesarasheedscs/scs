@@ -34,3 +34,19 @@ export type TContraHistory = {
   PostState: boolean;
   NoOfRecords: number;
 };
+export type TSearchCriteria = {
+  FromDate: Date;
+  ToDate: Date;
+  FromDocNo: number;
+  ToDocNo: number;
+  AccountTitle: string;
+  ApprovedStatus: string;
+  AccountId: number;
+  DateType: number;
+  EntryDateTo: Date;
+  EntryDateFrom: Date;
+  ApprovedDateFrom: Date;
+  ApprovedDateTo: Date;
+  ModifyDateFrom: Date;
+  ModifyDateTo: Date;
+};

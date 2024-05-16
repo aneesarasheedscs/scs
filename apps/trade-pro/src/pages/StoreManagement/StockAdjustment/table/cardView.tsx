@@ -28,6 +28,8 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
   const [selectedCardData, setSelectedCardData] = useState<TStockAdjustmentHistory>();
   const totalRecords = data?.data?.Data?.Result.length || 0;
 
+  const totalRecordsCheckData = data?.data?.Data?.Result ? totalRecords : ''
+
   const { t } = useTranslation();
   useEffect(() => {
     setRecords(stockTransfer);
@@ -165,9 +167,10 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
                         {card.IsApproved === 'Approved' ? 'Approved' : 'Not Approved'}
                       </span>
                     </p>
+                  
                     <Row justify={'space-between'} style={{ marginBottom: '-2%' }}>
-                      <p className="list-item1">{card.IssuedQty > 0 ? numberFormatter(card.IssuedQty) : 0} </p>
-                      <h3>{card.IssuedAmount > 0 ? numberFormatter(card.IssuedAmount) : 0}</h3>
+                      <p className="list-item1">{card.IssuedQty > 0 ? numberFormatter(card.Amount) : 0} </p>
+                      <h3>{card.IssuedAmount > 0 ? numberFormatter(card.Amount) : 0}</h3>
                     </Row>
                   </Card>
                 </Col>
@@ -175,7 +178,7 @@ const CardView: React.FC<{ setActiveTab: (tab: string) => void; setSelectedRecor
             </Row>
           </div>
           <h3 style={{ textAlign: 'center' }}>
-            {t('total_records')} {numberFormatter(totalRecords)}{' '}
+            {t('total_records')} {numberFormatter(totalRecordsCheckData)}{' '}
           </h3>
         </Col>
 

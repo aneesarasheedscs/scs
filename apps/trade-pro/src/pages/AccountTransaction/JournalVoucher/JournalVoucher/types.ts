@@ -62,3 +62,19 @@ export type TJournalVoucherHistory = {
   ApprovalUserProfileImageUrl: string;
   CompLogoImage: string | null;
 };
+export type TSearchCriteria = {
+  FromDate: Date;
+  ToDate: Date;
+  FromDocNo: number;
+  ToDocNo: number;
+  ApprovedStatus: string;
+  AccountId: number;
+  AccountTitle: string;
+  DateType: number;
+  EntryDateTo: Date;
+  EntryDateFrom: Date;
+  ApprovedDateFrom: Date;
+  ApprovedDateTo: Date;
+  ModifyDateFrom: Date;
+  ModifyDateTo: Date;
+};

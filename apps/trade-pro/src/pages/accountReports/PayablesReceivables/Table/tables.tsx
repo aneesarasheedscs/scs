@@ -18,6 +18,15 @@ const PayablesReceivablesTable: React.FC<{
 }> = (props) => {
   const { t } = useTranslation();
   const { AccountClassId, Data, IsError, IsLoading, refetch, handleAccountCodeClick } = props;
+
+
+   const CriteriaString =()=>{
+    return(
+      <Row style={{border: '1px solid #25A7DF',padding:7,borderRadius:5}}>
+        <h5>{Data?.[0]?.ReportCriteria}</h5>
+      </Row>
+    )
+   }
   return (
     <>
       <Divider className="divider" style={{ marginTop: '10px' }} />
@@ -32,6 +41,7 @@ const PayablesReceivablesTable: React.FC<{
             isError={IsError}
             isLoading={IsLoading}
             data={Data || []}
+            searchCriteriaReport={Data?.[0]?.ReportCriteria? <CriteriaString/>:''}
             scroll={{ x: '', y: convertVhToPixels('40vh') }}
             numberOfSkeletons={20}
           />

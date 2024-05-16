@@ -1,22 +1,34 @@
 export type PayablesAgingSearchCriteria = {
-    OrganizationId: number
-    CompanyId: number
-    FinancialYearId: number
-    AgingDays:number
-    IntervalDays:number
-    EndDate:Date
-}
+  OrganizationId: number;
+  CompanyId: number;
+  FinancialYearId: number;
+  AgingDays: number;
+
+  ToDate: Date;
+  UserId: number;
+  AccouuntClassId: number;
+  Activity: string;
+};
 export type PayablesAgingRegisterHistory = {
-    AccountId:number
-    AccountTitle:string
-    Col_01:number
-    Col_02:number
-    Col_03:number
-    Col_04:number
-    Col_05:number
-    Value_01:number
-    Value_02:number
-    Value_03:number
-    Value_04:number
-    Value_05:number
-}
+  AccountId: number;
+  AccountTitle: string;
+  RNo: number;
+  StartDate: Date;
+  AsOnDate: Date;
+  AccountCode: string;
+  Opening: number;
+  '0_30': number;
+  '31_60': number;
+  '61_90': number;
+  '90_Above': number;
+  Closing: number;
+  IstIntervale: number;
+  ScnInterval: number;
+  TrdIntarval: number;
+  Above: number;
+  FirstIntervalCaption: string;
+  SecondIntervalCaption: string;
+  ThirdIntervalCaption: string;
+  AboveIntervalCaption: string;
+  ReportCriteria: string;
+};
