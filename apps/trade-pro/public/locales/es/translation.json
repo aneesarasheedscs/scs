@@ -855,13 +855,11 @@
   "receipts_voucher": "Vale de recibos",
   "payment_voucher": "Comprobante de pago",
   "app_modules": "Módulos de aplicación",
-
   "vo_from": "Vale de",
   "vo_to": "Vale para",
   "purchase_order_retail_register": "Registro minorista de órdenes de compra",
   "payables_aging": "Antigüedad de cuentas por pagar",
   "aging_days": "Días de envejecimiento",
-
   "purchase_activity": "Actividad de compra",
   "to_doc_no": "Al doctor no",
   "from_doc_no": "Del doctor no",
@@ -869,5 +867,6 @@
   "net_receivable": "Por cobrar neto",
   "r_no": "RNo",
   "not_yet_due": "Todavía no se debe",
-  "over_due": "Atrasado"
+  "over_due": "Atrasado",
+  "sales_data_branch_wise": "Datos de ventas en cuanto a sucursales"
 }

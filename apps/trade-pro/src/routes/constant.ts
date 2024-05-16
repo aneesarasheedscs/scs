@@ -11,6 +11,7 @@ export const route = {
   SALES_COMPARISON: '/Sale-Comparison-Report',
   SALE_ANALYTICS: '/sale-analytics',
   MONTHLY_DATE_REPORT: '/monthly-sale-report',
+  SALES_DATA_BRANCH_WISE: '/sales-data-branch-wise',
 
   //Account Definitions
   CHART_ACCOUNT: '/define-chart-of-account',

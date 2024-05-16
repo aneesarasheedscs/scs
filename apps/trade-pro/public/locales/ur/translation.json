@@ -754,13 +754,11 @@
   "stock_adjustment": "اسٹاک ایڈجسٹمنٹ",
   "doc_#": "دستاویز #",
   "purchase_activity": "خریداری کی سرگرمی",
-
   "payables_aging": "قابل ادائیگی عمر رسیدہ",
   "aging_days": "بڑھاپے کے دن",
   "r_no": "RNo",
-
   "net_receivable": "نیٹ قابل وصول",
-
   "not_yet_due": "ابھی باقی نہیں ہے۔",
-  "over_due": "اوور ڈیو"
+  "over_due": "اوور ڈیو",
+  "sales_data_branch_wise": "سیلز ڈیٹا برانچ وائز"
 }

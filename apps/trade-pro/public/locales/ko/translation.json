@@ -39,10 +39,8 @@
   "purchase_order_retail_register": "구매 주문 소매 등록",
   "amount": "양",
   "modify_user": "사용자 수정",
-
   "payables_aging": "AP 월령",
   "aging_days": "노화의 날",
-
   "document date": "문서 날짜",
   "document_no": "문서 번호",
   "purchase_activity": "구매 활동",
@@ -56,5 +54,6 @@
   "net_receivable": "순미수금",
   "r_no": "R아니오",
   "not_yet_due": "아직 마감되지 않음",
-  "over_due": "기한 초과"
+  "over_due": "기한 초과",
+  "sales_data_branch_wise": "판매 데이터 지점별"
 }

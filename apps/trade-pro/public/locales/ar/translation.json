@@ -533,21 +533,19 @@
   "receipts_voucher": "قسيمة الإيصالات",
   "payment_voucher": "قسيمة دفع",
   "app_modules": "وحدات التطبيق",
-
   "vo_from": "قسيمة من",
   "vo_to": "قسيمة ل",
   "purchase_order_retail_register": "سجل أوامر الشراء بالتجزئة",
   "payables_aging": "تقادم الذمم الدائنة",
   "aging_days": "أيام الشيخوخة",
   "r_no": "رقم R",
-
   "purchase_activity": "نشاط الشراء",
   "search_criteria": "معايير البحث",
   "to_doc_no": "إلى الوثيقة رقم",
   "from_doc_no": "من الوثيقة رقم",
   "cash_purchase": "",
   "net_receivable": "صافي المستحقات",
-
   "not_yet_due": "ليس بسبب بعد",
-  "over_due": "أكثر من اللازم"
+  "over_due": "أكثر من اللازم",
+  "sales_data_branch_wise": "فرع بيانات المبيعات الحكيمة"
 }

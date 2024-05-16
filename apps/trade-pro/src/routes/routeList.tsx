@@ -48,6 +48,7 @@ const MonthandQuarterWiseSaleReport = lazy(() => import('@tradePro/pages/dashboa
 const SalesComparison = lazy(() => import('@tradePro/pages/dashboards/salesComparisons'));
 const SaleAnalytics = lazy(() => import('@tradePro/pages/dashboards/saleAnalytics'));
 const MonthlySaleReport = lazy(() => import('@tradePro/pages/dashboards/monthly-sale-report'));
+const SalesDataBranchWise = lazy(() => import('@tradePro/pages/dashboards/salesDataBranchWise'));
 
 //Account Reports
 const ActivitySummary = lazy(() => import('@tradePro/pages/accountReports/ActivitySummary'));
@@ -142,6 +143,7 @@ export const protectedRoutes: RouteObject[] = [
   { path: route.SALES_COMPARISON, element: <SalesComparison /> },
   { path: route.SALE_ANALYTICS, element: <SaleAnalytics /> },
   { path: route.MONTHLY_DATE_REPORT, element: <MonthlySaleReport /> },
+  { path: route.SALES_DATA_BRANCH_WISE, element: <SalesDataBranchWise /> },
 
   //Account Definitions
   { path: route.CHART_ACCOUNT, element: <ChartOfAccount /> },

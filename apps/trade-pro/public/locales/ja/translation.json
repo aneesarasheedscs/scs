@@ -50,10 +50,8 @@
   "purchase_order_retail_register": "発注書小売登録",
   "amount": "額",
   "modify_user": "ユーザーの変更",
-
   "payables_aging": "買掛金の高齢化",
   "aging_days": "老化の日々",
-
   "document date": "文書の日付",
   "document_no": "文書番号",
   "purchase_activity": "購入活動",
@@ -67,5 +65,6 @@
   "net_receivable": "純売掛金",
   "r_no": "Rいいえ",
   "not_yet_due": "まだ期限が切れていない",
-  "over_due": "期限超過"
+  "over_due": "期限超過",
+  "sales_data_branch_wise": "支店ごとの売上データ"
 }
