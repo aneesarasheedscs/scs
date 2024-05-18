@@ -133,9 +133,12 @@ const ShiftTimingDefine = lazy(() => import('@tradePro/pages/hmrs/shiftTimingDef
 const DutyRoaster = lazy(() => import('@tradePro/pages/hmrs/dutyRoaster'));
 const RoadMap = lazy(() => import('@tradePro/pages/roadMap'));
 const DefineDivision = lazy(() => import('@tradePro/pages/defineDivision'));
-
+//
+const AccountsPrematureRecipts = lazy(() => import('@tradePro/pages/accountsPrematureReceipts'));
 export const protectedRoutes: RouteObject[] = [
   { path: route.APP_MENU, element: <AppMenu /> },
+  //AccountsPrematureRecipts
+  { path: route.ACCOUNTS_PREMATURE_RECEIPTS, element: <AccountsPrematureRecipts /> },
   //Dashboards
   { path: route.ACCOUNTS_DASHBOARD, element: <AccountDashboard /> },
   { path: route.APPROVAL_DASHBOARD, element: <Approval_dashboard /> },

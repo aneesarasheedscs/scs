@@ -541,5 +541,6 @@
   "r_no": "RNon",
   "not_yet_due": "Pas encore dû",
   "over_due": "En retard",
-  "sales_data_branch_wise": "Données de vente par branche"
+  "sales_data_branch_wise": "Données de vente par branche",
+  "accounts_premature_receipts": "Comptes Encaissements prématurés"
 }

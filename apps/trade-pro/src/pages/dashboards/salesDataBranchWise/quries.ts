@@ -8,21 +8,69 @@ const financialYear = storedFinancialYear();
 const [CompanyId, OrganizationId] = [userDetail?.CompanyId, userDetail?.OrganizationId];
 
 const params = { CompanyId, OrganizationId };
+
+export const useGetDateTypes = () => {
+  return useQuery(
+    'DateTypes',
+    () => {
+      return requestManager.get('api/CommonServices/DateType', {
+        params: {
+          OrganizationId: userDetail?.OrganizationId,
+          CompanyId: userDetail?.CompanyId,
+        },
+      });
+    },
+    { cacheTime: userDetail?.expires_in }
+  );
+};
+export const useGetWeightType = () => {
+  return useQuery(
+    'Weight-Type',
+    () => {
+      return requestManager.get('/api/CommonController/StaticColumnNames', {
+        params: {
+          // OrganizationId: userDetail?.OrganizationId,
+          // CompanyId: userDetail?.CompanyId,
+          Activity: 'ComboServiceForWeightType',
+        },
+      });
+    },
+    { cacheTime: userDetail?.expires_in }
+  );
+};
+export const useGetValueType = () => {
+  return useQuery(
+    'Value-Type',
+    () => {
+      return requestManager.get('/api/CommonController/StaticColumnNames', {
+        params: {
+          // OrganizationId: userDetail?.OrganizationId,
+          // CompanyId: userDetail?.CompanyId,
+          Activity: 'ComboServiceForValueType',
+        },
+      });
+    },
+    { cacheTime: userDetail?.expires_in }
+  );
+};
+
 export const useGetSalesDataBranchWise = (enabled = true, params?: TSalesDataSearchCriteria) => {
   return useQuery(
     'sales_data_branch_wise',
     () => {
       return requestManager.post('/api/Dashboard/GetSalesDataBranchWise', {
         OrganizationId: userDetail?.OrganizationId,
-
         FromDate: financialYear?.Start_Period,
         ToDate: financialYear?.End_Period,
-        PaymenetTermId: 1, // Cash
-        //,"PaymenetTermId": 2 // Credit
-        WeightType: 1,
-        ReqType: 'Kgs',
-        ValueType: 1,
-        VoucherType: 'Rs',
+        PaymenetTermId:
+          params?.CashSale === true && params?.CreditSale === false
+            ? 1
+            : params?.CreditSale === true && params?.CashSale === false
+            ? 2
+            : params?.CashSale === true && params?.CreditSale === true
+            ? 0
+            : undefined, // Cash
+
         ...params,
       });
     },

@@ -541,5 +541,6 @@
   "r_no": "编号",
   "not_yet_due": "尚未到期",
   "over_due": "逾期",
-  "sales_data_branch_wise": "销售数据分行明智"
+  "sales_data_branch_wise": "销售数据分行明智",
+  "accounts_premature_receipts": "账户提前收款"
 }

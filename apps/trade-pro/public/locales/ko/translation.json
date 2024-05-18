@@ -55,5 +55,6 @@
   "r_no": "R아니오",
   "not_yet_due": "아직 마감되지 않음",
   "over_due": "기한 초과",
-  "sales_data_branch_wise": "판매 데이터 지점별"
+  "sales_data_branch_wise": "판매 데이터 지점별",
+  "accounts_premature_receipts": "계정 조기 수금"
 }

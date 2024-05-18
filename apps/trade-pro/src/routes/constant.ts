@@ -13,6 +13,9 @@ export const route = {
   MONTHLY_DATE_REPORT: '/monthly-sale-report',
   SALES_DATA_BRANCH_WISE: '/sales-data-branch-wise',
 
+  // AccountsPrematureRecipts
+  ACCOUNTS_PREMATURE_RECEIPTS: '/accounts-premature-receipt',
+
   //Account Definitions
   CHART_ACCOUNT: '/define-chart-of-account',
   CHEQUE_BOOK_REGISTRATION: '/cheque-book-registration',

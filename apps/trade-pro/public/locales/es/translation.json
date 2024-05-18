@@ -868,5 +868,6 @@
   "r_no": "RNo",
   "not_yet_due": "Todavía no se debe",
   "over_due": "Atrasado",
-  "sales_data_branch_wise": "Datos de ventas en cuanto a sucursales"
+  "sales_data_branch_wise": "Datos de ventas en cuanto a sucursales",
+  "accounts_premature_receipts": "Recibos prematuros de cuentas"
 }

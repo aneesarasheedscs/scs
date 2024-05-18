@@ -775,5 +775,6 @@
   "net_receivable": "Net Receivable",
   "not_yet_due": "Not Yet Due",
   "over_due": "Over Due",
-  "sales_data_branch_wise": "Sales Data Branch Wise"
+  "sales_data_branch_wise": "Sales Data Branch Wise",
+  "accounts_premature_receipts": "Accounts Premature Receipts"
 }

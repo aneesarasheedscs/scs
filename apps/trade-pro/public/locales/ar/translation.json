@@ -547,5 +547,6 @@
   "net_receivable": "صافي المستحقات",
   "not_yet_due": "ليس بسبب بعد",
   "over_due": "أكثر من اللازم",
-  "sales_data_branch_wise": "فرع بيانات المبيعات الحكيمة"
+  "sales_data_branch_wise": "فرع بيانات المبيعات الحكيمة",
+  "accounts_premature_receipts": "حسابات الإيصالات المبكرة"
 }

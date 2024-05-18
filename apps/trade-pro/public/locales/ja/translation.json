@@ -66,5 +66,6 @@
   "r_no": "Rいいえ",
   "not_yet_due": "まだ期限が切れていない",
   "over_due": "期限超過",
-  "sales_data_branch_wise": "支店ごとの売上データ"
+  "sales_data_branch_wise": "支店ごとの売上データ",
+  "accounts_premature_receipts": "アカウントの期日前入金"
 }
