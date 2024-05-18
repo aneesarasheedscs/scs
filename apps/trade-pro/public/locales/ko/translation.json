@@ -85,5 +85,7 @@
   "expense_amount": "비용 금액",
   "net_amount": "순액",
   "dispatched_amount": "발송금액",
-  "voucher_report": "바우처 보고서"
+  "voucher_report": "바우처 보고서",
+  "sales_data_branch_wise": "판매 데이터 지점별",
+  "accounts_premature_receipts": "계정 조기 수금"
 }

@@ -782,5 +782,7 @@
   "stock_received_note_register": "Stock Received Note Register",
   "dispatched_qty": "Dispatched Qty",
   "expense_amount": "Expense Amount",
-  "dispatched_amount": "Dispatched Amount"
+  "dispatched_amount": "Dispatched Amount",
+  "sales_data_branch_wise": "Sales Data Branch Wise",
+  "accounts_premature_receipts": "Accounts Premature Receipts"
 }

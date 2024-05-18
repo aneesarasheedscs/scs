@@ -552,5 +552,7 @@
   "expense_amount": "Montant des dépenses",
   "net_amount": "Montant net",
   "dispatched_amount": "Montant expédié",
-  "voucher_report": "Rapport sur les bons"
+  "voucher_report": "Rapport sur les bons",
+  "sales_data_branch_wise": "Données de vente par branche",
+  "accounts_premature_receipts": "Comptes Encaissements prématurés"
 }

@@ -558,5 +558,7 @@
   "expense_amount": "مبلغ النفقات",
   "net_amount": "كمية الشبكة",
   "dispatched_amount": "المبلغ المرسل",
-  "voucher_report": "تقرير القسيمة"
+  "voucher_report": "تقرير القسيمة",
+  "sales_data_branch_wise": "فرع بيانات المبيعات الحكيمة",
+  "accounts_premature_receipts": "حسابات الإيصالات المبكرة"
 }

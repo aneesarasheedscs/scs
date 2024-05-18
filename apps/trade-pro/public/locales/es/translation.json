@@ -877,5 +877,7 @@
   "expense_amount": "Monto del gasto",
   "net_amount": "Importe neto",
   "dispatched_amount": "Cantidad enviada",
-  "voucher_report": "Informe de vale"
+  "voucher_report": "Informe de vale",
+  "sales_data_branch_wise": "Datos de ventas en cuanto a sucursales",
+  "accounts_premature_receipts": "Recibos prematuros de cuentas"
 }

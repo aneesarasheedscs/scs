@@ -3,7 +3,6 @@ export type PayablesAgingSearchCriteria = {
   CompanyId: number;
   FinancialYearId: number;
   AgingDays: number;
-
   ToDate: Date;
   UserId: number;
   AccouuntClassId: number;

@@ -11,6 +11,10 @@ export const route = {
   SALES_COMPARISON: '/Sale-Comparison-Report',
   SALE_ANALYTICS: '/sale-analytics',
   MONTHLY_DATE_REPORT: '/monthly-sale-report',
+  SALES_DATA_BRANCH_WISE: '/sales-data-branch-wise',
+
+  // AccountsPrematureRecipts
+  ACCOUNTS_PREMATURE_RECEIPTS: '/accounts-premature-receipt',
 
   //Inventory Reports
 

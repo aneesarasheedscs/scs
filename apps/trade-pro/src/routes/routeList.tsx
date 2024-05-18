@@ -48,6 +48,7 @@ const MonthandQuarterWiseSaleReport = lazy(() => import('@tradePro/pages/dashboa
 const SalesComparison = lazy(() => import('@tradePro/pages/dashboards/salesComparisons'));
 const SaleAnalytics = lazy(() => import('@tradePro/pages/dashboards/saleAnalytics'));
 const MonthlySaleReport = lazy(() => import('@tradePro/pages/dashboards/monthly-sale-report'));
+const SalesDataBranchWise = lazy(() => import('@tradePro/pages/dashboards/salesDataBranchWise'));
 
 //Inventoyr Report
 
@@ -137,9 +138,12 @@ const ShiftTimingDefine = lazy(() => import('@tradePro/pages/hmrs/shiftTimingDef
 const DutyRoaster = lazy(() => import('@tradePro/pages/hmrs/dutyRoaster'));
 const RoadMap = lazy(() => import('@tradePro/pages/roadMap'));
 const DefineDivision = lazy(() => import('@tradePro/pages/defineDivision'));
-
+//
+const AccountsPrematureRecipts = lazy(() => import('@tradePro/pages/accountsPrematureReceipts'));
 export const protectedRoutes: RouteObject[] = [
   { path: route.APP_MENU, element: <AppMenu /> },
+  //AccountsPrematureRecipts
+  { path: route.ACCOUNTS_PREMATURE_RECEIPTS, element: <AccountsPrematureRecipts /> },
   //Dashboards
   { path: route.ACCOUNTS_DASHBOARD, element: <AccountDashboard /> },
   { path: route.APPROVAL_DASHBOARD, element: <Approval_dashboard /> },
@@ -147,6 +151,7 @@ export const protectedRoutes: RouteObject[] = [
   { path: route.SALES_COMPARISON, element: <SalesComparison /> },
   { path: route.SALE_ANALYTICS, element: <SaleAnalytics /> },
   { path: route.MONTHLY_DATE_REPORT, element: <MonthlySaleReport /> },
+  { path: route.SALES_DATA_BRANCH_WISE, element: <SalesDataBranchWise /> },
 
   //Inventory Reports
   {path: route.STOCK_TRANSFER_NOTE_REGISTER,element:<StockTransferNoteRegister/>},

@@ -552,5 +552,7 @@
   "expense_amount": "费用金额",
   "net_amount": "净额",
   "dispatched_amount": "发货量",
-  "voucher_report": "凭证报告"
+  "voucher_report": "凭证报告",
+  "sales_data_branch_wise": "销售数据分行明智",
+  "accounts_premature_receipts": "账户提前收款"
 }

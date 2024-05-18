@@ -767,5 +767,7 @@
   "stock_received_note_register": "اسٹاک موصول شدہ نوٹ رجسٹر",
   "dispatched_qty": "بھیجی گئی مقدار",
   "expense_amount": "اخراجات کی رقم",
-  "dispatched_amount": "بھیجی گئی رقم"
+  "dispatched_amount": "بھیجی گئی رقم",
+  "sales_data_branch_wise": "سیلز ڈیٹا برانچ وائز",
+  "accounts_premature_receipts": "اکاؤنٹس قبل از وقت رسیدیں"
 }
