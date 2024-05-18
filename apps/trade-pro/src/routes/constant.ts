@@ -12,6 +12,11 @@ export const route = {
   SALE_ANALYTICS: '/sale-analytics',
   MONTHLY_DATE_REPORT: '/monthly-sale-report',
 
+  //Inventory Reports
+
+  STOCK_TRANSFER_NOTE_REGISTER:'/stock-transfer-note-register',
+  STOCK_RECEIED_NOTE_REGISTER:'stock-received-note-register',
+
   //Account Definitions
   CHART_ACCOUNT: '/define-chart-of-account',
   CHEQUE_BOOK_REGISTRATION: '/cheque-book-registration',

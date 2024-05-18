@@ -763,20 +763,24 @@
   "entry_type": "Entry Type",
   "stock_adjustment": "Stock Adjustment",
   "doc_#": "Doc#",
-
   "vo_from": "Vo From",
   "vo_to": "Vo To",
   "purchase_order_retail_register": "Purchase Order Retail Register",
-
   "payables_aging": "Payables Aging",
   "aging_days": "Aging Days",
   "r_no": "RNo",
-
   "purchase_activity": "Purchase Activity",
   "sale_order": "Sale Order",
   "inventory_transaction": "Inventory Transaction",
   "net_receivable": "Net Receivable",
-
   "not_yet_due": "Not Yet Due",
-  "over_due": "Over Due"
+  "over_due": "Over Due",
+  "stock_transfer_note_register": "Stock Transfer Note Register",
+  "received_qty": "Received Qty",
+  "received_amount": "Received Amount",
+  "dest_location": "Dest Location",
+  "stock_received_note_register": "Stock Received Note Register",
+  "dispatched_qty": "Dispatched Qty",
+  "expense_amount": "Expense Amount",
+  "dispatched_amount": "Dispatched Amount"
 }

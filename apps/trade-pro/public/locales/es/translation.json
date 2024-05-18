@@ -855,13 +855,11 @@
   "receipts_voucher": "Vale de recibos",
   "payment_voucher": "Comprobante de pago",
   "app_modules": "Módulos de aplicación",
-
   "vo_from": "Vale de",
   "vo_to": "Vale para",
   "purchase_order_retail_register": "Registro minorista de órdenes de compra",
   "payables_aging": "Antigüedad de cuentas por pagar",
   "aging_days": "Días de envejecimiento",
-
   "purchase_activity": "Actividad de compra",
   "to_doc_no": "Al doctor no",
   "from_doc_no": "Del doctor no",
@@ -869,5 +867,15 @@
   "net_receivable": "Por cobrar neto",
   "r_no": "RNo",
   "not_yet_due": "Todavía no se debe",
-  "over_due": "Atrasado"
+  "over_due": "Atrasado",
+  "stock_transfer_note_register": "Registro de notas de transferencia de acciones",
+  "received_qty": "Cantidad recibida",
+  "received_amount": "Cantidad recibida",
+  "dest_location": "Ubicación de destino",
+  "stock_received_note_register": "Registro de notas recibidas en stock",
+  "dispatched_qty": "Cantidad enviada",
+  "expense_amount": "Monto del gasto",
+  "net_amount": "Importe neto",
+  "dispatched_amount": "Cantidad enviada",
+  "voucher_report": "Informe de vale"
 }

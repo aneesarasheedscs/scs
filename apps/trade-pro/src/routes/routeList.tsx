@@ -49,6 +49,11 @@ const SalesComparison = lazy(() => import('@tradePro/pages/dashboards/salesCompa
 const SaleAnalytics = lazy(() => import('@tradePro/pages/dashboards/saleAnalytics'));
 const MonthlySaleReport = lazy(() => import('@tradePro/pages/dashboards/monthly-sale-report'));
 
+//Inventoyr Report
+
+const StockTransferNoteRegister = lazy(()=>import('@tradePro/pages/inventoryReports/stockTransferNoteRegister'))
+const StockReceivedNoteRegister = lazy(()=>import('@tradePro/pages/inventoryReports/stockReceivedNoteRegister'))
+
 //Account Reports
 const ActivitySummary = lazy(() => import('@tradePro/pages/accountReports/ActivitySummary'));
 const CashBalances = lazy(() => import('@tradePro/pages/accountReports/CashBalance'));
@@ -142,6 +147,10 @@ export const protectedRoutes: RouteObject[] = [
   { path: route.SALES_COMPARISON, element: <SalesComparison /> },
   { path: route.SALE_ANALYTICS, element: <SaleAnalytics /> },
   { path: route.MONTHLY_DATE_REPORT, element: <MonthlySaleReport /> },
+
+  //Inventory Reports
+  {path: route.STOCK_TRANSFER_NOTE_REGISTER,element:<StockTransferNoteRegister/>},
+  {path: route.STOCK_RECEIED_NOTE_REGISTER,element:<StockReceivedNoteRegister/>},
 
   //Account Definitions
   { path: route.CHART_ACCOUNT, element: <ChartOfAccount /> },

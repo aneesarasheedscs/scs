@@ -19,6 +19,7 @@ import ReceiableAgingIntervalOverDueCards from './receivableOverDueCard';
 
 const { useForm, useWatch } = Form;
 
+
 function ReceivablesAgingRegisterTable() {
   const [form] = useForm<ReceivablesAgingSearchCriteria>();
   const formValues = useWatch<ReceivablesAgingSearchCriteria>([], form);

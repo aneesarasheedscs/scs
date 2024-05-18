@@ -526,14 +526,12 @@
   "receipts_voucher": "Bon de réception",
   "payment_voucher": "Bon de paiement",
   "app_modules": "Modules d'application",
-
   "supplier_ref_no": "Numéro de référence du fournisseur",
   "vo_from": "Bon à partir de",
   "vo_to": "Bon à",
   "purchase_order_retail_register": "Registre de vente au détail des bons de commande",
   "payables_aging": "Vieillissement des dettes",
   "aging_days": "Jours de vieillissement",
-
   "purchase_activity": "Activité d'achat",
   "search_criteria": "Critères de recherche",
   "to_doc_no": "Vers le document n°",
@@ -542,5 +540,17 @@
   "net_receivable": "Créance nette",
   "r_no": "RNon",
   "not_yet_due": "Pas encore dû",
-  "over_due": "En retard"
+  "over_due": "En retard",
+  "stock_transfer_note_register": "Registre des notes de transfert de titres",
+  "received_qty": "Quantité reçue",
+  "received_amount": "Montant reçu",
+  "approved_date": "Date confirmée",
+  "item_rate": "Tarif de l'article",
+  "dest_location": "Emplacement de destination",
+  "stock_received_note_register": "Registre des notes de stock reçu",
+  "dispatched_qty": "Quantité expédiée",
+  "expense_amount": "Montant des dépenses",
+  "net_amount": "Montant net",
+  "dispatched_amount": "Montant expédié",
+  "voucher_report": "Rapport sur les bons"
 }

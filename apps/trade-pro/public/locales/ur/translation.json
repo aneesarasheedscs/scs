@@ -754,13 +754,18 @@
   "stock_adjustment": "اسٹاک ایڈجسٹمنٹ",
   "doc_#": "دستاویز #",
   "purchase_activity": "خریداری کی سرگرمی",
-
   "payables_aging": "قابل ادائیگی عمر رسیدہ",
   "aging_days": "بڑھاپے کے دن",
   "r_no": "RNo",
-
   "net_receivable": "نیٹ قابل وصول",
-
   "not_yet_due": "ابھی باقی نہیں ہے۔",
-  "over_due": "اوور ڈیو"
+  "over_due": "اوور ڈیو",
+  "stock_transfer_note_register": "اسٹاک ٹرانسفر نوٹ رجسٹر",
+  "received_qty": "موصول ہوئی مقدار",
+  "received_amount": "وصول شدہ رقم",
+  "dest_location": "ڈیسٹ لوکیشن",
+  "stock_received_note_register": "اسٹاک موصول شدہ نوٹ رجسٹر",
+  "dispatched_qty": "بھیجی گئی مقدار",
+  "expense_amount": "اخراجات کی رقم",
+  "dispatched_amount": "بھیجی گئی رقم"
 }

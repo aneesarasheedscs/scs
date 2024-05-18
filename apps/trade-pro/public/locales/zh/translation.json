@@ -526,14 +526,12 @@
   "receipts_voucher": "收据凭证",
   "payment_voucher": "付款凭证",
   "app_modules": "应用程序模块",
-
   "supplier_ref_no": "供应商参考号",
   "vo_from": "优惠券来自",
   "vo_to": "优惠券至",
   "purchase_order_retail_register": "采购订单零售登记册",
   "payables_aging": "应付账款账龄",
   "aging_days": "老化天数",
-
   "purchase_activity": "购买活动",
   "search_criteria": "搜索条件",
   "to_doc_no": "至文件编号",
@@ -542,5 +540,17 @@
   "net_receivable": "应收净额",
   "r_no": "编号",
   "not_yet_due": "尚未到期",
-  "over_due": "逾期"
+  "over_due": "逾期",
+  "stock_transfer_note_register": "股票转让票据登记册",
+  "received_qty": "收到数量",
+  "received_amount": "收到金额",
+  "approved_date": "批准日期",
+  "item_rate": "项目率",
+  "dest_location": "目的地位置",
+  "stock_received_note_register": "库存收到票据登记册",
+  "dispatched_qty": "发货数量",
+  "expense_amount": "费用金额",
+  "net_amount": "净额",
+  "dispatched_amount": "发货量",
+  "voucher_report": "凭证报告"
 }
