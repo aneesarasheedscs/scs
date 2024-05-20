@@ -760,6 +760,14 @@
   "net_receivable": "نیٹ قابل وصول",
   "not_yet_due": "ابھی باقی نہیں ہے۔",
   "over_due": "اوور ڈیو",
+  "stock_transfer_note_register": "اسٹاک ٹرانسفر نوٹ رجسٹر",
+  "received_qty": "موصول ہوئی مقدار",
+  "received_amount": "وصول شدہ رقم",
+  "dest_location": "ڈیسٹ لوکیشن",
+  "stock_received_note_register": "اسٹاک موصول شدہ نوٹ رجسٹر",
+  "dispatched_qty": "بھیجی گئی مقدار",
+  "expense_amount": "اخراجات کی رقم",
+  "dispatched_amount": "بھیجی گئی رقم",
   "sales_data_branch_wise": "سیلز ڈیٹا برانچ وائز",
   "accounts_premature_receipts": "اکاؤنٹس قبل از وقت رسیدیں",
   "tracking_slip": "ٹریکنگ سلپ",
@@ -769,5 +777,12 @@
   "sender_account": "بھیجنے والا اکاؤنٹ",
   "receiver_account": "وصول کنندہ اکاؤنٹ",
   "banck_name": "بینک کا نام",
-  "define_other_parties": "دیگر جماعتوں کی وضاحت کریں۔"
+  "define_other_parties": "دیگر جماعتوں کی وضاحت کریں۔",
+  "item": "آئٹم",
+  "item_pack": "ITEM",
+  "orders_dashboard": "آرڈرز ڈیش بورڈ",
+  "outstanding_pre_booking_order": "بقایا پری بکنگ آرڈر",
+  "pack": "پیک",
+  "weight_rate": "وزن کی شرح/40",
+  "pack_item": "پیک"
 }
