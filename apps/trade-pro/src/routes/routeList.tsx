@@ -49,6 +49,7 @@ const SalesComparison = lazy(() => import('@tradePro/pages/dashboards/salesCompa
 const SaleAnalytics = lazy(() => import('@tradePro/pages/dashboards/saleAnalytics'));
 const MonthlySaleReport = lazy(() => import('@tradePro/pages/dashboards/monthly-sale-report'));
 const SalesDataBranchWise = lazy(() => import('@tradePro/pages/dashboards/salesDataBranchWise'));
+const OrderDashboard = lazy(() => import('@tradePro/pages/dashboards/ordersDashboard/orderDashboard'));
 
 //Inventoyr Report
 
@@ -127,6 +128,7 @@ const BillsReceivableAccounts = lazy(() => import('@tradePro/pages/AccountTransa
 //Sale Trading
 const SaleOrder = lazy(() => import('@tradePro/pages/SaleTrading/saleOrder'));
 const SaleInvoiceDirect = lazy(() => import('@tradePro/pages/SaleTrading/saleInvoiceDirect'));
+const BookingOrder = lazy(() => import('@tradePro/pages/SaleTrading/bookingOrder'));
 //Sale Reports
 const SaleOrderRegisterTable = lazy(
   () => import('@tradePro/pages/SaleReports/sale_order_register/saleOrderRegisterTable')
@@ -152,6 +154,8 @@ export const protectedRoutes: RouteObject[] = [
   { path: route.SALE_ANALYTICS, element: <SaleAnalytics /> },
   { path: route.MONTHLY_DATE_REPORT, element: <MonthlySaleReport /> },
   { path: route.SALES_DATA_BRANCH_WISE, element: <SalesDataBranchWise /> },
+  { path: route.ORDERS_DASHBOARD, element: <OrderDashboard /> },
+
 
   //Inventory Reports
   {path: route.STOCK_TRANSFER_NOTE_REGISTER,element:<StockTransferNoteRegister/>},
@@ -237,6 +241,7 @@ export const protectedRoutes: RouteObject[] = [
   //Sale Trading
   { path: route.SALE_ORDER, element: <SaleOrder /> },
   { path: route.SALE_INVOICE_DIRECT, element: <SaleInvoiceDirect /> },
+  { path: route.BOOKING_ORDER, element: <BookingOrder /> },
 
   //ALL Reports
   { path: route.ALL_REPORTS, element: <AllReports /> },

@@ -560,5 +560,12 @@
   "dispatched_amount": "المبلغ المرسل",
   "voucher_report": "تقرير القسيمة",
   "sales_data_branch_wise": "فرع بيانات المبيعات الحكيمة",
-  "accounts_premature_receipts": "حسابات الإيصالات المبكرة"
+  "accounts_premature_receipts": "حسابات الإيصالات المبكرة",
+  "item": "غرض",
+  "item_pack": "غرض",
+  "orders_dashboard": "لوحة تحكم الطلبات",
+  "outstanding_pre_booking_order": "أمر الحجز المسبق المعلقة",
+  "pack": "علية",
+  "weight_rate": "معدل الوزن/40",
+  "pack_item": "علية"
 }

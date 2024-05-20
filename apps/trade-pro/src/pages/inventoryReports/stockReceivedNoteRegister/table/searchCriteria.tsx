@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Col, Form, Row } from 'antd';
 // import { useGetItems, useGetSuppliers, useGetOrderStatus, useGetApprovedStatus } from '../queries';
 import {
@@ -14,8 +14,14 @@ import { useGetDataForDropDownFromTransfer, useGetStockReceivedNoteRegister } fr
 import { map } from 'lodash';
 import { useAtom } from 'jotai';
 import { actvitityPAtom } from './atom';
+import { storedFinancialYear } from '@tradePro/utils/storageService';
+import dayjs from 'dayjs'
 
 const { useForm, useWatch } = Form;
+
+const financialYear = storedFinancialYear()
+const FromDate = dayjs(financialYear?.Start_Period)
+const ToDate = dayjs(financialYear?.End_Period)
 
 function SearchCriteria() {
   const [open, setOpen] = useState(false);
@@ -64,29 +70,11 @@ function SearchCriteria() {
     },
   ];
 
-  // const Activity: TActivity[] = [
-  //   {
-  //     Id: 1,
-  //     name: 'Detail',
-  //   },
-  //   {
-  //     Id: 2,
-  //     name: 'BranchAndItemWiseSummary',
-  //   },
-
-  // ];
   interface TReportType {
     Id: string;
     name: string;
   }
-  interface TActivity {
-    Id: string;
-    name: string;
-  }
-  const Activity: TReportType[] = [
-    { Id: 'Detail', name: 'Detail' },
-    { Id: 'BranchAndItemWiseSummary', name: 'BranchAndItemWiseSummary' },
-  ];
+  
 
   const { data: StockTransferNote } = useGetDataForDropDownFromTransfer();
 
@@ -146,9 +134,14 @@ function SearchCriteria() {
     }
   };
 
+  useEffect(()=>{
+    form.setFieldValue('FromDate',FromDate)
+    form.setFieldValue('ToDate',ToDate)
+  },[])
+
   return (
     <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
-      <Form form={form} onFinish={onFinish} layout="inline" initialValues={formValues}>
+      <Form form={form} onFinish={onFinish} layout="inline" initialValues={{formValues}}>
         <Row gutter={[0, 5]} justify={'space-between'}>
           <Col xs={24} sm={24} md={12} className="formsfield">
             <AntDatePicker name="FromDate" label={t('from_date')} bordered={false} />

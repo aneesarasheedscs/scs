@@ -554,5 +554,12 @@
   "dispatched_amount": "发货量",
   "voucher_report": "凭证报告",
   "sales_data_branch_wise": "销售数据分行明智",
-  "accounts_premature_receipts": "账户提前收款"
+  "accounts_premature_receipts": "账户提前收款",
+  "item": "物品",
+  "item_pack": "物品",
+  "orders_dashboard": "订单仪表板",
+  "outstanding_pre_booking_order": "未完成的预订订单",
+  "pack": "盒",
+  "weight_rate": "重量率/40",
+  "pack_item": "盒"
 }

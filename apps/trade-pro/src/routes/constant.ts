@@ -12,6 +12,7 @@ export const route = {
   SALE_ANALYTICS: '/sale-analytics',
   MONTHLY_DATE_REPORT: '/monthly-sale-report',
   SALES_DATA_BRANCH_WISE: '/sales-data-branch-wise',
+  ORDERS_DASHBOARD:'/orders-dashboard',
 
   // AccountsPrematureRecipts
   ACCOUNTS_PREMATURE_RECEIPTS: '/accounts-premature-receipt',
@@ -95,6 +96,7 @@ export const route = {
   //Sales Trading
   SALE_ORDER: '/sale-order',
   SALE_INVOICE_DIRECT: '/Sale-Invoice-Direct',
+  BOOKING_ORDER:'/order-booking',
 
   //Sale Reports
   SALE_ORDER_REGISTER: '/sale-order-register-retail',

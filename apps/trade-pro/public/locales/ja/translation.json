@@ -98,5 +98,13 @@
   "dispatched_amount": "派遣金額",
   "voucher_report": "バウチャーレポート",
   "sales_data_branch_wise": "支店ごとの売上データ",
-  "accounts_premature_receipts": "アカウントの期日前入金"
+  "accounts_premature_receipts": "アカウントの期日前入金",
+  "item": "アイテム",
+  "customer": "お客様",
+  "item_pack": "アイテム",
+  "orders_dashboard": "注文ダッシュボード",
+  "outstanding_pre_booking_order": "未処理の事前予約注文",
+  "pack": "パック",
+  "weight_rate": "重量率/40",
+  "pack_item": "パック"
 }

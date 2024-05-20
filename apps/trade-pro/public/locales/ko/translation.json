@@ -87,5 +87,13 @@
   "dispatched_amount": "발송금액",
   "voucher_report": "바우처 보고서",
   "sales_data_branch_wise": "판매 데이터 지점별",
-  "accounts_premature_receipts": "계정 조기 수금"
+  "accounts_premature_receipts": "계정 조기 수금",
+  "item": "안건",
+  "customer": "고객",
+  "item_pack": "안건",
+  "orders_dashboard": "주문 대시보드",
+  "outstanding_pre_booking_order": "미결제 사전 예약 주문",
+  "pack": "팩",
+  "weight_rate": "중량비율/40",
+  "pack_item": "팩"
 }

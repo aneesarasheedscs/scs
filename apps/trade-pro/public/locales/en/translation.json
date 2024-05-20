@@ -256,7 +256,7 @@
   "warehouse": "WareHouse",
   "voucher_no ": "Voucher No",
   "payment_terms": "Payment Terms",
-  "customer": "Customer",
+  "customer": "CUSTOMER",
   "due_days_and_date": "Due Days ",
   "salesman_agent": "Sales Man/Agent",
   "do_preview": "Do Preview",
@@ -784,5 +784,13 @@
   "expense_amount": "Expense Amount",
   "dispatched_amount": "Dispatched Amount",
   "sales_data_branch_wise": "Sales Data Branch Wise",
-  "accounts_premature_receipts": "Accounts Premature Receipts"
+  "accounts_premature_receipts": "Accounts Premature Receipts",
+  "item": "ITEM",
+  "item_pack": "ITEM & PACK",
+  "pack_item": "PACK & ITEM",
+  "orders_dashboard": "Orders Dashboard",
+  "outstanding_pre_booking_order": "Outstanding Pre Booking Order",
+  "pack": "Pack",
+  "weight_rate": "Weight Rate/40",
+  "booking_order": "Booking Order"
 }

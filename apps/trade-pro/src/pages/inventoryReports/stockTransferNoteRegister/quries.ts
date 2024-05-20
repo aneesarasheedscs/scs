@@ -35,6 +35,9 @@ export const useGetStockTransferNoteRegister = (enabled = true, params?: TSearch
                 OrganizationId: userDetail?.OrganizationId,
                 CompanyId:userDetail?.CompanyId,
                 DocumentTypeId:2,
+                IsApproved: params?.ReqTypeId > 1 ? true : false,
+
+                ApprovedFilter: params?.ReqTypeId <= 1 ? 'All' : '',
           
                 ...params,
         

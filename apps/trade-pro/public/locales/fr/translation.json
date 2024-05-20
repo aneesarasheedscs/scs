@@ -554,5 +554,12 @@
   "dispatched_amount": "Montant expédié",
   "voucher_report": "Rapport sur les bons",
   "sales_data_branch_wise": "Données de vente par branche",
-  "accounts_premature_receipts": "Comptes Encaissements prématurés"
+  "accounts_premature_receipts": "Comptes Encaissements prématurés",
+  "item": "Article",
+  "item_pack": "ARTICLE",
+  "orders_dashboard": "Tableau de bord des commandes",
+  "outstanding_pre_booking_order": "Commande de pré-réservation en cours",
+  "pack": "Paquet",
+  "weight_rate": "Taux de poids/40",
+  "pack_item": "PAQUET"
 }
