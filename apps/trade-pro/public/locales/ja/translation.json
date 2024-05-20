@@ -67,5 +67,13 @@
   "not_yet_due": "まだ期限が切れていない",
   "over_due": "期限超過",
   "sales_data_branch_wise": "支店ごとの売上データ",
-  "accounts_premature_receipts": "アカウントの期日前入金"
+  "accounts_premature_receipts": "アカウントの期日前入金",
+  "tracking_slip": "追跡スリップ",
+  "slip_amount": "スリップ量",
+  "sender_bank": "送金銀行",
+  "representative_account": "代表的なエアコン",
+  "sender_account": "送信者アカウント",
+  "receiver_account": "受信者アカウント",
+  "banck_name": "銀行名",
+  "define_other_parties": "他の当事者の定義"
 }

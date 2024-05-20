@@ -776,5 +776,13 @@
   "not_yet_due": "Not Yet Due",
   "over_due": "Over Due",
   "sales_data_branch_wise": "Sales Data Branch Wise",
-  "accounts_premature_receipts": "Accounts Premature Receipts"
+  "accounts_premature_receipts": "Accounts Premature Receipts",
+  "tracking_slip": "Tracking Slip",
+  "slip_amount": "Slip Amount",
+  "sender_bank": "Sender Bank",
+  "representative_account": "Representative A/c",
+  "sender_account": "Sender Account",
+  "receiver_account": "Receiver Account",
+  "banck_name": "Bank Name",
+  "define_other_parties": "Define Other Parties"
 }

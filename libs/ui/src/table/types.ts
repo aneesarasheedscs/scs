@@ -16,6 +16,7 @@ export type TPagination = {
 export type TAntTable = {
   tableId?: string;
   isChild?: boolean;
+  showDefaultTableGrid?: boolean;
   data?: Array<any>;
   isError?: boolean;
   isLoading?: boolean;

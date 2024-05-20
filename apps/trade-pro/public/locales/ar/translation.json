@@ -548,5 +548,13 @@
   "not_yet_due": "ليس بسبب بعد",
   "over_due": "أكثر من اللازم",
   "sales_data_branch_wise": "فرع بيانات المبيعات الحكيمة",
-  "accounts_premature_receipts": "حسابات الإيصالات المبكرة"
+  "accounts_premature_receipts": "حسابات الإيصالات المبكرة",
+  "tracking_slip": "تتبع الانزلاق",
+  "slip_amount": "مبلغ الانزلاق",
+  "sender_bank": "بنك المرسل",
+  "representative_account": "ممثل مكيف الهواء",
+  "sender_account": "حساب المرسل",
+  "receiver_account": "حساب المتلقي",
+  "banck_name": "اسم البنك",
+  "define_other_parties": "تعريف الأطراف الأخرى"
 }

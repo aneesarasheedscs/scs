@@ -542,5 +542,13 @@
   "not_yet_due": "尚未到期",
   "over_due": "逾期",
   "sales_data_branch_wise": "销售数据分行明智",
-  "accounts_premature_receipts": "账户提前收款"
+  "accounts_premature_receipts": "账户提前收款",
+  "tracking_slip": "跟踪单",
+  "slip_amount": "滑差金额",
+  "sender_bank": "汇款银行",
+  "representative_account": "代表空调",
+  "sender_account": "发件人账户",
+  "receiver_account": "收款账户",
+  "banck_name": "银行名",
+  "define_other_parties": "定义其他方"
 }

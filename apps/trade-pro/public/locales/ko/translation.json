@@ -56,5 +56,13 @@
   "not_yet_due": "아직 마감되지 않음",
   "over_due": "기한 초과",
   "sales_data_branch_wise": "판매 데이터 지점별",
-  "accounts_premature_receipts": "계정 조기 수금"
+  "accounts_premature_receipts": "계정 조기 수금",
+  "tracking_slip": "추적 전표",
+  "slip_amount": "슬립 금액",
+  "sender_bank": "송금인 은행",
+  "representative_account": "대표 에어컨",
+  "sender_account": "보내는 사람 계정",
+  "receiver_account": "수신자 계정",
+  "banck_name": "은행 이름",
+  "define_other_parties": "다른 당사자 정의"
 }

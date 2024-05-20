@@ -542,5 +542,13 @@
   "not_yet_due": "Pas encore dû",
   "over_due": "En retard",
   "sales_data_branch_wise": "Données de vente par branche",
-  "accounts_premature_receipts": "Comptes Encaissements prématurés"
+  "accounts_premature_receipts": "Comptes Encaissements prématurés",
+  "tracking_slip": "Bordereau de suivi",
+  "slip_amount": "Montant du bordereau",
+  "sender_bank": "Banque de l'expéditeur",
+  "representative_account": "Représentant A/c",
+  "sender_account": "Compte expéditeur",
+  "receiver_account": "Compte du destinataire",
+  "banck_name": "Nom de banque",
+  "define_other_parties": "Définir d'autres parties"
 }
