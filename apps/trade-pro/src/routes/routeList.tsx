@@ -53,8 +53,8 @@ const OrderDashboard = lazy(() => import('@tradePro/pages/dashboards/ordersDashb
 
 //Inventoyr Report
 
-const StockTransferNoteRegister = lazy(()=>import('@tradePro/pages/inventoryReports/stockTransferNoteRegister'))
-const StockReceivedNoteRegister = lazy(()=>import('@tradePro/pages/inventoryReports/stockReceivedNoteRegister'))
+const StockTransferNoteRegister = lazy(() => import('@tradePro/pages/inventoryReports/stockTransferNoteRegister'));
+const StockReceivedNoteRegister = lazy(() => import('@tradePro/pages/inventoryReports/stockReceivedNoteRegister'));
 
 //Account Reports
 const ActivitySummary = lazy(() => import('@tradePro/pages/accountReports/ActivitySummary'));
@@ -140,8 +140,10 @@ const ShiftTimingDefine = lazy(() => import('@tradePro/pages/hmrs/shiftTimingDef
 const DutyRoaster = lazy(() => import('@tradePro/pages/hmrs/dutyRoaster'));
 const RoadMap = lazy(() => import('@tradePro/pages/roadMap'));
 const DefineDivision = lazy(() => import('@tradePro/pages/defineDivision'));
-//
+// AccountsPrematureRecipts
 const AccountsPrematureRecipts = lazy(() => import('@tradePro/pages/accountsPrematureReceipts'));
+//Attendance Report
+const AttendanceReport = lazy(() => import('@tradePro/pages/AttendanceReport'));
 export const protectedRoutes: RouteObject[] = [
   { path: route.APP_MENU, element: <AppMenu /> },
   //AccountsPrematureRecipts
@@ -156,10 +158,9 @@ export const protectedRoutes: RouteObject[] = [
   { path: route.SALES_DATA_BRANCH_WISE, element: <SalesDataBranchWise /> },
   { path: route.ORDERS_DASHBOARD, element: <OrderDashboard /> },
 
-
   //Inventory Reports
-  {path: route.STOCK_TRANSFER_NOTE_REGISTER,element:<StockTransferNoteRegister/>},
-  {path: route.STOCK_RECEIED_NOTE_REGISTER,element:<StockReceivedNoteRegister/>},
+  { path: route.STOCK_TRANSFER_NOTE_REGISTER, element: <StockTransferNoteRegister /> },
+  { path: route.STOCK_RECEIED_NOTE_REGISTER, element: <StockReceivedNoteRegister /> },
 
   //Account Definitions
   { path: route.CHART_ACCOUNT, element: <ChartOfAccount /> },
@@ -273,6 +274,8 @@ export const protectedRoutes: RouteObject[] = [
   { path: route.DISTRICT, element: <RoadMap /> },
   { path: route.DUTY_ROASTER, element: <DutyRoaster /> },
   { path: route.EMPLOYEE_REGISTRATION, element: <EmployeeRegistration /> },
+  //Attendance Report
+  { path: route.ATTENDANCE_REPORT, element: <AttendanceReport /> },
 ];
 
 export const publicRoutes: RouteObject[] = [

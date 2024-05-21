@@ -81,6 +81,12 @@ function SideMenu({ collapsed, setCollapsed }: any) {
         ScreenAlias: 'Reports',
         ModuleTypeId: 1,
       };
+      const attendanceReport: TSideMenu | any = {
+        ModuleID: 1,
+        ModuleDescription: 'Attendance Report',
+        ScreenAlias: 'AttendanceReports',
+        ModuleTypeId: 2,
+      };
 
       return [
         ...map(groupedData, (group) => {
@@ -91,6 +97,7 @@ function SideMenu({ collapsed, setCollapsed }: any) {
           };
         }),
         { ...additionalItem },
+        { ...attendanceReport },
       ];
     }
 
@@ -111,7 +118,9 @@ function SideMenu({ collapsed, setCollapsed }: any) {
 
   //   return [];
   // };
-  const filteredList = list.filter((item) => item.ModuleDescription !== 'Reports');
+  const filteredList = list.filter(
+    (item) => item.ModuleDescription !== 'Reports' && item.ModuleDescription !== 'Attendance Report'
+  );
 
   return (
     <>
@@ -150,6 +159,16 @@ function SideMenu({ collapsed, setCollapsed }: any) {
               <h4 className="menu-item-heading" style={{ color: 'gray' }}>
                 <FileTextOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />
                 <span> &nbsp;Reports</span>
+              </h4>
+            </Link>
+          </Menu.Item>
+        )}
+        {list.some((item) => item.ModuleDescription === 'Attendance Report') && (
+          <Menu.Item key="attendancereport" className="menu-item-title">
+            <Link to="/attendance_report">
+              <h4 className="menu-item-heading" style={{ color: 'gray' }}>
+                <FileTextOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />
+                <span> &nbsp;Attendance Report</span>
               </h4>
             </Link>
           </Menu.Item>

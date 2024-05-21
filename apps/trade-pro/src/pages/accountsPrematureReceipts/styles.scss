@@ -1,0 +1,54 @@
+.form_field {
+  border-bottom: 1px solid gray;
+  padding: 0px;
+  height: 30px;
+}
+.formfield_for_screen {
+  // border-bottom: 1px solid gray;
+  padding: 0px;
+  height: 30px;
+}
+.report_heading {
+  font-family: Poppins !important;
+  font-size: 19px;
+  padding: 10px;
+  margin-left: -10%;
+}
+.buttons_row {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: -0.8%;
+}
+.header_card {
+  box-shadow: 2px 4px 12px 1px gray;
+  padding-top: -15%;
+  margin-bottom: 0.5%;
+  margin-top: -0.8%;
+}
+.reset_btn {
+  background-color: #ffaf0c;
+}
+
+.toggleGridView {
+  background-color: var(--color-primary);
+  color: #fff;
+  font-weight: bold;
+  border: 1px solid var(--color-primary);
+}
+.toggleCardView {
+  background-color: #fff;
+  color: var(--color-primary);
+  font-weight: bold;
+  border: 1px solid var(--color-primary);
+}
+@media screen and (max-width: 575px) and (min-width: 481px) {
+  .formfield {
+    padding: 0px;
+    height: 62px;
+  }
+
+  .formfield_for_screen {
+    padding: 0px;
+    height: 60px;
+  }
+}

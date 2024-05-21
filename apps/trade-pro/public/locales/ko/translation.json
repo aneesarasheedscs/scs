@@ -88,6 +88,14 @@
   "voucher_report": "바우처 보고서",
   "sales_data_branch_wise": "판매 데이터 지점별",
   "accounts_premature_receipts": "계정 조기 수금",
+  "tracking_slip": "추적 전표",
+  "slip_amount": "슬립 금액",
+  "sender_bank": "송금인 은행",
+  "representative_account": "대표 에어컨",
+  "sender_account": "보내는 사람 계정",
+  "receiver_account": "수신자 계정",
+  "banck_name": "은행 이름",
+  "define_other_parties": "다른 당사자 정의",
   "item": "안건",
   "customer": "고객",
   "item_pack": "안건",
@@ -96,5 +104,9 @@
   "pack": "팩",
   "weight_rate": "중량비율/40",
   "pack_item": "팩",
-  "add_item": "아이템 추가"
+  "add_item": "아이템 추가",
+  "attendance_report": "출석 보고서",
+  "present": "현재의",
+  "absent": "결석한",
+  "late": "늦은"
 }

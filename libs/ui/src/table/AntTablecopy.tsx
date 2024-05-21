@@ -21,6 +21,7 @@ export function AntTablecopy({
   data,
   title,
   isChild,
+  showDefaultTableGrid,
   columns,
   tableId,
   isError,
@@ -315,7 +316,7 @@ export function AntTablecopy({
   );
 
   const cols = size(selectedColumns) < 1 && !isUndefined(columnChooserOptions) ? modifiedColumns : selectedColumns;
-  console.log(cols);
+  // console.log(cols);
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
     setSelectedRowKeys(newSelectedRowKeys);
     if (getSelectedRowKeys) getSelectedRowKeys(newSelectedRowKeys as Array<string | number>);
@@ -338,7 +339,17 @@ export function AntTablecopy({
             </Col>
           </Row>
         </Col>
-        <Col xxl={4} xl={5} lg={8} md={8} sm={11} xs={24} style={{ border: '1px solid #25A7DF', borderRadius: 5 }}>
+
+        <Col
+          xxl={4}
+          xl={5}
+          lg={8}
+          md={8}
+          sm={11}
+          xs={24}
+          // style={{ border: '1px solid #25A7DF', borderRadius: 5 }}
+          className={showDefaultTableGrid === true ? 'buttons_hide' : 'buttons_border'}
+        >
           <Row gutter={10}>
             <RefreshData handleRefresh={refetch} options={refreshData} disabled={isError || isLoading} />
 

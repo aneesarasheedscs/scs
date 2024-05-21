@@ -880,6 +880,14 @@
   "voucher_report": "Informe de vale",
   "sales_data_branch_wise": "Datos de ventas en cuanto a sucursales",
   "accounts_premature_receipts": "Recibos prematuros de cuentas",
+  "tracking_slip": "Deslizamiento de seguimiento",
+  "slip_amount": "Monto del resbalón",
+  "sender_bank": "Banco remitente",
+  "representative_account": "Aire acondicionado representativo",
+  "sender_account": "Cuenta del remitente",
+  "receiver_account": "Cuenta del destinatario",
+  "banck_name": "Nombre del banco",
+  "define_other_parties": "Definir otras partes",
   "item": "Artículo",
   "item_pack": "ARTÍCULO",
   "orders_dashboard": "Panel de pedidos",
@@ -887,5 +895,9 @@
   "pack": "Embalar",
   "weight_rate": "Tasa de peso/40",
   "pack_item": "EMBALAR",
-  "add_item": "Añadir artículo"
+  "add_item": "Añadir artículo",
+  "attendance_report": "Reporte de asistencia",
+  "present": "Presente",
+  "absent": "Ausente",
+  "late": "Tarde"
 }

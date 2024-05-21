@@ -99,6 +99,14 @@
   "voucher_report": "バウチャーレポート",
   "sales_data_branch_wise": "支店ごとの売上データ",
   "accounts_premature_receipts": "アカウントの期日前入金",
+  "tracking_slip": "追跡スリップ",
+  "slip_amount": "スリップ量",
+  "sender_bank": "送金銀行",
+  "representative_account": "代表的なエアコン",
+  "sender_account": "送信者アカウント",
+  "receiver_account": "受信者アカウント",
+  "banck_name": "銀行名",
+  "define_other_parties": "他の当事者の定義",
   "item": "アイテム",
   "customer": "お客様",
   "item_pack": "アイテム",
@@ -107,5 +115,9 @@
   "pack": "パック",
   "weight_rate": "重量率/40",
   "pack_item": "パック",
-  "add_item": "アイテムの追加"
+  "add_item": "アイテムの追加",
+  "attendance_report": "出席報告書",
+  "present": "現在",
+  "absent": "不在",
+  "late": "遅い"
 }

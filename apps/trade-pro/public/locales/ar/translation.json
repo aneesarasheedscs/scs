@@ -561,6 +561,14 @@
   "voucher_report": "تقرير القسيمة",
   "sales_data_branch_wise": "فرع بيانات المبيعات الحكيمة",
   "accounts_premature_receipts": "حسابات الإيصالات المبكرة",
+  "tracking_slip": "تتبع الانزلاق",
+  "slip_amount": "مبلغ الانزلاق",
+  "sender_bank": "بنك المرسل",
+  "representative_account": "ممثل مكيف الهواء",
+  "sender_account": "حساب المرسل",
+  "receiver_account": "حساب المتلقي",
+  "banck_name": "اسم البنك",
+  "define_other_parties": "تعريف الأطراف الأخرى",
   "item": "غرض",
   "item_pack": "غرض",
   "orders_dashboard": "لوحة تحكم الطلبات",
@@ -568,5 +576,9 @@
   "pack": "علية",
   "weight_rate": "معدل الوزن/40",
   "pack_item": "علية",
-  "add_item": "اضافة عنصر"
+  "add_item": "اضافة عنصر",
+  "attendance_report": "تقرير الحضور",
+  "present": "حاضر",
+  "absent": "غائب",
+  "late": "متأخر"
 }

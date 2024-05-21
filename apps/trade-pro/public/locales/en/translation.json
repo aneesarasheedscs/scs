@@ -785,6 +785,14 @@
   "dispatched_amount": "Dispatched Amount",
   "sales_data_branch_wise": "Sales Data Branch Wise",
   "accounts_premature_receipts": "Accounts Premature Receipts",
+  "tracking_slip": "Tracking Slip",
+  "slip_amount": "Slip Amount",
+  "sender_bank": "Sender Bank",
+  "representative_account": "Representative A/c",
+  "sender_account": "Sender Account",
+  "receiver_account": "Receiver Account",
+  "banck_name": "Bank Name",
+  "define_other_parties": "Define Other Parties",
   "item": "ITEM",
   "item_pack": "ITEM & PACK",
   "pack_item": "PACK & ITEM",
@@ -793,5 +801,9 @@
   "pack": "Pack",
   "weight_rate": "Weight Rate/40",
   "booking_order": "Booking Order",
-  "add_item": "Add Item"
+  "add_item": "Add Item",
+  "attendance_report": "Attendance Report",
+  "present": "Present",
+  "absent": "Absent",
+  "late": "Late"
 }
