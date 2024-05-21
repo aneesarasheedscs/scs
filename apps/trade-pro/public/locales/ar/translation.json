@@ -567,5 +567,6 @@
   "outstanding_pre_booking_order": "أمر الحجز المسبق المعلقة",
   "pack": "علية",
   "weight_rate": "معدل الوزن/40",
-  "pack_item": "علية"
+  "pack_item": "علية",
+  "add_item": "اضافة عنصر"
 }

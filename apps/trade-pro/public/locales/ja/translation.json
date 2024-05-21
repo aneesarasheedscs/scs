@@ -106,5 +106,6 @@
   "outstanding_pre_booking_order": "未処理の事前予約注文",
   "pack": "パック",
   "weight_rate": "重量率/40",
-  "pack_item": "パック"
+  "pack_item": "パック",
+  "add_item": "アイテムの追加"
 }

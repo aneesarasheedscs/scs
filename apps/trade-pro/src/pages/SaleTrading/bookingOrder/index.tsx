@@ -6,6 +6,7 @@ import { AppHeader } from '@scs/ui';
 import { useState } from 'react';
 import './style.scss';
 import BookingOrderForm from './forms';
+import BookingOrderTable from './table';
 
 const { Title, Text } = Typography;
 function BookingOrder() {
@@ -29,7 +30,7 @@ function BookingOrder() {
             {
               key: '1',
               label: t('history'),
-              children: <SaleOrderTable setSelectedRecordId={setSelectedRecordId} setActiveTab={setActiveTab} />,
+              children: <BookingOrderTable setSelectedRecordId={setSelectedRecordId} setActiveTab={setActiveTab} />,
             },
             {
               key: '2',

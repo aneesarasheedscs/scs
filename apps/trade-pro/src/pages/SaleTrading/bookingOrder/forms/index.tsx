@@ -4,17 +4,17 @@ import MainEntry from './MainEntry';
 import { AntButton, AntDatePicker, AntTable } from '@tradePro/components';
 import { Badge, Card, Checkbox, Col, Form, Input, Row } from 'antd';
 import { SyncOutlined, SaveOutlined, PaperClipOutlined, ReloadOutlined } from '@ant-design/icons';
-import DynamicForm from './DetailEntry';
+// import DynamicForm from './DetailEntry';
 import { saleOrderFormcolumns } from '../table/columns';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { isNumber } from 'lodash';
 import dayjs from 'dayjs';
-import { useAddSaleOrder, useGetSaleOrder, useGetSaleOrderById, useUpdateSaleOrder } from '../queries';
+import { useAddSaleOrder,  useGetBookingOrder,  useGetSaleOrderById, useUpdateSaleOrder } from '../queries';
 import { TSaleOrder, TSaleOrderDetail } from '../type';
 import { useTranslation } from 'react-i18next';
 import { useAtom } from 'jotai';
 import { tableDataList } from './Atom';
-import SalesPersonalInfo from './SalesInfo';
+// import SalesPersonalInfo from './SalesInfo';
 import '../style.scss';
 import Buttons from './Buttons';
 
@@ -25,7 +25,7 @@ function BookingOrderForm({ selectedRecordId, setSelectedRecordId }: TAddUpdated
   const [form] = useForm<TSaleOrder>();
   const [printPreview, setPrintPreview] = useState<boolean>(true);
   // const { data, isError, refetch, isLoading, isSuccess } = useGetDocNumberSaleOrder();
-  const { data: add, refetch: addRefetch, isError: addisError, isLoading: addisLoading } = useGetSaleOrder(true);
+  const { data: add, refetch: addRefetch, isError: addisError, isLoading: addisLoading } = useGetBookingOrder(true);
 
   const {
     data: saleOrderData,
@@ -96,7 +96,7 @@ function BookingOrderForm({ selectedRecordId, setSelectedRecordId }: TAddUpdated
  
         <MainEntry form={form} />
       
-              <DynamicForm form={form} />
+              {/* <DynamicForm form={form} /> */}
             </Form>
           </Card>
         </>

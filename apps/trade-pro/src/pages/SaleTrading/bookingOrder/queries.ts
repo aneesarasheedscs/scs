@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from 'react-query';
 import { TSaleOrder, TSaleOrderDetail } from './type';
 import { requestManager } from '@tradePro/configs/requestManager';
-import { storedUserDetail } from '@tradePro/utils/storageService';
+import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 import { queryClient } from '@scs/configs';
 import { notification } from 'antd';
 import { AxiosError } from 'axios';
@@ -9,7 +9,7 @@ import dayjs from 'dayjs';
 import { SaleOrderRetailCriteria } from './table/type';
 
 const userDetail = storedUserDetail();
-const financialYear = storedUserDetail();
+const financialYear = storedFinancialYear();
 
 export const useGetSaleOrder = (enabled:true,params?: SaleOrderRetailCriteria) => {
   return useQuery('sale-order-detail', () => {
@@ -22,6 +22,48 @@ export const useGetSaleOrder = (enabled:true,params?: SaleOrderRetailCriteria) =
       NoOfRecords: 50,
       CanViewAllRecord: 'true',
       EntryUser: 2,
+      ...params,
+    });
+  });
+};
+
+
+
+export const useGetItemWithPackUom = (enabled = true, params?: any) => {
+  return useQuery(
+    'item-with-pack-uom',
+    () => {
+    return requestManager.get('/api/ItemPricingSchedule/ItemWithPriceRateRateUomAndPackUom', {
+      params:{
+        PriceTypeId:6,
+        CompanyId: userDetail?.CompanyId,
+        OrganizationId: userDetail?.OrganizationId,
+        ...params,
+      }
+    });
+  },
+  { enabled }
+);
+};
+
+
+
+
+
+export const useGetBookingOrder = (enabled:true,params?: any) => {
+  return useQuery('booking-order', () => {
+    return requestManager.post('/api/PreBookingOrder/FormHistory', {
+      DocumentTypeId: 129,
+      OrganizationId: userDetail?.OrganizationId,
+      CompanyId: userDetail?.CompanyId,
+      EntryUser: userDetail?.UserId,
+      FormDate: financialYear?.Start_Period,
+      ToDate:financialYear?.End_Period,
+      BranchesId: 2,
+      FinancialYearId: 2,
+      NoOfRecords: 50,
+      CanViewAllRecord: 'true',
+      SupplierCustomerId:0,
       ...params,
     });
   });

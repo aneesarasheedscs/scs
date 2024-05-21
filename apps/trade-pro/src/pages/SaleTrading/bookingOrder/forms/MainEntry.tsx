@@ -1,20 +1,25 @@
 import { Card, Col, FormInstance, Row, Typography } from 'antd';
 import { useState } from 'react';
 import { TPaymentTerms, TSaleOrder, TSaleOrderDetail } from '../type';
-import { AntDatePicker, AntInput, AntInputNumber, AntSelectDynamic } from '@tradePro/components';
+import { AntButton, AntDatePicker, AntInput, AntInputNumber, AntSelectDynamic, AntTable } from '@tradePro/components';
 import { useGetCustomerNameSalesManAgent, useGetShiptToAddress, useGetSubPartyAccount } from '../queryOptions';
 import { map } from 'lodash';
 import { useGetPaymentTerms } from '@tradePro/pages/purchaseTrading/purchaseOrder/queryOptions';
 import { useWatch } from 'antd/es/form/Form';
 import dayjs from 'dayjs';
-import SalesPersonalInfo from './SalesInfo';
+// import SalesPersonalInfo from './SalesInfo';
 import { FormRowGutter } from '@tradePro/globalAtoms';
+import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
+import { saleOrderFormcolumns } from '../table/columns';
+import { useTranslation } from 'react-i18next';
+import AddItemsCards from '../table/ItemCards/addItemCards';
 
 function MainEntry({ form }: TDynamicForm) {
   console.log(FormRowGutter, 'gutter');
   const [paymentTerm, setPaymentTerm] = useState('');
   const { setFields, getFieldValue } = form;
   const [isOrderOpen, setIsOrderOpen] = useState(true);
+  const {t} =useTranslation()
 
   const formValues = useWatch<TSaleOrder>([], form);
 
@@ -73,10 +78,10 @@ function MainEntry({ form }: TDynamicForm) {
   // form.setFieldsValue({ DocDate: formattedCurrentDate });
 
   return (
-    <Card style={{ boxShadow: '2px 4px 12px 1px gray', marginTop: '20px' }}>
-      <Col xxl={15}>
+    <Card style={{ boxShadow: '2px 4px 12px 1px gray',  }}>
+      <Col xxl={18}>
         <Row gutter={FormRowGutter} justify={'space-between'}>
-          <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={9} className="formfields">
+          {/* <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={7} className="formfields">
             <AntSelectDynamic
               bordered={false}
               required
@@ -88,14 +93,54 @@ function MainEntry({ form }: TDynamicForm) {
             />
           </Col>
 
-          <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={14} className="formfields">
+          <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={16} className="formfields">
             <AntInput name="RemarksHeader" label="Remarks" bordered={false} />
-          </Col>
+          </Col> */}
         </Row>
-        {/* <Row style={{ marginTop: '15px' }}>
-        <SalesPersonalInfo form={form} />
-      </Row> */}
+
+    
+
       </Col>
+      
+
+
+
+      
+
+
+<Row>
+  <Col xxl={12} style={{overflow:'scroll',height:'60vh'}}>
+    <AddItemsCards form={form}/></Col>
+  <Col xxl={12} >
+  {/* <Row gutter={[10, 10]}>
+         <Col>
+         <AntTable
+            // refetch={addRefetch}
+            // isError={addisError}
+            columns={saleOrderFormcolumns(t)}
+            numberOfSkeletons={12}
+            // isLoading={addisLoading}
+            // data={tableData || []}
+            scroll={{ x: '', y: convertVhToPixels('15vh') }}
+          />
+        </Col>
+      </Row> */}
+  </Col>
+</Row>
+       {/* <Row gutter={[10, 10]}>
+         <Col>
+         <AntTable
+            // refetch={addRefetch}
+            // isError={addisError}
+            columns={saleOrderFormcolumns(t)}
+            numberOfSkeletons={12}
+            // isLoading={addisLoading}
+            // data={tableData || []}
+            scroll={{ x: '', y: convertVhToPixels('15vh') }}
+          />
+        </Col>
+      </Row> */}
+      {/* </Col> */}
     </Card>
   );
 }

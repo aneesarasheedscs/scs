@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 // import { addtableData } from '../form/Atom';
 // import { useGetVoucherNo } from '../queries/queries';
-import { AntButton, AntDatePicker } from '@tradePro/components';
+import { AntButton, AntDatePicker, AntInput, AntSelectDynamic } from '@tradePro/components';
 import { Badge, Col, Form, FormInstance, Input, Row } from 'antd';
 import { SaveOutlined, SyncOutlined, RedoOutlined, PaperClipOutlined, PrinterFilled } from '@ant-design/icons';
 
@@ -73,20 +73,37 @@ function Buttons({
   return (
     <>
       <Row justify="space-between" style={{ marginLeft: 0, marginRight: 10 }}>
-        <Col xxl={8} xl={9} lg={18} md={18} sm={18} xs={24} style={{ marginTop: '0%' }}>
+        <Col xxl={7} xl={9} lg={18} md={18} sm={18} xs={24} style={{ marginTop: '0%' }}>
           <Row gutter={10} align="middle" style={{ border: '' }} justify={'space-evenly'}>
-            <Col xl={9} xxl={7} lg={8} md={7} sm={18} xs={18} className="formfield voucherNo">
+            <Col xl={9} xxl={9} lg={8} md={7} sm={18} xs={18} className="formfield voucherNo">
               <b style={{ fontSize: 18 }}> {t('document_no')}</b> &nbsp;
               <DocNumber isError={isError} refetch={refetch} isLoading={isLoading} data={data?.data?.Data?.Result} />
               <Form.Item name="DocNo" style={{ display: 'none' }}>
                 <Input />
               </Form.Item>
             </Col>
-            <Col xl={15} xxl={15} sm={18} lg={15} xs={23} md={15} className="formfield">
+            <Col xl={15} xxl={14} sm={18} lg={15} xs={23} md={15} className="formfield">
               <AntDatePicker bordered={false} name="DocDate" label={t('document date')} />
             </Col>
           </Row>
         </Col>
+        <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={4} className="formfields">
+            <AntSelectDynamic
+              bordered={false}
+              required
+              fieldValue="Id"
+              label="Party Name"
+              name="CompanyId"
+              fieldLabel="CompanyName"
+              // query={useGetCustomerNameSalesManAgent}
+            />
+          </Col>
+
+          <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={6} className="formfields">
+            <AntInput name="RemarksHeader" label="Remarks" bordered={false} />
+          </Col>
+
+
 
         <Col
           style={{

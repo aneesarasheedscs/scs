@@ -4,7 +4,7 @@
 import { useQuery } from 'react-query';
 import { requestManager } from '@tradePro/configs/requestManager';
 import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
-import { Tfilter } from '@tradePro/pages/accountReports/ActivitySummary/types';
+import { Tfilter } from './types';
 
 
 const userDetail = storedUserDetail();
@@ -30,7 +30,7 @@ export const useGetOrdersDashboard = () => {
 };
 
 
-export const useGetPreBookingTablesData = (enabled = true, params?: Tfilter) => {
+export const useGetPreBookingTablesData = (enabled = true, params?: Tfilter | null) => {
     return useQuery(
       'pre-booking-order',
       () => {
