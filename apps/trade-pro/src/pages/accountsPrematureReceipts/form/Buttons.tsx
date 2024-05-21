@@ -6,12 +6,13 @@ import { useEffect } from 'react';
 // import { TRequisitionOrder } from '../types';
 // import { useTranslation } from 'react-i18next';
 // import { useGetDocumentNumber } from '../quries';
-import { AntButton, AntDatePicker } from '@tradePro/components';
+import { AntButton, AntDatePicker, AntInput, AntSelectDynamic } from '@tradePro/components';
 import { Badge, Col, Form, FormInstance, Input, Row } from 'antd';
 import { SaveOutlined, SyncOutlined, RedoOutlined, PrinterFilled, PaperClipOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import DocNumber from './DocNumber';
 import { useGetDocumentNumber } from '../queries';
+import { map } from 'lodash';
 
 function Buttons({
   form,
@@ -33,7 +34,7 @@ function Buttons({
   const handleResetForm = () => {
     setSelectedRecordId(null);
     // setTableData([]);
-    // refetch();
+    refetch();
     form.setFieldValue('DocDate', dayjs(new Date()));
     form.setFieldValue('RemarksHeader', null);
   };
@@ -41,12 +42,37 @@ function Buttons({
     if (isSuccess) form.setFieldValue('DocNo', data?.data?.Data?.Result);
     form.setFieldValue('DocDate', dayjs(new Date()));
   }, [data, isSuccess]);
+  const voucherType: TVoucherType[] = [
+    {
+      Id: 3,
+      Name: 'CRV',
+    },
+    {
+      Id: 4,
+      Name: 'BRV',
+    },
+    {
+      Id: 5,
+      Name: 'JV',
+    },
+  ];
+  const handleVoucherTypeChange = (Id: number) => {
+    if (Id === 3) {
+      form.setFieldValue('VoucherType', 'CRV');
+    } else if (Id === 4) {
+      form.setFieldValue('VoucherType', 'BRV');
+    } else if (Id === 5) {
+      form.setFieldValue('VoucherType', 'JV');
+    } else {
+      form.setFieldValue('VoucherType', '');
+    }
+  };
   return (
     <>
       <Row justify="space-between" className="buttons_row">
-        <Col xxl={7} xl={11} lg={16} style={{ marginTop: '0%' }}>
-          <Row gutter={0} align="middle" justify={'space-between'}>
-            <Col xl={9} xxl={9} lg={9} md={9} sm={9} xs={18}>
+        <Col xxl={11} xl={15} lg={16} style={{ marginTop: '0%' }}>
+          <Row gutter={[0, 6]} align="middle" justify={'space-between'}>
+            <Col xl={6} xxl={7} lg={9} md={9} sm={9} xs={18}>
               <b style={{ fontSize: 18 }}> {t('document_no')}</b> &nbsp;
               <DocNumber
                 isError={isError}
@@ -59,8 +85,23 @@ function Buttons({
                 <Input />
               </Form.Item>
             </Col>
-            <Col xl={15} xxl={15} sm={15} lg={15} xs={23} md={15} className="formfield">
+            <Col xl={9} xxl={9} sm={15} lg={15} xs={23} md={15} className="formfield">
               <AntDatePicker autoFocus required name="DocDate" label={t('document_date')} bordered={false} />
+            </Col>
+            <Col xl={8} xxl={7} sm={18} lg={11} xs={24} md={11} className="formfield">
+              <AntSelectDynamic
+                bordered={false}
+                label={t('voucher_type')}
+                fieldValue="Id"
+                fieldLabel="Name"
+                name="VouchersId"
+                options={map(voucherType, (item) => ({
+                  value: item.Id,
+                  label: item.Name,
+                }))}
+                onSelect={(Id) => handleVoucherTypeChange(Id)}
+              />
+              <AntInput name="VoucherType" label="" style={{ display: 'none' }} />
             </Col>
           </Row>
         </Col>
@@ -114,4 +155,8 @@ interface TButtonsProps {
   // isDataSuccess: boolean;
   printPreview: boolean;
   setPrintPreview: (id: boolean) => void;
+}
+interface TVoucherType {
+  Id: number;
+  Name: string;
 }

@@ -86,7 +86,14 @@ function DefineOtherParties() {
                 <Form.Item>
                   <Row align="middle" gutter={10}>
                     <Col>
-                      <AntButton danger ghost htmlType="reset" label={t('reset')} icon={<SyncOutlined />} />
+                      <AntButton
+                        danger
+                        ghost
+                        onClick={() => form.setFieldValue('PartyName', '')}
+                        htmlType="reset"
+                        label={t('reset')}
+                        icon={<SyncOutlined />}
+                      />
                     </Col>
                     <Col>
                       <AntButton label={t('save_and_more')} htmlType="submit" />

@@ -12,15 +12,16 @@ export const route = {
   SALE_ANALYTICS: '/sale-analytics',
   MONTHLY_DATE_REPORT: '/monthly-sale-report',
   SALES_DATA_BRANCH_WISE: '/sales-data-branch-wise',
-  ORDERS_DASHBOARD:'/orders-dashboard',
+  ORDERS_DASHBOARD: '/orders-dashboard',
 
   // AccountsPrematureRecipts
   ACCOUNTS_PREMATURE_RECEIPTS: '/accounts-premature-receipt',
-
+  //Attendance Report
+  ATTENDANCE_REPORT: '/attendance_report',
   //Inventory Reports
 
-  STOCK_TRANSFER_NOTE_REGISTER:'/stock-transfer-note-register',
-  STOCK_RECEIED_NOTE_REGISTER:'stock-received-note-register',
+  STOCK_TRANSFER_NOTE_REGISTER: '/stock-transfer-note-register',
+  STOCK_RECEIED_NOTE_REGISTER: 'stock-received-note-register',
 
   //Account Definitions
   CHART_ACCOUNT: '/define-chart-of-account',
@@ -96,7 +97,7 @@ export const route = {
   //Sales Trading
   SALE_ORDER: '/sale-order',
   SALE_INVOICE_DIRECT: '/Sale-Invoice-Direct',
-  BOOKING_ORDER:'/order-booking',
+  BOOKING_ORDER: '/order-booking',
 
   //Sale Reports
   SALE_ORDER_REGISTER: '/sale-order-register-retail',

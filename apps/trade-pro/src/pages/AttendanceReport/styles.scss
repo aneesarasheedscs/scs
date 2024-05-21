@@ -23,7 +23,7 @@
   box-shadow: 2px 4px 12px 1px gray;
   padding-top: -15%;
   margin-bottom: 0.5%;
-  margin-top: -0.8%;
+  margin-top: -1%;
 }
 .reset_btn {
   background-color: #ffaf0c;
@@ -40,6 +40,20 @@
   color: var(--color-primary);
   font-weight: bold;
   border: 1px solid var(--color-primary);
+}
+.month_card {
+  // border: 1px solid lightgrey;
+  // padding: 5px;
+  height: 12vh;
+  box-shadow: 2px 2px 12px 2px lightgrey;
+  border-radius: 5px;
+}
+.departement_card {
+  // border: 1px solid lightgrey;
+  // padding: 5px;
+  height: 14vh;
+  box-shadow: 2px 2px 12px 2px lightgrey;
+  border-radius: 5px;
 }
 @media screen and (max-width: 575px) and (min-width: 481px) {
   .formfield {

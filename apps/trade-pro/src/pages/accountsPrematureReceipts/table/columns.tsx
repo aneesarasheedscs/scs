@@ -3,17 +3,10 @@ import { AntColumnType } from '@tradePro/globalTypes';
 import { AntButton } from '@tradePro/components';
 import { Space, Tooltip } from 'antd';
 import { formateDate } from '@tradePro/utils/formateDate';
-// import { TBankPaymentVoucherTable } from './types';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
-// import { DataType, TBankPaymentDetailEntry } from '../form/types';
 import dayjs from 'dayjs';
 import { TFunction } from 'i18next';
-export const columns = (
-  t: TFunction
-  //   setSelectedRecordId: (id: number | null) => void,
-  //   setActiveTab: (tab: string) => void,
-  //   setSelectedRecordDetailId: (id: number | null) => void
-): AntColumnType<any>[] => [
+export const columns = (t: TFunction): AntColumnType<any>[] => [
   // {
   //   title: t('doc_date'),
   //   width: 150,
@@ -42,21 +35,21 @@ export const columns = (
 
   {
     title: t('slip_amount'),
-    align: 'right',
+    // align: 'right',
     width: 180,
     dataIndex: 'VoucherDate',
-    searchableDate: true,
-    render: (_, { VoucherDate }) => formateDate(VoucherDate),
+    searchableInput: true,
+    // render: (_, { VoucherDate }) => formateDate(VoucherDate),
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => {
-      const dateA = dayjs(a.VoucherDate);
-      const dateB = dayjs(b.VoucherDate);
-      return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
-    },
+    // sorter: (a, b) => {
+    //   const dateA = dayjs(a.VoucherDate);
+    //   const dateB = dayjs(b.VoucherDate);
+    //   return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
+    // },
   },
   {
     title: t('voucher_type'),
-    width: 200,
+    width: 150,
     dataIndex: 'AccountTitle',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
@@ -64,7 +57,7 @@ export const columns = (
   },
   {
     title: t('banck_name'),
-    width: 200,
+    width: 180,
     dataIndex: 'AccountTitle',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
@@ -73,42 +66,40 @@ export const columns = (
   {
     title: t('representative_account'),
     width: 200,
-    showTotal: true,
+
     searchableInput: true,
     dataIndex: 'VoucherAmount',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.VoucherAmount - b.VoucherAmount,
-    render: (_, { VoucherAmount }) => (
-      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(VoucherAmount)}</span>
-    ),
+    // render: (_, { VoucherAmount }) => <>{numberFormatter(VoucherAmount)}</>,
   },
   {
     title: t('sender_account'),
     width: 180,
-    showTotal: true,
+
     searchableInput: true,
     dataIndex: 'VoucherAmount',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.VoucherAmount - b.VoucherAmount,
-    render: (_, { VoucherAmount }) => (
-      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(VoucherAmount)}</span>
-    ),
+    // render: (_, { VoucherAmount }) => (
+    //   < >{numberFormatter(VoucherAmount)}</>
+    // ),
   },
   {
     title: t('receiver_account'),
     width: 180,
-    showTotal: true,
+
     searchableInput: true,
     dataIndex: 'VoucherAmount',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.VoucherAmount - b.VoucherAmount,
-    render: (_, { VoucherAmount }) => (
-      <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(VoucherAmount)}</span>
-    ),
+    // render: (_, { VoucherAmount }) => (
+    //   <span style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(VoucherAmount)}</span>
+    // ),
   },
   {
     title: t('cheque_no'),
-    width: 170,
+    width: 150,
     dataIndex: 'CheqNo',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
@@ -125,12 +116,12 @@ export const columns = (
       const dateB = dayjs(b.ChequeDate);
       return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
     },
-    width: 180,
+    width: 150,
   },
   {
     title: t('amount'),
     align: 'right',
-    width: 180,
+    width: 150,
     dataIndex: 'Remarks',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
@@ -138,7 +129,7 @@ export const columns = (
   },
   {
     title: t('status'),
-    width: 180,
+    width: 150,
     dataIndex: 'Remarks',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
@@ -146,7 +137,7 @@ export const columns = (
   },
   {
     title: t('remarks'),
-    width: 250,
+    width: 200,
     dataIndex: 'UserName',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
@@ -175,12 +166,12 @@ export const columns = (
   //     sorter: (a, b) => a.PayeeTitle.localeCompare(b.PayeeTitle),
   //   },
 
-  //   {
-  //     title: t('attachments'),
-  //     width: 150,
-  //     dataIndex: 'Attachment',
-  //     sortDirections: ['ascend', 'descend'],
-  //   },
+  {
+    title: t('attachments'),
+    width: 150,
+    dataIndex: 'Attachment',
+    sortDirections: ['ascend', 'descend'],
+  },
   {
     fixed: 'right',
     title: t('action'),

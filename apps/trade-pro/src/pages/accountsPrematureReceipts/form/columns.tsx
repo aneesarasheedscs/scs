@@ -6,7 +6,11 @@ import { formateDate } from '@tradePro/utils/formateDate';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { TFunction } from 'i18next';
 import { TAccountsPrematureReceiptsList } from '../types';
-export const columns = (t: TFunction): AntColumnType<TAccountsPrematureReceiptsList>[] => [
+export const columns = (
+  t: TFunction,
+  handleDeleteRow: (record: TAccountsPrematureReceiptsList) => void,
+  handleEditRow: (record: TAccountsPrematureReceiptsList) => void
+): AntColumnType<TAccountsPrematureReceiptsList>[] => [
   {
     title: t('doc_no'),
     width: 90,
@@ -153,32 +157,22 @@ export const columns = (t: TFunction): AntColumnType<TAccountsPrematureReceiptsL
   {
     fixed: 'right',
     title: t('action'),
-    width: 95,
+    width: 90,
     render: (_, record) => (
-      <>
-        <Tooltip title="Edit">
-          <Space style={{ position: 'absolute', top: 10, left: 10 }}>
-            <AntButton
-              type="text"
-              icon={<EditFilled style={{ color: '#006640' }} />}
-              onClick={() => {
-                // setSelectedRecordId(record?.Id), setActiveTab('2');
-              }}
-            />
-          </Space>
-        </Tooltip>
-        <Tooltip title="View Detail">
-          <Space style={{ position: 'absolute', top: 10, right: 10 }}>
-            <AntButton
-              type="text"
-              icon={<EyeTwoTone style={{ color: 'blue', marginLeft: 4 }} />}
-              onClick={() => {
-                // setSelectedRecordDetailId(record.Id);
-              }}
-            />
-          </Space>
-        </Tooltip>
-      </>
+      <Tooltip title="Delete">
+        <Space>
+          <AntButton
+            type="text"
+            icon={<EditFilled style={{ color: '#006640' }} />}
+            onClick={() => handleEditRow(record)}
+          />
+          <AntButton
+            type="text"
+            icon={<DeleteOutlined style={{ color: 'red' }} />}
+            onClick={() => handleDeleteRow(record)}
+          />
+        </Space>
+      </Tooltip>
     ),
   },
 ];

@@ -569,5 +569,9 @@
   "outstanding_pre_booking_order": "未完成的预订订单",
   "pack": "盒",
   "weight_rate": "重量率/40",
-  "pack_item": "盒"
+  "pack_item": "盒",
+  "attendance_report": "考勤报告",
+  "present": "展示",
+  "absent": "缺席的",
+  "late": "晚的"
 }

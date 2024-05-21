@@ -103,5 +103,9 @@
   "outstanding_pre_booking_order": "미결제 사전 예약 주문",
   "pack": "팩",
   "weight_rate": "중량비율/40",
-  "pack_item": "팩"
+  "pack_item": "팩",
+  "attendance_report": "출석 보고서",
+  "present": "현재의",
+  "absent": "결석한",
+  "late": "늦은"
 }

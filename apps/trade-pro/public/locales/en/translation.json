@@ -800,5 +800,9 @@
   "outstanding_pre_booking_order": "Outstanding Pre Booking Order",
   "pack": "Pack",
   "weight_rate": "Weight Rate/40",
-  "booking_order": "Booking Order"
+  "booking_order": "Booking Order",
+  "attendance_report": "Attendance Report",
+  "present": "Present",
+  "absent": "Absent",
+  "late": "Late"
 }

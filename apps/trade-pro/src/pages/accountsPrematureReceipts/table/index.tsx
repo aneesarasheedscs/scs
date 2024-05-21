@@ -4,10 +4,11 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { columns } from './columns';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
-import { useGetAccountsPrematureReceiptHistory } from '../queries';
+import { useGetAccountsPrematureReceiptHistory, useGetReadByTrackingNo } from '../queries';
 
 function AccountsPrematureHistory() {
   const { data } = useGetAccountsPrematureReceiptHistory();
+  const { data: getById, refetch } = useGetReadByTrackingNo();
   const [showComponent, setShowComponent] = useState(false);
   const toggleCardView = () => {
     setShowComponent(true);

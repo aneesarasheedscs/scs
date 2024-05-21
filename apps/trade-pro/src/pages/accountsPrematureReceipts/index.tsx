@@ -14,7 +14,7 @@ function AccountsPrematureRecipts() {
   return (
     <>
       <Row justify={'space-between'} align={'middle'}>
-        <Col xs={12} sm={10} md={8} lg={8} xl={6} xxl={5} className="forms-heading-container">
+        <Col xs={15} sm={12} md={9} lg={9} xl={7} xxl={5} className="forms-heading-container">
           <h1 className="report_heading" style={{ textAlign: 'center' }}>
             {t('accounts_premature_receipts')}
           </h1>

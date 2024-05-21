@@ -575,5 +575,9 @@
   "outstanding_pre_booking_order": "أمر الحجز المسبق المعلقة",
   "pack": "علية",
   "weight_rate": "معدل الوزن/40",
-  "pack_item": "علية"
+  "pack_item": "علية",
+  "attendance_report": "تقرير الحضور",
+  "present": "حاضر",
+  "absent": "غائب",
+  "late": "متأخر"
 }

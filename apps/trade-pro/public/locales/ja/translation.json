@@ -114,5 +114,9 @@
   "outstanding_pre_booking_order": "未処理の事前予約注文",
   "pack": "パック",
   "weight_rate": "重量率/40",
-  "pack_item": "パック"
+  "pack_item": "パック",
+  "attendance_report": "出席報告書",
+  "present": "現在",
+  "absent": "不在",
+  "late": "遅い"
 }

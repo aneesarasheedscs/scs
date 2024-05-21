@@ -58,7 +58,14 @@ function BankName() {
                 <Form.Item>
                   <Row align="middle" gutter={10}>
                     <Col>
-                      <AntButton danger ghost htmlType="reset" label={t('reset')} icon={<SyncOutlined />} />
+                      <AntButton
+                        danger
+                        ghost
+                        htmlType="reset"
+                        onClick={() => form.setFieldValue('BankName', '')}
+                        label={t('reset')}
+                        icon={<SyncOutlined />}
+                      />
                     </Col>
                     <Col>
                       <AntButton label={t('save_and_more')} htmlType="submit" />

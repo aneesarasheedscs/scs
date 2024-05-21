@@ -569,5 +569,9 @@
   "outstanding_pre_booking_order": "Commande de pré-réservation en cours",
   "pack": "Paquet",
   "weight_rate": "Taux de poids/40",
-  "pack_item": "PAQUET"
+  "pack_item": "PAQUET",
+  "attendance_report": "Rapport de présence",
+  "present": "Présent",
+  "absent": "Absent",
+  "late": "En retard"
 }

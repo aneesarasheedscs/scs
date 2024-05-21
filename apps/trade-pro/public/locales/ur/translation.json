@@ -784,5 +784,9 @@
   "outstanding_pre_booking_order": "بقایا پری بکنگ آرڈر",
   "pack": "پیک",
   "weight_rate": "وزن کی شرح/40",
-  "pack_item": "پیک"
+  "pack_item": "پیک",
+  "attendance_report": "حاضری کی رپورٹ",
+  "present": "موجودہ",
+  "absent": "غیر حاضر",
+  "late": "دیر"
 }

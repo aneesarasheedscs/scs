@@ -894,5 +894,9 @@
   "outstanding_pre_booking_order": "Orden de reserva previa pendiente",
   "pack": "Embalar",
   "weight_rate": "Tasa de peso/40",
-  "pack_item": "EMBALAR"
+  "pack_item": "EMBALAR",
+  "attendance_report": "Reporte de asistencia",
+  "present": "Presente",
+  "absent": "Ausente",
+  "late": "Tarde"
 }

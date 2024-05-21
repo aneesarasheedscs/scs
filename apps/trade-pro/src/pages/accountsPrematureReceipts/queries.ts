@@ -65,35 +65,28 @@ export const useGetSenderAccount = (enabled = true) => {
   return useQuery(
     'sender_account',
     () => {
-      return requestManager.post('/api/COAAllocation/GetAccountTitleByAccountTypeIds', {
-        UserId: userDetail?.UserId,
-        AccountTypeIds: '3,6,,8,11',
-
-        ...params,
+      return requestManager.get('/api/COAAllocation/GetAccountTitleByAccountTypeIds', {
+        params: {
+          ...params,
+          AccountTypeIds: '3,6,8,11',
+        },
       });
     },
     { enabled }
   );
 };
-export const useGetReceiverAccount = (enabled = true) => {
+export const useGetReceiverAccount = (voucherTypeId: number | null) => {
   return useQuery(
-    'receiver_account',
+    ['receiver_account', voucherTypeId],
     () => {
-      return requestManager.post('/api/COAAllocation/GetAccountTitleByAccountTypeIds', {
-        UserId: userDetail?.UserId,
-        // if voucherType == 3
-        AccountTypeIds: '2',
-
-        // if voucherType == 4
-        //,"AccountTypeIds": "15"
-
-        // if voucherType == 5
-        //,"AccountTypeIds": "3,6,8"
-
-        ...params,
+      return requestManager.get('/api/COAAllocation/GetAccountTitleByAccountTypeIds', {
+        params: {
+          ...params,
+          AccountTypeIds: voucherTypeId === 3 ? '2' : voucherTypeId === 4 ? '15' : voucherTypeId === 5 ? '3,4,8' : '',
+        },
       });
     },
-    { enabled }
+    { enabled: !!voucherTypeId }
   );
 };
 
@@ -108,6 +101,38 @@ export const useGetPendingRecords = () => {
       });
     },
     { cacheTime: 5000 }
+  );
+};
+//Get By Id
+export const useGetReadByTrackingNo = () => {
+  return useQuery(
+    'read_by_tracking_no',
+    () => {
+      return requestManager.get('/api/AccountsPrematureReceipts/ReadByTrackingNo', {
+        params: {
+          // ...params,
+          TrackingNo: 'tcs8899',
+        },
+      });
+    },
+    { cacheTime: 5000 }
+  );
+};
+//Confrim and cancel
+export const useGetUpdateRecords = () => {
+  return useQuery(
+    'update_records',
+    () => {
+      return requestManager.post('/api/AccountsPrematureReceipts/UpdateRecord', {
+        // FromDate: financialYear?.Start_Period,
+        // ToDate: financialYear?.End_Period,
+        FinancialYear: financialYear?.Id,
+        EntryUserId: userDetail?.UserId,
+        EntryStatus: 'Confrim', // cancel
+        ...params,
+      });
+    }
+    // { enabled }
   );
 };
 export const useGetRepresentativeAccount = () => {
