@@ -570,6 +570,7 @@
   "pack": "Paquet",
   "weight_rate": "Taux de poids/40",
   "pack_item": "PAQUET",
+  "add_item": "Ajouter un item",
   "attendance_report": "Rapport de présence",
   "present": "Présent",
   "absent": "Absent",

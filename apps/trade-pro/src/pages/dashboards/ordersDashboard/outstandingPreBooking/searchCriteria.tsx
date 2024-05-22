@@ -8,6 +8,7 @@ import dayjs from 'dayjs'
 import { storedFinancialYear } from "@tradePro/utils/storageService";
 import { AntButton, AntDatePicker } from "@tradePro/components";
 import { CriteriaRowGutter } from "@tradePro/globalAtoms";
+import { useGetPreBookingTablesData } from "../quries";
 
 
 const { useToken } = theme;
@@ -20,21 +21,21 @@ const ToDate = dayjs(financialYear?.End_Period)
 
 function  SearchCriteria (){
     const {t} = useTranslation()
-
+   
     const [form] = useForm<Tfilter>();
     const formValues = useWatch<Tfilter>([], form);
-
+    const {data,refetch} = useGetPreBookingTablesData(true,form.getFieldsValue())
     const {token:{colorPrimary}} = theme.useToken()
 
     const onFinish = (_: Tfilter) => {
-        // setformState(form.getFieldsValue());
+        refetch()
       };
     return(
         <>
    
       <Row justify={'space-around'}>
         <Col xxl={23} xl={23} sm={23} xs={23} lg={23}>
-          <Card>
+          {/* <Card> */}
             <Form
 
               form={form}
@@ -43,7 +44,7 @@ function  SearchCriteria (){
             >
         
 
-              <Col xxl={10} xl={14} lg={15}md={5} xs={24} >
+              <Col xxl={12} xl={14} lg={15}md={5} xs={24} >
                 <Row gutter={CriteriaRowGutter} justify={'space-between'}>
              
                   <Col xxl={9} xl={10} xs={12} md={6} lg={8} className="formfield">
@@ -76,7 +77,7 @@ function  SearchCriteria (){
                 </Row>
               </Col>
             </Form>
-          </Card>
+          {/* </Card> */}
         </Col>
       </Row>
         </>

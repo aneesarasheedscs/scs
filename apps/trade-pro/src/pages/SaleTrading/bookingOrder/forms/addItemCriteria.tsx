@@ -1,14 +1,16 @@
 import { AntButton, AntDatePicker, AntInputNumber, AntSelectDynamic } from '@tradePro/components';
 import { CriteriaRowGutter } from '@tradePro/globalAtoms';
 import { Col, Form, FormInstance, Row, theme } from 'antd';
+
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FilterFilled } from '@ant-design/icons';
-import { useGetItemWithPackUom, useGetSupplierCustomer } from '../queries';
-import { groupBy, map } from 'lodash';
+import { useGetSupplierCustomer } from '../queries';
+import { map } from 'lodash';
 
 const { useToken } = theme;
 const { useForm, useWatch } = Form;
+
 interface TFrom {
   ItemId: number;
 }
@@ -18,26 +20,16 @@ interface TProps {
 }
 const AddItemCriteria = ({ data, setFilteredRecord }: TProps) => {
   const { t } = useTranslation();
-  const [form] = useForm<TFrom>();
-  const formValues = useWatch<TFrom>([], form);
+  const [form] = useForm<any>();
+  const formValues = useWatch<any>([], form);
   const {
     token: { colorPrimary },
   } = theme.useToken();
+
   const [itemName, setItemName] = useState('');
   const abc = form.getFieldValue('ItemId');
   console.log('Item', abc);
-  // const [filterdRecord, setFilteredRecord] = useState<any[]>([]);
-  // const ItemWithPackUom = data?.data?.Data?.Result
 
-  // const ItemName = data?.data?.Data?.Result?.[0]?.ItemName
-  // const itemNames = groupBy(data?.data?.Data?.Result?.map((item) => item.ItemName));
-
-  // console.log(itemNames, 'itemName');
-  // const itemNamesGrouped = groupBy(data?.data?.Data?.Result, (item) => item.ItemName && item.ItemName);
-  // console.log(itemNamesGrouped);
-  // const fillteredItemName = ItemWithPackUom?.filter((item: any) => item.TranType === 'Receipts');
-
-  // console.log(ItemWithPackUom,'filterItem')
   const handleSelectItem = (value: number) => {
     const selectedAccount = data?.data?.Data?.Result?.find((item: any) => item.ItemId === value);
     if (selectedAccount) {
@@ -52,7 +44,16 @@ const AddItemCriteria = ({ data, setFilteredRecord }: TProps) => {
     const filterdData = data?.data?.Data?.Result?.filter((item: any) => item.ItemName === itemName);
     setFilteredRecord(filterdData);
   };
-  // console.log(filterdRecord);
+  const ItemWithPackUom = data?.data?.Data?.Result;
+
+  // const ItemName = data?.data?.Data?.Result?.[0]?.ItemName
+  const itemNames = data?.data?.Data?.Result?.map((item: any) => item.ItemName);
+
+  console.log(itemNames, 'itemName');
+  // const fillteredItemName = ItemWithPackUom?.filter((item: any) => item.TranType === 'Receipts');
+
+  console.log(ItemWithPackUom, 'filterItem');
+
   return (
     <>
       <Row justify={'space-around'}>
@@ -88,23 +89,21 @@ const AddItemCriteria = ({ data, setFilteredRecord }: TProps) => {
                     label={t('select_item')}
                     name="ItemId"
                     fieldLabel="ItemName"
-                    fieldValue="ItemId"
-                    // query={useGetItemWithPackUom}
+                    fieldValue="Id"
                     // options={itemNames}
                     options={map(data?.data?.Data?.Result, (item: any) => ({
                       value: item.ItemId,
                       label: item.ItemName,
                     }))}
                     onSelect={(value) => handleSelectItem(value)}
-                    // onSelectChange={(obj) => handleSelectItem(obj)}
                   />
                 </Col>
 
                 <Col>
                   <Col xs={24} sm={12} md={12} xxl={2}>
                     <AntButton
-                      ghost
                       onClick={handleFiltereItems}
+                      ghost
                       icon={
                         <>
                           {' '}

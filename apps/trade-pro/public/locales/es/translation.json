@@ -895,6 +895,7 @@
   "pack": "Embalar",
   "weight_rate": "Tasa de peso/40",
   "pack_item": "EMBALAR",
+  "add_item": "Añadir artículo",
   "attendance_report": "Reporte de asistencia",
   "present": "Presente",
   "absent": "Ausente",

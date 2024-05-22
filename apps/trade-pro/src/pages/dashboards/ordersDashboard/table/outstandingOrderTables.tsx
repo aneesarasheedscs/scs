@@ -15,7 +15,7 @@ export const ItemTable =({data}:any)=>{
     return(
         <>
   <Row>
-    <Col xxl={15}>
+    <Col xxl={13}>
     <AntTable 
         columns={Itemcolumns(t)}
         scroll={{ x: '', y: convertVhToPixels('22vh') }}
@@ -31,12 +31,14 @@ export  const CustomerTable =({data}:any)=>{
     const    {t} =useTranslation()
     return(
         <>
-        <AntTable 
+<Col xxl={13}>
+<AntTable 
         columns={Customercolumns(t)}
         scroll={{ x: '', y: convertVhToPixels('22vh') }}
         data={data?.data?.Data?.Result?.Table1}
 
         />
+</Col>
         </>
     )
 }
@@ -46,13 +48,15 @@ export const ItemAndPackTable =({data}:any)=>{
     const    {t} =useTranslation()
     return(
         <>
-        <AntTable 
+ <Col xxl={13}>
+ <AntTable 
         columns={ItemAndPackcolumns(t)}
         scroll={{ x: '', y: convertVhToPixels('22vh') }}
         // data={data?.data?.Data?.Result?.Table2}
 
         
         />
+ </Col>
         </>
     )
 }
@@ -61,12 +65,14 @@ export const PackAndItemTable =({data}:any)=>{
     const    {t} =useTranslation()
     return(
         <>
-        <AntTable 
+    <Col xxl={13}>
+    <AntTable 
         columns={PackAndItemcolumns(t)}
         scroll={{ x: '', y: convertVhToPixels('22vh') }}
         data={data?.data?.Data?.Result?.Table2}
 
         />
+    </Col>
         </>
     )
 }

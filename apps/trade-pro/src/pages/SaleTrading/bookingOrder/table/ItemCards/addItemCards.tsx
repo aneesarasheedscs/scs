@@ -1,4 +1,4 @@
-import { Card, Col, Form, FormInstance, Row, Space, Spin, theme } from 'antd';
+import { Card, Col, Form, Row, Space, Spin, theme } from 'antd';
 import React, { useEffect, useState } from 'react';
 import AddItemCriteria from '../../forms/addItemCriteria';
 import './style.scss';
@@ -6,16 +6,27 @@ import { map } from 'lodash';
 import { useGetItemWithPackUom } from '../../queries';
 const { useToken } = theme;
 import ERPLogo from './INAM-ECONOMY-SELLA-2.png';
+import { PlusOutlined } from '@ant-design/icons';
 import './style.scss';
+import { AntButton } from '@scs/ui';
 
-const AddItemsCards = () => {
+const { useForm, useWatch } = Form;
+const AddItemsCards = ({ setSelectedItem, selectedItem }: TAddItem) => {
   const {
     token: { colorPrimary },
   } = theme.useToken();
 
+  const onFinish = (_: any) => {
+    // setformState(form.getFieldsValue());
+  };
+  const { data, isLoading, isSuccess } = useGetItemWithPackUom();
+  const handleAddItem = (item: any) => {
+    console.log(item);
+    setSelectedItem([...selectedItem, item]);
+  };
   const [filterdRecord, setFilteredRecord] = useState<any[]>([]);
 
-  const { data, isLoading, isSuccess } = useGetItemWithPackUom();
+  // const { data, isLoading, isSuccess } = useGetItemWithPackUom();
   useEffect(() => {
     setFilteredRecord(data?.data?.Data?.Result);
   }, [data]);
@@ -27,6 +38,7 @@ const AddItemsCards = () => {
           {isSuccess && !isLoading ? (
             <Card>
               <Row gutter={[5, 8]}>
+                {/* {map(data?.data?.Data?.Result, (item) => ( */}
                 {map(filterdRecord, (item) => (
                   <Col xxl={8} style={{ textAlign: 'center' }}>
                     <Card
@@ -34,16 +46,23 @@ const AddItemsCards = () => {
                       style={{ width: '100%', justifyContent: 'space-between' }}
                       cover={
                         <>
-                          {/* <div className="colorFill"></div>
-  <div className="roundedColor"></div> */}
-
-                          <Col style={{ display: 'flex', justifyContent: 'space-between' }}>
+                          <Col xxl={24} style={{ position: 'relative' }}>
+                            <div className="circle" style={{ marginTop: -9, marginRight: -10 }}>
+                              <AntButton
+                                onClick={() => handleAddItem(item)}
+                                className="circle"
+                                icon={<PlusOutlined />}
+                              />
+                            </div>
+                          </Col>
+                          <Col
+                            style={{ display: 'flex', justifyContent: 'space-between', marginTop: 13, marginLeft: -10 }}
+                          >
                             <Col style={{ textAlign: 'left', display: 'flex', justifyContent: 'start' }}>
                               <img src={ERPLogo} width={'90rem'} height={'135'} style={{ textAlign: 'left' }} />
                             </Col>
                             <Col style={{ display: 'flex', alignSelf: 'center' }}>
                               <Col style={{ textAlign: 'right' }}>
-                                {/* <h5 style={{  }}>{item.ItemName}</h5> */}
                                 <h5 style={{ textAlign: 'right', width: '100%', paddingTop: 5, paddingLeft: 10 }}>
                                   {item.ItemName}
                                 </h5>
@@ -77,3 +96,7 @@ const AddItemsCards = () => {
 };
 
 export default AddItemsCards;
+interface TAddItem {
+  setSelectedItem: (ary: any[]) => void;
+  selectedItem: any[];
+}

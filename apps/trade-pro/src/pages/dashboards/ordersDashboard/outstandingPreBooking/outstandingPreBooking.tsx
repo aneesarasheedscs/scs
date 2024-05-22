@@ -9,7 +9,7 @@ function OutstandingPreBooking() {
 
   return (
     <>
-      <SearchCriteria />
+      {/* <SearchCriteria /> */}
 
       <OrderDashboardCard />
     </>
