@@ -1,21 +1,22 @@
 import { AntButton, AntTable } from '@scs/ui';
-import { useGetPurchaseOrderStatus, useGetSaleOrder } from '../queries';
+import { useGetBookingOrder, useGetPurchaseOrderStatus,  } from '../queries';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
-import { SaleOrdercolumns, saleOrderFormcolumns2 } from './columns';
+import { Bookingordercolumns,  } from './columns';
 import { t } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { Card, Col, Row } from 'antd';
-import PurchaseOrderStatus from './purchaseOrderStatus';
+
 import { useState } from 'react';
 import CardView from './cardView';
 import './Card.scss';
 import './DetailTableFile.scss';
 import SaleOrderFormHistoryCriteria from './SaleOrderHistoryCriteria';
 import { map } from 'lodash';
+import ModalCriteria from './HistoryCriteria';
 
 const BookingOrderTable = ({ setSelectedRecordId, setActiveTab }: TFrom) => {
   const { t } = useTranslation();
-  const { data, refetch, isError, isLoading, isFetching } = useGetSaleOrder(true);
+  const { data, refetch, isError, isLoading, isFetching } = useGetBookingOrder(true);
   console.log('sale order', data?.data?.Data?.Result);
 
   const [showComponent, setShowComponent] = useState(false);
@@ -39,7 +40,7 @@ const BookingOrderTable = ({ setSelectedRecordId, setActiveTab }: TFrom) => {
   return (
     <>
       <Row gutter={10}>
-        <Col span={24} style={{ marginLeft: '0.1%', borderTop: '1px solid #dfdfdf' }}>
+        {/* <Col span={24} style={{ marginLeft: '0.1%', borderTop: '1px solid #dfdfdf' }}>
           <Row>
             <Col xxl={4}>
               <AntButton
@@ -59,10 +60,11 @@ const BookingOrderTable = ({ setSelectedRecordId, setActiveTab }: TFrom) => {
               <PurchaseOrderStatus />
             </Col>
           </Row>
-        </Col>
+        </Col> */}
 
         <Col xl={24}>
           {/* <PurchaseOrderStatus /> */}
+          <ModalCriteria/>
           {showComponent ? (
             <>
               <Card
@@ -78,18 +80,16 @@ const BookingOrderTable = ({ setSelectedRecordId, setActiveTab }: TFrom) => {
               <AntTable
                 refetch={refetch}
                 isError={isError}
-                columns={SaleOrdercolumns(t)}
+                columns={Bookingordercolumns(t)}
                 numberOfSkeletons={12}
                 searchCriteriaForm={<SaleOrderFormHistoryCriteria />}
-                // searchCriteriaReport={data?.data?.Data?.Result ? <CriteriaString/> : ''}
-                searchCriteriaReport={
-                  <h5 style={{ border: '1px solid #25A7DF', padding: 6, borderRadius: 5 }}>string is not added</h5>
-                }
+                searchCriteriaReport={data?.data?.Data?.Result ? <CriteriaString/> : ''}
+               
                 isLoading={isLoading || isFetching}
                 data={data?.data?.Data?.Result || []}
                 scroll={{ x: '', y: convertVhToPixels('26vh') }}
               />
-              <br></br>
+              {/* <br></br>
               <Row gutter={[16, 16]} justify={'space-between'}>
                 <Col>
                   <AntTable
@@ -102,7 +102,7 @@ const BookingOrderTable = ({ setSelectedRecordId, setActiveTab }: TFrom) => {
                     scroll={{ x: '', y: convertVhToPixels('18vh') }}
                   />
                 </Col>
-              </Row>
+              </Row> */}
             </Col>
           )}
         </Col>

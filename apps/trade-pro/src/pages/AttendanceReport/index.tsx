@@ -8,22 +8,34 @@ import { TAttendanceReport } from './types';
 import dayjs from 'dayjs';
 import AttendanceReportByAll from './AttendanceReportByAll';
 import AttendanceReportByDepartment from './AttendanceReportByDepartment';
+import { useGetMenualAttendanceStatusByDate } from './queries';
+import { storedFinancialYear } from '@tradePro/utils/storageService';
 
 const { useForm, useWatch } = Form;
+
 function AttendanceReports() {
   const { t } = useTranslation();
+  const financialYear = storedFinancialYear();
   const [form] = useForm<TAttendanceReport>();
   const formValues = useWatch<TAttendanceReport>([], form);
+  const startDate = form.getFieldValue('FromDate');
+
+  // const date = new Date(startDate?.toISOString().split('T')[0]);
+  // const date = dayjs(startDate).startOf('day');
+  const { data, isSuccess } = useGetMenualAttendanceStatusByDate(startDate);
   const onFinish = (values: TAttendanceReport) => {
     console.log(values);
   };
   useEffect(() => {
-    form.setFieldValue('FromDate', dayjs(new Date()));
-    form.setFieldValue('TotalTeam', 58);
-  });
+    form.setFieldValue('FromDate', dayjs(financialYear?.Start_Period));
+    if (isSuccess) {
+      form.setFieldValue('TotalTeam', data?.data?.Data?.Result?.[0]?.TotalTeam);
+    }
+  }, [form, isSuccess]);
   const {
     token: { colorPrimary },
   } = theme.useToken();
+
   return (
     <>
       <Row justify={'space-around'} align={'middle'}>
@@ -41,8 +53,8 @@ function AttendanceReports() {
         </Col>
         <Col span={23} style={{ backgroundColor: '#fff' }}>
           <Card bordered={false} style={{ height: '80vh' }}>
-            <Row>
-              <Col span={10}>
+            <Row justify={'space-between'}>
+              <Col span={9}>
                 <Form form={form} onFinish={onFinish} layout="horizontal" style={{ marginBottom: 0 }}>
                   <Row gutter={FormRowGutter} justify={'space-between'}>
                     <Col xxl={18}>
@@ -79,15 +91,19 @@ function AttendanceReports() {
                                   </h4>
                                   <Row justify={'space-between'} style={{ paddingLeft: 10, paddingRight: 10 }}>
                                     <p>Total Days </p>
-                                    <p>21 </p>
+                                    <p>{data?.data?.Data?.Result?.[0]?.ThisMonthTotalDays} </p>
                                   </Row>
                                   <Row justify={'space-between'} style={{ paddingLeft: 10, paddingRight: 10 }}>
                                     <p>Holi + Reset </p>
-                                    <p>3 </p>
+                                    <p>
+                                      {' '}
+                                      {data?.data?.Data?.Result?.[0]?.ThisMonthHoliDays +
+                                        data?.data?.Data?.Result?.[0]?.ThisMonthRestDays}{' '}
+                                    </p>
                                   </Row>
                                   <Row justify={'space-between'} style={{ paddingLeft: 10, paddingRight: 10 }}>
                                     <p> Working Days</p>
-                                    <p> 18 </p>
+                                    <p> {data?.data?.Data?.Result?.[0]?.ThisMonthWorkingDays} </p>
                                   </Row>
                                 </div>
                               </>
@@ -115,15 +131,18 @@ function AttendanceReports() {
                                   </h4>
                                   <Row justify={'space-between'} style={{ paddingLeft: 10, paddingRight: 10 }}>
                                     <p>Total Days </p>
-                                    <p>30 </p>
+                                    <p>{data?.data?.Data?.Result?.[0]?.Last30TotalDays} </p>
                                   </Row>
                                   <Row justify={'space-between'} style={{ paddingLeft: 10, paddingRight: 10 }}>
                                     <p>Holi + Reset </p>
-                                    <p>5</p>
+                                    <p>
+                                      {data?.data?.Data?.Result?.[0]?.Last30HoliDays +
+                                        data?.data?.Data?.Result?.[0]?.Last30RestDays}{' '}
+                                    </p>
                                   </Row>
                                   <Row justify={'space-between'} style={{ paddingLeft: 10, paddingRight: 10 }}>
                                     <p> Working Days</p>
-                                    <p> 25 </p>
+                                    <p> {data?.data?.Data?.Result?.[0]?.Last30WorkingDays} </p>
                                   </Row>
                                 </div>
                               </>
@@ -133,13 +152,13 @@ function AttendanceReports() {
                       </Row>
                     </Col>
                     <Col span={23}>
-                      <AttendanceReportByAll />
+                      <AttendanceReportByAll startDate={startDate} />
                     </Col>
                   </Row>
                 </Form>
               </Col>
 
-              <Col span={14}>
+              <Col span={15} style={{}}>
                 <AttendanceReportByDepartment />
               </Col>
             </Row>

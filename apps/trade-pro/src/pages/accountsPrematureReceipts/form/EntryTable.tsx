@@ -9,7 +9,7 @@ import dayjs from 'dayjs';
 
 function EntryTable({ form, tableData, setTableData }: Props) {
   const { t } = useTranslation();
-  // const [tableData, setTableData] = useAtom(addtableData);
+
   const handleDeleteRow = (record: TAccountsPrematureReceiptsList) => {
     console.log(record);
     setTableData((prevData: TAccountsPrematureReceiptsList[]) => {

@@ -6,6 +6,22 @@ import { useQuery } from 'react-query';
 
 const userDetail = storedUserDetail();
 
+export const useGetBookingOrderStatus = (enabled = true, params?: any) => {
+  return useQuery(
+    'pre-booking-order-status',
+    () => {
+      return requestManager.post('/api/PreBookingOrder/PreBookingOrderDashboard_Detail', {
+        SupplierCustomerId:0,
+        CompanyId: userDetail?.CompanyId,
+        OrganizationId: userDetail?.OrganizationId,
+        ...params,
+      });
+    },
+    { enabled }
+  );
+};
+
+
 // useGetParentCategories
 // params will pass tmorow
 export const useGetParentCategories = (enabled = true) => {

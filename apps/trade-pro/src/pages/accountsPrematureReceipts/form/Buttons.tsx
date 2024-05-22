@@ -1,11 +1,5 @@
 import dayjs from 'dayjs';
-import { useAtom } from 'jotai';
 import { useEffect } from 'react';
-// import DocNumber from './DocNumber';
-// import { addtableData } from './Atom';
-// import { TRequisitionOrder } from '../types';
-// import { useTranslation } from 'react-i18next';
-// import { useGetDocumentNumber } from '../quries';
 import { AntButton, AntDatePicker, AntInput, AntSelectDynamic } from '@tradePro/components';
 import { Badge, Col, Form, FormInstance, Input, Row } from 'antd';
 import { SaveOutlined, SyncOutlined, RedoOutlined, PrinterFilled, PaperClipOutlined } from '@ant-design/icons';

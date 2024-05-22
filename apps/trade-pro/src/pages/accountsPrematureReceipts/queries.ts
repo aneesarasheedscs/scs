@@ -5,7 +5,7 @@ import { queryClient } from '@tradePro/configs';
 import { notification } from 'antd';
 import { AxiosError, AxiosResponse } from 'axios';
 import { TAccountsPrematureReceiptsList } from './types';
-
+import dayjs from 'dayjs';
 const userDetail = storedUserDetail();
 const financialYear = storedFinancialYear();
 
@@ -38,8 +38,8 @@ export const useGetAccountsPrematureReceiptHistory = (enabled = true) => {
     'accounts_premature_receipt',
     () => {
       return requestManager.post('/api/AccountsPrematureReceipts/FormHistory', {
-        FromDate: financialYear?.Start_Period,
-        ToDate: financialYear?.End_Period,
+        // FromDate: financialYear?.Start_Period,
+        // ToDate: financialYear?.End_Period,
 
         ...params,
       });
@@ -162,15 +162,37 @@ export const useAddAccountsPrematureReceipts = (DocumentTypeId?: number) => {
             DocumentTypeId: DocumentTypeId,
             OrganizationId: userDetail?.OrganizationId,
             CompanyId: userDetail?.CompanyId,
+            FinancialYearId: financialYear?.Id,
+            EnteryUserId: userDetail?.UserId,
+            ModifyUserId: userDetail?.UserId,
+            ApprovalUserId: userDetail?.UserId,
+            EnteryDate: dayjs(new Date()),
+            ModifyDate: dayjs(new Date()),
+            ApprovedDate: dayjs(new Date()),
+            // EnteryDate: financialYear?.EntryDate,
+            // ModifyDate: financialYear?.ModifyDate,
+            // ApprovedDate: financialYear?.PostDate,
           },
         ],
       });
     },
+
     {
-      onSuccess: () => {
-        queryClient.invalidateQueries('accounts_premature_receipt');
-        const msg = 'Record added successfully!';
-        notification.success({ description: '', message: msg });
+      onSuccess: (response: AxiosResponse) => {
+        if (response?.data && response?.data?.Status === false) {
+          notification.error({
+            message: 'Error',
+            description: response?.data?.Message || 'An error occurred.',
+          });
+        } else if (response?.data && response?.data?.Status === true) {
+          const msg = 'Record Updated successfully!';
+          notification.success({ description: '', message: msg });
+          queryClient.invalidateQueries('accounts_premature_receipt');
+        }
+      },
+      onError: (error: AxiosError) => {
+        const msg = error.response?.data || 'Something went wrong';
+        notification.error({ description: '', message: msg as string });
       },
     }
   );

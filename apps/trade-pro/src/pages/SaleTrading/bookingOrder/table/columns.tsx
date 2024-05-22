@@ -5,11 +5,12 @@ import { Button, Space, Tooltip } from 'antd';
 import { PrinterFilled, EditFilled, SaveFilled, DeleteOutlined } from '@ant-design/icons';
 import { AntButton } from '@tradePro/components';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
+import { TFunction } from 'i18next';
 
 export const saleOrderFormcolumns = (
-  t: any,
-  handleDeleteRow: any,
-  handleEditRow: any
+  t: TFunction,
+  // handleDeleteRow: any,
+  // handleEditRow: any
 ): AntColumnType<TSaleOrderDetail>[] => [
   { title: <>t{'Item Name'}</>, dataIndex: 'ItemName', width: 300 },
   {
@@ -75,13 +76,13 @@ export const saleOrderFormcolumns = (
         <Space>
           <AntButton
             type="text"
-            icon={<DeleteOutlined style={{ color: 'red' }} onClick={() => handleDeleteRow(record)} />}
+            // icon={<DeleteOutlined style={{ color: 'red' }} onClick={() => handleDeleteRow(record)} />}
           />
 
           <AntButton
             type="text"
             icon={<EditFilled style={{ color: 'blue' }} />}
-            onClick={() => handleEditRow(record)}
+            // onClick={() => handleEditRow(record)}
           />
         </Space>
       </Tooltip>
@@ -124,7 +125,7 @@ export const saleOrderFormcolumns2 = (): AntColumnType<TSaleOrderForm2>[] => [
   },
 ];
 
-export const SaleOrdercolumns = (t: any): AntColumnType<TSaleOrder>[] => [
+export const Bookingordercolumns = (t: any): AntColumnType<TSaleOrder>[] => [
   {
     width: 120,
     title: 'Doc No',

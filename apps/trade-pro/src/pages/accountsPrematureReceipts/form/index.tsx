@@ -4,7 +4,7 @@ import MainEntry from './MainEntry';
 import { TAccountsPrematureReceiptsList } from '../types';
 import Buttons from './Buttons';
 import AccountsPrematureTable from './table';
-import { useGetDocumentNumber } from '../queries';
+import { useAddAccountsPrematureReceipts, useGetDocumentNumber } from '../queries';
 const { useForm, useWatch } = Form;
 
 function AccountsPrematureForm({ selectedRecordId, setSelectedRecordId }: TForm) {
@@ -12,13 +12,13 @@ function AccountsPrematureForm({ selectedRecordId, setSelectedRecordId }: TForm)
   const formValues = useWatch<TAccountsPrematureReceiptsList>([], form);
   const DocumentTypeId = 159;
   const { data, isError, refetch, isLoading, isSuccess } = useGetDocumentNumber(DocumentTypeId);
-
+  const { mutate } = useAddAccountsPrematureReceipts(DocumentTypeId);
   const [printPreview, setPrintPreview] = useState<boolean>(true);
   // const [delettableData, setDeleteTableData] = useAtom(deleteData);
   // const [newtableData, setNewTableData] = useAtom(newTableData);
   // const [tableData, setTableData] = useAtom(addtableData);
   const onFinish = (values: TAccountsPrematureReceiptsList) => {
-    // refetch();
+    mutate(values);
     console.log(values);
   };
   return (

@@ -1,0 +1,42 @@
+.addItemCardStyle{
+    padding: 10px;
+   height: 16vh;
+   box-shadow: 2px 2px 12px 2px lightgrey;
+   border-radius: 5px;
+}
+.triangle {
+    position: relative;
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 100px solid green; /* Change green to your desired color */
+    border-top-right-radius: 15px; /* Adjust to match the border radius of your card */
+  }
+
+  .cardWithColor {
+    position: relative;
+    border-radius: 15px; /* Adjust as needed */
+  }
+  
+  .colorFill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10%;
+    height: 15%;
+    background-color: crimson; /* Change to your desired color */
+    border-top-left-radius: 15px; /* Adjust to match the border radius of the card */
+  }
+  
+  .roundedColor {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10px; /* Adjust the width of the rounded part */
+    height: 10%;
+    background-color: crimson; /* Change to your desired color */
+    border-top-right-radius: 15px; /* Adjust to match the border radius of the card */
+    border-bottom-right-radius: 15px; /* Adjust to match the border radius of the card */
+  }
+  

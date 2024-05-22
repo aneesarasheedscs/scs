@@ -48,6 +48,9 @@
   box-shadow: 2px 2px 12px 2px lightgrey;
   border-radius: 5px;
 }
+.ant-table-thead > tr > th {
+  background-color: pink; /* Background color for the header row */
+}
 .departement_card {
   // border: 1px solid lightgrey;
   // padding: 5px;

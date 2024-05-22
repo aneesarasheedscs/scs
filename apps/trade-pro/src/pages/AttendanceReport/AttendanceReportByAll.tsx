@@ -1,49 +1,218 @@
-import { Card, Col, Row, Tabs } from 'antd';
+import { Button, Card, Col, Row, Tabs, theme } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import PresentReport from './EmployessData/PresentReport';
-
-function AttendanceReportByAll() {
+import AbsentReport from './EmployessData/AbsentReport';
+import LateReport from './EmployessData/LateReport';
+import { DownOutlined } from '@ant-design/icons';
+import { useGetMenualAttendanceSummaryStatusByAll } from './queries';
+interface Props {
+  startDate: Date;
+}
+function AttendanceReportByAll({ startDate }: Props) {
   const { t } = useTranslation();
+  const { data } = useGetMenualAttendanceSummaryStatusByAll(startDate);
   const [activeTab, setActiveTab] = useState<string>('1');
+  const [caption, setCaption] = useState<string>('Present');
   const handleReport = (e: any) => {
+    console.log(e.target);
     console.log(e.target.innerText);
+    console.log(e.target.id);
+    setCaption(e.target.id);
   };
+  const {
+    token: { colorPrimary },
+  } = theme.useToken();
   return (
     <>
       <Row style={{ marginTop: '20%' }}>
-        <Col span={24}>
+        {/* <Col span={24}>
           <Card
             style={{ height: '4vh', backgroundColor: 'purple' }}
             // onClick={(e) => handleReport(e)}
             cover={
               <>
-                <h5 style={{ marginTop: 8, textAlign: 'center', color: '#ffff' }}>
-                  {activeTab === '1' ? 'Present' : activeTab === '2' ? 'Absent' : activeTab === '3' ? 'Late' : ''}
-                </h5>
+                <h5 style={{ marginTop: 8, textAlign: 'center', color: '#ffff' }}>{caption}</h5>
               </>
             }
           ></Card>
-        </Col>
+        </Col> */}
+
         <Col span={24}>
-          <Tabs
-            type="card"
-            size="large"
-            activeKey={activeTab}
-            className="tabs-margin-bottom-0"
-            onChange={(key) => setActiveTab(key)}
-          >
-            <Tabs.TabPane key="1" tab={t('present')}>
-              <PresentReport />
-              {/* <PurchaseOrderTable setSelectedRecordId={setSelectedRecordId} setActiveTab={setActiveTab} /> */}
-            </Tabs.TabPane>
-            <Tabs.TabPane key="2" tab={t('absent')}>
-              {/* <PurchaseOrderForm selectedRecordId={selectedRecordId} setSelectedRecordId={setSelectedRecordId} /> */}
-            </Tabs.TabPane>
-            <Tabs.TabPane key="3" tab={t('late')}>
-              {/* <PurchaseOrderForm selectedRecordId={selectedRecordId} setSelectedRecordId={setSelectedRecordId} /> */}
-            </Tabs.TabPane>
-          </Tabs>
+          <Row justify={'end'} style={{ marginBottom: 5 }}>
+            <Col span={7}>
+              <Card
+                id="Present"
+                bordered={false}
+                onClick={(e) => handleReport(e)}
+                style={{
+                  height: '6vh',
+                  borderRadius: 0,
+                  borderTopLeftRadius: 10,
+
+                  background: colorPrimary,
+                }}
+                cover={
+                  <>
+                    <h4 style={{ padding: 10, paddingTop: 15 }}> {caption} </h4>
+                  </>
+                }
+              ></Card>
+            </Col>
+            <Col span={5}>
+              <Card
+                id="Absent"
+                bordered={false}
+                onClick={(e) => handleReport(e)}
+                style={{ height: '6vh', borderRadius: 0, cursor: 'pointer', background: 'lightgrey' }}
+                cover={
+                  <>
+                    <h5 style={{ marginTop: 0, textAlign: 'center' }}> Present</h5>
+                    <h5 style={{ marginTop: 0, textAlign: 'center' }}> 5 </h5>
+                    <h5
+                      style={{
+                        textAlign: 'center',
+                        height: 20,
+
+                        background: 'green',
+                        color: '#fff',
+                      }}
+                    >
+                      <Button
+                        id="Present"
+                        style={{ height: 20, backgroundColor: 'green', border: 'none' }}
+                        icon={
+                          <DownOutlined
+                            style={{
+                              color: '#fff',
+                              fontSize: 14,
+                              position: 'absolute',
+                              top: 3,
+                              left: 8,
+                            }}
+                          />
+                        }
+                      ></Button>
+                    </h5>
+                  </>
+                }
+              ></Card>
+            </Col>
+            <Col span={6}>
+              <Card
+                id="Late"
+                bordered={false}
+                onClick={(e) => handleReport(e)}
+                style={{ height: '6vh', borderRadius: 0, cursor: 'pointer', background: '#eeee' }}
+                cover={
+                  <>
+                    <h5 style={{ marginTop: 0, textAlign: 'center' }}> Absent</h5>
+                    <h5 style={{ marginTop: 0, textAlign: 'center' }}> 53 </h5>
+                    <h5
+                      style={{
+                        textAlign: 'center',
+                        height: 20,
+
+                        background: 'green',
+                        color: '#fff',
+                      }}
+                    >
+                      <Button
+                        id="Absent"
+                        style={{ height: 20, backgroundColor: 'green', border: 'none' }}
+                        icon={
+                          <DownOutlined
+                            style={{
+                              color: '#fff',
+                              fontSize: 14,
+                              position: 'absolute',
+                              top: 3,
+                              left: 8,
+                            }}
+                          />
+                        }
+                      ></Button>
+                    </h5>
+                  </>
+                }
+              ></Card>
+            </Col>
+            <Col span={6}>
+              <Card
+                bordered={false}
+                onClick={(e) => handleReport(e)}
+                style={{
+                  height: '6vh',
+                  borderRadius: 0,
+                  borderTopRightRadius: 10,
+                  cursor: 'pointer',
+                  background: 'orange',
+                }}
+                cover={
+                  <>
+                    <h5 style={{ marginTop: 0, textAlign: 'center' }}> Late </h5>
+                    <h5 style={{ marginTop: 0, textAlign: 'center' }}> 0 </h5>
+                    <h5
+                      style={{
+                        textAlign: 'center',
+                        height: 20,
+
+                        background: 'green',
+                        color: '#fff',
+                      }}
+                    >
+                      <Button
+                        id="Late"
+                        style={{ height: 20, backgroundColor: 'green', border: 'none' }}
+                        icon={
+                          <DownOutlined
+                            style={{
+                              color: '#fff',
+                              fontSize: 14,
+                              position: 'absolute',
+                              top: 3,
+                              left: 8,
+                            }}
+                          />
+                        }
+                      ></Button>
+                    </h5>
+                  </>
+                }
+              ></Card>
+            </Col>
+            {/* <Col span={6}>
+              <Card
+                onClick={(e) => handleReport(e)}
+                style={{ height: '5vh', cursor: 'pointer' }}
+                cover={
+                  <>
+                    <h4 style={{ marginTop: 10, textAlign: 'center' }}> Absent </h4>
+                  </>
+                }
+              ></Card>
+            </Col>
+            <Col span={6}>
+              <Card
+                onClick={(e) => handleReport(e)}
+                style={{ height: '5vh', cursor: 'pointer' }}
+                cover={
+                  <>
+                    <h4 style={{ marginTop: 10, textAlign: 'center' }}> Late </h4>
+                  </>
+                }
+              ></Card>
+            </Col> */}
+          </Row>
+          {caption === 'Present' ? (
+            <PresentReport />
+          ) : caption === 'Absent' ? (
+            <AbsentReport />
+          ) : caption === 'Late' ? (
+            <LateReport />
+          ) : (
+            ''
+          )}
         </Col>
       </Row>
     </>
