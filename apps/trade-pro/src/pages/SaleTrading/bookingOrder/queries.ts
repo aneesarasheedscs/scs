@@ -45,6 +45,22 @@ export const useGetItemWithPackUom = (enabled = true, params?: any) => {
   { enabled }
 );
 };
+export const useGetSupplierCustomer = (enabled = true, params?: any) => {
+  return useQuery(
+    'supplier-customer',
+    () => {
+    return requestManager.get('/api/SupplierCustomer/GetforComboBinding', {
+      params:{
+      
+        CompanyId: userDetail?.CompanyId,
+        OrganizationId: userDetail?.OrganizationId,
+        ...params,
+      }
+    });
+  },
+  { enabled }
+);
+};
 
 
 
