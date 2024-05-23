@@ -10,23 +10,25 @@ import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { isNumber } from 'lodash';
 import dayjs from 'dayjs';
 import { useAddSaleOrder,  useGetBookingOrder,  useGetSaleOrderById, useUpdateSaleOrder } from '../queries';
-import { TSaleOrder, TSaleOrderDetail } from '../type';
+import { TBookingOrder, TPreBookingOrderDetailList, TSaleOrder, TSaleOrderDetail } from '../type';
 import { useTranslation } from 'react-i18next';
 import { useAtom } from 'jotai';
 import { tableDataList } from './Atom';
 // import SalesPersonalInfo from './SalesInfo';
 import '../style.scss';
 import Buttons from './Buttons';
-
-const { useForm } = Form;
+ 
+const { useForm , useWatch} = Form;
 
 function BookingOrderForm({ selectedRecordId, setSelectedRecordId }: TAddUpdatedRecod) {
   const { t } = useTranslation();
-  const [form] = useForm<TSaleOrder>();
+  const [form] = useForm<TBookingOrder>();
+  // const formValues = useWatch(TBookingO[], form)
+  // const formValues = useWatch<TBookingOrder>([], form);
   const [printPreview, setPrintPreview] = useState<boolean>(true);
   // const { data, isError, refetch, isLoading, isSuccess } = useGetDocNumberSaleOrder();
   const { data: add, refetch: addRefetch, isError: addisError, isLoading: addisLoading } = useGetBookingOrder(true);
-
+  const [selectedItem, setSelectedItem]=useState<TPreBookingOrderDetailList[] | any>([])
   const {
     data: saleOrderData,
     refetch: refetchPurchase,
@@ -41,21 +43,29 @@ function BookingOrderForm({ selectedRecordId, setSelectedRecordId }: TAddUpdated
   // useEffect(() => {
   //   if (isSuccess) form.setFieldValue('DocNo', data?.data?.Data?.Result);
   // }, [data, isSuccess]);
-  const onFinish = (values: TSaleOrder) => {
+  const onFinish = (values: TBookingOrder  ) => {
+    values.PreBookingOrderDetailList = selectedItem
+    // values.PreBookingOrderDetailList ?.map((item: any)=> ({
+    //   ...item,
+    //   PreBookingOrderDetailList : selectedItem
+    // })
+
+    // )
     console.log(values);
-    if (isNumber(selectedRecordId)) {
-      values.SaleOrderDetailList = values.SaleOrderDetailList.map((detail) => ({
-        ...detail,
-        ActionTypeId: 2,
-      }));
-      updateSaleOrder(values);
-    } else {
-      values.SaleOrderDetailList = values.SaleOrderDetailList.map((detail) => ({
-        ...detail,
-        ActionTypeId: 1,
-      }));
-      addSaleOrderDetail(values);
-    }
+    addSaleOrderDetail(values)
+    // if (isNumber(selectedRecordId)) {
+    //   values.SaleOrderDetailList = values.SaleOrderDetailList.map((detail) => ({
+    //     ...detail,
+    //     ActionTypeId: 2,
+    //   }));
+    //   updateSaleOrder(values);
+    // } else {
+    //   values.SaleOrderDetailList = values.SaleOrderDetailList.map((detail) => ({
+    //     ...detail,
+    //     ActionTypeId: 1,
+    //   }));
+    //   addSaleOrderDetail(values);
+    // }
   };
   useEffect(() => {
     if (isNumber(selectedRecordId)) {
@@ -77,7 +87,7 @@ function BookingOrderForm({ selectedRecordId, setSelectedRecordId }: TAddUpdated
       <>
         <>
           <Card>
-            <Form form={form} layout="horizontal" onFinish={onFinish}>
+            <Form form={form}   layout="horizontal" onFinish={onFinish}>
               
 <Buttons 
   form={form}
@@ -94,7 +104,7 @@ function BookingOrderForm({ selectedRecordId, setSelectedRecordId }: TAddUpdated
   
 />
  
-        <MainEntry form={form} />
+        <MainEntry form={form} selectedItem={selectedItem} setSelectedItem={setSelectedItem} />
       
               {/* <DynamicForm form={form} /> */}
             </Form>

@@ -33,11 +33,12 @@ useEffect(() => {
 return (
   <>
     <AddItemCriteria data={data} setFilteredRecord={setFilteredRecord} />
+    
       <Row justify="center" style={{ marginTop: 5 }}>
         <Col xxl={24}>
           {isSuccess && !isLoading ? (
-            <Card>
-              <Row gutter={[5, 8]}>
+           
+              <Row gutter={[5, 8]} style={{marginLeft:5}}>
                 {/* {map(data?.data?.Data?.Result, (item) => ( */}
                         {map(filterdRecord, (item) => (
                   <Col xxl={8} style={{ textAlign: 'center' }}>
@@ -79,7 +80,7 @@ return (
                   </Col>
                 ))}
               </Row>
-            </Card>
+         
           ) : (
             <Space style={{ height: 100, display: 'flex', justifyContent: 'center' }}>
               Loading<Spin size="default"></Spin>

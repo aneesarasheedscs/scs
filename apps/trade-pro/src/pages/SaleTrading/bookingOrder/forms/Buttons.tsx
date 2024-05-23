@@ -11,6 +11,7 @@ import { SaveOutlined, SyncOutlined, RedoOutlined, PaperClipOutlined, PrinterFil
 
 import DocNumber from './DocNumber';
 import { useGetDocNumberBookingOrder } from '../queryOptions';
+import { useGetSupplierCustomer } from '../queries';
 
 function Buttons({
   form,
@@ -93,9 +94,9 @@ function Buttons({
               required
               fieldValue="Id"
               label="Party Name"
-              name="CompanyId"
+              name="OrderSupCustId"
               fieldLabel="CompanyName"
-              // query={useGetCustomerNameSalesManAgent}
+              query={useGetSupplierCustomer}
             />
           </Col>
 

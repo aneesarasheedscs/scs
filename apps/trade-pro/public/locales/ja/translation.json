@@ -119,5 +119,6 @@
   "attendance_report": "出席報告書",
   "present": "現在",
   "absent": "不在",
-  "late": "遅い"
+  "late": "遅い",
+  "select_item": "アイテムを選択"
 }

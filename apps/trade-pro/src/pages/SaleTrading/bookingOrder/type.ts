@@ -98,8 +98,6 @@ import exp from 'constants';
 //   SaleOrderDetailList: TSaleOrderDetail[];
 // };
 
-
-
 export type TDetailItem = {
   Id: number;
   UOMCode: string;
@@ -265,7 +263,7 @@ export type TSaleOrderDetail = {
   DiscRate: number;
 };
 
-export type TsaleOrderHistory ={
+export type TsaleOrderHistory = {
   Id: number;
   OrderNo: number;
   BaseUom: string;
@@ -305,8 +303,66 @@ export type TsaleOrderHistory ={
   ApprovalUser: string;
   OrderStatus: string;
   ApprovedStatus: string;
-}
+};
 
+export type TBookingOrder = {
+  DocumentTypeId: number;
+  DocDate: Date;
+
+  DocNo: number;
+  OrderCatagoryId: number;
+  CatagorySrNo: number;
+  OrderSupCustId: number; // SupplierCustomerId
+  SupplierRefNo: number;
+  RemarksHeader: string;
+  PaymentTermsId: number;
+  OrderDueDays: number;
+  OrderDueDate: Date;
+  OrderExpiryDate: Date;
+  DeliveryTerm: string;
+  DeliveryStartDate: Date;
+  DeliveryDays: number;
+  // Commission Agent Fields
+  BrokerAgentSupCustId: number;
+  CommissionType: string;
+  CommRate: number;
+  UomScheduleIdCmRate: number;
+  CommAmount: number;
+  CommissionRemarks: string;
+  //========================
+  OrderStatus: string;
+  OrderType: string;
+  EntryDate: Date;
+  ModifyDate: Date;
+  // ====>>>>> Detail
+  PreBookingOrderDetailList: TPreBookingOrderDetailList[];
+};
+export type TPreBookingOrderDetailList = {
+  Id: number;
+  ActionTypeId: number; // insert 1 and update 2
+  PriceScheduleId: number;
+  RateDiscount: number;
+  ItemPrice: number;
+  OrderItemId: number;
+  PackingTypeID: number;
+  OrderItemUOMId: number;
+  OrderItemQty: number;
+  NetWeight: number;
+  OrderItemRate: number;
+  OrderItemRateUOMId: number;
+  PackingAddLessOnRate: number;
+  ItemDiscount: number;
+  ItemDiscountAmount: number;
+  TotalAmount: number;
+  Amount: number;
+  CityArea: string;
+  CityId: number;
+  Crop: string;
+  ReferencePartyId: number;
+  OrderRemarks: string;
+  CommOnSale: number;
+};
+// Model Of Sale Order
 
 export type TRateUomCombo = {
   Id: number;

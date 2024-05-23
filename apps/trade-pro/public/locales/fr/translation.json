@@ -574,5 +574,6 @@
   "attendance_report": "Rapport de présence",
   "present": "Présent",
   "absent": "Absent",
-  "late": "En retard"
+  "late": "En retard",
+  "select_item": "Sélectionner un article"
 }

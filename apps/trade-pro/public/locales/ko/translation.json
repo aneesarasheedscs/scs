@@ -108,5 +108,6 @@
   "attendance_report": "출석 보고서",
   "present": "현재의",
   "absent": "결석한",
-  "late": "늦은"
+  "late": "늦은",
+  "select_item": "물품을 고르시 오"
 }

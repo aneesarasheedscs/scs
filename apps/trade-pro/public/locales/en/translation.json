@@ -805,5 +805,6 @@
   "attendance_report": "Attendance Report",
   "present": "Present",
   "absent": "Absent",
-  "late": "Late"
+  "late": "Late",
+  "select_item": "Select Item"
 }

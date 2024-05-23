@@ -1,6 +1,6 @@
 import { AntButton, AntDatePicker, AntInputNumber, AntSelectDynamic } from '@tradePro/components';
 import { CriteriaRowGutter } from '@tradePro/globalAtoms';
-import { Col, Form, FormInstance, Row, theme } from 'antd';
+import { Card, Col, Form, FormInstance, Row, theme } from 'antd';
 
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -58,16 +58,21 @@ const AddItemCriteria = ({ data, setFilteredRecord }: TProps) => {
 
   return (
     <>
-      <Row justify={'space-around'}>
-        <Col xxl={24} xl={23} sm={23} xs={23} lg={23} className="ItemCriteriaStyle" style={{ padding: 10 }}>
+      <Row   style={{ position:'sticky', top: 0, left: 0, right: 0, zIndex:1,  }}>
+   <Col xxl={24} style={{padding:5}}>
+   <Card  
+   style={{height:'6.5vh'}}
+   >
+   <Col xxl={24} xl={23} sm={23} xs={23} lg={23} className="ItemCriteriaStyle" style={{ padding: 0 }}>
           <Form
             form={form}
             //   initialValues={{FromDate,ToDate}}
             //   onFinish={onFinish}
           >
-            <Col>
+    
+      <Col>
               <Row justify={'space-between'}>
-                <Col xs={24} sm={12} md={12} xxl={10} className="formfield">
+                {/* <Col xs={24} sm={12} md={12} xxl={10} className="formfield">
                   <AntSelectDynamic
                     bordered={false}
                     label={t('store_name')}
@@ -84,8 +89,8 @@ const AddItemCriteria = ({ data, setFilteredRecord }: TProps) => {
                 </Col>
                 <Col xs={24} sm={12} md={12} xxl={3} className="formfield">
                   <AntInputNumber name="qty" label={t('qty')} bordered={false} />
-                </Col>
-                <Col xs={24} sm={12} md={12} xxl={8} className="formfield">
+                </Col> */}
+                <Col xs={24} sm={12} md={12} xxl={12} className="formfield">
                   <AntSelectDynamic
                     bordered={false}
                     label={t('select_item')}
@@ -117,8 +122,11 @@ const AddItemCriteria = ({ data, setFilteredRecord }: TProps) => {
                 </Col>
               </Row>
             </Col>
+      
           </Form>
         </Col>
+   </Card>
+   </Col>
       </Row>
     </>
   );

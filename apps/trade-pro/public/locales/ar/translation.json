@@ -580,5 +580,6 @@
   "attendance_report": "تقرير الحضور",
   "present": "حاضر",
   "absent": "غائب",
-  "late": "متأخر"
+  "late": "متأخر",
+  "select_item": "حدد العنصر"
 }

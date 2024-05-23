@@ -72,3 +72,16 @@ export const useGetBranch = (CompanyId: number | null) => () => {
     { enabled: !!CompanyId }
   );
 };
+export const useGetCompanyFeatures = (enabled = true) =>  {
+  return useQuery(
+    'company-features',
+    () => {
+      return requestManager.get('/api/CompanyFeatures/GetERPFeaturesByCompanyId', {
+        params: { CompanyId:userDetail?.CompanyId,
+          OrganizationId:userDetail?.OrganizationId,
+         },
+      });
+    },
+    { enabled}
+  );
+};

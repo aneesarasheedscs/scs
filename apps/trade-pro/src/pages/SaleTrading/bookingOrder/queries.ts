@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from 'react-query';
-import { TSaleOrder, TSaleOrderDetail } from './type';
+import { TBookingOrder, TSaleOrder, TSaleOrderDetail } from './type';
 import { requestManager } from '@tradePro/configs/requestManager';
 import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 import { queryClient } from '@scs/configs';
@@ -7,6 +7,7 @@ import { notification } from 'antd';
 import { AxiosError } from 'axios';
 import dayjs from 'dayjs';
 import { SaleOrderRetailCriteria } from './table/type';
+import { useDebounce } from 'react-use';
 
 const userDetail = storedUserDetail();
 const financialYear = storedFinancialYear();
@@ -62,7 +63,17 @@ export const useGetSupplierCustomer = (enabled = true, params?: any) => {
 );
 };
 
-
+// export const useGetSupplierCustomerGetVendors = (enabled=true) => {
+//   return useQuery('supplier-customer-getvendors', () => {
+//     return requestManager.post('/api/SupplierCustomer/GetVendorsAndCustomers', {
+   
+//       OrganizationId: userDetail?.OrganizationId,
+//       CompanyId: userDetail?.CompanyId,
+  
+//       ...params,
+//     });
+//   });
+// };
 
 
 
@@ -106,14 +117,14 @@ const getSaleOrderById = (Id?: number | null) => {
   return requestManager.get('/api/SaleOrder/GetByID?Id=5072', { params: { Id } });
 };
 //Save Sale Order
-export const useAddSaleOrder = (params?: TSaleOrder) => {
+export const useAddSaleOrder = (params?: TBookingOrder) => {
   return useMutation(
     'sale-order-detail',
-    (data: TSaleOrder) => {
-      return requestManager.post('/api/SaleOrder/Save', {
+    (data: TBookingOrder) => {
+      return requestManager.post('/api/PreBookingOrder/Save', {
         ...data,
         Id: 0,
-        DocumentTypeId: 81,
+        DocumentTypeId: 129,
         OrganizationId: userDetail?.OrganizationId,
         CompanyId: userDetail?.CompanyId,
         BranchesId: userDetail?.BranchesId,
@@ -122,7 +133,7 @@ export const useAddSaleOrder = (params?: TSaleOrder) => {
         EntryUser: userDetail?.UserId,
         ModifyDate: new Date().toISOString(),
         DeliveryStartDate: new Date().toISOString(),
-        ActionTypeId: 1,
+      
         OrderExpiryDate: new Date().toISOString(),
 
         ...params,
