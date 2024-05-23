@@ -5,13 +5,18 @@ import PresentReport from './EmployessData/PresentReport';
 import AbsentReport from './EmployessData/AbsentReport';
 import LateReport from './EmployessData/LateReport';
 import { DownOutlined } from '@ant-design/icons';
-import { useGetMenualAttendanceSummaryStatusByAll } from './queries';
+import { useGetMenualAttendanceStatusByDate, useGetMenualAttendanceSummaryStatusByAll } from './queries';
 interface Props {
   startDate: Date;
 }
 function AttendanceReportByAll({ startDate }: Props) {
   const { t } = useTranslation();
-  const { data } = useGetMenualAttendanceSummaryStatusByAll(startDate);
+  const { data, isSuccess } = useGetMenualAttendanceStatusByDate(startDate);
+  const { data: attendanceStatus } = useGetMenualAttendanceSummaryStatusByAll(startDate);
+  const PresentData = attendanceStatus?.data?.Data?.Result?.filter((item: any) => item.TodayPresent === 'Present');
+  const AbsentData = attendanceStatus?.data?.Data?.Result?.filter((item: any) => item.TodayAbsent === 'Absent');
+  const LateData = attendanceStatus?.data?.Data?.Result?.filter((item: any) => item.TodayLate === 'LateComer');
+
   const [activeTab, setActiveTab] = useState<string>('1');
   const [caption, setCaption] = useState<string>('Present');
   const handleReport = (e: any) => {
@@ -25,7 +30,7 @@ function AttendanceReportByAll({ startDate }: Props) {
   } = theme.useToken();
   return (
     <>
-      <Row style={{ marginTop: '20%' }}>
+      <Row style={{ marginTop: '29%' }}>
         {/* <Col span={24}>
           <Card
             style={{ height: '4vh', backgroundColor: 'purple' }}
@@ -68,7 +73,9 @@ function AttendanceReportByAll({ startDate }: Props) {
                 cover={
                   <>
                     <h5 style={{ marginTop: 0, textAlign: 'center' }}> Present</h5>
-                    <h5 style={{ marginTop: 0, textAlign: 'center' }}> 5 </h5>
+                    <h5 style={{ marginTop: 0, textAlign: 'center' }}>
+                      {data ? data?.data?.Data?.Result?.[0]?.TotalPresent : 0}
+                    </h5>
                     <h5
                       style={{
                         textAlign: 'center',
@@ -107,7 +114,9 @@ function AttendanceReportByAll({ startDate }: Props) {
                 cover={
                   <>
                     <h5 style={{ marginTop: 0, textAlign: 'center' }}> Absent</h5>
-                    <h5 style={{ marginTop: 0, textAlign: 'center' }}> 53 </h5>
+                    <h5 style={{ marginTop: 0, textAlign: 'center' }}>
+                      {data ? data?.data?.Data?.Result?.[0]?.TotalAbsents : 0}
+                    </h5>
                     <h5
                       style={{
                         textAlign: 'center',
@@ -151,7 +160,10 @@ function AttendanceReportByAll({ startDate }: Props) {
                 cover={
                   <>
                     <h5 style={{ marginTop: 0, textAlign: 'center' }}> Late </h5>
-                    <h5 style={{ marginTop: 0, textAlign: 'center' }}> 0 </h5>
+                    <h5 style={{ marginTop: 0, textAlign: 'center' }}>
+                      {' '}
+                      {data ? data?.data?.Data?.Result?.[0]?.TotalLate : 0}{' '}
+                    </h5>
                     <h5
                       style={{
                         textAlign: 'center',
@@ -205,11 +217,11 @@ function AttendanceReportByAll({ startDate }: Props) {
             </Col> */}
           </Row>
           {caption === 'Present' ? (
-            <PresentReport />
+            <PresentReport PresentData={PresentData} />
           ) : caption === 'Absent' ? (
-            <AbsentReport />
+            <AbsentReport AbsentData={AbsentData} />
           ) : caption === 'Late' ? (
-            <LateReport />
+            <LateReport LateData={LateData} />
           ) : (
             ''
           )}

@@ -38,9 +38,9 @@ export const useGetAccountsPrematureReceiptHistory = (enabled = true) => {
     'accounts_premature_receipt',
     () => {
       return requestManager.post('/api/AccountsPrematureReceipts/FormHistory', {
-        // FromDate: financialYear?.Start_Period,
-        // ToDate: financialYear?.End_Period,
-
+        FromDate: financialYear?.Start_Period,
+        ToDate: financialYear?.End_Period,
+        DocumentTypeId: 159,
         ...params,
       });
     },
@@ -153,27 +153,23 @@ export const useAddAccountsPrematureReceipts = (DocumentTypeId?: number) => {
   return useMutation(
     'accounts_premature_receipts_add',
 
-    (data: TAccountsPrematureReceiptsList) => {
+    (data: TAccountsPrematureReceiptsList[]) => {
       return requestManager.post('/api/AccountsPrematureReceipts/Save', {
-        AccountsPrematureReceiptsList: [
-          {
-            ...data,
-            Id: 0,
-            DocumentTypeId: DocumentTypeId,
-            OrganizationId: userDetail?.OrganizationId,
-            CompanyId: userDetail?.CompanyId,
-            FinancialYearId: financialYear?.Id,
-            EnteryUserId: userDetail?.UserId,
-            ModifyUserId: userDetail?.UserId,
-            ApprovalUserId: userDetail?.UserId,
-            EnteryDate: dayjs(new Date()),
-            ModifyDate: dayjs(new Date()),
-            ApprovedDate: dayjs(new Date()),
-            // EnteryDate: financialYear?.EntryDate,
-            // ModifyDate: financialYear?.ModifyDate,
-            // ApprovedDate: financialYear?.PostDate,
-          },
-        ],
+        AccountsPrematureReceiptsList: data.map((item) => ({
+          ...item,
+
+          Id: 0,
+          DocumentTypeId: DocumentTypeId,
+          OrganizationId: userDetail?.OrganizationId,
+          CompanyId: userDetail?.CompanyId,
+          FinancialYearId: financialYear?.Id,
+          EnteryUserId: userDetail?.UserId,
+          ModifyUserId: userDetail?.UserId,
+          ApprovalUserId: userDetail?.UserId,
+          EnteryDate: dayjs(new Date()),
+          ModifyDate: dayjs(new Date()),
+          ApprovedDate: dayjs(new Date()),
+        })),
       });
     },
 
@@ -185,7 +181,7 @@ export const useAddAccountsPrematureReceipts = (DocumentTypeId?: number) => {
             description: response?.data?.Message || 'An error occurred.',
           });
         } else if (response?.data && response?.data?.Status === true) {
-          const msg = 'Record Updated successfully!';
+          const msg = 'Record added successfully!';
           notification.success({ description: '', message: msg });
           queryClient.invalidateQueries('accounts_premature_receipt');
         }

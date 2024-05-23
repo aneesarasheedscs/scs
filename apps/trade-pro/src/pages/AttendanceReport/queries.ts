@@ -32,6 +32,22 @@ export const useGetMenualAttendanceStatusByDate = (startDate?: Date) => {
     { cacheTime: 5000, enabled: !!startDate }
   );
 };
+export const useGetMenualAttendanceStatusByDepartmentWise = (startDate?: Date) => {
+  return useQuery(
+    ['attendance_status_department_wise', startDate],
+    () => {
+      return requestManager.get('/api/hrmManualAttendance/EmployeeAttendenceStatusByDate', {
+        params: {
+          ...params,
+          Date: dayjs(startDate).startOf('day'),
+
+          Activity: 'DepartmentWise',
+        },
+      });
+    },
+    { cacheTime: 5000, enabled: !!startDate }
+  );
+};
 export const useGetMenualAttendanceSummaryStatusByAll = (startDate?: Date) => {
   return useQuery(
     ['attendance_status_by_all', startDate],
@@ -45,6 +61,21 @@ export const useGetMenualAttendanceSummaryStatusByAll = (startDate?: Date) => {
       });
     },
     { cacheTime: 5000, enabled: !!startDate }
+  );
+};
+export const useGetMenualAttendanceSummaryStatusByDepartment = (startDate?: Date, departmentId?: number) => {
+  return useQuery(
+    ['attendance_status_by_department', startDate, departmentId],
+    () => {
+      return requestManager.get('/api/hrmManualAttendance/EmployeeAttandanceSummaryStatus', {
+        params: {
+          ...params,
+          Date: dayjs(startDate).startOf('day'),
+          DepartmentId: departmentId,
+        },
+      });
+    },
+    { cacheTime: 5000, enabled: !!startDate && !!departmentId }
   );
 };
 export const useGetMenualAttendanceSummaryStatusByMonthly = (startDate?: Date) => {

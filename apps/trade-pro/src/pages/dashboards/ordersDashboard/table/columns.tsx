@@ -22,7 +22,7 @@ export const Itemcolumns = (t: TFunction): AntColumnType<TItem>[] => [
   },
 
   {
-    width: 200,
+    width: 160,
     title: t('weight'),
     key: 'Weight',
     dataIndex: 'Weight',

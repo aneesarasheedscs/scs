@@ -2,14 +2,33 @@ import { Button, Card, Col, Row, Tabs, theme } from 'antd';
 import React, { useState } from 'react';
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
-import PresentReport from './EmployessData/PresentReport';
-import { DownOutlined } from '@ant-design/icons';
-import AbsentReport from './EmployessData/AbsentReport';
-import LateReport from './EmployessData/LateReport';
 
-function AttendanceReportByDepartment() {
+import { DownOutlined } from '@ant-design/icons';
+
+import {
+  useGetMenualAttendanceStatusByDepartmentWise,
+  useGetMenualAttendanceSummaryStatusByDepartment,
+} from './queries';
+import { map } from 'lodash';
+import PresentReport from './EmployessDataByDepartment/PresentReport';
+import AbsentReport from './EmployessDataByDepartment/AbsentReport';
+import LateReport from './EmployessDataByDepartment/LateReport';
+
+interface TProps {
+  startDate: Date;
+}
+function AttendanceReportByDepartment({ startDate }: TProps) {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<string>('1');
+  const [departmentId, setDepartmentId] = useState<number>();
+  const { data } = useGetMenualAttendanceStatusByDepartmentWise(startDate);
+  const { data: departmentsData } = useGetMenualAttendanceSummaryStatusByDepartment(startDate, departmentId);
+  const departmentDatawise = data?.data?.Data?.Result;
+  const departmentData = departmentsData?.data?.Data?.Result;
+
+  const PresentData = departmentData?.filter((item: any) => item.TodayPresent === 'Present');
+  const AbsentData = departmentData?.filter((item: any) => item.TodayAbsent === 'Absent');
+  const LateData = departmentData?.filter((item: any) => item.TodayLate === 'LateComer');
   const [caption, setCaption] = useState<string>('Present');
   const handleReport = (e: any) => {
     console.log(e.target);
@@ -17,7 +36,7 @@ function AttendanceReportByDepartment() {
     console.log(e.target.id);
     setCaption(e.target.id);
   };
-  const data = 12;
+  const dumydata = 12;
   const {
     token: { colorPrimary },
   } = theme.useToken();
@@ -25,99 +44,57 @@ function AttendanceReportByDepartment() {
     <>
       <Row
         gutter={[8, 8]}
-        style={{ marginTop: 10, border: ' ', height: '29vh', overflow: data <= 12 ? 'hidden' : 'scroll' }}
+        style={{ marginTop: -2, border: ' ', height: '29vh', overflow: dumydata <= 12 ? 'hidden' : 'scroll' }}
       >
-        <Col span={4}>
-          <Card
-            style={{ height: '14vh' }}
-            cover={
-              <>
-                <div className="departement_card">
-                  <h4
-                    style={{
-                      backgroundColor: colorPrimary,
-                      padding: 5,
-                      textAlign: 'center',
-                      color: '#ffff',
-                      borderTopLeftRadius: 5,
-                      borderTopRightRadius: 5,
-                      marginBottom: 5,
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                    }}
-                  >
-                    <p> Accounts</p>
-                    <h4>
-                      <ArrowRightOutlined size={24} />
+        {map(departmentDatawise, (item) => (
+          <Col span={4}>
+            <Card
+              style={{ height: '14vh' }}
+              cover={
+                <>
+                  <div className="departement_card">
+                    <h4
+                      style={{
+                        backgroundColor: colorPrimary,
+                        padding: 5,
+                        textAlign: 'center',
+                        color: '#ffff',
+                        borderTopLeftRadius: 5,
+                        borderTopRightRadius: 5,
+                        marginBottom: 5,
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                      }}
+                    >
+                      <p> {item.DepartmentName}</p>
+                      <h4>
+                        <ArrowRightOutlined size={24} onClick={() => setDepartmentId(item.DepartmentId)} />
+                      </h4>
                     </h4>
-                  </h4>
-                  <Row justify={'space-between'} style={{ paddingLeft: 10, paddingRight: 10 }}>
-                    <p>Present </p>
-                    <p>4</p>
-                  </Row>
-                  <Row justify={'space-between'} style={{ paddingLeft: 10, paddingRight: 10 }}>
-                    <p>Absent </p>
-                    <p>0</p>
-                  </Row>
-                  <Row justify={'space-between'} style={{ paddingLeft: 10, paddingRight: 10 }}>
-                    <p> Late </p>
-                    <p> 0 </p>
-                  </Row>
-                  <Row justify={'space-between'} style={{ paddingLeft: 10, paddingRight: 10 }}>
-                    <p> Total </p>
-                    <p> 4 </p>
-                  </Row>
-                </div>
-              </>
-            }
-          ></Card>
-        </Col>
-        <Col span={4}>
-          <Card
-            style={{ height: '14vh' }}
-            cover={
-              <>
-                <div className="departement_card">
-                  <h4
-                    style={{
-                      backgroundColor: colorPrimary,
-                      padding: 5,
-                      textAlign: 'center',
-                      color: '#ffff',
-                      borderTopLeftRadius: 5,
-                      borderTopRightRadius: 5,
-                      marginBottom: 5,
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                    }}
-                  >
-                    <p> Civil & Others </p>
-                    <h4>
-                      <ArrowRightOutlined size={24} />
-                    </h4>
-                  </h4>
-                  <Row justify={'space-between'} style={{ paddingLeft: 10, paddingRight: 10 }}>
-                    <p>Present </p>
-                    <p>4</p>
-                  </Row>
-                  <Row justify={'space-between'} style={{ paddingLeft: 10, paddingRight: 10 }}>
-                    <p>Absent </p>
-                    <p>0</p>
-                  </Row>
-                  <Row justify={'space-between'} style={{ paddingLeft: 10, paddingRight: 10 }}>
-                    <p> Late </p>
-                    <p> 0 </p>
-                  </Row>
-                  <Row justify={'space-between'} style={{ paddingLeft: 10, paddingRight: 10 }}>
-                    <p> Total </p>
-                    <p> 4 </p>
-                  </Row>
-                </div>
-              </>
-            }
-          ></Card>
-        </Col>
-        <Col span={4}>
+                    <Row justify={'space-between'} style={{ paddingLeft: 10, paddingRight: 10 }}>
+                      <p>Present </p>
+                      <p>{item.TotalPresent} </p>
+                    </Row>
+                    <Row justify={'space-between'} style={{ paddingLeft: 10, paddingRight: 10 }}>
+                      <p>Absent </p>
+                      <p> {item.TotalAbsent} </p>
+                    </Row>
+                    <Row justify={'space-between'} style={{ paddingLeft: 10, paddingRight: 10 }}>
+                      <p> Late </p>
+                      <p> {item.TotalLate} </p>
+                    </Row>
+                    <Row justify={'space-between'} style={{ paddingLeft: 10, paddingRight: 10 }}>
+                      <p> Total </p>
+                      <p> {item.TotalLate + item.TotalAbsent + item.TotalPresent} </p>
+                    </Row>
+                  </div>
+                </>
+              }
+            ></Card>
+          </Col>
+        ))}
+
+        {/* <Col span={4}>
           <Card
             style={{ height: '14vh' }}
             cover={
@@ -612,35 +589,55 @@ function AttendanceReportByDepartment() {
             }
           ></Card>
         </Col>
+        <Col span={4}>
+          <Card
+            style={{ height: '14vh' }}
+            cover={
+              <>
+                <div className="departement_card">
+                  <h4
+                    style={{
+                      backgroundColor: colorPrimary,
+                      padding: 5,
+                      textAlign: 'center',
+                      color: '#ffff',
+                      borderTopLeftRadius: 5,
+                      borderTopRightRadius: 5,
+                      marginBottom: 5,
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                    }}
+                  >
+                    <p> Civil & Others </p>
+                    <h4>
+                      <ArrowRightOutlined size={24} />
+                    </h4>
+                  </h4>
+                  <Row justify={'space-between'} style={{ paddingLeft: 10, paddingRight: 10 }}>
+                    <p>Present </p>
+                    <p>4</p>
+                  </Row>
+                  <Row justify={'space-between'} style={{ paddingLeft: 10, paddingRight: 10 }}>
+                    <p>Absent </p>
+                    <p>0</p>
+                  </Row>
+                  <Row justify={'space-between'} style={{ paddingLeft: 10, paddingRight: 10 }}>
+                    <p> Late </p>
+                    <p> 0 </p>
+                  </Row>
+                  <Row justify={'space-between'} style={{ paddingLeft: 10, paddingRight: 10 }}>
+                    <p> Total </p>
+                    <p> 4 </p>
+                  </Row>
+                </div>
+              </>
+            }
+          ></Card>
+        </Col> */}
       </Row>
       <Row style={{ marginTop: 10 }}>
-        {/* <Col span={18}>
-          <Card
-            style={{ height: '4vh', backgroundColor: 'purple' }}
-            // onClick={(e) => handleReport(e)}
-            cover={
-              <>
-                <h5 style={{ marginTop: 8, textAlign: 'center', color: '#ffff' }}>
-                  {activeTab === '1' ? 'Present' : activeTab === '2' ? 'Absent' : activeTab === '3' ? 'Late' : ''}
-                </h5>
-              </>
-            }
-          ></Card>
-        </Col> */}
         <Col span={18}>
           <Row style={{ marginTop: '0%' }}>
-            {/* <Col span={24}>
-          <Card
-            style={{ height: '4vh', backgroundColor: 'purple' }}
-            // onClick={(e) => handleReport(e)}
-            cover={
-              <>
-                <h5 style={{ marginTop: 8, textAlign: 'center', color: '#ffff' }}>{caption}</h5>
-              </>
-            }
-          ></Card>
-        </Col> */}
-
             <Col span={24}>
               <Row justify={'end'} style={{ marginBottom: 5 }}>
                 <Col span={7}>
@@ -671,7 +668,9 @@ function AttendanceReportByDepartment() {
                     cover={
                       <>
                         <h5 style={{ marginTop: 0, textAlign: 'center' }}> Present</h5>
-                        <h5 style={{ marginTop: 0, textAlign: 'center' }}> 5 </h5>
+                        <h5 style={{ marginTop: 0, textAlign: 'center' }}>
+                          {data ? data?.data?.Data?.Result?.[0]?.TotalPresent : 0}
+                        </h5>
                         <h5
                           style={{
                             textAlign: 'center',
@@ -710,7 +709,10 @@ function AttendanceReportByDepartment() {
                     cover={
                       <>
                         <h5 style={{ marginTop: 0, textAlign: 'center' }}> Absent</h5>
-                        <h5 style={{ marginTop: 0, textAlign: 'center' }}> 53 </h5>
+                        <h5 style={{ marginTop: 0, textAlign: 'center' }}>
+                          {' '}
+                          {data ? data?.data?.Data?.Result?.[0]?.TotalAbsent : 0}{' '}
+                        </h5>
                         <h5
                           style={{
                             textAlign: 'center',
@@ -754,7 +756,9 @@ function AttendanceReportByDepartment() {
                     cover={
                       <>
                         <h5 style={{ marginTop: 0, textAlign: 'center' }}> Late </h5>
-                        <h5 style={{ marginTop: 0, textAlign: 'center' }}> 0 </h5>
+                        <h5 style={{ marginTop: 0, textAlign: 'center' }}>
+                          {data ? data?.data?.Data?.Result?.[0]?.TotalLate : 0}
+                        </h5>
                         <h5
                           style={{
                             textAlign: 'center',
@@ -808,11 +812,11 @@ function AttendanceReportByDepartment() {
             </Col> */}
               </Row>
               {caption === 'Present' ? (
-                <PresentReport />
+                <PresentReport PresentData={PresentData} />
               ) : caption === 'Absent' ? (
-                <AbsentReport />
+                <AbsentReport AbsentData={AbsentData} />
               ) : caption === 'Late' ? (
-                <LateReport />
+                <LateReport LateData={LateData} />
               ) : (
                 ''
               )}

@@ -159,20 +159,26 @@ export const columns = (
     title: t('action'),
     width: 90,
     render: (_, record) => (
-      <Tooltip title="Delete">
-        <Space>
-          <AntButton
-            type="text"
-            icon={<EditFilled style={{ color: '#006640' }} />}
-            onClick={() => handleEditRow(record)}
-          />
-          <AntButton
-            type="text"
-            icon={<DeleteOutlined style={{ color: 'red' }} />}
-            onClick={() => handleDeleteRow(record)}
-          />
-        </Space>
-      </Tooltip>
+      <>
+        <Tooltip title="Edit">
+          <Space>
+            <AntButton
+              type="text"
+              icon={<EditFilled style={{ color: '#006640' }} />}
+              onClick={() => handleEditRow(record)}
+            />
+          </Space>
+        </Tooltip>
+        <Tooltip title="Delete">
+          <Space>
+            <AntButton
+              type="text"
+              icon={<DeleteOutlined style={{ color: 'red' }} />}
+              onClick={() => handleDeleteRow(record)}
+            />
+          </Space>
+        </Tooltip>
+      </>
     ),
   },
 ];

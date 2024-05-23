@@ -10,15 +10,19 @@ const { useForm, useWatch } = Form;
 function AccountsPrematureForm({ selectedRecordId, setSelectedRecordId }: TForm) {
   const [form] = useForm<TAccountsPrematureReceiptsList>();
   const formValues = useWatch<TAccountsPrematureReceiptsList>([], form);
+  const [tableData, setTableData] = useState<TAccountsPrematureReceiptsList[] | any>([]);
+
   const DocumentTypeId = 159;
-  const { data, isError, refetch, isLoading, isSuccess } = useGetDocumentNumber(DocumentTypeId);
-  const { mutate } = useAddAccountsPrematureReceipts(DocumentTypeId);
+  const { data, isError, refetch } = useGetDocumentNumber(DocumentTypeId);
+  const { mutate, isSuccess } = useAddAccountsPrematureReceipts(DocumentTypeId);
   const [printPreview, setPrintPreview] = useState<boolean>(true);
   // const [delettableData, setDeleteTableData] = useAtom(deleteData);
   // const [newtableData, setNewTableData] = useAtom(newTableData);
   // const [tableData, setTableData] = useAtom(addtableData);
-  const onFinish = (values: TAccountsPrematureReceiptsList) => {
+  const onFinish = (values: TAccountsPrematureReceiptsList[] | any) => {
+    values = tableData;
     mutate(values);
+
     console.log(values);
   };
   return (
@@ -32,11 +36,11 @@ function AccountsPrematureForm({ selectedRecordId, setSelectedRecordId }: TForm)
               setSelectedRecordId={setSelectedRecordId}
               DocumentTypeId={DocumentTypeId}
               // requisitionById={requisitionById}
-              // isDataSuccess={isDataSuccess}
+              isSuccess={isSuccess}
               printPreview={printPreview}
               setPrintPreview={setPrintPreview}
             />
-            <MainEntry form={form} refetch={refetch} />
+            <MainEntry form={form} refetch={refetch} tableData={tableData} setTableData={setTableData} />
             <AccountsPrematureTable />
           </Form>
         </Card>
