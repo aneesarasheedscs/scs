@@ -4,21 +4,25 @@ import MainEntry from './MainEntry';
 import { TAccountsPrematureReceiptsList } from '../types';
 import Buttons from './Buttons';
 import AccountsPrematureTable from './table';
-import { useGetDocumentNumber } from '../queries';
+import { useAddAccountsPrematureReceipts, useGetDocumentNumber } from '../queries';
 const { useForm, useWatch } = Form;
 
 function AccountsPrematureForm({ selectedRecordId, setSelectedRecordId }: TForm) {
   const [form] = useForm<TAccountsPrematureReceiptsList>();
   const formValues = useWatch<TAccountsPrematureReceiptsList>([], form);
-  const DocumentTypeId = 159;
-  const { data, isError, refetch, isLoading, isSuccess } = useGetDocumentNumber(DocumentTypeId);
+  const [tableData, setTableData] = useState<TAccountsPrematureReceiptsList[] | any>([]);
 
+  const DocumentTypeId = 159;
+  const { data, isError, refetch } = useGetDocumentNumber(DocumentTypeId);
+  const { mutate, isSuccess } = useAddAccountsPrematureReceipts(DocumentTypeId);
   const [printPreview, setPrintPreview] = useState<boolean>(true);
   // const [delettableData, setDeleteTableData] = useAtom(deleteData);
   // const [newtableData, setNewTableData] = useAtom(newTableData);
   // const [tableData, setTableData] = useAtom(addtableData);
-  const onFinish = (values: TAccountsPrematureReceiptsList) => {
-    // refetch();
+  const onFinish = (values: TAccountsPrematureReceiptsList[] | any) => {
+    values = tableData;
+    mutate(values);
+
     console.log(values);
   };
   return (
@@ -32,11 +36,11 @@ function AccountsPrematureForm({ selectedRecordId, setSelectedRecordId }: TForm)
               setSelectedRecordId={setSelectedRecordId}
               DocumentTypeId={DocumentTypeId}
               // requisitionById={requisitionById}
-              // isDataSuccess={isDataSuccess}
+              isSuccess={isSuccess}
               printPreview={printPreview}
               setPrintPreview={setPrintPreview}
             />
-            <MainEntry form={form} refetch={refetch} />
+            <MainEntry form={form} refetch={refetch} tableData={tableData} setTableData={setTableData} />
             <AccountsPrematureTable />
           </Form>
         </Card>

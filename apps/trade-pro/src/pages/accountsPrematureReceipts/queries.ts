@@ -5,7 +5,7 @@ import { queryClient } from '@tradePro/configs';
 import { notification } from 'antd';
 import { AxiosError, AxiosResponse } from 'axios';
 import { TAccountsPrematureReceiptsList } from './types';
-
+import dayjs from 'dayjs';
 const userDetail = storedUserDetail();
 const financialYear = storedFinancialYear();
 
@@ -40,7 +40,7 @@ export const useGetAccountsPrematureReceiptHistory = (enabled = true) => {
       return requestManager.post('/api/AccountsPrematureReceipts/FormHistory', {
         FromDate: financialYear?.Start_Period,
         ToDate: financialYear?.End_Period,
-
+        DocumentTypeId: 159,
         ...params,
       });
     },
@@ -153,24 +153,42 @@ export const useAddAccountsPrematureReceipts = (DocumentTypeId?: number) => {
   return useMutation(
     'accounts_premature_receipts_add',
 
-    (data: TAccountsPrematureReceiptsList) => {
+    (data: TAccountsPrematureReceiptsList[]) => {
       return requestManager.post('/api/AccountsPrematureReceipts/Save', {
-        AccountsPrematureReceiptsList: [
-          {
-            ...data,
-            Id: 0,
-            DocumentTypeId: DocumentTypeId,
-            OrganizationId: userDetail?.OrganizationId,
-            CompanyId: userDetail?.CompanyId,
-          },
-        ],
+        AccountsPrematureReceiptsList: data.map((item) => ({
+          ...item,
+
+          Id: 0,
+          DocumentTypeId: DocumentTypeId,
+          OrganizationId: userDetail?.OrganizationId,
+          CompanyId: userDetail?.CompanyId,
+          FinancialYearId: financialYear?.Id,
+          EnteryUserId: userDetail?.UserId,
+          ModifyUserId: userDetail?.UserId,
+          ApprovalUserId: userDetail?.UserId,
+          EnteryDate: dayjs(new Date()),
+          ModifyDate: dayjs(new Date()),
+          ApprovedDate: dayjs(new Date()),
+        })),
       });
     },
+
     {
-      onSuccess: () => {
-        queryClient.invalidateQueries('accounts_premature_receipt');
-        const msg = 'Record added successfully!';
-        notification.success({ description: '', message: msg });
+      onSuccess: (response: AxiosResponse) => {
+        if (response?.data && response?.data?.Status === false) {
+          notification.error({
+            message: 'Error',
+            description: response?.data?.Message || 'An error occurred.',
+          });
+        } else if (response?.data && response?.data?.Status === true) {
+          const msg = 'Record added successfully!';
+          notification.success({ description: '', message: msg });
+          queryClient.invalidateQueries('accounts_premature_receipt');
+        }
+      },
+      onError: (error: AxiosError) => {
+        const msg = error.response?.data || 'Something went wrong';
+        notification.error({ description: '', message: msg as string });
       },
     }
   );

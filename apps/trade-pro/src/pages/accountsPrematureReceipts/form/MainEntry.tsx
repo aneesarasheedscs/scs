@@ -10,9 +10,9 @@ import { TAccountsPrematureReceiptsList } from '../types';
 import BankName from './definitionScreens/BankName';
 import DefineOtherParties from './definitionScreens/DefineOtherParties';
 
-function MainEntry({ form, refetch }: TMainEntrnyProps) {
+function MainEntry({ form, refetch, tableData, setTableData }: TMainEntrnyProps) {
   const { t } = useTranslation();
-  const [tableData, setTableData] = useState<TAccountsPrematureReceiptsList[]>([]);
+  // const [tableData, setTableData] = useState<TAccountsPrematureReceiptsList[]>([]);
 
   const handleAddFormValues = () => {
     const values = form.getFieldsValue();
@@ -108,7 +108,7 @@ function MainEntry({ form, refetch }: TMainEntrnyProps) {
             <AntInput autoFocus name="TrackingSlipRef" label={t('tracking_slip')} bordered={false} />
           </Col>
           <Col xl={7} xxl={4} sm={18} xs={24} lg={12} md={12} className="formfield" style={{ marginRight: 0 }}>
-            <AntInput name="SlipAmount" label={t('slip_amount')} bordered={false} />
+            <AntInput required name="SlipAmount" label={t('slip_amount')} bordered={false} />
           </Col>
 
           <Col xl={8} xxl={5} sm={19} lg={11} xs={24} md={11} className="formfield_for_screen">
@@ -185,7 +185,7 @@ function MainEntry({ form, refetch }: TMainEntrnyProps) {
             <AntInput bordered={false} label={t('cheque_no')} name="ChequeNo" />
           </Col>
           <Col xl={7} xxl={6} sm={18} lg={12} xs={24} md={12} className="formfield">
-            <AntDatePicker required name="ChequeDate" label={t('cheque_date')} bordered={false} />
+            <AntDatePicker name="ChequeDate" label={t('cheque_date')} bordered={false} />
           </Col>
           <Col xl={8} xxl={5} sm={18} lg={11} xs={24} md={11} className="formfield">
             <AntInput bordered={false} label={t('amount')} name="Amount" />
@@ -237,6 +237,8 @@ export default MainEntry;
 interface TMainEntrnyProps {
   form: FormInstance;
   refetch: () => void;
+  tableData: TAccountsPrematureReceiptsList[];
+  setTableData: (ary: TAccountsPrematureReceiptsList[]) => void;
 }
 interface TVoucherType {
   Id: number;

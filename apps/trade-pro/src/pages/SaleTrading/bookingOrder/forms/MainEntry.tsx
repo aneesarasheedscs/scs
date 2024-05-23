@@ -96,8 +96,14 @@ function MainEntry({ form , selectedItem,setSelectedItem}: TDynamicForm) {
           <h3 style={{textAlign:'center',color:'green'}}>34343.343</h3>
         </Col>
         </Col>
+        <Col xxl={12} style={{ paddingTop: '15px', display: 'flex', justifyContent: 'space-between' }}>
+          <Col xxl={11} style={{ border: '1px solid grey', padding: '10px' }}></Col>
+          <Col xxl={12} style={{ border: '1px solid grey', padding: '10px' }}>
+            <p style={{ textAlign: 'center', color: 'crimson' }}>Net Total</p>
+            <h3 style={{ textAlign: 'center', color: 'green' }}>34343.343</h3>
+          </Col>
+        </Col>
       </Row>
-   
     </Card>
   );
 }

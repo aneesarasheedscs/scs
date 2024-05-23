@@ -21,3 +21,20 @@ export type TAccountsPrematureReceiptsList = {
   SenderAccount: string;
   SenderBank: string;
 };
+
+export type TAccountsPrematureReceiptsHistory = {
+  Id: number;
+  DocDate: Date;
+  DocNo: number;
+  TrakingNo: string;
+  Amount: number;
+  BankName: string;
+  SenderAccount: string;
+  RecieverAccount: string;
+  ChequeNo: string;
+  ChequeDate: Date;
+  RemarksHeader: string;
+  EntryStatus: string;
+  RepresentativeAc: string;
+  NoOfAttachments: number;
+};

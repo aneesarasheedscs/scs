@@ -30,8 +30,6 @@ const AddItemCriteria = ({ data, setFilteredRecord }: TProps) => {
   const abc = form.getFieldValue('ItemId');
   console.log('Item', abc);
 
-
-
   const handleSelectItem = (value: number) => {
     const selectedAccount = data?.data?.Data?.Result?.find((item: any) => item.ItemId === value);
     if (selectedAccount) {
@@ -109,7 +107,7 @@ const AddItemCriteria = ({ data, setFilteredRecord }: TProps) => {
                 <Col>
                   <Col xs={24} sm={12} md={12} xxl={2}>
                     <AntButton
-                        onClick={handleFiltereItems}
+                      onClick={handleFiltereItems}
                       ghost
                       icon={
                         <>

@@ -11,7 +11,7 @@ import './style.scss';
 import { AntButton } from '@scs/ui';
 
 const { useForm, useWatch } = Form;
-const AddItemsCards = ({setSelectedItem,selectedItem}:TAddItem) => {
+const AddItemsCards = ({ setSelectedItem, selectedItem }: TAddItem) => {
   const {
     token: { colorPrimary },
   } = theme.useToken();
@@ -20,11 +20,11 @@ const AddItemsCards = ({setSelectedItem,selectedItem}:TAddItem) => {
     // setformState(form.getFieldsValue());
   };
   const { data, isLoading, isSuccess } = useGetItemWithPackUom();
-const handleAddItem = (item:any) =>{
-  console.log(item)
-  setSelectedItem([...selectedItem,item])
-}
-const [filterdRecord, setFilteredRecord] = useState<any[]>([]);
+  const handleAddItem = (item: any) => {
+    console.log(item);
+    setSelectedItem([...selectedItem, item]);
+  };
+  const [filterdRecord, setFilteredRecord] = useState<any[]>([]);
 
 // const { data, isLoading, isSuccess } = useGetItemWithPackUom();
 useEffect(() => {
@@ -40,7 +40,7 @@ return (
            
               <Row gutter={[5, 8]} style={{marginLeft:5}}>
                 {/* {map(data?.data?.Data?.Result, (item) => ( */}
-                        {map(filterdRecord, (item) => (
+                {map(filterdRecord, (item) => (
                   <Col xxl={8} style={{ textAlign: 'center' }}>
                     <Card
                       className="addItemCardStyle "
@@ -49,7 +49,11 @@ return (
                         <>
                           <Col xxl={24} style={{ position: 'relative' }}>
                             <div className="circle" style={{ marginTop: -9, marginRight: -10 }}>
-                              <AntButton onClick={()=>handleAddItem(item)} className="circle" icon={<PlusOutlined  />} />
+                              <AntButton
+                                onClick={() => handleAddItem(item)}
+                                className="circle"
+                                icon={<PlusOutlined />}
+                              />
                             </div>
                           </Col>
                           <Col
@@ -94,6 +98,6 @@ return (
 
 export default AddItemsCards;
 interface TAddItem {
-  setSelectedItem : (ary: any[])=> void
-  selectedItem:  any[]
+  setSelectedItem: (ary: any[]) => void;
+  selectedItem: any[];
 }

@@ -1,11 +1,5 @@
 import dayjs from 'dayjs';
-import { useAtom } from 'jotai';
 import { useEffect } from 'react';
-// import DocNumber from './DocNumber';
-// import { addtableData } from './Atom';
-// import { TRequisitionOrder } from '../types';
-// import { useTranslation } from 'react-i18next';
-// import { useGetDocumentNumber } from '../quries';
 import { AntButton, AntDatePicker, AntInput, AntSelectDynamic } from '@tradePro/components';
 import { Badge, Col, Form, FormInstance, Input, Row } from 'antd';
 import { SaveOutlined, SyncOutlined, RedoOutlined, PrinterFilled, PaperClipOutlined } from '@ant-design/icons';
@@ -20,13 +14,13 @@ function Buttons({
   setSelectedRecordId,
   DocumentTypeId,
   // requisitionById,
-  // isDataSuccess,
+  isSuccess,
   printPreview,
   setPrintPreview,
 }: TButtonsProps) {
   const { t } = useTranslation();
   // const [tableData, setTableData] = useAtom(addtableData);
-  const { data, isError, refetch, isLoading, isSuccess } = useGetDocumentNumber(DocumentTypeId);
+  const { data, isError, refetch, isLoading, isSuccess: isSuccessDocNo } = useGetDocumentNumber(DocumentTypeId);
   const handleButtonClick = () => {
     setPrintPreview(!printPreview);
     console.log(printPreview);
@@ -36,12 +30,17 @@ function Buttons({
     // setTableData([]);
     refetch();
     form.setFieldValue('DocDate', dayjs(new Date()));
-    form.setFieldValue('RemarksHeader', null);
+    // form.setFieldValue('RemarksHeader', null);
   };
   useEffect(() => {
-    if (isSuccess) form.setFieldValue('DocNo', data?.data?.Data?.Result);
+    if (isSuccessDocNo) form.setFieldValue('DocNo', data?.data?.Data?.Result);
     form.setFieldValue('DocDate', dayjs(new Date()));
-  }, [data, isSuccess]);
+  }, [data, isSuccessDocNo]);
+  useEffect(() => {
+    if (isSuccess) {
+      handleResetForm();
+    }
+  }, [isSuccess]);
   const voucherType: TVoucherType[] = [
     {
       Id: 3,
@@ -152,7 +151,7 @@ interface TButtonsProps {
   setSelectedRecordId: (id: number | null) => void;
   DocumentTypeId: number;
   // requisitionById: TRequisitionOrder;
-  // isDataSuccess: boolean;
+  isSuccess: boolean;
   printPreview: boolean;
   setPrintPreview: (id: boolean) => void;
 }
