@@ -12,7 +12,7 @@ export const ItemTable = ({ data }: any) => {
   return (
     <>
       <Row>
-        <Col xxl={14}>
+        <Col xxl={12}>
           <AntTable
             refreshData={{ show: false, enabled: false }}
             downloadPdf={{ show: false, enabled: false }}
@@ -21,7 +21,7 @@ export const ItemTable = ({ data }: any) => {
             columnChooser={{ show: false, enabled: false }}
             groupByColumns={{ show: false, enabled: false }}
             columns={Itemcolumns(t)}
-            scroll={{ x: '', y: convertVhToPixels('40vh') }}
+            scroll={{ x: '', y: convertVhToPixels('45vh') }}
             data={data?.data?.Data?.Result?.Table}
           />
         </Col>

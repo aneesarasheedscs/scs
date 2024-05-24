@@ -9,13 +9,9 @@ export const columns = (t: any,handleAccountCodeClick:any,firstCaption:any,secon
     width: 100,
     dataIndex: 'RNo',
     showCount:true,
-    // searchableInput: true,
-    // showCount:true,
-    // sortDirections: ['ascend', 'descend'],
-    // sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
   },
   {
-    width: 150,
+    width: 140,
     title: t('account_code'),
     dataIndex: 'AccountCode',
     sortDirections: ['ascend', 'descend'],
@@ -28,7 +24,7 @@ export const columns = (t: any,handleAccountCodeClick:any,firstCaption:any,secon
   },
   {
     title: t('account_title'),
-    width: 250,
+    width: 340,
     dataIndex: 'AccountTitle',
     searchableInput: true,
 
@@ -39,7 +35,7 @@ export const columns = (t: any,handleAccountCodeClick:any,firstCaption:any,secon
   {
     title: t('opening'),
     dataIndex: 'Opening',
-    width: 200,
+    width: 150,
     align: 'right',
     showTotal:true,
     sortDirections: ['ascend', 'descend'],
@@ -51,23 +47,23 @@ export const columns = (t: any,handleAccountCodeClick:any,firstCaption:any,secon
 
   {
     title: t(firstCaption),
-    width: 210,
+    width: 150,
     align: 'right',
     showTotal: true,
     dataIndex: 'IstIntervale',
-    // sorter: (a, b) => a['FirstIntervalCaption'] - b['FirstIntervalCaption'], // Sorting based on the '2ndInterval' data
-    render: (IstIntervale, record) => ( // Applying number formatting to '2ndInterval'
+    sorter: (a, b) => a['IstIntervale'] - b['IstIntervale'], 
+    render: (IstIntervale, record) => (
       <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(IstIntervale)}</Space>
     ),
   },
   
   {
     title: t(secondtCaption),
-    width: 210,
+    width: 150,
     showTotal: true,
     align: 'right',
     dataIndex: 'ScnInterval',
-    // sorter: (a, b) => a['2ndInterval'] - b['2ndInterval'], 
+    sorter: (a, b) => a['ScnInterval'] - b['ScnInterval'], 
     render: (ScnInterval, record) => ( 
       <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(ScnInterval)}</Space>
     ),
@@ -76,11 +72,11 @@ export const columns = (t: any,handleAccountCodeClick:any,firstCaption:any,secon
 
   {
     title: t(thirdCaption),
-    width: 220,
+    width: 150,
     showTotal:true,
     align: 'right',
     dataIndex: 'TrdIntarval',
-    // sorter: (a, b) => a['3rdInterval'] - b['3rdInterval'], 
+    sorter: (a, b) => a['TrdIntarval'] - b['TrdIntarval'], 
     render: (TrdIntarval, record) => ( 
       <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(TrdIntarval)}</Space>
     ),
@@ -88,19 +84,19 @@ export const columns = (t: any,handleAccountCodeClick:any,firstCaption:any,secon
 
   {
     title: t(aboveCaption),
-    width: 210,
+    width: 150,
     align: 'right',
     showTotal:true,
     dataIndex: 'Above',
-    // sortDirections: ['ascend', 'descend'],
-    // sorter: (a, b) => a.IntervalAbove - b.IntervalAbove,
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a.Above - b.Above,
     render: (Above, record) => (
       <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(Above)}</Space>
     ),
   },
 
   {
-    width: 210,
+    width: 150,
     align: 'right',
     title: t('closing'),
     showTotal:true,

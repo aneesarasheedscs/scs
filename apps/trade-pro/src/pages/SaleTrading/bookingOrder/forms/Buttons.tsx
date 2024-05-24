@@ -11,13 +11,13 @@ import { SaveOutlined, SyncOutlined, RedoOutlined, PaperClipOutlined, PrinterFil
 
 import DocNumber from './DocNumber';
 import { useGetDocNumberBookingOrder } from '../queryOptions';
+import { useGetSupplierCustomer } from '../queries';
 
 function Buttons({
   form,
   isSuccess,
   saveData,
   updateData,
-  saleOrderData,
   selectedRecordId,
   setSelectedRecordId,
   setPrintPreview,
@@ -82,24 +82,24 @@ function Buttons({
                 <Input />
               </Form.Item>
             </Col>
-            <Col xl={15} xxl={14} sm={18} lg={15} xs={23} md={15} className="formfield">
+            <Col xl={15} xxl={14} sm={18} lg={15} xs={23} md={11} className="formfield">
               <AntDatePicker bordered={false} name="DocDate" label={t('document date')} />
             </Col>
           </Row>
         </Col>
-        <Col xs={24} sm={12} md={8} lg={6} xl={6} xxl={4} className="formfields">
+        <Col xs={24} sm={12} md={10} lg={6} xl={6} xxl={4} className="formfields">
             <AntSelectDynamic
               bordered={false}
               required
               fieldValue="Id"
               label="Party Name"
-              name="CompanyId"
+              name="OrderSupCustId"
               fieldLabel="CompanyName"
-              // query={useGetCustomerNameSalesManAgent}
+              query={useGetSupplierCustomer}
             />
           </Col>
 
-          <Col xs={24} sm={12} md={8} lg={6} xl={3} xxl={6} className="formfields">
+          <Col xs={24} sm={12} md={13} lg={6} xl={3} xxl={6} className="formfields">
             <AntInput name="RemarksHeader" label="Remarks" bordered={false} />
           </Col>
 

@@ -11,7 +11,7 @@ import { TUserDetail } from '@tradePro/globalTypes';
 import { Company, TCompanyBranchDetail } from './types';
 import { storedUserDetail } from '@tradePro/utils/storageService';
 import { AntButton, AntSelectDynamic } from '@tradePro/components';
-import { useGetBranch, useGetCompany, useGetFinancialYear } from './queries';
+import { useGetBranch, useGetCompany, useGetCompanyFeatures, useGetFinancialYear } from './queries';
 
 const { useForm, useWatch } = Form;
 function CompanyBranchDetails() {
@@ -25,6 +25,14 @@ function CompanyBranchDetails() {
   const [financialYearObjec, setFinancialYearObjec] = useAtom(financialYearObject);
   console.log(financialYearObjec);
   const { data: CompanyData, isSuccess, isLoading } = useGetCompany();
+
+
+  const {data:CompanyFeatureData,isSuccess:isSuccessCompanyFeature,isLoading:isLoadingCompanyFeature}=useGetCompanyFeatures();
+  console.log(CompanyFeatureData,'data')
+  const CompanyFeature = CompanyFeatureData?.data?.Data?.Result
+
+
+
   const handleFinancialChange = (selectedObject: any) => {
     console.log(selectedObject);
     if (selectedObject !== null && selectedObject !== undefined) setFinancialYearObj(selectedObject);
@@ -109,6 +117,15 @@ function CompanyBranchDetails() {
       }
     }
   }, [isSuccess, companyList, form]);
+
+  useEffect(()=>{
+    if( isSuccessCompanyFeature ){
+  
+      const companyData = JSON.stringify(CompanyFeature);
+      localStorage.setItem('companyfeature',companyData)
+    }
+
+  },[isSuccessCompanyFeature ,CompanyFeatureData])
 
   return (
     <CardWrapper>

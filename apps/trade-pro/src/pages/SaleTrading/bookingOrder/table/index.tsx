@@ -1,7 +1,7 @@
 import { AntButton, AntTable } from '@scs/ui';
-import { useGetBookingOrder, useGetPurchaseOrderStatus,  } from '../queries';
+import { useGetBookingOrder, useGetPurchaseOrderStatus } from '../queries';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
-import { Bookingordercolumns,  } from './columns';
+import { Bookingordercolumns } from './columns';
 import { t } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { Card, Col, Row } from 'antd';
@@ -64,7 +64,7 @@ const BookingOrderTable = ({ setSelectedRecordId, setActiveTab }: TFrom) => {
 
         <Col xl={24}>
           {/* <PurchaseOrderStatus /> */}
-          <ModalCriteria/>
+          <ModalCriteria />
           {showComponent ? (
             <>
               <Card
@@ -76,33 +76,18 @@ const BookingOrderTable = ({ setSelectedRecordId, setActiveTab }: TFrom) => {
               ></Card>
             </>
           ) : (
-            <Col xxl={24} style={{ marginLeft: -2, marginTop: 5 }}>
+            <Col xxl={14} style={{ marginLeft: -2, marginTop: 5 }}>
               <AntTable
                 refetch={refetch}
                 isError={isError}
                 columns={Bookingordercolumns(t)}
                 numberOfSkeletons={12}
-                searchCriteriaForm={<SaleOrderFormHistoryCriteria />}
-                searchCriteriaReport={data?.data?.Data?.Result ? <CriteriaString/> : ''}
-               
+                // searchCriteriaForm={<SaleOrderFormHistoryCriteria />}
+                searchCriteriaReport={data?.data?.Data?.Result?.ReportCriteria ? <CriteriaString /> : ''}
                 isLoading={isLoading || isFetching}
                 data={data?.data?.Data?.Result || []}
                 scroll={{ x: '', y: convertVhToPixels('26vh') }}
               />
-              {/* <br></br>
-              <Row gutter={[16, 16]} justify={'space-between'}>
-                <Col>
-                  <AntTable
-                    refetch={refetch}
-                    isError={isError}
-                    columns={saleOrderFormcolumns2()}
-                    numberOfSkeletons={12}
-                    isLoading={isLoading || isFetching}
-                    data={data?.data?.Data?.Result || []}
-                    scroll={{ x: '', y: convertVhToPixels('18vh') }}
-                  />
-                </Col>
-              </Row> */}
             </Col>
           )}
         </Col>

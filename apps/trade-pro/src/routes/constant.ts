@@ -12,7 +12,7 @@ export const route = {
   SALE_ANALYTICS: '/sale-analytics',
   MONTHLY_DATE_REPORT: '/monthly-sale-report',
   SALES_DATA_BRANCH_WISE: '/sales-data-branch-wise',
-  ORDERS_DASHBOARD: '/orders-dashboard',
+  ORDERS_DASHBOARD: '/orderdashboard',
 
   // AccountsPrematureRecipts
   ACCOUNTS_PREMATURE_RECEIPTS: '/accounts-premature-receipt',

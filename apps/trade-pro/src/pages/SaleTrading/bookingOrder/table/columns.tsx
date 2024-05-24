@@ -1,4 +1,4 @@
-import { TSaleOrder, TSaleOrderDetail, TSaleOrderForm, TSaleOrderForm2 } from '../type';
+import { TBookingOrder, TBookingOrderHistory, TSaleOrder, TSaleOrderDetail, TSaleOrderForm, TSaleOrderForm2 } from '../type';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { Button, Space, Tooltip } from 'antd';
@@ -11,6 +11,7 @@ export const saleOrderFormcolumns = (
   t: TFunction,
   // handleDeleteRow: any,
   // handleEditRow: any
+
 ): AntColumnType<TSaleOrderDetail>[] => [
   { title: <>t{'Item Name'}</>, dataIndex: 'ItemName', width: 300 },
   {
@@ -90,50 +91,50 @@ export const saleOrderFormcolumns = (
   },
 ];
 
-export const saleOrderFormcolumns2 = (): AntColumnType<TSaleOrderForm2>[] => [
-  { title: 'Item Name', dataIndex: 'ItemName', width: 100 },
-  {
-    width: 150,
-    title: 'Pack Uom',
-    searchableDate: true,
-    dataIndex: 'UOMCode',
-  },
-  {
-    width: 150,
-    searchableInput: true,
-    title: 'QTY',
-    dataIndex: 'OrderItemQty',
-    sortDirections: ['ascend', 'descend'],
-  },
-  { title: 'Weight', dataIndex: 'NetWeight', width: 150 },
-  { title: 'Rate', dataIndex: '', width: 150 },
+// export const saleOrderFormcolumns2 = (): AntColumnType<TSaleOrderForm2>[] => [
+//   { title: 'Item Name', dataIndex: 'ItemName', width: 100 },
+//   {
+//     width: 150,
+//     title: 'Pack Uom',
+//     searchableDate: true,
+//     dataIndex: 'UOMCode',
+//   },
+//   {
+//     width: 150,
+//     searchableInput: true,
+//     title: 'QTY',
+//     dataIndex: 'OrderItemQty',
+//     sortDirections: ['ascend', 'descend'],
+//   },
+//   { title: 'Weight', dataIndex: 'NetWeight', width: 150 },
+//   { title: 'Rate', dataIndex: '', width: 150 },
 
-  {
-    width: 100,
-    title: 'Rate UOM',
-    dataIndex: 'UOMCode',
-  },
-  {
-    width: 120,
-    dataIndex: 'OrderItemQty',
-    title: 'Balance Qty',
-  },
-  {
-    width: 120,
-    title: 'NetWeight',
-    dataIndex: 'NetWeight',
-  },
-];
+//   {
+//     width: 100,
+//     title: 'Rate UOM',
+//     dataIndex: 'UOMCode',
+//   },
+//   {
+//     width: 120,
+//     dataIndex: 'OrderItemQty',
+//     title: 'Balance Qty',
+//   },
+//   {
+//     width: 120,
+//     title: 'NetWeight',
+//     dataIndex: 'NetWeight',
+//   },
+// ];
 
-export const Bookingordercolumns = (t: any): AntColumnType<TSaleOrder>[] => [
+export const Bookingordercolumns = (t: any): AntColumnType<TBookingOrderHistory>[] => [
   {
-    width: 120,
+    width: 200,
     title: 'Doc No',
     searchableDate: true,
     dataIndex: 'DocNo',
   },
   {
-    width: 120,
+    width: 200,
     title: 'DocDate',
     searchableDate: true,
     dataIndex: 'DocDate',
@@ -141,148 +142,25 @@ export const Bookingordercolumns = (t: any): AntColumnType<TSaleOrder>[] => [
   },
 
   {
-    width: 200,
-    title: 'Customer',
+    width: 300,
+    title: 'Party Name',
     searchableDate: true,
-    dataIndex: 'Customer',
+    dataIndex: 'CustomerName',
   },
+
   {
+    title: <>{t ('action')}</>,
+    dataIndex: 'action',
+    key: 'action',
     width: 150,
-    title: 'Sub Part Account',
-    searchableDate: true,
-    dataIndex: 'SubPartyAccount',
-  },
-  {
-    width: 150,
-    title: 'Ship To Address',
-    searchableDate: true,
-    dataIndex: 'ShipToAddress',
-  },
-  {
-    width: 150,
-    title: 'Due Days',
-    dataIndex: 'DueDays',
-  },
-  {
-    width: 150,
-    title: 'Due Date',
-    dataIndex: 'DueDate',
-    // render: (_, { DueDate }) => formateDate(DueDate),
-  },
-  {
-    width: 120,
-    title: 'Delivery Term',
-    dataIndex: 'DeliveryTerm',
-  },
-  {
-    width: 120,
-    title: 'Payment Term',
-    dataIndex: 'PaymentTerm',
-  },
-  {
-    width: 150,
-    title: 'Commission Agent',
-    dataIndex: 'CommAgent',
-  },
-  {
-    width: 150,
-    title: 'Commission Type',
-    dataIndex: 'CommType',
-  },
-  {
-    width: 150,
-    title: 'Commission Rate',
-    dataIndex: 'CommRate',
-  },
-  {
-    width: 170,
-    title: 'Commission Amount',
-    dataIndex: 'CommAmount',
-  },
-  {
-    width: 150,
-    title: 'Common Remarks',
-    dataIndex: 'CommRemarks',
-  },
-  {
-    width: 120,
-    title: 'Status',
-    dataIndex: 'Status',
-  },
-  {
-    width: 150,
-    title: 'Is Approved',
-    dataIndex: 'IsApproved',
-  },
-  {
-    width: 150,
-    title: 'Entry Date',
-    dataIndex: 'EntryDate',
-    render: (_, { EntryDate }) => formateDate(EntryDate),
-  },
-  {
-    width: 150,
-    title: 'Entry User',
-    dataIndex: 'EntryUser',
-  },
-  {
-    width: 150,
-    title: 'Remarks',
-    dataIndex: 'Remarks',
-  },
-  { title: 'Edit ', dataIndex: '', width: 100 },
-  {
-    width: 120,
-    title: 'Print',
-    searchableDate: true,
-    dataIndex: '',
-  },
-  {
-    width: 120,
-    title: 'Save As',
-    searchableDate: true,
-    dataIndex: '',
-  },
-  {
-    title: 'Actions',
-    dataIndex: '',
     render: (_, record) => (
-      <Space>
-        <Tooltip title="Edit">
-          <EditFilled
-            style={{
-              fontSize: 18,
-              cursor: 'pointer',
-              color: '#5A54F9',
-              boxShadow:
-                'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset',
-            }}
-          />
-        </Tooltip>
-        <Tooltip title="Print">
-          <PrinterFilled
-            style={{
-              fontSize: 18,
-              cursor: 'pointer',
-              color: '#F37DAA',
-              boxShadow:
-                'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset',
-            }}
-          />
-        </Tooltip>
-        <Tooltip title="Save As">
-          <SaveFilled
-            style={{
-              fontSize: 18,
-              cursor: 'pointer',
-              color: '#ffc40c',
-              boxShadow:
-                'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset',
-            }}
-          />
-        </Tooltip>
-      </Space>
+      <a>
+        <AntButton
+          type="text"
+          // onClick={() => handleOpen(record?.subTopicId)}
+          icon={<EditFilled style={{ color: '#00a148' }} />}
+        />
+      </a>
     ),
-    width: 150,
   },
 ];

@@ -574,5 +574,9 @@
   "attendance_report": "考勤报告",
   "present": "展示",
   "absent": "缺席的",
-  "late": "晚的"
+  "late": "晚的",
+  "select_item": "选择物品",
+  "Opening": "开幕",
+  "total_of_payables": "应付账款总额",
+  "period_filltered_records": "期间填充记录"
 }

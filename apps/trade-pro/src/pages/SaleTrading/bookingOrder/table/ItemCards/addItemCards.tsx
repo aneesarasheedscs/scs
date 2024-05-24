@@ -20,27 +20,37 @@ const AddItemsCards = ({ setSelectedItem, selectedItem }: TAddItem) => {
     // setformState(form.getFieldsValue());
   };
   const { data, isLoading, isSuccess } = useGetItemWithPackUom();
-  const handleAddItem = (item: any) => {
+  const handleAddItem = (item: any[]) => {
     console.log(item);
-    setSelectedItem([...selectedItem, item]);
+    
+    const updatedItem = {
+      ...item,
+      OrderItemQty: 1
+    };
+    setSelectedItem([...selectedItem, updatedItem]);
   };
+
+  
+  
+
   const [filterdRecord, setFilteredRecord] = useState<any[]>([]);
 
-  // const { data, isLoading, isSuccess } = useGetItemWithPackUom();
-  useEffect(() => {
-    setFilteredRecord(data?.data?.Data?.Result);
-  }, [data]);
-  return (
-    <>
-      <AddItemCriteria data={data} setFilteredRecord={setFilteredRecord} />
+// const { data, isLoading, isSuccess } = useGetItemWithPackUom();
+useEffect(() => {
+  setFilteredRecord(data?.data?.Data?.Result);
+}, [data]);
+return (
+  <>
+    <AddItemCriteria data={data} setFilteredRecord={setFilteredRecord} />
+    
       <Row justify="center" style={{ marginTop: 5 }}>
-        <Col xxl={24}>
+        <Col xxl={24}   lg={24} xl={24} sm={24} xs={24}>
           {isSuccess && !isLoading ? (
-            <Card>
-              <Row gutter={[5, 8]}>
+           
+              <Row gutter={[5, 8]} style={{marginLeft:5}}>
                 {/* {map(data?.data?.Data?.Result, (item) => ( */}
                 {map(filterdRecord, (item) => (
-                  <Col xxl={8} style={{ textAlign: 'center' }}>
+                  <Col xxl={8} xl={8} lg={12} sm={8} md={8} xs={8} style={{ textAlign: 'center' }}>
                     <Card
                       className="addItemCardStyle "
                       style={{ width: '100%', justifyContent: 'space-between' }}
@@ -72,7 +82,7 @@ const AddItemsCards = ({ setSelectedItem, selectedItem }: TAddItem) => {
                                 </h4>
                                 <p style={{ color: 'red' }}>
                                   Price
-                                  {item.ItemPrice}/{item.PackUom}
+                                  {item.ItemPrice}
                                 </p>
                               </Col>
                             </Col>
@@ -83,7 +93,7 @@ const AddItemsCards = ({ setSelectedItem, selectedItem }: TAddItem) => {
                   </Col>
                 ))}
               </Row>
-            </Card>
+         
           ) : (
             <Space style={{ height: 100, display: 'flex', justifyContent: 'center' }}>
               Loading<Spin size="default"></Spin>

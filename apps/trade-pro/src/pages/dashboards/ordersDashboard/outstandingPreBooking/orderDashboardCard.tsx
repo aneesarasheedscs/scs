@@ -206,12 +206,12 @@ const OrderDashboardCard = () => {
   };
 
   return (
-    <Row justify={'space-around'} style={{ marginTop: 10 }}>
-  <Col xxl={15} style={{marginLeft:'-35%'}}>
+    <Row justify={'start'} style={{ marginTop: 10 ,marginLeft:15}}>
+  <Col xxl={15} style={{marginLeft:'0%'}}>
   <Col xxl={24} xl={23} sm={23} xs={23} lg={23} >
         <Row justify={'start'} gutter={[10, 24]} style={{}}>
           {map(data?.data?.Data?.Result, (item, index) => (
-            <Col xs={24} xxl={5} sm={12} md={11} lg={6} xl={6} key={index}>
+            <Col xs={24} xxl={5} sm={12} md={24} lg={24} xl={24} key={index}>
               <Card
                 hoverable
                 className="container_menuCard"
