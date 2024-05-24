@@ -134,4 +134,7 @@ export const route = {
   STOCK_RECEIVING_NOTE: '/stock-received-notes',
   REQUISITION_ORDER: '/requisition-order',
   STOCK_ADJUSTMENT: '/stock-adjustment',
+
+  //Price List
+  PRICE_LIST: '/price_list',
 };

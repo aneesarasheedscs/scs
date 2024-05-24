@@ -8,7 +8,11 @@ import dayjs from 'dayjs';
 import { TFunction } from 'i18next';
 import { TAccountsPrematureReceiptsHistory } from '../types';
 
-export const columns = (t: TFunction): AntColumnType<TAccountsPrematureReceiptsHistory>[] => [
+export const columns = (
+  t: TFunction,
+  setSelectedRecordId: (selectedRecordId: number) => void,
+  setActiveTab: (tab: string) => void
+): AntColumnType<TAccountsPrematureReceiptsHistory>[] => [
   {
     title: t('doc_no'),
     width: 120,
@@ -38,7 +42,7 @@ export const columns = (t: TFunction): AntColumnType<TAccountsPrematureReceiptsH
     searchableInput: true,
     dataIndex: 'TrakingNo',
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a.TrakingNo.localeCompare(b.TrakingNo),
+    sorter: (a, b) => a.TrakingNo - b.TrakingNo,
   },
 
   {
@@ -142,7 +146,7 @@ export const columns = (t: TFunction): AntColumnType<TAccountsPrematureReceiptsH
               type="text"
               icon={<EditFilled style={{ color: '#006640' }} />}
               onClick={() => {
-                // setSelectedRecordId(record?.Id), setActiveTab('2');
+                setSelectedRecordId(record?.TrakingNo), setActiveTab('2');
               }}
             />
           </Space>

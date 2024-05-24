@@ -23,7 +23,7 @@
   box-shadow: 2px 4px 12px 1px gray;
   padding-top: -15%;
   margin-bottom: 0.5%;
-  margin-top: -0.8%;
+  margin-top: -1%;
 }
 .reset_btn {
   background-color: #ffaf0c;
@@ -41,6 +41,23 @@
   font-weight: bold;
   border: 1px solid var(--color-primary);
 }
+.month_card {
+  // border: 1px solid lightgrey;
+  // padding: 5px;
+  height: 12vh;
+  box-shadow: 2px 2px 12px 2px lightgrey;
+  border-radius: 5px;
+}
+.ant-table-thead > tr > th {
+  background-color: pink; /* Background color for the header row */
+}
+.departement_card {
+  // border: 1px solid lightgrey;
+  // padding: 5px;
+  height: 14vh;
+  box-shadow: 2px 2px 12px 2px lightgrey;
+  border-radius: 5px;
+}
 @media screen and (max-width: 575px) and (min-width: 481px) {
   .formfield {
     padding: 0px;
@@ -50,22 +67,5 @@
   .formfield_for_screen {
     padding: 0px;
     height: 60px;
-  }
-}
-
-@media screen and (max-width: 969px) and (min-width: 700px) {
-  .captions {
-    font-size: 11px;
-  }
-  .dataIndexes {
-    font-size: 10px;
-  }
-}
-@media screen and (max-width: 700px) and (min-width: 500px) {
-  .captions {
-    font-size: 10px;
-  }
-  .dataIndexes {
-    font-size: 10px;
   }
 }

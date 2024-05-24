@@ -39,7 +39,7 @@ function AccountsPrematureRecipts() {
             isDataLoadingDetail={isDataLoadingDetail}
             refetchDetail={refetchDetail}
           /> */}
-              <AccountsPrematureHistory />
+              <AccountsPrematureHistory setSelectedRecordId={setSelectedRecordId} setActiveTab={setActiveTab} />
             </Tabs.TabPane>
             <Tabs.TabPane key="2" tab={t('form')}>
               {/* <RequisitionOrderForm

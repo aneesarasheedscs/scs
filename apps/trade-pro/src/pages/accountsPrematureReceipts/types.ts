@@ -26,7 +26,7 @@ export type TAccountsPrematureReceiptsHistory = {
   Id: number;
   DocDate: Date;
   DocNo: number;
-  TrakingNo: string;
+  TrakingNo: number;
   Amount: number;
   BankName: string;
   SenderAccount: string;

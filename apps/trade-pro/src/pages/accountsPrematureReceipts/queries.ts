@@ -104,19 +104,40 @@ export const useGetPendingRecords = () => {
   );
 };
 //Get By Id
-export const useGetReadByTrackingNo = () => {
+// export const useGetReadByTrackingNo = () => {
+//   return useQuery(
+//     'read_by_tracking_no',
+//     () => {
+//       return requestManager.get('/api/AccountsPrematureReceipts/ReadByTrackingNo', {
+//         params: {
+//           // ...params,
+//           TrackingNo: '',
+//         },
+//       });
+//     },
+//     { cacheTime: 5000 }
+//   );
+// };
+//Get ById
+export const useGetReadByTrackingNo = (TrackingNo?: number | null) => {
   return useQuery(
-    'read_by_tracking_no',
+    ['read_by_tracking_no', TrackingNo],
     () => {
-      return requestManager.get('/api/AccountsPrematureReceipts/ReadByTrackingNo', {
-        params: {
-          // ...params,
-          TrackingNo: 'tcs8899',
-        },
-      });
+      return getTrackingNo(TrackingNo);
     },
-    { cacheTime: 5000 }
+    {
+      cacheTime: 0,
+      staleTime: 0,
+      enabled: false,
+      onError: (error: AxiosError) => {
+        const msg = error.response?.data || 'Something went wrong';
+        notification.error({ description: '', message: msg as string });
+      },
+    }
   );
+};
+const getTrackingNo = (TrackingNo?: number | null) => {
+  return requestManager.get('/api/AccountsPrematureReceipts/ReadByTrackingNo', { params: { TrackingNo } });
 };
 //Confrim and cancel
 export const useGetUpdateRecords = () => {
@@ -169,6 +190,8 @@ export const useAddAccountsPrematureReceipts = (DocumentTypeId?: number) => {
           EnteryDate: dayjs(new Date()),
           ModifyDate: dayjs(new Date()),
           ApprovedDate: dayjs(new Date()),
+          ChartOfAccountIdSender:
+            userDetail?.PartyGlAccountId == 0 ? item.ChartOfAccountIdSender : userDetail?.PartyGlAccountId,
         })),
       });
     },

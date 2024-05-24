@@ -6,9 +6,9 @@ import { columns } from './columns';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { useGetAccountsPrematureReceiptHistory, useGetReadByTrackingNo } from '../queries';
 
-function AccountsPrematureHistory() {
+function AccountsPrematureHistory({ setSelectedRecordId, setActiveTab }: TTypes) {
   const { data, refetch, isError, isFetching, isLoading } = useGetAccountsPrematureReceiptHistory();
-  const { data: getById } = useGetReadByTrackingNo();
+
   const mainData = data?.data?.Data?.Result || [];
   const [showComponent, setShowComponent] = useState(false);
   const toggleCardView = () => {
@@ -66,7 +66,7 @@ function AccountsPrematureHistory() {
                 scroll={{ x: '', y: convertVhToPixels('50vh') }}
                 data={data?.data?.Data?.Result || []}
                 // columns={columns(t, setSelectedRecordId, setActiveTab, setSelectedRecordDetailId)}
-                columns={columns(t)}
+                columns={columns(t, setSelectedRecordId, setActiveTab)}
                 // searchCriteriaForm={<SearchCriteria />}
                 // reportCriteriaString={data?.data?.Data?.Result?.[0]?.ReportCriteria ? <CriteriaString /> : ''}
                 // printSlip={{ data: reportData?.data, enabled: true, onClick: () => mutate(), isSuccess, isPending }}
@@ -80,3 +80,7 @@ function AccountsPrematureHistory() {
 }
 
 export default AccountsPrematureHistory;
+interface TTypes {
+  setSelectedRecordId: (selectedRecordId: number) => void;
+  setActiveTab: (tab: string) => void;
+}

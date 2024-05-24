@@ -30,7 +30,7 @@ function AttendanceReportByAll({ startDate }: Props) {
   } = theme.useToken();
   return (
     <>
-      <Row style={{ marginTop: '29%' }}>
+      <Row style={{ marginTop: '29%', marginBottom: 10 }}>
         {/* <Col span={24}>
           <Card
             style={{ height: '4vh', backgroundColor: 'purple' }}

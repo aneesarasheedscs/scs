@@ -144,6 +144,9 @@ const DefineDivision = lazy(() => import('@tradePro/pages/defineDivision'));
 const AccountsPrematureRecipts = lazy(() => import('@tradePro/pages/accountsPrematureReceipts'));
 //Attendance Report
 const AttendanceReport = lazy(() => import('@tradePro/pages/AttendanceReport'));
+//Price List
+const PriceList = lazy(() => import('@tradePro/pages/PriceList'));
+
 export const protectedRoutes: RouteObject[] = [
   { path: route.APP_MENU, element: <AppMenu /> },
   //AccountsPrematureRecipts
@@ -276,6 +279,8 @@ export const protectedRoutes: RouteObject[] = [
   { path: route.EMPLOYEE_REGISTRATION, element: <EmployeeRegistration /> },
   //Attendance Report
   { path: route.ATTENDANCE_REPORT, element: <AttendanceReport /> },
+  //Price List
+  { path: route.PRICE_LIST, element: <PriceList /> },
 ];
 
 export const publicRoutes: RouteObject[] = [

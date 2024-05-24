@@ -1,5 +1,5 @@
 import { AntButton, AntDatePicker, AntInput, AntSelectDynamic } from '@tradePro/components';
-import { Card, Col, Form, FormInstance, Row } from 'antd';
+import { Card, Col, Form, FormInstance, Row, notification } from 'antd';
 import { FormRowGutter } from '@tradePro/globalAtoms';
 import { useTranslation } from 'react-i18next';
 import { forEach, map } from 'lodash';
@@ -9,52 +9,111 @@ import { useEffect, useState } from 'react';
 import { TAccountsPrematureReceiptsList } from '../types';
 import BankName from './definitionScreens/BankName';
 import DefineOtherParties from './definitionScreens/DefineOtherParties';
+import { storedUserDetail } from '@tradePro/utils/storageService';
 
 function MainEntry({ form, refetch, tableData, setTableData }: TMainEntrnyProps) {
   const { t } = useTranslation();
-  // const [tableData, setTableData] = useState<TAccountsPrematureReceiptsList[]>([]);
+  const userDetail = storedUserDetail();
 
   const handleAddFormValues = () => {
     const values = form.getFieldsValue();
     const slipAmount = values?.SlipAmount;
-    // console.log(values);
-    // setTableData([...tableData, values]);
+    const senderBank = values?.BankId;
+    const senderAccount = values?.ChartOfAccountIdSender;
+    const receiverAccount = values?.ChartOfAccountIdReceiver;
+    const representativeAccount = values?.SupplierCustomerIdSalesMan;
+    const VouchersId = values?.VouchersId;
+    const amount = values?.Amount;
+    const tracking_slip = values?.TrackingSlipRef;
 
-    // If chequeNo is defined and not null
     if (slipAmount) {
       // Convert chequeNo to number and ensure it's a positive integer
       const numberOfEntries = parseInt(slipAmount);
+      const Amount = parseInt(amount ? amount : 0);
       if (!isNaN(numberOfEntries) && numberOfEntries > 0) {
         // Create an array with length numberOfEntries filled with values
-        const entriesToAdd = Array.from({ length: numberOfEntries }, () => values);
-        // here divide the  slipamount with the cheque no to divide  amount in the rows
-        // const updatedRecord = entriesToAdd.map((item) => ({
-        //   ...item,
-        //   SlipAmount: slipAmount / chequeNo,
-        // }));
+        const entriesToAdd = Array.from({ length: 1 }, () => values);
+
+        const updatedRecord = entriesToAdd.map((item: any) => ({
+          ...item,
+
+          Amount,
+        }));
+        if (Amount > slipAmount) {
+          notification.error({
+            message: 'Error',
+            description: 'Amount cannot be greater than SlipAmount!',
+          });
+          return;
+        }
+
+        if (tableData?.length > 0 && tracking_slip !== tableData?.[0]?.TrackingSlipRef) {
+          notification.error({
+            message: 'Error',
+            description: 'Cannot add different Tracking Slip!',
+          });
+          return;
+        }
+        if (tableData?.length > 0 && slipAmount !== tableData?.[0]?.SlipAmount) {
+          notification.error({
+            message: 'Error',
+            description: 'Cannot add different Slip Amount!',
+          });
+          return;
+        }
+        if (tableData?.length > 0 && VouchersId !== tableData?.[0]?.VouchersId) {
+          notification.error({
+            message: 'Error',
+            description: 'Cannot add different Voucher against Tracking Slip!',
+          });
+          return;
+        }
+        if (tableData?.length > 0 && senderBank !== tableData?.[0]?.BankId) {
+          notification.error({
+            message: 'Error',
+            description: 'Cannot add different Sender Bank against Tracking Slip!',
+          });
+          return;
+        }
+        if (tableData?.length > 0 && receiverAccount !== tableData?.[0]?.ChartOfAccountIdReceiver) {
+          notification.error({
+            message: 'Error',
+            description: 'Cannot add different Receiver account against Tracking Slip!',
+          });
+          return;
+        }
+        if (tableData?.length > 0 && senderAccount !== tableData?.[0]?.ChartOfAccountIdSender) {
+          notification.error({
+            message: 'Error',
+            description: 'Cannot add different sender account against Tracking Slip!',
+          });
+          return;
+        }
+
+        if (tableData?.length > 0 && representativeAccount !== tableData?.[0]?.SupplierCustomerIdSalesMan) {
+          notification.error({
+            message: 'Error',
+            description: 'Cannot add different representative account against Tracking Slip!',
+          });
+          return;
+        } else {
+          setTableData([...tableData, ...updatedRecord]);
+        }
         // Add entries to tableData
-        setTableData([...tableData, ...entriesToAdd]);
       }
     } else {
-      // If chequeNo is not defined or null, simply add one entry
-      setTableData([...tableData, values]);
+      // If slipAmount is not defined or null, show error
+
+      notification.error({
+        message: 'Error',
+        description: 'SlipAmount  is not defined! ',
+      });
+      return;
+      // setTableData([...tableData, values]);
     }
   };
   console.log(tableData);
-  const voucherType: TVoucherType[] = [
-    {
-      Id: 3,
-      Name: 'CRV',
-    },
-    {
-      Id: 4,
-      Name: 'BRV',
-    },
-    {
-      Id: 5,
-      Name: 'JV',
-    },
-  ];
+
   const Status: TStatus[] = [
     {
       Id: 1,
@@ -69,17 +128,7 @@ function MainEntry({ form, refetch, tableData, setTableData }: TMainEntrnyProps)
       Status: 'All',
     },
   ];
-  const handleVoucherTypeChange = (Id: number) => {
-    if (Id === 3) {
-      form.setFieldValue('VoucherType', 'CRV');
-    } else if (Id === 4) {
-      form.setFieldValue('VoucherType', 'BRV');
-    } else if (Id === 5) {
-      form.setFieldValue('VoucherType', 'JV');
-    } else {
-      form.setFieldValue('VoucherType', '');
-    }
-  };
+
   const handleSelectSenderBank = (obj: TSenderBank) => {
     form.setFieldValue('SenderBank', obj?.BankName);
   };
@@ -162,6 +211,7 @@ function MainEntry({ form, refetch, tableData, setTableData }: TMainEntrnyProps)
               name="ChartOfAccountIdSender"
               query={useGetSenderAccount}
               onSelectChange={(obj) => handleSelectSenderAc(obj)}
+              disabled={userDetail?.PartyGlAccountId == 0 ? false : true}
             />
             <AntInput name="SenderAccount" label="" style={{ display: 'none' }} />
           </Col>

@@ -34,6 +34,10 @@ export type TUserDetail = {
   IsActive: string | boolean;
   AuthenticationEnabledForUser: number | string;
   IsHeadOffice: boolean;
+
+  PartyGlAccountId: number;
+
+  SupplierCustomerId: number;
 };
 
 export type TFinancialYear = {

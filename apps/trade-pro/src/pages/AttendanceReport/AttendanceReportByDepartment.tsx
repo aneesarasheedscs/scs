@@ -47,7 +47,7 @@ function AttendanceReportByDepartment({ startDate }: TProps) {
         style={{ marginTop: -2, border: ' ', height: '29vh', overflow: dumydata <= 12 ? 'hidden' : 'scroll' }}
       >
         {map(departmentDatawise, (item) => (
-          <Col span={4}>
+          <Col xxl={4} xl={5} lg={5} md={5}>
             <Card
               style={{ height: '14vh' }}
               cover={

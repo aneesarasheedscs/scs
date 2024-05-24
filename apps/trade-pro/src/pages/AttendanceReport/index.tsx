@@ -43,12 +43,12 @@ function AttendanceReports() {
       <Row justify={'space-around'} align={'middle'}>
         <Col span={23} style={{ backgroundColor: '#fff' }}>
           <Row justify={'space-between'}>
-            <Col xs={15} sm={12} md={9} lg={9} xl={5} xxl={4}>
+            <Col xs={15} sm={12} md={7} lg={7} xl={5} xxl={4}>
               <h1 className="report_heading" style={{ textAlign: 'center' }}>
                 {t('attendance_report')}
               </h1>
             </Col>
-            <Col xl={17} xxl={18}>
+            <Col xl={17} xxl={18} lg={14}>
               <Form form={form} onFinish={onFinish} layout="horizontal" style={{ marginBottom: 0 }}>
                 <Row
                   gutter={FormRowGutter}
@@ -56,7 +56,7 @@ function AttendanceReports() {
                   align={'bottom'}
                   style={{ marginLeft: -10, marginTop: 5 }}
                 >
-                  <Col xxl={10} xl={12}>
+                  <Col xxl={10} xl={15} lg={20} md={20}>
                     <Row gutter={FormRowGutter} justify={'space-between'}>
                       <Col className="formfield">
                         <AntDatePicker name="FromDate" label="FromDate" bordered={false} />
@@ -70,7 +70,7 @@ function AttendanceReports() {
                 </Row>
               </Form>
             </Col>
-            <Col xxl={1} xl={1} md={2} lg={2} sm={2} xs={2} style={{ marginRight: '30px', marginTop: 10 }}>
+            <Col xxl={1} xl={1} md={1} lg={2} sm={2} xs={2} style={{ marginRight: '30px', marginTop: 10 }}>
               <BackButton goToDashboard={false} />
             </Col>
           </Row>
@@ -78,7 +78,7 @@ function AttendanceReports() {
         <Col span={23} style={{ backgroundColor: '#fff' }}>
           <Card bordered={false} style={{ height: '80vh' }}>
             <Row justify={'space-between'}>
-              <Col span={9}>
+              <Col xxl={9} xl={9} lg={13}>
                 <>
                   <Row gutter={FormRowGutter} justify={'space-between'}>
                     {/* <Col xxl={18}>
@@ -92,7 +92,7 @@ function AttendanceReports() {
                         </Col>
                       </Row>
                     </Col> */}
-                    <Col span={18}>
+                    <Col xxl={18} xl={18} lg={20} md={20}>
                       <Row justify={'space-between'} gutter={0} style={{ marginTop: 0 }}>
                         <Col span={11}>
                           <Card
@@ -186,7 +186,7 @@ function AttendanceReports() {
                 </>
               </Col>
 
-              <Col span={15} style={{}}>
+              <Col xxl={15} xl={15} lg={24} md={24} style={{}}>
                 <AttendanceReportByDepartment startDate={startDate} />
               </Col>
             </Row>

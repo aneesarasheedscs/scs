@@ -6,21 +6,26 @@ import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { TAccountsPrematureReceiptsList } from '../types';
 import { Card, Col, FormInstance, Row, Space, Tooltip } from 'antd';
 import dayjs from 'dayjs';
-import { map } from 'lodash';
+import _, { map } from 'lodash';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { EditFilled, DeleteOutlined } from '@ant-design/icons';
 
 function EntryTable({ form, tableData, setTableData }: Props) {
   const { t } = useTranslation();
 
-  const handleDeleteRow = (record: TAccountsPrematureReceiptsList) => {
+  const handleDeleteRow = (record: TAccountsPrematureReceiptsList, recordIndex: number) => {
     console.log(record);
     setTableData((prevData: TAccountsPrematureReceiptsList[]) => {
-      const updatedData = prevData.filter((item: any) => item.ChequeNo !== record.ChequeNo);
+      // const updatedData = prevData.filter((item: any) => item.ChequeNo !== record.ChequeNo);
+      const updatedData = prevData.filter((item: any, index: number) => index !== recordIndex);
       console.log('New tableData:', updatedData);
       return updatedData;
     });
   };
+  // const totalAmounts = tableData?.map((item) => item.Amount);
+
+  const totalAmount = _.sumBy(tableData, 'Amount');
+  console.log(totalAmount);
   const handleEditRow = (record: TAccountsPrematureReceiptsList) => {
     // setEdit(record);
     setTableData((prevData: any[]) => {
@@ -30,15 +35,9 @@ function EntryTable({ form, tableData, setTableData }: Props) {
       if (rowIndex !== -1) {
         updatedData[rowIndex] = {
           ...updatedData[rowIndex],
-          // AccountIdDebit: record.AccountTitle,
-          // JobLotId: record.JobLotDescription,
-          // DebitAmount: record.DebitAmount,
+
           ChequeDate: dayjs(record.ChequeDate),
-          // CheqNoDetail: record.CheqNoDetail,
-          // PayeeTitle: record.PayeeTitle,
-          // Comments: record.Comments,
         };
-        // form.setFieldValue(['voucherDetailList', 0], updatedData[rowIndex]);
         form.setFieldsValue(updatedData[rowIndex]);
         // setIsEditMode(true);
       }
@@ -51,10 +50,10 @@ function EntryTable({ form, tableData, setTableData }: Props) {
       <Row style={{ maxHeight: '29vh', marginBottom: 10 }}>
         <Col span={24}>
           <Card
-            style={{ height: '29vh', boxShadow: '2px 2px 12px 2px lightgrey' }}
+            style={{ height: '26vh', boxShadow: '2px 2px 12px 2px lightgrey' }}
             cover={
               <>
-                <div style={{ maxHeight: '29vh', overflowY: 'auto' }}>
+                <div style={{ maxHeight: '26vh', overflowY: 'auto' }}>
                   <div
                     style={{
                       backgroundColor: '#85C1E9',
@@ -84,202 +83,268 @@ function EntryTable({ form, tableData, setTableData }: Props) {
                         paddingRight: 5,
                       }}
                     >
-                      <Col xxl={1} style={{ border: '' }}>
-                        <h4>Doc No</h4>
+                      <Col xl={1} xxl={1} style={{ border: '' }}>
+                        <h4 className="captions"> {t('doc_no')} </h4>
                       </Col>
-                      <Col xxl={2} style={{ borderLeft: '1px solid grey', paddingLeft: 3 }}>
-                        <h4>Doc Date</h4>
+                      <Col xl={2} sm={3} xxl={2} lg={3} md={3} style={{ borderLeft: '1px solid grey', paddingLeft: 3 }}>
+                        <h4 className="captions"> {t('doc_date')} </h4>
                       </Col>
-                      <Col xxl={2} style={{ borderLeft: '1px solid grey', paddingLeft: 3 }}>
-                        <h4> Tracking Slip </h4>
+                      <Col
+                        xl={1}
+                        xxl={1}
+                        lg={3}
+                        md={3}
+                        sm={3}
+                        style={{ borderLeft: '1px solid grey', paddingLeft: 3, marginLeft: -30 }}
+                      >
+                        <h4 className="captions"> {t('tracking_slip')} </h4>
                       </Col>
-                      <Col xxl={2} style={{ borderLeft: '1px solid grey', paddingLeft: 3 }}>
-                        <h4> Slip Amount </h4>
+                      <Col xl={1} md={4} xxl={1} lg={4} sm={4} style={{ borderLeft: '1px solid grey', paddingLeft: 3 }}>
+                        <h4 className="captions"> {t('voucher_type')} </h4>
                       </Col>
-                      <Col xxl={2} style={{ borderLeft: '1px solid grey', paddingLeft: 3 }}>
-                        <h4> Voucher Type </h4>
-                      </Col>
-                      <Col xxl={2} style={{ borderLeft: '1px solid grey', paddingLeft: 3 }}>
-                        <h4>Bank Name </h4>
-                      </Col>
-
-                      <Col xxl={3} style={{ borderLeft: '1px solid grey', paddingLeft: 3 }}>
-                        <h4> Representative A/c </h4>
-                      </Col>
-                      <Col xxl={3} style={{ borderLeft: '1px solid grey', paddingLeft: 3 }}>
-                        <h4> Sender Account </h4>
-                      </Col>
-                      <Col xxl={3} style={{ borderLeft: '1px solid grey', paddingLeft: 3 }}>
-                        <h4> Receiver Account </h4>
-                      </Col>
-                      <Col xxl={2} style={{ borderLeft: '1px solid grey', paddingLeft: 3 }}>
-                        <h4>Cheque No </h4>
-                      </Col>
-                      <Col xxl={2} style={{ borderLeft: '1px solid grey', paddingLeft: 3 }}>
-                        <h4>Action </h4>
-                      </Col>
-                      {/* <Col xxl={1} style={{ borderLeft: '1px solid grey' }}>
-                      <h4>Status </h4>
-                    </Col>
-                    <Col xxl={3} style={{ border: '1px solid' }}>
-                      <h4>Remarks </h4>
-                    </Col>
-                    <Col xxl={1} style={{ border: '1px solid' }}>
-                      <h4>Action </h4>
-                    </Col> */}
-                    </Row>
-                    <Row
-                      justify={'space-between'}
-                      style={{
-                        backgroundColor: '#85C1E9',
-                        paddingLeft: 5,
-                        paddingRight: 5,
-                        position: 'sticky',
-                        top: 0,
-                        left: 0,
-                        zIndex: 1,
-                      }}
-                    >
-                      <Col xxl={1} style={{ border: '' }}>
-                        {/* <h4>Doc No</h4> */}
-                      </Col>
-                      <Col xxl={2} style={{ borderLeft: ' ' }}>
-                        {/* <h4>Doc Date</h4> */}
-                      </Col>
-                      <Col xxl={2} style={{ borderLeft: '' }}>
-                        {/* <h4> Tracking Slip </h4> */}
-                      </Col>
-                      <Col xxl={2} style={{ borderLeft: ' ' }}>
-                        {/* <h4> Slip Amount </h4> */}
-                      </Col>
-                      <Col xxl={2} style={{ borderLeft: ' ' }}>
-                        {/* <h4> Voucher Type </h4> */}
-                      </Col>
-                      <Col xxl={2} style={{ borderLeft: ' ' }}>
-                        {/* <h4>Bank Name </h4> */}
+                      <Col
+                        xl={2}
+                        xxl={2}
+                        lg={4}
+                        md={4}
+                        sm={4}
+                        style={{ borderLeft: '1px solid grey', marginLeft: -10, paddingRight: 3 }}
+                      >
+                        <h4 className="captions" style={{ textAlign: 'right', width: '85%' }}>
+                          {t('slip_amount')}
+                        </h4>
                       </Col>
 
-                      <Col xxl={3} style={{ borderLeft: '1px solid grey', paddingLeft: 3 }}>
-                        <h4> Amount </h4>
+                      <Col
+                        xl={2}
+                        xxl={2}
+                        lg={3}
+                        md={4}
+                        sm={4}
+                        style={{ borderLeft: '1px solid grey', marginLeft: -25, paddingLeft: 3 }}
+                      >
+                        <h4 className="captions"> {t('bank_name')} </h4>
                       </Col>
 
-                      <Col xxl={3} style={{ borderLeft: '1px solid grey', paddingLeft: 3 }}>
-                        <h4>Status </h4>
+                      <Col xl={2} xxl={2} lg={5} md={4} sm={4} style={{ borderLeft: '1px solid grey', paddingLeft: 3 }}>
+                        <h4 className="captions"> {t('representative_account')} </h4>
                       </Col>
-                      <Col xxl={5} style={{ borderLeft: '1px solid grey', paddingLeft: 3 }}>
-                        <h4>Remarks </h4>
+                      <Col xl={2} xxl={2} lg={4} md={4} sm={4} style={{ borderLeft: '1px solid grey', paddingLeft: 3 }}>
+                        <h4 className="captions"> {t('sender_account')} </h4>
                       </Col>
-                      <Col xxl={2} style={{ borderLeft: ' ' }}>
-                        {/* <h4> </h4> */}
+                      <Col xl={2} xxl={2} lg={4} md={4} sm={4} style={{ borderLeft: '1px solid grey', paddingLeft: 3 }}>
+                        <h4 className="captions"> {t('receiver_account')} </h4>
+                      </Col>
+                      <Col lg={3} xl={2} xxl={2} md={3} sm={3} style={{ borderLeft: '1px solid grey', paddingLeft: 3 }}>
+                        <h4 className="captions"> {t('cheque_no')} </h4>
+                      </Col>
+                      <Col
+                        xl={1}
+                        xxl={1}
+                        lg={2}
+                        md={2}
+                        sm={2}
+                        style={{ borderLeft: '1px solid grey', paddingLeft: 3, paddingRight: 3, marginLeft: -30 }}
+                      >
+                        <h4 className="captions" style={{ textAlign: 'right' }}>
+                          {t('amount')}
+                        </h4>
+                      </Col>
+                      <Col lg={2} xl={2} xxl={2} md={2} sm={2} style={{ borderLeft: '1px solid grey', paddingLeft: 3 }}>
+                        <h4 className="captions"> {t('status')} </h4>
+                      </Col>
+                      <Col lg={4} xl={2} xxl={3} md={4} sm={4} style={{ borderLeft: '1px solid grey', paddingLeft: 3 }}>
+                        <h4 className="captions">{t('remarks')} </h4>
+                      </Col>
+                      <Col xl={1} xxl={1} style={{ borderLeft: '1px solid grey', paddingLeft: 3 }}>
+                        <h4 className="captions"> {t('action')} </h4>
                       </Col>
                     </Row>
                   </div>
-                  {map(tableData, (item) => (
+                  {map(tableData, (item, index) => (
                     <>
-                      <Row justify={'space-between'} style={{ paddingLeft: 5, paddingRight: 5, paddingTop: 5 }}>
-                        <Col xxl={1} style={{ border: ' ', paddingLeft: 3 }}>
-                          <p> {item.DocNo} </p>
-                        </Col>
-                        <Col xxl={2} style={{ border: ' ', paddingLeft: 3 }}>
-                          <p> {formateDate(item.DocDate)} </p>
-                        </Col>
-                        <Col xxl={2} style={{ border: ' ', paddingLeft: 3 }}>
-                          <p> {item.TrackingSlipRef} </p>
-                        </Col>
-                        <Col xxl={2} style={{ border: ' ', paddingLeft: 3 }}>
-                          <p> {item.SlipAmount}</p>
-                        </Col>
-                        <Col xxl={2} style={{ border: ' ', paddingLeft: 5 }}>
-                          <p> {item.VoucherType} </p>
-                        </Col>
-                        <Col xxl={2} style={{ border: ' ', paddingLeft: 3 }}>
-                          <p>{item.SenderBank} </p>
-                        </Col>
-
-                        <Col xxl={3} style={{ border: ' ', paddingLeft: 3 }}>
-                          <p> {item.RepresentativeAccount} </p>
-                        </Col>
-                        <Col xxl={3} style={{ border: ' ', paddingLeft: 3 }}>
-                          <p> {item.SenderAccount} </p>
-                        </Col>
-                        <Col xxl={3} style={{ border: ' ', paddingLeft: 3 }}>
-                          <p> {item.ReceiverAccount} </p>
-                        </Col>
-                        <Col xxl={2} style={{ border: ' ', paddingLeft: 3 }}>
-                          <p>{item.ChequeNo} </p>
-                        </Col>
-                        <Col xxl={2} style={{ border: ' ', paddingLeft: 3 }}>
-                          {/* <p>{item.Amount} </p> */}
-                          <Tooltip title="Edit">
-                            <Space style={{ border: '', paddingTop: 5, height: 20 }}>
-                              <AntButton
-                                type="text"
-                                icon={<EditFilled style={{ color: '#006640' }} />}
-                                onClick={() => handleEditRow(item)}
-                              />
-                            </Space>
-                          </Tooltip>
-                          <Tooltip title="Delete">
-                            <Space style={{ border: '', paddingTop: 5, height: 22 }}>
-                              <AntButton
-                                type="text"
-                                icon={<DeleteOutlined style={{ color: 'red' }} />}
-                                onClick={() => handleDeleteRow(item)}
-                              />
-                            </Space>
-                          </Tooltip>
-                        </Col>
-                      </Row>
                       <Row
                         justify={'space-between'}
-                        style={{ borderBottom: '1px solid lightgrey', paddingLeft: 5, paddingRight: 5 }}
+                        style={{
+                          // padding: 5,
+                          paddingLeft: 5,
+                          paddingRight: 5,
+                          paddingTop: 2,
+                          borderBottom: '1px solid lightgrey',
+                          backgroundColor: index % 2 !== 0 ? '#EBF5FB' : '',
+                        }}
                       >
-                        <Col xxl={1} style={{ border: ' ' }}>
-                          {/* <h4>Doc No</h4> */}
+                        <Col lg={1} xl={1} xxl={1} sm={2} md={2} style={{ border: ' ', paddingLeft: 3 }}>
+                          <p className="dataIndexes"> {item.DocNo} </p>
                         </Col>
-                        <Col xxl={2} style={{ border: ' ' }}>
-                          {/* <h4>Doc Date</h4> */}
+                        <Col lg={4} xl={2} xxl={2} md={3} sm={3} style={{ border: ' ', paddingLeft: 5 }}>
+                          <p className="dataIndexes"> {formateDate(item.DocDate)} </p>
                         </Col>
-                        <Col xxl={2} style={{ border: ' ' }}>
-                          {/* <h4> Tracking Slip </h4> */}
-                        </Col>
-                        <Col xxl={2} style={{ border: ' ' }}>
-                          {/* <h4> Slip Amount </h4> */}
-                        </Col>
-                        <Col xxl={2} style={{ border: ' ' }}>
-                          {/* <h4> Voucher Type </h4> */}
-                        </Col>
-                        <Col xxl={2} style={{ border: ' ' }}>
-                          {/* <h4>Bank Name </h4> */}
+                        <Col
+                          lg={3}
+                          xl={1}
+                          xxl={1}
+                          md={3}
+                          sm={3}
+                          style={{ border: ' ', paddingLeft: 5, marginLeft: -20 }}
+                        >
+                          <p className="dataIndexes"> {item.TrackingSlipRef} </p>
                         </Col>
 
-                        <Col xxl={3} style={{ border: ' ', paddingLeft: 3 }}>
-                          <p> {item.Amount} </p>
+                        <Col lg={4} xl={1} xxl={1} md={4} sm={4} style={{ border: ' ', paddingLeft: 5 }}>
+                          <p className="dataIndexes"> {item.VoucherType} </p>
+                        </Col>
+                        <Col
+                          lg={4}
+                          xl={2}
+                          xxl={2}
+                          md={4}
+                          sm={4}
+                          style={{ border: ' ', marginLeft: -10, paddingRight: 3 }}
+                        >
+                          <p className="dataIndexes" style={{ textAlign: 'right', width: '85%' }}>
+                            {' '}
+                            {item.SlipAmount}
+                          </p>
+                        </Col>
+                        <Col
+                          lg={4}
+                          xl={2}
+                          xxl={2}
+                          md={4}
+                          sm={4}
+                          style={{ border: ' ', marginLeft: -25, paddingLeft: 5 }}
+                        >
+                          <p className="dataIndexes">{item.SenderBank} </p>
                         </Col>
 
-                        <Col xxl={3} style={{ border: ' ', paddingLeft: 3 }}>
-                          <p>{item.EntryStatus} </p>
+                        <Col lg={5} xl={2} xxl={2} md={5} style={{ border: ' ', paddingLeft: 5 }}>
+                          <p className="dataIndexes"> {item.RepresentativeAccount} </p>
                         </Col>
-                        <Col xxl={5} style={{ border: ' ', paddingLeft: 3 }}>
-                          <p>{item.RemarksHeader} </p>
+                        <Col lg={5} xl={2} xxl={2} md={5} style={{ border: ' ', paddingLeft: 5 }}>
+                          <p className="dataIndexes"> {item.SenderAccount} </p>
                         </Col>
-                        <Col xxl={2} style={{ border: ' ' }}></Col>
+                        <Col lg={4} xl={2} xxl={2} md={4} sm={4} style={{ border: ' ', paddingLeft: 5 }}>
+                          <p className="dataIndexes"> {item.ReceiverAccount} </p>
+                        </Col>
+                        <Col lg={3} xl={2} xxl={2} md={3} sm={3} style={{ border: ' ', paddingLeft: 5 }}>
+                          <p className="dataIndexes">{item.ChequeNo} </p>
+                        </Col>
+                        <Col
+                          lg={2}
+                          xl={1}
+                          xxl={1}
+                          md={2}
+                          sm={2}
+                          style={{ paddingLeft: 3, paddingRight: 3, marginLeft: -30 }}
+                        >
+                          <p className="dataIndexes" style={{ textAlign: 'right' }}>
+                            {item.Amount}{' '}
+                          </p>
+                        </Col>
+                        <Col lg={2} xl={2} xxl={2} sm={2} md={2} style={{ border: ' ', paddingLeft: 3 }}>
+                          <p className="dataIndexes">{item.EntryStatus} </p>
+                        </Col>
+                        <Col lg={4} xl={2} xxl={3} sm={4} md={4} style={{ border: ' ', paddingLeft: 3 }}>
+                          <p className="dataIndexes">{item.RemarksHeader} </p>
+                        </Col>
+                        <Col xl={1} xxl={1} style={{ border: ' ', paddingLeft: 3 }}>
+                          <Row>
+                            <Col span={10}>
+                              <Tooltip title="Edit">
+                                <Space style={{ border: '', paddingTop: 5, height: 20 }}>
+                                  <AntButton
+                                    type="text"
+                                    icon={<EditFilled style={{ color: '#006640' }} />}
+                                    onClick={() => handleEditRow(item)}
+                                  />
+                                </Space>
+                              </Tooltip>
+                            </Col>
+                            <Col span={12}>
+                              <Tooltip title="Delete">
+                                <Space style={{ border: '', paddingTop: 5, height: 22 }}>
+                                  <AntButton
+                                    type="text"
+                                    icon={<DeleteOutlined style={{ color: 'red' }} />}
+                                    onClick={() => handleDeleteRow(item, index)}
+                                  />
+                                </Space>
+                              </Tooltip>
+                            </Col>
+                          </Row>
+                        </Col>
                       </Row>
                     </>
                   ))}
+                  <Row
+                    justify={'space-between'}
+                    style={{
+                      position: 'sticky',
+                      bottom: 0,
+                      zIndex: 1,
+                      backgroundColor: '#eeee',
+                    }}
+                  >
+                    <Col lg={1} xl={1} xxl={1} sm={2} md={2} style={{ border: ' ', paddingLeft: 3 }}>
+                      <p className="dataIndexes"> </p>
+                    </Col>
+                    <Col lg={4} xl={2} xxl={2} md={3} sm={3} style={{ border: ' ', paddingLeft: 5 }}>
+                      <p className="dataIndexes"> </p>
+                    </Col>
+                    <Col lg={3} xl={1} xxl={1} md={3} sm={3} style={{ border: ' ', paddingLeft: 5, marginLeft: -20 }}>
+                      <p className="dataIndexes"> </p>
+                    </Col>
+
+                    <Col lg={4} xl={1} xxl={1} md={4} sm={4} style={{ border: ' ', paddingLeft: 5 }}>
+                      <p className="dataIndexes"> </p>
+                    </Col>
+                    <Col lg={4} xl={2} xxl={2} md={4} sm={4} style={{ border: ' ', marginLeft: -10, paddingRight: 3 }}>
+                      <p className="dataIndexes" style={{ textAlign: 'right', width: '85%' }}></p>
+                    </Col>
+                    <Col lg={4} xl={2} xxl={2} md={4} sm={4} style={{ border: ' ', marginLeft: -25, paddingLeft: 5 }}>
+                      <p className="dataIndexes"> </p>
+                    </Col>
+
+                    <Col lg={5} xl={2} xxl={2} md={5} style={{ border: ' ', paddingLeft: 5 }}>
+                      <p className="dataIndexes"> </p>
+                    </Col>
+                    <Col lg={5} xl={2} xxl={2} md={5} style={{ border: ' ', paddingLeft: 5 }}>
+                      <p className="dataIndexes"> </p>
+                    </Col>
+                    <Col lg={4} xl={2} xxl={2} md={4} sm={4} style={{ border: ' ', paddingLeft: 5 }}>
+                      <p className="dataIndexes"> </p>
+                    </Col>
+                    <Col lg={3} xl={2} xxl={2} md={3} sm={3} style={{ border: ' ', paddingLeft: 5 }}>
+                      <p className="dataIndexes"> </p>
+                    </Col>
+                    <Col
+                      lg={2}
+                      xl={1}
+                      xxl={1}
+                      md={2}
+                      sm={2}
+                      style={{ paddingLeft: 3, paddingRight: 3, marginLeft: -30 }}
+                    >
+                      <p className="dataIndexes" style={{ textAlign: 'right' }}>
+                        {/* {totalAmount} */}
+                        {totalAmount}
+                      </p>
+                    </Col>
+                    <Col lg={2} xl={2} xxl={2} sm={2} md={2} style={{ border: ' ', paddingLeft: 3 }}>
+                      <p className="dataIndexes"> </p>
+                    </Col>
+                    <Col lg={4} xl={2} xxl={3} sm={4} md={4} style={{ border: ' ', paddingLeft: 3 }}>
+                      <p className="dataIndexes"> </p>
+                    </Col>
+                    <Col xl={1} xxl={1} style={{ border: ' ', paddingLeft: 3 }}></Col>
+                  </Row>
                 </div>
               </>
             }
           ></Card>
         </Col>
       </Row>
-
-      {/* <AntTablecopy
-        showDefaultTableGrid={true}
-        data={tableData || []}
-        columns={columns(t, handleDeleteRow, handleEditRow)}
-        scroll={{ x: '', y: convertVhToPixels('20vh') }}
-      /> */}
     </>
   );
 }
@@ -287,6 +352,6 @@ function EntryTable({ form, tableData, setTableData }: Props) {
 export default EntryTable;
 interface Props {
   form: FormInstance;
-  tableData: TAccountsPrematureReceiptsList[];
+  tableData: TAccountsPrematureReceiptsList[] | any[];
   setTableData: (ary: TAccountsPrematureReceiptsList[] | any) => void;
 }

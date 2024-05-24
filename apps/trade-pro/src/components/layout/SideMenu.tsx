@@ -18,6 +18,7 @@ import {
   ShoppingOutlined,
   FileDoneOutlined,
   MoneyCollectOutlined,
+  UnorderedListOutlined,
 } from '@ant-design/icons';
 
 function SideMenu({ collapsed, setCollapsed }: any) {
@@ -49,6 +50,7 @@ function SideMenu({ collapsed, setCollapsed }: any) {
     <AppstoreOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />,
     <DollarOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />,
     <SettingOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />,
+    <FileTextOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />,
     <FileTextOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />,
   ];
   if (isError) {
@@ -87,6 +89,12 @@ function SideMenu({ collapsed, setCollapsed }: any) {
         ScreenAlias: 'AttendanceReports',
         ModuleTypeId: 2,
       };
+      const priceList: TSideMenu | any = {
+        ModuleID: 2,
+        ModuleDescription: 'Price List',
+        ScreenAlias: 'PriceList',
+        ModuleTypeId: 3,
+      };
 
       return [
         ...map(groupedData, (group) => {
@@ -98,6 +106,7 @@ function SideMenu({ collapsed, setCollapsed }: any) {
         }),
         { ...additionalItem },
         { ...attendanceReport },
+        { ...priceList },
       ];
     }
 
@@ -119,7 +128,10 @@ function SideMenu({ collapsed, setCollapsed }: any) {
   //   return [];
   // };
   const filteredList = list.filter(
-    (item) => item.ModuleDescription !== 'Reports' && item.ModuleDescription !== 'Attendance Report'
+    (item) =>
+      item.ModuleDescription !== 'Reports' &&
+      item.ModuleDescription !== 'Attendance Report' &&
+      item.ModuleDescription !== 'Price List'
   );
 
   return (
@@ -153,12 +165,13 @@ function SideMenu({ collapsed, setCollapsed }: any) {
             })}
           </Menu.SubMenu>
         ))}
-        {list.some((item) => item.ModuleDescription === 'Reports') && (
-          <Menu.Item key="reports" className="menu-item-title">
-            <Link to="/all_reports">
+        {list.some((item) => item.ModuleDescription === 'Price List') && (
+          <Menu.Item key="pricelist" className="menu-item-title">
+            <Link to="/price_list">
               <h4 className="menu-item-heading" style={{ color: 'gray' }}>
-                <FileTextOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />
-                <span> &nbsp;Reports</span>
+                <UnorderedListOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />
+                {/* <FileTextOutlined  /> */}
+                <span> &nbsp;Price List </span>
               </h4>
             </Link>
           </Menu.Item>
@@ -169,6 +182,16 @@ function SideMenu({ collapsed, setCollapsed }: any) {
               <h4 className="menu-item-heading" style={{ color: 'gray' }}>
                 <FileTextOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />
                 <span> &nbsp;Attendance Report</span>
+              </h4>
+            </Link>
+          </Menu.Item>
+        )}
+        {list.some((item) => item.ModuleDescription === 'Reports') && (
+          <Menu.Item key="reports" className="menu-item-title">
+            <Link to="/all_reports">
+              <h4 className="menu-item-heading" style={{ color: 'gray' }}>
+                <FileTextOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />
+                <span> &nbsp;Reports</span>
               </h4>
             </Link>
           </Menu.Item>
