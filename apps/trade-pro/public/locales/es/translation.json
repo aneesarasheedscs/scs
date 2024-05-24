@@ -900,5 +900,8 @@
   "present": "Presente",
   "absent": "Ausente",
   "late": "Tarde",
-  "select_item": "Seleccione un artículo"
+  "select_item": "Seleccione un artículo",
+  "Opening": "Apertura",
+  "total_of_payables": "Total de cuentas por pagar",
+  "period_filltered_records": "Registros filtrados por período"
 }

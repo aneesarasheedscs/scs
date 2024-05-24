@@ -29,6 +29,7 @@ export type TUserDetail = {
   CompanyAddress: string;
   OrganizationId: number;
   OrganizationName: string;
+  SupplierCustomerId:number;
   '.issued': Date | string;
   '.expires': Date | string;
   IsActive: string | boolean;

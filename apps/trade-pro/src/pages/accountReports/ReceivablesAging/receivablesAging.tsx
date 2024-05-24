@@ -198,7 +198,8 @@ function ReceivablesAgingRegisterTable() {
                     <Col xxl={12} md={24}>
                       <Row style={{ marginTop: 5 }}>
                         {' '}
-                        <h5>Period Filltered Records</h5>
+                        {/* <h5>Period Filltered Records</h5> */}
+                        <h5>{t('period_filltered_records')}</h5>
                       </Row>
                       <Row gutter={[6, 10]} justify={'space-between'}>
                         <Col xs={24} sm={12} md={12} xxl={12} lg={12} xl={12} className="form_field">

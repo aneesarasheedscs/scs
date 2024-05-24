@@ -305,6 +305,55 @@ export type TsaleOrderHistory = {
   ApprovedStatus: string;
 };
 
+export type THistoryCriteria = {
+  DocumentTypeId: number;
+  OrganizationId: number;
+  CompanyId: number;
+  FinancialYearId: number;
+  CanViewAllRecord: boolean;
+  EntryUser: number;
+  FromDate: Date;
+  ToDate: Date;
+  FromDocNo: number;
+  ToDocNo: number;
+  SupplierCustomerId: number;
+};
+
+
+export type TBookingOrderHistory = {
+  RecordNo: 3;
+  Id: number;
+  DocNo: number;
+  DocDate: Date;
+  CustomerName: string;
+  CommissionType: string;
+  CommRate: string;
+  CommAmount: number;
+  ItemAmountHeader: number;
+  DiscountAmountHeader: number;
+  TaxAmountHeader: number;
+  OrderAmount: number;
+  OrderQty: number;
+  OrderWeight: number;
+  CommissionRemarks: '';
+  DueDays: number;
+  DueDate: Date;
+  OrderExpiryDate: Date;
+  IsAproved: boolean;
+  DeliveryTerm: string;
+  DeliveryDays: number;
+  RemarksHeader: string;
+  OrderStatus: string;
+  TermsDescription: string;
+  UserName: string;
+  EntryDate: Date;
+  ModifyUserName: string;
+  ModifyDate: Date;
+  ApprovedUser: number;
+  PostDate: Date;
+  NoOfAttachments: string;
+};
+
 export type TBookingOrder = {
   DocumentTypeId: number;
   DocDate: Date;

@@ -3,13 +3,11 @@ import { Card, Col, FormInstance, Row } from 'antd';
 import _, { map } from 'lodash';
 import {
   useGetReceivablesAgingRegister,
-  useGetReceivablesAgingRegisterNotYetDue,
-  useGetReceivablesAgingRegisterOverDue,
 } from './queries';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
+import { useTranslation } from 'react-i18next';
 
 function ReceiableAgingIntervalCard({ form }: TInvtervalProps) {
-  //   const { data: purchaseOrderStatus } = useGetPurchaseOrderStatus();
 
   const {
     data,
@@ -21,9 +19,6 @@ function ReceiableAgingIntervalCard({ form }: TInvtervalProps) {
   } = useGetReceivablesAgingRegister(true, form.getFieldsValue());
 
  
-
-  
-
   const firstCaption = data?.data?.Data?.Result?.[0]?.FirstIntervalCaption;
   const secondtCaption = data?.data?.Data?.Result?.[0]?.SecondIntervalCaption;
   const thirdCaption = data?.data?.Data?.Result?.[0]?.ThirdIntervalCaption;
@@ -54,10 +49,9 @@ function ReceiableAgingIntervalCard({ form }: TInvtervalProps) {
       value: TotalAboveInterval,
     },
   ];
-
+const {t}=useTranslation()
   return (
     <>
-      {/* <Card style={{ marginBottom: 5 }}> */}
       {!isLoading && isSuccess && !isFetching && data?.data?.Data?.Result !== null ? 
           <Row gutter={[5, 10]} style={{ marginTop: 0,  }}>
        <Col xxl={14} lg={14} md={18} sm={16} >
@@ -66,7 +60,6 @@ function ReceiableAgingIntervalCard({ form }: TInvtervalProps) {
          <>
            <Col xl={12} xs={6} lg={12} md={6} sm={6} key={index} style={{display:'flex',flexDirection:'column'}}>
             <Card
-              // className="purchase-cards"
               style={{ height: '5.3vh', boxShadow: '0px 3px 6px #00000029' }}
               cover={
                 <>
@@ -98,10 +91,10 @@ function ReceiableAgingIntervalCard({ form }: TInvtervalProps) {
             cover={
               <>
                 <div style={{ borderRadius: 3, height: '10vh' }}>
-                  <h3 style={{ backgroundColor: '#25a7df', textAlign: 'center', padding: 5 }}>Totals of Payables</h3>
+                  <h3 style={{ backgroundColor: '#25a7df', textAlign: 'center', padding: 5 }}>{t('total_of_payables')}</h3>
                   <Row gutter={[2, 10]} justify={'space-between'} style={{ marginTop: 5 }}>
                     <Col span={12} style={{ backgroundColor: '#25a7df', textAlign: 'center' }}>
-                      <h3>Opening</h3>
+                      <h3>{t('opening')}</h3>
                     </Col>
                     <Col span={12}>
                       <h3
@@ -118,7 +111,7 @@ function ReceiableAgingIntervalCard({ form }: TInvtervalProps) {
                   </Row>
                   <Row gutter={[2, 10]} justify={'space-between'} style={{ marginTop: 5 }}>
                     <Col span={12} style={{ backgroundColor: '#25a7df', textAlign: 'center' }}>
-                      <h3>Closing</h3>
+                      <h3>{t('opening')}</h3>
                     </Col>
                     <Col span={12}>
                       <h3

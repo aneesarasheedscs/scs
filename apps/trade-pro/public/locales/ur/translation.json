@@ -790,5 +790,8 @@
   "present": "موجودہ",
   "absent": "غیر حاضر",
   "late": "دیر",
-  "select_item": "آئٹم کو منتخب کریں۔"
+  "select_item": "آئٹم کو منتخب کریں۔",
+  "Opening": "کھلنا",
+  "total_of_payables": "قابل ادائیگیوں کی کل",
+  "period_filltered_records": "مدت کے فلٹر شدہ ریکارڈز"
 }

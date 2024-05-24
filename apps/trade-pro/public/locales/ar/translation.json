@@ -581,5 +581,8 @@
   "present": "حاضر",
   "absent": "غائب",
   "late": "متأخر",
-  "select_item": "حدد العنصر"
+  "select_item": "حدد العنصر",
+  "Opening": "افتتاح",
+  "total_of_payables": "إجمالي الذمم الدائنة",
+  "period_filltered_records": "سجلات الفترة التي تمت تصفيتها"
 }

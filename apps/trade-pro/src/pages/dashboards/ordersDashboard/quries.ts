@@ -22,6 +22,8 @@ export const useGetOrdersDashboard = () => {
         params: {
           OrganizationId: userDetail?.OrganizationId,
           CompanyId: userDetail?.CompanyId,
+          // SupplierCustomerId: parseInt(userDetail?.SupplierCustomerId) > userDetail?.UserId ? userDetail?.SupplierCustomerId : userDetail?.UserId,
+
         },
       });
     },
@@ -31,6 +33,9 @@ export const useGetOrdersDashboard = () => {
 
 
 export const useGetPreBookingTablesData = (enabled = true, params?: Tfilter | null) => {
+  console.log('SupplierCustomerId:', userDetail?.SupplierCustomerId);
+console.log('UserId:', userDetail?.UserId);
+
     return useQuery(
       'pre-booking-order',
       () => {
@@ -39,9 +44,9 @@ export const useGetPreBookingTablesData = (enabled = true, params?: Tfilter | nu
           CompanyId: userDetail?.CompanyId,
           FromDate: financialYear?.Start_Period,
           ToDate: financialYear?.End_Period,
-          SupplierCustomerId:0,
-   
-  
+          // SupplierCustomerId: userDetail?.SupplierCustomerId > userDetail?.UserId ? userDetail?.SupplierCustomerId: userDetail?.UserId,
+          // SupplierCustomerId: parseInt(userDetail?.SupplierCustomerId) > userDetail?.UserId ? userDetail?.SupplierCustomerId : userDetail?.UserId,
+
           ...params,
         });
       },

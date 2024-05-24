@@ -23,8 +23,8 @@ const ItemEntryForm = ({ setSelectedItem, selectedItem }: TAddItem) => {
     token: { colorPrimary },
   } = theme.useToken();
   const TotalItems = selectedItem?.length;
-  const qty  = _.sumBy(selectedItem, 'OrderItemQty')
-  const totalAmount =  _.sumBy(selectedItem, 'TotalAmount')
+  const qty = _.sumBy(selectedItem, 'OrderItemQty');
+  const totalAmount = _.sumBy(selectedItem, 'TotalAmount');
   // const { data, isLoading, isSuccess } = useGetItemWithPackUom();
   // const ItemWithPackUom = data?.data?.Data?.Result
 
@@ -33,7 +33,7 @@ const ItemEntryForm = ({ setSelectedItem, selectedItem }: TAddItem) => {
 
   // console.log(itemNames,'itemName')
   // const fillteredItemName = ItemWithPackUom?.filter((item: any) => item.TranType === 'Receipts');
-console.log(selectedItem)
+  console.log(selectedItem);
   // console.log(ItemWithPackUom,'filterItem')
   const [itemPrice, setItemPrice] = useState<number>();
 
@@ -42,6 +42,17 @@ console.log(selectedItem)
   type TItemObj = {
     PackUom: string;
     RateUom: string;
+
+    ItemId: number;
+    ItemName: string;
+    ItemPrice: number;
+    PackEquivalent: number;
+
+    PackUomId: number;
+    RateEquivalent: number;
+
+    RateUomId: number;
+    ScheduleId: number;
   };
   type TFormValues = {
     ItemName: string;
@@ -57,6 +68,8 @@ console.log(selectedItem)
     console.log(values, 'vvvvvvvvvvvv');
 
     form.resetFields();
+
+  
     // form.setFieldValue(['SaleOrderDetailList', 0, 'ItemName'], null);
   };
 
@@ -65,7 +78,10 @@ console.log(selectedItem)
     const selectedAccount = data?.data?.Data?.Result?.find((item: any) => item.ItemId === value);
     if (selectedAccount) {
       const itemPackUom = selectedAccount.PackUom;
-      const itemRateUom = selectedAccount.PackUom;
+      const itemRateUom = selectedAccount.RateUom;
+      const OrderItemUOMId = selectedAccount?.PackUomId;
+      const OrderItemRate = selectedAccount?.RateEquivalent;
+      const OrderItemRateUOMId = selectedAccount?.RateUomId;
 
       const ItemTitle = selectedAccount.ItemName;
       const ItemTitlePrice = selectedAccount.ItemPrice;
@@ -74,6 +90,9 @@ console.log(selectedItem)
       // setItemName(accountTitle);
       form.setFieldValue('PackUom', itemPackUom);
       form.setFieldValue('RateUom', itemRateUom);
+      form.setFieldValue('OrderItemUOMId', OrderItemUOMId);
+      form.setFieldValue('OrderItemRate', OrderItemRate);
+      form.setFieldValue('OrderItemRateUOMId', OrderItemRateUOMId);
 
       form.setFieldValue('ItemName', ItemTitle);
       form.setFieldValue('ItemPrice', ItemTitlePrice);
@@ -97,7 +116,7 @@ console.log(selectedItem)
           xs={24}
           lg={24}
           className="ItemCriteriaStyle"
-          style={{ paddingBottom: 5, paddingTop: 5 }}
+          style={{ paddingBottom: 5, paddingTop: 5, border: '1px' }}
         >
           <Form
             form={form}
@@ -106,8 +125,9 @@ console.log(selectedItem)
           >
             <Col>
               <Row justify={'space-between'}>
-                <Col xs={24} sm={12} md={12} xxl={6} className="formfield">
+                <Col xs={24} sm={12} md={12} xxl={6} lg={12} className="formfield">
                   <AntSelectDynamic
+                  required
                     bordered={false}
                     label={t('')}
                     placeholder={'select item'}
@@ -116,15 +136,24 @@ console.log(selectedItem)
                     fieldValue="ItemId"
                     query={useGetItemWithPackUom}
                     onSelect={(obj) => handleItemNameChange(obj)}
+                    
                   />
                 </Col>
-                <Col xs={24} sm={12} md={12} xxl={4} className="formfield">
+                <Col xs={24} sm={11} md={11} xxl={4} lg={11} className="formfield">
                   <AntInputNumber name="PackUom" label={t('pack')} bordered={false} />
                   <AntInputNumber name="ItemName" label={t('')} bordered={false} style={{ display: 'none' }} />
                   <AntInputNumber name="ItemPrice" label={t('')} bordered={false} style={{ display: 'none' }} />
+                  <AntInputNumber name="OrderItemUOMId" label={t('')} bordered={false} style={{ display: 'none' }} />
+                  <AntInputNumber name="OrderItemRate" label={t('')} bordered={false} style={{ display: 'none' }} />
+                  <AntInputNumber
+                    name="OrderItemRateUOMId"
+                    label={t('')}
+                    bordered={false}
+                    style={{ display: 'none' }}
+                  />
                   <AntInputNumber name="TotalAmount" label={t('')} bordered={false} style={{ display: 'none' }} />
                 </Col>
-                <Col xs={24} sm={12} md={12} xxl={3} className="formfield">
+                <Col xs={24} sm={12} md={12} xxl={3} lg={12} className="formfield">
                   <AntInputNumber
                     name="OrderItemQty"
                     label={t('qty')}
@@ -132,7 +161,7 @@ console.log(selectedItem)
                     onChange={(value) => handleQuantityChange(value)}
                   />
                 </Col>
-                <Col xs={24} sm={12} md={12} xxl={4} className="formfield">
+                <Col xs={24} sm={11} md={11} xxl={4} lg={11} className="formfield">
                   <AntInputNumber name="RateUom" label={t('rate')} bordered={false} />
                 </Col>
                 <Col xs={24} sm={12} md={12} xxl={4} className="formfield">
@@ -148,39 +177,49 @@ console.log(selectedItem)
         </Col>
       </Row>
       <Row justify={'space-between'} style={{ border: '1px solid ', padding: 4 }}>
-          <Col xxl={11} lg={14} style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8 }}>
-            <Col>
-              <h5>
-                Qty: <span style={{ background: 'lightgrey', borderRadius: 10, padding: 3 }}>{ qty ? qty : 0 } </span>
-              </h5>
-            </Col>
-            <Col>
-              <h5>
-                Item: <span style={{ background: 'lightgrey', borderRadius: 10, padding: 3 }}>{TotalItems}</span>
-              </h5>
-            </Col>
-            <Col>
-              <h5>
-                Discount: <span style={{ background: 'lightgrey', borderRadius: 10, padding: 3 }}>000.0</span>
-              </h5>
-            </Col>
-            <Col>
-              <h5>
-                Total: <span style={{ background: 'lightgrey', borderRadius: 10, padding: 3 }}>{totalAmount ? totalAmount : 0}</span>
-              </h5>
-            </Col>
+        <Col
+          xxl={11}
+          lg={14}
+          md={10}
+          sm={13}
+          xs={15}
+          style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8 }}
+        >
+          <Col>
+            <h5>
+              Qty: <span style={{ background: 'lightgrey', borderRadius: 10, padding: 3 }}>{qty ? qty : 0} </span>
+            </h5>
           </Col>
-          <Col style={{ display: 'flex', justifyContent: 'end', padding: 0, color: 'green' }}>
-            <Row gutter={[10, 16]}>
-              <Col>
-                <AntButton icon={<SyncOutlined />} />
-              </Col>
-              <Col>
-                <AntButton icon={<FullscreenOutlined />} />
-              </Col>
-            </Row>
+          <Col>
+            <h5>
+              Item: <span style={{ background: 'lightgrey', borderRadius: 10, padding: 3 }}>{TotalItems}</span>
+            </h5>
           </Col>
-        </Row>
+          <Col>
+            <h5>
+              Discount: <span style={{ background: 'lightgrey', borderRadius: 10, padding: 3 }}>000.0</span>
+            </h5>
+          </Col>
+          <Col>
+            <h5>
+              Total:{' '}
+              <span style={{ background: 'lightgrey', borderRadius: 10, padding: 3 }}>
+                {totalAmount ? totalAmount : 0}
+              </span>
+            </h5>
+          </Col>
+        </Col>
+        <Col style={{ display: 'flex', justifyContent: 'end', padding: 0, color: 'green' }}>
+          <Row gutter={[10, 16]}>
+            <Col>
+              <AntButton icon={<SyncOutlined />} />
+            </Col>
+            <Col>
+              <AntButton icon={<FullscreenOutlined />} />
+            </Col>
+          </Row>
+        </Col>
+      </Row>
     </>
   );
 };

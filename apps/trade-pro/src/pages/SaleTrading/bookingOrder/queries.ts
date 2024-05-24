@@ -116,10 +116,10 @@ export const useGetSaleOrderById = (Id?: number | null) => {
 const getSaleOrderById = (Id?: number | null) => {
   return requestManager.get('/api/SaleOrder/GetByID?Id=5072', { params: { Id } });
 };
-//Save Sale Order
-export const useAddSaleOrder = (params?: TBookingOrder) => {
+//Save Booking Order
+export const useAddBookingOrder = (params?: TBookingOrder) => {
   return useMutation(
-    'sale-order-detail',
+    'booking_order_add',
     (data: TBookingOrder) => {
       return requestManager.post('/api/PreBookingOrder/Save', {
         ...data,
@@ -133,7 +133,7 @@ export const useAddSaleOrder = (params?: TBookingOrder) => {
         EntryUser: userDetail?.UserId,
         ModifyDate: new Date().toISOString(),
         DeliveryStartDate: new Date().toISOString(),
-      
+        OrderDueDate:new Date().toISOString(),
         OrderExpiryDate: new Date().toISOString(),
 
         ...params,
@@ -141,21 +141,22 @@ export const useAddSaleOrder = (params?: TBookingOrder) => {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries('sale-order-detail');
+        queryClient.invalidateQueries('booking-order');
         const msg = 'Record added successfully!';
         notification.success({ description: '', message: msg });
       },
     }
   );
 };
-export const useUpdateSaleOrder = (Id?: number | null, params?: TSaleOrder) => {
+export const useUpdateBookingOrder = (Id?: number | null, params?: TBookingOrder) => {
   return useMutation(
-    'sale-order-detail',
-    (data: TSaleOrder) => {
-      return requestManager.post('/api/SaleOrder/Save', {
+    'booking_order_update',
+    (data: TBookingOrder) => {
+      return requestManager.post('/api/PreBookingOrder/Save', {
         ...data,
+         
         Id: 0,
-        DocumentTypeId: 81,
+        DocumentTypeId: 129,
         OrganizationId: userDetail?.OrganizationId,
         CompanyId: userDetail?.CompanyId,
         BranchesId: userDetail?.BranchesId,
@@ -164,7 +165,7 @@ export const useUpdateSaleOrder = (Id?: number | null, params?: TSaleOrder) => {
         EntryUser: userDetail?.UserId,
         ModifyDate: new Date().toISOString(),
         DeliveryStartDate: new Date().toISOString(),
-        // ActionTypeId: 1,
+        OrderDueDate:new Date().toISOString(),
         OrderExpiryDate: new Date().toISOString(),
 
         ...params,
@@ -172,7 +173,7 @@ export const useUpdateSaleOrder = (Id?: number | null, params?: TSaleOrder) => {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries('sale-order-detail');
+        queryClient.invalidateQueries('booking-order');
         const msg = 'Record updated successfully!';
         notification.success({ description: '', message: msg });
       },
@@ -230,15 +231,7 @@ export const useGetDiscountRate = (
   );
 };
 
-// export const useGetUomByItemId = (ItemId?: number | null) => () => {
-//   return useQuery(
-//     ['uom', ItemId],
-//     () => {
-//       return requestManager.get('/api/UOMSchedule/SearchByObject', { params: { ...params, ItemId } });
-//     },
-//     { enabled: !!ItemId }
-//   );
-// };
+
 export const useGetBranch = (CompanyId: number | null) => () => {
   return useQuery(
     ['branch', CompanyId],

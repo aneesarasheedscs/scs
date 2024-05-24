@@ -7,6 +7,7 @@ import {
   useGetReceivablesAgingRegisterOverDue,
 } from './queries';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
+import { useTranslation } from 'react-i18next';
 
 function ReceiableAgingIntervalOverDueCards({ form }: TInvtervalProps) {
  
@@ -54,6 +55,8 @@ function ReceiableAgingIntervalOverDueCards({ form }: TInvtervalProps) {
     },
   ];
 
+  const {t} =useTranslation()
+
   return (
     <>
       {/* <Card style={{ marginBottom: 5 }}> */}
@@ -97,10 +100,10 @@ function ReceiableAgingIntervalOverDueCards({ form }: TInvtervalProps) {
             cover={
               <>
                 <div style={{ borderRadius: 3, height: '10vh' }}>
-                  <h3 style={{ backgroundColor: '#25a7df', textAlign: 'center', padding: 5 }}>Totals of Payables</h3>
+                  <h3 style={{ backgroundColor: '#25a7df', textAlign: 'center', padding: 5 }}>{t('total_of_payables')}</h3>
                   <Row gutter={[2, 10]} justify={'space-between'} style={{ marginTop: 5 }}>
                     <Col xxl={12} style={{ backgroundColor: '#25a7df', textAlign: 'center' }}>
-                      <h3>Opening</h3>
+                      <h3>{t('opening')}</h3>
                     </Col>
                     <Col xxl={12}>
                       <h3

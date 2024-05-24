@@ -109,5 +109,8 @@
   "present": "현재의",
   "absent": "결석한",
   "late": "늦은",
-  "select_item": "물품을 고르시 오"
+  "select_item": "물품을 고르시 오",
+  "Opening": "열리는",
+  "total_of_payables": "미지급금 총액",
+  "period_filltered_records": "기간이 채워진 레코드"
 }

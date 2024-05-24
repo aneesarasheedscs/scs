@@ -29,7 +29,7 @@ const AddItemTable = ({ setSelectedItem,selectedItem }: TAddItem) => {
 
 
 
-    const [quantity, setQuantity] = useState(1); // Initialize quantity state
+    const [quantity, setQuantity] = useState(0); // Initialize quantity state
 
   // Function to handle increment
   const handleIncrement = () => {
@@ -53,7 +53,7 @@ const AddItemTable = ({ setSelectedItem,selectedItem }: TAddItem) => {
     <>
       <div>
         <Row justify={'space-between'} style={{ border: '1px solid ', padding: 4 }}>
-          <Col xxl={24} lg={14} style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Col xxl={24} lg={24} style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Col>
               <ItemEntryForm setSelectedItem={setSelectedItem} selectedItem={selectedItem}/>
             </Col>
@@ -122,8 +122,8 @@ const AddItemTable = ({ setSelectedItem,selectedItem }: TAddItem) => {
               </Col>
             </Row>
 
-            <Row justify={'space-between'} style={{ border: '1px solid ', padding: 4 }}>
-              <Col xxl={14} lg={14} style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Row justify={'space-between'} style={{ padding: 4 }}>
+              <Col xxl={14} lg={14} md={14} style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Row justify={'space-between'}>
                   <Col>
                     <h5>
@@ -182,7 +182,7 @@ const AddItemTable = ({ setSelectedItem,selectedItem }: TAddItem) => {
             <Row justify={'space-between'} style={{  padding: 4 }}>
               <Col xxl={14} lg={14} style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Col>
-                  <p style={{ color: '' }}>{item.ItemName} <b style={{marginLeft:10}}>@{item.PackUom}</b>
+                  <p style={{ color: '' }}>{item.ItemName} <b style={{marginLeft:0}}></b>
                   <span style={{marginLeft:10}}>Price:</span>
                   <span style={{ color: 'red', marginLeft: 10 }}>{item.ItemPrice}/{item.RateUom}</span>
                    </p>
@@ -201,7 +201,7 @@ const AddItemTable = ({ setSelectedItem,selectedItem }: TAddItem) => {
             </Row>
 
             <Row justify={'space-between'} style={{ border: '1px solid ',borderTop:'none',borderLeft:'none',borderRight:'none' , padding: 1 }}>
-              <Col xxl={14} lg={14} style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Col xxl={14} lg={14} style={{ display: 'flex', justifyContent: 'space-between', }}>
                 <Row justify={'space-between'}>
                   <Col >
                     <h5>

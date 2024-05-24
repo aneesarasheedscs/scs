@@ -1,11 +1,10 @@
-import { AntButton, AntDatePicker, AntInputNumber, AntSelectDynamic } from '@tradePro/components';
-import { CriteriaRowGutter } from '@tradePro/globalAtoms';
-import { Card, Col, Form, FormInstance, Row, theme } from 'antd';
+import { AntButton, AntSelectDynamic } from '@tradePro/components';
+
+import { Card, Col, Form, Row, theme } from 'antd';
 
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FilterFilled } from '@ant-design/icons';
-import { useGetSupplierCustomer } from '../queries';
 import { map } from 'lodash';
 
 const { useToken } = theme;
@@ -54,77 +53,55 @@ const AddItemCriteria = ({ data, setFilteredRecord }: TProps) => {
 
   console.log(ItemWithPackUom, 'filterItem');
 
+
   return (
     <>
-      <Row   style={{ position:'sticky', top: 0, left: 0, right: 0, zIndex:1,  }}>
-   <Col xxl={24} style={{padding:5}}>
-   <Card  
-   style={{height:'6.5vh'}}
-   >
-   <Col xxl={24} xl={23} sm={23} xs={23} lg={23} className="ItemCriteriaStyle" style={{ padding: 0 }}>
-          <Form
-            form={form}
-            //   initialValues={{FromDate,ToDate}}
-            //   onFinish={onFinish}
-          >
-    
-      <Col>
-              <Row justify={'space-between'}>
-                {/* <Col xs={24} sm={12} md={12} xxl={10} className="formfield">
-                  <AntSelectDynamic
-                    bordered={false}
-                    label={t('store_name')}
-                    name="CompanyName"
-                    fieldLabel="CompanyName"
-                    fieldValue="Id"
-                    query={useGetSupplierCustomer}
-                    //   options={filteredItemClassGroups}
-                    // options={map(status, (item: any) => ({
-                    //   value: item.Id,
-                    //   label: item.Name,
-                    // }))}
-                  />
-                </Col>
-                <Col xs={24} sm={12} md={12} xxl={3} className="formfield">
-                  <AntInputNumber name="qty" label={t('qty')} bordered={false} />
-                </Col> */}
-                <Col xs={24} sm={12} md={12} xxl={12} className="formfield">
-                  <AntSelectDynamic
-                    bordered={false}
-                    label={t('select_item')}
-                    name="ItemId"
-                    fieldLabel="ItemName"
-                    fieldValue="Id"
-                    // options={itemNames}
-                    options={map(data?.data?.Data?.Result, (item: any) => ({
-                      value: item.ItemId,
-                      label: item.ItemName,
-                    }))}
-                    onSelect={(value) => handleSelectItem(value)}
-                  />
-                </Col>
-
+      <Row style={{ position: 'sticky', top: 0, left: 0, right: 0, zIndex: 1 }}>
+        <Col xxl={24} xl={24} lg={24} sm={24} md={24} xs={24} style={{ padding: 5 }}>
+          <Card style={{ height: '7vh' }} className="cardHieght">
+            <Col xxl={24} xl={23} sm={23} xs={23} lg={23} className="ItemCriteriaStyle" style={{ padding: 0 }}>
+              <Form
+                form={form}
+                //   initialValues={{FromDate,ToDate}}
+                //   onFinish={onFinish}
+              >
                 <Col>
-                  <Col xs={24} sm={12} md={12} xxl={2}>
-                    <AntButton
-                      onClick={handleFiltereItems}
-                      ghost
-                      icon={
-                        <>
-                          {' '}
-                          <FilterFilled style={{ fontWeight: 'bold', fontSize: 25 }} />
-                        </>
-                      }
-                    />
-                  </Col>
+                  <Row justify={'space-between'}>
+                    <Col xs={24} sm={12} md={12} xxl={12} className="formfield">
+                      <AntSelectDynamic
+                        bordered={false}
+                        label={t('select_item')}
+                        name="ItemId"
+                        fieldLabel="ItemName"
+                        fieldValue="Id"
+                        options={map(data?.data?.Data?.Result, (item: any) => ({
+                          value: item.ItemId,
+                          label: item.ItemName,
+                        }))}
+                        onSelect={(value) => handleSelectItem(value)}
+                      />
+                    </Col>
+
+                    <Col>
+                      <Col xs={24} sm={12} md={12} xxl={2}>
+                        <AntButton
+                          onClick={handleFiltereItems}
+                          ghost
+                          icon={
+                            <>
+                              {' '}
+                              <FilterFilled style={{ fontWeight: 'bold', fontSize: 25 }} />
+                            </>
+                          }
+                        />
+                      </Col>
+                    </Col>
+                  </Row>
                 </Col>
-              </Row>
+              </Form>
             </Col>
-      
-          </Form>
+          </Card>
         </Col>
-   </Card>
-   </Col>
       </Row>
     </>
   );

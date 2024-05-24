@@ -575,5 +575,8 @@
   "present": "Présent",
   "absent": "Absent",
   "late": "En retard",
-  "select_item": "Sélectionner un article"
+  "select_item": "Sélectionner un article",
+  "Opening": "Ouverture",
+  "total_of_payables": "Total des dettes",
+  "period_filltered_records": "Enregistrements remplis par période"
 }
