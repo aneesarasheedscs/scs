@@ -578,5 +578,6 @@
   "select_item": "选择物品",
   "Opening": "开幕",
   "total_of_payables": "应付账款总额",
-  "period_filltered_records": "期间填充记录"
+  "period_filltered_records": "",
+  "receivables_aging": "应收账款账龄"
 }

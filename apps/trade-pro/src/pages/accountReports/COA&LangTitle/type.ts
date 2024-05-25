@@ -8,6 +8,7 @@ export type TChartOfAccountCriteria = {
 
 export type TCOAReportHistory = {
   Id: number;
+  AccountId:number;
   AccountCode: number;
   AccountTitle: string;
   AccountGroup: string;

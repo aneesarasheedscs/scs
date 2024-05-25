@@ -1,17 +1,21 @@
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { TCOAReportHistory } from './type';
-import { t } from 'i18next';
+import { TFunction, t } from 'i18next';
 
-export const ChartOfAccountColumn = (): AntColumnType<TCOAReportHistory>[] => [
+export const ChartOfAccountColumn = (t: TFunction): AntColumnType<TCOAReportHistory>[] => [
   {
     title: t('account_code'),
     dataIndex: 'AccountCode',
-    width: 200,
+    width: 150,
     showCount: true,
-    searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.AccountCode - b.AccountCode,
+    render: (_, { AccountCode }) => (
+      <>
+        <a>{AccountCode}</a>
+      </>
+    ),
   },
 
   {
@@ -26,14 +30,14 @@ export const ChartOfAccountColumn = (): AntColumnType<TCOAReportHistory>[] => [
   {
     title: t('account_group'),
     dataIndex: 'AccountGroup',
-    width: 300,
+    width: 210,
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.AccountGroup.localeCompare(b.AccountGroup),
   },
 
   {
-    width: 200,
+    width: 160,
     title: t('account_level'),
     dataIndex: 'AccountLevel',
     searchableInput: true,
@@ -43,7 +47,7 @@ export const ChartOfAccountColumn = (): AntColumnType<TCOAReportHistory>[] => [
   {
     title: t('account_class'),
     dataIndex: 'AccountClass',
-    width: 200,
+    width: 250,
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.AccountClass.localeCompare(b.AccountClass),
@@ -59,7 +63,7 @@ export const ChartOfAccountColumn = (): AntColumnType<TCOAReportHistory>[] => [
   {
     title: t('note_title'),
     dataIndex: 'NoteTitle',
-    width: 300,
+    width: 250,
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.NoteTitle.localeCompare(b.NoteTitle),

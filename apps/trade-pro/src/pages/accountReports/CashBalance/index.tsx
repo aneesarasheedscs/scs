@@ -10,6 +10,7 @@ import React, { useEffect, useState } from 'react';
 import GeneralLedgerReport from '../GeneralLedger';
 import { useAtom } from 'jotai';
 import { useatomBackButton } from 'libs/ui/src/button/atom';
+import { CriteriaRowGutter } from '@tradePro/globalAtoms';
 
 const { Title, Text } = Typography;
 const { useToken } = theme;
@@ -128,7 +129,7 @@ const CashBalances: React.FC<{ DateType?: string; FromDateProp?: Date; ToDatePro
         </Col>
       </Row>
       <Col style={{ overflowX: 'hidden' }}>
-        <Row gutter={[16, 16]} justify={'space-around'}>
+        <Row gutter={CriteriaRowGutter} justify={'space-around'}>
           <Col xs={23} md={24} lg={24} xxl={23}>
             <Card className="">
               <Form form={form} onFinish={onFinish}>

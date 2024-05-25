@@ -19,7 +19,6 @@ import ReceiableAgingIntervalOverDueCards from './receivableOverDueCard';
 
 const { useForm, useWatch } = Form;
 
-
 function ReceivablesAgingRegisterTable() {
   const [form] = useForm<ReceivablesAgingSearchCriteria>();
   const formValues = useWatch<ReceivablesAgingSearchCriteria>([], form);
@@ -54,34 +53,29 @@ function ReceivablesAgingRegisterTable() {
   const aboveCaption = data?.data?.Data?.Result?.[0]?.AboveIntervalCaption;
   const [receivablesAgingType, setReceivablesAgingType] = useState('NetReceivable');
   const onFinish = (_: ReceivablesAgingSearchCriteria) => {
-    // _.ToDate = new Date(_.ToDate.toISOString().split('T')[0]);
     _.ToDate = dayjs(_.ToDate).startOf('day');
     console.log(_.ToDate);
+
     // refetch();
     if (reportType === 'NetReceivable') {
       setReceivablesAgingType('NetReceivable');
       refetch();
-      // console.log('refetchNot revceivable')
     } else if (reportType === 'OverDue') {
       setReceivablesAgingType('OverDue');
       refetchOverDue();
-      // console.log('refetchOver Due revceivable')
     } else if (reportType === 'NotYetDue') {
       setReceivablesAgingType('NotYetDue');
       refNetOver();
-      // console.log('refetchNotYetDue revceivable')
     }
   };
   console.log(reportType, 'reportType');
 
   useEffect(() => {
-    // form.setFields([{ name: 'EndDate', value: dayjs() }]);
     form.setFields([{ name: 'ToDate', value: dayjs(new Date()) }]);
     form.setFields([{ name: 'AgingDays', value: 30 }]);
   }, []);
 
   useEffect(() => {
-    // Update the FromDate field based on the AgingDays and ToDate when they change
     const calculateFromDate = () => {
       const toDate = form.getFieldValue('ToDate');
       const agingDays = form.getFieldValue('AgingDays');
@@ -195,14 +189,13 @@ function ReceivablesAgingRegisterTable() {
                         />
                       </Col>
                     </Row>
-                    <Col xxl={12} md={24}>
-                      <Row style={{ marginTop: 5 }}>
+                    <Col xxl={12} md={24} style={{marginLeft:-10}}>
+                      {/* <Row style={{ marginTop: 5 }}>
                         {' '}
-                        {/* <h5>Period Filltered Records</h5> */}
                         <h5>{t('period_filltered_records')}</h5>
-                      </Row>
-                      <Row gutter={[6, 10]} justify={'space-between'}>
-                        <Col xs={24} sm={12} md={12} xxl={12} lg={12} xl={12} className="form_field">
+                      </Row> */}
+                      <Row gutter={[0,5]} justify={'space-between'}>
+                        <Col xs={24} sm={12} md={12} xxl={12} lg={12} xl={12} className="form_field" style={{marginLeft:0}}>
                           <AntDatePicker name="FromDate" label={t('from_date')} bordered={false} disabled />
                         </Col>
                         <Col
@@ -213,7 +206,7 @@ function ReceivablesAgingRegisterTable() {
                           lg={11}
                           xl={11}
                           className="form_field "
-                          style={{ marginLeft: 10 }}
+                          style={{ marginLeft: 0 }}
                         >
                           <AntDatePicker name="EndDate" label={t('to_date')} bordered={false} disabled />
                         </Col>
@@ -254,6 +247,7 @@ function ReceivablesAgingRegisterTable() {
             isLoading={isLoading || isFetching}
             data={data?.data?.Data?.Result || []}
             scroll={{ x: '', y: convertVhToPixels('45vh') }}
+           
           />
         </Col>
       </Row>

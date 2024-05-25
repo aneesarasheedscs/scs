@@ -15,7 +15,8 @@ export const columnsVoucherReport = (t: any): AntColumnType<TVoucherReport>[] =>
     dataIndex: 'DocumentTypeCode',
     showCount: true,
     sorter: (a, b) => a.DocumentTypeCode.localeCompare(b.DocumentTypeCode),
-    width: 150,
+    width: 120,
+
   },
 
   {
@@ -63,7 +64,7 @@ export const columnsVoucherReport = (t: any): AntColumnType<TVoucherReport>[] =>
     title: t('cheque'),
     dataIndex: 'ChequeNo',
     sorter: (a, b) => a.ChequeNo - b.ChequeNo,
-    width: 150,
+    width: 120,
   },
 
   {
@@ -77,7 +78,7 @@ export const columnsVoucherReport = (t: any): AntColumnType<TVoucherReport>[] =>
   {
     title: t('debit'),
     dataIndex: 'DebitAmount',
-    width: 190,
+    width: 130,
     showTotal: true,
     align: 'right',
     sorter: (a, b) => a.DebitAmount - b.DebitAmount,
@@ -92,7 +93,7 @@ export const columnsVoucherReport = (t: any): AntColumnType<TVoucherReport>[] =>
     showTotal: true,
     align: 'right',
     sorter: (a, b) => a.CreditAmount - b.CreditAmount,
-    width: 190,
+    width: 130,
     render: (CreditAmount, record) => (
       <Space style={{ display: 'flex', justifyContent: 'end' }}>{numberFormatter(CreditAmount)}</Space>
     ),

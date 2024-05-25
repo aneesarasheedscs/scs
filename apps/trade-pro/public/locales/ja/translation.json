@@ -123,5 +123,6 @@
   "select_item": "アイテムを選択",
   "Opening": "オープニング",
   "total_of_payables": "買掛金合計",
-  "period_filltered_records": "ピリオドで埋められたレコード"
+  "period_filltered_records": "",
+  "receivables_aging": "売掛金の時効"
 }

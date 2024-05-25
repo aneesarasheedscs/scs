@@ -11,7 +11,7 @@ export const SixColumnsTrialBalanceReport = (t: any): AntColumnType<TrialBalance
   {
     title: t('account_code'),
     dataIndex: 'AccountCode',
-    width: 110,
+    width: 150,
     showCount: true,
 
     render: (_, { AccountCode, AccountId }) => <a onClick={() => handleRowClick(AccountId)}>{AccountCode}</a>,
@@ -22,14 +22,14 @@ export const SixColumnsTrialBalanceReport = (t: any): AntColumnType<TrialBalance
 
     dataIndex: 'AccountTitle',
     sorter: (a, b) => a.AccountTitle.localeCompare(b.AccountTitle),
-    width: 225,
+    width: 250,
   },
   {
     title: t('Opening Dr'),
     showTotal: true,
     dataIndex: 'OpeningDr',
     sorter: (a, b) => a.OpeningDr - b.OpeningDr,
-    width: 196,
+    width: 150,
     align: 'right',
     render: (OpeningDr, record) => (
       <Space style={{ display: 'flex', justifyContent: 'end', marginRight: '0%' }}>{numberFormatter(OpeningDr)}</Space>
@@ -40,7 +40,7 @@ export const SixColumnsTrialBalanceReport = (t: any): AntColumnType<TrialBalance
     showTotal: true,
     dataIndex: 'OpeningCr',
 
-    width: 196,
+    width: 150,
     align: 'right',
     sorter: (a, b) => a.OpeningCr - b.OpeningCr,
     render: (OpeningCr, record) => (
@@ -102,7 +102,7 @@ export const FourColumnsTrialBalanceReport = (t: any): AntColumnType<TrialBalanc
     title: t('account_code'),
     dataIndex: 'AccountCode',
 
-    width: 196,
+    width: 150,
     showCount: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.AccountCode - b.AccountCode,

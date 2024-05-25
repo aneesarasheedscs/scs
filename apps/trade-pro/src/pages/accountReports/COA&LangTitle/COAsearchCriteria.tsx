@@ -5,6 +5,7 @@ import { AntButton, AntSelectDynamic, SearchCriteriaWrapper } from '@tradePro/co
 import { useGetCompanyName, useGetCOAReport, useGetLangauge, useChartOfReporttableQuery } from './queries';
 import { TChartOfAccountCriteria } from './type';
 import { useTranslation } from 'react-i18next';
+import { CriteriaRowGutter } from '@tradePro/globalAtoms';
 
 const { useForm, useWatch } = Form;
 
@@ -54,8 +55,9 @@ function ChartOfAccountReport() {
     <div>
       <SearchCriteriaWrapper open={open} handleOpen={handleOpen} handleClose={handleClose}>
         <Form layout="inline" form={form} onFinish={onFinish}>
-          <Row gutter={[24, 24]} justify={'space-between'}>
-            <Col xs={24} sm={24} md={17} xl={17} xxl={12} className="formsfield">
+        <Col xxl={24}>
+        <Row gutter={CriteriaRowGutter} justify={'space-between'}>
+            <Col xs={24} sm={24} md={17} xl={17} xxl={11} className="formsfield" >
               <AntSelectDynamic
                 bordered={false}
                 name="CompanyId"
@@ -68,14 +70,14 @@ function ChartOfAccountReport() {
               />
             </Col>
 
-            <Col xs={24} sm={24} md={6} xl={6} xxl={6}>
-              <br />
+            <Col xs={24} sm={24} md={6} xl={6} xxl={6} style={{marginTop:10}}>
+              {/* <br /> */}
               <Checkbox defaultChecked={true} onChange={handleCheckboxChange}>
                 {t('is_active')}
               </Checkbox>
             </Col>
-            <Col xs={24} sm={24} md={5} xl={5} xxl={4}>
-              <br />
+            <Col xs={24} sm={24} md={5} xl={5} xxl={3}>
+              {/* <br /> */}
               <AntButton
                 label={t('show')}
                 htmlType="submit"
@@ -105,6 +107,7 @@ function ChartOfAccountReport() {
               />
             </Col>
           </Row>
+        </Col>
         </Form>
       </SearchCriteriaWrapper>
     </div>

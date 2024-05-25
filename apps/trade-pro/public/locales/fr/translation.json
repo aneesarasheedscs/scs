@@ -578,5 +578,6 @@
   "select_item": "Sélectionner un article",
   "Opening": "Ouverture",
   "total_of_payables": "Total des dettes",
-  "period_filltered_records": "Enregistrements remplis par période"
+  "period_filltered_records": "",
+  "receivables_aging": "Vieillissement des créances"
 }
