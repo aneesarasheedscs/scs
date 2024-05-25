@@ -17,6 +17,7 @@ const ChartOfAccountReportTable = () => {
   const { t } = useTranslation();
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
   const [removeFirstValue, setRemoveFirstValue] = useState(true);
+  const [SelectedAccount, setSelectedAccount] = useState<number | undefined>(undefined);
   const {
     data,
     refetch,
@@ -41,6 +42,8 @@ const ChartOfAccountReportTable = () => {
       </Row>
     );
   }
+
+
   return (
     <div style={{ background: '#fff' }}>
       <Row justify={'space-between'} align={'middle'}>
@@ -97,7 +100,7 @@ const ChartOfAccountReportTable = () => {
             isError={isReportError}
             numberOfSkeletons={12}
             isLoading={isReportLoading || isFetching}
-            columns={ChartOfAccountColumn()}
+            columns={ChartOfAccountColumn(t,)}
             data={data?.data?.Data?.Result || []}
             searchCriteriaForm={<ChartOfAccountReport />}
            searchCriteriaReport={data?.data?.Data?.Result?.[0]?.ReportCriteria? <CriteriaString/> : ''}

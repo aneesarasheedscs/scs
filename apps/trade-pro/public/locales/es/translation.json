@@ -903,5 +903,6 @@
   "select_item": "Seleccione un artículo",
   "Opening": "Apertura",
   "total_of_payables": "Total de cuentas por pagar",
-  "period_filltered_records": "Registros filtrados por período"
+  "period_filltered_records": "",
+  "receivables_aging": "Envejecimiento de los recuperables"
 }

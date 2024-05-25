@@ -62,7 +62,7 @@ export const CashBalancesSummaryCash = (
     ),
   },
   {
-    width: 250,
+    width: 200,
     title: t('closing'),
     dataIndex: 'Closing',
     align: 'right',
