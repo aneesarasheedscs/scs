@@ -1,19 +1,15 @@
 import { Card, Col, Form, Row, theme } from 'antd';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 import dayjs from 'dayjs';
 import { storedFinancialYear } from '@tradePro/utils/storageService';
 import { AntButton, AntDatePicker } from '@tradePro/components';
 import { CriteriaRowGutter } from '@tradePro/globalAtoms';
-import OrdersDashboardStatus from './bookingorderstatus';
 import { useGetBookingOrder } from '../queries';
 
 const { useToken } = theme;
 const { useForm, useWatch } = Form;
 
 const financialYear = storedFinancialYear();
-
 
 const FromDate = dayjs(financialYear?.Start_Period);
 const ToDate = dayjs(financialYear?.End_Period);
@@ -30,7 +26,7 @@ function ModalCriteria() {
 
   const onFinish = (_: any) => {
     // setformState(form.getFieldsValue());
-    refetch()
+    refetch();
   };
   return (
     <>
@@ -52,14 +48,10 @@ function ModalCriteria() {
                       <AntButton
                         label={t('show')}
                         htmlType="submit"
-                          isError={isError}
-                          isLoading={isLoading || isFetching}
+                        isError={isError}
+                        isLoading={isLoading || isFetching}
                       />
                     </Col>
-
-                    {/* <Col xxl={13} xl={24} lg={23} xs={23} sm={23} md={23}>
-            <OrdersDashboardStatus />
-          </Col> */}
                   </Row>
                 </Col>
               </Form>

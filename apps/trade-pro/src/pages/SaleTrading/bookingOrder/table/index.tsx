@@ -1,17 +1,10 @@
-import { AntButton, AntTable } from '@scs/ui';
+import { AntTable } from '@tradePro/components';
 import { useGetBookingOrder, useGetPurchaseOrderStatus } from '../queries';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { Bookingordercolumns } from './columns';
-import { t } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { Card, Col, Row } from 'antd';
-
 import { useState } from 'react';
-import CardView from './cardView';
-import './Card.scss';
-import './DetailTableFile.scss';
-import SaleOrderFormHistoryCriteria from './SaleOrderHistoryCriteria';
-import { map } from 'lodash';
 import ModalCriteria from './HistoryCriteria';
 
 const BookingOrderTable = ({ setSelectedRecordId, setActiveTab }: TFrom) => {
@@ -68,11 +61,7 @@ const BookingOrderTable = ({ setSelectedRecordId, setActiveTab }: TFrom) => {
           {showComponent ? (
             <>
               <Card
-                cover={
-                  <>
-                    <CardView setActiveTab={setActiveTab} setSelectedRecordId={setSelectedRecordId} />
-                  </>
-                }
+                cover={<>{/* <CardView setActiveTab={setActiveTab} setSelectedRecordId={setSelectedRecordId} /> */}</>}
               ></Card>
             </>
           ) : (

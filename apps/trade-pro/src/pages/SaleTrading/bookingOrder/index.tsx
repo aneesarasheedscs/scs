@@ -1,17 +1,13 @@
-import { Card, Col, Row, Tabs, Typography } from 'antd';
+import { Card, Tabs, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
-import SaleOrderTable from './table';
-import SaleOrderForm from './forms';
-import { AppHeader } from '@scs/ui';
 import { useState } from 'react';
 import './style.scss';
 import BookingOrderForm from './forms';
 import BookingOrderTable from './table';
 
-const { Title, Text } = Typography;
 function BookingOrder() {
   const [selectedRecordId, setSelectedRecordId] = useState<number | null>(null);
-  const [activeTab, setActiveTab] = useState<string>('1'); // '1' for history tab, '2' for form tab
+  const [activeTab, setActiveTab] = useState<string>('1');
   const { t } = useTranslation();
 
   return (
@@ -25,7 +21,6 @@ function BookingOrder() {
           activeKey={activeTab}
           className="tabs-margin-bottom-0"
           onChange={(key) => setActiveTab(key)}
-          // defaultActiveKey="1"
           items={[
             {
               key: '1',
@@ -35,7 +30,9 @@ function BookingOrder() {
             {
               key: '2',
               label: t('form'),
-              children: <BookingOrderForm selectedRecordId={selectedRecordId} setSelectedRecordId={setSelectedRecordId} />,
+              children: (
+                <BookingOrderForm selectedRecordId={selectedRecordId} setSelectedRecordId={setSelectedRecordId} />
+              ),
             },
           ]}
         />

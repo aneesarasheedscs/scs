@@ -60,21 +60,6 @@ export const useGetApprovedStatus = () => {
 //   );
 // };
 
-export const useGetDocNumberBookingOrder = (enabled = true, params?: any) => {
-  return useQuery(
-    'doc-number-booking-order',
-    () => {
-      return requestManager.post('/api/PreBookingOrder/GenerateDocNo', {
-        ...params,
-                    OrganizationId,
-                    CompanyId,
-                    DocumentTypeId: 129,
-                    FinancialYearId: financialYear?.Id,
-      });
-    },
-    { enabled }
-  );
-};
 export const useGetSubPartyAccount = (ParentsSupCustId: number | null) => () => {
   return useQuery(
     ['sub-party-account', ParentsSupCustId],

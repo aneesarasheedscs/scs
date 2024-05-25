@@ -10,6 +10,7 @@ function AccountsPrematureRecipts() {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<string>('1');
   const [selectedRecordId, setSelectedRecordId] = useState<number | null>(null);
+  const [selectedTrackingSlip, setSelectedTrackingSlip] = useState<number | null>(null);
 
   return (
     <>
@@ -31,25 +32,19 @@ function AccountsPrematureRecipts() {
             onChange={(key) => setActiveTab(key)}
           >
             <Tabs.TabPane key="1" tab={t('history')}>
-              {/* <RequisitionOrderTable
-            setSelectedRecordId={setSelectedRecordId}
-            setActiveTab={setActiveTab}
-            setSelectedRecordIdforDetail={setSelectedRecordIdforDetail}
-            requisitionDetail={requisitionDetail?.data?.Data?.Result}
-            isDataLoadingDetail={isDataLoadingDetail}
-            refetchDetail={refetchDetail}
-          /> */}
-              <AccountsPrematureHistory setSelectedRecordId={setSelectedRecordId} setActiveTab={setActiveTab} />
+              <AccountsPrematureHistory
+                setSelectedTrackingSlip={setSelectedTrackingSlip}
+                setSelectedRecordId={setSelectedRecordId}
+                setActiveTab={setActiveTab}
+              />
             </Tabs.TabPane>
             <Tabs.TabPane key="2" tab={t('form')}>
-              {/* <RequisitionOrderForm
-            selectedRecordId={selectedRecordId}
-            requisitionById={requisitionById?.data?.Data?.Result}
-            isDataSuccess={isDataSuccess}
-            isDataLoading={isDataLoading}
-            setSelectedRecordId={setSelectedRecordId}
-          /> */}
-              <AccountsPrematureForm selectedRecordId={selectedRecordId} setSelectedRecordId={setSelectedRecordId} />
+              <AccountsPrematureForm
+                selectedTrackingSlip={selectedTrackingSlip}
+                setSelectedTrackingSlip={setSelectedTrackingSlip}
+                selectedRecordId={selectedRecordId}
+                setSelectedRecordId={setSelectedRecordId}
+              />
             </Tabs.TabPane>
           </Tabs>
         </Col>

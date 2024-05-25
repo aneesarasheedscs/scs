@@ -4,11 +4,19 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { columns } from './columns';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
-import { useGetAccountsPrematureReceiptHistory, useGetReadByTrackingNo } from '../../queries';
+import {
+  useGetAccountsPrematureReceiptHistory,
+  useGetCancelRecords,
+  useGetReadByTrackingNo,
+  useGetUpdateRecords,
+} from '../../queries';
 
 function AccountsPrematureTable() {
+  const [updateRecord, setUpdateRecord] = useState<number | null>(null);
+  const [cancelPrematureRecord, setCancelPrematureRecord] = useState<number | null>(null);
   const { data, refetch, isError, isFetching, isLoading } = useGetAccountsPrematureReceiptHistory();
-  const { data: getById } = useGetReadByTrackingNo();
+  const { refetch: confirmRecord, isSuccess } = useGetUpdateRecords(updateRecord);
+  const { refetch: cancelRecord } = useGetCancelRecords(cancelPrematureRecord);
   const mainData = data?.data?.Data?.Result || [];
   const [showComponent, setShowComponent] = useState(false);
   const toggleCardView = () => {
@@ -40,7 +48,12 @@ function AccountsPrematureTable() {
               scroll={{ x: '', y: convertVhToPixels('50vh') }}
               data={data?.data?.Data?.Result || []}
               // columns={columns(t, setSelectedRecordId, setActiveTab, setSelectedRecordDetailId)}
-              columns={columns(t)}
+              columns={columns(
+                t,
+
+                setUpdateRecord,
+                setCancelPrematureRecord
+              )}
               // searchCriteriaForm={<SearchCriteria />}
               // reportCriteriaString={data?.data?.Data?.Result?.[0]?.ReportCriteria ? <CriteriaString /> : ''}
               // printSlip={{ data: reportData?.data, enabled: true, onClick: () => mutate(), isSuccess, isPending }}

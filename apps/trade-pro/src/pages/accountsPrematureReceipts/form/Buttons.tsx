@@ -7,19 +7,23 @@ import { useTranslation } from 'react-i18next';
 import DocNumber from './DocNumber';
 import { useGetDocumentNumber } from '../queries';
 import { map } from 'lodash';
+import { TAccountsPrematureReceiptsHistory, TAccountsPrematureReceiptsList } from '../types';
 
 function Buttons({
   form,
-  selectedRecordId,
+  selectedTrackingSlip,
+  setSelectedTrackingSlip,
   setSelectedRecordId,
   DocumentTypeId,
-  // requisitionById,
+  isDataSuccess,
+  getByTrackingNo,
   isSuccess,
   printPreview,
+
   setPrintPreview,
+  setTableData,
 }: TButtonsProps) {
   const { t } = useTranslation();
-  // const [tableData, setTableData] = useAtom(addtableData);
   const { data, isError, refetch, isLoading, isSuccess: isSuccessDocNo } = useGetDocumentNumber(DocumentTypeId);
   const handleButtonClick = () => {
     setPrintPreview(!printPreview);
@@ -27,10 +31,11 @@ function Buttons({
   };
   const handleResetForm = () => {
     setSelectedRecordId(null);
-    // setTableData([]);
+    setSelectedTrackingSlip(null);
+    setTableData([]);
     refetch();
+    form.resetFields();
     form.setFieldValue('DocDate', dayjs(new Date()));
-    // form.setFieldValue('RemarksHeader', null);
   };
   useEffect(() => {
     if (isSuccessDocNo) form.setFieldValue('DocNo', data?.data?.Data?.Result);
@@ -77,8 +82,8 @@ function Buttons({
                 isError={isError}
                 refetch={refetch}
                 isLoading={isLoading}
-                // data={isDataSuccess ? requisitionById?.DocNo : data?.data?.Data?.Result}
-                data={data?.data?.Data?.Result}
+                data={isDataSuccess ? getByTrackingNo?.[0]?.DocNo : data?.data?.Data?.Result}
+                // data={data?.data?.Data?.Result}
               />
               <Form.Item name="DocNo" style={{ display: 'none' }}>
                 <Input />
@@ -131,7 +136,7 @@ function Buttons({
               <Col>
                 <AntButton
                   ghost
-                  label={selectedRecordId ? t('update') : t('save')}
+                  label={selectedTrackingSlip ? t('update') : t('save')}
                   htmlType="submit"
                   icon={<SaveOutlined />}
                 />
@@ -147,13 +152,16 @@ function Buttons({
 export default Buttons;
 interface TButtonsProps {
   form: FormInstance;
-  selectedRecordId: number | null;
+  selectedTrackingSlip: number | null;
+  setSelectedTrackingSlip: (id: number | null) => void;
   setSelectedRecordId: (id: number | null) => void;
   DocumentTypeId: number;
-  // requisitionById: TRequisitionOrder;
+  isDataSuccess: boolean;
+  getByTrackingNo: TAccountsPrematureReceiptsHistory[];
   isSuccess: boolean;
   printPreview: boolean;
   setPrintPreview: (id: boolean) => void;
+  setTableData: (ary: TAccountsPrematureReceiptsList[] | any) => void;
 }
 interface TVoucherType {
   Id: number;

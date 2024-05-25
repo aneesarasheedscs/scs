@@ -1,71 +1,26 @@
-import { Card, Col, FormInstance, Row, Typography } from 'antd';
-import { useState } from 'react';
-import { TPaymentTerms, TPreBookingOrderDetailList, TSaleOrder, TSaleOrderDetail } from '../type';
-import { useWatch } from 'antd/es/form/Form';
-import dayjs from 'dayjs';
-import { FormRowGutter } from '@tradePro/globalAtoms';
-import { useTranslation } from 'react-i18next';
+import { Card, Col, Row } from 'antd';
+import { TPreBookingOrderDetailList } from '../type';
 import AddItemsCards from '../table/ItemCards/addItemCards';
 import AddItemTable from '../table/ItemCards/addItemTable';
 
-function MainEntry({ form, selectedItem, setSelectedItem }: TDynamicForm) {
-  console.log(FormRowGutter, 'gutter');
-  const [paymentTerm, setPaymentTerm] = useState('');
-  const { setFields, getFieldValue } = form;
-  const [isOrderOpen, setIsOrderOpen] = useState(true);
-  const { t } = useTranslation();
-
-  const formValues = useWatch<TSaleOrder>([], form);
-  // const [selectedItem, setSelectedItem]=useState<any[]>([])
-
-  interface TOrderStatus {
-    Id: number;
-    Open: string;
-  }
-
-  const Oderstatus: TOrderStatus[] = [
-    {
-      Id: 1,
-      Open: 'Open',
-    },
-    {
-      Id: 2,
-      Open: 'Complete',
-    },
-    {
-      Id: 3,
-      Open: 'Cancel',
-    },
-  ];
-
-  const handleDueDaysChange = (value: any) => {
-    console.log(value);
-    if (value !== null && value !== undefined) {
-      const docDate = getFieldValue('DocDate');
-      if (docDate) {
-        const dueDate = new Date(docDate);
-        dueDate.setDate(dueDate.getDate() + value);
-        console.log(dueDate);
-        setFields([{ name: 'OrderDueDate', value: dayjs(dueDate) }]);
-      }
-    }
-  };
-
+function MainEntry({ selectedItem, setSelectedItem }: TDynamicForm) {
   return (
     <Card style={{ boxShadow: '2px 4px 12px 1px gray' }}>
-      <Col xxl={18}>
-        <Row gutter={FormRowGutter} justify={'space-between'}></Row>
-      </Col>
-
       <Row>
         <Col
           xxl={12}
+          xl={24}
+          lg={24}
+          md={24}
+          sm={24}
+          xs={24}
           style={{
             overflowY: 'scroll',
             overflowX: 'hidden',
             height: '60vh',
-            border: '1px solid',
+            border: '1px solid grey',
             position: 'relative',
+            borderRadius: 5,
           }}
         >
           <AddItemsCards setSelectedItem={setSelectedItem} selectedItem={selectedItem} />
@@ -73,23 +28,27 @@ function MainEntry({ form, selectedItem, setSelectedItem }: TDynamicForm) {
 
         <Col
           xxl={12}
+          xl={24}
+          lg={24}
+          md={24}
+          sm={24}
+          xs={24}
           style={{
             overflowY: 'scroll',
             overflowX: 'hidden',
             height: '60vh',
-            border: '1px solid',
+            border: '1px solid  grey',
             position: 'relative',
+            borderRadius: 5,
           }}
         >
           <AddItemTable selectedItem={selectedItem} setSelectedItem={setSelectedItem} />
         </Col>
       </Row>
-
     </Card>
   );
 }
 type TDynamicForm = {
-  form: FormInstance;
   selectedItem: TPreBookingOrderDetailList[];
   setSelectedItem: (ary: TPreBookingOrderDetailList[]) => void;
 };

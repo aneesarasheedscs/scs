@@ -1,17 +1,11 @@
 import { useEffect, useState } from 'react';
 import MainEntry from './MainEntry';
-import { Badge, Card, Checkbox, Col, Form, Input, Row } from 'antd';
-
-// import DynamicForm from './DetailEntry';
-
+import { Card, Form } from 'antd';
 import { isNumber } from 'lodash';
 import dayjs from 'dayjs';
-import { useAddBookingOrder,   useGetSaleOrderById, useUpdateBookingOrder } from '../queries';
-import { TBookingOrder, TPreBookingOrderDetailList, TSaleOrder, TSaleOrderDetail } from '../type';
+import { useAddBookingOrder, useGetSaleOrderById, useUpdateBookingOrder } from '../queries';
+import { TBookingOrder, TPreBookingOrderDetailList } from '../type';
 import { useTranslation } from 'react-i18next';
-import { useAtom } from 'jotai';
-import { tableDataList } from './Atom';
-// import SalesPersonalInfo from './SalesInfo';
 import '../style.scss';
 import Buttons from './Buttons';
 
@@ -20,11 +14,7 @@ const { useForm, useWatch } = Form;
 function BookingOrderForm({ selectedRecordId, setSelectedRecordId }: TAddUpdatedRecod) {
   const { t } = useTranslation();
   const [form] = useForm<TBookingOrder>();
-  // const formValues = useWatch(TBookingO[], form)
-  // const formValues = useWatch<TBookingOrder>([], form);
   const [printPreview, setPrintPreview] = useState<boolean>(true);
-  // const { data, isError, refetch, isLoading, isSuccess } = useGetDocNumberSaleOrder();
-  // const { data: add, refetch: addRefetch, isError: addisError, isLoading: addisLoading } = useGetBookingOrder(true);
   const [selectedItem, setSelectedItem] = useState<TPreBookingOrderDetailList[] | any>([]);
   const {
     data: saleOrderData,
@@ -35,26 +25,19 @@ function BookingOrderForm({ selectedRecordId, setSelectedRecordId }: TAddUpdated
 
   const { mutate: addBookingOrder, isSuccess, data: saveData } = useAddBookingOrder();
   const { mutate: updateBookingOrder, data: updateData } = useUpdateBookingOrder(selectedRecordId);
-  // const [tableData, setTableData] = useAtom(tableDataList);
 
-  // useEffect(() => {
-  //   if (isSuccess) form.setFieldValue('DocNo', data?.data?.Data?.Result);
-  // }, [data, isSuccess]);
   const onFinish = (values: TBookingOrder) => {
-    
-    
-   
     console.log(values);
-     if (isNumber(selectedRecordId)) {
-      values.PreBookingOrderDetailList = selectedItem?.map((item:any)=>({
-        ...item ,
-        ActionTypeId:2
+    if (isNumber(selectedRecordId)) {
+      values.PreBookingOrderDetailList = selectedItem?.map((item: any) => ({
+        ...item,
+        ActionTypeId: 2,
       }));
       updateBookingOrder(values);
     } else {
-      values.PreBookingOrderDetailList = selectedItem?.map((item:any)=>({
-        ...item ,
-        ActionTypeId:1
+      values.PreBookingOrderDetailList = selectedItem?.map((item: any) => ({
+        ...item,
+        ActionTypeId: 1,
       }));
       addBookingOrder(values);
     }
@@ -73,7 +56,7 @@ function BookingOrderForm({ selectedRecordId, setSelectedRecordId }: TAddUpdated
     }
     form.setFieldValue('DocDate', dayjs());
   }, [isDataSuccess]);
-   return (
+  return (
     <>
       <>
         <>
@@ -91,9 +74,7 @@ function BookingOrderForm({ selectedRecordId, setSelectedRecordId }: TAddUpdated
                 printPreview={printPreview}
               />
 
-              <MainEntry form={form} selectedItem={selectedItem} setSelectedItem={setSelectedItem} />
-
-              {/* <DynamicForm form={form} /> */}
+              <MainEntry selectedItem={selectedItem} setSelectedItem={setSelectedItem} />
             </Form>
           </Card>
         </>

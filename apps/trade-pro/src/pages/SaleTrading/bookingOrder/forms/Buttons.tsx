@@ -1,17 +1,12 @@
 import dayjs from 'dayjs';
-import { useAtom } from 'jotai';
-// import VoucherNo from './VoucherNo';
+import DocNumber from './DocNumber';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-// import { addtableData } from '../form/Atom';
-// import { useGetVoucherNo } from '../queries/queries';
 import { AntButton, AntDatePicker, AntInput, AntSelectDynamic } from '@tradePro/components';
 import { Badge, Col, Form, FormInstance, Input, Row } from 'antd';
 import { SaveOutlined, SyncOutlined, RedoOutlined, PaperClipOutlined, PrinterFilled } from '@ant-design/icons';
-
-import DocNumber from './DocNumber';
-import { useGetDocNumberBookingOrder } from '../queryOptions';
-import { useGetSupplierCustomer } from '../queries';
+import { useGetDocNumberBookingOrder, useGetSupplierCustomer } from '../queries';
+import { FormRowGutter } from '@tradePro/globalAtoms';
 
 function Buttons({
   form,
@@ -24,12 +19,9 @@ function Buttons({
   printPreview,
 }: TAddUpdateRecord) {
   const { t } = useTranslation();
-  // const [tableData, setTableData] = useAtom(addtableData);
 
-  // const { data, isError, refetch, isLoading, isSuccess: successVoucherNo } = useGetVoucherNo(DocumentTypeId);
   const { data, isError, refetch, isLoading, isSuccess: successDocNo } = useGetDocNumberBookingOrder();
-// console.log(data,'data')
-  // console.log(tableData);
+
   const handleButtonClick = () => {
     setPrintPreview(!printPreview);
     console.log(printPreview);
@@ -72,9 +64,9 @@ function Buttons({
   }, [form]);
   return (
     <>
-      <Row justify="space-between" style={{ marginLeft: 0, marginRight: 10 }}>
+      <Row justify="space-between" gutter={FormRowGutter} style={{ marginLeft: 0, marginBottom: 5, marginRight: 10 }}>
         <Col xxl={7} xl={9} lg={18} md={18} sm={18} xs={24} style={{ marginTop: '0%' }}>
-          <Row gutter={10} align="middle" style={{ border: '' }} justify={'space-evenly'}>
+          <Row gutter={[0, 0]} align="middle" style={{ border: '' }} justify={'space-evenly'}>
             <Col xl={9} xxl={9} lg={8} md={7} sm={18} xs={18} className="formfield voucherNo">
               <b style={{ fontSize: 18 }}> {t('document_no')}</b> &nbsp;
               <DocNumber isError={isError} refetch={refetch} isLoading={isLoading} data={data?.data?.Data?.Result} />
@@ -82,28 +74,30 @@ function Buttons({
                 <Input />
               </Form.Item>
             </Col>
-            <Col xl={15} xxl={14} sm={18} lg={15} xs={23} md={11} className="formfield">
+            <Col xl={15} xxl={13} sm={18} lg={15} xs={23} md={11} className="formfield">
               <AntDatePicker bordered={false} name="DocDate" label={t('document date')} />
             </Col>
           </Row>
         </Col>
-        <Col xs={24} sm={12} md={10} lg={6} xl={6} xxl={4} className="formfields">
-            <AntSelectDynamic
-              bordered={false}
-              required
-              fieldValue="Id"
-              label="Party Name"
-              name="OrderSupCustId"
-              fieldLabel="CompanyName"
-              query={useGetSupplierCustomer}
-            />
-          </Col>
+        <Col xxl={10} xl={6} lg={24}>
+          <Row justify={'space-between'}>
+            <Col xs={24} sm={12} md={10} lg={10} xl={24} xxl={9} className="formfields">
+              <AntSelectDynamic
+                bordered={false}
+                required
+                fieldValue="Id"
+                label="Party Name"
+                name="OrderSupCustId"
+                fieldLabel="CompanyName"
+                query={useGetSupplierCustomer}
+              />
+            </Col>
 
-          <Col xs={24} sm={12} md={13} lg={6} xl={3} xxl={6} className="formfields">
-            <AntInput name="RemarksHeader" label="Remarks" bordered={false} />
-          </Col>
-
-
+            <Col xs={24} sm={12} md={13} lg={13} xl={24} xxl={14} className="formfields">
+              <AntInput name="RemarksHeader" label="Remarks" bordered={false} />
+            </Col>
+          </Row>
+        </Col>
 
         <Col
           style={{

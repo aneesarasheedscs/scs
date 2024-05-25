@@ -1,8 +1,5 @@
-import { AntButton, AntTablecopy } from '@tradePro/components';
-import React from 'react';
-import { columns } from './columns';
+import { AntButton } from '@tradePro/components';
 import { useTranslation } from 'react-i18next';
-import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { TAccountsPrematureReceiptsList } from '../types';
 import { Card, Col, FormInstance, Row, Space, Tooltip } from 'antd';
 import dayjs from 'dayjs';
@@ -10,7 +7,7 @@ import _, { map } from 'lodash';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { EditFilled, DeleteOutlined } from '@ant-design/icons';
 
-function EntryTable({ form, tableData, setTableData }: Props) {
+function EntryTable({ form, tableData, setTableData, setIsEditMode, setEditRecordIndex }: Props) {
   const { t } = useTranslation();
 
   const handleDeleteRow = (record: TAccountsPrematureReceiptsList, recordIndex: number) => {
@@ -22,26 +19,24 @@ function EntryTable({ form, tableData, setTableData }: Props) {
       return updatedData;
     });
   };
-  // const totalAmounts = tableData?.map((item) => item.Amount);
 
   const totalAmount = _.sumBy(tableData, 'Amount');
   console.log(totalAmount);
-  const handleEditRow = (record: TAccountsPrematureReceiptsList) => {
-    // setEdit(record);
+  const handleEditRow = (record: TAccountsPrematureReceiptsList, recordIndex: number) => {
+    setEditRecordIndex(recordIndex);
     setTableData((prevData: any[]) => {
       const updatedData = [...prevData];
-      const rowIndex = updatedData.findIndex((item: any) => item.ChequeNo === record.ChequeNo);
+      const rowIndex = updatedData.findIndex((item: any, index) => index === recordIndex);
 
       if (rowIndex !== -1) {
         updatedData[rowIndex] = {
           ...updatedData[rowIndex],
-
           ChequeDate: dayjs(record.ChequeDate),
+          DocDate: dayjs(record.DocDate),
         };
         form.setFieldsValue(updatedData[rowIndex]);
-        // setIsEditMode(true);
+        setIsEditMode(true);
       }
-      console.log('New tableData:', updatedData);
       return updatedData;
     });
   };
@@ -166,7 +161,6 @@ function EntryTable({ form, tableData, setTableData }: Props) {
                       <Row
                         justify={'space-between'}
                         style={{
-                          // padding: 5,
                           paddingLeft: 5,
                           paddingRight: 5,
                           paddingTop: 2,
@@ -256,7 +250,7 @@ function EntryTable({ form, tableData, setTableData }: Props) {
                                   <AntButton
                                     type="text"
                                     icon={<EditFilled style={{ color: '#006640' }} />}
-                                    onClick={() => handleEditRow(item)}
+                                    onClick={() => handleEditRow(item, index)}
                                   />
                                 </Space>
                               </Tooltip>
@@ -277,72 +271,68 @@ function EntryTable({ form, tableData, setTableData }: Props) {
                       </Row>
                     </>
                   ))}
-                  <Row
-                    justify={'space-between'}
-                    style={{
-                      position: 'sticky',
-                      bottom: 0,
-                      zIndex: 1,
-                      backgroundColor: '#eeee',
-                    }}
-                  >
-                    <Col lg={1} xl={1} xxl={1} sm={2} md={2} style={{ border: ' ', paddingLeft: 3 }}>
-                      <p className="dataIndexes"> </p>
-                    </Col>
-                    <Col lg={4} xl={2} xxl={2} md={3} sm={3} style={{ border: ' ', paddingLeft: 5 }}>
-                      <p className="dataIndexes"> </p>
-                    </Col>
-                    <Col lg={3} xl={1} xxl={1} md={3} sm={3} style={{ border: ' ', paddingLeft: 5, marginLeft: -20 }}>
-                      <p className="dataIndexes"> </p>
-                    </Col>
-
-                    <Col lg={4} xl={1} xxl={1} md={4} sm={4} style={{ border: ' ', paddingLeft: 5 }}>
-                      <p className="dataIndexes"> </p>
-                    </Col>
-                    <Col lg={4} xl={2} xxl={2} md={4} sm={4} style={{ border: ' ', marginLeft: -10, paddingRight: 3 }}>
-                      <p className="dataIndexes" style={{ textAlign: 'right', width: '85%' }}></p>
-                    </Col>
-                    <Col lg={4} xl={2} xxl={2} md={4} sm={4} style={{ border: ' ', marginLeft: -25, paddingLeft: 5 }}>
-                      <p className="dataIndexes"> </p>
-                    </Col>
-
-                    <Col lg={5} xl={2} xxl={2} md={5} style={{ border: ' ', paddingLeft: 5 }}>
-                      <p className="dataIndexes"> </p>
-                    </Col>
-                    <Col lg={5} xl={2} xxl={2} md={5} style={{ border: ' ', paddingLeft: 5 }}>
-                      <p className="dataIndexes"> </p>
-                    </Col>
-                    <Col lg={4} xl={2} xxl={2} md={4} sm={4} style={{ border: ' ', paddingLeft: 5 }}>
-                      <p className="dataIndexes"> </p>
-                    </Col>
-                    <Col lg={3} xl={2} xxl={2} md={3} sm={3} style={{ border: ' ', paddingLeft: 5 }}>
-                      <p className="dataIndexes"> </p>
-                    </Col>
-                    <Col
-                      lg={2}
-                      xl={1}
-                      xxl={1}
-                      md={2}
-                      sm={2}
-                      style={{ paddingLeft: 3, paddingRight: 3, marginLeft: -30 }}
-                    >
-                      <p className="dataIndexes" style={{ textAlign: 'right' }}>
-                        {/* {totalAmount} */}
-                        {totalAmount}
-                      </p>
-                    </Col>
-                    <Col lg={2} xl={2} xxl={2} sm={2} md={2} style={{ border: ' ', paddingLeft: 3 }}>
-                      <p className="dataIndexes"> </p>
-                    </Col>
-                    <Col lg={4} xl={2} xxl={3} sm={4} md={4} style={{ border: ' ', paddingLeft: 3 }}>
-                      <p className="dataIndexes"> </p>
-                    </Col>
-                    <Col xl={1} xxl={1} style={{ border: ' ', paddingLeft: 3 }}></Col>
-                  </Row>
                 </div>
               </>
             }
           ></Card>
+          <Row
+            justify={'space-between'}
+            style={{
+              position: 'sticky',
+              bottom: 0,
+              zIndex: 2,
+              backgroundColor: '#ffff',
+              borderTop: '1px solid lightgrey',
+              marginTop: -20,
+              borderBottomLeftRadius: 5,
+              borderBottomRightRadius: 5,
+            }}
+          >
+            <Col lg={1} xl={1} xxl={1} sm={2} md={2} style={{ border: ' ', paddingLeft: 3 }}>
+              <p className="dataIndexes"> </p>
+            </Col>
+            <Col lg={4} xl={2} xxl={2} md={3} sm={3} style={{ border: ' ', paddingLeft: 5 }}>
+              <p className="dataIndexes"> </p>
+            </Col>
+            <Col lg={3} xl={1} xxl={1} md={3} sm={3} style={{ border: ' ', paddingLeft: 5, marginLeft: -20 }}>
+              <p className="dataIndexes"> </p>
+            </Col>
+
+            <Col lg={4} xl={1} xxl={1} md={4} sm={4} style={{ border: ' ', paddingLeft: 5 }}>
+              <p className="dataIndexes"> </p>
+            </Col>
+            <Col lg={4} xl={2} xxl={2} md={4} sm={4} style={{ border: ' ', marginLeft: -10, paddingRight: 3 }}>
+              <p className="dataIndexes" style={{ textAlign: 'right', width: '85%' }}></p>
+            </Col>
+            <Col lg={4} xl={2} xxl={2} md={4} sm={4} style={{ border: ' ', marginLeft: -25, paddingLeft: 5 }}>
+              <p className="dataIndexes"> </p>
+            </Col>
+
+            <Col lg={5} xl={2} xxl={2} md={5} style={{ border: ' ', paddingLeft: 5 }}>
+              <p className="dataIndexes"> </p>
+            </Col>
+            <Col lg={5} xl={2} xxl={2} md={5} style={{ border: ' ', paddingLeft: 5 }}>
+              <p className="dataIndexes"> </p>
+            </Col>
+            <Col lg={4} xl={2} xxl={2} md={4} sm={4} style={{ border: ' ', paddingLeft: 5 }}>
+              <p className="dataIndexes"> </p>
+            </Col>
+            <Col lg={3} xl={2} xxl={2} md={3} sm={3} style={{ border: ' ', paddingLeft: 5 }}>
+              <p className="dataIndexes"> </p>
+            </Col>
+            <Col lg={2} xl={1} xxl={1} md={2} sm={2} style={{ paddingLeft: 3, paddingRight: 3, marginLeft: -30 }}>
+              <p className="dataIndexes" style={{ textAlign: 'right' }}>
+                {totalAmount}
+              </p>
+            </Col>
+            <Col lg={2} xl={2} xxl={2} sm={2} md={2} style={{ border: ' ', paddingLeft: 3 }}>
+              <p className="dataIndexes"> </p>
+            </Col>
+            <Col lg={4} xl={2} xxl={3} sm={4} md={4} style={{ border: ' ', paddingLeft: 3 }}>
+              <p className="dataIndexes"> </p>
+            </Col>
+            <Col xl={1} xxl={1} style={{ border: ' ', paddingLeft: 3 }}></Col>
+          </Row>
         </Col>
       </Row>
     </>
@@ -354,4 +344,6 @@ interface Props {
   form: FormInstance;
   tableData: TAccountsPrematureReceiptsList[] | any[];
   setTableData: (ary: TAccountsPrematureReceiptsList[] | any) => void;
+  setIsEditMode: (id: boolean) => void;
+  setEditRecordIndex: (id: number | null) => void;
 }

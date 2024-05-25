@@ -20,6 +20,19 @@ export type TAccountsPrematureReceiptsList = {
   ReceiverAccount: string;
   SenderAccount: string;
   SenderBank: string;
+
+  TrakingNo: string;
+  VoucherTypeId: number;
+  BankName: string;
+  RepresentativeAcId: number;
+  RepresentativeAc: string;
+  SenderAcId: number;
+  SenderAc: string;
+  ReceiverAcId: number;
+  ReceiverAc: string;
+  Remarks: string;
+  Status: string;
+  SenderPartyId: number;
 };
 
 export type TAccountsPrematureReceiptsHistory = {
@@ -37,4 +50,14 @@ export type TAccountsPrematureReceiptsHistory = {
   EntryStatus: string;
   RepresentativeAc: string;
   NoOfAttachments: number;
+};
+
+export type TAccountsPrematureReceiptsSearchCriteria = {
+  FromDate: Date | string;
+  ToDate: Date | string;
+  DocumentTypeId: number;
+  RepresentativeAcId: number;
+  ReceiverAcId: number;
+  SenderAcId: number;
+  VoucherTypeId: number;
 };
