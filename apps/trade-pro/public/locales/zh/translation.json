@@ -579,5 +579,10 @@
   "Opening": "开幕",
   "total_of_payables": "应付账款总额",
   "period_filltered_records": "",
-  "receivables_aging": "应收账款账龄"
+  "receivables_aging": "应收账款账龄",
+  "current_price_list": "当前价目表",
+  "effective_date": "生效日期：",
+  "time": "时间",
+  "total": "全部的",
+  "IsActive": "活跃"
 }

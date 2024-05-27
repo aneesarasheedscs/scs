@@ -117,7 +117,6 @@ export const useGetLanguages = () => {
 };
 
 export const useGetDateTypes = () => {
-  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
   return useQuery(
     'DateTypes',
     () => {

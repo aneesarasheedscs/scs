@@ -904,5 +904,10 @@
   "Opening": "Apertura",
   "total_of_payables": "Total de cuentas por pagar",
   "period_filltered_records": "",
-  "receivables_aging": "Envejecimiento de los recuperables"
+  "receivables_aging": "Envejecimiento de los recuperables",
+  "current_price_list": "Lista de precios actual",
+  "effective_date": "Fecha efectiva:",
+  "time": "Tiempo",
+  "total": "Total",
+  "IsActive": "Está activo"
 }

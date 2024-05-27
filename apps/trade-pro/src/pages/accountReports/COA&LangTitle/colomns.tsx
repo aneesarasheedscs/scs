@@ -68,32 +68,4 @@ export const ChartOfAccountColumn = (t: TFunction): AntColumnType<TCOAReportHist
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.NoteTitle.localeCompare(b.NoteTitle),
   },
-
-  // {
-  //   title: t('language_id'),
-  //   dataIndex: 'LanguageId',
-  //   width: 200,
-  //   searchableInput: true,
-  //   sortDirections: ['ascend', 'descend'],
-  //   sorter: (a, b) => a.LanguageId - b.LanguageId,
-  // },
-  // {
-  //   title: t('language_name'),
-  //   dataIndex: 'LanguageName',
-  //   width: 200,
-  //   searchableInput: true,
-  //   // hidden: true,
-  //   // sortDirections: ['ascend', 'descend'],
-  //   // sorter: (a, b) => a.LanguageName.localeCompare(b.LanguageName),
-  // },
-
-  // {
-  //   title: t('account_title_other_lingo'),
-  //   dataIndex: 'AccountTitleOtherLingo',
-  //   width: 270,
-  //   searchableInput: true,
-  //   sortDirections: ['ascend', 'descend'],
-  //   sorter: (a, b) => a.AccountTitleOtherLingo.localeCompare(b.AccountTitleOtherLingo),
-  //   hidden: true,
-  // },
 ];

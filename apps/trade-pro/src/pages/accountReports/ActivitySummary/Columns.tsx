@@ -23,7 +23,7 @@ export const Columns = (t: any, handleAccountCodeClick: any, columnWidth: any): 
     },
 
     {
-      width: columnWidth ? 330 : 350,
+      width: columnWidth ? 330 : 330,
       searchableInput: true,
       title: t('account_title'),
       dataIndex: 'AccountTitle',
@@ -55,7 +55,7 @@ export const Columns = (t: any, handleAccountCodeClick: any, columnWidth: any): 
       ),
     },
     {
-      width: 260,
+      width: 250,
       title: t('credit'),
       dataIndex: 'Credit',
       align: 'right',
@@ -67,7 +67,7 @@ export const Columns = (t: any, handleAccountCodeClick: any, columnWidth: any): 
       ),
     },
     {
-      width: 260,
+      width: 250,
       title: t('closing'),
       dataIndex: 'Closing',
       align: 'right',

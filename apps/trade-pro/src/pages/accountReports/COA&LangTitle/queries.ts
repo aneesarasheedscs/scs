@@ -1,5 +1,4 @@
-
-import {  useQuery } from 'react-query';
+import { useQuery } from 'react-query';
 import { requestManager } from '@tradePro/configs/requestManager';
 import { storedUserDetail } from '@tradePro/utils/storageService';
 import { TChartOfAccountCriteria } from './type';
@@ -52,9 +51,6 @@ export const useGetLangauge = (enabled = true) => {
     { enabled }
   );
 };
-
-
-
 
 export const useChartOfReporttableQuery = (enabled = true, params?: TChartOfAccountCriteria) => {
   return useQuery(

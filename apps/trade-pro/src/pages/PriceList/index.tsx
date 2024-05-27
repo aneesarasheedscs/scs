@@ -18,10 +18,11 @@ function PriceList() {
   const [form] = useForm<TPriceListFilter>();
   const formValues = useWatch<TPriceListFilter>([], form);
 
-  const { data, refetch } = useGetPriceList(true, form.getFieldsValue());
+  const { data, refetch ,isError,isLoading,isFetching} = useGetPriceList(true, form.getFieldsValue());
 
   const PriceLists = data?.data?.Data?.Result;
   const [selectedRadio, setSelectedRadio] = useState<number | null>(1);
+  const [typeDropdownDisabled, setTypeDropdownDisabled] = useState<boolean>(false);
   const { t } = useTranslation();
 
   const groupByCategory = groupBy(PriceLists, (item) => item.CategoryDescription);
@@ -33,15 +34,26 @@ function PriceList() {
   const handleCategoryChange = (value: any) => {};
   const handleRadiobuttonchange = (e: RadioChangeEvent) => {
     setSelectedRadio(e.target.value);
+    setTypeDropdownDisabled(e.target.value === 1 ? false : true);
+  
+  
+    
   };
   const onFinish = (_: TPriceListFilter) => {
+    if(selectedRadio == 1 ){
+      form.setFieldValue('ItemTypeId',null)
+ 
+   
+    }else if(selectedRadio == 2){
+      form.setFieldValue('ItemCategoryId',null)
+    }
     refetch();
   };
 
   return (
     <>
       <Card
-        style={{ height: '80vh' }}
+        style={{ height: '100%' }}
         cover={
           <>
             <div style={{ paddingTop: 10 }}>
@@ -50,7 +62,7 @@ function PriceList() {
                   <Row justify={'space-between'}>
                     <Col xs={15} sm={12} md={7} lg={7} xl={5} xxl={3}>
                       <h1 className="report_heading" style={{ textAlign: 'center' }}>
-                        Current Price List
+                     {t('current_price_list')}
                       </h1>
                     </Col>
 
@@ -64,11 +76,11 @@ function PriceList() {
                     <Col xxl={8} xl={15} lg={20} md={20} style={{ border: ' ' }}>
                       <Row gutter={0} justify={'space-between'}>
                         <Col span={12} className=" ">
-                          Effective Date : <span style={{ marginLeft: '5%' }}>{formateDate(effectiveDate)}</span>{' '}
+                          {t('effective_date')} <span style={{ marginLeft: '5%' }}>{formateDate(effectiveDate)}</span>{' '}
                         </Col>
 
                         <Col span={12} className=" ">
-                          Time : <span style={{ marginLeft: '5%' }}> {currentTime} </span>
+                          {t('time')} <span style={{ marginLeft: '5%' }}> {currentTime} </span>
                         </Col>
                       </Row>
                     </Col>
@@ -79,16 +91,16 @@ function PriceList() {
                         <Row gutter={0} justify={'space-between'}>
                           <Col xs={15} sm={12} md={12} xl={15} lg={15}>
                             <Radio.Group
-                              defaultValue={'1'}
+                              defaultValue={1}
                               value={selectedRadio}
                               style={{ display: 'flex', justifyContent: 'space-between' }}
                               onChange={(e) => {
                                 handleRadiobuttonchange(e);
-                              }}
+                              }} 
                             >
-                              <Radio value={1}>Category</Radio>
+                              <Radio value={1}>{t('category')}</Radio>
                               <div style={{ width: '20px' }}></div>
-                              <Radio value={2}>Type</Radio>
+                              <Radio value={2}>{t('type')}</Radio>
                             </Radio.Group>
                           </Col>
                         </Row>
@@ -97,18 +109,20 @@ function PriceList() {
                     <Row gutter={[16, 0]} align={'bottom'} style={{ border: '', marginLeft: 0, marginTop: 5 }}>
                       <Col xxl={10} xl={15} lg={24} md={20}  style={{ border: ' ' }}>
                         <Row gutter={0} justify={'space-between'}>
-                          {/* <Col xs={15} sm={12} md={12} xl={12} style={{border:'1px solid'}}> */}
                           <Col xxl={8} lg={8} className="form_field ">
                             <AntSelectDynamic
                               bordered={false}
+                              
                               fieldValue="ItemCategoryId"
                               fieldLabel="CategoryDescription"
                               defaultValue=""
-                              label="Category"
+                              label={t('category')}
                               query={useGetItemCatogory}
                               // query={useGetDateTypes}
+                         
                               onChange={(value) => handleCategoryChange(value)}
                               name="ItemCategoryId"
+                              disabled={typeDropdownDisabled}
                             />
                           </Col>
                           <Col xxl={9} lg={8} className="form_field ">
@@ -117,10 +131,9 @@ function PriceList() {
                               fieldValue="ItemTypeId"
                               fieldLabel="TypeDescription"
                               defaultValue=""
-                              label="Type"
+                              label={t('type')}
                               query={useGetItemType}
-                              // query={useGetDateTypes}
-                              // onChange={(value) => handleDateChange(value)}
+                              disabled={typeDropdownDisabled? false:true}
                               name="ItemTypeId"
                             />
                           </Col>
@@ -130,8 +143,8 @@ function PriceList() {
                               label={t('show')}
                               htmlType="submit"
                               style={{ marginTop: 2 }}
-                              // isError={isReportError}
-                              // isLoading={isReportLoading || isFetching}
+                              isError={isError}
+                              isLoading={isLoading || isFetching}
                             />
                           </Col>
                         </Row>
@@ -140,7 +153,7 @@ function PriceList() {
                   </Form>
                 </Col>
                 <Col span={23} style={{ backgroundColor: '#fff' }}>
-                  <CategoryTable PriceLists={PriceLists} selectedRadio={selectedRadio} />
+                  <CategoryTable PriceLists={PriceLists} selectedRadio={selectedRadio} form={form}/>
                 </Col>
               </Row>
             </div>

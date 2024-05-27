@@ -809,5 +809,10 @@
   "select_item": "Select Item",
   "Opening": "Opening",
   "total_of_payables": "Total Of Payables",
-  "period_filltered_records": ""
+  "period_filltered_records": "",
+  "current_price_list": "Current Price List",
+  "effective_date": "Effective Date:",
+  "time": "Time",
+  "total": "Total",
+  "IsActive": "IsActive"
 }

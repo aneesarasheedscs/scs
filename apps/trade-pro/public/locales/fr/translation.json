@@ -579,5 +579,10 @@
   "Opening": "Ouverture",
   "total_of_payables": "Total des dettes",
   "period_filltered_records": "",
-  "receivables_aging": "Vieillissement des créances"
+  "receivables_aging": "Vieillissement des créances",
+  "current_price_list": "Liste de prix actuelle",
+  "effective_date": "Date effective:",
+  "time": "Temps",
+  "total": "Total",
+  "IsActive": "C'est actif"
 }

@@ -124,5 +124,10 @@
   "Opening": "オープニング",
   "total_of_payables": "買掛金合計",
   "period_filltered_records": "",
-  "receivables_aging": "売掛金の時効"
+  "receivables_aging": "売掛金の時効",
+  "current_price_list": "現在の価格表",
+  "effective_date": "発効日:",
+  "time": "時間",
+  "total": "合計",
+  "IsActive": "アクティブです"
 }

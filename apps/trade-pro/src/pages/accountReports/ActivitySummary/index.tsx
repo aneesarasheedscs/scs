@@ -11,6 +11,7 @@ import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageSe
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import React, { useEffect, useState } from 'react';
 import GeneralLedgerReport from '../GeneralLedger';
+import { CriteriaRowGutter } from '@tradePro/globalAtoms';
 const { Title, Text } = Typography;
 const { useToken } = theme;
 const financialYear = storedFinancialYear();
@@ -38,6 +39,7 @@ const ActivitySummaryReport: React.FC<{
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [isInputFocusedFromDate, setIsInputFocusedFromDate] = useState(false);
   const [isInputFocusedToDate, setIsInputFocusedToDate] = useState(false);
+  const [datetypeprop, setdateTpeProp] =useState<string | undefined>( DateType )
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -87,7 +89,7 @@ const ActivitySummaryReport: React.FC<{
 
   const onFinish = (_: Tfilter) => {
     setformState(form.getFieldsValue());
-  };
+  }; 
 
   const handleDateChange = (Id: number) => {
     let fromDate, toDate;
@@ -112,10 +114,17 @@ const ActivitySummaryReport: React.FC<{
       fromDate = FromDate;
       toDate = ToDate;
     }
+    
     setFieldValue('FromDate', dayjs(fromDate));
     setFieldValue('ToDate', dayjs(toDate));
     setIsInputFocused(true);
+    setdateTpeProp(undefined)
+   
+    
   };
+  console.log(datetypeprop,'d')
+const datetype = form.getFieldValue('DateType')
+console.log(datetype)
 
   //handle form float label
   const handleFromDateChange = () => {
@@ -131,7 +140,7 @@ const ActivitySummaryReport: React.FC<{
   const ToDateSelect = form.getFieldValue('ToDate');
 
   useEffect(() => {
-    if (!DateType && DateType === undefined) {
+    if (!datetypeprop && datetypeprop === undefined  && datetype === undefined ) {
       setIsInputFocused(false);
     } else {
       setIsInputFocused(true);
@@ -146,7 +155,8 @@ const ActivitySummaryReport: React.FC<{
     } else {
       setIsInputFocusedToDate(true);
     }
-  }, [!DateType, !FromDateSelect, !ToDateSelect]);
+  }, [datetypeprop, FromDateSelect, ToDateSelect, datetype ]);
+  console.log(datetypeprop,'datetype')
 
   const onChangeUnPost = (e: CheckboxChangeEvent) => {
     if (e.target.checked) {
@@ -182,15 +192,13 @@ const ActivitySummaryReport: React.FC<{
               initialValues={FromDateProp === undefined && ToDateProp === undefined ? { FromDate, ToDate } : undefined}
               onFinish={onFinish}
             >
-              {/* <Row justify={'space-around'}>
-        <Col xxl={23} xs={23} sm={23} md={23} lg={23} xl={23}> */}
+    
 
-              <Col xxl={18} xl={24} lg={24} xs={24}>
-                <Row gutter={[16, 16]} justify={'space-between'}>
+              <Col xxl={19} xl={24} lg={24} xs={24}>
+                <Row gutter={CriteriaRowGutter} justify={'space-between'}>
                   <Col xxl={5} xl={6} xs={24} sm={24} md={9} lg={8} className="formfield form-container">
                     <p className={isInputFocused ? 'focused-label' : 'focused2'}>{t('date_type')}</p>
                     <AntSelectDynamic
-                      className={isInputFocused ? 'focused2' : 'focused'}
                       bordered={false}
                       fieldValue="Id"
                       fieldLabel="DateType"
@@ -199,6 +207,7 @@ const ActivitySummaryReport: React.FC<{
                       query={useGetDateTypes}
                       onSelectChange={(obj) => handleDateChange(obj.Id)}
                       name="DateType"
+                      className={isInputFocused ? 'focused2' : 'focused'}
                     />
                   </Col>
                   <Col xxl={5} xl={6} xs={12} md={6} lg={8} className="formfield form-container">
@@ -250,7 +259,7 @@ const ActivitySummaryReport: React.FC<{
           </Card>
         </Col>
       </Row>
-      {/* </Col> */}
+     
 
       <div className="summary-table-container">
         <Row gutter={[16, 16]} justify={'center'}>
@@ -263,7 +272,7 @@ const ActivitySummaryReport: React.FC<{
               isLoading={isActivitySummaryLoading}
               searchCriteriaReport={ActivitySummary?.data?.Data?.Result?.[0]?.ReportCriteria? <CriteriaString/>:''}
               refetch={refetch}
-              scroll={{ y: convertVhToPixels('35vh') }}
+              scroll={{ y: convertVhToPixels('52vh') }}
               pagination={{
                 pageSize: 10,
                 total: ActivitySummary?.data?.Data?.TotalCount || 0,
