@@ -1,4 +1,4 @@
-import { AntButton } from '@scs/ui';
+import { AntButton } from '@tradePro/components';
 import { SyncOutlined } from '@ant-design/icons';
 import { Row, Col, Typography, Skeleton, theme } from 'antd';
 

@@ -1,83 +1,95 @@
 import { useMutation, useQuery } from 'react-query';
-import { TBookingOrder, TSaleOrder, TSaleOrderDetail } from './type';
+import { TBookingOrder } from './type';
 import { requestManager } from '@tradePro/configs/requestManager';
 import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 import { queryClient } from '@scs/configs';
 import { notification } from 'antd';
 import { AxiosError } from 'axios';
 import dayjs from 'dayjs';
-import { SaleOrderRetailCriteria } from './table/type';
 import { useDebounce } from 'react-use';
 
 const userDetail = storedUserDetail();
 const financialYear = storedFinancialYear();
+const [BranchesId, CompanyId, OrganizationId] = [
+  userDetail?.BranchesId,
+  userDetail?.CompanyId,
+  userDetail?.OrganizationId,
+];
 
-export const useGetSaleOrder = (enabled:true,params?: SaleOrderRetailCriteria) => {
-  return useQuery('sale-order-detail', () => {
-    return requestManager.post('/api/SaleOrder/FormHistory', {
-      DocumentTypeId: 81,
-      OrganizationId: 2,
-      CompanyId: 2,
-      BranchesId: 2,
-      FinancialYearId: 2,
-      NoOfRecords: 50,
-      CanViewAllRecord: 'true',
-      EntryUser: 2,
-      ...params,
-    });
-  });
+const params = { CompanyId, OrganizationId };
+
+export const useGetDocNumberBookingOrder = (enabled = true) => {
+  return useQuery(
+    'doc-number-booking-order',
+    () => {
+      return requestManager.post('/api/PreBookingOrder/GenerateDocNo', {
+        DocumentTypeId: 129,
+        FinancialYearId: financialYear?.Id,
+        ...params,
+      });
+    },
+    { enabled }
+  );
 };
-
-
 
 export const useGetItemWithPackUom = (enabled = true, params?: any) => {
   return useQuery(
     'item-with-pack-uom',
     () => {
-    return requestManager.get('/api/ItemPricingSchedule/ItemWithPriceRateRateUomAndPackUom', {
-      params:{
-        PriceTypeId:6,
-        CompanyId: userDetail?.CompanyId,
-        OrganizationId: userDetail?.OrganizationId,
-        ...params,
-      }
-    });
-  },
-  { enabled }
-);
+      return requestManager.get('/api/ItemPricingSchedule/ItemWithPriceRateRateUomAndPackUom', {
+        params: {
+          PriceTypeId: 6,
+          CompanyId: userDetail?.CompanyId,
+          OrganizationId: userDetail?.OrganizationId,
+          ...params,
+        },
+      });
+    },
+    { enabled }
+  );
 };
+// Item Types
+export const useGetItemType = (enabled = true) => {
+  return useQuery(
+    'item-type',
+    () => {
+      return requestManager.get('/api/ItemPricingSchedule/GetItemTypesFromPricingShedule', {
+        params: { CompanyId: userDetail?.CompanyId, OrganizationId: userDetail?.OrganizationId, PriceTypeId: 6 },
+      });
+    },
+    { enabled }
+  );
+};
+
 export const useGetSupplierCustomer = (enabled = true, params?: any) => {
   return useQuery(
     'supplier-customer',
     () => {
-    return requestManager.get('/api/SupplierCustomer/GetforComboBinding', {
-      params:{
-      
-        CompanyId: userDetail?.CompanyId,
-        OrganizationId: userDetail?.OrganizationId,
-        ...params,
-      }
-    });
-  },
-  { enabled }
-);
+      return requestManager.get('/api/SupplierCustomer/GetforComboBinding', {
+        params: {
+          CompanyId: userDetail?.CompanyId,
+          OrganizationId: userDetail?.OrganizationId,
+          ...params,
+        },
+      });
+    },
+    { enabled }
+  );
 };
 
 // export const useGetSupplierCustomerGetVendors = (enabled=true) => {
 //   return useQuery('supplier-customer-getvendors', () => {
 //     return requestManager.post('/api/SupplierCustomer/GetVendorsAndCustomers', {
-   
+
 //       OrganizationId: userDetail?.OrganizationId,
 //       CompanyId: userDetail?.CompanyId,
-  
+
 //       ...params,
 //     });
 //   });
 // };
 
-
-
-export const useGetBookingOrder = (enabled:true,params?: any) => {
+export const useGetBookingOrder = (enabled: true, params?: any) => {
   return useQuery('booking-order', () => {
     return requestManager.post('/api/PreBookingOrder/FormHistory', {
       DocumentTypeId: 129,
@@ -85,22 +97,22 @@ export const useGetBookingOrder = (enabled:true,params?: any) => {
       CompanyId: userDetail?.CompanyId,
       EntryUser: userDetail?.UserId,
       FormDate: financialYear?.Start_Period,
-      ToDate:financialYear?.End_Period,
+      ToDate: financialYear?.End_Period,
       BranchesId: 2,
       FinancialYearId: 2,
       NoOfRecords: 50,
       CanViewAllRecord: 'true',
-      SupplierCustomerId:0,
+      SupplierCustomerId: 0,
       ...params,
     });
   });
 };
 //Get ById
-export const useGetSaleOrderById = (Id?: number | null) => {
+export const useGetBookingOrderById = (Id?: number | null) => {
   return useQuery(
-    ['sale-order-getById', Id],
+    ['booking-order-getById', Id],
     () => {
-      return getSaleOrderById(Id);
+      return getBookingOrderById(Id);
     },
     {
       cacheTime: 0,
@@ -113,8 +125,8 @@ export const useGetSaleOrderById = (Id?: number | null) => {
     }
   );
 };
-const getSaleOrderById = (Id?: number | null) => {
-  return requestManager.get('/api/SaleOrder/GetByID?Id=5072', { params: { Id } });
+const getBookingOrderById = (Id?: number | null) => {
+  return requestManager.get('/api/PreBookingOrder/GetByID', { params: { Id } });
 };
 //Save Booking Order
 export const useAddBookingOrder = (params?: TBookingOrder) => {
@@ -133,7 +145,7 @@ export const useAddBookingOrder = (params?: TBookingOrder) => {
         EntryUser: userDetail?.UserId,
         ModifyDate: new Date().toISOString(),
         DeliveryStartDate: new Date().toISOString(),
-        OrderDueDate:new Date().toISOString(),
+        OrderDueDate: new Date().toISOString(),
         OrderExpiryDate: new Date().toISOString(),
 
         ...params,
@@ -154,7 +166,7 @@ export const useUpdateBookingOrder = (Id?: number | null, params?: TBookingOrder
     (data: TBookingOrder) => {
       return requestManager.post('/api/PreBookingOrder/Save', {
         ...data,
-         
+
         Id: 0,
         DocumentTypeId: 129,
         OrganizationId: userDetail?.OrganizationId,
@@ -165,7 +177,7 @@ export const useUpdateBookingOrder = (Id?: number | null, params?: TBookingOrder
         EntryUser: userDetail?.UserId,
         ModifyDate: new Date().toISOString(),
         DeliveryStartDate: new Date().toISOString(),
-        OrderDueDate:new Date().toISOString(),
+        OrderDueDate: new Date().toISOString(),
         OrderExpiryDate: new Date().toISOString(),
 
         ...params,
@@ -178,25 +190,6 @@ export const useUpdateBookingOrder = (Id?: number | null, params?: TBookingOrder
         notification.success({ description: '', message: msg });
       },
     }
-  );
-};
-
-export const useGetPriceSchedule = (ItemIds?: number | null, enabled = true, params?: TSaleOrderDetail) => {
-  return useQuery(
-    ['item', ItemIds],
-    () => {
-      return requestManager.post('/api/InvSaleInvoice/GetLastPriceScheduleByItemIdAndDate', {
-        CompanyId: userDetail?.CompanyId,
-        OrganizationId: userDetail?.OrganizationId,
-        BranchesId: userDetail?.BranchesId,
-        PriceTypeId: 6,
-        ItemIds: ItemIds,
-        EffectedDate: dayjs(new Date().toISOString()),
-
-        ...params,
-      });
-    },
-    { enabled }
   );
 };
 
@@ -231,7 +224,6 @@ export const useGetDiscountRate = (
   );
 };
 
-
 export const useGetBranch = (CompanyId: number | null) => () => {
   return useQuery(
     ['branch', CompanyId],
@@ -243,7 +235,6 @@ export const useGetBranch = (CompanyId: number | null) => () => {
     { enabled: !!CompanyId }
   );
 };
-
 
 export const useGetPurchaseOrderStatus = (enabled = true, params?: any) => {
   return useQuery(

@@ -51,18 +51,19 @@ function MainEntry({
   const voucherType: TVoucherType[] = [{ Id: 1, Type: 'BPV' }];
   return (
     <>
-      <Row gutter={[10, 10]} style={{ marginTop: '-0.5%' }}>
-        <Col span={24}>
-          <Card style={{ paddingBottom: '0.5%', boxShadow: '2px 4px 12px 1px gray' }}>
-            <Row gutter={[10, 10]} justify={'space-between'} style={{ marginLeft: 10 }}>
+      <>
+        <>
+          <Card bordered={false} style={{ boxShadow: ' ' }}>
+            <Row gutter={[0, 0]} justify={'space-between'} style={{ marginTop: '-1%' }}>
               <Col
                 xs={{ span: 24 }}
                 sm={{ span: 23 }}
                 md={{ span: 11 }}
                 lg={{ span: 11 }}
                 xl={{ span: 5 }}
-                xxl={{ span: 4 }}
+                xxl={{ span: 3 }}
                 className="formfield"
+                style={{ marginLeft: -3 }}
               >
                 <AntSelectDynamic
                   bordered={false}
@@ -86,6 +87,7 @@ function MainEntry({
                 xl={{ span: 7 }}
                 xxl={{ span: 8 }}
                 className="formfield"
+                style={{ marginLeft: -10 }}
               >
                 <p style={{ marginTop: -18, marginLeft: '65%' }} className="cr">
                   Cr : <b> {numberFormatter(data?.data?.Data?.Result?.[0]?.Balance)}</b>
@@ -109,11 +111,11 @@ function MainEntry({
               <Col
                 xs={{ span: 19 }}
                 sm={{ span: 19 }}
-                md={{ span: 9 }}
-                lg={{ span: 9 }}
+                md={{ span: 11 }}
+                lg={{ span: 11 }}
                 xl={{ span: 7 }}
                 xxl={{ span: 8 }}
-                className="formfield against"
+                className="formfield"
               >
                 <AntSelectDynamic
                   required={form.getFieldValue('IncludeWHT') ? true : false}
@@ -133,36 +135,44 @@ function MainEntry({
               <Col
                 xs={{ span: 2 }}
                 sm={{ span: 4 }}
-                md={{ span: 2 }}
-                lg={{ span: 2 }}
+                md={{ span: 11 }}
+                lg={{ span: 11 }}
                 xl={{ span: 2 }}
                 xxl={{ span: 2 }}
                 style={{ marginTop: '0.5%' }}
-                className="wht"
+                // className="wht"
               >
-                <Form.Item className="box" name="IncludeWHT" valuePropName="checked" initialValue={false}>
-                  <Checkbox onChange={(e) => handleCheckboxChangeforWHT(e.target.checked, 'IncludeWHT')}>
-                    {t('wht')}
-                  </Checkbox>
-                </Form.Item>
+                <Row style={{ height: 30 }}>
+                  <Col>
+                    <Form.Item className="box" name="IncludeWHT" valuePropName="checked" initialValue={false}>
+                      <Checkbox onChange={(e) => handleCheckboxChangeforWHT(e.target.checked, 'IncludeWHT')}>
+                        {t('wht')}
+                      </Checkbox>
+                    </Form.Item>
+                  </Col>
+                </Row>
               </Col>
+              <Col xxl={2} xl={2} lg={0}></Col>
               <Col
                 xs={{ span: 24 }}
                 sm={{ span: 23 }}
-                md={{ span: 12 }}
-                lg={{ span: 12 }}
-                xl={{ span: 13 }}
-                xxl={{ span: 13 }}
-                style={{ marginTop: '-2%' }}
-                className="formfield remarks"
+                md={{ span: 24 }}
+                lg={{ span: 24 }}
+                xl={{ span: 19 }}
+                xxl={{ span: 19 }}
+                style={{ marginTop: '0%' }}
+                className="formfield"
               >
-                <AntInput bordered={false} name="Remarks" label={t('remarks')} />
+                <p className="formfield" style={{ width: '102%', border: '' }}>
+                  <AntInput bordered={false} name="Remarks" label={t('remarks')} />
+                </p>
+
                 <AntInput bordered={false} label={t('')} name="VoucherAmount" style={{ display: 'none' }} />
               </Col>
             </Row>
           </Card>
-        </Col>
-      </Row>
+        </>
+      </>
     </>
   );
 }

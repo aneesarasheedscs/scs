@@ -1,17 +1,10 @@
-import { AntButton, AntTable } from '@scs/ui';
+import { AntTable } from '@tradePro/components';
 import { useGetBookingOrder, useGetPurchaseOrderStatus } from '../queries';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { Bookingordercolumns } from './columns';
-import { t } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { Card, Col, Row } from 'antd';
-
 import { useState } from 'react';
-import CardView from './cardView';
-import './Card.scss';
-import './DetailTableFile.scss';
-import SaleOrderFormHistoryCriteria from './SaleOrderHistoryCriteria';
-import { map } from 'lodash';
 import ModalCriteria from './HistoryCriteria';
 
 const BookingOrderTable = ({ setSelectedRecordId, setActiveTab }: TFrom) => {
@@ -68,20 +61,16 @@ const BookingOrderTable = ({ setSelectedRecordId, setActiveTab }: TFrom) => {
           {showComponent ? (
             <>
               <Card
-                cover={
-                  <>
-                    <CardView setActiveTab={setActiveTab} setSelectedRecordId={setSelectedRecordId} />
-                  </>
-                }
+                cover={<>{/* <CardView setActiveTab={setActiveTab} setSelectedRecordId={setSelectedRecordId} /> */}</>}
               ></Card>
             </>
           ) : (
-            <Col xxl={14} style={{ marginLeft: -2, marginTop: 5 }}>
+            <Col xxl={10} xl={13} lg={20} md={22} style={{ marginLeft: -2, marginTop: 5 }}>
               <AntTable
                 refetch={refetch}
                 isError={isError}
-                columns={Bookingordercolumns(t)}
-                numberOfSkeletons={12}
+                columns={Bookingordercolumns(t, setSelectedRecordId, setActiveTab)}
+                numberOfSkeletons={6}
                 // searchCriteriaForm={<SaleOrderFormHistoryCriteria />}
                 searchCriteriaReport={data?.data?.Data?.Result?.ReportCriteria ? <CriteriaString /> : ''}
                 isLoading={isLoading || isFetching}

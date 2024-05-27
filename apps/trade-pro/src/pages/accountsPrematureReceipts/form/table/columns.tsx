@@ -1,14 +1,19 @@
-import { EditFilled, EyeTwoTone, DeleteOutlined } from '@ant-design/icons';
+import { EditFilled, CloseCircleTwoTone, CheckCircleTwoTone } from '@ant-design/icons';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { AntButton } from '@tradePro/components';
-import { Space, Tooltip } from 'antd';
+import { Row, Space, Tooltip } from 'antd';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import dayjs from 'dayjs';
 import { TFunction } from 'i18next';
 import { TAccountsPrematureReceiptsHistory } from '../../types';
 
-export const columns = (t: TFunction): AntColumnType<TAccountsPrematureReceiptsHistory>[] => [
+export const columns = (
+  t: TFunction,
+
+  setUpdateRecord: (selectedRecordId: number) => void,
+  setCancelPrematureRecord: (selectedRecordId: number) => void
+): AntColumnType<TAccountsPrematureReceiptsHistory>[] => [
   {
     title: t('doc_no'),
     width: 120,
@@ -131,33 +136,36 @@ export const columns = (t: TFunction): AntColumnType<TAccountsPrematureReceiptsH
     sortDirections: ['ascend', 'descend'],
   },
   {
+    align: 'center',
     fixed: 'right',
     title: t('action'),
-    width: 95,
+    width: 90,
     render: (_, record) => (
       <>
-        <Tooltip title="Edit">
-          <Space style={{ position: 'absolute', top: 10, left: 10 }}>
-            <AntButton
-              type="text"
-              icon={<EditFilled style={{ color: '#006640' }} />}
-              onClick={() => {
-                // setSelectedRecordId(record?.Id), setActiveTab('2');
-              }}
-            />
-          </Space>
-        </Tooltip>
-        <Tooltip title="View Detail">
-          <Space style={{ position: 'absolute', top: 10, right: 10 }}>
-            <AntButton
-              type="text"
-              icon={<EyeTwoTone style={{ color: 'blue', marginLeft: 4 }} />}
-              onClick={() => {
-                // setSelectedRecordDetailId(record.Id);
-              }}
-            />
-          </Space>
-        </Tooltip>
+        <Row>
+          <Tooltip title="Confirm">
+            <Space style={{ position: 'absolute', top: 10, left: 25 }}>
+              <AntButton
+                type="text"
+                icon={<CheckCircleTwoTone style={{ color: '', marginLeft: 0 }} />}
+                onClick={() => {
+                  setUpdateRecord(record?.Id);
+                }}
+              />
+            </Space>
+          </Tooltip>
+          <Tooltip title="Cancel">
+            <Space style={{ position: 'absolute', top: 10, left: 50 }}>
+              <AntButton
+                type="text"
+                icon={<CloseCircleTwoTone style={{ color: 'blue', marginLeft: 0 }} />}
+                onClick={() => {
+                  setCancelPrematureRecord(record?.Id);
+                }}
+              />
+            </Space>
+          </Tooltip>
+        </Row>
       </>
     ),
   },

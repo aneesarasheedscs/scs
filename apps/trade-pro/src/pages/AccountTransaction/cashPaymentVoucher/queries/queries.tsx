@@ -108,7 +108,7 @@ export const useGetCreditAccountSelect = () => {
     'credit-accounts-for-CPV',
     () => {
       return requestManager.get('/api/COAAllocation/GetDetailAccountByDocumentTypeId', {
-        params: { ...params, DocumentTypeId: 1 },
+        params: { ...params, DocumentTypeId: '1' },
       });
     },
     { cacheTime: 5000 }

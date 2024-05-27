@@ -15,7 +15,8 @@ export const route = {
   ORDERS_DASHBOARD: '/orderdashboard',
 
   // AccountsPrematureRecipts
-  ACCOUNTS_PREMATURE_RECEIPTS: '/accounts-premature-receipt',
+  // ACCOUNTS_PREMATURE_RECEIPTS: '/accounts-premature-receipt',
+  ACCOUNTS_PREMATURE_RECEIPTS: '/premature-receipts',
   //Attendance Report
   ATTENDANCE_REPORT: '/attendance_report',
   //Inventory Reports

@@ -1,18 +1,12 @@
-import { AntButton, AntDatePicker, AntInputNumber, AntSelectDynamic } from '@tradePro/components';
-import { CriteriaRowGutter } from '@tradePro/globalAtoms';
-import { Col, Form, FormInstance, Row, theme } from 'antd';
-// import { PlusOutlined } from '@ant-design/icons';
-
+import _ from 'lodash';
+import { Col, Form, Row, notification, theme } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FilterFilled } from '@ant-design/icons';
-import { PlusOutlined, FullscreenOutlined, CloseOutlined, MinusOutlined, SyncOutlined } from '@ant-design/icons';
-
-import _, { map } from 'lodash';
+import { PlusOutlined, FullscreenOutlined, SyncOutlined } from '@ant-design/icons';
+import { AntButton, AntInputNumber, AntSelectDynamic } from '@tradePro/components';
 import { useGetItemWithPackUom } from '../../queries';
 import { TPreBookingOrderDetailList } from '../../type';
 
-const { useToken } = theme;
 const { useForm, useWatch } = Form;
 
 const ItemEntryForm = ({ setSelectedItem, selectedItem }: TAddItem) => {
@@ -25,52 +19,34 @@ const ItemEntryForm = ({ setSelectedItem, selectedItem }: TAddItem) => {
   const TotalItems = selectedItem?.length;
   const qty = _.sumBy(selectedItem, 'OrderItemQty');
   const totalAmount = _.sumBy(selectedItem, 'TotalAmount');
-  // const { data, isLoading, isSuccess } = useGetItemWithPackUom();
-  // const ItemWithPackUom = data?.data?.Data?.Result
 
-  // const ItemName = data?.data?.Data?.Result?.[0]?.ItemNames
-  // const itemNames = data?.data?.Data?.Result?.map(item => item.ItemName);
-
-  // console.log(itemNames,'itemName')
-  // const fillteredItemName = ItemWithPackUom?.filter((item: any) => item.TranType === 'Receipts');
-  console.log(selectedItem);
-  // console.log(ItemWithPackUom,'filterItem')
   const [itemPrice, setItemPrice] = useState<number>();
-
-  const { data, isLoading, isSuccess, refetch } = useGetItemWithPackUom();
+  const { data, refetch } = useGetItemWithPackUom();
 
   type TItemObj = {
     PackUom: string;
     RateUom: string;
-
     ItemId: number;
     ItemName: string;
     ItemPrice: number;
     PackEquivalent: number;
-
     PackUomId: number;
     RateEquivalent: number;
-
     RateUomId: number;
     ScheduleId: number;
   };
-  type TFormValues = {
-    ItemName: string;
-    PackUom: string;
-    Qty: number;
-    RateUom: string;
-    ItemPrice: number;
-    Amount: number;
-  };
 
   const onFinish = (values: TPreBookingOrderDetailList) => {
-    setSelectedItem([...selectedItem, values]);
-    console.log(values, 'vvvvvvvvvvvv');
-
-    form.resetFields();
-
-  
-    // form.setFieldValue(['SaleOrderDetailList', 0, 'ItemName'], null);
+    if (!values.OrderItemQty) {
+      notification.error({
+        message: 'Error',
+        description: 'Please Enter Quantity!',
+      });
+    } else {
+      setSelectedItem([...selectedItem, values]);
+      console.log(values, 'formValues');
+      form.resetFields();
+    }
   };
 
   const handleItemNameChange = (value: TItemObj) => {
@@ -82,12 +58,10 @@ const ItemEntryForm = ({ setSelectedItem, selectedItem }: TAddItem) => {
       const OrderItemUOMId = selectedAccount?.PackUomId;
       const OrderItemRate = selectedAccount?.RateEquivalent;
       const OrderItemRateUOMId = selectedAccount?.RateUomId;
-
       const ItemTitle = selectedAccount.ItemName;
       const ItemTitlePrice = selectedAccount.ItemPrice;
       setItemPrice(ItemTitlePrice);
 
-      // setItemName(accountTitle);
       form.setFieldValue('PackUom', itemPackUom);
       form.setFieldValue('RateUom', itemRateUom);
       form.setFieldValue('OrderItemUOMId', OrderItemUOMId);
@@ -118,16 +92,12 @@ const ItemEntryForm = ({ setSelectedItem, selectedItem }: TAddItem) => {
           className="ItemCriteriaStyle"
           style={{ paddingBottom: 5, paddingTop: 5, border: '1px' }}
         >
-          <Form
-            form={form}
-            // initialValues={{FromDate,ToDate}}
-            onFinish={onFinish}
-          >
+          <Form form={form} onFinish={onFinish}>
             <Col>
               <Row justify={'space-between'}>
                 <Col xs={24} sm={12} md={12} xxl={6} lg={12} className="formfield">
                   <AntSelectDynamic
-                  required
+                    required
                     bordered={false}
                     label={t('')}
                     placeholder={'select item'}
@@ -136,7 +106,6 @@ const ItemEntryForm = ({ setSelectedItem, selectedItem }: TAddItem) => {
                     fieldValue="ItemId"
                     query={useGetItemWithPackUom}
                     onSelect={(obj) => handleItemNameChange(obj)}
-                    
                   />
                 </Col>
                 <Col xs={24} sm={11} md={11} xxl={4} lg={11} className="formfield">
@@ -176,7 +145,7 @@ const ItemEntryForm = ({ setSelectedItem, selectedItem }: TAddItem) => {
           </Form>
         </Col>
       </Row>
-      <Row justify={'space-between'} style={{ border: '1px solid ', padding: 4 }}>
+      <Row justify={'space-between'} style={{ border: '1px solid  grey', padding: 4 }}>
         <Col
           xxl={11}
           lg={14}
@@ -187,23 +156,23 @@ const ItemEntryForm = ({ setSelectedItem, selectedItem }: TAddItem) => {
         >
           <Col>
             <h5>
-              Qty: <span style={{ background: 'lightgrey', borderRadius: 10, padding: 3 }}>{qty ? qty : 0} </span>
+              Qty: <span style={{ background: 'lightgrey', borderRadius: 5, padding: 3 }}>{qty ? qty : 0} </span>
             </h5>
           </Col>
           <Col>
             <h5>
-              Item: <span style={{ background: 'lightgrey', borderRadius: 10, padding: 3 }}>{TotalItems}</span>
+              Item: <span style={{ background: 'lightgrey', borderRadius: 5, padding: 3 }}>{TotalItems}</span>
             </h5>
           </Col>
           <Col>
             <h5>
-              Discount: <span style={{ background: 'lightgrey', borderRadius: 10, padding: 3 }}>000.0</span>
+              Discount: <span style={{ background: 'lightgrey', borderRadius: 5, padding: 3 }}>0</span>
             </h5>
           </Col>
           <Col>
             <h5>
               Total:{' '}
-              <span style={{ background: 'lightgrey', borderRadius: 10, padding: 3 }}>
+              <span style={{ background: 'lightgrey', borderRadius: 5, padding: 3 }}>
                 {totalAmount ? totalAmount : 0}
               </span>
             </h5>

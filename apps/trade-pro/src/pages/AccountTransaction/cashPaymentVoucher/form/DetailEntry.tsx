@@ -237,23 +237,23 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
 
   return (
     <>
-      <Row gutter={[16, 16]}>
+      <Row gutter={[6, 4]} style={{ border: '', marginTop: -12 }}>
         <Col span={24}>
-          <Card style={{ boxShadow: '2px 4px 12px 1px gray', paddingBottom: '0%' }}>
+          <Card bordered={false} style={{ boxShadow: ' ', paddingBottom: '0%' }}>
             <Form.List name="voucherDetailList" initialValue={[initialValues]}>
               {(fields, {}) => (
                 <>
                   {fields.map((field) => (
-                    <div key={field.key} className="form-list-container">
+                    // <div key={field.key} className="form-list-container">
+                    <Row justify={'space-between'} key={field.key}>
                       <Col
-                        xs={{ span: 24, offset: 0 }}
-                        sm={{ span: 21, offset: 1 }}
-                        md={{ span: 11, offset: 0 }}
-                        lg={{ span: 11, offset: 0 }}
-                        xl={{ span: 5, offset: 0 }}
-                        xxl={{ span: 4, offset: 0 }}
+                        xs={{ span: 24 }}
+                        sm={{ span: 24 }}
+                        md={{ span: 12 }}
+                        lg={{ span: 12 }}
+                        xl={{ span: 5 }}
+                        xxl={{ span: 5 }}
                         className="formfield type"
-                        style={{ marginBottom: '1%' }}
                       >
                         <AntSelectDynamic
                           bordered={false}
@@ -270,14 +270,14 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
                       </Col>
 
                       <Col
-                        xs={{ span: 24, offset: 0 }}
-                        sm={{ span: 21, offset: 1 }}
-                        md={{ span: 11, offset: 1 }}
-                        lg={{ span: 11, offset: 1 }}
-                        xl={{ span: 6, offset: 1 }}
-                        xxl={{ span: 7, offset: 1 }}
+                        xs={{ span: 24 }}
+                        sm={{ span: 24 }}
+                        md={{ span: 11 }}
+                        lg={{ span: 11 }}
+                        xl={{ span: 8 }}
+                        xxl={{ span: 8 }}
                         className="formfield debit"
-                        style={{ marginTop: '-2.5rem', borderBottom: '1px solid gray', padding: '0px', height: '60px' }}
+                        style={{ marginTop: '-1.5rem', borderBottom: '1px solid gray', padding: '0px', height: '52px' }}
                       >
                         <p style={{ marginTop: 0, marginLeft: '60%' }} className="dr">
                           Dr : <b> {numberFormatter(data?.data?.Data?.Result?.[0]?.Balance)}</b>
@@ -300,13 +300,12 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
                       </Col>
 
                       <Col
-                        xs={{ span: 24, offset: 0 }}
-                        sm={{ span: 21, offset: 1 }}
-                        md={{ span: 11, offset: 0 }}
-                        lg={{ span: 11, offset: 0 }}
-                        xl={{ span: 4, offset: 1 }}
+                        xs={{ span: 24 }}
+                        sm={{ span: 24 }}
+                        md={{ span: 12 }}
+                        lg={{ span: 12 }}
+                        xl={{ span: 5 }}
                         className="formfield"
-                        style={{ marginBottom: '1%' }}
                       >
                         <AntSelectDynamic
                           bordered={false}
@@ -320,13 +319,12 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
                       </Col>
 
                       <Col
-                        xs={{ span: 24, offset: 0 }}
-                        sm={{ span: 21, offset: 1 }}
-                        md={{ span: 11, offset: 1 }}
-                        lg={{ span: 11, offset: 1 }}
-                        xl={{ span: 5, offset: 1 }}
+                        xs={{ span: 24 }}
+                        sm={{ span: 24 }}
+                        md={{ span: 11 }}
+                        lg={{ span: 11 }}
+                        xl={{ span: 5 }}
                         className="formfield"
-                        style={{ marginBottom: '1%' }}
                       >
                         <AntInputNumber
                           bordered={false}
@@ -335,79 +333,84 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
                         />
                       </Col>
 
-                      <Col
-                        xs={{ span: 24, offset: 0 }}
-                        sm={{ span: 21, offset: 1 }}
-                        md={{ span: 23, offset: 0 }}
-                        lg={{ span: 23, offset: 0 }}
-                        xl={{ span: 12, offset: 0 }}
-                        style={{ marginBottom: '1%' }}
-                        className="formfield"
-                      >
-                        <AntInput
-                          bordered={false}
-                          formItemProps={{ ...field, name: [field.name, 'Comments'] }}
-                          label={t('remarks')}
-                        />
-                      </Col>
-                      <AntInput
-                        bordered={false}
-                        label={''}
-                        formItemProps={{ ...field, name: [field.name, 'PaymentType'] }}
-                        style={{ display: 'none' }}
-                      />
-                      <AntInput
-                        bordered={false}
-                        label={''}
-                        formItemProps={{ ...field, name: [field.name, 'AccountTitle'] }}
-                        style={{ display: 'none' }}
-                      />
-                      <AntInput
-                        bordered={false}
-                        label={''}
-                        formItemProps={{ ...field, name: [field.name, 'JobLotDescription'] }}
-                        style={{ display: 'none' }}
-                      />
-                      <AntInputNumber
-                        bordered={false}
-                        label={t('')}
-                        style={{ display: 'none' }}
-                        formItemProps={{ ...field, name: [field.name, 'DebitAmount'] }}
-                      />
-                      <Col xxl={3} xl={4} lg={6} md={6} sm={7} xs={24}>
-                        <Row
-                          align={'top'}
-                          gutter={10}
-                          style={{ display: 'flex', border: ' ' }}
-                          justify={'space-between'}
-                        >
-                          <Col span={12}>
-                            <AntButton
-                              onClick={isEditMode ? handleUpdateToTable : handleAddToTable}
-                              label={isEditMode ? `${t('update')}` : `${t('add')}`}
-                              style={{ marginLeft: 0 }}
-                            ></AntButton>
+                      <Col span={24}>
+                        <Row justify={'space-between'}>
+                          <Col
+                            xs={{ span: 24 }}
+                            sm={{ span: 23 }}
+                            md={{ span: 23 }}
+                            lg={{ span: 23 }}
+                            xl={{ span: 13 }}
+                            xxl={{ span: 13 }}
+                            className="formfield"
+                            style={{ marginTop: 3 }}
+                          >
+                            <p className="formfield" style={{ width: '103%', border: '' }}>
+                              <AntInput
+                                bordered={false}
+                                formItemProps={{ ...field, name: [field.name, 'Comments'] }}
+                                label={t('remarks')}
+                              />
+                            </p>
+                            <AntInput
+                              bordered={false}
+                              label={''}
+                              formItemProps={{ ...field, name: [field.name, 'PaymentType'] }}
+                              style={{ display: 'none' }}
+                            />
+                            <AntInput
+                              bordered={false}
+                              label={''}
+                              formItemProps={{ ...field, name: [field.name, 'AccountTitle'] }}
+                              style={{ display: 'none' }}
+                            />
+                            <AntInput
+                              bordered={false}
+                              label={''}
+                              formItemProps={{ ...field, name: [field.name, 'JobLotDescription'] }}
+                              style={{ display: 'none' }}
+                            />
+                            <AntInputNumber
+                              bordered={false}
+                              label={t('')}
+                              style={{ display: 'none' }}
+                              formItemProps={{ ...field, name: [field.name, 'DebitAmount'] }}
+                            />
                           </Col>
-                          <Col span={12}>
-                            <AntButton
-                              onClick={() => handleResetForm()}
-                              label={`${t('cancel')}`}
-                              style={{ backgroundColor: '#FFAF0C' }}
-                            ></AntButton>
+                          <Col xxl={{ span: 10 }} xl={10} lg={6} md={6} sm={7} xs={24}>
+                            <Row gutter={10} style={{ marginTop: 3, marginLeft: 0 }} align={'bottom'}>
+                              <Col>
+                                <AntButton
+                                  onClick={isEditMode ? handleUpdateToTable : handleAddToTable}
+                                  label={isEditMode ? `${t('update')}` : `${t('add')}`}
+                                  style={{ marginLeft: 0 }}
+                                ></AntButton>
+                              </Col>
+                              <Col>
+                                <AntButton
+                                  onClick={() => handleResetForm()}
+                                  label={`${t('cancel')}`}
+                                  style={{ backgroundColor: '#FFAF0C' }}
+                                ></AntButton>
+                              </Col>
+                            </Row>
                           </Col>
                         </Row>
                       </Col>
-                      <DetailEntryTable form={form} t={t} setIsEditMode={setIsEditMode} setrowIndex={setrowIndex} />
+
+                      <Col span={24} style={{ marginTop: 10 }}>
+                        <DetailEntryTable form={form} t={t} setIsEditMode={setIsEditMode} setrowIndex={setrowIndex} />
+                      </Col>
                       <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }}>
-                        <Row gutter={10} style={{ marginTop: '2%' }}>
+                        <Row gutter={16} style={{ marginTop: '0%' }}>
                           <>
-                            <Card style={{ width: '100%' }}>
+                            <Card bordered={false} style={{ width: '100%' }}>
                               <Row justify={'space-between'}>
                                 <Col
                                   xs={{ span: 24 }}
                                   sm={{ span: 24 }}
-                                  md={{ span: 11 }}
-                                  lg={{ span: 10 }}
+                                  md={{ span: 12 }}
+                                  lg={{ span: 12 }}
                                   xl={{ span: 7 }}
                                   className="formfield"
                                 >
@@ -425,7 +428,7 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
                                   xs={{ span: 24 }}
                                   sm={{ span: 24 }}
                                   md={{ span: 11 }}
-                                  lg={{ span: 10 }}
+                                  lg={{ span: 11 }}
                                   xl={{ span: 6 }}
                                   className="formfield"
                                 >
@@ -440,9 +443,9 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
                                 <Col
                                   xs={{ span: 24 }}
                                   sm={{ span: 24 }}
-                                  md={{ span: 11 }}
-                                  lg={{ span: 10 }}
-                                  xl={{ span: 7 }}
+                                  md={{ span: 12 }}
+                                  lg={{ span: 12 }}
+                                  xl={{ span: 8 }}
                                   className="formfield"
                                 >
                                   <AntSelectDynamic
@@ -464,7 +467,7 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
                                   xs={{ span: 24 }}
                                   sm={{ span: 24 }}
                                   md={{ span: 11 }}
-                                  lg={{ span: 10 }}
+                                  lg={{ span: 11 }}
                                   xl={{ span: 7 }}
                                   className="formfield"
                                   style={{ marginTop: '0%' }}
@@ -480,8 +483,8 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
                                 <Col
                                   xs={{ span: 24 }}
                                   sm={{ span: 24 }}
-                                  md={{ span: 11 }}
-                                  lg={{ span: 10 }}
+                                  md={{ span: 12 }}
+                                  lg={{ span: 12 }}
                                   xl={{ span: 6 }}
                                   style={{ marginTop: '0%' }}
                                   className="formfield"
@@ -498,8 +501,8 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
                                   xs={{ span: 24 }}
                                   sm={{ span: 24 }}
                                   md={{ span: 11 }}
-                                  lg={{ span: 10 }}
-                                  xl={{ span: 7 }}
+                                  lg={{ span: 11 }}
+                                  xl={{ span: 8 }}
                                   style={{ marginTop: '0%' }}
                                   className="formfield"
                                 >
@@ -516,7 +519,7 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
                           </>
                         </Row>
                       </Col>
-                    </div>
+                    </Row>
                   ))}
                 </>
               )}

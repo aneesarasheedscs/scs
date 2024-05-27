@@ -1,20 +1,21 @@
-import { AntButton, AntDatePicker, AntInput, AntSelectDynamic } from '@tradePro/components';
 import { Card, Col, Form, FormInstance, Row, notification } from 'antd';
 import { FormRowGutter } from '@tradePro/globalAtoms';
 import { useTranslation } from 'react-i18next';
-import { forEach, map } from 'lodash';
+import { map } from 'lodash';
 import EntryTable from './EntryTable';
-import { useGetReceiverAccount, useGetRepresentativeAccount, useGetSenderAccount, useGetSenderBank } from '../queries';
 import { useEffect, useState } from 'react';
 import { TAccountsPrematureReceiptsList } from '../types';
 import BankName from './definitionScreens/BankName';
 import DefineOtherParties from './definitionScreens/DefineOtherParties';
 import { storedUserDetail } from '@tradePro/utils/storageService';
+import { AntButton, AntDatePicker, AntInput, AntSelectDynamic } from '@tradePro/components';
+import { useGetReceiverAccount, useGetRepresentativeAccount, useGetSenderAccount, useGetSenderBank } from '../queries';
 
 function MainEntry({ form, refetch, tableData, setTableData }: TMainEntrnyProps) {
   const { t } = useTranslation();
   const userDetail = storedUserDetail();
-
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+  const [editRecordIndex, setEditRecordIndex] = useState<number | null>(null);
   const handleAddFormValues = () => {
     const values = form.getFieldsValue();
     const slipAmount = values?.SlipAmount;
@@ -99,19 +100,124 @@ function MainEntry({ form, refetch, tableData, setTableData }: TMainEntrnyProps)
         } else {
           setTableData([...tableData, ...updatedRecord]);
         }
-        // Add entries to tableData
       }
     } else {
       // If slipAmount is not defined or null, show error
-
       notification.error({
         message: 'Error',
         description: 'SlipAmount  is not defined! ',
       });
       return;
-      // setTableData([...tableData, values]);
     }
   };
+
+  const handleUpdateFormValues = () => {
+    const values = form.getFieldsValue();
+    const slipAmount = values?.SlipAmount;
+    const senderBank = values?.BankId;
+    const senderAccount = values?.ChartOfAccountIdSender;
+    const receiverAccount = values?.ChartOfAccountIdReceiver;
+    const representativeAccount = values?.SupplierCustomerIdSalesMan;
+    const VouchersId = values?.VouchersId;
+    const amount = values?.Amount;
+    const tracking_slip = values?.TrackingSlipRef;
+    const editedRowIndex = tableData.findIndex((row: any, index) => index === editRecordIndex);
+    console.log(editedRowIndex);
+    if (slipAmount) {
+      // Convert chequeNo to number and ensure it's a positive integer
+      const numberOfEntries = parseInt(slipAmount);
+      const Amount = parseInt(amount ? amount : 0);
+      if (!isNaN(numberOfEntries) && numberOfEntries > 0) {
+        if (Amount > slipAmount) {
+          notification.error({
+            message: 'Error',
+            description: 'Amount cannot be greater than SlipAmount!',
+          });
+          return;
+        }
+
+        if (tableData?.length > 0 && tracking_slip !== tableData?.[0]?.TrackingSlipRef) {
+          notification.error({
+            message: 'Error',
+            description: 'Cannot add different Tracking Slip!',
+          });
+          return;
+        }
+        if (tableData?.length > 0 && slipAmount !== tableData?.[0]?.SlipAmount) {
+          notification.error({
+            message: 'Error',
+            description: 'Cannot add different Slip Amount!',
+          });
+          return;
+        }
+        if (tableData?.length > 0 && VouchersId !== tableData?.[0]?.VouchersId) {
+          notification.error({
+            message: 'Error',
+            description: 'Cannot add different Voucher against Tracking Slip!',
+          });
+          return;
+        }
+        if (tableData?.length > 0 && senderBank !== tableData?.[0]?.BankId) {
+          notification.error({
+            message: 'Error',
+            description: 'Cannot add different Sender Bank against Tracking Slip!',
+          });
+          return;
+        }
+        if (tableData?.length > 0 && receiverAccount !== tableData?.[0]?.ChartOfAccountIdReceiver) {
+          notification.error({
+            message: 'Error',
+            description: 'Cannot add different Receiver account against Tracking Slip!',
+          });
+          return;
+        }
+        if (tableData?.length > 0 && senderAccount !== tableData?.[0]?.ChartOfAccountIdSender) {
+          notification.error({
+            message: 'Error',
+            description: 'Cannot add different sender account against Tracking Slip!',
+          });
+          return;
+        }
+
+        if (tableData?.length > 0 && representativeAccount !== tableData?.[0]?.SupplierCustomerIdSalesMan) {
+          notification.error({
+            message: 'Error',
+            description: 'Cannot add different representative account against Tracking Slip!',
+          });
+          return;
+        } else {
+          if (editRecordIndex !== null && editRecordIndex >= 0 && editRecordIndex < tableData.length) {
+            setTableData((prevTableData: TAccountsPrematureReceiptsList[]) => {
+              return prevTableData.map((record, index) => {
+                if (index === editRecordIndex) {
+                  // Update the existing record at the specified index
+                  return {
+                    ...record,
+                    Amount: Amount, // Update the amount
+                    // Update other fields if needed
+                  };
+                } else {
+                  // Return unchanged record for other indices
+                  return record;
+                }
+              });
+            });
+
+            setIsEditMode(false);
+            setEditRecordIndex(null);
+          }
+        }
+      }
+    } else {
+      // If slipAmount is not defined or null, show error
+      notification.error({
+        message: 'Error',
+        description: 'SlipAmount  is not defined! ',
+      });
+      return;
+    }
+  };
+
   console.log(tableData);
 
   const Status: TStatus[] = [
@@ -148,6 +254,7 @@ function MainEntry({ form, refetch, tableData, setTableData }: TMainEntrnyProps)
     form.resetFields();
     refetch();
     form.setFieldValue('EntryStatus', 'Pending');
+    setIsEditMode(false);
   };
   return (
     <>
@@ -269,7 +376,10 @@ function MainEntry({ form, refetch, tableData, setTableData }: TMainEntrnyProps)
           <Col xl={11} xxl={5} lg={24} sm={18} xs={24} md={20} className=" ">
             <Row gutter={[6, 0]} justify={'start'}>
               <Col>
-                <AntButton label="Add" onClick={handleAddFormValues} />
+                <AntButton
+                  label={isEditMode ? 'Update' : 'Add'}
+                  onClick={isEditMode ? handleUpdateFormValues : handleAddFormValues}
+                />
               </Col>
               <Col>
                 <AntButton className="reset_btn" label="Cancel" onClick={handleResetFields} />
@@ -278,7 +388,13 @@ function MainEntry({ form, refetch, tableData, setTableData }: TMainEntrnyProps)
           </Col>
         </Row>
       </Card>
-      <EntryTable form={form} tableData={tableData} setTableData={setTableData} />
+      <EntryTable
+        form={form}
+        tableData={tableData}
+        setTableData={setTableData}
+        setIsEditMode={setIsEditMode}
+        setEditRecordIndex={setEditRecordIndex}
+      />
     </>
   );
 }
@@ -288,12 +404,9 @@ interface TMainEntrnyProps {
   form: FormInstance;
   refetch: () => void;
   tableData: TAccountsPrematureReceiptsList[];
-  setTableData: (ary: TAccountsPrematureReceiptsList[]) => void;
+  setTableData: (ary: TAccountsPrematureReceiptsList[] | any) => void;
 }
-interface TVoucherType {
-  Id: number;
-  Name: string;
-}
+
 interface TStatus {
   Id: number;
   Status: string;

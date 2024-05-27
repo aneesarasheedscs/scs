@@ -4,11 +4,23 @@ import MainEntry from './MainEntry';
 import { TAccountsPrematureReceiptsList } from '../types';
 import Buttons from './Buttons';
 import AccountsPrematureTable from './table';
-import { useAddAccountsPrematureReceipts, useGetDocumentNumber, useGetReadByTrackingNo } from '../queries';
+import {
+  useAddAccountsPrematureReceipts,
+  useGetDocumentNumber,
+  useGetReadByTrackingNo,
+  useUpdateAccountsPrematureReceipts,
+} from '../queries';
 import _, { isNumber } from 'lodash';
+import dayjs from 'dayjs';
+
 const { useForm, useWatch } = Form;
 
-function AccountsPrematureForm({ selectedRecordId, setSelectedRecordId }: TForm) {
+function AccountsPrematureForm({
+  selectedTrackingSlip,
+  setSelectedTrackingSlip,
+  selectedRecordId,
+  setSelectedRecordId,
+}: TForm) {
   const [form] = useForm<TAccountsPrematureReceiptsList>();
   const formValues = useWatch<TAccountsPrematureReceiptsList>([], form);
   const [tableData, setTableData] = useState<TAccountsPrematureReceiptsList[] | any>([]);
@@ -17,17 +29,24 @@ function AccountsPrematureForm({ selectedRecordId, setSelectedRecordId }: TForm)
   const {
     data: getByTrackingNo,
     isSuccess: isDataSuccess,
+    isLoading,
     refetch: refetchTrackingNo,
-  } = useGetReadByTrackingNo(selectedRecordId);
+  } = useGetReadByTrackingNo(selectedTrackingSlip);
   const { data, isError, refetch } = useGetDocumentNumber(DocumentTypeId);
-  const { mutate, isSuccess } = useAddAccountsPrematureReceipts(DocumentTypeId);
+  const { mutate: addAccountsPrematureReceipts, isSuccess } = useAddAccountsPrematureReceipts(DocumentTypeId);
+  const { mutate: updateAccountsPrematureReceipts } = useUpdateAccountsPrematureReceipts(
+    DocumentTypeId,
+
+    selectedRecordId,
+
+    selectedTrackingSlip
+  );
   const [printPreview, setPrintPreview] = useState<boolean>(true);
 
   const totalAmount = _.sumBy(tableData, 'Amount');
-  const onFinish = (values: TAccountsPrematureReceiptsList[] | any) => {
-    values = tableData;
 
-    if (tableData?.length > 0 && tableData?.[0]?.SlipAmount !== totalAmount) {
+  const handleAddAccountsPremature = (values: TAccountsPrematureReceiptsList[] | any) => {
+    if (tableData?.length > 0 && tableData?.[0]?.SlipAmount != totalAmount) {
       notification.error({
         message: 'Error',
         description: 'SlipAmount  is not equal to Total Amount! ',
@@ -41,25 +60,87 @@ function AccountsPrematureForm({ selectedRecordId, setSelectedRecordId }: TForm)
         });
         return;
       } else {
-        // mutate(values);
+        addAccountsPrematureReceipts(values);
       }
     }
+  };
+  const handleUpdateAccountsPremature = (values: TAccountsPrematureReceiptsList[] | any) => {
+    if (tableData?.length > 0 && tableData?.[0]?.SlipAmount != totalAmount) {
+      notification.error({
+        message: 'Error',
+        description: 'SlipAmount  is not equal to Total Amount! ',
+      });
+      return;
+    } else {
+      if (tableData?.length === 0) {
+        notification.error({
+          message: 'Error',
+          description: 'AccountsPrematureReceiptsList not found! ',
+        });
+        return;
+      } else {
+        updateAccountsPrematureReceipts(values);
+      }
+    }
+  };
+  const onFinish = (values: TAccountsPrematureReceiptsList[] | any) => {
+    values = tableData;
+    if (selectedTrackingSlip) {
+      handleUpdateAccountsPremature(values);
+    } else {
+      handleAddAccountsPremature(values);
+    }
+    // if (tableData?.length > 0 && tableData?.[0]?.SlipAmount !== totalAmount) {
+    //   notification.error({
+    //     message: 'Error',
+    //     description: 'SlipAmount  is not equal to Total Amount! ',
+    //   });
+    //   return;
+    // } else {
+    //   if (tableData?.length === 0) {
+    //     notification.error({
+    //       message: 'Error',
+    //       description: 'AccountsPrematureReceiptsList not found! ',
+    //     });
+    //     return;
+    //   } else {
+    //     // mutate(values);
+    //   }
+    // }
 
     console.log(values);
   };
 
   useEffect(() => {
-    if (selectedRecordId) {
+    if (selectedTrackingSlip) {
       refetchTrackingNo();
     }
-  }, [selectedRecordId]);
+  }, [selectedTrackingSlip]);
   useEffect(() => {
     if (isDataSuccess) {
-      setTableData(getByTrackingNo?.data?.Data?.Result);
-      // form.setFieldsValue(purchaseOrderData?.data?.Data?.Result);
-      // form.setFieldValue('DocDate', dayjs(purchaseOrderData?.data?.Data?.Result?.DocDate));
-      // form.setFieldValue('OrderDueDate', dayjs(purchaseOrderData?.data?.Data?.Result?.OrderDueDate));
-      // form.setFieldValue('DeliveryStartDate', dayjs(purchaseOrderData?.data?.Data?.Result?.DeliveryStartDate));
+      // setTableData(getByTrackingNo?.data?.Data?.Result);
+      const updatedTableData = getByTrackingNo?.data?.Data?.Result?.map((item: any) => ({
+        ...item,
+        // Add more properties here if needed
+        TrackingSlipRef: item.TrakingNo,
+        ReceiverAccount: item.ReceiverAc,
+        SenderAccount: item.SenderAc,
+        RepresentativeAccount: item.RepresentativeAc,
+        RemarksHeader: item.Remarks,
+        EntryStatus: item.Status,
+        SenderBank: item.BankName,
+        VouchersId: item.VoucherTypeId,
+        SupplierCustomerIdSalesMan: item.RepresentativeAcId,
+        ChartOfAccountIdSender: item.SenderAcId,
+        ChartOfAccountIdReceiver: item.ReceiverAcId,
+      }));
+
+      setTableData(updatedTableData);
+      form.setFieldValue('DocDate', dayjs(getByTrackingNo?.data?.Data?.Result?.[0]?.DocDate));
+      form.setFieldValue('DocNo', getByTrackingNo?.data?.Data?.Result?.[0]?.DocNo);
+      form.setFieldValue('VouchersId', getByTrackingNo?.data?.Data?.Result?.[0]?.VoucherTypeId);
+      form.setFieldValue('VoucherType', getByTrackingNo?.data?.Data?.Result?.[0]?.VoucherType);
+      form.setFieldValue('SlipAmount', getByTrackingNo?.data?.Data?.Result?.[0]?.SlipAmount);
     }
   }, [isDataSuccess]);
   return (
@@ -69,13 +150,16 @@ function AccountsPrematureForm({ selectedRecordId, setSelectedRecordId }: TForm)
           <Form form={form} onFinish={onFinish} layout="horizontal" style={{ marginBottom: 20 }}>
             <Buttons
               form={form}
-              selectedRecordId={selectedRecordId}
+              selectedTrackingSlip={selectedTrackingSlip}
+              setSelectedTrackingSlip={setSelectedTrackingSlip}
               setSelectedRecordId={setSelectedRecordId}
               DocumentTypeId={DocumentTypeId}
-              // requisitionById={requisitionById}
+              isDataSuccess={isDataSuccess}
+              getByTrackingNo={getByTrackingNo?.data?.Data?.Result}
               isSuccess={isSuccess}
               printPreview={printPreview}
               setPrintPreview={setPrintPreview}
+              setTableData={setTableData}
             />
             <MainEntry form={form} refetch={refetch} tableData={tableData} setTableData={setTableData} />
             <AccountsPrematureTable />
@@ -88,6 +172,8 @@ function AccountsPrematureForm({ selectedRecordId, setSelectedRecordId }: TForm)
 
 export default AccountsPrematureForm;
 interface TForm {
+  selectedTrackingSlip: number | null;
+  setSelectedTrackingSlip: (id: number | null) => void;
   selectedRecordId: number | null;
   setSelectedRecordId: (id: number | null) => void;
 }

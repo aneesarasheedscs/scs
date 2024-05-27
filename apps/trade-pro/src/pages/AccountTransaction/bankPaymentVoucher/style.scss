@@ -11,6 +11,7 @@
 //   height: 1.5rem !important;
 //   width: 1.5rem !important;
 // }
+
 .formfield1 {
   border-bottom: 1px solid gray;
   padding: 0px;
@@ -162,5 +163,13 @@
   }
   .icon {
     margin-left: -1%;
+  }
+}
+@media screen and (min-width: 1600px) and (max-width: 1800px) {
+  .payeetitle {
+    margin-left: -20px;
+  }
+  .detail_remarks {
+    width: 103%;
   }
 }
