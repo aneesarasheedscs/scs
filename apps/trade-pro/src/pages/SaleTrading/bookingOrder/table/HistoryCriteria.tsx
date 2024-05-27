@@ -31,20 +31,20 @@ function ModalCriteria() {
   return (
     <>
       <Row justify={'start'}>
-        <Col xxl={14}>
+        <Col xxl={10} xl={13} lg={20} md={22} sm={24}>
           <Card style={{ height: '9vh' }}>
-            <Col xxl={18} xl={23} sm={23} xs={23} lg={23} style={{ padding: 15 }}>
+            <Col span={24} style={{ padding: 5 }}>
               <Form form={form} initialValues={{ FromDate, ToDate }} onFinish={onFinish}>
-                <Col xxl={24} xl={14} lg={15} md={5} xs={24}>
+                <Col span={24}>
                   <Row gutter={CriteriaRowGutter} justify={'space-between'}>
-                    <Col xxl={9} xl={10} xs={12} md={6} lg={8} className="formfield">
+                    <Col xxl={9} xl={10} xs={12} md={9} lg={9} sm={10} className="formfield">
                       <AntDatePicker placeholder="" name="FromDate" bordered={false} label={t('from_date')} />
                     </Col>
-                    <Col xxl={9} xl={8} xs={11} md={6} lg={7} className="formfield">
+                    <Col xxl={9} xl={8} xs={11} md={8} lg={9} sm={10} className="formfield">
                       <AntDatePicker name="ToDate" bordered={false} label={t('to_date')} placeholder="" />
                     </Col>
 
-                    <Col xxl={4} xl={4} sm={6} lg={4}>
+                    <Col xxl={4} xl={4} sm={3} lg={4}>
                       <AntButton
                         label={t('show')}
                         htmlType="submit"

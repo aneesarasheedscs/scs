@@ -1,7 +1,7 @@
 import { Card, Col, Row } from 'antd';
 import { TPreBookingOrderDetailList } from '../type';
 import AddItemsCards from '../table/ItemCards/addItemCards';
-import AddItemTable from '../table/ItemCards/addItemTable';
+import AddItemTable from '../table/ItemCards/AddItemTable';
 
 function MainEntry({ selectedItem, setSelectedItem }: TDynamicForm) {
   return (

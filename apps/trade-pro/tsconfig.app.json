@@ -7,7 +7,7 @@
   "files": [
     "../../node_modules/@nx/react/typings/cssmodule.d.ts",
     "../../node_modules/@nx/react/typings/image.d.ts",
-    "./src/pages/SaleTrading/bookingOrder/table/ItemCards/AddItemTable.1.tsx"
+    "./src/pages/SaleTrading/bookingOrder/table/ItemCards/AddItemTable.tsx"
   ],
   "exclude": [
     "src/**/*.spec.ts",

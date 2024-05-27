@@ -1,8 +1,6 @@
 import { requestManager } from '@tradePro/configs/requestManager';
 import { storedUserDetail } from '@tradePro/utils/storageService';
-import { SaleOrderRetailCriteria } from './type';
 import { useQuery } from 'react-query';
-
 
 const userDetail = storedUserDetail();
 
@@ -11,7 +9,7 @@ export const useGetBookingOrderStatus = (enabled = true, params?: any) => {
     'pre-booking-order-status',
     () => {
       return requestManager.post('/api/PreBookingOrder/PreBookingOrderDashboard_Detail', {
-        SupplierCustomerId:0,
+        SupplierCustomerId: 0,
         CompanyId: userDetail?.CompanyId,
         OrganizationId: userDetail?.OrganizationId,
         ...params,
@@ -20,7 +18,6 @@ export const useGetBookingOrderStatus = (enabled = true, params?: any) => {
     { enabled }
   );
 };
-
 
 // useGetParentCategories
 // params will pass tmorow
@@ -57,7 +54,7 @@ export const useGetItemDescription = (enabled = true) => {
         params: {
           OrganizationId: userDetail?.OrganizationId,
           CompanyId: userDetail?.CompanyId,
-          Type:15,
+          Type: 15,
         },
       });
     },
@@ -121,23 +118,6 @@ export const useGetOrderStatus = (enabled = true) => {
           OrganizationId: userDetail?.OrganizationId,
           CompanyId: userDetail?.CompanyId,
         },
-      });
-    },
-    { enabled }
-  );
-};
-
-
-
-export const useSalesReportTable = (enabled = true, params?: SaleOrderRetailCriteria) => {
-  return useQuery(
-    'saleOrder-table',
-    () => {
-      return requestManager.post('api/Inventory/SaleOrderRetailRegister', {
-        OrganizationId: userDetail?.OrganizationId,
-        CompanyId: userDetail?.CompanyId,
-        DocumentTypeId: 81,
-        ...params,
       });
     },
     { enabled }

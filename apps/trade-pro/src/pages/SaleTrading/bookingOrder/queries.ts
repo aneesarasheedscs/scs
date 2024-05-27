@@ -10,8 +10,15 @@ import { useDebounce } from 'react-use';
 
 const userDetail = storedUserDetail();
 const financialYear = storedFinancialYear();
+const [BranchesId, CompanyId, OrganizationId] = [
+  userDetail?.BranchesId,
+  userDetail?.CompanyId,
+  userDetail?.OrganizationId,
+];
 
-export const useGetDocNumberBookingOrder = (enabled = true, params?: any) => {
+const params = { CompanyId, OrganizationId };
+
+export const useGetDocNumberBookingOrder = (enabled = true) => {
   return useQuery(
     'doc-number-booking-order',
     () => {
@@ -41,6 +48,19 @@ export const useGetItemWithPackUom = (enabled = true, params?: any) => {
     { enabled }
   );
 };
+// Item Types
+export const useGetItemType = (enabled = true) => {
+  return useQuery(
+    'item-type',
+    () => {
+      return requestManager.get('/api/ItemPricingSchedule/GetItemTypesFromPricingShedule', {
+        params: { CompanyId: userDetail?.CompanyId, OrganizationId: userDetail?.OrganizationId, PriceTypeId: 6 },
+      });
+    },
+    { enabled }
+  );
+};
+
 export const useGetSupplierCustomer = (enabled = true, params?: any) => {
   return useQuery(
     'supplier-customer',
@@ -88,11 +108,11 @@ export const useGetBookingOrder = (enabled: true, params?: any) => {
   });
 };
 //Get ById
-export const useGetSaleOrderById = (Id?: number | null) => {
+export const useGetBookingOrderById = (Id?: number | null) => {
   return useQuery(
-    ['sale-order-getById', Id],
+    ['booking-order-getById', Id],
     () => {
-      return getSaleOrderById(Id);
+      return getBookingOrderById(Id);
     },
     {
       cacheTime: 0,
@@ -105,8 +125,8 @@ export const useGetSaleOrderById = (Id?: number | null) => {
     }
   );
 };
-const getSaleOrderById = (Id?: number | null) => {
-  return requestManager.get('/api/SaleOrder/GetByID?Id=5072', { params: { Id } });
+const getBookingOrderById = (Id?: number | null) => {
+  return requestManager.get('/api/PreBookingOrder/GetByID', { params: { Id } });
 };
 //Save Booking Order
 export const useAddBookingOrder = (params?: TBookingOrder) => {

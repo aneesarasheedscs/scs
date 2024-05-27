@@ -82,9 +82,9 @@
   .balance {
     margin-top: 1rem !important;
   }
-  .formfield {
-    height: 45px !important;
-  }
+  // .formfield {
+  //   height: 45px !important;
+  // }
 
   .btns {
     margin-top: 1.5rem !important;
@@ -97,7 +97,7 @@
 
 @media screen and (min-width: 481px) and (max-width: 575px) {
   .formfield {
-    height: 70px;
+    height: 60px;
   }
   .balance {
     margin-top: 1rem !important;
@@ -121,5 +121,21 @@
   }
   .wht {
     margin-top: 2rem !important;
+  }
+}
+@media screen and (max-width: 969px) and (min-width: 700px) {
+  .captions {
+    font-size: 12px;
+  }
+  .dataIndexes {
+    font-size: 11px;
+  }
+}
+@media screen and (max-width: 700px) and (min-width: 500px) {
+  .captions {
+    font-size: 12px;
+  }
+  .dataIndexes {
+    font-size: 11px;
   }
 }

@@ -65,12 +65,12 @@ const BookingOrderTable = ({ setSelectedRecordId, setActiveTab }: TFrom) => {
               ></Card>
             </>
           ) : (
-            <Col xxl={14} style={{ marginLeft: -2, marginTop: 5 }}>
+            <Col xxl={10} xl={13} lg={20} md={22} style={{ marginLeft: -2, marginTop: 5 }}>
               <AntTable
                 refetch={refetch}
                 isError={isError}
-                columns={Bookingordercolumns(t)}
-                numberOfSkeletons={12}
+                columns={Bookingordercolumns(t, setSelectedRecordId, setActiveTab)}
+                numberOfSkeletons={6}
                 // searchCriteriaForm={<SaleOrderFormHistoryCriteria />}
                 searchCriteriaReport={data?.data?.Data?.Result?.ReportCriteria ? <CriteriaString /> : ''}
                 isLoading={isLoading || isFetching}

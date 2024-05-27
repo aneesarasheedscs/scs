@@ -45,10 +45,10 @@ function EntryTable({ form, tableData, setTableData, setIsEditMode, setEditRecor
       <Row style={{ maxHeight: '29vh', marginBottom: 10 }}>
         <Col span={24}>
           <Card
-            style={{ height: '26vh', boxShadow: '2px 2px 12px 2px lightgrey' }}
+            style={{ height: '26vh', overflowY: 'auto', boxShadow: '2px 2px 12px 2px lightgrey' }}
             cover={
               <>
-                <div style={{ maxHeight: '26vh', overflowY: 'auto' }}>
+                <div style={{ maxHeight: '26vh' }}>
                   <div
                     style={{
                       backgroundColor: '#85C1E9',

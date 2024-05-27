@@ -1,4 +1,4 @@
-import { TBookingOrder, TBookingOrderHistory, TSaleOrder, TSaleOrderDetail, TSaleOrderForm, TSaleOrderForm2 } from '../type';
+import { TBookingOrder, TBookingOrderHistory } from '../type';
 import { AntColumnType } from '@tradePro/globalTypes';
 import { formateDate } from '@tradePro/utils/formateDate';
 import { Button, Space, Tooltip } from 'antd';
@@ -8,11 +8,10 @@ import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { TFunction } from 'i18next';
 
 export const saleOrderFormcolumns = (
-  t: TFunction,
+  t: TFunction
   // handleDeleteRow: any,
   // handleEditRow: any
-
-): AntColumnType<TSaleOrderDetail>[] => [
+): AntColumnType<TBookingOrderHistory>[] => [
   { title: <>t{'Item Name'}</>, dataIndex: 'ItemName', width: 300 },
   {
     width: 150,
@@ -126,15 +125,19 @@ export const saleOrderFormcolumns = (
 //   },
 // ];
 
-export const Bookingordercolumns = (t: any): AntColumnType<TBookingOrderHistory>[] => [
+export const Bookingordercolumns = (
+  t: any,
+  setSelectedRecordId: (id: number | null) => void,
+  setActiveTab: (tab: string) => void
+): AntColumnType<TBookingOrderHistory>[] => [
   {
-    width: 200,
+    width: 100,
     title: 'Doc No',
     searchableDate: true,
     dataIndex: 'DocNo',
   },
   {
-    width: 200,
+    width: 150,
     title: 'DocDate',
     searchableDate: true,
     dataIndex: 'DocDate',
@@ -142,25 +145,27 @@ export const Bookingordercolumns = (t: any): AntColumnType<TBookingOrderHistory>
   },
 
   {
-    width: 300,
+    width: 260,
     title: 'Party Name',
     searchableDate: true,
     dataIndex: 'CustomerName',
   },
 
   {
-    title: <>{t ('action')}</>,
+    title: t('action'),
     dataIndex: 'action',
     key: 'action',
-    width: 150,
+    width: 100,
     render: (_, record) => (
-      <a>
+      <Tooltip title="Edit">
         <AntButton
           type="text"
-          // onClick={() => handleOpen(record?.subTopicId)}
+          onClick={() => {
+            setSelectedRecordId(record?.Id), setActiveTab('2');
+          }}
           icon={<EditFilled style={{ color: '#00a148' }} />}
         />
-      </a>
+      </Tooltip>
     ),
   },
 ];

@@ -3,7 +3,7 @@ import MainEntry from './MainEntry';
 import { Card, Form } from 'antd';
 import { isNumber } from 'lodash';
 import dayjs from 'dayjs';
-import { useAddBookingOrder, useGetSaleOrderById, useUpdateBookingOrder } from '../queries';
+import { useAddBookingOrder, useGetBookingOrderById, useUpdateBookingOrder } from '../queries';
 import { TBookingOrder, TPreBookingOrderDetailList } from '../type';
 import { useTranslation } from 'react-i18next';
 import '../style.scss';
@@ -17,11 +17,11 @@ function BookingOrderForm({ selectedRecordId, setSelectedRecordId }: TAddUpdated
   const [printPreview, setPrintPreview] = useState<boolean>(true);
   const [selectedItem, setSelectedItem] = useState<TPreBookingOrderDetailList[] | any>([]);
   const {
-    data: saleOrderData,
-    refetch: refetchPurchase,
+    data: bookingOrderData,
+    refetch: refetchGetById,
     isSuccess: isDataSuccess,
     isLoading: isDataLoading,
-  } = useGetSaleOrderById(selectedRecordId);
+  } = useGetBookingOrderById(selectedRecordId);
 
   const { mutate: addBookingOrder, isSuccess, data: saveData } = useAddBookingOrder();
   const { mutate: updateBookingOrder, data: updateData } = useUpdateBookingOrder(selectedRecordId);
@@ -44,15 +44,15 @@ function BookingOrderForm({ selectedRecordId, setSelectedRecordId }: TAddUpdated
   };
   useEffect(() => {
     if (isNumber(selectedRecordId)) {
-      refetchPurchase();
+      refetchGetById();
     }
   }, [selectedRecordId]);
 
   useEffect(() => {
     if (isDataSuccess) {
-      form.setFieldsValue(saleOrderData?.data?.Data?.Result);
-      form.setFieldValue('DocDate', dayjs(saleOrderData?.data?.Data?.Result?.DocDate));
-      form.setFieldValue('OrderDueDate', dayjs(saleOrderData?.data?.Data?.Result?.OrderDueDate));
+      form.setFieldsValue(bookingOrderData?.data?.Data?.Result);
+      form.setFieldValue('DocDate', dayjs(bookingOrderData?.data?.Data?.Result?.DocDate));
+      form.setFieldValue('OrderDueDate', dayjs(bookingOrderData?.data?.Data?.Result?.OrderDueDate));
     }
     form.setFieldValue('DocDate', dayjs());
   }, [isDataSuccess]);
@@ -67,7 +67,7 @@ function BookingOrderForm({ selectedRecordId, setSelectedRecordId }: TAddUpdated
                 isSuccess={isSuccess}
                 saveData={saveData}
                 updateData={updateData}
-                saleOrderData={saleOrderData}
+                bookingOrderData={bookingOrderData}
                 selectedRecordId={selectedRecordId}
                 setSelectedRecordId={setSelectedRecordId}
                 setPrintPreview={setPrintPreview}

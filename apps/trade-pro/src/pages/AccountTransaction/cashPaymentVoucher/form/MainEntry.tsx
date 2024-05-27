@@ -58,15 +58,15 @@ function MainEntry({
   const voucherType: TVoucherType[] = [{ Id: 1, Type: 'CPV' }];
   return (
     <>
-      <Card style={{ marginBottom: '0.5%', boxShadow: '2px 4px 12px 1px gray' }}>
-        <Row gutter={[10, 10]} style={{ marginTop: '-0.5%' }}>
+      <Card bordered={false}>
+        <Row justify={'space-between'} gutter={[0, 0]} style={{ marginTop: '-1%' }}>
           <Col
-            xs={{ span: 23, offset: 0 }}
-            sm={{ span: 22, offset: 1 }}
-            md={{ span: 11, offset: 0 }}
-            lg={{ span: 11, offset: 0 }}
-            xl={{ span: 9, offset: 0 }}
-            xxl={{ span: 6, offset: 0 }}
+            xs={{ span: 24 }}
+            sm={{ span: 24 }}
+            md={{ span: 12 }}
+            lg={{ span: 12 }}
+            xl={{ span: 9 }}
+            xxl={{ span: 7 }}
             className="formfield project"
           >
             <AntSelectDynamic
@@ -79,12 +79,12 @@ function MainEntry({
             />
           </Col>
           <Col
-            xs={{ span: 23, offset: 0 }}
-            sm={{ span: 22, offset: 1 }}
-            md={{ span: 11, offset: 1 }}
-            lg={{ span: 11, offset: 1 }}
-            xl={{ span: 5, offset: 1 }}
-            xxl={{ span: 4, offset: 1 }}
+            xs={{ span: 24 }}
+            sm={{ span: 24 }}
+            md={{ span: 11 }}
+            lg={{ span: 11 }}
+            xl={{ span: 5 }}
+            xxl={{ span: 3 }}
             className="formfield voucher"
           >
             <AntSelectDynamic
@@ -101,12 +101,12 @@ function MainEntry({
             />
           </Col>
           <Col
-            xs={{ span: 23, offset: 0 }}
-            sm={{ span: 22, offset: 1 }}
-            md={{ span: 10, offset: 0 }}
-            lg={{ span: 10, offset: 0 }}
-            xl={{ span: 7, offset: 1 }}
-            xxl={{ span: 5, offset: 1 }}
+            xs={{ span: 24 }}
+            sm={{ span: 24 }}
+            md={{ span: 12 }}
+            lg={{ span: 12 }}
+            xl={{ span: 9 }}
+            xxl={{ span: 6 }}
             className="formfield balance"
           >
             <p style={{ marginTop: -18, marginLeft: '50%' }} className="cr">
@@ -128,12 +128,12 @@ function MainEntry({
           </Col>
 
           <Col
-            xs={{ span: 18, offset: 0 }}
-            sm={{ span: 18, offset: 1 }}
-            md={{ span: 10, offset: 1 }}
-            lg={{ span: 10, offset: 1 }}
-            xl={{ span: 7, offset: 0 }}
-            xxl={{ span: 5, offset: 1 }}
+            xs={{ span: 21 }}
+            sm={{ span: 21 }}
+            md={{ span: 9 }}
+            lg={{ span: 9 }}
+            xl={{ span: 8 }}
+            xxl={{ span: 6 }}
             className="formfield against"
           >
             <AntSelectDynamic
@@ -143,7 +143,7 @@ function MainEntry({
               fieldValue="Id"
               fieldLabel="AccountTitle"
               name="RefDocNoId"
-              disabled={!form.getFieldValue('IncludeWHT') /*isWithHoldingChecked*/}
+              disabled={!form.getFieldValue('IncludeWHT')}
               options={map(whtAgainst, (item: any) => ({
                 value: item.Id,
                 label: item.AccountTitle,
@@ -155,7 +155,6 @@ function MainEntry({
             sm={{ span: 2 }}
             md={{ span: 2 }}
             lg={{ span: 2 }}
-            xl={{ span: 3 }}
             xxl={{ span: 1 }}
             style={{ height: '20px' }}
             className="wht"
@@ -167,13 +166,13 @@ function MainEntry({
             </Form.Item>
           </Col>
           <Col
-            xs={{ span: 23, offset: 0 }}
-            sm={{ span: 22, offset: 1 }}
-            md={{ span: 23, offset: 0 }}
-            lg={{ span: 23, offset: 0 }}
-            xl={{ span: 13, offset: 0 }}
-            xxl={{ span: 16, offset: 0 }}
-            className="formfield remarks"
+            xs={{ span: 24 }}
+            sm={{ span: 24 }}
+            md={{ span: 24 }}
+            lg={{ span: 24 }}
+            xl={{ span: 14 }}
+            xxl={{ span: 24 }}
+            className="formfield"
           >
             <AntInput bordered={false} name="Remarks" label={t('remarks')} />
             <AntInput bordered={false} label={t('')} name="VoucherAmount" style={{ display: 'none' }} />

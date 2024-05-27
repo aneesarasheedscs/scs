@@ -29,7 +29,7 @@ function Buttons({
   const handleResetForm = () => {
     setSelectedRecordId(null);
     // setTableData([]);
-    // refetch();
+    refetch();
     // setBankId(null);
     // setSharedStateIncludeWHT(false);
     // form.setFieldValue('VoucherNo', data?.data?.Data?.Result);
@@ -41,8 +41,8 @@ function Buttons({
     form.setFieldValue(['voucherDetailList', 0, 'TaxTypeId'], null);
   };
   useEffect(() => {
-    if (isSuccess) form.setFieldValue('DocNo', data?.data?.Data?.Result);
-  }, [data, isSuccess]);
+    if (successDocNo) form.setFieldValue('DocNo', data?.data?.Data?.Result);
+  }, [data, successDocNo]);
 
   useEffect(() => {
     if (isSuccess && saveData?.data?.Status === true) {
@@ -149,7 +149,7 @@ type TAddUpdateRecord = {
   isSuccess: boolean;
   saveData: any;
   updateData: any;
-  saleOrderData: any;
+  bookingOrderData: any;
   selectedRecordId: number | null;
   setSelectedRecordId: (id: number | null) => void;
   setPrintPreview: (id: boolean) => void;

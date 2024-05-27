@@ -1,4 +1,4 @@
-import { Card, Tabs, Typography } from 'antd';
+import { Card, Tabs } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import './style.scss';
