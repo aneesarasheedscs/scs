@@ -48,50 +48,56 @@ const ChartOfAccountReportTable = () => {
 
   return (
     <div style={{ background: '#fff' }}>
-      <Row justify={'space-between'} align={'middle'}>
-        <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16} className="forms-heading-container">
+
+      <Row justify={'space-between'}>
+        <Col xxl={24}>
+        <Row justify={'space-between'} align={'middle'}>
+        <Col xs={10} sm={10} md={12} lg={8} xl={14} xxl={4} style={{marginLeft:15}}>
           <h1 className="report_heading">{t('chart_of_account_report')}</h1>
         </Col>
+
+        <Col xs={23} md={24} lg={24} xxl={18} style={{padding:5}}> 
+          
+          <Form form={form} onFinish={onFinish}>
+          <Col xxl={16} xl={22} lg={24} md={24} sm={24} style={{marginLeft:0,}} >
+            <Row gutter={CriteriaRowGutter} justify={'space-between'}>
+                <Col xs={24} sm={24} md={17} xl={18} xxl={14} lg={14} className="formsfield">
+                  <AntSelectDynamic
+                    bordered={false}
+                    name="CompanyId"
+                    label={t('company')}
+                    fieldValue="Id"
+                    fieldLabel="CompName"
+                    query={useGetCompanyName}
+                  />
+                </Col>
+                <Col xs={24} sm={24} md={6} lg={3} xl={6} xxl={3} style={{ marginTop: '10px', height: '10px' }}>
+                  <Form.Item name="IsApproved" valuePropName="checked">
+                    <Checkbox defaultChecked={true}>{t('IsActive')}</Checkbox>
+                  </Form.Item>
+                </Col>
+                <Col xs={24} sm={24} md={5} xl={5} xxl={4} lg={4} >
+                  <AntButton
+                    label={t('show')}
+                    htmlType="submit"
+                    isError={isReportError}
+                    isLoading={isReportLoading || isFetching}
+                  />
+                </Col>
+              </Row>
+            </Col>
+          </Form>
+        
+      </Col>
 
         <Col xxl={1} style={{ marginRight: '50px' }}>
           <BackButton goToDashboard={true} />
         </Col>
       </Row>
-      <Row justify={'space-around'}>
-        <Col xxl={23} xl={23} sm={23} xs={23} lg={23}>
-          <Card>
-            <Form form={form} onFinish={onFinish}>
-              <Col xxl={10} xl={17} md={20} lg={24} xs={24}>
-                <Row gutter={CriteriaRowGutter} justify={'space-between'}>
-                  <Col xs={24} sm={24} md={17} xl={18} xxl={15} lg={14} className="formsfield">
-                    <AntSelectDynamic
-                      bordered={false}
-                      name="CompanyId"
-                      label={t('company')}
-                      fieldValue="Id"
-                      fieldLabel="CompName"
-                      query={useGetCompanyName}
-                    />
-                  </Col>
-                  <Col xs={24} sm={24} md={6} lg={3} xl={6} xxl={3} style={{ marginTop: '10px', height: '10px' }}>
-                    <Form.Item name="IsApproved" valuePropName="checked">
-                      <Checkbox defaultChecked={true}>{t('IsActive')}</Checkbox>
-                    </Form.Item>
-                  </Col>
-                  <Col xs={24} sm={24} md={5} xl={5} xxl={4} lg={4} >
-                    <AntButton
-                      label={t('show')}
-                      htmlType="submit"
-                      isError={isReportError}
-                      isLoading={isReportLoading || isFetching}
-                    />
-                  </Col>
-                </Row>
-              </Col>
-            </Form>
-          </Card>
         </Col>
       </Row>
+
+ 
       <Row justify={'space-around'}>
         <Col xl={23} xxl={23} lg={23} xs={23} sm={23} style={{ marginTop: '10px' }}>
           <AntTable
@@ -102,7 +108,7 @@ const ChartOfAccountReportTable = () => {
             columns={ChartOfAccountColumn(t)}
             data={data?.data?.Data?.Result || []}
             searchCriteriaReport={data?.data?.Data?.Result?.[0]?.ReportCriteria ? <CriteriaString /> : ''}
-            scroll={{ x: '', y: convertVhToPixels('45vh') }}
+            scroll={{ x: '', y: convertVhToPixels('64vh') }}
             rowKey="Id"
           />
         </Col>

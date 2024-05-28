@@ -115,17 +115,20 @@ const AccountsDetailSearchCriteriaForm: React.FC<{
               </Radio.Group>
             </Form.Item>
           </Col>
-          <Col span={10}>
+          <Col span={7}>
             <Form.Item name="PostUnpost" valuePropName="checked" initialValue={true}>
               <Checkbox>{t('include_unposted_vouchers')}</Checkbox>
             </Form.Item>
           </Col>
+          <Col xs={5} sm={5} md={5} xxl={3}>
+            <AntButton label={t('show')} htmlType="submit" style={{ marginTop: -5 }} />
+          </Col>
         </Row>
-        <Row align="middle" justify="end" gutter={[10, 10]}>
+        {/* <Row align="middle" justify="end" gutter={[10, 10]}>
           <Col xs={5} sm={5} md={5} xxl={3}>
             <AntButton label={t('show')} htmlType="submit" style={{ marginTop: 15 }} />
           </Col>
-        </Row>
+        </Row> */}
       </Form>
       <br />
     </SearchCriteriaWrapper>

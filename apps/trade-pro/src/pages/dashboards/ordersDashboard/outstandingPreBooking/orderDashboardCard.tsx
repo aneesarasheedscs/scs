@@ -185,7 +185,7 @@ import { map } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { useGetOrdersDashboard, useGetPreBookingTablesData } from '../quries';
-import { CustomerTable, ItemAndPackTable, ItemTable, PackAndItemTable } from '../table/outstandingOrderTables';
+import { CustomerTable, DeliveryInTransitTable, ItemAndPackTable, ItemTable, PackAndItemTable, PendingBillsTable } from '../table/outstandingOrderTables';
 import ModalCriteria from '../table/modalCriteria';
 import BookingOrderSatus from '../table/ordersDashboardStatus';
 
@@ -273,6 +273,12 @@ const OrderDashboardCard = () => {
               </Tabs.TabPane>
               <Tabs.TabPane key="4" tab={t('pack_item')}>
                 <PackAndItemTable data={tableData} />
+              </Tabs.TabPane>
+              <Tabs.TabPane key="5" tab={t('delivery_in_transit')}>
+                <DeliveryInTransitTable  />
+              </Tabs.TabPane>
+              <Tabs.TabPane key="6" tab={t('pending_bills')}>
+                <PendingBillsTable  />
               </Tabs.TabPane>
         
             </Tabs>

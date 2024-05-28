@@ -35,9 +35,9 @@ const InventryTransactionTable: React.FC<{
             numberOfSkeletons={12}
             isLoading={isLoading || isFetching}
             refetch={refetch}
-            scroll={{ x: '', y: convertVhToPixels('60vh') }}
+            scroll={{ x: '', y: convertVhToPixels('65vh') }}
             data={data?.data?.Data?.Result || []}
-            searchCriteriaReport={data?.data?.Data?.Result ? <CriteriaString /> : ''}
+            searchCriteriaReport={data?.data?.Data?.Result?.[0]?.ReportCriteria ? <CriteriaString /> : ''}
             searchCriteriaForm={
               <SearchCriteriaForm
                 FromdateProp={FromdateProp}

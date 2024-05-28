@@ -11,7 +11,7 @@ function PurchaseOrderRetailRegister() {
 
   return (
     <>
-      <h2 className="form-heading"> {t('purchase_order_retail_register')}</h2>
+ 
 
       <PurchaseOrderTable />
     </>

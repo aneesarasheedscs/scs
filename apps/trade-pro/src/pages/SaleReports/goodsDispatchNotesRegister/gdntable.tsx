@@ -40,7 +40,7 @@ function GdnRegisterTable() {
             data={data?.data?.Data?.Result || []}
             searchCriteriaForm={<SearchCriteria />}
             searchCriteriaReport={data?.data?.Data?.Result?.[0]?.ReportCriteria ? <CriteriaString /> : ''}
-            scroll={{ x: '', y: convertVhToPixels('60vh') }}
+            scroll={{ x: '', y: convertVhToPixels('65vh') }}
           />
         </Col>
       </Row>

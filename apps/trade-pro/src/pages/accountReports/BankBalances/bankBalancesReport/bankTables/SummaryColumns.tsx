@@ -9,7 +9,7 @@ export const BankBalancesSummaryBank = (
   handleAccountCodeClick: any
 ): AntColumnType<TCashAndBankBalancesSummary>[] => [
   {
-    width: 220,
+    width: 200,
     title: t('account_code'),
     dataIndex: 'AccountCode',
     showCount: true,

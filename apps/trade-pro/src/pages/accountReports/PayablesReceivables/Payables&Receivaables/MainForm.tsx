@@ -14,20 +14,21 @@ const PayablesReceivablesReport: React.FC<{
   const { AccountClassId, FromDateProp, ToDateProp, CompanyIdProp } = props;
   const { t } = useTranslation();
   return (
-    <div>
+    <div style={{backgroundColor:'#fff'}}>
+
+      
       <>
         <Row justify={'space-between'} align={'middle'}>
-          <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16} className="">
-            <h1 className="report_heading" style={{ marginLeft: '0%' }}>
-              {t('report')}
-            </h1>
-          </Col>
-          <Col xxl={1} style={{ marginRight: '20px' }}>
-            <BackButton goToDashboard={true} />
-          </Col>
+        <Col xs={10} sm={10} md={12} lg={8} xl={14} xxl={3} style={{marginLeft:15}}>
+
+<h1 className="report_heading">{t('report')}</h1>
+</Col>
+<Col xxl={1} style={{ marginRight: '50px' }}>
+          <BackButton goToDashboard={false} />
+        </Col>
         </Row>
 
-        <Row>
+        <Row justify={'space-around'}style={{margin:20}}>
           <Col style={{ overflowX: 'hidden' }}>
             <Tabs
               type="card"

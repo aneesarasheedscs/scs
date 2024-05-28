@@ -26,6 +26,7 @@ const GeneralLedgerReport: React.FC<{
   const [RefAccountId, setRefAccountId] = useState(0);
   const [formState, setformState] = useState<TFilterForms>({});
   const [showAccountDetailCard, setShowAccountDetailCard] = useState(false);
+  
 
   const handleAccountTitleChange = (AccountId: number) => {
     if (AccountId > 0) {
@@ -145,9 +146,9 @@ const GeneralLedgerReport: React.FC<{
           />
         </Col>
       </Row>
-      <br />
+      {/* <br /> */}
       {showAccountDetailCard && (
-        <Row gutter={[24, 24]} justify={'space-around'}>
+        <Row gutter={[24, 24]} justify={'space-around'} style={{marginTop:10}}>
           <Col xxl={23} style={{ marginTop: '0px' }}>
             <AccountDetailCard
               DetailData={AccountDetail?.data?.Data?.Result}
@@ -166,7 +167,7 @@ const GeneralLedgerReport: React.FC<{
               numberOfSkeletons={12}
               isLoading={detailDataLoading || detaiIsFetching}
               data={detailData?.data?.Data?.Result || []}
-              scroll={{ x: '', y: convertVhToPixels('27vh') }}
+              scroll={{ x: '', y: convertVhToPixels(showAccountDetailCard? '40vh':'60vh') }}
               refetch={detailRefetch}
             />
           )}
@@ -178,7 +179,7 @@ const GeneralLedgerReport: React.FC<{
               isLoading={summary1DataLoading || summary1isFetching}
               refetch={summary1Refetch}
               data={summary1Data?.data?.Data?.Result || []}
-              scroll={{ x: '', y: convertVhToPixels('27vh') }}
+              scroll={{ x: '', y: convertVhToPixels(showAccountDetailCard? '40vh':'60vh') }}
             />
           )}
           {formState !== undefined && formState?.ReportType == 3 && (
@@ -189,7 +190,7 @@ const GeneralLedgerReport: React.FC<{
               isLoading={summary2DataLoading || summary2isFetching}
               refetch={summary2Refetch}
               data={summary2Data?.data?.Data?.Result || []}
-              scroll={{ x: '', y: convertVhToPixels('27vh') }}
+              scroll={{ x: '', y: convertVhToPixels(showAccountDetailCard? '40vh':'60vh') }}
             />
           )}
         </Col>

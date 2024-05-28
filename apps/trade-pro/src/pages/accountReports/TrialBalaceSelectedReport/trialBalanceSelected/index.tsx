@@ -54,7 +54,7 @@ function TrialBalanceSelectedReport() {
             }
             data={data?.data?.Data?.Result || []}
             searchCriteriaForm={<SearchCriteria />}
-            scroll={{ x: '', y: convertVhToPixels('55vh') }}
+            scroll={{ x: '', y: convertVhToPixels('65vh') }}
             rowKey={(row: TtrialBalanceSelectedHistory) => row.AccountId}
           />
         </Col>
