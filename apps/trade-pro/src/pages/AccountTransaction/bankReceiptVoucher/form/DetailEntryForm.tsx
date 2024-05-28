@@ -24,6 +24,8 @@ const DynamicForm = ({ form, handleTaxTypeChange, SharedStateIncludeWHT, Schedul
   const { t } = useTranslation();
   const [tableData, setTableData] = useAtom(addtableData);
   const [refAccountId, setRefAccountId] = useState(0);
+  const [rowIndex, setrowIndex] = useState<number>(-1);
+
   const { data } = useGetAccountsBalance(refAccountId);
   const { data: configData, isSuccess: isSuccessConfig } = useGetConfigration('CheqBook Enabled');
   const isExpenseAccountAllowed = configData?.data?.Data?.Result === 'True';
@@ -185,7 +187,19 @@ const DynamicForm = ({ form, handleTaxTypeChange, SharedStateIncludeWHT, Schedul
       return;
     }
     setRefAccountId(0);
-    const editedRowIndex = tableData.findIndex((row: any) => row.CheqId === edit?.CheqId);
+    // const editedRowIndex = tableData.findIndex((row: any) => row.CheqId === edit?.CheqId);
+    // if (editedRowIndex >= 0) {
+    //   setTableData((prevData: any[]) => {
+    //     const updatedData = [...prevData];
+    //     updatedData[editedRowIndex] = {
+    //       ...newData[0],
+    //       CheqId: edit.CheqId,
+    //     };
+    //     console.log('New tableData:', updatedData);
+    //     return updatedData;
+    //   });
+    // }
+    const editedRowIndex = tableData.findIndex((row: any, index) => index === rowIndex);
     if (editedRowIndex >= 0) {
       setTableData((prevData: any[]) => {
         const updatedData = [...prevData];
@@ -256,17 +270,19 @@ const DynamicForm = ({ form, handleTaxTypeChange, SharedStateIncludeWHT, Schedul
   }, [form, tableData, data?.data?.Data?.Result]);
   return (
     <>
-      <Row gutter={[16, 16]} style={{ marginTop: '0.8%' }}>
+      <Row gutter={[16, 6]} style={{ marginTop: '0%' }}>
         <Col xs={24} sm={24} md={24} lg={{ span: 24 }} xl={{ span: 24 }}>
-          <Card style={{ boxShadow: '2px 4px 12px 1px gray', paddingBottom: '0%' }}>
+          <Card bordered={false}>
             <Form.List name="voucherDetailList" initialValue={[initialValues]}>
               {(fields, {}) => (
                 <>
                   {fields.map((field) => (
-                    <div
+                    <Row
+                      justify={'space-between'}
                       key={field.key}
-                      className="form-list-container"
-                      style={{ paddingTop: 5, display: 'flex', justifyContent: 'space-between' }}
+                      style={{ marginTop: '-2.5%' }}
+                      // className="form-list-container"
+                      // style={{ paddingTop: 5, display: 'flex', justifyContent: 'space-between' }}
                     >
                       <Col
                         xs={{ span: 24 }}
@@ -276,7 +292,7 @@ const DynamicForm = ({ form, handleTaxTypeChange, SharedStateIncludeWHT, Schedul
                         xl={{ span: 7 }}
                         xxl={{ span: 5 }}
                         className="formfield type"
-                        style={{ marginBottom: '1%' }}
+                        // style={{ marginBottom: '1%' }}
                       >
                         <AntSelectDynamic
                           bordered={false}
@@ -303,12 +319,16 @@ const DynamicForm = ({ form, handleTaxTypeChange, SharedStateIncludeWHT, Schedul
                         md={{ span: 12 }}
                         lg={{ span: 12 }}
                         xl={{ span: 9 }}
-                        xxl={{ span: 7 }}
+                        xxl={{ span: 8 }}
                         className="formfield2 debit"
-                        style={{ marginTop: '-2.5rem', borderBottom: '1px solid gray', padding: '0px', height: '60px' }}
+                        style={{ marginTop: '-1.5rem', borderBottom: '1px solid gray', padding: '0px', height: '53px' }}
                       >
-                        <p style={{ marginTop: 0, marginLeft: '65%' }} className="dr">
-                          Dr : <b> {numberFormatter(data?.data?.Data?.Result?.[0]?.Balance)}</b>
+                        <p style={{ marginLeft: '85%', color: 'blue' }} className="dr">
+                          {data ? (
+                            <b>Cr: {numberFormatter(data?.data?.Data?.Result?.[0]?.Balance)}</b>
+                          ) : (
+                            <p style={{ visibility: 'hidden' }}> Balance </p>
+                          )}
                         </p>
                         <p style={{ marginTop: 0 }}>
                           <AntSelectDynamic
@@ -334,7 +354,6 @@ const DynamicForm = ({ form, handleTaxTypeChange, SharedStateIncludeWHT, Schedul
                         xl={{ span: 6 }}
                         xxl={{ span: 5 }}
                         className="formfield"
-                        style={{ marginBottom: '1%' }}
                       >
                         <AntSelectDynamic
                           bordered={false}
@@ -354,10 +373,8 @@ const DynamicForm = ({ form, handleTaxTypeChange, SharedStateIncludeWHT, Schedul
                         xl={{ span: 7 }}
                         xxl={{ span: 5 }}
                         className="formfield"
-                        style={{ marginBottom: '1%' }}
                       >
                         <AntInputNumber
-                          min={0}
                           type="number"
                           bordered={false}
                           label={t('amount')}
@@ -372,14 +389,16 @@ const DynamicForm = ({ form, handleTaxTypeChange, SharedStateIncludeWHT, Schedul
                         lg={{ span: 24 }}
                         xl={{ span: 16 }}
                         xxl={{ span: 13 }}
-                        style={{ marginBottom: '1.5%' }}
                         className="formfield"
+                        style={{ marginTop: 3 }}
                       >
-                        <AntInput
-                          bordered={false}
-                          formItemProps={{ ...field, name: [field.name, 'Comments'] }}
-                          label={t('remarks')}
-                        />
+                        <p className="formfield detail_remarks">
+                          <AntInput
+                            bordered={false}
+                            formItemProps={{ ...field, name: [field.name, 'Comments'] }}
+                            label={t('remarks')}
+                          />
+                        </p>
                       </Col>
                       <Col span={0}>
                         <AntInput
@@ -409,7 +428,7 @@ const DynamicForm = ({ form, handleTaxTypeChange, SharedStateIncludeWHT, Schedul
                         lg={{ span: 24 }}
                         xl={{ span: 24 }}
                         xxl={{ span: 10 }}
-                        style={{ marginBottom: '1.5%' }}
+                        style={{ marginTop: 3 }}
                       >
                         <Col xxl={8} xl={5} lg={8} md={8} sm={8} xs={24}>
                           <Row
@@ -435,18 +454,21 @@ const DynamicForm = ({ form, handleTaxTypeChange, SharedStateIncludeWHT, Schedul
                           </Row>
                         </Col>
                       </Col>
-                      <DetailEntryTable
-                        form={form}
-                        t={t}
-                        setIsEditMode={setIsEditMode}
-                        setEdit={setEdit}
-                        setRefAccountId={setRefAccountId}
-                      />
-                      <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 24 }}>
-                        <Row gutter={14} style={{ marginTop: '1%' }}>
-                          <>
-                            <Card style={{ width: '100%' }}>
-                              <Row justify={'space-between'}>
+                      <Col span={24}>
+                        <DetailEntryTable
+                          form={form}
+                          t={t}
+                          setIsEditMode={setIsEditMode}
+                          setEdit={setEdit}
+                          setRefAccountId={setRefAccountId}
+                          setrowIndex={setrowIndex}
+                        />
+                      </Col>
+                      <Col span={24}>
+                        <Row gutter={14}>
+                          <Col span={24}>
+                            <Card bordered={false}>
+                              <Row gutter={10} justify={'space-between'} style={{ marginTop: '-0.5%' }}>
                                 <Col
                                   xs={{ span: 24 }}
                                   sm={{ span: 24 }}
@@ -485,7 +507,7 @@ const DynamicForm = ({ form, handleTaxTypeChange, SharedStateIncludeWHT, Schedul
                                   sm={{ span: 24 }}
                                   md={{ span: 11 }}
                                   lg={{ span: 10 }}
-                                  xl={{ span: 7 }}
+                                  xl={{ span: 8 }}
                                   className="formfield"
                                 >
                                   <AntSelectDynamic
@@ -539,7 +561,7 @@ const DynamicForm = ({ form, handleTaxTypeChange, SharedStateIncludeWHT, Schedul
                                   sm={{ span: 24 }}
                                   md={{ span: 11 }}
                                   lg={{ span: 10 }}
-                                  xl={{ span: 7 }}
+                                  xl={{ span: 8 }}
                                   style={{ marginTop: '0%' }}
                                   className="formfield"
                                 >
@@ -552,10 +574,10 @@ const DynamicForm = ({ form, handleTaxTypeChange, SharedStateIncludeWHT, Schedul
                                 </Col>
                               </Row>
                             </Card>
-                          </>
+                          </Col>
                         </Row>
                       </Col>
-                    </div>
+                    </Row>
                   ))}
                 </>
               )}

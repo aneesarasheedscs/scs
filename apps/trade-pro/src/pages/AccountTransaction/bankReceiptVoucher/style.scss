@@ -163,9 +163,26 @@
     position: absolute;
     right: 15px;
     top: 0px;
-    // margin-right: 0% !important;
-    // display: inline-block !important;
-    // width: 40%;
-    // border: 1px solid red;
+  }
+}
+@media screen and (min-width: 1600px) and (max-width: 2000px) {
+  .detail_remarks {
+    width: 103%;
+  }
+}
+@media screen and (max-width: 969px) and (min-width: 700px) {
+  .captions {
+    font-size: 12px;
+  }
+  .dataIndexes {
+    font-size: 11px;
+  }
+}
+@media screen and (max-width: 700px) and (min-width: 500px) {
+  .captions {
+    font-size: 12px;
+  }
+  .dataIndexes {
+    font-size: 11px;
   }
 }

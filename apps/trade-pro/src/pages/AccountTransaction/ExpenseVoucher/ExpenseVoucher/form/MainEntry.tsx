@@ -41,20 +41,17 @@ function MainEntry({ form, setBankId, bankId }: TDynamicForm) {
 
   return (
     <>
-      <Row gutter={[10, 10]} style={{ marginTop: '-0.3%', marginBottom: '0.5%' }}>
+      <Row gutter={[10, 0]} style={{ marginTop: '-1%' }}>
         <Col span={24}>
-          <Card style={{ paddingBottom: '0.5%', boxShadow: '2px 4px 12px 1px gray' }}>
-            <div
-              className="form-list-container"
-              style={{ border: ' ', display: 'flex', justifyContent: 'space-between' }}
-            >
+          <Card bordered={false}>
+            <Row justify={'space-between'}>
               <Col
                 xs={{ span: 23 }}
                 sm={{ span: 22 }}
                 md={{ span: 11 }}
                 lg={{ span: 11 }}
                 xl={{ span: 10 }}
-                xxl={{ span: 6 }}
+                xxl={{ span: 7 }}
                 className="formfield"
               >
                 <AntSelectDynamic
@@ -88,10 +85,13 @@ function MainEntry({ form, setBankId, bankId }: TDynamicForm) {
                 xxl={{ span: 7 }}
                 className="formfield credit"
               >
-                <p style={{ marginLeft: '55%' }} className="cr">
-                  Dr : <b> {numberFormatter(data?.data?.Data?.Result?.[0]?.Balance)}</b>
+                <p style={{ marginLeft: '75%', color: 'blue' }} className="cr">
+                  {data ? (
+                    <b>Cr: {numberFormatter(data?.data?.Data?.Result?.[0]?.Balance)}</b>
+                  ) : (
+                    <b style={{ visibility: 'hidden' }}>Balance</b>
+                  )}
                 </p>
-
                 <p style={{ marginTop: -6 }}>
                   <AntSelectDynamic
                     required
@@ -139,7 +139,7 @@ function MainEntry({ form, setBankId, bankId }: TDynamicForm) {
                 md={{ span: 11 }}
                 lg={{ span: 11 }}
                 xl={{ span: 11 }}
-                xxl={{ span: 6 }}
+                xxl={{ span: 7 }}
                 className="formfield paytitle"
               >
                 <AntInput name="PayTitle" bordered={false} label={t('pay_title')} />
@@ -150,10 +150,12 @@ function MainEntry({ form, setBankId, bankId }: TDynamicForm) {
                 md={{ span: 12 }}
                 lg={{ span: 12 }}
                 xl={{ span: 7 }}
-                xxl={{ span: 13 }}
+                xxl={{ span: 12 }}
                 className="formfield"
               >
-                <AntInput bordered={false} name="Remarks" label={t('remarks')} />
+                <p className="formfield" style={{ width: '102%', marginLeft: -10 }}>
+                  <AntInput bordered={false} name="Remarks" label={t('remarks')} />
+                </p>
               </Col>
               <Col
                 xs={{ span: 0 }}
@@ -171,7 +173,7 @@ function MainEntry({ form, setBankId, bankId }: TDynamicForm) {
                   style={{ display: 'none', visibility: 'hidden' }}
                 />
               </Col>
-            </div>
+            </Row>
           </Card>
         </Col>
       </Row>

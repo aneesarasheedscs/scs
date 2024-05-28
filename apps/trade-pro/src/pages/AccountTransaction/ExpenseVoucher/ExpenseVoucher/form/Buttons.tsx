@@ -8,6 +8,7 @@ import { useGetVoucherNo } from '../queries/queries';
 import { AntButton, AntDatePicker } from '@tradePro/components';
 import { Badge, Col, Form, FormInstance, Input, Row } from 'antd';
 import { SaveOutlined, SyncOutlined, RedoOutlined, PaperClipOutlined, PrinterFilled } from '@ant-design/icons';
+import { FormRowGutter } from '@tradePro/globalAtoms';
 
 function Buttons({
   form,
@@ -70,11 +71,11 @@ function Buttons({
   }, [form]);
   return (
     <>
-      <Row justify="space-between" gutter={[10, 16]} style={{ marginRight: 10 }}>
-        <Col xxl={8} xl={9} lg={18} md={18} sm={18} xs={24}>
-          <Row gutter={10} align="middle" justify={'space-evenly'}>
-            <Col xl={9} xxl={7} lg={8} md={7} sm={18} xs={18} className="formfield1 voucherNo">
-              <b style={{ fontSize: 18 }}> {t('voucher_no')}</b> &nbsp;
+      <Row justify="space-between" style={{ marginLeft: 0, marginRight: 10 }}>
+        <Col xxl={7} xl={9} lg={12} md={12} sm={24} xs={24} style={{ marginTop: '0.5%', border: '  ' }}>
+          <Row gutter={FormRowGutter} align="middle" style={{ border: '', marginLeft: 25 }} justify={'space-between'}>
+            <Col xl={9} xxl={10} lg={9} md={8} sm={12} xs={18} className="formfield">
+              <span style={{ fontSize: 15 }}> {t('voucher_no')}: &nbsp; </span>
               <VoucherNo
                 isError={isError}
                 refetch={refetch}
@@ -89,30 +90,30 @@ function Buttons({
                 <Input />
               </Form.Item>
             </Col>
-            <Col xl={15} xxl={15} sm={18} lg={15} xs={18} md={15} className="formfield1">
+            <Col xl={15} xxl={14} sm={12} lg={15} xs={23} md={15} className="formfield" style={{ marginRight: -10 }}>
               <AntDatePicker bordered={false} name="VoucherDate" label={t('voucher_date')} />
             </Col>
           </Row>
         </Col>
 
-        <Col>
+        <Col
+          style={{
+            marginTop: '0%',
+          }}
+        >
           <Form.Item>
-            <Row align="middle" gutter={10}>
+            <Row align="middle" gutter={10} style={{ marginTop: '0%', border: '' }}>
               <Col>
                 <AntButton
                   title="PrintPreview"
                   onClick={handleButtonClick}
-                  icon={<PrinterFilled style={{ fontSize: 18 }} />}
+                  icon={<PrinterFilled />}
                   style={{ backgroundColor: printPreview ? 'lightgreen' : 'red' }}
                 />
               </Col>
               <Col>
                 <Badge count={'1'}>
-                  <AntButton
-                    style={{ backgroundColor: '#FFAF0C' }}
-                    title="Attachment"
-                    icon={<PaperClipOutlined style={{ fontSize: 20 }} />}
-                  />
+                  <AntButton style={{ backgroundColor: '#FFAF0C' }} title="Attachment" icon={<PaperClipOutlined />} />
                 </Badge>
               </Col>
 

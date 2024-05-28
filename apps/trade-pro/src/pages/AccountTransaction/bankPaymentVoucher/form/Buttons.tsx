@@ -29,7 +29,6 @@ function Buttons({
 
   const { data, isError, refetch, isLoading, isSuccess: successVoucherNo } = useGetVoucherNo(DocumentTypeId);
 
-  console.log(tableData);
   const handleButtonClick = () => {
     setPrintPreview(!printPreview);
     console.log(printPreview);
@@ -72,74 +71,6 @@ function Buttons({
   }, [form]);
   return (
     <>
-      {/* <Row justify="space-between" style={{ marginLeft: 0, marginRight: 10 }}>
-        <Col xxl={8} xl={9} lg={18} md={18} sm={18} xs={24} style={{ marginTop: '0%' }}>
-          <Row gutter={10} align="middle" style={{ border: '' }} justify={'space-evenly'}>
-            <Col xl={9} xxl={7} lg={8} md={7} sm={18} xs={18} className="formfield voucherNo">
-              <b style={{ fontSize: 18 }}> {t('voucher_no')}</b> &nbsp;
-              <VoucherNo
-                isError={isError}
-                refetch={refetch}
-                isLoading={isLoading}
-                data={
-                  selectedRecordId
-                    ? addBankPayment?.data?.Data?.Result?.VoucherCode
-                    : data?.data?.Data?.Result?.[0]?.VoucherCode
-                }
-              />
-              <Form.Item name="VoucherCode" style={{ display: 'none' }}>
-                <Input />
-              </Form.Item>
-            </Col>
-            <Col xl={15} xxl={15} sm={18} lg={15} xs={23} md={15} className="formfield">
-              <AntDatePicker bordered={false} name="VoucherDate" label={t('voucher_date')} />
-            </Col>
-          </Row>
-        </Col>
-
-        <Col
-          style={{
-            marginTop: '0%',
-          }}
-        >
-          <Form.Item>
-            <Row align="middle" gutter={10} style={{ marginTop: '0%', border: '' }}>
-              <Col>
-                <AntButton
-                  title="PrintPreview"
-                  onClick={handleButtonClick}
-                  icon={<PrinterFilled style={{ fontSize: 18 }} />}
-                  style={{ backgroundColor: printPreview ? 'lightgreen' : 'red' }}
-                />
-              </Col>
-              <Col>
-                <Badge count={'1'}>
-                  <AntButton
-                    style={{ backgroundColor: '#FFAF0C' }}
-                    title="Attachment"
-                    icon={<PaperClipOutlined style={{ fontSize: 20 }} />}
-                  />
-                </Badge>
-              </Col>
-
-              <Col>
-                <AntButton danger ghost label={t('reset')} onClick={handleResetForm} icon={<SyncOutlined />} />
-              </Col>
-              <Col>
-                <AntButton danger ghost label={t('referesh')} icon={<RedoOutlined />} />
-              </Col>
-              <Col>
-                <AntButton
-                  label={selectedRecordId ? t('update') : t('save')}
-                  htmlType="submit"
-                  icon={<SaveOutlined />}
-                />
-              </Col>
-            </Row>
-          </Form.Item>
-        </Col>
-      </Row> */}
-
       <Row justify="space-between" style={{ marginLeft: 0, marginRight: 10 }}>
         <Col xxl={7} xl={9} lg={12} md={12} sm={24} xs={24} style={{ marginTop: '0.5%', border: '  ' }}>
           <Row gutter={FormRowGutter} align="middle" style={{ border: '', marginLeft: 25 }} justify={'space-between'}>
@@ -149,11 +80,7 @@ function Buttons({
                 isError={isError}
                 refetch={refetch}
                 isLoading={isLoading}
-                data={
-                  selectedRecordId
-                    ? addBankPayment?.data?.Data?.Result?.VoucherCode
-                    : data?.data?.Data?.Result?.[0]?.VoucherCode
-                }
+                data={selectedRecordId ? addBankPayment?.VoucherCode : data?.data?.Data?.Result?.[0]?.VoucherCode}
               />
               <Form.Item name="VoucherCode" style={{ display: 'none' }}>
                 <Input />

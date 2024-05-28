@@ -19,7 +19,6 @@ function BankPaymentVoucherForm({
   selectedRecordId,
   setSelectedRecordId,
   addBankReceipt,
-
   isDataSuccess,
 }: TAddUpdateRecord) {
   const [form] = useForm<TSaveBankReceipt>();

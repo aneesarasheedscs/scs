@@ -279,10 +279,13 @@ const DynamicForm = ({ form, SharedStateIncludeWHT, handleTaxTypeChange, Schedul
                         className="formfield debit"
                         style={{ marginTop: '-1.5rem', borderBottom: '1px solid gray', padding: '0px', height: '52px' }}
                       >
-                        <p style={{ marginTop: 0, marginLeft: '60%' }} className="dr">
-                          Dr : <b> {numberFormatter(data?.data?.Data?.Result?.[0]?.Balance)}</b>
+                        <p style={{ marginLeft: '81%', color: 'blue' }} className="dr">
+                          {data ? (
+                            <b>Dr: {numberFormatter(data?.data?.Data?.Result?.[0]?.Balance)}</b>
+                          ) : (
+                            <p style={{ visibility: 'hidden' }}> Balance </p>
+                          )}
                         </p>
-
                         <p style={{ marginTop: 0 }}>
                           <AntSelectDynamic
                             bordered={false}

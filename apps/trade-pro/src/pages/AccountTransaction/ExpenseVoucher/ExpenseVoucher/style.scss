@@ -148,3 +148,19 @@
   //   // height: 110px !important;
   // }
 }
+@media screen and (max-width: 969px) and (min-width: 700px) {
+  .captions {
+    font-size: 12px;
+  }
+  .dataIndexes {
+    font-size: 11px;
+  }
+}
+@media screen and (max-width: 700px) and (min-width: 500px) {
+  .captions {
+    font-size: 12px;
+  }
+  .dataIndexes {
+    font-size: 11px;
+  }
+}

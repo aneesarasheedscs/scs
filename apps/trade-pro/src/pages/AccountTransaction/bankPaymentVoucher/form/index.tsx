@@ -17,8 +17,9 @@ const { useForm } = Form;
 function BankPaymentVoucherForm({
   selectedRecordId,
   setSelectedRecordId,
-  isDataSuccess,
   addBankPayment,
+  isDataSuccess,
+  isDataLoading,
 }: TAddUpdateRecord) {
   const [form] = useForm<TSaveBankPaymentVoucher>();
   const [bankId, setBankId] = useState<number | null>(null);
@@ -144,7 +145,7 @@ function BankPaymentVoucherForm({
   };
 
   useEffect(() => {
-    if (isDataSuccess) {
+    if (isDataSuccess && !isDataLoading) {
       form.setFieldValue('VoucherCode', addBankPayment?.VoucherCode);
       form.setFieldValue('VoucherDate', dayjs(new Date()));
       form.setFieldValue('RefAccountId', addBankPayment?.RefAccountId);
@@ -207,6 +208,7 @@ type TAddUpdateRecord = {
   setSelectedRecordId: (id: number | null) => void;
   addBankPayment: TSaveBankPaymentVoucher;
   isDataSuccess: boolean;
+  isDataLoading: boolean;
 };
 
 export default BankPaymentVoucherForm;

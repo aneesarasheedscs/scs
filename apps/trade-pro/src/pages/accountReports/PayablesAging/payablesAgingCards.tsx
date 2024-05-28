@@ -47,7 +47,7 @@ function PayableAgingCards({ form }: TCardsProps) {
   return (
     <>
       {isSuccess && !isLoading ? (
-        <Row gutter={[0, 10]} style={{ border: '', marginTop: 0 }}>
+        <Row gutter={[0, 10]} className="payables_cards">
           <Col xxl={12} xl={15} lg={24} md={24} sm={24} xs={24}>
             <Row gutter={[0, 8]}>
               {map(payablesCards, (item) => (
@@ -56,11 +56,20 @@ function PayableAgingCards({ form }: TCardsProps) {
                     style={{ height: '6vh' }}
                     cover={
                       <>
-                        <div style={{ border: '1px solid grey', borderRadius: 3 }}>
-                          <h3 style={{ backgroundColor: colorPrimary, textAlign: 'center' }}>{item.Caption}</h3>
+                        <div style={{ border: ' ', boxShadow: '2px 2px 12px 2px lightgrey', borderRadius: 4 }}>
                           <h3
                             style={{
-                              backgroundColor: '#EBEDEF ',
+                              backgroundColor: colorPrimary,
+                              textAlign: 'center',
+                              borderTopLeftRadius: 3,
+                              borderTopRightRadius: 3,
+                            }}
+                          >
+                            {item.Caption}
+                          </h3>
+                          <h3
+                            style={{
+                              // backgroundColor: '#EBEDEF',
                               textAlign: 'center',
                               color: 'grey',
                               fontSize: 18,
@@ -82,8 +91,18 @@ function PayableAgingCards({ form }: TCardsProps) {
                 style={{ height: '13vh' }}
                 cover={
                   <>
-                    <div style={{ border: '1px solid grey', borderRadius: 3, height: '13vh' }}>
-                      <h3 style={{ backgroundColor: colorPrimary, textAlign: 'center', padding: 5 }}>
+                    <div
+                      style={{ border: '', boxShadow: '2px 2px 12px 2px lightgrey', borderRadius: 5, height: '13vh' }}
+                    >
+                      <h3
+                        style={{
+                          backgroundColor: colorPrimary,
+                          textAlign: 'center',
+                          padding: 5,
+                          borderTopLeftRadius: 3,
+                          borderTopRightRadius: 3,
+                        }}
+                      >
                         Totals of Payables
                       </h3>
                       <Row

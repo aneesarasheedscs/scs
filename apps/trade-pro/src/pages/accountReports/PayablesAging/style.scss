@@ -9,3 +9,13 @@
   padding: 10px;
   margin-left: -10%;
 }
+@media screen and (min-width: 986px) and (max-width: 2000px) {
+  .payables_cards {
+    margin-top: -15px;
+  }
+}
+@media screen and (min-width: 500px) and (max-width: 986px) {
+  .payables_cards {
+    margin-top: 10px;
+  }
+}

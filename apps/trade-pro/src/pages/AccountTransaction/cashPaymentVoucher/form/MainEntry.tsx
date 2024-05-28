@@ -109,8 +109,12 @@ function MainEntry({
             xxl={{ span: 6 }}
             className="formfield balance"
           >
-            <p style={{ marginTop: -18, marginLeft: '50%' }} className="cr">
-              Cr : <b> {data?.data?.Data?.Result?.[0]?.Balance.toFixed(2)}</b>
+            <p style={{ marginTop: -18, marginLeft: '75%', color: 'blue' }} className="cr">
+              {data ? (
+                <b>Cr: {numberFormatter(data?.data?.Data?.Result?.[0]?.Balance)}</b>
+              ) : (
+                <p style={{ visibility: 'hidden' }}> Balance </p>
+              )}
             </p>
             <p style={{ marginTop: -4 }}>
               <AntSelectDynamic

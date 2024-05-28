@@ -1,5 +1,5 @@
 import { atom } from 'jotai';
-import { TSaveExpenseVoucher } from './types';
+import { TExpenseDetailEntry, TSaveExpenseVoucher } from './types';
 
-export const addtableData = atom<TSaveExpenseVoucher[]>([]);
+export const addtableData = atom<TExpenseDetailEntry[]>([]);
 export const viewDetailList = atom<TSaveExpenseVoucher[]>([]);

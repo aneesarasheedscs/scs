@@ -119,7 +119,7 @@ const DynamicForm = ({
       PaymentType: item.PaymentType,
       AccountId: item.AccountIdDebit,
       AccountTitle: item.AccountTitle,
-      AgainstAccountId: item.AgainstAccountId,
+      AgainstAccountId: RefAccountId,
       JobLotDescription: item.JobLotDescription,
       JobLotId: item.JobLotId,
       DebitAmount: item.DebitAmount,
@@ -136,11 +136,11 @@ const DynamicForm = ({
       notification.error({ message: message });
       return;
     }
-    // if (!RefAccountId) {
-    //   const message = 'Please select a Credit Account';
-    //   notification.error({ message: message });
-    //   return;
-    // }
+    if (!RefAccountId) {
+      const message = 'Please select a Credit Account';
+      notification.error({ message: message });
+      return;
+    }
     if (newData.some((item) => item.AccountId === null || item.AccountId === undefined)) {
       const message = 'Please select a Debit account';
       notification.error({ message: message });
@@ -181,7 +181,7 @@ const DynamicForm = ({
       PaymentType: item.PaymentType,
       AccountId: item.AccountIdDebit,
       AccountTitle: item.AccountTitle,
-      AgainstAccountId: item.AgainstAccountId,
+      AgainstAccountId: RefAccountId,
       JobLotDescription: item.JobLotDescription,
       JobLotId: item.JobLotId,
       DebitAmount: item.DebitAmount,
@@ -328,8 +328,12 @@ const DynamicForm = ({
                         className="formfield debit"
                         style={{ marginTop: '-1.2rem', borderBottom: '1px solid gray', padding: '0px', height: '50px' }}
                       >
-                        <p style={{ marginTop: 0, marginLeft: '65%' }} className="dr">
-                          Dr : <b> {numberFormatter(data?.data?.Data?.Result?.[0]?.Balance)}</b>
+                        <p style={{ marginLeft: '80%', color: 'blue' }} className="dr">
+                          {data ? (
+                            <b>Dr: {numberFormatter(data?.data?.Data?.Result?.[0]?.Balance)}</b>
+                          ) : (
+                            <p style={{ visibility: 'hidden' }}> Balance </p>
+                          )}
                         </p>
                         <p style={{ marginTop: 0 }}>
                           <AntSelectDynamic

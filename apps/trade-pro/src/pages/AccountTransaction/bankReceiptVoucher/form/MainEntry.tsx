@@ -73,20 +73,22 @@ const MainEntry = ({
 
   return (
     <>
-      <Row gutter={[10, 10]} style={{ marginTop: '-0.5%' }}>
+      <Row gutter={[10, 0]} style={{ marginTop: '-0.8%' }}>
         <Col span={24}>
-          <Card style={{ paddingBottom: '0.5%', boxShadow: '2px 4px 12px 1px gray' }}>
-            <div
-              className="form-list-container"
-              style={{ border: ' ', display: 'flex', justifyContent: 'space-between' }}
+          <Card bordered={false}>
+            <Row
+              justify={'space-between'}
+              style={{ marginTop: -5 }}
+              // className="form-list-container"
+              // style={{ border: ' ', display: 'flex', justifyContent: 'space-between' }}
             >
               <Col
                 xs={{ span: 23 }}
                 sm={{ span: 22 }}
-                md={{ span: 11 }}
-                lg={{ span: 11 }}
+                md={{ span: 12 }}
+                lg={{ span: 12 }}
                 xl={{ span: 10 }}
-                xxl={{ span: 6 }}
+                xxl={{ span: 7 }}
                 className="formfield project"
               >
                 <AntSelectDynamic
@@ -102,8 +104,8 @@ const MainEntry = ({
               <Col
                 xs={{ span: 23 }}
                 sm={{ span: 22 }}
-                md={{ span: 12 }}
-                lg={{ span: 12 }}
+                md={{ span: 11 }}
+                lg={{ span: 11 }}
                 xl={{ span: 6 }}
                 xxl={{ span: 3 }}
                 className="formfield voucher"
@@ -127,15 +129,19 @@ const MainEntry = ({
               <Col
                 xs={{ span: 23 }}
                 sm={{ span: 22 }}
-                md={{ span: 11 }}
-                lg={{ span: 11 }}
+                md={{ span: 12 }}
+                lg={{ span: 12 }}
                 xl={{ span: 7 }}
                 xxl={{ span: 6 }}
                 className="formfield balance"
                 style={{ marginTop: '-1.1rem', borderBottom: '1px solid gray', height: '50px' }}
               >
-                <p style={{ marginLeft: '55%' }} className="cr">
-                  Dr : <b> {numberFormatter(data?.data?.Data?.Result?.[0]?.Balance)}</b>
+                <p style={{ marginLeft: '75%', color: 'blue' }} className="cr">
+                  {data ? (
+                    <b>Dr: {numberFormatter(data?.data?.Data?.Result?.[0]?.Balance)}</b>
+                  ) : (
+                    <p style={{ visibility: 'hidden' }}> Balance </p>
+                  )}
                 </p>
 
                 <p style={{ marginTop: -4 }}>
@@ -154,8 +160,8 @@ const MainEntry = ({
               <Col
                 xs={{ span: 19 }}
                 sm={{ span: 18 }}
-                md={{ span: 12 }}
-                lg={{ span: 12 }}
+                md={{ span: 8 }}
+                lg={{ span: 8 }}
                 xl={{ span: 8 }}
                 xxl={{ span: 6 }}
                 className="formfield against"
@@ -176,12 +182,12 @@ const MainEntry = ({
               <Col
                 xs={{ span: 4 }}
                 sm={{ span: 5 }}
-                md={{ span: 1 }}
-                lg={{ span: 1 }}
+                md={{ span: 2 }}
+                lg={{ span: 2 }}
                 xl={{ span: 2 }}
                 xxl={{ span: 1 }}
                 style={{ height: '20px' }}
-                className="wht"
+                className="wht against"
               >
                 <Form.Item className="box" name="IncludeWHT" valuePropName="checked" initialValue={false}>
                   <Checkbox onChange={(e) => handleCheckboxChangeforWHT(e.target.checked, 'IncludeWHT')}>
@@ -192,24 +198,22 @@ const MainEntry = ({
               <Col
                 xs={{ span: 23 }}
                 sm={{ span: 22 }}
-                md={{ span: 8 }}
-                lg={{ span: 8 }}
+                md={{ span: 12 }}
+                lg={{ span: 12 }}
                 xl={{ span: 6 }}
-                xxl={{ span: 6 }}
-                className="formfield date"
-                style={{ marginTop: '1%' }}
+                xxl={{ span: 7 }}
+                className="formfield"
               >
                 <AntDatePicker bordered={false} name="ChequeDate" label={t('cheque_date')} />
               </Col>
               <Col
                 xs={{ span: 23 }}
                 sm={{ span: 22 }}
-                md={{ span: 12 }}
-                lg={{ span: 12 }}
+                md={{ span: 11 }}
+                lg={{ span: 11 }}
                 xl={{ span: 7 }}
                 xxl={{ span: 3 }}
-                className="formfield cheqno"
-                style={{ marginTop: '1%' }}
+                className="formfield"
               >
                 {chequeBookEnabled ? (
                   <AntInput bordered={false} label={t('cheque_no')} name="CheqId" required={isChequeNoCompulsory} />
@@ -228,23 +232,21 @@ const MainEntry = ({
               <Col
                 xs={{ span: 23 }}
                 sm={{ span: 22 }}
-                md={{ span: 11 }}
-                lg={{ span: 11 }}
+                md={{ span: 12 }}
+                lg={{ span: 12 }}
                 xl={{ span: 10 }}
                 xxl={{ span: 6 }}
-                className="formfield payment"
-                style={{ marginTop: '1%' }}
+                className="formfield"
               >
                 <AntInput name="PayeeTitle" bordered={false} label={t('pay_title')} />
               </Col>
               <Col
                 xs={{ span: 23 }}
                 sm={{ span: 22 }}
-                md={{ span: 12 }}
-                lg={{ span: 12 }}
+                md={{ span: 11 }}
+                lg={{ span: 11 }}
                 xl={{ span: 13 }}
                 xxl={{ span: 7 }}
-                style={{ marginTop: '1%' }}
                 className="formfield"
               >
                 <AntInput
@@ -260,7 +262,7 @@ const MainEntry = ({
                 name="VoucherAmount"
                 style={{ display: 'none', visibility: 'hidden' }}
               />
-            </div>
+            </Row>
           </Card>
         </Col>
       </Row>

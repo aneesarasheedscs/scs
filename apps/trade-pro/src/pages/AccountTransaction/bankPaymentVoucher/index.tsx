@@ -18,6 +18,7 @@ function BankPaymentVoucher() {
     data: addBankPayment,
     refetch: refetchBankPayment,
     isSuccess: isDataSuccess,
+    isLoading: isDataLoading,
   } = useGetBankPaymentVoucherById(selectedRecordId);
   const { data, refetch, isSuccess, isLoading } = useGetBankPaymentVoucherDetailById(selectedRecordDetailId);
   useEffect(() => {
@@ -56,6 +57,7 @@ function BankPaymentVoucher() {
                 setSelectedRecordId={setSelectedRecordId}
                 addBankPayment={addBankPayment?.data?.Data?.Result}
                 isDataSuccess={isDataSuccess}
+                isDataLoading={isDataLoading}
               />
             </Tabs.TabPane>
           </Tabs>

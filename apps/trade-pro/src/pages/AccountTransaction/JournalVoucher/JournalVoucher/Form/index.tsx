@@ -2,7 +2,6 @@ import _ from 'lodash';
 import dayjs from 'dayjs';
 import { useAtom } from 'jotai';
 import Buttons from './Buttons';
-import MainEntry from './MainEntry';
 import { isNumber } from 'lodash';
 import { addtableData } from './Atom';
 import DynamicForm from './DetailEntry';
@@ -81,7 +80,6 @@ function JournalVoucherForm({
             setPrintPreview={setPrintPreview}
             printPreview={printPreview}
           />
-          <MainEntry form={form} validate={validate} />
           <DynamicForm form={form} />
         </Form>
       </Card>

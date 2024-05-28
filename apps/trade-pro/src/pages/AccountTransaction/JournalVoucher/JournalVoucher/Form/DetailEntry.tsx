@@ -186,17 +186,18 @@ const DynamicForm = ({ form }: TDynamicForm) => {
   }, [form, tableData, 'VoucherAmount']);
   return (
     <>
-      <Row gutter={[16, 16]} style={{ marginTop: '0%' }}>
+      <Row gutter={[16, 16]} style={{ marginTop: '-0%' }}>
         <Col xs={24} sm={24} md={24} lg={{ span: 24 }} xl={{ span: 24 }}>
-          <Card style={{ boxShadow: '2px 4px 12px 1px gray', paddingBottom: '1%' }}>
+          <Card bordered={false}>
             <Form.List name="voucherDetailList" initialValue={[initialValues]}>
               {(fields, {}) => (
                 <>
                   {fields.map((field) => (
-                    <div
+                    <Row
                       key={field.key}
-                      className="form-list-container"
-                      style={{ display: 'flex', justifyContent: 'space-between', marginTop: 0 }}
+                      justify={'space-between'}
+                      // className="form-list-container"
+                      // style={{ display: 'flex', justifyContent: 'space-between', marginTop: 0 }}
                     >
                       <Col
                         xs={{ span: 24 }}
@@ -345,7 +346,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                             xxl={6}
                           >
                             <AntButton
-                              style={{ marginTop: 15 }}
+                              style={{ marginTop: 5 }}
                               onClick={isEditMode ? handleUpdateToTable : handleAddToTable}
                               label={isEditMode ? 'Update' : 'Add'}
                             ></AntButton>
@@ -361,7 +362,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                             <AntButton
                               onClick={() => handleResetForm()}
                               label={`${t('cancel')}`}
-                              style={{ backgroundColor: '#FFAF0C', marginTop: 15 }}
+                              style={{ backgroundColor: '#FFAF0C', marginTop: 5 }}
                             ></AntButton>
                           </Col>
                           <AntInput
@@ -378,14 +379,13 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                           />
                         </Row>
                       </Col>
-                    </div>
+                    </Row>
                   ))}
                 </>
               )}
             </Form.List>
           </Card>
           <DetailEntryTable form={form} setIsEditMode={setIsEditMode} setEdit={setEdit} />
-          <br />
         </Col>
       </Row>
     </>

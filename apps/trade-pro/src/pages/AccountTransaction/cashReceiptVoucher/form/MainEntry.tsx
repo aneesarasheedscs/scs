@@ -61,20 +61,17 @@ const MainEntry = ({
 
   return (
     <>
-      <Row gutter={[10, 10]} style={{ marginTop: '-0.5%', marginBottom: '0.8%' }}>
+      <Row gutter={[10, 0]} style={{ marginTop: '-1%' }}>
         <Col span={24}>
-          <Card style={{ paddingBottom: '0.5%', boxShadow: '2px 4px 12px 1px gray' }}>
-            <div
-              className="form-list-container"
-              style={{ border: ' ', display: 'flex', justifyContent: 'space-between' }}
-            >
+          <Card bordered={false}>
+            <Row justify={'space-between'}>
               <Col
                 xs={{ span: 23 }}
                 sm={{ span: 22 }}
-                md={{ span: 11 }}
-                lg={{ span: 11 }}
-                xl={{ span: 10 }}
-                xxl={{ span: 6 }}
+                md={{ span: 12 }}
+                lg={{ span: 12 }}
+                xl={{ span: 9 }}
+                xxl={{ span: 7 }}
                 className="formfield project"
               >
                 <AntSelectDynamic
@@ -90,8 +87,8 @@ const MainEntry = ({
               <Col
                 xs={{ span: 23 }}
                 sm={{ span: 22 }}
-                md={{ span: 12 }}
-                lg={{ span: 12 }}
+                md={{ span: 11 }}
+                lg={{ span: 11 }}
                 xl={{ span: 6 }}
                 xxl={{ span: 3 }}
                 className="formfield voucher"
@@ -115,17 +112,20 @@ const MainEntry = ({
               <Col
                 xs={{ span: 23 }}
                 sm={{ span: 22 }}
-                md={{ span: 11 }}
-                lg={{ span: 11 }}
-                xl={{ span: 7 }}
+                md={{ span: 12 }}
+                lg={{ span: 12 }}
+                xl={{ span: 8 }}
                 xxl={{ span: 6 }}
                 className="formfield balance"
-                style={{ marginTop: '-1.1rem', borderBottom: '1px solid gray', height: '50px' }}
+                style={{ marginTop: '-1.2rem', borderBottom: '1px solid gray', height: '49px' }}
               >
-                <p style={{ marginLeft: '55%' }} className="cr">
-                  Dr : <b> {numberFormatter(data?.data?.Data?.Result?.[0]?.Balance)}</b>
+                <p style={{ marginLeft: '74%', color: 'blue' }} className="dr">
+                  {data ? (
+                    <b>Dr: {numberFormatter(data?.data?.Data?.Result?.[0]?.Balance)}</b>
+                  ) : (
+                    <p style={{ visibility: 'hidden' }}> Balance </p>
+                  )}
                 </p>
-
                 <p style={{ marginTop: -4 }}>
                   <AntSelectDynamic
                     required
@@ -142,9 +142,9 @@ const MainEntry = ({
               <Col
                 xs={{ span: 19 }}
                 sm={{ span: 18 }}
-                md={{ span: 12 }}
-                lg={{ span: 12 }}
-                xl={{ span: 8 }}
+                md={{ span: 9 }}
+                lg={{ span: 9 }}
+                xl={{ span: 7 }}
                 xxl={{ span: 6 }}
                 className="formfield against"
               >
@@ -179,16 +179,17 @@ const MainEntry = ({
               </Col>
 
               <Col
-                xs={{ span: 23 }}
+                xs={{ span: 24 }}
                 sm={{ span: 22 }}
-                md={{ span: 12 }}
-                lg={{ span: 12 }}
-                xl={{ span: 13 }}
+                md={{ span: 24 }}
+                lg={{ span: 24 }}
+                xl={{ span: 14 }}
                 xxl={{ span: 7 }}
-                style={{ marginTop: '1%' }}
                 className="formfield"
               >
-                <AntInput bordered={false} name="Remarks" label={t('remarks')} />
+                <p className="formfield" style={{ width: '101%', border: '' }}>
+                  <AntInput bordered={false} name="Remarks" label={t('remarks')} />
+                </p>
               </Col>
               <AntInput
                 bordered={false}
@@ -196,7 +197,7 @@ const MainEntry = ({
                 name="VoucherAmount"
                 style={{ display: 'none', visibility: 'hidden' }}
               />
-            </div>
+            </Row>
           </Card>
         </Col>
       </Row>

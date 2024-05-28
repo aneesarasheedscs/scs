@@ -48,10 +48,11 @@
 }
 
 @media screen and (min-width: 992px) and (max-width: 1200px) {
-  .against,
-  .balance,
-  .remarks {
-    margin-top: 2.5% !important;
+  .balance {
+    margin-top: 0% !important;
+  }
+  .against {
+    margin-top: 2% !important;
   }
   .credit {
     margin-top: -1.8rem !important;
@@ -66,9 +67,10 @@
 }
 
 @media screen and (min-width: 768px) and (max-width: 992px) {
-  .against,
-  .balance,
-  .remarks {
+  .balance {
+    margin-top: 0% !important;
+  }
+  .against {
     margin-top: 2.5% !important;
   }
   .credit {
@@ -85,7 +87,7 @@
   .against,
   .voucher,
   .remarks {
-    margin-top: 1rem !important;
+    margin-top: 0.2rem !important;
   }
   .credit {
     margin-top: -12% !important;
@@ -95,7 +97,7 @@
     margin-top: 1.5rem !important;
   }
   .type {
-    margin-bottom: 12% !important;
+    margin-bottom: 4% !important;
   }
   .add {
     margin-left: 13rem;
@@ -132,5 +134,10 @@
   }
   .add {
     margin-left: 5.5rem !important;
+  }
+}
+@media screen and (min-width: 1600px) and (max-width: 2000px) {
+  .detail_remarks {
+    width: 103%;
   }
 }
