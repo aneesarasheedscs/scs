@@ -39,9 +39,9 @@ function VoucherReport() {
             numberOfSkeletons={12}
             isLoading={isLoading || isFetching}
             data={data?.data?.Data?.Result || []}
-            searchCriteriaForm={<SearchCriteriaVoucherReport data={data} />}
+            searchCriteriaForm={<SearchCriteriaVoucherReport  />}
             searchCriteriaReport={data?.data?.Data?.Result?.[0]?.ReportCriteria ? <CriteriaString/>:''}
-            scroll={{ x: '', y: convertVhToPixels('55vh') }}
+            scroll={{ x: '', y: convertVhToPixels('65vh') }}
           />
         </Col>
       </Row>

@@ -41,11 +41,9 @@ function StockReportHistoryTable() {
           isLoading={isLoading || isFetching}
           data={data?.data?.Data?.Result || []}
           searchCriteriaForm={<SearchCriteriaForm />}
-                   // searchCriteriaReport={data?.data?.Data?.Result ? <CriteriaString/> : 'string is not edded'}
-                   searchCriteriaReport={
-                    <h5 style={{ border: '1px solid #25A7DF', padding: 7, borderRadius: 5 }}>string is not edded</h5>
-                  }
-          scroll={{ x: '', y: convertVhToPixels('62vh') }}
+                  //  searchCriteriaReport={data?.data?.Data?.Result?.[0]?.ReportCriteria ? <CriteriaString/> : ''}
+                
+          scroll={{ x: '', y: convertVhToPixels('65vh') }}
         />
       </Col>
     </Row>

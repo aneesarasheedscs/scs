@@ -1,5 +1,5 @@
 import { Col, Row, Card, Form } from 'antd';
-import { AntButton, AntDatePicker } from '@scs/ui';
+import { AntButton, AntDatePicker, BackButton } from '@scs/ui';
 import { AntSelectDynamic } from '@scs/ui';
 import { useTranslation } from 'react-i18next';
 import { useGetDateType, useGetAccountDashboardData, useGetCompanies } from './queries';
@@ -10,6 +10,7 @@ import { TAccountDashboardCriteria } from './types';
 import './style.scss';
 import { useEffect, useState } from 'react';
 import { useAtom } from 'jotai';
+import { CriteriaRowGutter } from '@tradePro/globalAtoms';
 
 const { useForm, useWatch } = Form;
 const AccountDashboard: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; CompanyId?: number }> = (props) => {
@@ -124,15 +125,100 @@ const AccountDashboard: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; Compa
 
   return (
     <div style={{ backgroundColor: '#fff' }}>
-      <Row>
+      <Row justify={'space-between'} style={{paddingTop:'10px'}}>
+        <Col xxl={24} lg={24} xl={24} sm={24} md={24} xs={24}>
+        <Row>
+        <Col xs={24} sm={10} md={12} lg={8} xl={14} xxl={4} style={{marginLeft:15}}>
+          <h1 style={{ fontFamily: 'Poppins', fontSize: '19px', padding: '18px' }}>{t('accounts_dashboard')}</h1>
+        </Col>
+
+        <Col xs={23} md={24} lg={24} xxl={18} style={{padding:5,marginLeft:0}}> 
+          <p className="media-query-forCard">
+  
+              <Form form={form} onFinish={onFinish}>
+                <Col xxl={20} xs={20}>
+                  <Row gutter={CriteriaRowGutter} justify={'space-between'} >
+                    <Col xl={7} xs={24} sm={7} md={8} lg={8} xxl={4} className="formfield form-container">
+                      <p className={isInputFocused ? 'focused-label' : 'focused2'}>{t('date_type')}</p>
+                      <AntSelectDynamic
+                        className={isInputFocused ? 'focused2' : 'focused'}
+                        bordered={false}
+                        label=""
+                        name="DateType"
+                        fieldLabel="DateType"
+                        fieldValue="Id"
+                        query={useGetDateType}
+                        onChange={(value) => handleDateChange(value)}
+                      />
+                    </Col>
+                    <Col xl={8} xs={24} sm={7} md={8} lg={8} xxl={4} className="formfield form-container">
+                      <p className={isInputFocusedFromDate ? 'focused-label' : 'focused2'}>{t('from_date')}</p>
+                      <AntDatePicker
+                        className={isInputFocusedFromDate ? 'focused2' : 'focused'}
+                        name="FromDate"
+                        bordered={false}
+                        label={t('')}
+                        placeholder=""
+                        onChange={() => handleFromDateChange()}
+                      />
+                    </Col>
+                    <Col xl={7} xs={24} sm={7} md={7} lg={7} xxl={4} className="formfield form-container">
+                      <p className={isInputFocusedToDate ? 'focused-label' : 'focused2'}>{t('to_date')}</p>
+                      <AntDatePicker
+                        className={isInputFocusedToDate ? 'focused2' : 'focused'}
+                        name="ToDate"
+                        bordered={false}
+                        label={t('')}
+                        placeholder=""
+                        onChange={() => handleToDateChange()}
+                      />
+                    </Col>
+                    <Col xl={11} xs={24} sm={15} md={8} lg={8} xxl={7} className="formfield form-container">
+                      <p className={isInputFocusedCompanyName ? 'focused-label' : 'focused2'}>{t('companyName')}</p>
+                      <AntSelectDynamic
+                        name="CompanyIds"
+                        bordered={false}
+                        mode={UserDetail?.IsHeadOffice ? 'multiple' : undefined}
+                        disabled={UserDetail?.IsHeadOffice === false}
+                        defaultValue={UserDetail?.IsHeadOffice == false ? UserDetail?.CompanyId : undefined}
+                        // label={t('companyName')}
+                        label={t('')}
+                        fieldLabel="CompName"
+                        fieldValue="Id"
+                        query={useGetCompanies}
+                        className={isInputFocusedCompanyName ? 'focused2' : 'focused'}
+                        onChange={() => handleCompanyNameChange()}
+                      />
+                    </Col>
+
+                    <Col xxl={3} xl={3} lg={3} md={3} xs={24} sm={5} style={{marginTop:10}}>
+                      <AntButton label={t('show')} htmlType="submit" isError={isError} isLoading={isLoading} />
+                    </Col>
+    
+                  </Row>
+                </Col>
+              </Form>
+   
+          </p>
+        </Col>
+
+  {/* <Col xxl={1} style={{ marginRight: '50px' }}>
+          <BackButton goToDashboard={false} />
+        </Col> */}
+
+      
+      </Row>
+        </Col>
+      </Row>
+      {/* <Row>
         <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16} className="forms-heading-container">
           <h1 style={{ fontFamily: 'Poppins', fontSize: '19px', padding: '10px' }}>{t('accounts_dashboard')}</h1>
         </Col>
-      </Row>
+      </Row> */}
       <Row justify={'space-around'}>
-        <Col xxl={23} xs={23} sm={23} md={23} lg={23} xl={23}>
+      {/* <Col xs={23} md={24} lg={24} xxl={19} style={{padding:5}}> 
           <p className="media-query-forCard">
-            <Card style={{ marginTop: '-10px' }}>
+  
               <Form form={form} onFinish={onFinish}>
                 <Col xxl={16}>
                   <Row gutter={16} justify={'space-between'}>
@@ -192,24 +278,13 @@ const AccountDashboard: React.FC<{ FromDateProp?: Date; ToDateProp?: Date; Compa
                     <Col xl={3} xs={6} sm={4} md={3} lg={4} xxl={3} className="btn-margin-top">
                       <AntButton label={t('show')} htmlType="submit" isError={isError} isLoading={isLoading} />
                     </Col>
-                    {/* <Col xs={24} sm={12} md={12} lg={4} xl={2} className="btn-margin-top">
-                    <AntButton
-                      danger
-                      ghost
-                      // htmlType="reset"
-                      onClick={() => {
-                        handleReset();
-                      }}
-                      label={t('reset')}
-                      icon={<SyncOutlined />}
-                    />
-                  </Col> */}
+    
                   </Row>
                 </Col>
               </Form>
-            </Card>
+   
           </p>
-        </Col>
+        </Col> */}
       </Row>
 
       <Row justify={'center'}>

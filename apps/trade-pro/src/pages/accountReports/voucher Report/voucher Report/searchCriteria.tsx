@@ -22,7 +22,7 @@ import { CriteriaRowGutter } from '@tradePro/globalAtoms';
 const financialYear = storedFinancialYear();
 const { useForm, useWatch } = Form;
 
-function SearchCriteriaVoucherReport(dataa: any) {
+function SearchCriteriaVoucherReport() {
   const [open, setOpen] = useState(false);
   const [form] = useForm<TVoucherReportCriterias>();
   const formValues = useWatch<TVoucherReportCriterias>([], form);
@@ -47,7 +47,7 @@ function SearchCriteriaVoucherReport(dataa: any) {
     refetch().then(() => handleClose());
   };
   const { data } = useGetCustomGroup();
-  console.log('dataaa', data?.data?.Data?.Result);
+  console.log('data', data?.data?.Data?.Result);
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -123,6 +123,7 @@ function SearchCriteriaVoucherReport(dataa: any) {
               </Radio.Group>
             </Form.Item>
           </Col>
+          
           <Col xs={10} sm={24} lg={5} md={6} xl={3}>
             <AntButton
               label={t('show')}

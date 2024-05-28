@@ -793,5 +793,10 @@
   "select_item": "آئٹم کو منتخب کریں۔",
   "Opening": "کھلنا",
   "total_of_payables": "قابل ادائیگیوں کی کل",
-  "period_filltered_records": ""
+  "period_filltered_records": "",
+  "current_price_list": "موجودہ قیمت کی فہرست",
+  "effective_date": "مؤثر تاریخ:",
+  "time": "وقت",
+  "total": "کل",
+  "IsActive": "فعال ہے۔"
 }

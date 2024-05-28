@@ -585,5 +585,10 @@
   "Opening": "افتتاح",
   "total_of_payables": "إجمالي الذمم الدائنة",
   "period_filltered_records": "",
-  "receivables_aging": "تقادم الذمم المدينة"
+  "receivables_aging": "تقادم الذمم المدينة",
+  "current_price_list": "قائمة الأسعار الحالية",
+  "effective_date": "تاريخ النفاذ:",
+  "time": "وقت",
+  "total": "المجموع",
+  "IsActive": "نشط"
 }

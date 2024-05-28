@@ -113,5 +113,10 @@
   "Opening": "열리는",
   "total_of_payables": "미지급금 총액",
   "period_filltered_records": "",
-  "receivables_aging": "채권 월령"
+  "receivables_aging": "채권 월령",
+  "current_price_list": "현재 가격표",
+  "effective_date": "발효일:",
+  "time": "시간",
+  "total": "총",
+  "IsActive": "활성"
 }

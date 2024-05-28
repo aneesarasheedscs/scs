@@ -32,7 +32,7 @@ function GRNHistoryTable() {
             isLoading={isLoading || isFetching}
             data={data?.data?.Data?.Result || []}
             searchCriteriaForm={<SearchCriteriaFrom />}
-            searchCriteriaReport={data?.data?.Data?.Result ? <CriteriaString /> : ''}
+            searchCriteriaReport={data?.data?.Data?.Result?.[0]?.ReportCriteria ? <CriteriaString /> : ''}
             scroll={{ x: '', y: convertVhToPixels('62vh') }}
           />
         </Col>

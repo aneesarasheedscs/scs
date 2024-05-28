@@ -42,7 +42,7 @@ const PayablesReceivablesTable: React.FC<{
             isLoading={IsLoading}
             data={Data || []}
             searchCriteriaReport={Data?.[0]?.ReportCriteria? <CriteriaString/>:''}
-            scroll={{ x: '', y: convertVhToPixels('40vh') }}
+            scroll={{ x: '', y: convertVhToPixels('48vh') }}
             numberOfSkeletons={20}
           />
         </Col>

@@ -10,7 +10,7 @@ function handleRowClick(AccountId: number) {
 export const FourTrialBalanceAllLevelHistoryColumns = (t: any): AntColumnType<TtrialBalanceAllLevel>[] => [
   {
     title: t('account_title'),
-    width: 230,
+    width: 220,
     dataIndex: 'AccountTitle',
     showCount: true,
     searchableInput: true,
@@ -40,7 +40,7 @@ export const FourTrialBalanceAllLevelHistoryColumns = (t: any): AntColumnType<Tt
 
   {
     title: t('opening'),
-    width: 210,
+    width: 200,
     align: 'right',
     sorter: (a, b) => a.Opening - b.Opening,
     dataIndex: 'Opening',
@@ -51,7 +51,7 @@ export const FourTrialBalanceAllLevelHistoryColumns = (t: any): AntColumnType<Tt
   },
   {
     title: t('debit'),
-    width: 210,
+    width: 200,
     dataIndex: 'Debit',
     sorter: (a, b) => a.Debit - b.Debit,
     align: 'right',
@@ -62,7 +62,7 @@ export const FourTrialBalanceAllLevelHistoryColumns = (t: any): AntColumnType<Tt
   },
   {
     title: t('credit'),
-    width: 210,
+    width: 200,
     dataIndex: 'Credit',
     sorter: (a, b) => a.Credit - b.Credit,
     align: 'right',
@@ -73,7 +73,7 @@ export const FourTrialBalanceAllLevelHistoryColumns = (t: any): AntColumnType<Tt
   },
   {
     title: t('closing'),
-    width: 210,
+    width: 200,
     dataIndex: 'Closing',
     sorter: (a, b) => a.Closing - b.Closing,
     align: 'right',

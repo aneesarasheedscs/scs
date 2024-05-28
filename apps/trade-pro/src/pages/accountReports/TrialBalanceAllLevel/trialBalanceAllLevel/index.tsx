@@ -14,6 +14,7 @@ import { useGetTrialAllLevelReport } from './queries';
 import { useEffect, useState } from 'react';
 import { TrialBalanceAllLevelSearchCriteria, TtrialBalanceAllLevel } from './type';
 import _ from 'lodash';
+import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 
 const { useForm, useWatch } = Form;
 function TrialBalanceAllLevelReport() {
@@ -101,6 +102,7 @@ function TrialBalanceAllLevelReport() {
             searchCriteriaReport={tableData?.data?.Data?.Result?.[0]?.ReportCriteria? <CriteriaString/>:''}
             numberOfSkeletons={12}
             isLoading={isLoading || isFetching}
+            scroll={{ x: '', y: convertVhToPixels('65vh') }}
             columns={
               selectedColumnss === 'four'
                 ? FourTrialBalanceAllLevelHistoryColumns(t)

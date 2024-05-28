@@ -41,9 +41,9 @@ const SaleOrderRegisterTable = () => {
             columns={ColumnsSaleOrderRegisterReport(t)}
             data={data?.data?.Data?.Result || []}
             searchCriteriaForm={<SaleOrderFormCriteria />}
-            searchCriteriaReport={data?.data?.Data?.Result ? <CriteriaString /> : ''}
-            scroll={{ x: '', y: convertVhToPixels('60vh') }}
-            // rowKey={(row: SaleOrderHistory) => row.DocNo}
+            searchCriteriaReport={data?.data?.Data?.Result?.[0]?.ReportCriteria ? <CriteriaString /> : ''}
+            scroll={{ x: '', y: convertVhToPixels('65vh') }}
+       
             rowKey="Id"
           />
         </Col>

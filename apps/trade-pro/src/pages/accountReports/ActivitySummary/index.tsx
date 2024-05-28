@@ -11,6 +11,7 @@ import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageSe
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import React, { useEffect, useState } from 'react';
 import GeneralLedgerReport from '../GeneralLedger';
+import { CriteriaRowGutter } from '@tradePro/globalAtoms';
 const { Title, Text } = Typography;
 const { useToken } = theme;
 const financialYear = storedFinancialYear();
@@ -38,6 +39,7 @@ const ActivitySummaryReport: React.FC<{
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [isInputFocusedFromDate, setIsInputFocusedFromDate] = useState(false);
   const [isInputFocusedToDate, setIsInputFocusedToDate] = useState(false);
+  const [datetypeprop, setdateTpeProp] =useState<string | undefined>( DateType )
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -87,7 +89,7 @@ const ActivitySummaryReport: React.FC<{
 
   const onFinish = (_: Tfilter) => {
     setformState(form.getFieldsValue());
-  };
+  }; 
 
   const handleDateChange = (Id: number) => {
     let fromDate, toDate;
@@ -112,10 +114,17 @@ const ActivitySummaryReport: React.FC<{
       fromDate = FromDate;
       toDate = ToDate;
     }
+    
     setFieldValue('FromDate', dayjs(fromDate));
     setFieldValue('ToDate', dayjs(toDate));
     setIsInputFocused(true);
+    setdateTpeProp(undefined)
+   
+    
   };
+  console.log(datetypeprop,'d')
+const datetype = form.getFieldValue('DateType')
+console.log(datetype)
 
   //handle form float label
   const handleFromDateChange = () => {
@@ -131,7 +140,7 @@ const ActivitySummaryReport: React.FC<{
   const ToDateSelect = form.getFieldValue('ToDate');
 
   useEffect(() => {
-    if (!DateType && DateType === undefined) {
+    if (!datetypeprop && datetypeprop === undefined  && datetype === undefined ) {
       setIsInputFocused(false);
     } else {
       setIsInputFocused(true);
@@ -146,7 +155,8 @@ const ActivitySummaryReport: React.FC<{
     } else {
       setIsInputFocusedToDate(true);
     }
-  }, [!DateType, !FromDateSelect, !ToDateSelect]);
+  }, [datetypeprop, FromDateSelect, ToDateSelect, datetype ]);
+  console.log(datetypeprop,'datetype')
 
   const onChangeUnPost = (e: CheckboxChangeEvent) => {
     if (e.target.checked) {
@@ -166,31 +176,119 @@ const ActivitySummaryReport: React.FC<{
 
   return (
     <div style={{ backgroundColor: '#fff', overflowX: 'hidden' }}>
-      <Row justify={'space-between'} align={'middle'}>
+      <Row justify={'space-between'}>
+        <Col xxl={24}>
+        <Row justify={'space-between'} align={'middle'}>
+        <Col xs={10} sm={10} md={12} lg={8} xl={14} xxl={3} style={{marginLeft:15}}>
+
+          <h1 className="report_heading">{t('activity_summary')}</h1>
+        </Col>
+        <Col xs={23} md={24} lg={24} xxl={19} style={{padding:5}}> 
+     
+     <Form
+       form={form}
+       initialValues={FromDateProp === undefined && ToDateProp === undefined ? { FromDate, ToDate } : undefined}
+       onFinish={onFinish}
+     >
+
+
+<Col xxl={19} xl={22} lg={24} md={24} sm={24} style={{marginLeft:0,marginTop:15}} >
+            <Row gutter={CriteriaRowGutter} justify={'space-between'}style={{paddingTop:10}}>
+              <Col xxl={5} xl={7} lg={6} md={10} xs={24} sm={24} className="formfield form-container">
+             <p className={isInputFocused ? 'focused-label' : 'focused2'}>{t('date_type')}</p>
+             <AntSelectDynamic
+               bordered={false}
+               fieldValue="Id"
+               fieldLabel="DateType"
+               defaultValue={FromDateProp !== undefined ? undefined : '5'}
+               label={t('')}
+               query={useGetDateTypes}
+               onSelectChange={(obj) => handleDateChange(obj.Id)}
+               name="DateType"
+               className={isInputFocused ? 'focused2' : 'focused'}
+             />
+           </Col>
+           <Col xxl={4} xl={6} xs={12} md={6} lg={8} className="formfield form-container">
+             <p className={isInputFocusedFromDate ? 'focused-label' : 'focused2'}>{t('from_date')}</p>
+             <AntDatePicker
+               placeholder=""
+               name="FromDate"
+               bordered={false}
+               label={t('')}
+               onChange={handleFromDateChange}
+               className={isInputFocusedFromDate ? 'focused2' : 'focused'}
+             />
+           </Col>
+           <Col xxl={4} xl={5} xs={11} md={6} lg={7} className="formfield form-container">
+             <p className={isInputFocusedToDate ? 'focused-label' : 'focused2'}>{t('to_date')}</p>
+             <AntDatePicker
+               name="ToDate"
+               bordered={false}
+               label={t('')}
+               placeholder=""
+               onChange={handleToDateChange}
+               className={isInputFocusedToDate ? 'focused2' : 'focused'}
+             />
+           </Col>
+           <Col
+             xxl={5}
+             xl={6}
+             xs={24}
+             sm={12}
+             lg={8}
+             className="form-container btn-margin-top"
+            style={{marginTop:0}}
+           >
+             <Form.Item name="ApprovedFilter">
+               <Checkbox onChange={onChangeUnPost}>{t('include_unposted_vochers')}</Checkbox>
+             </Form.Item>
+           </Col>
+           <Col xxl={3} xl={3} lg={3} md={3} xs={12} sm={7} style={{marginTop:4}}>
+
+             <AntButton
+               label={t('show')}
+               htmlType="submit"
+               isError={isActivitySummaryError}
+               isLoading={isActivitySummaryLoading || isFetching}
+             />
+           </Col>
+           {/* <Col xxl={3} style={{border:'1px solid'}}>dfd</Col> */}
+         </Row>
+       </Col>
+     </Form>
+   
+ </Col>
+        <Col xxl={1} style={{ marginRight: '50px' }}>
+          <BackButton goToDashboard={false} />
+        </Col>
+      </Row>
+
+        </Col>
+      </Row>
+
+      {/* <Row justify={'space-between'} align={'middle'}>
         <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16} className="">
           <h1 className="report_heading">{t('activity_summary')}</h1>
         </Col>
         <Col xxl={1} style={{ marginRight: '50px' }}>
           <BackButton goToDashboard={false} />
         </Col>
-      </Row>
+      </Row> */}
       <Row justify={'space-around'}>
-        <Col xxl={23} xl={23} sm={23} xs={23} lg={23}>
-          <Card>
+      {/* <Col xs={23} md={24} lg={24} xxl={19} style={{padding:5}}> 
+     
             <Form
               form={form}
               initialValues={FromDateProp === undefined && ToDateProp === undefined ? { FromDate, ToDate } : undefined}
               onFinish={onFinish}
             >
-              {/* <Row justify={'space-around'}>
-        <Col xxl={23} xs={23} sm={23} md={23} lg={23} xl={23}> */}
+    
 
-              <Col xxl={18} xl={24} lg={24} xs={24}>
-                <Row gutter={[16, 16]} justify={'space-between'}>
+              <Col xxl={19} xl={24} lg={24} xs={24}>
+                <Row gutter={CriteriaRowGutter} justify={'space-between'}>
                   <Col xxl={5} xl={6} xs={24} sm={24} md={9} lg={8} className="formfield form-container">
                     <p className={isInputFocused ? 'focused-label' : 'focused2'}>{t('date_type')}</p>
                     <AntSelectDynamic
-                      className={isInputFocused ? 'focused2' : 'focused'}
                       bordered={false}
                       fieldValue="Id"
                       fieldLabel="DateType"
@@ -199,6 +297,7 @@ const ActivitySummaryReport: React.FC<{
                       query={useGetDateTypes}
                       onSelectChange={(obj) => handleDateChange(obj.Id)}
                       name="DateType"
+                      className={isInputFocused ? 'focused2' : 'focused'}
                     />
                   </Col>
                   <Col xxl={5} xl={6} xs={12} md={6} lg={8} className="formfield form-container">
@@ -247,10 +346,10 @@ const ActivitySummaryReport: React.FC<{
                 </Row>
               </Col>
             </Form>
-          </Card>
-        </Col>
+          
+        </Col> */}
       </Row>
-      {/* </Col> */}
+     
 
       <div className="summary-table-container">
         <Row gutter={[16, 16]} justify={'center'}>
@@ -263,7 +362,7 @@ const ActivitySummaryReport: React.FC<{
               isLoading={isActivitySummaryLoading}
               searchCriteriaReport={ActivitySummary?.data?.Data?.Result?.[0]?.ReportCriteria? <CriteriaString/>:''}
               refetch={refetch}
-              scroll={{ y: convertVhToPixels('35vh') }}
+              scroll={{ y: convertVhToPixels('52vh') }}
               pagination={{
                 pageSize: 10,
                 total: ActivitySummary?.data?.Data?.TotalCount || 0,

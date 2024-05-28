@@ -1,4 +1,4 @@
 type TPriceListFilter = {
-    ItemTypeId:number,
-    ItemCategoryId:number
+    ItemTypeId:string,
+    ItemCategoryId:string
 }

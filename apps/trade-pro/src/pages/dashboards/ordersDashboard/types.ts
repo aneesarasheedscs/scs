@@ -28,4 +28,8 @@ export type TPackItem={
     Weight:number
     Amount:number
 }
+export type TDeliveryInTransit={
+    Id:number
+
+}
 

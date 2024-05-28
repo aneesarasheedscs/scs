@@ -1,9 +1,7 @@
 import { AntButton, AntTable } from '@tradePro/components';
-import React from 'react';
-import { Customercolumns, ItemAndPackcolumns, Itemcolumns, PackAndItemcolumns } from './columns';
+import { Customercolumns, DeliveryIntransitcolumns, ItemAndPackcolumns, Itemcolumns, PackAndItemcolumns, PendingBillscolumns } from './columns';
 import { useTranslation } from 'react-i18next';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
-import { useGetPreBookingTablesData } from '../quries';
 import { Col, Row } from 'antd';
 import _ from 'lodash';
 
@@ -21,7 +19,7 @@ export const ItemTable = ({ data }: any) => {
             columnChooser={{ show: false, enabled: false }}
             groupByColumns={{ show: false, enabled: false }}
             columns={Itemcolumns(t)}
-            scroll={{ x: '', y: convertVhToPixels('45vh') }}
+            scroll={{ x: '', y: convertVhToPixels('46vh') }}
             data={data?.data?.Data?.Result?.Table}
           />
         </Col>
@@ -68,6 +66,34 @@ export const PackAndItemTable = ({ data }: any) => {
           columns={PackAndItemcolumns(t)}
           scroll={{ x: '', y: convertVhToPixels('22vh') }}
           data={data?.data?.Data?.Result?.Table2}
+        />
+      </Col>
+    </>
+  );
+};
+export const DeliveryInTransitTable = ({ data }: any) => {
+  const { t } = useTranslation();
+  return (
+    <>
+      <Col xxl={13}>
+        <AntTable
+          columns={DeliveryIntransitcolumns(t)}
+          scroll={{ x: '', y: convertVhToPixels('22vh') }}
+          // data={data?.data?.Data?.Result?.Table2}
+        />
+      </Col>
+    </>
+  );
+};
+export const PendingBillsTable = ({ data }: any) => {
+  const { t } = useTranslation();
+  return (
+    <>
+      <Col xxl={13}>
+        <AntTable
+          columns={PendingBillscolumns(t)}
+          scroll={{ x: '', y: convertVhToPixels('22vh') }}
+          // data={data?.data?.Data?.Result?.Table2}
         />
       </Col>
     </>

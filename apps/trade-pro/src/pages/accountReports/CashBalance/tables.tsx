@@ -71,7 +71,7 @@ const CashReceiptPaymentTables: React.FC<{
             searchCriteriaReport={SummaryData?.[0]?.ReportParamCSV? <CriteriaString/>:''}
             data={SummaryData || []}
             // scroll={{ x: 'max-content' }}
-            scroll={{ y: convertVhToPixels('10vh') }}
+            scroll={{ y: convertVhToPixels('20vh') }}
             refetch={RefetchSummary}
           />
         </Col>
@@ -102,7 +102,7 @@ const CashReceiptPaymentTables: React.FC<{
             isError={IsCashPaymentError}
             isLoading={IsCashPaymentLoading}
             refetch={refetch}
-            scroll={{ y: convertVhToPixels('34vh') }}
+            scroll={{ y: convertVhToPixels('37vh') }}
           />
         </Col>
       </Row>

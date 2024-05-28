@@ -3,7 +3,7 @@ import './style.scss';
 import { Col, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
 import OutstandingPreBooking from './outstandingPreBooking/outstandingPreBooking';
-import { AntButton } from '@tradePro/components';
+
 
 import SearchCriteria from './outstandingPreBooking/searchCriteria';
 

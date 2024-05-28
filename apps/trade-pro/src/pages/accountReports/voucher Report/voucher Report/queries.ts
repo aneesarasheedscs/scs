@@ -7,7 +7,7 @@ const userDetail = storedUserDetail();
 const FinancialYear = storedFinancialYear();
 
 export const useGetAccountTitle = () => {
-  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
+  // const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
   return useQuery(
     'account-title',
     () => {
@@ -77,7 +77,7 @@ export const useGetLanguages = () => {
 };
 
 export const useGetDocumentType = () => {
-  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
+  // const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
   return useQuery(
     'doc-type',
     () => {
@@ -93,7 +93,7 @@ export const useGetDocumentType = () => {
 };
 
 export const useGetCustomGroup = () => {
-  const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
+  // const userDetail: any = JSON.parse(localStorage.getItem('loggedInUserDetail') || '{}');
   return useQuery(
     'custom-group',
     () => {
@@ -119,10 +119,10 @@ export const useGetVoucherReport = (enabled = true, params?: TVoucherReportCrite
         FromDate:FinancialYear?.Start_Period,
         ToDate:FinancialYear?.End_Period,
         CompanyId: userDetail?.CompanyId,
-         FinancialYearId: FinancialYear?.Id,
+        FinancialYearId: FinancialYear?.Id,
         ApprovedFilter: params?.IsApproved ? '' : 'All',
         SaleInvoiceDocumentTypeIds: params?.SelectedDocuments?.toString() || defaultSaleInvoiceDocumentTypeIds, 
-               ...params,
+         ...params,
       });
     },
     { enabled }

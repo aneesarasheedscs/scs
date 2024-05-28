@@ -4,11 +4,12 @@ export type TChartOfAccountCriteria = {
   MultiLanguagesId: number;
   AccountTitle: string;
   IsApproved: boolean;
+  CompanyId:number
 };
 
 export type TCOAReportHistory = {
   Id: number;
-  AccountId:number;
+  AccountId: number;
   AccountCode: number;
   AccountTitle: string;
   AccountGroup: string;
@@ -19,5 +20,4 @@ export type TCOAReportHistory = {
   LanguageId: number;
   LanguageName: string;
   AccountTitleOtherLingo: string;
-
 };

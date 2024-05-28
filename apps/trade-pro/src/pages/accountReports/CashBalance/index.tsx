@@ -1,4 +1,4 @@
-import { Row, Col, Card, Typography, DatePicker, theme, Form, Modal } from 'antd';
+import { Row, Col,  Typography,theme, Form, Modal } from 'antd';
 import { AntButton, AntDatePicker, AntSelectDynamic, BackButton } from '@scs/ui';
 import { useTranslation } from 'react-i18next';
 import CashReceiptPaymentTables from './tables';
@@ -119,19 +119,54 @@ const CashBalances: React.FC<{ DateType?: string; FromDateProp?: Date; ToDatePro
     setBackbtn(0);
   };
   return (
-    <div className="cash-balances-container-cash">
-      <Row justify={'space-between'} align={'middle'}>
-        <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16} className="">
+    <div className="cash-balances-container-cash" style={{paddingTop:5}}>
+    <Row justify={'space-between'}>
+      <Col xxl={24}>
+      <Row justify={'space-between'} align={'middle'} >
+        <Col xs={10} sm={10} md={12} lg={8} xl={14} xxl={3} style={{marginLeft:15}}>
           <h1 className="report_heading">{t('cash_balances')}</h1>
         </Col>
-        <Col xxl={1} style={{ marginRight: '50px' }}>
+        <Col xs={23} md={24} lg={24} xxl={19} style={{padding:5}}> 
+        <Form form={form} onFinish={onFinish}>
+          <Col xxl={16} xl={22} lg={24} md={24} sm={24} style={{marginLeft:0,}} >
+            <Row gutter={CriteriaRowGutter} justify={'space-between'}>
+            <Col xs={24} sm={24} md={17} xl={18} xxl={15} lg={14} className="formfield form-container">
+                <AntSelectDynamic
+                  bordered={false}
+                  label={t('date_type')}
+                  name="DateType"
+                  fieldLabel="DateType"
+                  fieldValue="Id"
+                  defaultValue={FromDateProp !== undefined ? undefined : '5'}
+                  query={useGetDateType}
+                  onChange={(value) => handleDateChange(value)}
+                />
+              </Col>
+              <Col xxl={6} xl={6} lg={6} md={7} xs={24} sm={12} className="formfield form-container">
+                <AntDatePicker name="FromDate" bordered={false} label={t('from_date')} />
+              </Col>
+              <Col xxl={6} xl={6} lg={6} md={6} xs={24} sm={11} className="formfield form-container">
+                <AntDatePicker name="ToDate" bordered={false} label={t('to_date')} />
+              </Col>
+
+              <Col xxl={3} xl={3} lg={3} md={3} xs={12} sm={7} style={{marginTop:4}}>
+                <AntButton label={t('show')} htmlType="submit" isError={isError} isLoading={isLoading} />
+              </Col>
+            </Row>
+          </Col>
+        </Form>
+   
+    </Col>
+        <Col xxl={1}  style={{ marginRight: '50px' }}>
           <BackButton goToDashboard={true} />
         </Col>
       </Row>
-      <Col style={{ overflowX: 'hidden' }}>
+      </Col>
+    </Row>
+      <Col style={{ overflowX: 'hidden', }}>
         <Row gutter={CriteriaRowGutter} justify={'space-around'}>
-          <Col xs={23} md={24} lg={24} xxl={23}>
-            <Card className="">
+          {/* <Col xs={23} md={24} lg={24} xxl={23} style={{border:'1px solid'}}>
+        
               <Form form={form} onFinish={onFinish}>
                 <Col xxl={16} xl={22} lg={24} md={24} sm={24}>
                   <Row gutter={[16, 16]} justify={'space-between'}>
@@ -160,8 +195,8 @@ const CashBalances: React.FC<{ DateType?: string; FromDateProp?: Date; ToDatePro
                   </Row>
                 </Col>
               </Form>
-            </Card>
-          </Col>
+         
+          </Col> */}
         </Row>
 
         <CashReceiptPaymentTables

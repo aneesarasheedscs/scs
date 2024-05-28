@@ -5,6 +5,7 @@ import { RouteObject } from 'react-router-dom';
 const open = false;
 const openItemType = false;
 const openItemSchudleUnit = false;
+const DateType = '5'
 const GeneralLedgerReport = lazy(() => import('@tradePro/pages/accountReports/GeneralLedger'));
 const PurchaseActivity = lazy(() => import('@tradePro/pages/purchaseReports/purchaseActivityReport'));
 const SalesActivity = lazy(() => import('@tradePro/pages/SaleReports/salesActivityReport'));
@@ -185,7 +186,7 @@ export const protectedRoutes: RouteObject[] = [
   { path: route.BILLS_RECEIVABLES_ACCOUNTS, element: <BillsReceivableAccounts /> },
 
   //Account Reports
-  { path: route.ACTIVITY_SUMMARY, element: <ActivitySummary /> },
+  { path: route.ACTIVITY_SUMMARY, element: <ActivitySummary DateType={DateType}/> },
   { path: route.CASH_BALANCES, element: <CashBalances /> },
   { path: route.BANK_BALANCES, element: <BankBalances /> },
   { path: route.TRADE_DEBITORS_REPORT, element: <PayablesReceivablesReport AccountClassId={2} /> },

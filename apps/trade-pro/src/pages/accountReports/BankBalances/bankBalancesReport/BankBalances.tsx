@@ -9,6 +9,7 @@ import '../style.scss';
 import { useCashBankBalancesSummary, useGetBankBalancesReceiptPayment, useGetDateType } from '../../queries';
 import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
 import GeneralLedgerReport from '../../GeneralLedger';
+import { CriteriaRowGutter } from '@tradePro/globalAtoms';
 const { Title, Text } = Typography;
 const { useToken } = theme;
 const UserDetail = storedUserDetail();
@@ -114,23 +115,17 @@ const BankBalances: React.FC<{ DateType?: string; FromDateProp?: Date; ToDatePro
   const [backButton, setBackButton] = useState(-1);
 
   return (
-    <div className="cash-balances-container-bank">
-      <Row justify={'space-between'} align={'middle'}>
-        <Col xs={10} sm={10} md={12} lg={12} xl={14} xxl={16} className="">
-          <h1 className="report_heading">{t('bank_balances')}</h1>
-        </Col>
-        <Col xxl={1} style={{ marginRight: '50px' }}>
-          <BackButton goToDashboard={true} />
-        </Col>
-      </Row>
-
-      <Col style={{ overflowX: 'hidden' }}>
-        <Row gutter={[16, 16]} justify={'space-around'}>
-          <Col xs={23} md={24} lg={24} xxl={23}>
-            <Card className="">
+    <div  className="cash-balances-container-cash" style={{ paddingTop: 5,backgroundColor:'#fff' }}>
+      <Row justify={'space-between'}>
+        <Col xxl={24}>
+          <Row justify={'space-between'} align={'middle'}>
+            <Col xs={10} sm={10} md={12} lg={8} xl={14} xxl={3} style={{ marginLeft: 15 }}>
+              <h1 className="report_heading">{t('bank_balances')}</h1>
+            </Col>
+            <Col xs={23} md={24} lg={24} xxl={19} style={{ padding: 5 }}>
               <Form form={form} onFinish={onFinish}>
-                <Col xxl={16} xl={22} lg={24} md={24} sm={24}>
-                  <Row gutter={[16, 16]} justify={'space-between'}>
+                <Col xxl={16} xl={22} lg={24} md={24} sm={24} style={{ marginLeft: 0 }}>
+                  <Row gutter={CriteriaRowGutter} justify={'space-between'} style={{ paddingTop: 10 }}>
                     <Col xxl={7} xl={7} lg={9} md={7} xs={24} sm={24} className="formfield form-container">
                       <AntSelectDynamic
                         bordered={false}
@@ -149,17 +144,21 @@ const BankBalances: React.FC<{ DateType?: string; FromDateProp?: Date; ToDatePro
                     <Col xxl={6} xl={6} lg={6} md={6} xs={24} sm={11} className="formfield form-container">
                       <AntDatePicker name="ToDate" bordered={false} label={t('to_date')} />
                     </Col>
-
-                    <Col xxl={3} xl={3} lg={3} md={3} xs={12} sm={7} className="btn-margin-top">
+                    <Col xxl={3} xl={3} lg={3} md={3} xs={12} sm={7} style={{ marginTop: 4 }}>
                       <AntButton label={t('show')} htmlType="submit" isError={isError} isLoading={isLoading} />
                     </Col>
                   </Row>
                 </Col>
               </Form>
-            </Card>
-          </Col>
-        </Row>
+            </Col>
+            <Col xxl={1} style={{ marginRight: '50px' }}>
+              <BackButton goToDashboard={true} />
+            </Col>
+          </Row>
+        </Col>
+      </Row>
 
+      <Col style={{ overflowX: 'hidden' }}>
         <BankPaymentTables
           PaymentReceiptData={Bank_ReceiptPayment?.data?.Data?.Result}
           SummaryData={BankSummaryData?.data?.Data?.Result}

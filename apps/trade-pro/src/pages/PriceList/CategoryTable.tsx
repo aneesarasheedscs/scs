@@ -1,12 +1,14 @@
-import { Card, Col, Row, Space } from 'antd';
-import { groupBy, map } from 'lodash';
+import { numberFormatter } from '@tradePro/utils/numberFormatter';
+import { Card, Col, FormInstance, Row, Space } from 'antd';
+import _, { groupBy, map } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 interface Props {
   PriceLists: any;
   selectedRadio: number | null;
+  form:FormInstance
 }
-function CategoryTable({ PriceLists, selectedRadio }: Props) {
+function CategoryTable({ PriceLists, selectedRadio,form}: Props) {
   const { t } = useTranslation();
   // //   const [groupedData, setGroupedData] = useState<any>([]);
   // const groupDatabyCategory = groupBy(PriceLists, (item) => item.CategoryDescription);
@@ -19,35 +21,41 @@ function CategoryTable({ PriceLists, selectedRadio }: Props) {
   //   console.log(groupDatabyCategory);
   //   setGroupedData(groupDatabyCategory);
   // }, [PriceLists]);
+
+  const TotalItemPrice = _.sumBy(PriceLists, 'ItemPrice');
+  console.log(TotalItemPrice, 'total');
+
   console.log(selectedRadio);
   const [groupedData, setGroupedData] = useState<any>({});
   console.log(groupedData);
   useEffect(() => {
-    // yaha py condition lahani hy hy radio buttons ki base pu group kana
-    if (selectedRadio == 1) {
+    if (selectedRadio == 1 ) {
       const groupDatabyCategory = groupBy(PriceLists, (item) => item.CategoryDescription);
       setGroupedData(groupDatabyCategory);
+      form.setFieldValue('ItemTypeId',null)
+    
     } else if (selectedRadio == 2) {
       const groupDatabyType = groupBy(PriceLists, (item) => item.TypeDescription);
       setGroupedData(groupDatabyType);
+      form.setFieldValue('ItemCategoryId',null)
     }
   }, [PriceLists, selectedRadio]);
 
   return (
     <>
-      <Row style={{ maxHeight: '40vh', marginBottom: 10, marginTop: 20 }}>
-        <Col span={10} >
+      <Row style={{ maxHeight: '70vh', marginBottom: 10, marginTop: 20 }}>
+        <Col span={10}>
           <Card
-            style={{ height: '40vh', boxShadow: '2px 2px 12px 2px lightgrey' }}
+            style={{ height: '60vh', boxShadow: '2px 2px 12px 2px lightgrey' }}
             cover={
               <>
-                <div style={{ maxHeight: '40vh', overflowY: 'auto' }}>
+                <div style={{ maxHeight: '60vh', overflowY: 'auto' }}>
                   <div
                     style={{
                       backgroundColor: '#85C1E9',
                       borderTopLeftRadius: 5,
                       borderTopRightRadius: 5,
-                      gridTemplateColumns: 'repeat(12, 1fr)', // Adjust based on the number of columns
+                      gridTemplateColumns: 'repeat(12, 1fr)', 
                       position: 'sticky',
                       top: 0,
                       zIndex: 1,
@@ -75,20 +83,15 @@ function CategoryTable({ PriceLists, selectedRadio }: Props) {
                                 borderTopRightRadius: 5,
                                 //   marginLeft: 10,
                               }}
-                            >
-                  
-                            </Row>
+                            ></Row>
                           </Col>
                         </Row>
                       </Col>
-                      <Col
-                        span={24}
-                        //   style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', border: '1px solid' }}
-                      >
+                      <Col span={24} >
                         <Row>
                           <Col xxl={24}>
                             <Row
-                            justify={'space-between'}
+                              justify={'space-between'}
                               style={{
                                 marginBottom: 5,
 
@@ -98,12 +101,13 @@ function CategoryTable({ PriceLists, selectedRadio }: Props) {
                                 //   marginLeft: 10,
                               }}
                             >
+                                    <Col xxl={1}><h4>SNo</h4></Col>
                               <Col xxl={10} xl={10} lg={12}>
-                                <h4 style={{ textAlign: 'left' }}> Brand Name </h4>
+                                <h4 style={{  }}>{t('brand_name')} </h4>
                               </Col>
-                              <Col xxl={7}>{/* <h4 style={{ textAlign: 'right' }}> Item Price </h4> */}</Col>
+                        
                               <Col xxl={7} lg={12}>
-                                <h4 style={{ textAlign: 'right', marginRight: 10 }}> Item Rate </h4>
+                                <h4 style={{ textAlign: 'right', marginRight: 25 }}> {t('item_rate')} </h4>
                               </Col>
                             </Row>
                           </Col>
@@ -113,6 +117,7 @@ function CategoryTable({ PriceLists, selectedRadio }: Props) {
                   </div>
                   <Row>
                     <Col span={24}>
+                     
                       {Object.keys(groupedData).map((category, index) => (
                         <Row key={category}>
                           <Col xxl={24}>
@@ -124,29 +129,34 @@ function CategoryTable({ PriceLists, selectedRadio }: Props) {
                                 borderBottom: '1px solid lightgrey',
                               }}
                             >
-                              <Col xxl={10}>
-                                <h4 style={{ textAlign: 'left' }}>{category}</h4>
+                           <Col xxl={4}></Col>
+                              <Col xxl={8} >
+                                <h4 style={{ textAlign: 'left', }}>{category}</h4>
                               </Col>
                               <Col xxl={7}></Col>
+                            
                               <Col xxl={7}> </Col>
                             </Row>
-                            {groupedData[category].map((item:any, itemIndex:any) => (
+                            {groupedData[category].map((item: any, itemIndex: any) => (
                               <Row key={itemIndex}>
                                 <Col xxl={24}>
                                   <Row
                                     style={{
                                       marginBottom: 5,
                                       padding: 5,
+                                      paddingTop:0,
+                                      paddingBottom:0,
                                       paddingLeft: 10,
                                       borderBottom: '1px solid lightgrey',
                                     }}
                                   >
+                                     <Col xxl={4}>{itemIndex+1}</Col>
                                     <Col xxl={10}>
-                                      <p style={{ textAlign: 'left' }}>{item.ItemName}</p>
+                                      <p style={{textAlign:'left'}}>{item.ItemName}</p>
                                     </Col>
-                                    <Col xxl={7}></Col>
-                                    <Col xxl={7}>
-                                      <p style={{ textAlign: 'right', marginRight: 10 }}>{item.ItemRate}</p>
+                                    <Col xxl={4}></Col>
+                                    <Col xxl={5}>
+                                      <p style={{ textAlign: 'right', marginRight: 0 }}>{item.ItemRate}</p>
                                     </Col>
                                   </Row>
                                 </Col>
@@ -191,7 +201,7 @@ function CategoryTable({ PriceLists, selectedRadio }: Props) {
             }
           ></Card>
 
-          <Row
+          {/* <Row
             justify={'space-between'}
             style={{
               position: 'sticky',
@@ -207,11 +217,15 @@ function CategoryTable({ PriceLists, selectedRadio }: Props) {
             <Col xxl={10}>
               <h4 style={{ textAlign: 'left' }}> </h4>
             </Col>
-            <Col xxl={7}>{/* <h4 style={{ textAlign: 'right' }}> Item Price </h4> */}</Col>
+            <Col xxl={7}></Col>
             <Col xxl={7}>
-              <h4 style={{ textAlign: 'right', marginRight: 20 }}> Total: 0000 </h4>
+              <h4 style={{ textAlign: 'right', marginRight: 20 }}>
+                {' '}
+                {t('total')}
+                {numberFormatter(TotalItemPrice)}{' '}
+              </h4>
             </Col>
-          </Row>
+          </Row> */}
         </Col>
       </Row>
     </>

@@ -8,7 +8,7 @@ export const CashBalancesSummaryCash = (
   handleAccountCodeClick: any
 ): AntColumnType<TCashAndBankBalancesSummary>[] => [
   {
-    width: 220,
+    width: 200,
     title: t('account_code'),
     dataIndex: 'AccountCode',
     showCount: true,
@@ -20,7 +20,7 @@ export const CashBalancesSummaryCash = (
     ),
   },
   {
-    width: 270,
+    width:300,
     title: t('account_title'),
 
     searchableInput: true,
@@ -40,7 +40,7 @@ export const CashBalancesSummaryCash = (
     ),
   },
   {
-    width: 250,
+    width: 260,
     title: t('current_debit'),
     dataIndex: 'CurrDebit',
     align: 'right',
@@ -51,7 +51,7 @@ export const CashBalancesSummaryCash = (
     ),
   },
   {
-    width: 250,
+    width: 260,
     title: t('current_credit'),
     dataIndex: 'CurrCredit',
     align: 'right',

@@ -35,7 +35,7 @@ function SearchCriteria() {
     <>
       <Row justify={'start'}>
         <Col xxl={23} xl={23} sm={23} xs={23} lg={23} >
-          {/* <Card> */}
+    
           <Form form={form} initialValues={{ FromDate, ToDate }} onFinish={onFinish}>
             <Col xxl={10} xl={14} lg={24} md={24} xs={24}>
               <Row gutter={CriteriaRowGutter} justify={'space-between'}>
@@ -56,7 +56,7 @@ function SearchCriteria() {
               </Row>
             </Col>
           </Form>
-          {/* </Card> */}
+
         </Col>
       </Row>
     </>

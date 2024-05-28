@@ -72,7 +72,7 @@ function SalesActivityTable() {
   return (
     <div style={{ background: '#fff' }}>
       <Row justify={'space-between'} align={'middle'}>
-        <Col xs={15} sm={10} md={12} lg={12} xl={20} xxl={20} style={{ marginLeft: '25px' }}>
+        <Col xs={15} sm={10} md={12} lg={12} xl={20} xxl={20} style={{ marginLeft: '0px' }}>
           <h1 className="report_heading">{t('sale_reports')}</h1>
         </Col>
         <Col xs={3} sm={2} xxl={1} md={2} lg={2} xl={2} style={{ marginRight: '50px' }}>
@@ -90,7 +90,7 @@ function SalesActivityTable() {
             isLoading={SaleLoading || SaleFetching}
             data={Sale?.data?.Data?.Result || []}
             searchCriteriaForm={<SearchCriteria />}
-            searchCriteriaReport={Sale?.data?.Data?.Result ? <CriteriaString /> : ''}
+            searchCriteriaReport={Sale?.data?.Data?.Result?.[0]?.ReportCriteria ? <CriteriaString /> : ''}
             scroll={{ x: '', y: convertVhToPixels('62vh') }}
           />
         </Col>
