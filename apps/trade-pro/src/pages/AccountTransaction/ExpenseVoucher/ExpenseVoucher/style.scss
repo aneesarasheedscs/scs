@@ -31,6 +31,15 @@
 // Responsiveness
 .cr {
   margin-top: -3%;
+  position: absolute;
+  top: -10px;
+  right: 0px;
+}
+.dr {
+  margin-top: -3%;
+  position: absolute;
+  top: -10px;
+  right: 0px;
 }
 @media screen and (min-width: 992px) and (max-width: 1200px) {
   .date {
@@ -98,6 +107,15 @@
     height: 60px !important;
   }
 }
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+  .cheqno {
+    margin-top: 1.5rem !important;
+  }
+  .credit,
+  .debit {
+    margin-top: 1.5rem !important;
+  }
+}
 
 @media screen and (min-width: 481px) and (max-width: 575px) {
   .checkbox {
@@ -139,14 +157,6 @@
     top: 10px;
     right: 10px;
   }
-  // .credit {
-  //   // margin-top: 0rem !important;
-  //   // height: 87px !important;
-  // }
-  // .debit {
-  //   // margin-top: -1.5rem !important;
-  //   // height: 110px !important;
-  // }
 }
 @media screen and (max-width: 969px) and (min-width: 700px) {
   .captions {

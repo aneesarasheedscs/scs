@@ -47,9 +47,9 @@ function CustomersSalesGraph({ data }: any) {
     },
     grid: {
       top: '2%',
-      left: '5%',
-      right: '6%',
-      bottom: '-2%',
+      left: '2%',
+      right: '10%',
+      bottom: '-4%',
       containLabel: true,
     },
     xAxis: {

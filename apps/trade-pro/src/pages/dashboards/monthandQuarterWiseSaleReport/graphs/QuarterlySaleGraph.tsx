@@ -1,44 +1,49 @@
-import { Card, Col, Form, Row, Skeleton } from 'antd';
+import { Col, Row } from 'antd';
 import ReactECharts from 'echarts-for-react';
 import { SaleReportbyQuarter } from '../tables';
 import { map } from 'lodash';
 import { useTranslation } from 'react-i18next';
+import dayjs from 'dayjs';
 
 function QuarterlySaleGraph({ getMonthandQuarter, isSuccess, isLoading, isError, isFetching, refetch }: any) {
   const quarterlySaleGraph = getMonthandQuarter?.data?.Data?.Result?.Table1 || [];
-  const barColors = ['#5A54F9', '#FF5733', '#00A148', '#FFC300', '#900C3F'];
   const { t } = useTranslation();
+  const barColors = ['#5A54F9', '#FF5733', '#00A148', '#FFC300', '#900C3F'];
+
+  // Generate data for pie chart
+  const pieData = map(quarterlySaleGraph, (quarter: any, index: number) => {
+    const startMonth = dayjs(quarter.QuarterStartDate).format('MMM');
+    const endMonth = dayjs(quarter.QuarterEndDate).format('MMM');
+    const year = dayjs(quarter.QuarterEndDate).format('YYYY');
+    const name = `${startMonth} To ${endMonth} ${year}`;
+
+    return {
+      value: quarter.CurrSaleAmount,
+      name: name,
+      itemStyle: {
+        color: barColors[index % barColors.length],
+      },
+    };
+  });
+
   const chartOptions = {
     title: {
-      // text: quarterlySaleGraph.map((card: any) => card.ActivityDescription) || [],
+      // text: t('sales_by_quarter'),
+      left: 'center',
     },
     tooltip: {
       trigger: 'item',
-      formatter: '{a} <br/>{b} : {c} ({d}%)',
     },
     legend: {
-      textStyle: {
-        color: '#666',
-      },
-      // data: data?.data?.Data?.Result?.Table.map((card: any) => card.ActivityDescription) || [],
-      top: 0,
+      orient: 'vertical',
       left: 'left',
     },
     series: [
       {
-        name: 'Sales by Quarter',
+        // name: t('sales_by_quarter'),
         type: 'pie',
         radius: '50%',
-        center: ['50%', '55%'],
-
-        data: map(quarterlySaleGraph, (activity: any, activityIndex: number) => ({
-          value: activity.CurrSaleAmount,
-          name: `July to September ${activity.YearNo}`,
-          itemStyle: {
-            color: barColors[activityIndex % barColors.length],
-          },
-        })),
-
+        data: pieData,
         emphasis: {
           itemStyle: {
             shadowBlur: 10,
@@ -48,38 +53,25 @@ function QuarterlySaleGraph({ getMonthandQuarter, isSuccess, isLoading, isError,
         },
       },
     ],
+    color: barColors,
   };
 
   return (
-    <>
-      <>
-        <Row gutter={[10, 10]} justify={'start'}>
-          <Col xl={12} xxl={11} lg={12} md={17} sm={24} xs={24}>
-            <Card hoverable style={{ height: 'auto' }}>
-              <ReactECharts option={chartOptions} style={{ height: '300px' }} />
-            </Card>
-          </Col>
-          <Col xl={12} xxl={9} lg={11} md={17} sm={24} xs={24}>
-            <Card
-              hoverable
-              style={{ height: '80%', marginBottom: '-5%' }}
-              cover={
-                <>
-                  <SaleReportbyQuarter
-                    getMonthandQuarter={getMonthandQuarter}
-                    refetch={refetch}
-                    isError={isError}
-                    isFetching={isFetching}
-                    isLoading={isLoading}
-                    isSuccess={isSuccess}
-                  />
-                </>
-              }
-            ></Card>
-          </Col>
-        </Row>
-      </>
-    </>
+    <Row gutter={[10, 10]} justify="space-evenly">
+      <Col xl={13} xxl={12} lg={14} md={17} sm={24} xs={24}>
+        <SaleReportbyQuarter
+          getMonthandQuarter={getMonthandQuarter}
+          refetch={refetch}
+          isError={isError}
+          isFetching={isFetching}
+          isLoading={isLoading}
+          isSuccess={isSuccess}
+        />
+      </Col>
+      <Col xl={12} xxl={11} lg={14} md={17} sm={24} xs={24}>
+        <ReactECharts option={chartOptions} style={{ height: '300px' }} />
+      </Col>
+    </Row>
   );
 }
 

@@ -3,8 +3,8 @@ import React from 'react';
 import ReactECharts from 'echarts-for-react';
 
 const SaleByBranchChart = ({ data }: any) => {
-  const SaleItemTypes = data?.data?.Data?.Result.Table3.map((item: any) => item.ItemType);
-  const SaleItemNetAmount = data?.data?.Data?.Result.Table3.map((item: any) => item.NetAmount);
+  const SaleItemTypes = data?.data?.Data?.Result?.Table3?.map((item: any) => item.ItemType);
+  const SaleItemNetAmount = data?.data?.Data?.Result?.Table3?.map((item: any) => item.NetAmount);
 
   const barColors = [
     '#FF3366',

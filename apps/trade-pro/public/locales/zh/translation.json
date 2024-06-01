@@ -584,5 +584,11 @@
   "effective_date": "生效日期：",
   "time": "时间",
   "total": "全部的",
-  "IsActive": "活跃"
+  "IsActive": "活跃",
+  "item_customer": "物品",
+  "customer_item": "顾客",
+  "out_date": "过时",
+  "cell_no": "小区编号",
+  "bill_no": "账单号",
+  "bill_date": "账单日期"
 }

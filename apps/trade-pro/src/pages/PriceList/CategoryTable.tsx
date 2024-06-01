@@ -6,9 +6,9 @@ import { useTranslation } from 'react-i18next';
 interface Props {
   PriceLists: any;
   selectedRadio: number | null;
-  form:FormInstance
+  form: FormInstance;
 }
-function CategoryTable({ PriceLists, selectedRadio,form}: Props) {
+function CategoryTable({ PriceLists, selectedRadio, form }: Props) {
   const { t } = useTranslation();
   // //   const [groupedData, setGroupedData] = useState<any>([]);
   // const groupDatabyCategory = groupBy(PriceLists, (item) => item.CategoryDescription);
@@ -29,22 +29,21 @@ function CategoryTable({ PriceLists, selectedRadio,form}: Props) {
   const [groupedData, setGroupedData] = useState<any>({});
   console.log(groupedData);
   useEffect(() => {
-    if (selectedRadio == 1 ) {
+    if (selectedRadio == 1) {
       const groupDatabyCategory = groupBy(PriceLists, (item) => item.CategoryDescription);
       setGroupedData(groupDatabyCategory);
-      form.setFieldValue('ItemTypeId',null)
-    
+      form.setFieldValue('ItemTypeId', null);
     } else if (selectedRadio == 2) {
       const groupDatabyType = groupBy(PriceLists, (item) => item.TypeDescription);
       setGroupedData(groupDatabyType);
-      form.setFieldValue('ItemCategoryId',null)
+      form.setFieldValue('ItemCategoryId', null);
     }
   }, [PriceLists, selectedRadio]);
 
   return (
     <>
       <Row style={{ maxHeight: '70vh', marginBottom: 10, marginTop: 20 }}>
-        <Col span={10}>
+        <Col xxl={10} xl={12} lg={24} md={24} sm={24} xs={24}>
           <Card
             style={{ height: '60vh', boxShadow: '2px 2px 12px 2px lightgrey' }}
             cover={
@@ -55,7 +54,7 @@ function CategoryTable({ PriceLists, selectedRadio,form}: Props) {
                       backgroundColor: '#85C1E9',
                       borderTopLeftRadius: 5,
                       borderTopRightRadius: 5,
-                      gridTemplateColumns: 'repeat(12, 1fr)', 
+                      gridTemplateColumns: 'repeat(12, 1fr)',
                       position: 'sticky',
                       top: 0,
                       zIndex: 1,
@@ -74,7 +73,7 @@ function CategoryTable({ PriceLists, selectedRadio,form}: Props) {
                     >
                       <Col span={24}>
                         <Row style={{ border: ' ' }}>
-                          <Col xxl={24}>
+                          <Col span={24}>
                             <Row
                               justify={'center'}
                               style={{
@@ -87,9 +86,9 @@ function CategoryTable({ PriceLists, selectedRadio,form}: Props) {
                           </Col>
                         </Row>
                       </Col>
-                      <Col span={24} >
+                      <Col span={24}>
                         <Row>
-                          <Col xxl={24}>
+                          <Col span={24}>
                             <Row
                               justify={'space-between'}
                               style={{
@@ -101,12 +100,14 @@ function CategoryTable({ PriceLists, selectedRadio,form}: Props) {
                                 //   marginLeft: 10,
                               }}
                             >
-                                    <Col xxl={1}><h4>SNo</h4></Col>
-                              <Col xxl={10} xl={10} lg={12}>
-                                <h4 style={{  }}>{t('brand_name')} </h4>
+                              <Col xxl={1} xl={2} lg={2} md={2} sm={2} xs={2}>
+                                <h4>SNo</h4>
                               </Col>
-                        
-                              <Col xxl={7} lg={12}>
+                              <Col xxl={10} xl={12} lg={12} md={12} sm={12} xs={12}>
+                                <h4 style={{}}>{t('brand_name')} </h4>
+                              </Col>
+
+                              <Col xxl={7} xl={7} lg={7} md={7} sm={7} xs={7}>
                                 <h4 style={{ textAlign: 'right', marginRight: 25 }}> {t('item_rate')} </h4>
                               </Col>
                             </Row>
@@ -117,11 +118,11 @@ function CategoryTable({ PriceLists, selectedRadio,form}: Props) {
                   </div>
                   <Row>
                     <Col span={24}>
-                     
                       {Object.keys(groupedData).map((category, index) => (
                         <Row key={category}>
-                          <Col xxl={24}>
+                          <Col span={24}>
                             <Row
+                              justify={'space-between'}
                               style={{
                                 marginBottom: 5,
                                 padding: 5,
@@ -129,34 +130,36 @@ function CategoryTable({ PriceLists, selectedRadio,form}: Props) {
                                 borderBottom: '1px solid lightgrey',
                               }}
                             >
-                           <Col xxl={4}></Col>
-                              <Col xxl={8} >
-                                <h4 style={{ textAlign: 'left', }}>{category}</h4>
+                              <Col xxl={1} xl={2} lg={2} md={2} sm={2} xs={2}></Col>
+                              <Col xxl={10} xl={12} lg={12} md={12} sm={12} xs={12}>
+                                <h4 style={{}}>{category}</h4>
                               </Col>
-                              <Col xxl={7}></Col>
-                            
-                              <Col xxl={7}> </Col>
+
+                              <Col xxl={7} xl={7} lg={7} md={7} sm={7} xs={7}></Col>
                             </Row>
                             {groupedData[category].map((item: any, itemIndex: any) => (
                               <Row key={itemIndex}>
-                                <Col xxl={24}>
+                                <Col span={24}>
                                   <Row
+                                    justify={'space-between'}
                                     style={{
                                       marginBottom: 5,
                                       padding: 5,
-                                      paddingTop:0,
-                                      paddingBottom:0,
+                                      paddingTop: 0,
+                                      paddingBottom: 0,
                                       paddingLeft: 10,
                                       borderBottom: '1px solid lightgrey',
                                     }}
                                   >
-                                     <Col xxl={4}>{itemIndex+1}</Col>
-                                    <Col xxl={10}>
-                                      <p style={{textAlign:'left'}}>{item.ItemName}</p>
+                                    <Col xxl={1} xl={2} lg={2} md={2} sm={2} xs={2}>
+                                      {itemIndex + 1}
                                     </Col>
-                                    <Col xxl={4}></Col>
-                                    <Col xxl={5}>
-                                      <p style={{ textAlign: 'right', marginRight: 0 }}>{item.ItemRate}</p>
+                                    <Col xxl={10} xl={12} lg={12} md={12} sm={12} xs={12}>
+                                      <p style={{}}>{item.ItemName}</p>
+                                    </Col>
+                                    {/* <Col xxl={4}></Col> */}
+                                    <Col xxl={7} xl={7} lg={7} md={7} sm={7} xs={7}>
+                                      <p style={{ textAlign: 'right', marginRight: 25 }}>{item.ItemRate}</p>
                                     </Col>
                                   </Row>
                                 </Col>
@@ -166,7 +169,7 @@ function CategoryTable({ PriceLists, selectedRadio,form}: Props) {
                         </Row>
                       ))}
 
-                      {map(groupedData, (item, index: number) => (
+                      {/* {map(groupedData, (item, index: number) => (
                         <>
                           <Row>
                             <Col xxl={24}>
@@ -185,15 +188,16 @@ function CategoryTable({ PriceLists, selectedRadio,form}: Props) {
                                 <Col xxl={10}>
                                   <p style={{ textAlign: 'left' }}> {item[index]}</p>
                                 </Col>
-                                <Col xxl={7}>{/* <p style={{ textAlign: 'right' }}> {item.ItemPrice} </p> */}</Col>
                                 <Col xxl={7}>
-                                  {/* <p style={{ textAlign: 'right', marginRight: 10 }}> {item.ItemRate} </p> */}
+                                  <p style={{ textAlign: 'right' }}> {item.ItemPrice} </p></Col>
+                                <Col xxl={7}>
+                                  <p style={{ textAlign: 'right', marginRight: 10 }}> {item.ItemRate} </p>
                                 </Col>
                               </Row>
                             </Col>
                           </Row>
                         </>
-                      ))}
+                      ))} */}
                     </Col>
                   </Row>
                 </div>

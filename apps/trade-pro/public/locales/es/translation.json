@@ -909,5 +909,11 @@
   "effective_date": "Fecha efectiva:",
   "time": "Tiempo",
   "total": "Total",
-  "IsActive": "Está activo"
+  "IsActive": "Está activo",
+  "item_customer": "Artículo",
+  "customer_item": "Cliente",
+  "out_date": "Fecha de salida",
+  "cell_no": "Número de celda",
+  "bill_no": "factura no",
+  "bill_date": "Fecha de pago"
 }

@@ -51,8 +51,8 @@ export const useGetCompanies = () => {
   return useQuery(
     'companies',
     () => {
-      return requestManager.get('/api/Company/GetCompaniesByUserId', {
-        params: { OrganizationId: userDetail?.OrganizationId, UserId: userDetail?.UserId },
+      return requestManager.post('/api/Company/GetAlldt', {
+        OrgCompanyTypeId: userDetail?.OrganizationId,
       });
     },
     { cacheTime: 5000 }
@@ -63,8 +63,8 @@ export const useGetMonthandQuarterWiseSaleReport = (enabled = true, params?: TMo
   return useQuery(
     'month-quarter-wise-sale-report',
     () => {
-      return requestManager.post('/api/Dashboard/OrgSalesAnalyticsComparisonMonthWiseQuarterWise', {
-        CompanyIds: userDetail?.CompanyId,
+      return requestManager.post('/api/Inventory/MonthlyQuarterlySaleReport', {
+        CompanyId: userDetail?.CompanyId,
         OrganizationId: userDetail?.OrganizationId,
 
         FromDate: financialYear?.Start_Period,

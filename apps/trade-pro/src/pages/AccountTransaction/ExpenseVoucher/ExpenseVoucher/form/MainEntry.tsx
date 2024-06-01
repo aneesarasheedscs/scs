@@ -85,14 +85,14 @@ function MainEntry({ form, setBankId, bankId }: TDynamicForm) {
                 xxl={{ span: 7 }}
                 className="formfield credit"
               >
-                <p style={{ marginLeft: '75%', color: 'blue' }} className="cr">
+                <p style={{ color: 'blue' }} className="cr">
                   {data ? (
                     <b>Cr: {numberFormatter(data?.data?.Data?.Result?.[0]?.Balance)}</b>
                   ) : (
                     <b style={{ visibility: 'hidden' }}>Balance</b>
                   )}
                 </p>
-                <p style={{ marginTop: -6 }}>
+                <p style={{ marginTop: -2 }}>
                   <AntSelectDynamic
                     required
                     bordered={false}
@@ -117,7 +117,7 @@ function MainEntry({ form, setBankId, bankId }: TDynamicForm) {
                 lg={{ span: 12 }}
                 xl={{ span: 5 }}
                 xxl={{ span: 4 }}
-                className="formfield"
+                className="formfield cheqno"
               >
                 {chequeNoEnabled ? (
                   <AntInput bordered={false} label={t('cheque_no')} name="CheqId" required={isChequeNoCompulsory} />

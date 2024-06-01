@@ -18,7 +18,7 @@ function PriceList() {
   const [form] = useForm<TPriceListFilter>();
   const formValues = useWatch<TPriceListFilter>([], form);
 
-  const { data, refetch ,isError,isLoading,isFetching} = useGetPriceList(true, form.getFieldsValue());
+  const { data, refetch, isError, isLoading, isFetching } = useGetPriceList(true, form.getFieldsValue());
 
   const PriceLists = data?.data?.Data?.Result;
   const [selectedRadio, setSelectedRadio] = useState<number | null>(1);
@@ -35,17 +35,12 @@ function PriceList() {
   const handleRadiobuttonchange = (e: RadioChangeEvent) => {
     setSelectedRadio(e.target.value);
     setTypeDropdownDisabled(e.target.value === 1 ? false : true);
-  
-  
-    
   };
   const onFinish = (_: TPriceListFilter) => {
-    if(selectedRadio == 1 ){
-      form.setFieldValue('ItemTypeId',null)
- 
-   
-    }else if(selectedRadio == 2){
-      form.setFieldValue('ItemCategoryId',null)
+    if (selectedRadio == 1) {
+      form.setFieldValue('ItemTypeId', null);
+    } else if (selectedRadio == 2) {
+      form.setFieldValue('ItemCategoryId', null);
     }
     refetch();
   };
@@ -60,20 +55,20 @@ function PriceList() {
               <Row justify={'space-around'}>
                 <Col span={23} style={{ backgroundColor: '#fff', height: '' }}>
                   <Row justify={'space-between'}>
-                    <Col xs={15} sm={12} md={7} lg={7} xl={5} xxl={3}>
+                    <Col xs={10} sm={8} md={7} lg={7} xl={5} xxl={3}>
                       <h1 className="report_heading" style={{ textAlign: 'center' }}>
-                     {t('current_price_list')}
+                        {t('current_price_list')}
                       </h1>
                     </Col>
 
-                    <Col xxl={1} xl={1} md={1} lg={2} sm={2} xs={2} style={{ marginRight: '30px', marginTop: 10 }}>
+                    <Col xxl={1} xl={1} md={1} lg={2} sm={2} xs={3} style={{ marginRight: '30px', marginTop: 10 }}>
                       <BackButton goToDashboard={false} />
                     </Col>
                   </Row>
                 </Col>
                 <Col span={23} style={{ backgroundColor: '#fff' }}>
                   <Row gutter={[16, 0]} align={'bottom'} style={{ border: '', marginLeft: 0, marginTop: 5 }}>
-                    <Col xxl={8} xl={15} lg={20} md={20} style={{ border: ' ' }}>
+                    <Col xxl={8} xl={12} lg={20} md={20} sm={24} xs={24} style={{ border: ' ' }}>
                       <Row gutter={0} justify={'space-between'}>
                         <Col span={12} className=" ">
                           {t('effective_date')} <span style={{ marginLeft: '5%' }}>{formateDate(effectiveDate)}</span>{' '}
@@ -87,16 +82,16 @@ function PriceList() {
                   </Row>
                   <Form onFinish={onFinish} form={form}>
                     <Row gutter={[16, 0]} align={'bottom'} style={{ border: '', marginLeft: 0, marginTop: 5 }}>
-                      <Col xxl={8} xl={15} lg={20} md={20} style={{ border: ' ' }}>
+                      <Col xxl={8} xl={12} lg={20} md={20} sm={24} xs={24} style={{ border: ' ' }}>
                         <Row gutter={0} justify={'space-between'}>
-                          <Col xs={15} sm={12} md={12} xl={15} lg={15}>
+                          <Col xs={15} sm={15} md={14} xl={15} lg={15}>
                             <Radio.Group
                               defaultValue={1}
                               value={selectedRadio}
                               style={{ display: 'flex', justifyContent: 'space-between' }}
                               onChange={(e) => {
                                 handleRadiobuttonchange(e);
-                              }} 
+                              }}
                             >
                               <Radio value={1}>{t('category')}</Radio>
                               <div style={{ width: '20px' }}></div>
@@ -107,25 +102,24 @@ function PriceList() {
                       </Col>
                     </Row>
                     <Row gutter={[16, 0]} align={'bottom'} style={{ border: '', marginLeft: 0, marginTop: 5 }}>
-                      <Col xxl={10} xl={15} lg={24} md={20}  style={{ border: ' ' }}>
+                      <Col xxl={10} xl={15} lg={24} md={24} sm={24} xs={24} style={{ border: ' ' }}>
                         <Row gutter={0} justify={'space-between'}>
-                          <Col xxl={8} lg={8} className="form_field ">
+                          <Col xxl={8} lg={8} md={8} sm={11} xs={11} className="form_field ">
                             <AntSelectDynamic
                               bordered={false}
-                              
                               fieldValue="ItemCategoryId"
                               fieldLabel="CategoryDescription"
                               defaultValue=""
                               label={t('category')}
                               query={useGetItemCatogory}
                               // query={useGetDateTypes}
-                         
+
                               onChange={(value) => handleCategoryChange(value)}
                               name="ItemCategoryId"
                               disabled={typeDropdownDisabled}
                             />
                           </Col>
-                          <Col xxl={9} lg={8} className="form_field ">
+                          <Col xxl={9} lg={8} md={8} sm={12} xs={12} className="form_field ">
                             <AntSelectDynamic
                               bordered={false}
                               fieldValue="ItemTypeId"
@@ -133,12 +127,12 @@ function PriceList() {
                               defaultValue=""
                               label={t('type')}
                               query={useGetItemType}
-                              disabled={typeDropdownDisabled? false:true}
+                              disabled={typeDropdownDisabled ? false : true}
                               name="ItemTypeId"
                             />
                           </Col>
                           {/* </Col> */}
-                          <Col xs={24} lg={4} sm={24} md={8} xxl={4}>
+                          <Col xs={24} lg={4} sm={6} md={4} xxl={4}>
                             <AntButton
                               label={t('show')}
                               htmlType="submit"
@@ -153,7 +147,7 @@ function PriceList() {
                   </Form>
                 </Col>
                 <Col span={23} style={{ backgroundColor: '#fff' }}>
-                  <CategoryTable PriceLists={PriceLists} selectedRadio={selectedRadio} form={form}/>
+                  <CategoryTable PriceLists={PriceLists} selectedRadio={selectedRadio} form={form} />
                 </Col>
               </Row>
             </div>

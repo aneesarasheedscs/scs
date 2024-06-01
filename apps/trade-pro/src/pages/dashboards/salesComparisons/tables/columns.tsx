@@ -1,5 +1,4 @@
 import { AntColumnType } from '@tradePro/globalTypes';
-import { formateDate } from '@tradePro/utils/formateDate';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import {
   TSalesComparisonforCities,
@@ -7,11 +6,18 @@ import {
   TSalesComparisonforItem,
   TSalesComparisonforPackingSize,
 } from '../types';
+import _ from 'lodash';
 
 export const columns = (t?: any): AntColumnType<TSalesComparisonforCustomer>[] => [
   {
-    width: 350,
-    title: <>{t('customer_name')}</>,
+    width: 50,
+    title: t('sr'), 
+    dataIndex: 'serialNumber', 
+    render: (_, __, index) => index + 1, 
+  },
+  {
+    width: 200,
+    title: t('customer_name'),
     searchableInput: true,
     dataIndex: 'GroupTitle',
     sortDirections: ['ascend', 'descend'],
@@ -19,9 +25,10 @@ export const columns = (t?: any): AntColumnType<TSalesComparisonforCustomer>[] =
   },
 
   {
-    width: 160,
-    title: <>{t('sale_quantity')}</>,
+    width: 120,
+    title: t('sale_quantity'),
     dataIndex: 'SaleQty',
+    align: 'right',
     showTotal: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.SaleQty - b.SaleQty,
@@ -30,10 +37,11 @@ export const columns = (t?: any): AntColumnType<TSalesComparisonforCustomer>[] =
     ),
   },
   {
-    width: 160,
-    title: <>{t('sale_weight')}</>,
+    width: 120,
+    title: t('sale_weight'),
     dataIndex: 'SaleWeight',
     showTotal: true,
+    align: 'right',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.SaleWeight - b.SaleWeight,
     render: (_, { SaleWeight }) => (
@@ -41,10 +49,11 @@ export const columns = (t?: any): AntColumnType<TSalesComparisonforCustomer>[] =
     ),
   },
   {
-    width: 160,
-    title: <>{t('sale_amount')}</>,
+    width: 120,
+    title: t('sale_amount'),
     dataIndex: 'SaleAmount',
     showTotal: true,
+    align: 'right',
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.SaleAmount - b.SaleAmount,
     render: (_, { SaleAmount }) => (
@@ -52,20 +61,26 @@ export const columns = (t?: any): AntColumnType<TSalesComparisonforCustomer>[] =
     ),
   },
   {
-    width: 160,
-    title: <>{t('percent_of_top')}</>,
+    width: 100,
+    title: t('percent_of_top'),
     dataIndex: '%OfTopBottom',
+    align: 'center',
     showTotal: true,
     sortDirections: ['ascend', 'descend'],
-    // sorter: (a, b) => a.PercentOfTopBottom - b.PercentOfTopBottom,
-    // render: (_, {PercentOfTopBottom}) => numberFormatter(PercentOfTopBottom),
+    render: (text, record) => <span>{numberFormatter(record['%OfTopBottom'])}</span>,
   },
 ];
 
 export const column = (t?: any): AntColumnType<TSalesComparisonforItem>[] => [
   {
-    width: 350,
-    title: <>{t('item_name')}</>,
+    width: 50,
+    title: t('sr'),
+    dataIndex: 'serialNumber',
+    render: (__, _, index) => index + 1,
+  },
+  {
+    width: 254,
+    title: t('item_name'),
     searchableInput: true,
     dataIndex: 'GroupTitle',
     sortDirections: ['ascend', 'descend'],
@@ -73,9 +88,10 @@ export const column = (t?: any): AntColumnType<TSalesComparisonforItem>[] => [
   },
 
   {
-    width: 150,
-    title: <>{t('sale_quantity')}</>,
+    width: 117,
+    title: t('sale_quantity'),
     dataIndex: 'SaleQty',
+    align: 'right',
     showTotal: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.SaleQty - b.SaleQty,
@@ -84,9 +100,10 @@ export const column = (t?: any): AntColumnType<TSalesComparisonforItem>[] => [
     ),
   },
   {
-    width: 150,
-    title: <>{t('sale_weight')}</>,
+    width: 116,
+    title: t('sale_weight'),
     dataIndex: 'SaleWeight',
+    align: 'right',
     showTotal: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.SaleWeight - b.SaleWeight,
@@ -95,9 +112,10 @@ export const column = (t?: any): AntColumnType<TSalesComparisonforItem>[] => [
     ),
   },
   {
-    width: 150,
-    title: <>{t('sale_amount')}</>,
+    width: 116,
+    title: t('sale_amount'),
     dataIndex: 'SaleAmount',
+    align: 'right',
     showTotal: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.SaleAmount - b.SaleAmount,
@@ -106,19 +124,26 @@ export const column = (t?: any): AntColumnType<TSalesComparisonforItem>[] => [
     ),
   },
   {
-    width: 200,
-    title: <>{t('percent_of_top')}</>,
+    width: 100,
+    title: t('percent_of_top'),
+    align: 'center',
     dataIndex: '%OfTopBottom',
     showTotal: true,
+
     sortDirections: ['ascend', 'descend'],
-    // sorter: (a, b) => a.PercentOfTopBottom - b.PercentOfTopBottom,
-    // render: (_, { PercentOfTopBottom }) => numberFormatter(PercentOfTopBottom),
+    render: (text, record) => <span>{numberFormatter(record['%OfTopBottom'])}</span>,
   },
 ];
 export const columnforCity = (t?: any): AntColumnType<TSalesComparisonforCities>[] => [
   {
-    width: 350,
-    title: <>{t('city_name')}</>,
+    width: 50,
+    title: t('sr'),
+    dataIndex: 'serialNumber',
+    render: (__, _, index) => index + 1,
+  },
+  {
+    width: 200,
+    title: t('city_name'),
     searchableInput: true,
     dataIndex: 'GroupTitle',
     sortDirections: ['ascend', 'descend'],
@@ -126,8 +151,9 @@ export const columnforCity = (t?: any): AntColumnType<TSalesComparisonforCities>
   },
 
   {
-    width: 150,
-    title: <>{t('sale_quantity')}</>,
+    width: 120,
+    title: t('sale_quantity'),
+    align: 'right',
     dataIndex: 'SaleQty',
     showTotal: true,
     sortDirections: ['ascend', 'descend'],
@@ -137,9 +163,10 @@ export const columnforCity = (t?: any): AntColumnType<TSalesComparisonforCities>
     ),
   },
   {
-    width: 150,
-    title: <>{t('sale_weight')}</>,
+    width: 120,
+    title: t('sale_weight'),
     dataIndex: 'SaleWeight',
+    align: 'right',
     showTotal: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.SaleWeight - b.SaleWeight,
@@ -148,8 +175,9 @@ export const columnforCity = (t?: any): AntColumnType<TSalesComparisonforCities>
     ),
   },
   {
-    width: 150,
-    title: <>{t('sale_amount')}</>,
+    width: 120,
+    align: 'right',
+    title: t('sale_amount'),
     dataIndex: 'SaleAmount',
     showTotal: true,
     sortDirections: ['ascend', 'descend'],
@@ -159,19 +187,25 @@ export const columnforCity = (t?: any): AntColumnType<TSalesComparisonforCities>
     ),
   },
   {
-    width: 200,
-    title: <>{t('percent_of_top')}</>,
+    width: 120,
+    title: t('percent_of_top'),
+    align: 'center',
     dataIndex: '%OfTopBottom',
     showTotal: true,
     sortDirections: ['ascend', 'descend'],
-    // sorter: (a, b) => a.PercentOfTopBottom - b.PercentOfTopBottom,
-    // render: (_, { PercentOfTopBottom }) => numberFormatter(PercentOfTopBottom),
+    render: (text, record) => <span>{numberFormatter(record['%OfTopBottom'])}</span>,
   },
 ];
 export const columnforPackingSize = (t?: any): AntColumnType<TSalesComparisonforPackingSize>[] => [
   {
-    width: 350,
-    title: <>{t('pack_uom')}</>,
+    title: t('sr'),
+    dataIndex: 'serialNumber',
+    width: 50,
+    render: (__, _, index) => index + 1,
+  },
+  {
+    width: 100,
+    title: t('pack_uom'),
     searchableInput: true,
     dataIndex: 'GroupTitle',
     sortDirections: ['ascend', 'descend'],
@@ -179,9 +213,10 @@ export const columnforPackingSize = (t?: any): AntColumnType<TSalesComparisonfor
   },
 
   {
-    width: 150,
-    title: <>{t('sale_quantity')}</>,
+    width: 120,
+    title: t('sale_quantity'),
     dataIndex: 'SaleQty',
+    align: 'right',
     showTotal: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.SaleQty - b.SaleQty,
@@ -190,9 +225,10 @@ export const columnforPackingSize = (t?: any): AntColumnType<TSalesComparisonfor
     ),
   },
   {
-    width: 150,
-    title: <>{t('sale_weight')}</>,
+    width: 120,
+    title: t('sale_weight'),
     dataIndex: 'SaleWeight',
+    align: 'right',
     showTotal: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.SaleWeight - b.SaleWeight,
@@ -201,9 +237,10 @@ export const columnforPackingSize = (t?: any): AntColumnType<TSalesComparisonfor
     ),
   },
   {
-    width: 150,
-    title: <>{t('sale_amount')}</>,
+    width: 120,
+    title: t('sale_amount'),
     dataIndex: 'SaleAmount',
+    align: 'right',
     showTotal: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.SaleAmount - b.SaleAmount,
@@ -212,12 +249,12 @@ export const columnforPackingSize = (t?: any): AntColumnType<TSalesComparisonfor
     ),
   },
   {
-    width: 200,
-    title: <>{t('percent_of_top')}</>,
+    width: 120,
+    title: t('percent_of_top'),
     dataIndex: '%OfTopBottom',
+    align: 'center',
     showTotal: true,
     sortDirections: ['ascend', 'descend'],
-    // sorter: (a, b) => a.PercentOfTopBottom - b.PercentOfTopBottom,
-    // render: (_, { PercentOfTopBottom }) => numberFormatter(PercentOfTopBottom),
+    render: (text, record) => <span>{numberFormatter(record['%OfTopBottom'])}</span>,
   },
 ];

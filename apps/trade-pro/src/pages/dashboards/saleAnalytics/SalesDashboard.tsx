@@ -132,23 +132,23 @@ const SalesDashboard = () => {
   const [activeTab2, setActiveTab2] = useState<string>('1');
   const [activeTab3, setActiveTab3] = useState<string>('1');
 
-  const filteredCurrentStatics = data?.data?.Data?.Result.Table.filter((item: any) => item.GroupId === 0);
-  const filteredCurrentStaticsToday = data?.data?.Data?.Result.Table.filter(
+  const filteredCurrentStatics = data?.data?.Data?.Result?.Table?.filter((item: any) => item.GroupId === 0);
+  const filteredCurrentStaticsToday = data?.data?.Data?.Result?.Table?.filter(
     (item: any) => item.DescriptionTitle === 'Today'
   );
-  const filteredCurrentStaticsWeek = data?.data?.Data?.Result.Table.filter(
+  const filteredCurrentStaticsWeek = data?.data?.Data?.Result?.Table?.filter(
     (item: any) => item.DescriptionTitle === 'This Week'
   );
-  const filteredCurrentStaticsMonth = data?.data?.Data?.Result.Table.filter(
+  const filteredCurrentStaticsMonth = data?.data?.Data?.Result?.Table?.filter(
     (item: any) => item.DescriptionTitle === 'This Month'
   );
-  const filteredCurrentStaticsQuartly = data?.data?.Data?.Result.Table.filter(
+  const filteredCurrentStaticsQuartly = data?.data?.Data?.Result?.Table?.filter(
     (item: any) => item.DescriptionTitle === 'This Quarter'
   );
-  const filteredCurrentStaticsYear = data?.data?.Data?.Result.Table.filter(
+  const filteredCurrentStaticsYear = data?.data?.Data?.Result?.Table?.filter(
     (item: any) => item.DescriptionTitle === 'This Year'
   );
-  const filteredSalesPaymentTerms = data?.data?.Data?.Result.Table1.filter((item: any) => item.GroupId === 1);
+  const filteredSalesPaymentTerms = data?.data?.Data?.Result?.Table1?.filter((item: any) => item.GroupId === 1);
   const formHeading = {
     fontFamily: 'Times New Roman',
     borderRadius: '5px',
@@ -250,218 +250,218 @@ const SalesDashboard = () => {
                 // boxShadow: '2px 2px 10px 0px gray',
               }}
             >
-              <Card
-                style={{ marginBottom: '1.5%', boxShadow: '2px 2px 10px 0px gray' }}
-                cover={
-                  <>
-                    <h2
-                      style={{
-                        padding: '5px',
-                        marginBottom: '7px',
-                        textAlign: 'center',
-                        borderBottom: '1px  solid lightgray',
-                      }}
-                    >
-                      {t('sales_by_payment_term')}
-                    </h2>{' '}
-                    <Row style={{ display: 'flex' }} justify={'space-between'}>
-                      <Col xl={18} xs={24} sm={24} md={24} lg={23} xxl={12}>
-                        <Space direction="horizontal" className="space-vertical">
-                          {map(filteredSalesPaymentTerms, (card: any, index: any) => (
-                            <SalesPaymentCard
-                              key={index}
-                              desc={card.DescriptionTitle}
-                              Amount={card.NetAmount}
-                              percentOfTotal={card.PrcntOfTotalAmount}
-                              backgroundColor={card.backgroundColor}
-                              textColor={card.color}
-                              icon={defaultIcons[index % defaultIcons.length]}
-                            />
-                          ))}{' '}
-                        </Space>
-                      </Col>
+              {/* <Card
+                style={{ marginBottom: '1.5%', boxShadow: '2px 2px 10px 0px gray' ,backgroundColor:'transparent'}}
+                cover={ */}
+              <div style={{ marginBottom: '1.5%' }}>
+                <h2
+                  style={{
+                    padding: '5px',
+                    marginBottom: '7px',
+                    textAlign: 'center',
+                    borderBottom: '1px  solid lightgray',
+                  }}
+                >
+                  {t('sales_by_payment_term')}
+                </h2>{' '}
+                <Row style={{ display: 'flex' }} justify={'space-between'}>
+                  <Col xl={18} xs={24} sm={24} md={24} lg={23} xxl={12}>
+                    <Space direction="horizontal" className="space-vertical">
+                      {map(filteredSalesPaymentTerms, (card: any, index: any) => (
+                        <SalesPaymentCard
+                          key={index}
+                          desc={card.DescriptionTitle}
+                          Amount={card.NetAmount}
+                          percentOfTotal={card.PrcntOfTotalAmount}
+                          // backgroundColor={card.backgroundColor}
+                          textColor={card.color}
+                          icon={defaultIcons[index % defaultIcons.length]}
+                        />
+                      ))}{' '}
+                    </Space>
+                  </Col>
 
-                      <Col
-                        xl={21}
-                        xs={23}
-                        sm={23}
-                        md={24}
-                        lg={23}
-                        xxl={10}
-                        style={{ marginTop: '15px', marginRight: '1%' }}
-                      >
-                        <Card style={{ boxShadow: '2px 2px 10px 0px gray' }}>
-                          <SalesDashboardChart data={data} />
-                        </Card>
+                  <Col
+                    xl={21}
+                    xs={23}
+                    sm={23}
+                    md={24}
+                    lg={23}
+                    xxl={5}
+                    style={{ marginTop: '20px', marginRight: '21%' }}
+                  >
+                    <Card style={{ boxShadow: '2px 2px 10px 0px gray', height: '20vh' }}>
+                      <SalesDashboardChart data={data} />
+                    </Card>
+                  </Col>
+                </Row>
+              </div>
+              {/* }
+              ></Card> */}
+              {/* <Card
+                style={{ marginBottom: '1.5%', boxShadow: '2px 2px 10px 0px gray' }}
+                cover={ */}
+              <div style={{ marginBottom: '1.5%' }}>
+                <h2
+                  style={{
+                    borderRadius: '5px',
+                    padding: '5px',
+                    marginBottom: '7px',
+                    textAlign: 'center',
+                    borderBottom: '1px  solid lightgray',
+                  }}
+                >
+                  {t('sales_by_parent_category')}
+                </h2>
+                <Tabs
+                  type="card"
+                  size="large"
+                  activeKey={activeTab2}
+                  className="tabs-margin-bottom-0"
+                  onChange={(key) => setActiveTab2(key)}
+                >
+                  <Tabs.TabPane
+                    key="1"
+                    tab={
+                      <b>
+                        <BarChartOutlined />
+                        {t('graph_view')}
+                      </b>
+                    }
+                  >
+                    <Col xxl={22} xl={24} md={24} xs={24} style={{ marginTop: '5px' }}>
+                      <ParentCategoryChart data={data} />
+                    </Col>
+                  </Tabs.TabPane>
+                  <Tabs.TabPane
+                    key="2"
+                    tab={
+                      <b>
+                        <TableOutlined />
+                        {t('grid_view')}
+                      </b>
+                    }
+                  >
+                    <Row style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>
+                      <Col xxl={20} xl={16} md={24} xs={24}>
+                        <ParentCategoryTable data={data} />
                       </Col>
                     </Row>
-                  </>
-                }
-              ></Card>
-              <Card
-                style={{ marginBottom: '1.5%', boxShadow: '2px 2px 10px 0px gray' }}
-                cover={
-                  <>
-                    <h2
-                      style={{
-                        borderRadius: '5px',
-                        padding: '5px',
-                        marginBottom: '7px',
-                        textAlign: 'center',
-                        borderBottom: '1px  solid lightgray',
-                      }}
-                    >
-                      {t('sales_by_parent_category')}
-                    </h2>
-                    <Tabs
-                      type="card"
-                      size="large"
-                      activeKey={activeTab2}
-                      className="tabs-margin-bottom-0"
-                      onChange={(key) => setActiveTab2(key)}
-                    >
-                      <Tabs.TabPane
-                        key="1"
-                        tab={
-                          <b>
-                            <BarChartOutlined />
-                            {t('graph_view')}
-                          </b>
-                        }
-                      >
-                        <Col xxl={22} xl={24} md={24} xs={24} style={{ marginTop: '5px' }}>
-                          <ParentCategoryChart data={data} />
-                        </Col>
-                      </Tabs.TabPane>
-                      <Tabs.TabPane
-                        key="2"
-                        tab={
-                          <b>
-                            <TableOutlined />
-                            {t('grid_view')}
-                          </b>
-                        }
-                      >
-                        <Row style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>
-                          <Col xxl={20} xl={16} md={24} xs={24}>
-                            <ParentCategoryTable data={data} />
-                          </Col>
-                        </Row>
-                      </Tabs.TabPane>
-                    </Tabs>
-                  </>
-                }
-              ></Card>
-              <Card
+                  </Tabs.TabPane>
+                </Tabs>
+              </div>
+              {/* }
+              ></Card> */}
+              {/* <Card
                 style={{ marginBottom: '1.5%', paddingLeft: 5, boxShadow: '2px 2px 10px 0px gray' }}
-                cover={
-                  <>
-                    <h2
-                      style={{
-                        borderRadius: '5px',
-                        padding: '5px',
-                        marginBottom: '7px',
-                        textAlign: 'center',
-                        borderBottom: '1px  solid lightgray',
-                      }}
-                    >
-                      {t('sales_by_items')}
-                    </h2>
-                    <Tabs
-                      type="card"
-                      size="large"
-                      activeKey={activeTab}
-                      className="tabs-margin-bottom-0"
-                      onChange={(key) => setActiveTab(key)}
-                    >
-                      <Tabs.TabPane
-                        key="1"
-                        tab={
-                          <b>
-                            <BarChartOutlined />
-                            {t('graph_view')}
-                          </b>
-                        }
-                      >
-                        <Col xxl={22} xl={24} md={24} xs={24} style={{ marginTop: '-5px' }}>
-                          <SaleByItemChart data={data} />
-                        </Col>
-                      </Tabs.TabPane>
-                      <Tabs.TabPane
-                        key="2"
-                        tab={
-                          <b>
-                            <TableOutlined />
-                            {t('grid_view')}
-                          </b>
-                        }
-                      >
-                        <Row style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>
-                          <Col xxl={20} xl={16} md={24} xs={24}>
-                            <SaleByItemTable data={data} />
-                          </Col>
-                        </Row>
-                      </Tabs.TabPane>
-                    </Tabs>
-                  </>
-                }
-              ></Card>
+                cover={ */}
+              <div style={{ marginBottom: '1.5%' }}>
+                <h2
+                  style={{
+                    borderRadius: '5px',
+                    padding: '5px',
+                    marginBottom: '7px',
+                    textAlign: 'center',
+                    borderBottom: '1px  solid lightgray',
+                  }}
+                >
+                  {t('sales_by_items')}
+                </h2>
+                <Tabs
+                  type="card"
+                  size="large"
+                  activeKey={activeTab}
+                  className="tabs-margin-bottom-0"
+                  onChange={(key) => setActiveTab(key)}
+                >
+                  <Tabs.TabPane
+                    key="1"
+                    tab={
+                      <b>
+                        <BarChartOutlined />
+                        {t('graph_view')}
+                      </b>
+                    }
+                  >
+                    <Col xxl={22} xl={24} md={24} xs={24} style={{ marginTop: '-5px' }}>
+                      <SaleByItemChart data={data} />
+                    </Col>
+                  </Tabs.TabPane>
+                  <Tabs.TabPane
+                    key="2"
+                    tab={
+                      <b>
+                        <TableOutlined />
+                        {t('grid_view')}
+                      </b>
+                    }
+                  >
+                    <Row style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>
+                      <Col xxl={20} xl={16} md={24} xs={24}>
+                        <SaleByItemTable data={data} />
+                      </Col>
+                    </Row>
+                  </Tabs.TabPane>
+                </Tabs>
+              </div>
+              {/* }
+              ></Card> */}
 
-              <Card
+              {/* <Card
                 hoverable
                 style={{ marginBottom: '1.5%', boxShadow: '2px 2px 10px 0px gray' }}
-                cover={
-                  <>
-                    <h2
-                      style={{
-                        borderRadius: '5px',
-                        padding: '5px',
-                        marginBottom: '7px',
-                        textAlign: 'center',
-                        borderBottom: '1px  solid lightgray',
-                      }}
-                    >
-                      {t('sales_by_branch')}
-                    </h2>
-                    <Tabs
-                      type="card"
-                      size="large"
-                      activeKey={activeTab3}
-                      className="tabs-margin-bottom-0"
-                      onChange={(key) => setActiveTab3(key)}
-                    >
-                      <Tabs.TabPane
-                        key="1"
-                        tab={
-                          <b>
-                            <BarChartOutlined />
-                            {t('graph_view')}
-                          </b>
-                        }
-                      >
-                        <Col xxl={22} xl={24} md={24} xs={24} style={{ marginTop: '-5px' }}>
-                          <SaleByBranchChart2 data={data} />
-                        </Col>
-                      </Tabs.TabPane>
-                      <Tabs.TabPane
-                        key="2"
-                        tab={
-                          <b>
-                            <TableOutlined />
-                            {t('grid_view')}
-                          </b>
-                        }
-                      >
-                        <Row style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>
-                          <Col xxl={20} xl={16} md={24} xs={24}>
-                            <SaleBybranchTable data={data} />
-                          </Col>
-                        </Row>
-                      </Tabs.TabPane>
-                    </Tabs>
-                  </>
-                }
-              ></Card>
+                cover={ */}
+              <div style={{ marginBottom: '1.5%' }}>
+                <h2
+                  style={{
+                    borderRadius: '5px',
+                    padding: '5px',
+                    marginBottom: '7px',
+                    textAlign: 'center',
+                    borderBottom: '1px  solid lightgray',
+                  }}
+                >
+                  {t('sales_by_branch')}
+                </h2>
+                <Tabs
+                  type="card"
+                  size="large"
+                  activeKey={activeTab3}
+                  className="tabs-margin-bottom-0"
+                  onChange={(key) => setActiveTab3(key)}
+                >
+                  <Tabs.TabPane
+                    key="1"
+                    tab={
+                      <b>
+                        <BarChartOutlined />
+                        {t('graph_view')}
+                      </b>
+                    }
+                  >
+                    <Col xxl={22} xl={24} md={24} xs={24} style={{ marginTop: '-5px' }}>
+                      <SaleByBranchChart2 data={data} />
+                    </Col>
+                  </Tabs.TabPane>
+                  <Tabs.TabPane
+                    key="2"
+                    tab={
+                      <b>
+                        <TableOutlined />
+                        {t('grid_view')}
+                      </b>
+                    }
+                  >
+                    <Row style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>
+                      <Col xxl={20} xl={16} md={24} xs={24}>
+                        <SaleBybranchTable data={data} />
+                      </Col>
+                    </Row>
+                  </Tabs.TabPane>
+                </Tabs>
+              </div>
+              {/* //  }
+              // ></Card>  */}
             </Col>
           </Row>
         </Col>

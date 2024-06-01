@@ -60,4 +60,5 @@ export type TAccountsPrematureReceiptsSearchCriteria = {
   ReceiverAcId: number;
   SenderAcId: number;
   VoucherTypeId: number;
+  VouchersId: number;
 };

@@ -3,10 +3,12 @@ import ReactECharts from 'echarts-for-react';
 import { useTranslation } from 'react-i18next';
 
 const ParentCategoryChart = ({ data }: any) => {
-  const filteredParentCategory = data?.data?.Data?.Result.Table2.filter(
+  const filteredParentCategory = data?.data?.Data?.Result?.Table2?.filter(
     (item: any) => item.ParentCategory === 'DAAL & OTHERS'
   );
-  const filteredParentCategory2 = data?.data?.Data?.Result.Table2.filter((item: any) => item.ParentCategory === 'Rice');
+  const filteredParentCategory2 = data?.data?.Data?.Result?.Table2?.filter(
+    (item: any) => item.ParentCategory === 'Rice'
+  );
 
   console.log(filteredParentCategory?.[0]?.NetAmount);
   const ParentCategoryAmount = filteredParentCategory?.[0]?.NetAmount;

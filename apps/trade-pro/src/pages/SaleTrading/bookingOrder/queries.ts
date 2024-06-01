@@ -65,12 +65,10 @@ export const useGetSupplierCustomer = (enabled = true, params?: any) => {
   return useQuery(
     'supplier-customer',
     () => {
-      return requestManager.get('/api/SupplierCustomer/GetforComboBinding', {
-        params: {
-          CompanyId: userDetail?.CompanyId,
-          OrganizationId: userDetail?.OrganizationId,
-          ...params,
-        },
+      return requestManager.post('/api/SupplierCustomer/GetforComboBinding', {
+        CompanyId: userDetail?.CompanyId,
+        OrganizationId: userDetail?.OrganizationId,
+        ...params,
       });
     },
     { enabled }
@@ -98,8 +96,8 @@ export const useGetBookingOrder = (enabled: true, params?: any) => {
       EntryUser: userDetail?.UserId,
       FormDate: financialYear?.Start_Period,
       ToDate: financialYear?.End_Period,
-      BranchesId: 2,
-      FinancialYearId: 2,
+      BranchesId: userDetail?.BranchesId,
+      FinancialYearId: financialYear?.Id,
       NoOfRecords: 50,
       CanViewAllRecord: 'true',
       SupplierCustomerId: 0,
@@ -233,20 +231,5 @@ export const useGetBranch = (CompanyId: number | null) => () => {
       });
     },
     { enabled: !!CompanyId }
-  );
-};
-
-export const useGetPurchaseOrderStatus = (enabled = true, params?: any) => {
-  return useQuery(
-    'purchase-order-status',
-    () => {
-      return requestManager.post('/api/PurchaseOrder/GetPurchaseOrderStatus', {
-        DocumentTypeId: 41,
-        CompanyId: userDetail?.CompanyId,
-        OrganizationId: userDetail?.OrganizationId,
-        ...params,
-      });
-    },
-    { enabled }
   );
 };

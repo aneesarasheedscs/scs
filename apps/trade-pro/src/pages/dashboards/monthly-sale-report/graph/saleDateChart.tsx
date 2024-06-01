@@ -52,9 +52,9 @@ const SaleByDateChart = ({ data }: any) => {
           },
           grid: {
             top: '10%',
-            left: '10%',
-            right: '10%',
-            bottom: '15%',
+            left: '2%',
+            right: '2%',
+            bottom: '8%',
             containLabel: true,
           },
           yAxis: {

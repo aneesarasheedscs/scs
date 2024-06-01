@@ -1,12 +1,13 @@
+import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { Col } from 'antd';
 import ReactECharts from 'echarts-for-react';
 
 const SalesDashboardChart = ({ data }: any) => {
   // const { data } = usePostSalesAnalyticsDashboard();
-  const filteredSalesPaymentTerms = data?.data?.Data?.Result.Table1.filter(
+  const filteredSalesPaymentTerms = data?.data?.Data?.Result?.Table1?.filter(
     (item: any) => item.DescriptionTitle === 'Cash Sales'
   );
-  const filteredSalesPaymentTerms2 = data?.data?.Data?.Result.Table1.filter(
+  const filteredSalesPaymentTerms2 = data?.data?.Data?.Result?.Table1?.filter(
     (item: any) => item.DescriptionTitle === 'Credit Sales'
   );
 
@@ -20,7 +21,7 @@ const SalesDashboardChart = ({ data }: any) => {
 
   const option = {
     title: {
-      text: 'Cash & Credit Sales',
+      // text: 'Cash & Credit Sales',
       // subtext: 'Fake Data',
       left: 'center',
     },
@@ -29,7 +30,7 @@ const SalesDashboardChart = ({ data }: any) => {
     },
     legend: {
       orient: 'vertical',
-      left: 'left',
+      left: 'rgith',
     },
     series: [
       {
@@ -37,8 +38,8 @@ const SalesDashboardChart = ({ data }: any) => {
         type: 'pie',
         radius: '50%',
         data: [
-          { value: `${CashSaleAmount}`, name: `${CashSaleDesc}` },
-          { value: `${CreditSaleAmount}`, name: `${CreditSaleDesc}` },
+          { value: `${CashSaleAmount}`, name: `${CashSaleDesc} ${numberFormatter(CashSaleAmount)}` },
+          { value: `${CreditSaleAmount}`, name: `${CreditSaleDesc} ${numberFormatter(CreditSaleAmount)}` },
         ],
         emphasis: {
           itemStyle: {
@@ -53,7 +54,7 @@ const SalesDashboardChart = ({ data }: any) => {
 
   return (
     <Col xxl={24} xl={24} md={20} xs={24} lg={24}>
-      <ReactECharts option={option} style={{ width: '100%' }} />
+      <ReactECharts option={option} style={{ width: '100%', height: '20vh' }} />
     </Col>
   );
 };

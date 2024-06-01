@@ -78,6 +78,8 @@ function ContraVoucherForm({
       form.setFieldValue('Remarks', ContraVoucher?.Remarks);
       const DetailList = ContraVoucher?.voucherDetailList.filter((row: any) => row.DebitAmount > 0);
       setTableData(DetailList);
+      const DetailListCredit = ContraVoucher?.voucherDetailList.filter((row: any) => row.CreditAmount > 0);
+      setTableDataforCreditAmount(DetailListCredit);
     }
   }, [isDataSuccess]);
 

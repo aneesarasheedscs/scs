@@ -1,6 +1,5 @@
 import { AntButton, AntSelectDynamic } from '@tradePro/components';
 import { Card, Col, Form, Row } from 'antd';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   useGetCompanies,
@@ -40,7 +39,7 @@ function SearchCriteria() {
         <Col span={24} style={{ border: '' }}>
           <Card style={{ width: '98%', marginLeft: '1%', boxShadow: '2px 2px 10px 0px gray' }}>
             <Form form={form} onFinish={onFinish}>
-              <Row gutter={[10, 10]} justify={'space-between'} style={{}}>
+              <Row gutter={[0, 0]} justify={'space-between'} style={{}}>
                 <Col xxl={5} xl={6} lg={12} md={12} sm={14} xs={20} className="formfield form-container">
                   <AntSelectDynamic
                     bordered={false}
@@ -94,64 +93,57 @@ function SearchCriteria() {
             </Form>
           </Card>
         </Col>
-        <Card
-          style={{ width: '98%', boxShadow: '2px 2px 10px 0px gray', marginBottom: '0.2%' }}
-          cover={
-            <>
-              <h2
-                style={{
-                  padding: '5px',
-                  textAlign: 'center',
-                  borderBottom: '1px  solid lightgray',
-                }}
-              >
-                {t('monthly_sale_report')}
-              </h2>
-            </>
-          }
-        >
-          <Row gutter={[16, 16]} justify={'space-between'} style={{ marginTop: '-1%' }}>
-            <Col span={24} style={{ border: '' }}>
-              <MonthlySalesGraph
-                getMonthandQuarter={getMonthandQuarter}
-                refetch={refetch}
-                isError={isError}
-                isFetching={isFetching}
-                isLoading={isLoading}
-                isSuccess={isSuccess}
-              />
-            </Col>
-          </Row>
-        </Card>
-        <Card
-          style={{ width: '98%', boxShadow: '2px 2px 10px 0px gray' }}
-          cover={
-            <>
-              <h2
-                style={{
-                  padding: '5px',
-                  textAlign: 'center',
-                  borderBottom: '1px  solid lightgray',
-                }}
-              >
-                {t('quarterly_sale_report')}
-              </h2>
-            </>
-          }
-        >
-          <Row gutter={[16, 16]} justify={'space-between'} style={{ marginTop: '-1%' }}>
-            <Col span={24} style={{ border: '' }}>
-              <QuarterlySaleGraph
-                getMonthandQuarter={getMonthandQuarter}
-                refetch={refetch}
-                isError={isError}
-                isFetching={isFetching}
-                isLoading={isLoading}
-                isSuccess={isSuccess}
-              />
-            </Col>
-          </Row>
-        </Card>
+
+        <div style={{ width: '98%', marginBottom: '2%' }}>
+          <h2
+            style={{
+              padding: '5px',
+              textAlign: 'center',
+              borderBottom: '1px  solid lightgray',
+            }}
+          >
+            {t('monthly_sale_report')}
+          </h2>
+        </div>
+        {/* }
+        > */}
+        <Row gutter={[16, 16]} justify={'space-between'} style={{ marginTop: '-1%', marginLeft: 0 }}>
+          <Col span={24} style={{ border: '' }}>
+            <MonthlySalesGraph
+              getMonthandQuarter={getMonthandQuarter}
+              refetch={refetch}
+              isError={isError}
+              isFetching={isFetching}
+              isLoading={isLoading}
+              isSuccess={isSuccess}
+            />
+          </Col>
+        </Row>
+
+        <div style={{ width: '98%', marginBottom: '2%' }}>
+          <h2
+            style={{
+              padding: '5px',
+              textAlign: 'center',
+              borderBottom: '1px  solid lightgray',
+            }}
+          >
+            {t('quarterly_sale_report')}
+          </h2>
+        </div>
+
+        <Row gutter={[16, 16]} justify={'space-between'} style={{ marginTop: '-1%' }}>
+          <Col span={24} style={{ border: '' }}>
+            <QuarterlySaleGraph
+              getMonthandQuarter={getMonthandQuarter}
+              refetch={refetch}
+              isError={isError}
+              isFetching={isFetching}
+              isLoading={isLoading}
+              isSuccess={isSuccess}
+            />
+          </Col>
+        </Row>
       </Row>
     </>
   );

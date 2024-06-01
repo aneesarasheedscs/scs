@@ -584,5 +584,11 @@
   "effective_date": "Date effective:",
   "time": "Temps",
   "total": "Total",
-  "IsActive": "C'est actif"
+  "IsActive": "C'est actif",
+  "item_customer": "Article",
+  "customer_item": "Client",
+  "out_date": "Date de sortie",
+  "cell_no": "Numéro de cellule",
+  "bill_no": "Numéro de facture",
+  "bill_date": "Date de facturation"
 }

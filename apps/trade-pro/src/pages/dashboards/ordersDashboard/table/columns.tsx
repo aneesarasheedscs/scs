@@ -41,13 +41,13 @@ export const Customercolumns = (t: TFunction): AntColumnType<TCustomer>[] => [
     title: t('customer'),
     key: 'CustomerName',
     dataIndex: 'CustomerName',
-    width: 150,
+    width: 330,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a?.CustomerName?.localeCompare(b?.CustomerName),
   },
 
   {
-    width: 120,
+    width: 150,
     title: t('qty'),
     key: 'Qty',
     dataIndex: 'Qty',
@@ -55,14 +55,14 @@ export const Customercolumns = (t: TFunction): AntColumnType<TCustomer>[] => [
   },
 
   {
-    width: 120,
+    width: 150,
     title: t('weight'),
     key: 'Weight',
     dataIndex: 'Weight',
     render: (_, { Weight }) => numberFormatter(Weight),
   },
   {
-    width: 120,
+    width: 150,
     title: t('amount'),
     key: 'Amount',
     dataIndex: 'Amount',
@@ -72,67 +72,163 @@ export const Customercolumns = (t: TFunction): AntColumnType<TCustomer>[] => [
 export const ItemAndPackcolumns = (t: TFunction): AntColumnType<TItemPacks>[] => [
   {
     title: t('pack'),
-    key: 'Pack',
-    dataIndex: 'Pack',
-    width: 150,
-    sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => a?.Pack?.localeCompare(b?.Pack),
-  },
-
-  {
-    width: 120,
-    title: t('qty'),
-    key: 'Qty',
-    dataIndex: 'BalanceQty',
-    //    render: (_, { ReqQty }) => numberFormatter(ReqQty),
-  },
-
-  {
-    width: 120,
-    title: t('weight_rate'),
-    key: 'ReqAmount',
-    dataIndex: 'ReqAmount',
-    //    render: (_, { ReqAmount }) => numberFormatter(ReqAmount),
-  },
-  {
-    width: 120,
-    title: t('amount'),
-    key: 'IssuedQty',
-    dataIndex: 'IssuedQty',
-    //    render: (_, { IssuedQty }) => numberFormatter(IssuedQty),
-  },
-];
-export const PackAndItemcolumns = (t: TFunction): AntColumnType<TPackItem>[] => [
-  {
-    title: t('item'),
     key: 'ItemName',
     dataIndex: 'ItemName',
-    width: 150,
+    width: 340,
     sortDirections: ['ascend', 'descend'],
-    //    sorter: (a, b) => a?.ItemName?.localeCompare(b?.ItemName),
+    sorter: (a, b) => a?.PackUom?.localeCompare(b?.PackUom),
   },
 
   {
-    width: 120,
+    width: 150,
     title: t('qty'),
-    key: 'ReqQty',
+    key: 'Qty',
     dataIndex: 'Qty',
     render: (_, { Qty }) => numberFormatter(Qty),
   },
 
   {
-    width: 120,
+    width: 150,
     title: t('weight_rate'),
     key: 'Weight',
     dataIndex: 'Weight',
     render: (_, { Weight }) => numberFormatter(Weight),
   },
   {
-    width: 120,
+    width: 150,
     title: t('amount'),
     key: 'Amount',
     dataIndex: 'Amount',
     render: (_, { Amount }) => numberFormatter(Amount),
+  },
+];
+export const PackAndItemcolumns = (t: TFunction): AntColumnType<TPackItem>[] => [
+  {
+    title: t('item'),
+    key: 'PackUom',
+    dataIndex: 'PackUom',
+    width: 340,
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a?.PackUom?.localeCompare(b?.PackUom),
+  },
+
+  {
+    width: 150,
+    title: t('qty'),
+    key: 'Qty',
+    align: 'right',
+    dataIndex: 'Qty',
+    // showTotal: true,
+    isNumber: true,
+    render: (_, { Qty }) => '',
+    // render: (_, { Qty }) => numberFormatter(Qty),
+  },
+
+  {
+    width: 150,
+    title: t('weight_rate'),
+    key: 'Weight',
+    // showTotal: true,
+    align: 'right',
+    isNumber: true,
+    // dataIndex: 'Weight',
+    // render: (_, { Weight }) => numberFormatter(Weight),
+  },
+  {
+    width: 150,
+    title: t('amount'),
+    key: 'Amount',
+    // showTotal: true,
+    align: 'right',
+    isNumber: true,
+    // dataIndex: 'Amount',
+    // render: (_, { Amount }) => numberFormatter(Amount),
+  },
+];
+export const ItemAndCustomercolumns = (t: TFunction): AntColumnType<TPackItem>[] => [
+  {
+    title: t('customer'),
+    key: 'ItemName',
+    dataIndex: 'ItemName',
+    width: 340,
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a?.PackUom?.localeCompare(b?.PackUom),
+  },
+
+  {
+    width: 150,
+    title: t('qty'),
+    key: 'Qty',
+    align: 'right',
+    dataIndex: 'Qty',
+    // showTotal: true,
+    isNumber: true,
+    render: (_, { Qty }) => '',
+    // render: (_, { Qty }) => numberFormatter(Qty),
+  },
+
+  {
+    width: 150,
+    title: t('weight_rate'),
+    key: 'Weight',
+    // showTotal: true,
+    align: 'right',
+    isNumber: true,
+    // dataIndex: 'Weight',
+    // render: (_, { Weight }) => numberFormatter(Weight),
+  },
+  {
+    width: 150,
+    title: t('amount'),
+    key: 'Amount',
+    // showTotal: true,
+    align: 'right',
+    isNumber: true,
+    // dataIndex: 'Amount',
+    // render: (_, { Amount }) => numberFormatter(Amount),
+  },
+];
+export const CustomerAndItemscolumns = (t: TFunction): AntColumnType<TPackItem>[] => [
+  {
+    title: t('item'),
+    key: 'CustomerName',
+    dataIndex: 'CustomerName',
+    width: 340,
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => a?.PackUom?.localeCompare(b?.PackUom),
+  },
+
+  {
+    width: 150,
+    title: t('qty'),
+    key: 'Qty',
+    align: 'right',
+    dataIndex: 'Qty',
+    // showTotal: true,
+    isNumber: true,
+    render: (_, { Qty }) => '',
+    // render: (_, { Qty }) => numberFormatter(Qty),
+  },
+
+  {
+    width: 150,
+    title: t('weight_rate'),
+    key: 'Weight',
+    // showTotal: true,
+    align: 'right',
+    isNumber: true,
+    // dataIndex: 'Weight',
+    // render: (_, { Weight }) => numberFormatter(Weight),
+  },
+  {
+    width: 150,
+    title: t('amount'),
+    key: 'Amount',
+    // showTotal: true,
+    align: 'right',
+    isNumber: true,
+    // dataIndex: 'Amount',
+    // render: (_, { Amount }) => numberFormatter(Amount),
   },
 ];
 export const DeliveryIntransitcolumns = (t: TFunction): AntColumnType<TDeliveryInTransit>[] => [
@@ -161,7 +257,7 @@ export const DeliveryIntransitcolumns = (t: TFunction): AntColumnType<TDeliveryI
     // render: (_, { Weight }) => numberFormatter(Weight),
   },
   {
-    width: 120, 
+    width: 120,
     title: t('freight'),
     key: 'Amount',
     dataIndex: 'Amount',
@@ -277,6 +373,4 @@ export const PendingBillscolumns = (t: TFunction): AntColumnType<TDeliveryInTran
     dataIndex: 'Amount',
     // render: (_, { Amount }) => numberFormatter(Amount),
   },
-
-
 ];

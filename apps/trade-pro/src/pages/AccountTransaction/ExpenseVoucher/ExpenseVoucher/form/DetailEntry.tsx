@@ -207,7 +207,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         xxl={{ span: 6 }}
                         className="formfield debit"
                       >
-                        <p style={{ marginTop: -18, marginLeft: '75%', color: 'blue' }} className="dr">
+                        <p style={{ color: 'blue' }} className="dr">
                           {data ? (
                             <b>Dr: {numberFormatter(data?.data?.Data?.Result?.[0]?.Balance)}</b>
                           ) : (

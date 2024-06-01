@@ -6,7 +6,7 @@ import { Card, Col, Form, Input, Row } from 'antd';
 import { SaveOutlined, SyncOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import DutyRoaster from './DutyRoaster';
-import '../../style.scss';
+// import '../../style.scss';
 
 const { useForm } = Form;
 

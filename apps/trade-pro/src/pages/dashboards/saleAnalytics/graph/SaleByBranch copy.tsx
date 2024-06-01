@@ -3,8 +3,8 @@ import React from 'react';
 import ReactECharts from 'echarts-for-react';
 import { usePostSalesAnalyticsDashboard } from '../queries';
 const SaleByBranchChart = ({ data }: any) => {
-  const SaleBranch = data?.data?.Data?.Result.Table4.map((item: any) => item.Branch);
-  const SaleBranchNetAmount = data?.data?.Data?.Result.Table4.map((item: any) => item.NetAmount);
+  const SaleBranch = data?.data?.Data?.Result?.Table4?.map((item: any) => item.Branch);
+  const SaleBranchNetAmount = data?.data?.Data?.Result?.Table4?.map((item: any) => item.NetAmount);
 
   const barColors = [
     '#33FF57',

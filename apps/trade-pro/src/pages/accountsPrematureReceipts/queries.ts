@@ -69,11 +69,9 @@ export const useGetSenderAccount = (enabled = true) => {
   return useQuery(
     'sender_account',
     () => {
-      return requestManager.get('/api/COAAllocation/GetAccountTitleByAccountTypeIds', {
-        params: {
-          ...params,
-          AccountTypeIds: '3,6,8,11',
-        },
+      return requestManager.post('/api/COAAllocation/GetAccountTitleByAccountTypeIds', {
+        ...params,
+        AccountTypeIds: '3,6,8,11',
       });
     },
     { enabled }
@@ -83,11 +81,9 @@ export const useGetReceiverAccount = (voucherTypeId: number | null) => {
   return useQuery(
     ['receiver_account', voucherTypeId],
     () => {
-      return requestManager.get('/api/COAAllocation/GetAccountTitleByAccountTypeIds', {
-        params: {
-          ...params,
-          AccountTypeIds: voucherTypeId === 3 ? '2' : voucherTypeId === 4 ? '15' : voucherTypeId === 5 ? '3,4,8' : '',
-        },
+      return requestManager.post('/api/COAAllocation/GetAccountTitleByAccountTypeIds', {
+        ...params,
+        AccountTypeIds: voucherTypeId === 3 ? '2' : voucherTypeId === 4 ? '15' : voucherTypeId === 5 ? '3,4,8' : '',
       });
     },
     { enabled: !!voucherTypeId }

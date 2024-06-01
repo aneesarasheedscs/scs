@@ -34,9 +34,26 @@
   // padding: 0px;
   height: 38px;
 }
+
 .cr {
   margin-top: -3%;
+  position: absolute;
+  top: -10px;
+  right: 0px;
 }
+.dr {
+  margin-top: -3%;
+  position: absolute;
+  top: -10px;
+  right: 0px;
+}
+@media screen and (min-width: 1500px) and (max-width: 2000px) {
+  .header_remarks {
+    margin-left: -10px;
+    width: 103%;
+  }
+}
+
 // Responsiveness
 
 @media screen and (min-width: 992px) and (max-width: 1200px) {

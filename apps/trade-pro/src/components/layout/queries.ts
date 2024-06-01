@@ -9,8 +9,9 @@ export const useGetMenu = () => {
   return useQuery(
     'sidebar-menu',
     () => {
-      return requestManager.get('/api/UserRights/GetUserRightsForViewbyUserId', {
-        params: { EntryUser: userDetail?.UserId, CompanyId: userDetail?.CompanyId },
+      return requestManager.post('/api/UserRights/GetViewRightsByUserId', {
+        EntryUser: userDetail?.UserId,
+        CompanyId: userDetail?.CompanyId,
       });
     },
     {

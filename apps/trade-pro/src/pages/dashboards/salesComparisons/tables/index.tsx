@@ -1,19 +1,11 @@
 import { column, columnforCity, columnforPackingSize, columns } from './columns';
-import { AntTable } from '@tradePro/components';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { useTranslation } from 'react-i18next';
-import { Card, theme } from 'antd';
-// import { useGetMonthandQuarterWiseSaleReport } from '../query';
+import { Table, theme } from 'antd';
 
-const { useToken } = theme;
 
-function SalesComparisonReportforTopCustomers({
-  data,
-  refetch,
-  isSaleReportLoading,
-  isSaleReportError,
-  isFetching,
-}: any) {
+
+function SalesComparisonReportforTopCustomers({ data }: any) {
   const { t } = useTranslation();
   const {
     token: { colorPrimary },
@@ -23,29 +15,21 @@ function SalesComparisonReportforTopCustomers({
 
   return (
     <>
-      <AntTable
-        rowKey="Id"
-        refetch={refetch}
-        isError={isSaleReportError}
+      <Table
+        dataSource={filteredCustomerData}
         columns={columns(t)}
-        numberOfSkeletons={6}
-        isLoading={isSaleReportLoading || isFetching}
-        data={filteredCustomerData || []}
-        scroll={{ x: '', y: convertVhToPixels('22vh') }}
+        pagination={false}
+        size="small"
+        scroll={{ x: '', y: convertVhToPixels('39vh') }}
       />
     </>
   );
 }
-
 export default SalesComparisonReportforTopCustomers;
 
-export function SalesComparisonReportforTopItems({
-  data,
-  refetch,
-  isSaleReportLoading,
-  isSaleReportError,
-  isFetching,
-}: any) {
+
+
+export function SalesComparisonReportforTopItems({ data }: any) {
   const { t } = useTranslation();
   const {
     token: { colorPrimary },
@@ -55,55 +39,19 @@ export function SalesComparisonReportforTopItems({
 
   return (
     <>
-      <AntTable
-        rowKey="Id"
-        refetch={refetch}
-        isError={isSaleReportError}
+      <Table
+        dataSource={filteredCustomerData || []}
         columns={column(t)}
-        numberOfSkeletons={6}
-        isLoading={isSaleReportLoading || isFetching}
-        data={filteredCustomerData || []}
-        scroll={{ x: '', y: convertVhToPixels('22vh') }}
+        pagination={false}
+        size="small"
+        scroll={{ x: '', y: convertVhToPixels('39vh') }}
       />
     </>
   );
 }
-export function SalesComparisonReportforTopCities({
-  data,
-  refetch,
-  isSaleReportLoading,
-  isSaleReportError,
-  isFetching,
-}: any) {
-  const { t } = useTranslation();
-  const {
-    token: { colorPrimary },
-  } = theme.useToken();
-  const rawData = data?.data?.Data?.Result;
-  const filteredCustomerData = rawData?.filter((item: any) => item.DescriptionTitle === 'City');
 
-  return (
-    <>
-      <AntTable
-        rowKey="Id"
-        refetch={refetch}
-        isError={isSaleReportError}
-        columns={columnforCity(t)}
-        numberOfSkeletons={6}
-        isLoading={isSaleReportLoading || isFetching}
-        data={filteredCustomerData || []}
-        scroll={{ x: '', y: convertVhToPixels('22vh') }}
-      />
-    </>
-  );
-}
-export function SalesComparisonReportforTopPackSize({
-  data,
-  refetch,
-  isSaleReportLoading,
-  isSaleReportError,
-  isFetching,
-}: any) {
+
+export function SalesComparisonReportforTopPackSize({ data }: any) {
   const { t } = useTranslation();
   const {
     token: { colorPrimary },
@@ -113,15 +61,35 @@ export function SalesComparisonReportforTopPackSize({
 
   return (
     <>
-      <AntTable
-        rowKey="Id"
-        refetch={refetch}
-        isError={isSaleReportError}
+      <Table
+        dataSource={filteredCustomerData || []}
         columns={columnforPackingSize(t)}
-        numberOfSkeletons={6}
-        isLoading={isSaleReportLoading || isFetching}
-        data={filteredCustomerData || []}
-        scroll={{ x: '', y: convertVhToPixels('22vh') }}
+        pagination={false}
+        size="small"
+        scroll={{ x: '', y: convertVhToPixels('39vh') }}
+      />
+    </>
+  );
+}
+
+
+
+export function SalesComparisonReportforTopCities({ data }: any) {
+  const { t } = useTranslation();
+  const {
+    token: { colorPrimary },
+  } = theme.useToken();
+  const rawData = data?.data?.Data?.Result;
+  const filteredCustomerData = rawData?.filter((item: any) => item.DescriptionTitle === 'City');
+
+  return (
+    <>
+      <Table
+        dataSource={filteredCustomerData || []}
+        columns={columnforCity(t)}
+        pagination={false}
+        size="small"
+        scroll={{ x: '', y: convertVhToPixels('39vh') }}
       />
     </>
   );

@@ -590,5 +590,11 @@
   "effective_date": "تاريخ النفاذ:",
   "time": "وقت",
   "total": "المجموع",
-  "IsActive": "نشط"
+  "IsActive": "نشط",
+  "item_customer": "غرض",
+  "customer_item": "عميل",
+  "out_date": "تاريخ الخروج",
+  "cell_no": "خلية لا",
+  "bill_no": "مشروع قانون لا",
+  "bill_date": "تاريخ الفاتورة"
 }

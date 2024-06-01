@@ -15,7 +15,8 @@ import SalesComparisonReportforTopCustomers, {
   SalesComparisonReportforTopItems,
   SalesComparisonReportforTopPackSize,
 } from './index';
-import { TableOutlined, BarChartOutlined } from '@ant-design/icons';
+import { CriteriaRowGutter } from '@tradePro/globalAtoms';
+import { map } from 'lodash';
 
 const { useWatch, useForm } = Form;
 function SearchCriteria() {
@@ -26,10 +27,8 @@ function SearchCriteria() {
   const [form] = useForm<TSearchCriteriaSalesComparison>();
   const formValues = useWatch<TSearchCriteriaSalesComparison>([], form);
   const [count, setCount] = useState<any>(0);
-  const [activeTab, setActiveTab] = useState<string>('1');
-  const [activeTabforItems, setActiveTabforItems] = useState<string>('1');
-  const [activeTabforCities, setActiveTabforCities] = useState<string>('1');
-  const [activeTabforPacksize, setActiveTabforPacksize] = useState<string>('1');
+  const { data: ParentCategory } = useGetParentCategory();
+  const { data: ItemType } = useGetItemType();
 
   const {
     data,
@@ -48,7 +47,7 @@ function SearchCriteria() {
     form.setFields([{ name: 'ToDate', value: dayjs(EndDate) }]);
     form.setFieldsValue({ ApprovedFilter: 'Top' });
     form.setFieldsValue({ NoOfRecords: 10 });
-    form.setFieldsValue({ CompanyIds: 2 });
+    // form.setFieldsValue({ CompanyIds: 2 });
   }, []);
   const TopOrBottom = form.getFieldValue('ApprovedFilter');
   useEffect(() => {
@@ -59,7 +58,7 @@ function SearchCriteria() {
       <Card className="salesComaprisonCard" hoverable>
         <Form form={form} onFinish={onFinish}>
           <Row
-            gutter={[10, 10]}
+            gutter={CriteriaRowGutter}
             justify={'space-between'}
             style={{ width: '95%', marginLeft: 5, border: '', marginBottom: '-1%' }}
           >
@@ -76,7 +75,11 @@ function SearchCriteria() {
                 fieldValue="InventoryParentCategoriesId"
                 name="ParentCategoryId"
                 label={t('parent_category')}
-                query={useGetParentCategory}
+                options={map(ParentCategory, (item: any) => ({
+                  value: item.Id,
+                  label: item.ReferenceName,
+                }))}
+                // query={useGetParentCategory}
               />
             </Col>
             <Col xxl={5} xl={7} lg={10} md={11} sm={14} xs={20} className="formfield">
@@ -86,23 +89,27 @@ function SearchCriteria() {
                 fieldLabel="TypeDescription"
                 fieldValue="ItemTypeId"
                 name="ItemTypeId"
-                query={useGetItemType}
+                options={map(ItemType, (item: any) => ({
+                  value: item.Id,
+                  label: item.ReferenceName,
+                }))}
+                // query={useGetItemType}
               />
             </Col>
-            <Col xxl={8} xl={7} lg={10} md={12} sm={14} xs={20} className="formfield">
+            {/* <Col xxl={6} xl={7} lg={10} md={12} sm={14} xs={20} className="formfield">
               <AntSelectDynamic
                 bordered={false}
                 fieldLabel="CompName"
                 fieldValue="Id"
-                name="CompanyIds"
+                name="CompanyId"
                 label={t('company')}
                 query={useGetCompanies}
               />
-            </Col>
+            </Col> */}
             <Col xxl={6} xl={7} lg={10} md={12} sm={14} xs={20} className="formfield">
               <AntInput name="NoOfRecords" label={t('count')} bordered={false} />
             </Col>
-            <Col xs={24} sm={24} md={6} xxl={4} style={{ marginTop: 10 }}>
+            <Col xs={24} sm={24} md={6} xxl={9} style={{ marginTop: 10, height: '4vh' }}>
               <Radio.Group
                 onChange={(e) => {
                   form.setFieldsValue({ ApprovedFilter: e.target.value });
@@ -120,6 +127,7 @@ function SearchCriteria() {
                 htmlType="submit"
                 isError={isSaleReportError}
                 isLoading={isSaleReportLoading || isFetching}
+                style={{ marginTop: 5 }}
               />
             </Col>
           </Row>
@@ -141,59 +149,22 @@ function SearchCriteria() {
           </>
         }
       >
-        <Tabs
-          type="card"
-          size="middle"
-          style={{ marginTop: '-1%' }}
-          activeKey={activeTab}
-          className="tabs-margin-bottom-0"
-          onChange={(key) => setActiveTab(key)}
-        >
-          <Tabs.TabPane
-            key="1"
-            tab={
-              <b>
-                <BarChartOutlined />
-                {t('graph_view')}
-              </b>
-            }
-          >
-            <Row justify={'center'}>
-              <Col xxl={20} xl={24} lg={24} md={24} sm={24} xs={24} style={{ marginTop: '5px' }}>
-                <Card hoverable style={{ height: 'auto' }}>
-                  <CustomersSalesGraph data={data} />
-                </Card>
-              </Col>
-            </Row>
-          </Tabs.TabPane>
-          <Tabs.TabPane
-            key="2"
-            tab={
-              <b>
-                <TableOutlined />
-                {t('grid_view')}
-              </b>
-            }
-          >
-            <Row
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                height: '100%',
-              }}
-            >
-              <Col xxl={16} xl={22} lg={24} md={24} sm={24} xs={24}>
-                <SalesComparisonReportforTopCustomers
-                  data={data}
-                  refetch={refetch}
-                  isFetching={isFetching}
-                  isSaleReportError={isSaleReportError}
-                  isSaleReportLoading={isSaleReportLoading}
-                />{' '}
-              </Col>
-            </Row>
-          </Tabs.TabPane>
-        </Tabs>
+        <Row justify={'space-between'}>
+          <Col xxl={12} xl={22} lg={24} md={24} sm={24} xs={24} style={{ marginRight: 0 }}>
+            <SalesComparisonReportforTopCustomers
+              data={data}
+              refetch={refetch}
+              isFetching={isFetching}
+              isSaleReportError={isSaleReportError}
+              isSaleReportLoading={isSaleReportLoading}
+            />{' '}
+          </Col>
+          <Col xxl={11} xl={24} lg={24} md={24} sm={24} xs={24} style={{ marginTop: 'px' }}>
+            {/* <Card hoverable style={{ height: 'auto' }}> */}
+            <CustomersSalesGraph data={data} />
+            {/* </Card> */}
+          </Col>
+        </Row>
       </Card>
       <Card
         style={{ boxShadow: '2px 2px 10px 0px gray', marginBottom: '0.5%' }}
@@ -211,59 +182,20 @@ function SearchCriteria() {
           </>
         }
       >
-        <Tabs
-          type="card"
-          size="middle"
-          style={{ marginTop: '-1%' }}
-          activeKey={activeTabforItems}
-          className="tabs-margin-bottom-0"
-          onChange={(key) => setActiveTabforItems(key)}
-        >
-          <Tabs.TabPane
-            key="1"
-            tab={
-              <b>
-                <BarChartOutlined />
-                {t('graph_view')}
-              </b>
-            }
-          >
-            <Row justify={'center'}>
-              <Col xxl={20} xl={24} lg={24} md={24} sm={24} xs={24} style={{ marginTop: '5px' }}>
-                <Card hoverable style={{ height: 'auto' }}>
-                  <ItemSalesGraph data={data} />
-                </Card>
-              </Col>
-            </Row>
-          </Tabs.TabPane>
-          <Tabs.TabPane
-            key="2"
-            tab={
-              <b>
-                <TableOutlined />
-                {t('grid_view')}
-              </b>
-            }
-          >
-            <Row
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                height: '100%',
-              }}
-            >
-              <Col xxl={16} xl={22} lg={24} md={24} sm={24} xs={24}>
-                <SalesComparisonReportforTopItems
-                  data={data}
-                  refetch={refetch}
-                  isFetching={isFetching}
-                  isSaleReportError={isSaleReportError}
-                  isSaleReportLoading={isSaleReportLoading}
-                />
-              </Col>
-            </Row>
-          </Tabs.TabPane>
-        </Tabs>
+        <Row justify={'space-between'}>
+          <Col xxl={11} xl={24} lg={24} md={24} sm={24} xs={24} style={{ marginTop: 'px' }}>
+            <ItemSalesGraph data={data} />
+          </Col>
+          <Col xxl={12} xl={22} lg={24} md={24} sm={24} xs={24} style={{ marginRight: 0 }}>
+            <SalesComparisonReportforTopItems
+              data={data}
+              refetch={refetch}
+              isFetching={isFetching}
+              isSaleReportError={isSaleReportError}
+              isSaleReportLoading={isSaleReportLoading}
+            />
+          </Col>
+        </Row>
       </Card>
       <Card
         style={{ boxShadow: '2px 2px 10px 0px gray', marginBottom: '0.5%' }}
@@ -281,59 +213,20 @@ function SearchCriteria() {
           </>
         }
       >
-        <Tabs
-          type="card"
-          size="middle"
-          style={{ marginTop: '-1%' }}
-          activeKey={activeTabforPacksize}
-          className="tabs-margin-bottom-0"
-          onChange={(key) => setActiveTabforPacksize(key)}
-        >
-          <Tabs.TabPane
-            key="1"
-            tab={
-              <b>
-                <BarChartOutlined />
-                {t('graph_view')}
-              </b>
-            }
-          >
-            <Row justify={'center'}>
-              <Col xxl={20} xl={24} lg={24} md={24} sm={24} xs={24} style={{ marginTop: '5px' }}>
-                <Card hoverable style={{ height: 'auto' }}>
-                  <PackingSizeSalesGraph data={data} />
-                </Card>
-              </Col>
-            </Row>
-          </Tabs.TabPane>
-          <Tabs.TabPane
-            key="2"
-            tab={
-              <b>
-                <TableOutlined />
-                {t('grid_view')}
-              </b>
-            }
-          >
-            <Row
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                height: '100%',
-              }}
-            >
-              <Col xxl={16} xl={22} lg={24} md={24} sm={24} xs={24}>
-                <SalesComparisonReportforTopPackSize
-                  data={data}
-                  refetch={refetch}
-                  isFetching={isFetching}
-                  isSaleReportError={isSaleReportError}
-                  isSaleReportLoading={isSaleReportLoading}
-                />
-              </Col>
-            </Row>
-          </Tabs.TabPane>
-        </Tabs>
+        <Row justify={'space-between'}>
+          <Col xxl={12} xl={22} lg={24} md={24} sm={24} xs={24} style={{ marginRight: 0 }}>
+            <SalesComparisonReportforTopPackSize
+              data={data}
+              refetch={refetch}
+              isFetching={isFetching}
+              isSaleReportError={isSaleReportError}
+              isSaleReportLoading={isSaleReportLoading}
+            />
+          </Col>
+          <Col xxl={11} xl={24} lg={24} md={24} sm={24} xs={24} style={{ marginTop: 'px' }}>
+            <PackingSizeSalesGraph data={data} />
+          </Col>
+        </Row>
       </Card>
       <Card
         style={{ boxShadow: '2px 2px 10px 0px gray', marginBottom: '0.5%' }}
@@ -351,59 +244,21 @@ function SearchCriteria() {
           </>
         }
       >
-        <Tabs
-          type="card"
-          size="middle"
-          style={{ marginTop: '-1%' }}
-          activeKey={activeTabforCities}
-          className="tabs-margin-bottom-0"
-          onChange={(key) => setActiveTabforCities(key)}
-        >
-          <Tabs.TabPane
-            key="1"
-            tab={
-              <b>
-                <BarChartOutlined />
-                {t('graph_view')}
-              </b>
-            }
-          >
-            <Row justify={'center'}>
-              <Col xxl={20} xl={24} lg={24} md={24} sm={24} xs={24} style={{ marginTop: '5px' }}>
-                <Card hoverable style={{ height: 'auto' }}>
-                  <CitiesSalesGraph data={data} />
-                </Card>
-              </Col>
-            </Row>
-          </Tabs.TabPane>
-          <Tabs.TabPane
-            key="2"
-            tab={
-              <b>
-                <TableOutlined />
-                {t('grid_view')}
-              </b>
-            }
-          >
-            <Row
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                height: '100%',
-              }}
-            >
-              <Col xxl={16} xl={22} lg={24} md={24} sm={24} xs={24}>
-                <SalesComparisonReportforTopCities
-                  data={data}
-                  refetch={refetch}
-                  isFetching={isFetching}
-                  isSaleReportError={isSaleReportError}
-                  isSaleReportLoading={isSaleReportLoading}
-                />
-              </Col>
-            </Row>
-          </Tabs.TabPane>
-        </Tabs>
+        <Row justify={'space-between'}>
+          <Col xxl={11} xl={24} lg={24} md={24} sm={24} xs={24} style={{ marginTop: 'px' }}>
+            <CitiesSalesGraph data={data} />
+          </Col>
+
+          <Col xxl={12} xl={22} lg={24} md={24} sm={24} xs={24} style={{ marginRight: 0 }}>
+            <SalesComparisonReportforTopCities
+              data={data}
+              refetch={refetch}
+              isFetching={isFetching}
+              isSaleReportError={isSaleReportError}
+              isSaleReportLoading={isSaleReportLoading}
+            />
+          </Col>
+        </Row>
       </Card>
     </>
   );

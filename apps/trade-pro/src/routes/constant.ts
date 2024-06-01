@@ -7,12 +7,12 @@ export const route = {
   //Dashboards
   ACCOUNTS_DASHBOARD: '/accounts-dashboard',
   APPROVAL_DASHBOARD: '/approval-dashboard',
-  MONTH_QUARTER_WISE_SALE_REPORT: '/month-wise-and-quarterly-report',
-  SALES_COMPARISON: '/Sale-Comparison-Report',
+  MONTH_QUARTER_WISE_SALE_REPORT: '/monthly-quarterly-sale-report',
+  SALES_COMPARISON: '/sales-comparison',
   SALE_ANALYTICS: '/sale-analytics',
   MONTHLY_DATE_REPORT: '/monthly-sale-report',
   SALES_DATA_BRANCH_WISE: '/sales-data-branch-wise',
-  ORDERS_DASHBOARD: '/orderdashboard',
+  ORDERS_DASHBOARD: '/my-order-status',
 
   // AccountsPrematureRecipts
   // ACCOUNTS_PREMATURE_RECEIPTS: '/accounts-premature-receipt',
@@ -98,7 +98,7 @@ export const route = {
   //Sales Trading
   SALE_ORDER: '/sale-order',
   SALE_INVOICE_DIRECT: '/Sale-Invoice-Direct',
-  BOOKING_ORDER: '/order-booking',
+  BOOKING_ORDER: '/pre-booking-order',
 
   //Sale Reports
   SALE_ORDER_REGISTER: '/sale-order-register-retail',

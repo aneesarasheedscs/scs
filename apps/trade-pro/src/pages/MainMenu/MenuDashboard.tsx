@@ -21,7 +21,18 @@ export default function MenuDashboard() {
   const handleNavigate = (RouteUrl: string) => {
     navigate(RouteUrl);
   };
-
+  const filteredList = list.filter(
+    (item) =>
+      item.ModuleDescription !== 'Reports' &&
+      item.ModuleDescription !== 'Attendance Report' &&
+      item.ModuleDescription !== 'Price List' &&
+      item.ModuleDescription !== 'Account Definition' &&
+      item.ModuleDescription !== 'System Utilities' &&
+      item.ModuleDescription !== 'Inventory Defination' &&
+      item.ModuleDescription !== 'Inventory Management' &&
+      item.ModuleDescription !== 'Purchase Trading' &&
+      item.ModuleDescription !== 'Accounts Transaction'
+  );
   const handleNavigatewithSelectOption = (value: string) => {
     console.log(value);
     const RouteUrl = Menu?.data?.Data?.Result?.find((item: any) => item.ScreenID === value);
@@ -33,8 +44,8 @@ export default function MenuDashboard() {
   } = theme.useToken();
 
   const showModal = (index: any) => {
-    console.log(list?.[index]?.children);
-    setChildrenList(list?.[index]?.children);
+    console.log(filteredList?.[index]?.children);
+    setChildrenList(filteredList?.[index]?.children);
     setIsModalOpen(true);
   };
 
@@ -141,7 +152,7 @@ export default function MenuDashboard() {
             </Col>
             <Col xxl={24} xs={23} sm={23} md={24} lg={24} xl={24} style={{ marginLeft: '-1%' }}>
               <Row justify={'center'} gutter={10} style={{ marginLeft: '' }}>
-                {map(list, ({ ModuleDescription }: TSideMenu & { children: TSideMenu[] }, index: number) => (
+                {map(filteredList, ({ ModuleDescription }: TSideMenu & { children: TSideMenu[] }, index: number) => (
                   <Col xs={24} xxl={4} sm={12} md={11} lg={6} key={index}>
                     <Card
                       hoverable

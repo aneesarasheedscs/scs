@@ -1,5 +1,5 @@
 import { AntTable } from '@tradePro/components';
-import { useGetBookingOrder, useGetPurchaseOrderStatus } from '../queries';
+import { useGetBookingOrder } from '../queries';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { Bookingordercolumns } from './columns';
 import { useTranslation } from 'react-i18next';
@@ -27,8 +27,6 @@ const BookingOrderTable = ({ setSelectedRecordId, setActiveTab }: TFrom) => {
       </Row>
     );
   }
-
-  const { data: purchaseOrderStatus } = useGetPurchaseOrderStatus();
 
   return (
     <>

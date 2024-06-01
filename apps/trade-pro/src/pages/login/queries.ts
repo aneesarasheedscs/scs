@@ -36,8 +36,9 @@ const userDetail = storedUserDetail();
 
 export const useGetCompany = () => {
   return useQuery('company', () => {
-    return requestManager.get('/api/UserAccountAllocation/GetAllCompaniesByUserId', {
-      params: { OrganizationId: userDetail?.OrganizationId, UserAccountId: userDetail?.UserId },
+    return requestManager.post('/api/UserAccountAllocation/GetAllCompaniesByUserId', {
+      OrganizationId: userDetail?.OrganizationId,
+      UserAccountId: userDetail?.UserId,
     });
   });
 };
@@ -47,8 +48,9 @@ export const useGetFinancialYear = (CompanyId: number | null) => () => {
   return useQuery(
     ['financial-year', CompanyId],
     () => {
-      return requestManager.get('/api/FinancialYear/GetFinancialYearlist', {
-        params: { CompanyId, OrganizationId: userDetail?.OrganizationId },
+      return requestManager.post('/api/FinancialYear/GetFinancialYearlist', {
+        CompanyId,
+        OrganizationId: userDetail?.OrganizationId,
       });
     },
     {
@@ -72,16 +74,14 @@ export const useGetBranch = (CompanyId: number | null) => () => {
     { enabled: !!CompanyId }
   );
 };
-export const useGetCompanyFeatures = (enabled = true) =>  {
+export const useGetCompanyFeatures = (enabled = true) => {
   return useQuery(
     'company-features',
     () => {
       return requestManager.get('/api/CompanyFeatures/GetERPFeaturesByCompanyId', {
-        params: { CompanyId:userDetail?.CompanyId,
-          OrganizationId:userDetail?.OrganizationId,
-         },
+        params: { CompanyId: userDetail?.CompanyId, OrganizationId: userDetail?.OrganizationId },
       });
     },
-    { enabled}
+    { enabled }
   );
 };

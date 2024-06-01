@@ -114,7 +114,7 @@ function SearchCriteria() {
               label={t('voucher_type')}
               fieldValue="Id"
               fieldLabel="Name"
-              name="VoucherTypeId"
+              name="VouchersId"
               options={map(voucherType, (item) => ({
                 value: item.Id,
                 label: item.Name,

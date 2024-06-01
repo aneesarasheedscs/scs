@@ -11,8 +11,8 @@ function MonthlySaleReportCard({ icon, backgroundColor, desc, Amount, percentOfT
 
   return (
     <>
-      <Row gutter={[0, 0]} style={{ marginLeft: '-1%' }}>
-        <Col span={24}>
+      <Row gutter={[0,0]} style={{ marginLeft: '-1%' }}>
+        <Col xxl={24} xl={20}> 
           <Card
             hoverable={true}
             className="card-container-sale-payment"
@@ -24,14 +24,7 @@ function MonthlySaleReportCard({ icon, backgroundColor, desc, Amount, percentOfT
               boxShadow: 'rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px',
             }}
           >
-            {/* <Card.Meta
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                marginTop: '-40%',
-              }}
-              avatar={<Avatar size={70} src={icon}></Avatar>}
-            ></Card.Meta> */}
+   
             <Col xxl={24} xs={24} style={{ marginTop: '10px' }}>
               <h2> {numberFormatter(Amount)}</h2>
 
@@ -46,24 +39,7 @@ function MonthlySaleReportCard({ icon, backgroundColor, desc, Amount, percentOfT
               </Title>
             </Col>
             <Text>
-              {/* <Col xxl={24} xl={24} xs={24} className="" style={{ marginTop: '0px', color: 'blue' }}>
-                <p> {t('Amount')}</p>
-              </Col> */}
-              {/* <b>
-                <Col className="" style={{ textAlign: 'center', marginTop: '' }}>
-                  <p> {numberFormatter(Amount)}</p>
-                </Col>
-              </b> */}
-              {/* <b>
-                <Col className="" style={{ marginTop: '-5px', color: 'crimson' }}>
-                  <p> {t('% Of Total')}</p>
-                </Col>
-              </b>
-              <b>
-                <Col className="" style={{ textAlign: 'center' }}>
-                  <p> {numberFormatter(percentOfTotal)}</p>
-                </Col>
-              </b> */}
+       
               <b>
                 <Col xl={24} xs={23} sm={23} md={24} lg={23} xxl={24} style={{ marginTop: '-5px', color: 'crimson' }}>
                   <p> {numberFormatter(percentOfTotal)}%</p>
@@ -86,7 +62,7 @@ export function SalesAvgCard({ icon, backgroundColor, desc, Amount }: any) {
         hoverable={true}
         className="card-container-sale-payment"
         style={{
-          marginTop: '10px',
+          // marginTop: '10px',
           backgroundColor: backgroundColor,
           border: '1px solid white',
           textAlign: 'center',
@@ -101,13 +77,15 @@ export function SalesAvgCard({ icon, backgroundColor, desc, Amount }: any) {
           }}
           avatar={<Avatar size={70} src={icon}></Avatar>}
         ></Card.Meta> */}
-        <Col span={24} style={{ marginTop: '10px' }}>
+        <Col span={24} 
+        // style={{ marginTop: '10px' }}
+        >
           <h2> {numberFormatter(Amount)}0</h2>
 
           <Title
-            level={5}
+            level={1}
             style={{
-              fontSize: '17px',
+              // fontSize: '12px',
               color: 'green',
             }}
           >
@@ -137,28 +115,31 @@ export function SalesMaxCard({ icon, backgroundColor, desc, Amount, value }: any
       <Card
         hoverable={true}
         className="card-container-sale-payment"
+        
         style={{
-          marginTop: '20px',
+          // marginTop: '20px',
           backgroundColor: backgroundColor,
           border: '1px solid white',
           textAlign: 'center',
           boxShadow: 'rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px',
         }}
       >
-        <Card.Meta
+        {/* <Card.Meta
           style={{
             display: 'flex',
             flexDirection: 'column',
-            marginTop: '-35%',
+            // marginTop: '-35%',
           }}
-          avatar={<Avatar size={70} src={icon}></Avatar>}
-        ></Card.Meta>
+          // avatar={<Avatar size={70} src={icon}></Avatar>}
+        ></Card.Meta> */}
         <Col span={24} style={{ marginTop: '-1px' }}>
           <Title
-            level={5}
+            level={1}
             style={{
-              fontSize: '17px',
+              // fontSize: '17px',
               color: 'green',
+              width:'100%',
+         
             }}
           >
             <p className="card-description"> {desc}</p>
@@ -166,7 +147,7 @@ export function SalesMaxCard({ icon, backgroundColor, desc, Amount, value }: any
         </Col>
         <Text>
           <Col style={{ marginTop: '-12px', color: 'crimson' }}>
-            <p> {t('Max sale Day')}</p>
+            <p> {t('Max sale Day')} </p>
           </Col>
 
           <Col style={{ marginTop: '-10px' }}>
@@ -174,13 +155,13 @@ export function SalesMaxCard({ icon, backgroundColor, desc, Amount, value }: any
           </Col>
 
           <Col className="" style={{ marginTop: '-10px', color: 'blue' }}>
-            <p> {t('sale_amount')}</p>
+            <p> {t('sale_amount')} <b style={{color:'black'}}>{numberFormatter(Amount)}</b></p>
           </Col>
-          <b>
+          {/* <b>
             <Col className="" style={{ textAlign: 'center', marginTop: '-20xp' }}>
               <p> {numberFormatter(Amount)}</p>
             </Col>
-          </b>
+          </b> */}
         </Text>
       </Card>
     </>
@@ -196,24 +177,24 @@ export function SalesMinCard({ icon, backgroundColor, desc, Amount, value }: any
         hoverable={true}
         className="card-container-sale-payment"
         style={{
-          marginTop: '20px',
+          // marginTop: '20px',
           backgroundColor: backgroundColor,
           border: '1px solid white',
           textAlign: 'center',
           boxShadow: 'rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px',
         }}
       >
-        <Card.Meta
+        {/* <Card.Meta
           style={{
             display: 'flex',
             flexDirection: 'column',
-            marginTop: '-35%',
+            // marginTop: '-35%',
           }}
-          avatar={<Avatar size={70} src={icon}></Avatar>}
-        ></Card.Meta>
-        <Col span={24} style={{ marginTop: '-10px' }}>
+          // avatar={<Avatar size={70} src={icon}></Avatar>}
+        ></Card.Meta> */}
+        <Col span={24} style={{ marginTop: '0px' }}>
           <Title
-            level={5}
+            level={1}
             style={{
               fontSize: '17px',
               color: 'green',
@@ -234,11 +215,10 @@ export function SalesMinCard({ icon, backgroundColor, desc, Amount, value }: any
           <Col className="" style={{ marginTop: '-10px', color: 'blue' }}>
             <p> {t('sale_amount')}</p>
           </Col>
-          <b>
-            <Col className="" style={{ textAlign: 'center', marginTop: '-20xp' }}>
-              <p> {numberFormatter(Amount)}</p>
-            </Col>
-          </b>
+          
+          <Col className="" style={{ marginTop: '-10px', color: 'blue' }}>
+            <p>  <b style={{color:'black'}}>{numberFormatter(Amount)}</b></p>
+          </Col>
         </Text>
       </Card>
     </>

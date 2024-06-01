@@ -1,8 +1,8 @@
 import { column, columns } from './columns';
-import { AntTable } from '@tradePro/components';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { useTranslation } from 'react-i18next';
-import { Card, theme } from 'antd';
+import { Card, Col, Row, Table, theme } from 'antd';
+import { TMonthlySaleReport } from '../types';
 
 const { useToken } = theme;
 
@@ -15,22 +15,17 @@ function SaleReportbyMonth({ getMonthandQuarter, refetch, isError, isLoading, is
 
   return (
     <>
-      <AntTable
-        printData={{ enabled: false, show: false }}
-        downloadPdf={{ enabled: false, show: false }}
-        columnChooser={{ enabled: false, show: false }}
-        downloadExcel={{ enabled: false, show: false }}
-        groupByColumns={{ enabled: false, show: false }}
-        refreshData={{ enabled: false, show: false }}
-        rowKey="Id"
-        refetch={refetch}
-        isError={isError}
-        columns={columns(t)}
-        numberOfSkeletons={6}
-        isLoading={isLoading || isFetching}
-        data={getMonthandQuarter?.data?.Data?.Result?.Table2 || []}
-        scroll={{ x: '', y: convertVhToPixels('21vh') }}
-      />
+      <Row justify={'end'}>
+        <Col span={24}>
+          <Table
+            dataSource={getMonthandQuarter?.data?.Data?.Result?.Table2 || []}
+            columns={columns(t)}
+            pagination={false}
+            size="small"
+            scroll={{ x: '', y: convertVhToPixels('21vh') }}
+          />
+        </Col>
+      </Row>
     </>
   );
 }
@@ -44,23 +39,25 @@ export function SaleReportbyQuarter({ getMonthandQuarter, refetch, isError, isLo
     token: { colorPrimary },
   } = theme.useToken();
 
+  const totalAmount = getMonthandQuarter?.data?.Data?.Result?.Table1.reduce(
+    (acc: number, item: TMonthlySaleReport) => acc + item.CurrSaleAmount,
+    0
+  );
+  console.log(totalAmount);
+
   return (
     <>
-      <AntTable
-        printData={{ enabled: false, show: false }}
-        downloadPdf={{ enabled: false, show: false }}
-        columnChooser={{ enabled: false, show: false }}
-        downloadExcel={{ enabled: false, show: false }}
-        groupByColumns={{ enabled: false, show: false }}
-        refreshData={{ enabled: false, show: false }}
-        rowKey="Id"
-        refetch={refetch}
-        isError={isError}
+      <Table
+        dataSource={getMonthandQuarter?.data?.Data?.Result?.Table1 || []}
         columns={column(t)}
-        numberOfSkeletons={6}
-        isLoading={isLoading || isFetching}
-        data={getMonthandQuarter?.data?.Data?.Result?.Table1 || []}
-        scroll={{ x: '', y: convertVhToPixels('24vh') }}
+        pagination={false}
+        size="small"
+        scroll={{ x: '', y: convertVhToPixels('21vh') }}
+        // footer={() => (
+        //   <div>
+        //     <strong>Total:</strong> {numberFormatter(totalAmount)}
+        //   </div>
+        // )}
       />
     </>
   );

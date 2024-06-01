@@ -2,24 +2,28 @@ import '../style.scss';
 import dayjs from 'dayjs';
 import { useAtom } from 'jotai';
 import { map, sumBy } from 'lodash';
-import { columns2 } from '../table/columns';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TContraDetailEntry, TjobLot } from './types';
 import { addtableData, dataforCreditAmount } from './Atom';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
-import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
-import { Card, Col, FormInstance, Row, Form, notification } from 'antd';
+import { Card, Col, FormInstance, Row, Form, notification, Tooltip, Space, theme } from 'antd';
 import { AntButton, AntInput, AntInputNumber, AntSelectDynamic, AntTable } from '@tradePro/components';
 import { useGetAccountsBalances, useGetContraCreditAccountSelect, useGetContraJobLotSelect } from '../queries/queries';
+import { EditFilled, DeleteOutlined } from '@ant-design/icons';
 
 const { useWatch } = Form;
 
 const DynamicForm = ({ form }: TDynamicForm) => {
+  const {
+    token: { colorPrimary },
+  } = theme.useToken();
   const [refAccountId, setRefAccountId] = useState(0);
   const { data } = useGetAccountsBalances(refAccountId);
   const [tableData, setTableData] = useAtom(addtableData);
   const [tableDataforCreditAmount, setTableDataforCreditAmount] = useAtom(dataforCreditAmount);
+  const [rowIndexes, setrowIndexes] = useState<number | null>(-1);
+
   const formValues = useWatch<TContraDetailEntry[]>('voucherDetailList', form);
   const [edit, setEdit] = useState<any>([]);
   const initialValues = {
@@ -77,7 +81,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
       LineId: counter + 1,
       AgainstAccountId: AgainstAccountId,
     }));
-    setCounter((prevCounter: any) => prevCounter + 1);
+    setCounter((prevCounter: any) => prevCounter + 2);
     TaxableEntry.AccountId = AgainstAccountId;
     TaxableEntry.AgainstAccountId = formValues?.[0]?.AccountId;
     TaxableEntry.JobLotId = formValues?.[0]?.JobLotId;
@@ -97,7 +101,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
     setIsEditMode(false);
     setRefAccountId(0);
   };
-  console.log(counter);
+  console.log(tableDataforCreditAmount);
 
   console.log(tableDataforCreditAmount);
   const handleUpdateToTable = () => {
@@ -127,7 +131,9 @@ const DynamicForm = ({ form }: TDynamicForm) => {
       return;
     }
     const TaxableEntry: any = {};
-    const editedRowIndex = tableData.findIndex((row: any) => row.LineId === edit?.LineId);
+    const editedRowIndex = tableData.findIndex(
+      (row: any, index: number) => row.LineId === edit?.LineId || index === rowIndexes
+    );
     TaxableEntry.AccountId = AgainstAccountId;
     TaxableEntry.AgainstAccountId = formValues?.[0]?.AccountId;
     TaxableEntry.JobLotId = formValues?.[0]?.JobLotId;
@@ -164,19 +170,26 @@ const DynamicForm = ({ form }: TDynamicForm) => {
     form.setFieldValue(['voucherDetailList', 0, 'DCheqDate'], dayjs(new Date()));
     setRefAccountId(0);
   };
-  const handleDeleteRow = (record: any) => {
+  const handleDeleteRow = (record: TContraDetailEntry, rowIndex: number) => {
     setTableData((prevData: any[]) => {
-      const updatedData = prevData.filter((item: any) => item.LineId !== record.LineId);
+      const updatedData = prevData.filter((item: any, index) => item.LineId !== record.LineId);
       console.log('New tableData:', updatedData);
       return updatedData;
     });
+    setTableDataforCreditAmount((prevData: any[]) => {
+      console.log(prevData);
+      const updatedData = prevData.filter((item: any, index) => item.LineId !== record.LineId + 1);
+      console.log('New Credit tableData:', updatedData);
+      return updatedData;
+    });
   };
-
-  const handleEditRow = (record: any) => {
+  console.log(tableData);
+  const handleEditRow = (record: TContraDetailEntry, rowIndex: number) => {
     setEdit(record);
+    setrowIndexes(rowIndex);
     setTableData((prevData: any[]) => {
       const updatedData = [...prevData];
-      const rowIndex = updatedData.findIndex((item: any) => item.LineId === record.LineId);
+      const rowIndex = updatedData.findIndex((item: any, index) => item.LineId === record.LineId || index === rowIndex);
       if (rowIndex !== -1) {
         updatedData[rowIndex] = {
           ...updatedData[rowIndex],
@@ -208,18 +221,14 @@ const DynamicForm = ({ form }: TDynamicForm) => {
   }, [form, tableData, 'VoucherAmount']);
   return (
     <>
-      <Row gutter={[16, 16]} style={{ marginTop: '0%' }}>
+      <Row gutter={[16, 16]}>
         <Col xs={24} sm={24} md={24} lg={{ span: 24 }} xl={{ span: 24 }}>
-          <Card style={{ boxShadow: '2px 4px 12px 1px gray', paddingBottom: '1%' }}>
+          <Card bordered={false}>
             <Form.List name="voucherDetailList" initialValue={[initialValues]}>
               {(fields, {}) => (
                 <>
                   {fields.map((field) => (
-                    <div
-                      key={field.key}
-                      className="form-list-container"
-                      style={{ display: 'flex', justifyContent: 'space-between' }}
-                    >
+                    <Row key={field.key} justify={'space-between'} style={{ marginTop: '-2%' }}>
                       <Col
                         xs={{ span: 23 }}
                         sm={{ span: 23 }}
@@ -227,12 +236,19 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         lg={{ span: 11 }}
                         xl={{ span: 9 }}
                         xxl={{ span: 6 }}
-                        className="formfield1 debit"
+                        className="formfield debit"
                       >
-                        <p style={{ marginTop: -18, marginLeft: '50%' }} className="dr">
+                        {/* <p style={{ marginTop: -18, marginLeft: '50%' }} className="dr">
                           Dr : <b> {numberFormatter(data?.data?.Data?.Result?.[0]?.Balance)}</b>
+                        </p> */}
+                        <p style={{ color: 'blue' }} className="dr">
+                          {data ? (
+                            <b>Dr: {numberFormatter(data?.data?.Data?.Result?.[0]?.Balance)}</b>
+                          ) : (
+                            <b style={{ visibility: 'hidden' }}>Balance</b>
+                          )}
                         </p>
-                        <p style={{ marginTop: -4 }}>
+                        <p style={{ marginTop: 0 }}>
                           <AntSelectDynamic
                             bordered={false}
                             label={t('debit_account')}
@@ -295,20 +311,19 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         md={{ span: 11 }}
                         lg={{ span: 11 }}
                         xl={{ span: 16 }}
-                        xxl={{ span: 6 }}
+                        xxl={{ span: 7 }}
                         className="formfield"
                       >
                         <AntInput
                           bordered={false}
                           label={t('remarks')}
                           formItemProps={{ ...field, name: [field.name, 'Comments'] }}
-                          style={{ width: '102.5%' }}
                         />
                         <AntInput
                           bordered={false}
                           label={''}
                           formItemProps={{ ...field, name: [field.name, 'AccountTitle'] }}
-                          style={{ width: '102.5%', display: 'none' }}
+                          style={{ display: 'none' }}
                         />
                         <AntInput
                           bordered={false}
@@ -319,7 +334,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                       </Col>
 
                       <Col
-                        xxl={3}
+                        xxl={2}
                         xl={7}
                         lg={6}
                         md={6}
@@ -327,7 +342,7 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                         xs={24}
                         style={{ display: 'flex', justifyContent: 'start', border: '' }}
                       >
-                        <Row align={'middle'} gutter={10}>
+                        <Row align={'middle'} gutter={4}>
                           <Col span={12}>
                             <AntButton
                               onClick={isEditMode ? handleUpdateToTable : handleAddToTable}
@@ -344,20 +359,226 @@ const DynamicForm = ({ form }: TDynamicForm) => {
                           </Col>
                         </Row>
                       </Col>
-                    </div>
+                    </Row>
                   ))}
                 </>
               )}
             </Form.List>
-          </Card>
-          <br />
+            <Row gutter={[16, 0]} style={{ maxHeight: '26vh', marginBottom: 10, marginTop: 15, border: ' ' }}>
+              <Col span={24}>
+                <Card
+                  // style={{ height: '26vh', boxShadow: '2px 2px 12px 2px lightgrey' }}
+                  style={{ height: '26vh', boxShadow: '', overflowY: 'auto', border: `1px solid ${colorPrimary}` }}
+                  cover={
+                    <>
+                      <div style={{ maxHeight: '26vh' }}>
+                        <div
+                          style={{
+                            // backgroundColor: '#85C1E9',
+                            borderBottom: '1px solid grey',
+                            borderTopLeftRadius: 5,
+                            borderTopRightRadius: 5,
+                            gridTemplateColumns: 'repeat(12, 1fr)', // Adjust based on the number of columns
+                            position: 'sticky',
+                            top: 0,
+                            zIndex: 1,
+                            paddingTop: 0,
+                            paddingBottom: 5,
+                            paddingLeft: 5,
+                            paddingRight: 5,
+                          }}
+                        >
+                          <Row
+                            justify={'space-between'}
+                            style={{
+                              position: 'sticky',
+                              top: 0,
+                              left: 0,
+                              zIndex: 1,
+                              // backgroundColor: '#85C1E9',
+                              borderTopLeftRadius: 5,
+                              borderTopRightRadius: 5,
+                              paddingTop: 5,
+                              paddingLeft: 5,
+                              paddingRight: 5,
+                            }}
+                          >
+                            <Col xl={7} sm={10} xs={10} xxl={7} lg={6} md={6}>
+                              <h4 className="captions"> {t('debit_account')} </h4>
+                            </Col>
+                            <Col xl={1} xxl={1} lg={1} md={1} sm={0} xs={0}></Col>
+                            <Col
+                              xl={2}
+                              xxl={2}
+                              lg={3}
+                              md={3}
+                              sm={3}
+                              style={{ borderLeft: '1px solid grey', paddingLeft: 3 }}
+                            >
+                              <h4 className="captions"> {t('job_lot')} </h4>
+                            </Col>
+                            <Col xl={1} md={0} xxl={1} lg={0} sm={0}></Col>
+                            <Col
+                              xl={3}
+                              md={4}
+                              xxl={3}
+                              lg={4}
+                              sm={5}
+                              style={{
+                                borderLeft: '1px solid grey',
+                                paddingRight: 0,
+                              }}
+                            >
+                              <h4 className="captions" style={{ textAlign: 'right' }}>
+                                {t('debit_amount')}
+                              </h4>
+                            </Col>
+                            <Col
+                              xl={8}
+                              xxl={8}
+                              lg={8}
+                              md={8}
+                              sm={8}
+                              xs={8}
+                              style={{ borderLeft: '1px solid grey', marginLeft: 0, paddingLeft: 3 }}
+                            >
+                              <h4 className="captions" style={{}}>
+                                {t('remarks')}
+                              </h4>
+                            </Col>
 
-          <AntTable
+                            <Col
+                              xl={1}
+                              xxl={1}
+                              lg={2}
+                              md={2}
+                              sm={5}
+                              xs={5}
+                              style={{ borderLeft: '1px solid grey', paddingLeft: 3 }}
+                            >
+                              <h4 className="captions" style={{ textAlign: 'center' }}>
+                                {' '}
+                                {t('action')}{' '}
+                              </h4>
+                            </Col>
+                          </Row>
+                        </div>
+                        {map(tableData, (item, index) => (
+                          <>
+                            <Row
+                              justify={'space-between'}
+                              style={{
+                                paddingLeft: 5,
+                                paddingRight: 5,
+                                paddingTop: 2,
+                                borderBottom: '1px solid lightgrey',
+                                backgroundColor: index % 2 !== 0 ? '#EBF5FB' : '',
+                              }}
+                            >
+                              <Col xl={7} sm={10} xs={10} xxl={7} lg={6} md={6} style={{ border: ' ', paddingLeft: 3 }}>
+                                <p className="dataIndexes"> {item.AccountTitle} </p>
+                              </Col>
+                              <Col xl={1} xxl={1} lg={1} md={1} sm={0} xs={0} style={{ border: ' ', paddingLeft: 5 }}>
+                                <p className="dataIndexes"> </p>
+                              </Col>
+
+                              <Col xl={2} xxl={2} lg={3} md={3} sm={3} style={{ border: ' ', paddingLeft: 5 }}>
+                                <p className="dataIndexes">{item.JobLotDescription} </p>
+                              </Col>
+                              <Col xl={1} md={0} xxl={1} lg={0} sm={0} style={{ border: ' ' }}>
+                                <p className="dataIndexes"></p>
+                              </Col>
+                              <Col xl={3} md={4} xxl={3} lg={4} sm={5} style={{ border: ' ', paddingRight: 5 }}>
+                                <p className="dataIndexes" style={{ textAlign: 'right' }}>
+                                  {item.DebitAmount}
+                                </p>
+                              </Col>
+
+                              <Col xl={8} xxl={8} lg={8} md={8} sm={8} xs={8} style={{ border: ' ', paddingLeft: 5 }}>
+                                <p className="dataIndexes">{item.Comments} </p>
+                              </Col>
+                              <Col xl={1} xxl={1} lg={2} md={2} sm={5} xs={5} style={{ border: ' ', paddingLeft: 0 }}>
+                                <Row gutter={[0, 0]} justify={'center'}>
+                                  <Col xxl={10} xl={10} lg={5} md={5}>
+                                    <Tooltip title="Edit">
+                                      <Space style={{ border: '', paddingTop: 5, height: 20 }}>
+                                        <AntButton
+                                          type="text"
+                                          icon={<EditFilled style={{ color: '#006640' }} />}
+                                          onClick={() => handleEditRow(item, index)}
+                                        />
+                                      </Space>
+                                    </Tooltip>
+                                  </Col>
+                                  <Col xxl={10} xl={10} lg={6} md={6}>
+                                    <Tooltip title="Delete">
+                                      <Space style={{ border: '', paddingTop: 5, height: 22 }}>
+                                        <AntButton
+                                          type="text"
+                                          icon={<DeleteOutlined style={{ color: 'red' }} />}
+                                          onClick={() => handleDeleteRow(item, index)}
+                                        />
+                                      </Space>
+                                    </Tooltip>
+                                  </Col>
+                                </Row>
+                              </Col>
+                            </Row>
+                          </>
+                        ))}
+                      </div>
+                    </>
+                  }
+                ></Card>
+                <Row
+                  justify={'space-between'}
+                  style={{
+                    position: 'sticky',
+                    bottom: 0,
+                    zIndex: 2,
+                    backgroundColor: '#ffff',
+                    borderTop: '1px solid lightgrey',
+                    marginTop: -24,
+                    borderBottomLeftRadius: 5,
+                    borderBottomRightRadius: 5,
+                    marginLeft: 2,
+                    marginRight: 2,
+                  }}
+                >
+                  <Col xl={7} sm={10} xs={10} xxl={7} lg={6} md={6} style={{ border: ' ', paddingLeft: 3 }}>
+                    <p className="dataIndexes"> </p>
+                  </Col>
+                  <Col xl={1} xxl={1} lg={1} md={1} sm={0} xs={0} style={{ border: ' ', paddingLeft: 5 }}>
+                    <p className="dataIndexes"> </p>
+                  </Col>
+
+                  <Col xl={2} xxl={2} lg={3} md={3} sm={3} style={{ border: ' ', paddingLeft: 5 }}>
+                    <p className="dataIndexes"> </p>
+                  </Col>
+                  <Col xl={1} md={0} xxl={1} lg={0} sm={0} style={{ border: ' ' }}>
+                    <p className="dataIndexes"></p>
+                  </Col>
+                  <Col xl={3} md={4} xxl={3} lg={4} sm={5} style={{ border: ' ', paddingRight: 5 }}>
+                    <p className="dataIndexes" style={{ textAlign: 'right' }}>
+                      {totalDebitAmount}
+                    </p>
+                  </Col>
+
+                  <Col xl={8} xxl={8} lg={8} md={8} sm={8} xs={8} style={{ border: ' ', paddingLeft: 5 }}>
+                    <p className="dataIndexes"> </p>
+                  </Col>
+                  <Col xl={1} xxl={1} lg={2} md={2} sm={5} xs={5} style={{ border: ' ', paddingLeft: 0 }}></Col>
+                </Row>
+              </Col>
+            </Row>
+          </Card>
+
+          {/* <AntTable
             numberOfSkeletons={4}
             scroll={{ x: '', y: convertVhToPixels('15vh') }}
             data={tableData}
             columns={columns2(t, handleDeleteRow, handleEditRow)}
-          />
+          /> */}
         </Col>
       </Row>
     </>

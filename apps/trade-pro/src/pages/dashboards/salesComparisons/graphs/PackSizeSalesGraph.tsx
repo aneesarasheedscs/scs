@@ -45,10 +45,10 @@ function PackingSizeSalesGraph({ data }: any) {
       right: 'center',
     },
     grid: {
-      top: '5%',
-      left: '5%',
-      right: '5%',
-      bottom: '5%',
+      top: '2%',
+      left: '2%',
+      right: '10%',
+      bottom: '-4%',
       containLabel: true,
     },
     xAxis: {

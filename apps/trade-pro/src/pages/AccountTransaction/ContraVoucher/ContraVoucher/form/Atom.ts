@@ -1,6 +1,6 @@
 import { atom } from 'jotai';
-import { TSaveContraVoucher } from './types';
+import { TContraDetailEntry, TSaveContraVoucher } from './types';
 
-export const addtableData = atom<TSaveContraVoucher[]>([]);
+export const addtableData = atom<TContraDetailEntry[]>([]);
 export const dataforCreditAmount = atom<TSaveContraVoucher[]>([]);
 export const viewDetailList = atom<TSaveContraVoucher[]>([]);

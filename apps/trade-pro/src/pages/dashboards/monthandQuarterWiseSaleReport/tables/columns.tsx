@@ -6,8 +6,13 @@ import { TMonthlySaleReport, TQuarterlySaleReport } from '../types';
 
 export const columns = (t?: any): AntColumnType<TMonthlySaleReport>[] => [
   {
-    width: 300,
-    title: <>{t('month')}</>,
+    width: 50,
+    title: t('sr'),
+    render: (__, _, index) => index + 1,
+  },
+  {
+    width: 100,
+    title: t('month'),
     searchableInput: true,
     dataIndex: 'SalesMonth',
     sortDirections: ['ascend', 'descend'],
@@ -20,8 +25,9 @@ export const columns = (t?: any): AntColumnType<TMonthlySaleReport>[] => [
   },
 
   {
-    width: 220,
-    title: <>{t('amount')}</>,
+    width: 100,
+    title: t('amount'),
+    align: 'right',
     dataIndex: 'CurrSaleAmount',
     showTotal: true,
     sortDirections: ['ascend', 'descend'],
@@ -36,8 +42,13 @@ export const columns = (t?: any): AntColumnType<TMonthlySaleReport>[] => [
 
 export const column = (t?: any): AntColumnType<TQuarterlySaleReport>[] => [
   {
-    width: 130,
-    title: <>{t('start_date')}</>,
+    title: t('sr'),
+    width: 50,
+    render: (__, _, index) => index + 1,
+  },
+  {
+    width: 80,
+    title: t('start_date'),
     searchableDate: true,
     dataIndex: 'QuarterStartDate',
     sortDirections: ['ascend', 'descend'],
@@ -49,8 +60,8 @@ export const column = (t?: any): AntColumnType<TQuarterlySaleReport>[] => [
     },
   },
   {
-    width: 130,
-    title: <>{t('end_date')}</>,
+    width: 80,
+    title: t('end_date'),
     searchableDate: true,
     dataIndex: 'QuarterEndDate',
     sortDirections: ['ascend', 'descend'],
@@ -63,8 +74,8 @@ export const column = (t?: any): AntColumnType<TQuarterlySaleReport>[] => [
   },
 
   {
-    width: 150,
-    title: <>{t('quarter_year')}</>,
+    width: 80,
+    title: t('quarter_year'),
     dataIndex: 'YearNo',
     searchableInput: true,
     sortDirections: ['ascend', 'descend'],
@@ -72,9 +83,10 @@ export const column = (t?: any): AntColumnType<TQuarterlySaleReport>[] => [
     render: (_, { YearNo }) => numberFormatter(YearNo),
   },
   {
-    width: 110,
-    title: <>{t('amount')}</>,
+    width: 80,
+    title: t('amount'),
     dataIndex: 'CurrSaleAmount',
+    align: 'right',
     showTotal: true,
     sortDirections: ['ascend', 'descend'],
     sorter: (a, b) => a.CurrSaleAmount - b.CurrSaleAmount,

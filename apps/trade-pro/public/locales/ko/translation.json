@@ -118,5 +118,11 @@
   "effective_date": "발효일:",
   "time": "시간",
   "total": "총",
-  "IsActive": "활성"
+  "IsActive": "활성",
+  "item_customer": "안건",
+  "customer_item": "고객",
+  "out_date": "외출 날짜",
+  "cell_no": "셀 번호",
+  "bill_no": "빌 번호",
+  "bill_date": "청구 날짜"
 }

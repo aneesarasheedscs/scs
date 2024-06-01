@@ -7,7 +7,7 @@ export const columns = (t: TFunction): AntColumnType<TSalesDataBranchWiseHistory
   return [
     {
       title: t('item_name'),
-      width: 200,
+      width: 250,
       dataIndex: 'ItemName',
       searchableInput: true,
       sortDirections: ['ascend', 'descend'],

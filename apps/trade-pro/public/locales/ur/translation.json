@@ -798,5 +798,11 @@
   "effective_date": "مؤثر تاریخ:",
   "time": "وقت",
   "total": "کل",
-  "IsActive": "فعال ہے۔"
+  "IsActive": "فعال ہے۔",
+  "item_customer": "آئٹم",
+  "customer_item": "صارف",
+  "out_date": "ختم ہونے کی تاریخ",
+  "cell_no": "سیل نمبر",
+  "bill_no": "بل نمبر",
+  "bill_date": "بل کی تاریخ"
 }

@@ -140,13 +140,13 @@ const MontlySaleReportDashbord = () => {
         <Col span={24} style={{ marginTop: '10px' }}>
           <Row gutter={6} justify={'center'} style={{}}>
             <Col
-              xl={15}
-              xxl={15}
+              xl={13}
+              xxl={12}
               lg={23}
               md={23}
               sm={24}
               xs={24}
-              style={{ marginBottom: '0.5%', borderRadius: 5, marginRight: '1%', boxShadow: '2px 2px 10px 0px gray' }}
+              style={{ marginBottom: '0.5%', borderRadius: 5, marginRight: '1%' ,height:'30vh'}}
             >
               <h2
                 style={{
@@ -154,19 +154,20 @@ const MontlySaleReportDashbord = () => {
                   marginBottom: '7px',
                   textAlign: 'center',
                   borderBottom: '1px  solid lightgray',
+                  
                 }}
               >
                 {t('sales_by_payment_term')}
               </h2>
-              <Row gutter={[10, 10]} justify={'space-between'}>
+              <Row gutter={[24,24]} justify={'space-between'}>
                 <Col
-                  xxl={14}
+                  xxl={24}
                   xl={24}
                   lg={24}
                   sm={24}
                   xs={24}
                   md={24}
-                  style={{ display: 'flex', justifyContent: 'space-evenly', flexDirection: 'row', flexWrap: 'wrap' }}
+                  style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row', flexWrap: 'wrap' ,}}
                 >
                   {map(filteredMonthlyTable, (card: any, index: any) => (
                     <MonthlySaleReportCard
@@ -179,11 +180,9 @@ const MontlySaleReportDashbord = () => {
                       icon={defaultIcons[index % defaultIcons.length]}
                     />
                   ))}
-                </Col>
-
-                <Col xxl={10} xl={24} lg={23} sm={24} xs={24} md={23} style={{ marginLeft: '0%' }}>
+            <Col xxl={7} xl={9} lg={23} sm={24} xs={24} md={23} >
                   <Card
-                    style={{ marginTop: '2%', marginRight: '0.8%', height: '92%' }}
+                    style={{ marginTop: '4%', marginRight: '0.8%', height: '62%' }}
                     hoverable
                     cover={
                       <>
@@ -192,17 +191,19 @@ const MontlySaleReportDashbord = () => {
                     }
                   ></Card>
                 </Col>
+                </Col>
+
               </Row>
             </Col>
 
             <Col
-              xl={8}
-              xxl={8}
+              xl={10}
+              xxl={11}
               lg={23}
               md={23}
               sm={24}
               xs={24}
-              style={{ borderRadius: 5, marginRight: '0%', boxShadow: '2px 2px 10px 0px gray' }}
+              style={{ borderRadius: 5, marginRight: '0%' ,height:'30vh'}}
             >
               <h2
                 style={{
@@ -215,20 +216,18 @@ const MontlySaleReportDashbord = () => {
                 {t('sales_by_days')}
               </h2>
               <Row gutter={[10, 10]} style={{ border: ' ' }}>
-                <Col>
+                <Col xxl={7} xl={7}  style={{height:'62vh',marginTop:'1.5%'}}>
                   {map(filteredAvgSaleTable1, (card: any, index: any) => (
                     <SalesAvgCard
                       key={index}
                       desc={card.CaptionTitle}
                       Amount={card.DayAvg}
                       percentOfTotal={card.PrcntOfTotalAmount}
-                      backgroundColor={card.backgroundColor}
-                      textColor={card.color}
-                      icon={defaultIcons[index % defaultIcons.length]}
+                      
                     />
                   ))}
                 </Col>
-                <Col>
+                <Col xxl={7} xl={8} style={{height:'62vh',marginTop:'1.5%'}}>
                   {map(filteredMaxSaleTable2, (card: any, index: any) => (
                     <SalesMaxCard
                       key={index}
@@ -241,7 +240,7 @@ const MontlySaleReportDashbord = () => {
                     />
                   ))}
                 </Col>
-                <Col>
+                <Col xxl={7} xl={8} style={{height:'62vh',marginTop:'1.5%'}}>
                   {map(filteredMinSaleTable3, (card: any, index: any) => (
                     <SalesMinCard
                       key={index}
@@ -266,7 +265,7 @@ const MontlySaleReportDashbord = () => {
               md={23}
               xs={24}
               sm={24}
-              style={{ marginTop: '1%', marginRight: '0.6%', borderRadius: 5, boxShadow: '2px 2px 10px 0px gray' }}
+              style={{ marginTop: '1%', marginRight: '0.6%', borderRadius: 5,  }}
             >
               <h2
                 style={{
@@ -329,7 +328,7 @@ const MontlySaleReportDashbord = () => {
               md={23}
               sm={24}
               xs={24}
-              style={{ marginTop: '1%', marginRight: '0%', borderRadius: 5, boxShadow: '2px 2px 10px 0px gray' }}
+              style={{ marginTop: '1%', marginRight: '0%', borderRadius: 5, }}
             >
               <h2
                 style={{
@@ -387,7 +386,7 @@ const MontlySaleReportDashbord = () => {
               md={23}
               xs={24}
               sm={24}
-              style={{ marginTop: '1%', marginRight: '0.6%', borderRadius: 5, boxShadow: '2px 2px 10px 0px gray' }}
+              style={{ marginTop: '1%', marginRight: '0.6%', borderRadius: 5,  }}
             >
               <h2
                 style={{
@@ -450,7 +449,7 @@ const MontlySaleReportDashbord = () => {
               md={23}
               xs={24}
               sm={24}
-              style={{ marginTop: '1%', marginRight: '0%', borderRadius: 5, boxShadow: '2px 2px 10px 0px gray' }}
+              style={{ marginTop: '1%', marginRight: '0%', borderRadius: 5,  }}
             >
               <h2
                 style={{

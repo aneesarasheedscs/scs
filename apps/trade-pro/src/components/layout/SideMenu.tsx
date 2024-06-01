@@ -32,7 +32,7 @@ function SideMenu({ collapsed, setCollapsed }: any) {
       const filteredReports = data?.data?.Data?.Result?.filter(
         (item: any) => item.ModuleTypeId === 1 || item.ModuleTypeId === 4 || item.ModuleTypeId === 3
       );
-      setList(menuList(filteredReports));
+      setList(menuList(data?.data?.Data?.Result));
     }
   }, [data, isSuccess]);
   console.log(list);
@@ -131,7 +131,13 @@ function SideMenu({ collapsed, setCollapsed }: any) {
     (item) =>
       item.ModuleDescription !== 'Reports' &&
       item.ModuleDescription !== 'Attendance Report' &&
-      item.ModuleDescription !== 'Price List'
+      item.ModuleDescription !== 'Price List' &&
+      item.ModuleDescription !== 'Account Definition' &&
+      item.ModuleDescription !== 'System Utilities' &&
+      item.ModuleDescription !== 'Inventory Defination' &&
+      item.ModuleDescription !== 'Inventory Management' &&
+      item.ModuleDescription !== 'Purchase Trading' &&
+      item.ModuleDescription !== 'Accounts Transaction'
   );
 
   return (

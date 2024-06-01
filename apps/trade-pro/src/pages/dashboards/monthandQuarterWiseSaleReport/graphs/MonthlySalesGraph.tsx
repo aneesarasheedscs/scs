@@ -1,4 +1,4 @@
-import { Card, Col, Form, Row, Skeleton } from 'antd';
+import { Col, Row } from 'antd';
 import ReactECharts from 'echarts-for-react';
 import SaleReportbyMonth from '../tables';
 import { map } from 'lodash';
@@ -24,11 +24,11 @@ function MonthlySalesGraph({ getMonthandQuarter, isSuccess, isLoading, isError, 
       },
       data: monthlySales?.map((card: any) => card.SalesMonth) || [],
       top: 10,
-      right: 'center',
+      right: 'right',
     },
     grid: {
       top: '-5%',
-      left: '5%',
+      left: '2%',
       right: '10%',
       bottom: '5%',
       containLabel: true,
@@ -60,30 +60,30 @@ function MonthlySalesGraph({ getMonthandQuarter, isSuccess, isLoading, isError, 
   return (
     <>
       <>
-        <Row gutter={[10, 10]} justify={'start'}>
-          <Col xl={12} xxl={11} lg={12} md={17} sm={24} xs={24}>
-            <Card hoverable style={{ height: 'auto' }}>
-              <h3 className="graphAmount verticalText"> {t('amount_in_rs')}</h3>
-              <ReactECharts option={chartOptions} style={{ height: '250px' }} />
-            </Card>
+        <Row gutter={[10, 10]} justify={'space-evenly'}>
+          <Col xl={12} xxl={16} lg={14} md={17} sm={24} xs={24}>
+            {/* <Card hoverable style={{ height: 'auto' }}> */}
+            <h3 className="graphAmount verticalText"> {t('amount_in_rs')}</h3>
+            <ReactECharts option={chartOptions} style={{ height: '250px' }} />
+            {/* </Card> */}
           </Col>
-          <Col xl={12} xxl={9} lg={12} md={17} sm={24} xs={24}>
-            <Card
+          <Col xl={12} xxl={6} lg={14} md={17} sm={24} xs={24} style={{ marginRight: 20 }}>
+            {/* <Card
               hoverable
               style={{ height: '87%', marginBottom: '-5%' }}
-              cover={
-                <>
-                  <SaleReportbyMonth
-                    getMonthandQuarter={getMonthandQuarter}
-                    refetch={refetch}
-                    isError={isError}
-                    isFetching={isFetching}
-                    isLoading={isLoading}
-                    isSuccess={isSuccess}
-                  />
-                </>
-              }
-            ></Card>
+              cover={ */}
+            <>
+              <SaleReportbyMonth
+                getMonthandQuarter={getMonthandQuarter}
+                refetch={refetch}
+                isError={isError}
+                isFetching={isFetching}
+                isLoading={isLoading}
+                isSuccess={isSuccess}
+              />
+            </>
+            {/* }
+            ></Card> */}
           </Col>
         </Row>
       </>

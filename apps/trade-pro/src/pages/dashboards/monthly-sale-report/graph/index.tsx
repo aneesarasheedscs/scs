@@ -1,3 +1,4 @@
+import { numberFormatter } from '@tradePro/utils/numberFormatter';
 import { Col } from 'antd';
 import ReactECharts from 'echarts-for-react';
 
@@ -19,7 +20,7 @@ const SalesDashboardChart = ({ data }: any) => {
     title: {
       // text: 'Cash & Credit Sale',
       // subtext: 'Fake Data',
-      left: 'center',
+      // left: 'center',
     },
     tooltip: {
       trigger: 'item',
@@ -32,10 +33,10 @@ const SalesDashboardChart = ({ data }: any) => {
       {
         name: 'Access From',
         type: 'pie',
-        radius: '50%',
+        radius: '70%',
         data: [
-          { value: `${CashSaleAmount}`, name: `${CashSaleDesc}` },
-          { value: `${CreditSaleAmount}`, name: `${CreditSaleDesc}` },
+          { value: `${CashSaleAmount}`, name: `${CashSaleDesc}  ${numberFormatter(CashSaleAmount)}` },
+          { value: `${CreditSaleAmount}`, name: `${CreditSaleDesc} ${numberFormatter(CreditSaleAmount)}` },
         ],
         emphasis: {
           itemStyle: {
@@ -49,8 +50,8 @@ const SalesDashboardChart = ({ data }: any) => {
   };
 
   return (
-    <Col span={24} style={{ padding: '2%' }}>
-      <ReactECharts option={option} style={{ width: '100%', marginTop: '15px' }} />
+    <Col span={24} style={{ paddingBottom: '15%' }}>
+      <ReactECharts option={option} style={{ width: '100%', marginTop: '15px',height:'25vh' }} />
     </Col>
   );
 };

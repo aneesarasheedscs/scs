@@ -1,7 +1,5 @@
 import dayjs, { Dayjs } from 'dayjs';
 export type TSearchCriteriaSalesComparison = {
-  OrganizationId: number;
-  CompanyIds: number | null;
   ToDate?: Date | string;
   FromDate?: Date | string;
   NoOfRecords: number;

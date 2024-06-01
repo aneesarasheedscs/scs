@@ -6,6 +6,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import { storedFinancialYear } from '@tradePro/utils/storageService';
 import { TMonthlySaleReportCriteria } from './types';
 import { useGetMasterBranchByUserId, useGetMonthlySalesDashboard } from './queries';
+import { CriteriaRowGutter } from '@tradePro/globalAtoms';
 
 const { useForm, useWatch } = Form;
 const { Option } = Select;
@@ -55,14 +56,15 @@ function MonthlySaleCriteria() {
   }, []);
   const monthsArray = generateMonthsArray();
   return (
-    <Row gutter={[16, 16]}>
+    <Row gutter={CriteriaRowGutter}>
       <Col xxl={24} xl={24} xs={24} lg={24} sm={24} md={23}>
         <h2 style={{ padding: 10, marginLeft: 6 }}>{t('monthly_sale_report')}</h2>
 
         <Card style={{ width: '97%', marginLeft: '1.5%', boxShadow: '2px 2px 10px 0px gray' }} hoverable>
-          <Form form={form} onFinish={onFinish}>
-            <Row gutter={[6, 6]} justify={'space-between'} align="top">
-              <Col xl={6} xs={24} sm={11} md={11} lg={11} xxl={4} className="formfield form-container">
+        <Form form={form} onFinish={onFinish}>
+
+        <Row gutter={CriteriaRowGutter} justify={'space-between'} align="top">
+              <Col  xl={4} xs={24} sm={8} md={6} lg={6} xxl={4} className="formfield form-container">
                 <AntSelectDynamic
                   bordered={false}
                   label={t('month')}
@@ -74,7 +76,7 @@ function MonthlySaleCriteria() {
                 <AntDatePicker name="FromDate" bordered={false} label="" style={{ visibility: 'hidden' }} />
                 <AntDatePicker name="ToDate" bordered={false} label="" style={{ visibility: 'hidden' }} />
               </Col>
-              <Col xxl={6} md={12} lg={12} sm={12} xl={9} xs={24} className="formfield form-container">
+              <Col xxl={7} md={13} lg={12} sm={15} xl={9} xs={24} className="formfield form-container">
                 <AntSelectDynamic
                   bordered={false}
                   label={t('companies')}
@@ -84,10 +86,10 @@ function MonthlySaleCriteria() {
                   query={useGetMasterBranchByUserId}
                 />
               </Col>
-              <Col xl={3} xxl={2} xs={24} sm={11} md={11} lg={11} className="formfield form-container">
+              <Col xl={3} xxl={2} xs={24} sm={8} md={4} lg={4} className="formfield form-container">
                 <AntInput bordered={false} label={t('count')} name="NoOfRecords" />
               </Col>
-              <Col xl={5} xxl={3} lg={9} sm={6} xs={24} md={9} style={{ marginTop: 10, height: '2vh' }}>
+              <Col xl={4} xxl={3} lg={9} sm={7} xs={24} md={6} style={{ marginTop: 10, height: '2vh' }}>
                 <Radio.Group
                   onChange={(e) => {
                     form.setFieldsValue({ ReqType: e.target.value });
@@ -100,7 +102,7 @@ function MonthlySaleCriteria() {
                 <AntInput label="" name="ReqType" type="hidden" />
               </Col>
 
-              <Col xl={7} xxl={7} md={2} lg={2} sm={3} xs={24} style={{ display: 'flex', justifyContent: 'start' }}>
+              <Col xl={3} xxl={7} md={2} lg={2} sm={3} xs={24} style={{ display: 'flex', justifyContent: 'start' }}>
                 <Row>
                   <Col span={24}>
                     <AntButton

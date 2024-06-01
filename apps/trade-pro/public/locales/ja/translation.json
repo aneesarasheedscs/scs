@@ -129,5 +129,11 @@
   "effective_date": "発効日:",
   "time": "時間",
   "total": "合計",
-  "IsActive": "アクティブです"
+  "IsActive": "アクティブです",
+  "item_customer": "アイテム",
+  "customer_item": "お客様",
+  "out_date": "終了日",
+  "cell_no": "セル番号",
+  "bill_no": "請求書番号",
+  "bill_date": "請求日"
 }

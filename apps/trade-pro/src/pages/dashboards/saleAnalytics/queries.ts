@@ -63,12 +63,14 @@ export const usePostSalesAnalyticsDashboard = (
   return useQuery(
     'sale-analytics',
     () => {
-      return requestManager.post('/api/Dashboard/OrgSalesAnalyticsDashboard', {
-        CompanyIds: userDetail?.CompanyId,
+      return requestManager.post('/api/InvSaleInvoice/SaleAnalyticsA_Report', {
+        CompanyId: userDetail?.CompanyId,
         OrganizationId: userDetail?.OrganizationId,
         // BranchIds: userDetail?.BranchesId,
-        // FromDate: financialYear?.Start_Period,
-        // ToDate: financialYear?.End_Period,
+        FromDate: financialYear?.Start_Period,
+        ToDate: financialYear?.End_Period,
+        StartDate: financialYear?.Start_Period,
+        EndDate: financialYear?.End_Period,
         ...params,
       });
     },

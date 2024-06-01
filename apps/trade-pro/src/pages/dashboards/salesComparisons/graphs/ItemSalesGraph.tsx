@@ -46,9 +46,9 @@ function ItemSalesGraph({ data }: any) {
     },
     grid: {
       top: '2%',
-      left: '5%',
-      right: '5%',
-      bottom: '-2%',
+      left: '4%',
+      right: '-4%',
+      bottom: '-4%',
       containLabel: true,
     },
     xAxis: {

@@ -814,5 +814,11 @@
   "effective_date": "Effective Date:",
   "time": "Time",
   "total": "Total",
-  "IsActive": "IsActive"
+  "IsActive": "IsActive",
+  "item_customer": "Item & Customer",
+  "customer_item": "Customer & Item",
+  "out_date": "Out Date",
+  "cell_no": "Cell No",
+  "bill_no": "Bill No",
+  "bill_date": "Bill Date"
 }
