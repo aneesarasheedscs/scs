@@ -81,7 +81,6 @@
   "activity": "활동",
   "show": "보여주다",
   "stock_received_note_register": "재고 입고 비고 등록",
-  "dispatched_qty": "발송 수량",
   "expense_amount": "비용 금액",
   "net_amount": "순액",
   "dispatched_amount": "발송금액",
@@ -124,5 +123,10 @@
   "out_date": "외출 날짜",
   "cell_no": "셀 번호",
   "bill_no": "빌 번호",
-  "bill_date": "청구 날짜"
+  "bill_date": "청구 날짜",
+  "customer_reports": "고객 보고서",
+  "booking_reports": "예약 보고서",
+  "order_qty": "주문 수량",
+  "dispatch_qty": "파견 수량",
+  "dispatch_weight": "파견 중량"
 }

@@ -127,29 +127,36 @@ function PresentReport({ PresentData }: Props) {
           </Row>
         </Col>
       </Row>
-      {map(PresentData, (item, index: number) => (
-        <Row gutter={0} style={{ borderTop: '1px solid grey' }}>
-          <Col span={24} style={{ borderBottom: '1px solid grey', backgroundColor: index % 2 === 0 ? '#EBF5FB' : '' }}>
-            <Row gutter={0} justify={'end'} style={{ paddingLeft: 2 }}>
-              <Col span={7}>
-                <h5 style={{ textDecoration: 'underline' }}> {item.EmployeeName} </h5>
-              </Col>
-              <Col span={5} style={{ backgroundColor: 'lightgrey' }}>
-                <h5 style={{ textAlign: 'center' }}>{item.Present} </h5>
-                <h5 style={{ textAlign: 'center' }}>{item.Last30DaysPresent} </h5>
-              </Col>
-              <Col span={6}>
-                <h5 style={{ textAlign: 'center' }}>{item.Absent} </h5>
-                <h5 style={{ textAlign: 'center' }}>{item.Last30DaysAbsent} </h5>
-              </Col>
-              <Col span={6} style={{ backgroundColor: 'orange' }}>
-                <h5 style={{ textAlign: 'center' }}> {item.ThisMonthLate} </h5>
-                <h5 style={{ textAlign: 'center' }}> {item.Last30DaysLate} </h5>
+      <Row style={{ height: '35vh', overflowY: 'scroll' }}>
+        <Col span={24}>
+          {map(PresentData, (item, index: number) => (
+            <Row gutter={0} style={{ borderTop: '1px solid grey' }}>
+              <Col
+                span={24}
+                style={{ borderBottom: '1px solid grey', backgroundColor: index % 2 === 0 ? '#EBF5FB' : '' }}
+              >
+                <Row gutter={0} justify={'end'} style={{ paddingLeft: 2 }}>
+                  <Col span={7}>
+                    <h5 style={{ textDecoration: 'underline' }}> {item.EmployeeName} </h5>
+                  </Col>
+                  <Col span={5} style={{ backgroundColor: 'lightgrey' }}>
+                    <h5 style={{ textAlign: 'center' }}>{item.Present} </h5>
+                    <h5 style={{ textAlign: 'center' }}>{item.Last30DaysPresent} </h5>
+                  </Col>
+                  <Col span={6}>
+                    <h5 style={{ textAlign: 'center' }}>{item.Absent} </h5>
+                    <h5 style={{ textAlign: 'center' }}>{item.Last30DaysAbsent} </h5>
+                  </Col>
+                  <Col span={6} style={{ backgroundColor: 'orange' }}>
+                    <h5 style={{ textAlign: 'center' }}> {item.ThisMonthLate} </h5>
+                    <h5 style={{ textAlign: 'center' }}> {item.Last30DaysLate} </h5>
+                  </Col>
+                </Row>
               </Col>
             </Row>
-          </Col>
-        </Row>
-      ))}
+          ))}
+        </Col>
+      </Row>
 
       {/* <Row gutter={0} style={{ borderTop: '1px solid grey' }}>
         <Col span={24} style={{ borderBottom: '1px solid grey', backgroundColor: '#EBF5FB' }}>

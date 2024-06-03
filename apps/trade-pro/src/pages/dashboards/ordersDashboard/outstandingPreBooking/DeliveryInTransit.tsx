@@ -20,14 +20,16 @@ function DeliveryInTransit() {
   const { t } = useTranslation();
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [selectedIdforStatus, setSelectedIdforStatus] = useState<number | null>(null);
-  const { data } = useGetOrdersDashboardforDeliveryInTransit();
+  const { data, isLoading, isFetching, isError } = useGetOrdersDashboardforDeliveryInTransit();
   const { refetch, isSuccess } = useGetOrdersDashboardDeliveryInTransitPdf(selectedId);
-  const { refetch: refetchStatus, isLoading } = useGetOrdersDashboardDlvTransitConfirmStatus(selectedIdforStatus);
+  const { refetch: refetchStatus } = useGetOrdersDashboardDlvTransitConfirmStatus(selectedIdforStatus);
   return (
     <>
       <Row>
         <Col span={24}>
           <AntTablecopy
+            isError={isError}
+            isLoading={isLoading || isFetching}
             showDefaultTableGrid={true}
             columns={columns(t, setSelectedId, setSelectedIdforStatus)}
             data={data?.data?.Data?.Result}

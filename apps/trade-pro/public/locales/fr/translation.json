@@ -548,7 +548,6 @@
   "item_rate": "Tarif de l'article",
   "dest_location": "Emplacement de destination",
   "stock_received_note_register": "Registre des notes de stock reçu",
-  "dispatched_qty": "Quantité expédiée",
   "expense_amount": "Montant des dépenses",
   "net_amount": "Montant net",
   "dispatched_amount": "Montant expédié",
@@ -590,5 +589,10 @@
   "out_date": "Date de sortie",
   "cell_no": "Numéro de cellule",
   "bill_no": "Numéro de facture",
-  "bill_date": "Date de facturation"
+  "bill_date": "Date de facturation",
+  "customer_reports": "Rapports clients",
+  "booking_reports": "Rapports de réservation",
+  "order_qty": "Quantité de commande",
+  "dispatch_qty": "Quantité expédiée",
+  "dispatch_weight": "Poids d'expédition"
 }

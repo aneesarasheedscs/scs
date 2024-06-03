@@ -136,6 +136,10 @@ export const route = {
   REQUISITION_ORDER: '/requisition-order',
   STOCK_ADJUSTMENT: '/stock-adjustment',
 
-  //Price List
-  PRICE_LIST: '/price_list',
+  //Customer Portal
+  CUSTOMER_REPORTS: '/customer-reports',
+  PRICE_LIST: '/price-list',
+  BOOKING_REPORT: '/booking-report',
+  SALE_ORDER_REPORT: '/sale-order-report',
+  SALE_ANALYCIS_REPORT: '/sale-analycis',
 };

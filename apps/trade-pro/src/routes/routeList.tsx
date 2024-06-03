@@ -5,7 +5,7 @@ import { RouteObject } from 'react-router-dom';
 const open = false;
 const openItemType = false;
 const openItemSchudleUnit = false;
-const DateType = '5'
+const DateType = '5';
 const GeneralLedgerReport = lazy(() => import('@tradePro/pages/accountReports/GeneralLedger'));
 const PurchaseActivity = lazy(() => import('@tradePro/pages/purchaseReports/purchaseActivityReport'));
 const SalesActivity = lazy(() => import('@tradePro/pages/SaleReports/salesActivityReport'));
@@ -145,8 +145,12 @@ const DefineDivision = lazy(() => import('@tradePro/pages/defineDivision'));
 const AccountsPrematureRecipts = lazy(() => import('@tradePro/pages/accountsPrematureReceipts'));
 //Attendance Report
 const AttendanceReport = lazy(() => import('@tradePro/pages/AttendanceReport'));
-//Price List
+//Customer Portal
 const PriceList = lazy(() => import('@tradePro/pages/PriceList'));
+const CustomerReports = lazy(() => import('@tradePro/pages/customerPortal/customerReports'));
+const BookingReport = lazy(() => import('@tradePro/pages/customerPortal/customerReports/BookingReport/BookingDemand'));
+const SaleOrderReport = lazy(() => import('@tradePro/pages/customerPortal/customerReports/SaleOrderReport'));
+const SaleAnylicsReport = lazy(() => import('@tradePro/pages/customerPortal/customerReports/SaleAnalycis'));
 
 export const protectedRoutes: RouteObject[] = [
   { path: route.APP_MENU, element: <AppMenu /> },
@@ -186,7 +190,7 @@ export const protectedRoutes: RouteObject[] = [
   { path: route.BILLS_RECEIVABLES_ACCOUNTS, element: <BillsReceivableAccounts /> },
 
   //Account Reports
-  { path: route.ACTIVITY_SUMMARY, element: <ActivitySummary DateType={DateType}/> },
+  { path: route.ACTIVITY_SUMMARY, element: <ActivitySummary DateType={DateType} /> },
   { path: route.CASH_BALANCES, element: <CashBalances /> },
   { path: route.BANK_BALANCES, element: <BankBalances /> },
   { path: route.TRADE_DEBITORS_REPORT, element: <PayablesReceivablesReport AccountClassId={2} /> },
@@ -280,8 +284,12 @@ export const protectedRoutes: RouteObject[] = [
   { path: route.EMPLOYEE_REGISTRATION, element: <EmployeeRegistration /> },
   //Attendance Report
   { path: route.ATTENDANCE_REPORT, element: <AttendanceReport /> },
-  //Price List
+  //Customer Reports
   { path: route.PRICE_LIST, element: <PriceList /> },
+  { path: route.CUSTOMER_REPORTS, element: <CustomerReports /> },
+  { path: route.BOOKING_REPORT, element: <BookingReport /> },
+  { path: route.SALE_ORDER_REPORT, element: <SaleOrderReport /> },
+  { path: route.SALE_ANALYCIS_REPORT, element: <SaleAnylicsReport /> },
 ];
 
 export const publicRoutes: RouteObject[] = [

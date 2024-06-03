@@ -780,7 +780,6 @@
   "received_amount": "Received Amount",
   "dest_location": "Dest Location",
   "stock_received_note_register": "Stock Received Note Register",
-  "dispatched_qty": "Dispatched Qty",
   "expense_amount": "Expense Amount",
   "dispatched_amount": "Dispatched Amount",
   "sales_data_branch_wise": "Sales Data Branch Wise",
@@ -793,7 +792,7 @@
   "receiver_account": "Receiver Account",
   "banck_name": "Bank Name",
   "define_other_parties": "Define Other Parties",
-  "item": "ITEM",
+  "item": "Item",
   "item_pack": "ITEM & PACK",
   "pack_item": "PACK & ITEM",
   "orders_dashboard": "Orders Dashboard",
@@ -820,5 +819,10 @@
   "out_date": "Out Date",
   "cell_no": "Cell No",
   "bill_no": "Bill No",
-  "bill_date": "Bill Date"
+  "bill_date": "Bill Date",
+  "customer_reports": "Customer Reports",
+  "booking_reports": "Booking Reports",
+  "order_qty": "Order Qty",
+  "dispatch_qty": "Dispatch Qty",
+  "dispatch_weight": "Dispatch Weight"
 }

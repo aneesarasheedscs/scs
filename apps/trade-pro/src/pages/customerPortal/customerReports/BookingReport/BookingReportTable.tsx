@@ -2,21 +2,19 @@ import { AntButton, AntTable, AntTablecopy } from '@tradePro/components';
 import {
   CustomerAndItemscolumns,
   Customercolumns,
-  DeliveryIntransitcolumns,
   ItemAndCustomercolumns,
   ItemAndPackcolumns,
   Itemcolumns,
   PackAndItemcolumns,
-  PendingBillscolumns,
 } from './columns';
 import { useTranslation } from 'react-i18next';
 import { convertVhToPixels } from '@tradePro/utils/converVhToPixels';
 import { Col, Row } from 'antd';
-import _, { filter, flatMap, groupBy, map, size, uniqBy } from 'lodash';
+import _, { filter, groupBy, map, size } from 'lodash';
 import { useEffect, useState } from 'react';
 import { numberFormatter } from '@tradePro/utils/numberFormatter';
 
-export const ItemTable = ({ data, isLoading, isFetching }: any) => {
+export const ItemTable = ({ data, isLoading, isFetching, isError }: any) => {
   console.log(data);
   const { t } = useTranslation();
   return (
@@ -24,7 +22,6 @@ export const ItemTable = ({ data, isLoading, isFetching }: any) => {
       <Row>
         <Col span={24}>
           <AntTable
-            isLoading={isLoading || isFetching}
             refreshData={{ show: false, enabled: false }}
             downloadPdf={{ show: false, enabled: false }}
             downloadExcel={{ show: false, enabled: false }}
@@ -34,6 +31,8 @@ export const ItemTable = ({ data, isLoading, isFetching }: any) => {
             columns={Itemcolumns(t)}
             scroll={{ x: '', y: convertVhToPixels('46vh') }}
             data={data}
+            isLoading={isLoading || isFetching}
+            isError={isError}
             numberOfSkeletons={8}
           />
         </Col>
@@ -41,13 +40,12 @@ export const ItemTable = ({ data, isLoading, isFetching }: any) => {
     </>
   );
 };
-export const CustomerTable = ({ data, isLoading, isFetching }: any) => {
+export const CustomerTable = ({ data, isLoading, isFetching, isError }: any) => {
   const { t } = useTranslation();
   return (
     <>
       <Col span={24}>
         <AntTable
-          isLoading={isLoading || isFetching}
           columns={Customercolumns(t)}
           refreshData={{ show: false, enabled: false }}
           downloadPdf={{ show: false, enabled: false }}
@@ -57,6 +55,8 @@ export const CustomerTable = ({ data, isLoading, isFetching }: any) => {
           groupByColumns={{ show: false, enabled: false }}
           scroll={{ x: '', y: convertVhToPixels('46vh') }}
           data={data}
+          isLoading={isLoading || isFetching}
+          isError={isError}
           numberOfSkeletons={8}
         />
       </Col>
@@ -64,7 +64,7 @@ export const CustomerTable = ({ data, isLoading, isFetching }: any) => {
   );
 };
 
-export const ItemAndPackTable = ({ data, isLoading, isFetching }: any) => {
+export const ItemAndPackTable = ({ data, isLoading, isFetching, isError }: any) => {
   const [groupByItem, setGroupByItem] = useState<any[]>([]);
 
   const itemList = (data: any[]) => {
@@ -100,6 +100,7 @@ export const ItemAndPackTable = ({ data, isLoading, isFetching }: any) => {
           groupByColumns={{ show: false, enabled: false }}
           scroll={{ x: '', y: convertVhToPixels('46vh') }}
           isLoading={isLoading || isFetching}
+          isError={isError}
           numberOfSkeletons={8}
         />
       </Col>
@@ -107,7 +108,7 @@ export const ItemAndPackTable = ({ data, isLoading, isFetching }: any) => {
   );
 };
 
-export const PackAndItemTable = ({ data, isLoading, isFetching }: any) => {
+export const PackAndItemTable = ({ data, isLoading, isFetching, isError }: any) => {
   const [groupByPackUom, setGroupByPackUom] = useState<any[]>([]);
 
   const packList = (data: any[]) => {
@@ -135,7 +136,6 @@ export const PackAndItemTable = ({ data, isLoading, isFetching }: any) => {
     <>
       <Col span={24}>
         <AntTablecopy
-          isLoading={isLoading || isFetching}
           showDefaultTableGrid={true}
           rowKey={'PackUom'}
           paginate
@@ -147,8 +147,10 @@ export const PackAndItemTable = ({ data, isLoading, isFetching }: any) => {
             setPageSize(pagination?.pageSize);
             setCurrentPage(pagination?.current);
           }}
-          columns={PackAndItemcolumns(t)}
+          isLoading={isLoading || isFetching}
+          isError={isError}
           numberOfSkeletons={8}
+          columns={PackAndItemcolumns(t)}
           scroll={{ x: '', y: convertVhToPixels('30vh') }}
           data={groupByPackUom || []}
           expandable={{
@@ -203,7 +205,7 @@ export const PackAndItemTable = ({ data, isLoading, isFetching }: any) => {
     </>
   );
 };
-export const ItemAndCustomerTable = ({ data, isLoading, isFetching }: any) => {
+export const ItemAndCustomerTable = ({ data, isLoading, isFetching, isError }: any) => {
   const [groupByItemAndCustomer, setGroupByItemAndCustomer] = useState<any[]>([]);
 
   const itemAndCustomerList = (data: any[]) => {
@@ -242,6 +244,7 @@ export const ItemAndCustomerTable = ({ data, isLoading, isFetching }: any) => {
             setCurrentPage(pagination?.current);
           }}
           isLoading={isLoading || isFetching}
+          isError={isError}
           numberOfSkeletons={8}
           columns={ItemAndCustomercolumns(t)}
           scroll={{ x: '', y: convertVhToPixels('30vh') }}
@@ -298,7 +301,7 @@ export const ItemAndCustomerTable = ({ data, isLoading, isFetching }: any) => {
     </>
   );
 };
-export const CustomerAndItemTable = ({ data, isLoading, isFetching }: any) => {
+export const CustomerAndItemTable = ({ data, isLoading, isFetching, isError }: any) => {
   const [groupByCustomerAndItems, setGroupByCustomerAndItems] = useState<any[]>([]);
 
   const customerAndItemsList = (data: any[]) => {
@@ -333,11 +336,13 @@ export const CustomerAndItemTable = ({ data, isLoading, isFetching }: any) => {
           pageSize={pageSize}
           currentPage={currentPage}
           totalItems={mainData[0]?.row_count}
-          isLoading={isLoading || isFetching}
           onChange={(pagination) => {
             setPageSize(pagination?.pageSize);
             setCurrentPage(pagination?.current);
           }}
+          isLoading={isLoading || isFetching}
+          isError={isError}
+          numberOfSkeletons={8}
           columns={CustomerAndItemscolumns(t)}
           scroll={{ x: '', y: convertVhToPixels('30vh') }}
           data={groupByCustomerAndItems || []}
@@ -388,34 +393,6 @@ export const CustomerAndItemTable = ({ data, isLoading, isFetching }: any) => {
               />
             ),
           }}
-        />
-      </Col>
-    </>
-  );
-};
-export const DeliveryInTransitTable = ({ data }: any) => {
-  const { t } = useTranslation();
-  return (
-    <>
-      <Col xxl={13}>
-        <AntTable
-          columns={DeliveryIntransitcolumns(t)}
-          scroll={{ x: '', y: convertVhToPixels('22vh') }}
-          // data={data?.data?.Data?.Result?.Table2}
-        />
-      </Col>
-    </>
-  );
-};
-export const PendingBillsTable = ({ data }: any) => {
-  const { t } = useTranslation();
-  return (
-    <>
-      <Col xxl={13}>
-        <AntTable
-          columns={PendingBillscolumns(t)}
-          scroll={{ x: '', y: convertVhToPixels('22vh') }}
-          // data={data?.data?.Data?.Result?.Table2}
         />
       </Col>
     </>

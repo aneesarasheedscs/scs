@@ -20,11 +20,12 @@ import {
   MoneyCollectOutlined,
   UnorderedListOutlined,
 } from '@ant-design/icons';
+import { storedUserDetail } from '@tradePro/utils/storageService';
 
 function SideMenu({ collapsed, setCollapsed }: any) {
   const { pathname } = useLocation();
   const { data, isError, refetch, isSuccess, isLoading } = useGetMenu();
-
+  const userDetail = storedUserDetail();
   const [list, setList] = useState<any[]>([]);
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
   useEffect(() => {
@@ -171,16 +172,21 @@ function SideMenu({ collapsed, setCollapsed }: any) {
             })}
           </Menu.SubMenu>
         ))}
-        {list.some((item) => item.ModuleDescription === 'Price List') && (
-          <Menu.Item key="pricelist" className="menu-item-title">
-            <Link to="/price_list">
-              <h4 className="menu-item-heading" style={{ color: 'gray' }}>
-                <UnorderedListOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />
-                {/* <FileTextOutlined  /> */}
-                <span> &nbsp;Price List </span>
-              </h4>
-            </Link>
-          </Menu.Item>
+        {userDetail?.UserName !== 'PIA' ? (
+          <>
+            {list.some((item) => item.ModuleDescription === 'Price List') && (
+              <Menu.Item key="pricelist" className="menu-item-title">
+                <Link to="/price-list">
+                  <h4 className="menu-item-heading" style={{ color: 'gray' }}>
+                    <UnorderedListOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />
+                    <span> &nbsp;Price List </span>
+                  </h4>
+                </Link>
+              </Menu.Item>
+            )}
+          </>
+        ) : (
+          ''
         )}
         {list.some((item) => item.ModuleDescription === 'Attendance Report') && (
           <Menu.Item key="attendancereport" className="menu-item-title">

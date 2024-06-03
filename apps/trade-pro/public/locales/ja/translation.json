@@ -92,7 +92,6 @@
   "activity": "活動",
   "show": "見せる",
   "stock_received_note_register": "入庫手形登録簿",
-  "dispatched_qty": "発送数量",
   "expense_amount": "経費金額",
   "net_amount": "正味金額",
   "dispatched_amount": "派遣金額",
@@ -135,5 +134,10 @@
   "out_date": "終了日",
   "cell_no": "セル番号",
   "bill_no": "請求書番号",
-  "bill_date": "請求日"
+  "bill_date": "請求日",
+  "customer_reports": "顧客レポート",
+  "booking_reports": "予約レポート",
+  "order_qty": "注文数量",
+  "dispatch_qty": "発送数量",
+  "dispatch_weight": "発送重量"
 }

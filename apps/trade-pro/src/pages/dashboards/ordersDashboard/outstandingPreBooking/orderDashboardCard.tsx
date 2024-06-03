@@ -8,9 +8,9 @@ import {
   useGetOrdersDashboardforBookingDemand,
   useGetPreBookingOutStandingOrdersDashboard,
 } from '../quries';
-import PendingOrders from './pendingOrders';
-import DeliveryInTransit from './deliveryInTransit';
-import BookingDemand from './bookingDemand';
+import PendingOrders from './PendingOrders';
+import DeliveryInTransit from './DeliveryInTransit';
+import BookingDemand from './BookingDemand';
 import SalesBill from './SalesBill';
 import SearchCriteria from './searchCriteria';
 
@@ -21,8 +21,16 @@ const OrderDashboardCard = () => {
   } = theme.useToken();
   const { data } = useGetOrdersDashboardStatus();
 
-  const { data: pendingOrdersData } = useGetPreBookingOutStandingOrdersDashboard();
-  const { data: bookingDemandData } = useGetOrdersDashboardforBookingDemand();
+  const {
+    data: pendingOrdersData,
+    isLoading: isLoadingPO,
+    isFetching: isFetchingPO,
+  } = useGetPreBookingOutStandingOrdersDashboard();
+  const {
+    data: bookingDemandData,
+    isLoading: isLoadingBD,
+    isFetching: isFetchingBD,
+  } = useGetOrdersDashboardforBookingDemand();
   const [selectedItem, setSelectedItem] = useState<any>(null); // State to manage selected item
 
   const handleClick = (item: any) => {
@@ -86,7 +94,11 @@ const OrderDashboardCard = () => {
               {selectedItem.Activity}
             </h3>
 
-            <BookingDemand bookingDemandData={bookingDemandData?.data?.Data?.Result} />
+            <BookingDemand
+              bookingDemandData={bookingDemandData?.data?.Data?.Result}
+              isLoading={isLoadingBD}
+              isFetching={isFetchingBD}
+            />
           </div>
         </Col>
       ) : selectedItem?.Activity === 'Pending Orders' ? (
@@ -96,7 +108,11 @@ const OrderDashboardCard = () => {
               {selectedItem.Activity}
             </h3>
 
-            <PendingOrders pendingOrdersData={pendingOrdersData?.data?.Data?.Result} />
+            <PendingOrders
+              pendingOrdersData={pendingOrdersData?.data?.Data?.Result}
+              isLoading={isLoadingPO}
+              isFetching={isFetchingPO}
+            />
           </div>
         </Col>
       ) : selectedItem?.Activity === 'Delivery In Transit' ? (

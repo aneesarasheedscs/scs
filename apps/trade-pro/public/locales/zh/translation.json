@@ -548,7 +548,6 @@
   "item_rate": "项目率",
   "dest_location": "目的地位置",
   "stock_received_note_register": "库存收到票据登记册",
-  "dispatched_qty": "发货数量",
   "expense_amount": "费用金额",
   "net_amount": "净额",
   "dispatched_amount": "发货量",
@@ -590,5 +589,10 @@
   "out_date": "过时",
   "cell_no": "小区编号",
   "bill_no": "账单号",
-  "bill_date": "账单日期"
+  "bill_date": "账单日期",
+  "customer_reports": "客户报告",
+  "booking_reports": "预订报告",
+  "order_qty": "订货量",
+  "dispatch_qty": "发货数量",
+  "dispatch_weight": "发货重量"
 }

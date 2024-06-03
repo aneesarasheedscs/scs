@@ -554,7 +554,6 @@
   "item_rate": "سعر السلعة",
   "dest_location": "الموقع الوجهة",
   "stock_received_note_register": "سجل مذكرة استلام المخزون",
-  "dispatched_qty": "الكمية المرسلة",
   "expense_amount": "مبلغ النفقات",
   "net_amount": "كمية الشبكة",
   "dispatched_amount": "المبلغ المرسل",
@@ -596,5 +595,10 @@
   "out_date": "تاريخ الخروج",
   "cell_no": "خلية لا",
   "bill_no": "مشروع قانون لا",
-  "bill_date": "تاريخ الفاتورة"
+  "bill_date": "تاريخ الفاتورة",
+  "customer_reports": "تقارير العملاء",
+  "booking_reports": "تقارير الحجز",
+  "order_qty": "الكمية النظام",
+  "dispatch_qty": "إرسال الكمية",
+  "dispatch_weight": "وزن الإرسال"
 }

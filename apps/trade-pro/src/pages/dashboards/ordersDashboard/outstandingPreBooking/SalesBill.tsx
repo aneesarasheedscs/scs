@@ -20,7 +20,7 @@ function SalesBill() {
   const { t } = useTranslation();
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [selectedIdforStatus, setSelectedIdforStatus] = useState<number | null>(null);
-  const { data, isLoading, isFetching } = useGetOrdersDashboardforSalesBill();
+  const { data, isLoading, isFetching, isError } = useGetOrdersDashboardforSalesBill();
   const { refetch, isSuccess } = useGetOrdersDashboardSalesBillPdf(selectedId);
   const { refetch: refetchStatus } = useGetOrdersDashboardSaleBillConfirmStatus(selectedIdforStatus);
   const [pageSize, setPageSize] = useState<number | undefined>(10);
@@ -32,6 +32,7 @@ function SalesBill() {
       <Row>
         <Col span={24}>
           <AntTablecopy
+            isError={isError}
             rowKey={'PackUom'}
             paginate
             tableId="pagination-example-id" // id must be unique

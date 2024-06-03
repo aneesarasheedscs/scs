@@ -96,7 +96,7 @@ function SearchCriteria() {
                 // query={useGetItemType}
               />
             </Col>
-            {/* <Col xxl={6} xl={7} lg={10} md={12} sm={14} xs={20} className="formfield">
+            <Col xxl={6} xl={7} lg={10} md={12} sm={14} xs={20} className="formfield">
               <AntSelectDynamic
                 bordered={false}
                 fieldLabel="CompName"
@@ -105,7 +105,7 @@ function SearchCriteria() {
                 label={t('company')}
                 query={useGetCompanies}
               />
-            </Col> */}
+            </Col>
             <Col xxl={6} xl={7} lg={10} md={12} sm={14} xs={20} className="formfield">
               <AntInput name="NoOfRecords" label={t('count')} bordered={false} />
             </Col>

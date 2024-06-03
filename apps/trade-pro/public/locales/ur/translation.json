@@ -765,7 +765,6 @@
   "received_amount": "وصول شدہ رقم",
   "dest_location": "ڈیسٹ لوکیشن",
   "stock_received_note_register": "اسٹاک موصول شدہ نوٹ رجسٹر",
-  "dispatched_qty": "بھیجی گئی مقدار",
   "expense_amount": "اخراجات کی رقم",
   "dispatched_amount": "بھیجی گئی رقم",
   "sales_data_branch_wise": "سیلز ڈیٹا برانچ وائز",
@@ -804,5 +803,10 @@
   "out_date": "ختم ہونے کی تاریخ",
   "cell_no": "سیل نمبر",
   "bill_no": "بل نمبر",
-  "bill_date": "بل کی تاریخ"
+  "bill_date": "بل کی تاریخ",
+  "customer_reports": "کسٹمر رپورٹس",
+  "booking_reports": "بکنگ رپورٹس",
+  "order_qty": "آرڈر کی مقدار",
+  "dispatch_qty": "ترسیل کی مقدار",
+  "dispatch_weight": "ڈسپیچ وزن"
 }

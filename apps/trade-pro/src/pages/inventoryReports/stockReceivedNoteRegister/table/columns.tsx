@@ -151,4 +151,3 @@ export const DetailColumns = (t: TFunction): AntColumnType<StockTransferNoteRegi
     },
   },
 ];
-

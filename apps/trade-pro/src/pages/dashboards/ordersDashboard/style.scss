@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
-boyd {
+body {
   font-family: 'Poppins' !important;
 }
 
@@ -9,12 +9,12 @@ boyd {
   height: 30px;
 }
 .report_heading {
-    font-family: Poppins !important;
-    font-size: 19px;
-    padding: 10px;
-    margin-left: 0%;
-  }
-  
+  font-family: Poppins !important;
+  font-size: 19px;
+  padding: 10px;
+  margin-left: 0%;
+}
+
 // dashboard apr
 .btn_for_revision {
   border: 1px solid #f0f0f0 !important;
@@ -43,7 +43,7 @@ boyd {
   // margin-top: 1%;
   // width: 99%;
   // text-align: center;
-  
+
   // padding: 20px;
   padding-top: 2%;
 }
@@ -54,9 +54,9 @@ boyd {
   padding: 5px;
 }
 
-  //other
+//other
 
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
 * {
   margin: 0%;
   padding: 0%;
@@ -169,7 +169,6 @@ body {
   box-shadow: 2px 2px 12px 1px #ffff;
   background: linear-gradient(to bottom right, var(--color-primary), #ffff);
 }
-
 
 /* Add this to your stylesheet */
 

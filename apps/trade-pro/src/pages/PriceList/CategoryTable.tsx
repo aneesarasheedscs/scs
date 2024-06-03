@@ -26,7 +26,7 @@ function CategoryTable({ PriceLists, selectedRadio, form }: Props) {
   console.log(TotalItemPrice, 'total');
 
   console.log(selectedRadio);
-  const [groupedData, setGroupedData] = useState<any>({});
+  const [groupedData, setGroupedData] = useState<Object | any>({});
   console.log(groupedData);
   useEffect(() => {
     if (selectedRadio == 1) {

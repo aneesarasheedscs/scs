@@ -873,7 +873,6 @@
   "received_amount": "Cantidad recibida",
   "dest_location": "Ubicación de destino",
   "stock_received_note_register": "Registro de notas recibidas en stock",
-  "dispatched_qty": "Cantidad enviada",
   "expense_amount": "Monto del gasto",
   "net_amount": "Importe neto",
   "dispatched_amount": "Cantidad enviada",
@@ -915,5 +914,10 @@
   "out_date": "Fecha de salida",
   "cell_no": "Número de celda",
   "bill_no": "factura no",
-  "bill_date": "Fecha de pago"
+  "bill_date": "Fecha de pago",
+  "customer_reports": "Informes de clientes",
+  "booking_reports": "Informes de reserva",
+  "order_qty": "Cantidad",
+  "dispatch_qty": "Cantidad de envío",
+  "dispatch_weight": "Peso de envío"
 }
