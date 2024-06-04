@@ -128,5 +128,22 @@
   "booking_reports": "예약 보고서",
   "order_qty": "주문 수량",
   "dispatch_qty": "파견 수량",
-  "dispatch_weight": "파견 중량"
+  "dispatch_weight": "파견 중량",
+  "customers": "고객",
+  "top": "맨 위",
+  "bottom": "맨 아래",
+  "sale_order": "판매 주문",
+  "status": "상태",
+  "form": "형태",
+  "grid_view": "그리드 보기",
+  "cheque_date": "날짜 확인",
+  "item_caps": "안건",
+  "customer_caps": "고객",
+  "vehicle_no": "차량 번호",
+  "booking_order": "예약주문",
+  "this_month": "이번 달",
+  "previous_month": "지난달",
+  "previous": "이전의",
+  "sales_analytics": "판매 분석",
+  "avg_rate": "평균 비율"
 }

@@ -100,10 +100,10 @@ function CategoryTable({ PriceLists, selectedRadio, form }: Props) {
                                 //   marginLeft: 10,
                               }}
                             >
-                              <Col xxl={1} xl={2} lg={2} md={2} sm={2} xs={2}>
-                                <h4>SNo</h4>
+                              <Col xxl={3} xl={3} lg={2} md={2} sm={2} xs={2}>
+                                <h4>{t('serial_no')} </h4>
                               </Col>
-                              <Col xxl={10} xl={12} lg={12} md={12} sm={12} xs={12}>
+                              <Col xxl={12} xl={13} lg={12} md={12} sm={12} xs={12}>
                                 <h4 style={{}}>{t('brand_name')} </h4>
                               </Col>
 

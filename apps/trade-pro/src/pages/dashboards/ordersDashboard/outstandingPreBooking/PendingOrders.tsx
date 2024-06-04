@@ -10,10 +10,10 @@ function PendingOrders({ pendingOrdersData, isLoading, isFetching }: Props) {
       <Row>
         <Col span={24}>
           <Tabs type="card" size="large" className="tabs-margin-bottom-0">
-            <Tabs.TabPane key="1" tab={t('item')}>
+            <Tabs.TabPane key="1" tab={t('item_caps')}>
               <ItemTable data={pendingOrdersData?.Table} isLoading={isLoading} isFetching={isFetching} />
             </Tabs.TabPane>
-            <Tabs.TabPane key="2" tab={t('customer')}>
+            <Tabs.TabPane key="2" tab={t('customer_caps')}>
               <CustomerTable data={pendingOrdersData?.Table1} isLoading={isLoading} isFetching={isFetching} />
             </Tabs.TabPane>
             <Tabs.TabPane key="3" tab={t('item_pack')}>

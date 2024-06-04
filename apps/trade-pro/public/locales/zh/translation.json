@@ -594,5 +594,15 @@
   "booking_reports": "预订报告",
   "order_qty": "订货量",
   "dispatch_qty": "发货数量",
-  "dispatch_weight": "发货重量"
+  "dispatch_weight": "发货重量",
+  "sale_order": "销售订单",
+  "item_caps": "物品",
+  "customer_caps": "顾客",
+  "vehicle_no": "车号",
+  "booking_order": "预订订单",
+  "this_month": "这个月",
+  "previous_month": "前一个月",
+  "previous": "以前的",
+  "sales_analytics": "销售分析",
+  "avg_rate": "平均费率"
 }

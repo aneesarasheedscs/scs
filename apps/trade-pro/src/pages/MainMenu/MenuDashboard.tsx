@@ -18,8 +18,10 @@ export default function MenuDashboard() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [childrenList, setChildrenList] = useState<TChildren[]>([]);
   const navigate = useNavigate();
-  const handleNavigate = (RouteUrl: string) => {
-    navigate(RouteUrl);
+  const handleNavigate = (ScreenAlias: string) => {
+    console.log(ScreenAlias);
+    const path = ScreenAlias?.toLowerCase()?.replace(/ /g, '-');
+    navigate(`/${path}`);
   };
   const filteredList = list.filter(
     (item) =>
@@ -89,6 +91,7 @@ export default function MenuDashboard() {
   console.log(childrenList);
   const childrenLengths = map(list, (item) => item.children.length);
   const defaultIcons = [
+    <AntIcons.BarChartOutlined />,
     <AntIcons.DashboardOutlined />,
     <AntIcons.AccountBookOutlined />,
     <AntIcons.TransactionOutlined />,
@@ -220,7 +223,7 @@ export default function MenuDashboard() {
                             <AntIcons.HeartOutlined />
                           )}
                         </h3>
-                        <h3 className="chilren_route_heading" onClick={() => handleNavigate(item.RouteUrl)}>
+                        <h3 className="chilren_route_heading" onClick={() => handleNavigate(item.ScreenAlias)}>
                           {item.ScreenAlias}
                         </h3>
                       </Card>

@@ -55,13 +55,13 @@ function PriceList() {
               <Row justify={'space-around'}>
                 <Col span={23} style={{ backgroundColor: '#fff', height: '' }}>
                   <Row justify={'space-between'}>
-                    <Col xs={10} sm={8} md={7} lg={7} xl={5} xxl={3}>
+                    <Col xs={10} sm={8} md={6} lg={6} xl={5} xxl={3}>
                       <h1 className="report_heading" style={{ textAlign: 'center' }}>
                         {t('current_price_list')}
                       </h1>
                     </Col>
 
-                    <Col xxl={1} xl={1} md={1} lg={2} sm={2} xs={3} style={{ marginRight: '30px', marginTop: 10 }}>
+                    <Col xxl={1} xl={1} md={2} lg={2} sm={2} xs={3} style={{ marginRight: '30px', marginTop: 10 }}>
                       <BackButton goToDashboard={false} />
                     </Col>
                   </Row>
@@ -71,11 +71,17 @@ function PriceList() {
                     <Col xxl={8} xl={12} lg={20} md={20} sm={24} xs={24} style={{ border: ' ' }}>
                       <Row gutter={0} justify={'space-between'}>
                         <Col span={12} className=" ">
-                          {t('effective_date')} <span style={{ marginLeft: '5%' }}>{formateDate(effectiveDate)}</span>{' '}
+                          <Row>
+                            {t('effective_date')}
+
+                            <span style={{ marginLeft: '5%' }}>{formateDate(effectiveDate)}</span>
+                          </Row>
                         </Col>
 
                         <Col span={12} className=" ">
-                          {t('time')} <span style={{ marginLeft: '5%' }}> {currentTime} </span>
+                          <Row>
+                            {t('time')} <span style={{ marginLeft: '5%' }}> {currentTime} </span>
+                          </Row>
                         </Col>
                       </Row>
                     </Col>

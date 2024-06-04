@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+boyd {
+  font-family: 'Poppins' !important;
+}
+.form_field {
+    border-bottom: 1px solid gray;
+    padding: 0px;
+    height: 30px;
+  }
+
+  .purchaseAnalyticsCardh3{
+    // background: colorPrimary,
+    border-top-right-radius: 10;
+    border-top-left-radius:  10;
+    padding: 7px;
+    color: white;
+    display: 'flex';
+    justify-content: 'space-between',
+  }

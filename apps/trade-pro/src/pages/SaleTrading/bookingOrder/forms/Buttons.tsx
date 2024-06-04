@@ -86,7 +86,7 @@ function Buttons({
                 bordered={false}
                 required
                 fieldValue="Id"
-                label="Party Name"
+                label={t('party_name')}
                 name="OrderSupCustId"
                 fieldLabel="CompanyName"
                 query={useGetSupplierCustomer}
@@ -94,7 +94,7 @@ function Buttons({
             </Col>
 
             <Col xs={24} sm={12} md={13} lg={13} xl={24} xxl={14} className="formfields">
-              <AntInput name="RemarksHeader" label="Remarks" bordered={false} />
+              <AntInput name="RemarksHeader" label={t('remarks')} bordered={false} />
             </Col>
           </Row>
         </Col>

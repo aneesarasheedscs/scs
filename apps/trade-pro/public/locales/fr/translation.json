@@ -594,5 +594,15 @@
   "booking_reports": "Rapports de réservation",
   "order_qty": "Quantité de commande",
   "dispatch_qty": "Quantité expédiée",
-  "dispatch_weight": "Poids d'expédition"
+  "dispatch_weight": "Poids d'expédition",
+  "sale_order": "Ordre de vente",
+  "item_caps": "ARTICLE",
+  "customer_caps": "CLIENT",
+  "vehicle_no": "Numéro de véhicule",
+  "booking_order": "Ordre de réservation",
+  "this_month": "Ce mois-ci",
+  "previous_month": "Le mois précédent",
+  "previous": "Précédent",
+  "sales_analytics": "Analyse des ventes",
+  "avg_rate": "Taux moyen"
 }

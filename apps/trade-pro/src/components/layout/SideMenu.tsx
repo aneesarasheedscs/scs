@@ -17,6 +17,7 @@ import {
   SettingOutlined,
   ShoppingOutlined,
   FileDoneOutlined,
+  BarChartOutlined,
   MoneyCollectOutlined,
   UnorderedListOutlined,
 } from '@ant-design/icons';
@@ -38,7 +39,7 @@ function SideMenu({ collapsed, setCollapsed }: any) {
   }, [data, isSuccess]);
   console.log(list);
   const defaultIcons = [
-    // <DashboardOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />,
+    <BarChartOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />,
     <AccountBookOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />,
     <TransactionOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />,
     // <FileDoneOutlined style={{ fontWeight: 'bolder', fontSize: '16px' }} />,

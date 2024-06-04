@@ -600,5 +600,15 @@
   "booking_reports": "تقارير الحجز",
   "order_qty": "الكمية النظام",
   "dispatch_qty": "إرسال الكمية",
-  "dispatch_weight": "وزن الإرسال"
+  "dispatch_weight": "وزن الإرسال",
+  "sale_order": "أمر البيع",
+  "item_caps": "غرض",
+  "customer_caps": "عميل",
+  "vehicle_no": "السيارة لا",
+  "booking_order": "أمر الحجز",
+  "this_month": "هذا الشهر",
+  "previous_month": "الشهر الماضى",
+  "previous": "سابق",
+  "sales_analytics": "تحليلات المبيعات",
+  "avg_rate": "متوسط ​​المعدل"
 }

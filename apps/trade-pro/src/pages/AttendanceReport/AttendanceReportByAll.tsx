@@ -30,24 +30,11 @@ function AttendanceReportByAll({ startDate }: Props) {
   } = theme.useToken();
   return (
     <>
-      <Row style={{ marginTop: '29%', marginBottom: 10 }}>
-        {/* <Col span={24}>
-          <Card
-            style={{ height: '4vh', backgroundColor: 'purple' }}
-            // onClick={(e) => handleReport(e)}
-            cover={
-              <>
-                <h5 style={{ marginTop: 8, textAlign: 'center', color: '#ffff' }}>{caption}</h5>
-              </>
-            }
-          ></Card>
-        </Col> */}
-
+      <Row style={{ marginTop: '31.5%', marginBottom: 10 }}>
         <Col span={24}>
           <Row justify={'end'} style={{ marginBottom: 5 }}>
             <Col span={7}>
               <Card
-                id="Present"
                 bordered={false}
                 onClick={(e) => handleReport(e)}
                 style={{
@@ -66,13 +53,13 @@ function AttendanceReportByAll({ startDate }: Props) {
             </Col>
             <Col span={5}>
               <Card
-                id="Absent"
+                id="Present"
                 bordered={false}
                 onClick={(e) => handleReport(e)}
                 style={{ height: '6vh', borderRadius: 0, cursor: 'pointer', background: 'lightgrey' }}
                 cover={
                   <>
-                    <h5 style={{ marginTop: 0, textAlign: 'center' }}> Present</h5>
+                    <h5 style={{ marginTop: 0, textAlign: 'center' }}> {t('present')} </h5>
                     <h5 style={{ marginTop: 0, textAlign: 'center' }}>
                       {data ? data?.data?.Data?.Result?.[0]?.TotalPresent : 0}
                     </h5>
@@ -107,13 +94,13 @@ function AttendanceReportByAll({ startDate }: Props) {
             </Col>
             <Col span={6}>
               <Card
-                id="Late"
+                id="Absent"
                 bordered={false}
                 onClick={(e) => handleReport(e)}
                 style={{ height: '6vh', borderRadius: 0, cursor: 'pointer', background: '#eeee' }}
                 cover={
                   <>
-                    <h5 style={{ marginTop: 0, textAlign: 'center' }}> Absent</h5>
+                    <h5 style={{ marginTop: 0, textAlign: 'center' }}> {t('absent')} </h5>
                     <h5 style={{ marginTop: 0, textAlign: 'center' }}>
                       {data ? data?.data?.Data?.Result?.[0]?.TotalAbsents : 0}
                     </h5>
@@ -159,7 +146,7 @@ function AttendanceReportByAll({ startDate }: Props) {
                 }}
                 cover={
                   <>
-                    <h5 style={{ marginTop: 0, textAlign: 'center' }}> Late </h5>
+                    <h5 style={{ marginTop: 0, textAlign: 'center' }}> {t('late')} </h5>
                     <h5 style={{ marginTop: 0, textAlign: 'center' }}>
                       {' '}
                       {data ? data?.data?.Data?.Result?.[0]?.TotalLate : 0}{' '}
@@ -193,28 +180,6 @@ function AttendanceReportByAll({ startDate }: Props) {
                 }
               ></Card>
             </Col>
-            {/* <Col span={6}>
-              <Card
-                onClick={(e) => handleReport(e)}
-                style={{ height: '5vh', cursor: 'pointer' }}
-                cover={
-                  <>
-                    <h4 style={{ marginTop: 10, textAlign: 'center' }}> Absent </h4>
-                  </>
-                }
-              ></Card>
-            </Col>
-            <Col span={6}>
-              <Card
-                onClick={(e) => handleReport(e)}
-                style={{ height: '5vh', cursor: 'pointer' }}
-                cover={
-                  <>
-                    <h4 style={{ marginTop: 10, textAlign: 'center' }}> Late </h4>
-                  </>
-                }
-              ></Card>
-            </Col> */}
           </Row>
           {caption === 'Present' ? (
             <PresentReport PresentData={PresentData} />

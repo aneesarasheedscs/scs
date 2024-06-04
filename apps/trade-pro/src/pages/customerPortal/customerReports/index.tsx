@@ -1,6 +1,6 @@
+import './style.scss';
 import { Card, Col, Row, theme } from 'antd';
 import React from 'react';
-import './style.scss';
 import { useTranslation } from 'react-i18next';
 import { useGetCustomerReportMenu } from './queries';
 import { map } from 'lodash';
@@ -34,7 +34,7 @@ function CustomerReports() {
             <h1 className="report_heading">{t('customer_reports')}</h1>
           </Col>
           <Col span={24}>
-            <Row justify={'center'} gutter={10} style={{ marginLeft: '' }}>
+            <Row justify={'center'} gutter={10}>
               {map(customerMenu, ({ ScreenAlias }: any, index: number) => (
                 <Col xs={24} xxl={4} sm={12} md={11} lg={6} key={index}>
                   <Card

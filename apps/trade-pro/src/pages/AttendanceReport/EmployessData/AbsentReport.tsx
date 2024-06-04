@@ -15,9 +15,7 @@ function AbsentReport({ AbsentData }: Props) {
           <Row justify={'end'} style={{ marginBottom: 5 }}>
             <Col span={7}>
               <Card
-                id="Present"
                 bordered={false}
-                // onClick={(e) => handleReport(e)}
                 style={{
                   height: '6vh',
                   borderRadius: 0,
@@ -25,37 +23,37 @@ function AbsentReport({ AbsentData }: Props) {
                 }}
                 cover={
                   <>
-                    <h4 style={{ padding: 10, paddingTop: 15 }}> Employee Name </h4>
+                    <h4 style={{ padding: 10, paddingTop: 15 }}> {t('employee Name')} </h4>
                   </>
                 }
               ></Card>
             </Col>
             <Col span={5}>
               <Card
-                id="Absent"
                 bordered={false}
-                // onClick={(e) => handleReport(e)}
                 style={{ height: '6vh', borderRadius: 0, cursor: 'pointer', background: 'lightgrey' }}
                 cover={
                   <>
-                    <h5 style={{ marginTop: 0, textAlign: 'center', textDecoration: 'underline' }}> This Month </h5>
-                    <h5 style={{ marginTop: 0, textAlign: 'center' }}> Previous </h5>
-                    <h5 style={{ marginTop: -5, textAlign: 'center', marginLeft: -5 }}> Month </h5>
+                    <h5 style={{ marginTop: 0, textAlign: 'center', textDecoration: 'underline' }}>
+                      {t('this_month')}
+                    </h5>
+                    <h5 style={{ marginTop: 0, textAlign: 'center' }}> {t('previous')} </h5>
+                    <h5 style={{ marginTop: -5, textAlign: 'center', marginLeft: -5 }}> {t('month')} </h5>
                   </>
                 }
               ></Card>
             </Col>
             <Col span={6}>
               <Card
-                id="Late"
                 bordered={false}
-                // onClick={(e) => handleReport(e)}
                 style={{ height: '6vh', borderRadius: 0, cursor: 'pointer', background: '#eeee' }}
                 cover={
                   <>
-                    <h5 style={{ marginTop: 0, textAlign: 'center', textDecoration: 'underline' }}> This Month </h5>
-                    <h5 style={{ marginTop: 0, textAlign: 'center' }}> Previous </h5>
-                    <h5 style={{ marginTop: -5, textAlign: 'center', marginLeft: -5 }}> Month </h5>
+                    <h5 style={{ marginTop: 0, textAlign: 'center', textDecoration: 'underline' }}>
+                      {t('this_month')}
+                    </h5>
+                    <h5 style={{ marginTop: 0, textAlign: 'center' }}> {t('previous')} </h5>
+                    <h5 style={{ marginTop: -5, textAlign: 'center', marginLeft: -5 }}> {t('month')} </h5>
                   </>
                 }
               ></Card>
@@ -63,7 +61,6 @@ function AbsentReport({ AbsentData }: Props) {
             <Col span={6}>
               <Card
                 bordered={false}
-                // onClick={(e) => handleReport(e)}
                 style={{
                   height: '6vh',
                   borderRadius: 0,
@@ -73,9 +70,11 @@ function AbsentReport({ AbsentData }: Props) {
                 }}
                 cover={
                   <>
-                    <h5 style={{ marginTop: 0, textAlign: 'center', textDecoration: 'underline' }}> This Month </h5>
-                    <h5 style={{ marginTop: 0, textAlign: 'center' }}> Previous </h5>
-                    <h5 style={{ marginTop: -5, textAlign: 'center', marginLeft: -5 }}> Month </h5>
+                    <h5 style={{ marginTop: 0, textAlign: 'center', textDecoration: 'underline' }}>
+                      {t('this_month')}
+                    </h5>
+                    <h5 style={{ marginTop: 0, textAlign: 'center' }}> {t('previous')} </h5>
+                    <h5 style={{ marginTop: -5, textAlign: 'center', marginLeft: -5 }}> {t('month')} </h5>
                   </>
                 }
               ></Card>
@@ -84,7 +83,7 @@ function AbsentReport({ AbsentData }: Props) {
         </Col>
       </Row>
 
-      <Row style={{ height: '35vh', overflowY: 'scroll' }}>
+      <Row style={{ height: '35vh', overflowY: AbsentData?.length > 10 ? 'scroll' : 'auto' }}>
         <Col span={24}>
           {map(AbsentData, (item, index: number) => (
             <Row gutter={0} style={{ borderTop: '1px solid grey' }}>

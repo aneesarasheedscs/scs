@@ -31,7 +31,7 @@ function BookingReport() {
           </Col>
           <Col xxl={17} xl={22}>
             <Tabs type="card" size="large" className="tabs-margin-bottom-0">
-              <Tabs.TabPane key="1" tab={t('item')}>
+              <Tabs.TabPane key="1" tab={t('item_caps')}>
                 <ItemTable
                   data={data?.data?.Data?.Result?.Table1}
                   isLoading={isLoading}
@@ -39,7 +39,7 @@ function BookingReport() {
                   isError={isError}
                 />
               </Tabs.TabPane>
-              <Tabs.TabPane key="2" tab={t('customer')}>
+              <Tabs.TabPane key="2" tab={t('customer_caps')}>
                 <CustomerTable
                   data={data?.data?.Data?.Result?.Table2}
                   isLoading={isLoading}

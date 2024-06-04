@@ -144,7 +144,15 @@ function SearchCriteria() {
                 borderBottom: '1px  solid lightgray',
               }}
             >
-              {TopOrBottom} &nbsp;{count} {t('customers')}
+              {TopOrBottom === 'Top' ? (
+                <>
+                  {t('top')} &nbsp;{count} {t('customers')}
+                </>
+              ) : (
+                <>
+                  {t('bottom')} &nbsp;{count} {t('customers')}
+                </>
+              )}
             </h2>
           </>
         }
@@ -177,7 +185,15 @@ function SearchCriteria() {
                 borderBottom: '1px  solid lightgray',
               }}
             >
-              {TopOrBottom} &nbsp;{count} {t('items')}
+              {TopOrBottom === 'Top' ? (
+                <>
+                  {t('top')} &nbsp;{count} {t('items')}
+                </>
+              ) : (
+                <>
+                  {t('bottom')} &nbsp;{count} {t('items')}
+                </>
+              )}
             </h2>
           </>
         }
@@ -208,7 +224,15 @@ function SearchCriteria() {
                 borderBottom: '1px  solid lightgray',
               }}
             >
-              {TopOrBottom} &nbsp;{count} {t('pack_size')}
+              {TopOrBottom === 'Top' ? (
+                <>
+                  {t('top')} &nbsp;{count} {t('pack_size')}
+                </>
+              ) : (
+                <>
+                  {t('bottom')} &nbsp;{count} {t('pack_size')}
+                </>
+              )}
             </h2>
           </>
         }
@@ -239,7 +263,15 @@ function SearchCriteria() {
                 borderBottom: '1px  solid lightgray',
               }}
             >
-              {TopOrBottom} &nbsp;{count} {t('cities')}
+              {TopOrBottom === 'Top' ? (
+                <>
+                  {t('top')} &nbsp;{count} {t('cities')}
+                </>
+              ) : (
+                <>
+                  {t('bottom')} &nbsp;{count} {t('cities')}
+                </>
+              )}
             </h2>
           </>
         }

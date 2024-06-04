@@ -139,5 +139,22 @@
   "booking_reports": "予約レポート",
   "order_qty": "注文数量",
   "dispatch_qty": "発送数量",
-  "dispatch_weight": "発送重量"
+  "dispatch_weight": "発送重量",
+  "customers": "お客様",
+  "top": "上",
+  "bottom": "底",
+  "sale_order": "販売注文",
+  "status": "状態",
+  "form": "形状",
+  "grid_view": "グリッドビュー",
+  "item_caps": "アイテム",
+  "customer_caps": "お客様",
+  "vehicle_no": "車両番号",
+  "category": "カテゴリー",
+  "booking_order": "予約注文",
+  "this_month": "今月",
+  "previous_month": "前月",
+  "previous": "前の",
+  "sales_analytics": "販売分析",
+  "avg_rate": "平均レート"
 }

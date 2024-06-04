@@ -1,9 +1,6 @@
 import { QueryFunction, useMutation, useQuery } from 'react-query';
 import { requestManager } from '@tradePro/configs/requestManager';
 import { storedFinancialYear, storedUserDetail } from '@tradePro/utils/storageService';
-import { queryClient } from '@tradePro/configs';
-import { notification } from 'antd';
-import { AxiosError, AxiosResponse } from 'axios';
 
 import dayjs from 'dayjs';
 const userDetail = storedUserDetail();

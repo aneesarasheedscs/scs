@@ -137,7 +137,7 @@ function SearchCriteria() {
               <AntSelectDynamic
                 bordered={false}
                 name="Status"
-                label="Status"
+                label={t('status')}
                 fieldValue="Id"
                 fieldLabel="Status"
                 options={map(statusType, (item) => ({

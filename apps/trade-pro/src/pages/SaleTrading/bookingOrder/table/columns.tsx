@@ -132,13 +132,13 @@ export const Bookingordercolumns = (
 ): AntColumnType<TBookingOrderHistory>[] => [
   {
     width: 100,
-    title: 'Doc No',
+    title: t('doc_no'),
     searchableDate: true,
     dataIndex: 'DocNo',
   },
   {
     width: 150,
-    title: 'DocDate',
+    title: t('doc_date'),
     searchableDate: true,
     dataIndex: 'DocDate',
     render: (_, { DocDate }) => formateDate(DocDate),
@@ -146,7 +146,7 @@ export const Bookingordercolumns = (
 
   {
     width: 260,
-    title: 'Party Name',
+    title: t('party_name'),
     searchableDate: true,
     dataIndex: 'CustomerName',
   },

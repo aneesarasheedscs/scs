@@ -919,5 +919,15 @@
   "booking_reports": "Informes de reserva",
   "order_qty": "Cantidad",
   "dispatch_qty": "Cantidad de envío",
-  "dispatch_weight": "Peso de envío"
+  "dispatch_weight": "Peso de envío",
+  "sale_order": "Orden de venta",
+  "item_caps": "ARTÍCULO",
+  "customer_caps": "CLIENTE",
+  "vehicle_no": "No vehiculo",
+  "booking_order": "Orden de reserva",
+  "this_month": "Este mes",
+  "previous_month": "Mes anterior",
+  "previous": "Anterior",
+  "sales_analytics": "Análisis de ventas",
+  "avg_rate": "Tasa promedio"
 }

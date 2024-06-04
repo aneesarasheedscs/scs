@@ -59,9 +59,7 @@ function PresentReport({ PresentData }: Props) {
           <Row justify={'end'} style={{ marginBottom: 5 }}>
             <Col span={7}>
               <Card
-                id="Present"
                 bordered={false}
-                // onClick={(e) => handleReport(e)}
                 style={{
                   height: '6vh',
                   borderRadius: 0,
@@ -69,37 +67,41 @@ function PresentReport({ PresentData }: Props) {
                 }}
                 cover={
                   <>
-                    <h4 style={{ padding: 10, paddingTop: 15 }}> Employee Name </h4>
+                    <h4 style={{ padding: 10, paddingTop: 15 }}> {t('employee Name')} </h4>
                   </>
                 }
               ></Card>
             </Col>
             <Col span={5}>
               <Card
-                id="Absent"
+                id="Present"
                 bordered={false}
-                // onClick={(e) => handleReport(e)}
                 style={{ height: '6vh', borderRadius: 0, cursor: 'pointer', background: 'lightgrey' }}
                 cover={
                   <>
-                    <h5 style={{ marginTop: 0, textAlign: 'center', textDecoration: 'underline' }}> This Month </h5>
-                    <h5 style={{ marginTop: 0, textAlign: 'center' }}> Previous </h5>
-                    <h5 style={{ marginTop: -5, textAlign: 'center', marginLeft: -5 }}> Month </h5>
+                    <h5 style={{ marginTop: 0, textAlign: 'center', textDecoration: 'underline' }}>
+                      {' '}
+                      {t('this_month')}{' '}
+                    </h5>
+                    <h5 style={{ marginTop: 0, textAlign: 'center' }}> {t('previous')} </h5>
+                    <h5 style={{ marginTop: -5, textAlign: 'center', marginLeft: -5 }}> {t('month')} </h5>
                   </>
                 }
               ></Card>
             </Col>
             <Col span={6}>
               <Card
-                id="Late"
+                id="Absent"
                 bordered={false}
-                // onClick={(e) => handleReport(e)}
                 style={{ height: '6vh', borderRadius: 0, cursor: 'pointer', background: '#eeee' }}
                 cover={
                   <>
-                    <h5 style={{ marginTop: 0, textAlign: 'center', textDecoration: 'underline' }}> This Month </h5>
-                    <h5 style={{ marginTop: 0, textAlign: 'center' }}> Previous </h5>
-                    <h5 style={{ marginTop: -5, textAlign: 'center', marginLeft: -5 }}> Month </h5>
+                    <h5 style={{ marginTop: 0, textAlign: 'center', textDecoration: 'underline' }}>
+                      {' '}
+                      {t('this_month')}{' '}
+                    </h5>
+                    <h5 style={{ marginTop: 0, textAlign: 'center' }}>{t('previous')} </h5>
+                    <h5 style={{ marginTop: -5, textAlign: 'center', marginLeft: -5 }}> {t('month')} </h5>
                   </>
                 }
               ></Card>
@@ -107,19 +109,20 @@ function PresentReport({ PresentData }: Props) {
             <Col span={6}>
               <Card
                 bordered={false}
-                // onClick={(e) => handleReport(e)}
                 style={{
                   height: '6vh',
                   borderRadius: 0,
-
                   cursor: 'pointer',
                   background: 'orange',
                 }}
                 cover={
                   <>
-                    <h5 style={{ marginTop: 0, textAlign: 'center', textDecoration: 'underline' }}> This Month </h5>
-                    <h5 style={{ marginTop: 0, textAlign: 'center' }}> Previous </h5>
-                    <h5 style={{ marginTop: -5, textAlign: 'center', marginLeft: -5 }}> Month </h5>
+                    <h5 style={{ marginTop: 0, textAlign: 'center', textDecoration: 'underline' }}>
+                      {' '}
+                      {t('this_month')}{' '}
+                    </h5>
+                    <h5 style={{ marginTop: 0, textAlign: 'center' }}> {t('previous')} </h5>
+                    <h5 style={{ marginTop: -5, textAlign: 'center', marginLeft: -5 }}> {t('month')} </h5>
                   </>
                 }
               ></Card>
@@ -127,7 +130,7 @@ function PresentReport({ PresentData }: Props) {
           </Row>
         </Col>
       </Row>
-      <Row style={{ height: '35vh', overflowY: 'scroll' }}>
+      <Row style={{ height: '35vh', overflowY: PresentData?.length > 10 ? 'scroll' : 'auto' }}>
         <Col span={24}>
           {map(PresentData, (item, index: number) => (
             <Row gutter={0} style={{ borderTop: '1px solid grey' }}>
@@ -158,65 +161,6 @@ function PresentReport({ PresentData }: Props) {
         </Col>
       </Row>
 
-      {/* <Row gutter={0} style={{ borderTop: '1px solid grey' }}>
-        <Col span={24} style={{ borderBottom: '1px solid grey', backgroundColor: '#EBF5FB' }}>
-          <Row gutter={0} justify={'end'} style={{ paddingLeft: 2 }}>
-            <Col span={7}>
-              <h5 style={{ textDecoration: 'underline' }}> M. Iqbal </h5>
-            </Col>
-            <Col span={5} style={{ backgroundColor: 'lightgrey' }}>
-              <h5 style={{ textAlign: 'center' }}>0</h5>
-              <h5 style={{ textAlign: 'center' }}>0</h5>
-            </Col>
-            <Col span={6}>
-              <h5 style={{ textAlign: 'center' }}>25</h5>
-              <h5 style={{ textAlign: 'center' }}>0</h5>
-            </Col>
-            <Col span={6} style={{ backgroundColor: 'orange' }}>
-              <h5 style={{ textAlign: 'center' }}>0</h5>
-              <h5 style={{ textAlign: 'center' }}>0</h5>
-            </Col>
-          </Row>
-        </Col>
-        <Col span={24} style={{ borderBottom: '1px solid grey', backgroundColor: '#EBF5FB' }}>
-          <Row gutter={0} justify={'end'} style={{ paddingLeft: 2 }}>
-            <Col span={7}>
-              <h5 style={{ textDecoration: 'underline' }}> M. Iqbal </h5>
-            </Col>
-            <Col span={5} style={{ backgroundColor: 'lightgrey' }}>
-              <h5 style={{ textAlign: 'center' }}>0</h5>
-              <h5 style={{ textAlign: 'center' }}>0</h5>
-            </Col>
-            <Col span={6}>
-              <h5 style={{ textAlign: 'center' }}>25</h5>
-              <h5 style={{ textAlign: 'center' }}>0</h5>
-            </Col>
-            <Col span={6} style={{ backgroundColor: 'orange' }}>
-              <h5 style={{ textAlign: 'center' }}>0</h5>
-              <h5 style={{ textAlign: 'center' }}>0</h5>
-            </Col>
-          </Row>
-        </Col>
-        <Col span={24} style={{ borderBottom: '1px solid grey', backgroundColor: '#EBF5FB' }}>
-          <Row gutter={0} justify={'end'} style={{ paddingLeft: 2 }}>
-            <Col span={7}>
-              <h5 style={{ textDecoration: 'underline' }}> M. Iqbal </h5>
-            </Col>
-            <Col span={5} style={{ backgroundColor: 'lightgrey' }}>
-              <h5 style={{ textAlign: 'center' }}>0</h5>
-              <h5 style={{ textAlign: 'center' }}>0</h5>
-            </Col>
-            <Col span={6}>
-              <h5 style={{ textAlign: 'center' }}>25</h5>
-              <h5 style={{ textAlign: 'center' }}>0</h5>
-            </Col>
-            <Col span={6} style={{ backgroundColor: 'orange' }}>
-              <h5 style={{ textAlign: 'center' }}>0</h5>
-              <h5 style={{ textAlign: 'center' }}>0</h5>
-            </Col>
-          </Row>
-        </Col>
-      </Row> */}
       {/* <AntTablecopy data={data} showDefaultTableGrid={true} columns={columns(t)} /> */}
     </>
   );

@@ -4,19 +4,20 @@ import { Card, Col, Form, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './style.scss';
+import PurchaseAnalyticsDetail from './purchaseAnalyticsDetail';
+import { useGetPurchaseAnalyticsReport, useGetPurchaseInvoiceReport, useSeasonYearSchedule } from './quries';
 import { storedFinancialYear } from '@tradePro/utils/storageService';
 import dayjs from 'dayjs';
+import { TpuchaseAnalyticsCriteria } from './types';
 import _ from 'lodash';
-import { TSaleAnalyticsCriteria } from './types';
-import { useGetSaleAnalyticsReport, useGetSaleInvoiceReportAB, useSeasonYearSchedule } from './quries';
-import SalesAnalytics from './SalesAnalytics';
+import PurchaseAnalytic from './purchaseAnalyticsDetail';
 
 const { useForm, useWatch } = Form;
-function SaleAnalycisReport() {
+function PurchaseAnalytics() {
   const { t } = useTranslation();
   const [showComponent, setShowComponent] = useState(false);
-  const [form] = useForm<TSaleAnalyticsCriteria>();
-  const formValues = useWatch<TSaleAnalyticsCriteria>([], form);
+  const [form] = useForm<TpuchaseAnalyticsCriteria>();
+  const formValues = useWatch<TpuchaseAnalyticsCriteria>([], form);
   const {
     data: seasondata,
     isError: isErrorSeason,
@@ -27,22 +28,22 @@ function SaleAnalycisReport() {
   const StartDate = seasondata?.data?.Data?.Result?.[0]?.SeasonStartDate;
   const EndDate = seasondata?.data?.Data?.Result?.[0]?.SeasonEndDate;
 
-  const { data, isError, isLoading, isFetching, isSuccess, refetch } = useGetSaleAnalyticsReport(
+  const { data, isError, isLoading, isFetching, isSuccess, refetch } = useGetPurchaseAnalyticsReport(
     true,
     form.getFieldsValue(),
     StartDate,
     EndDate
   );
-  const {
-    data: saleInvoice,
-    isError: isErr,
-    isLoading: isloadin,
-    isFetching: isFetchin,
-    isSuccess: isSucces,
-    refetch: refetchSaleReprtAB,
-  } = useGetSaleInvoiceReportAB(true, form.getFieldsValue(), StartDate, EndDate);
+  const { data:purchaseInvoice, isError:isErr, isLoading:isloadin, isFetching:isFetchin, isSuccess:isSucces, refetch:ref } = useGetPurchaseInvoiceReport(
+    true,
+    form.getFieldsValue(),
+    StartDate,
+    EndDate
+  );
 
-  // console.log(saleInvoice?.data?.Data?.Result, 'purch');
+  console.log(purchaseInvoice?.data?.Data?.Result, 'purch');
+
+ 
 
   useEffect(() => {
     const currentDate = dayjs(new Date());
@@ -50,18 +51,22 @@ function SaleAnalycisReport() {
     const endOfMonth = currentDate.endOf('month');
     form.setFieldValue('FromDate', dayjs(startOfMonth));
     form.setFieldValue('ToDate', dayjs(endOfMonth));
+
+
   }, []);
 
-  const onFinish = (_: TSaleAnalyticsCriteria) => {
-    _.FromDate = dayjs(_.FromDate).startOf('month');
+
+
+  const onFinish = (_: TpuchaseAnalyticsCriteria) => {
+        _.FromDate = dayjs(_.FromDate).startOf('month');
     refetch();
-    setShowComponent(true);
+    setShowComponent(true)
   };
-  //   const onFinish = async (_: TSaleAnalyticsCriteria) => {
-  //     _.FromDate = dayjs(_.FromDate).startOf('month');
-  //     await refetch();
-  //     setShowComponent(true);
-  // };
+//   const onFinish = async (_: TpuchaseAnalyticsCriteria) => {
+//     _.FromDate = dayjs(_.FromDate).startOf('month');
+//     await refetch();
+//     setShowComponent(true);
+// };
 
   return (
     <div style={{ paddingTop: 5, background: '#fff' }}>
@@ -73,7 +78,8 @@ function SaleAnalycisReport() {
           <Row justify={'space-between'}>
             <Col xs={10} sm={8} md={7} lg={7} xl={5} xxl={5}>
               <h1 className="report_heading" style={{ textAlign: 'left', marginLeft: '-4px' }}>
-                {t('sales_analytics')}
+                {t('purchase_analytics_detail')}
+           
               </h1>
             </Col>
 
@@ -123,7 +129,7 @@ function SaleAnalycisReport() {
           </Form>
         </Col>
         <Col span={24} style={{ backgroundColor: '#fff' }}>
-          <SalesAnalytics form={form} data={data} saleInvoice={saleInvoice} />
+          <PurchaseAnalytic form={form} data={data} purchaseInvoice={purchaseInvoice} />
         </Col>
       </Row>
       {/* }
@@ -132,4 +138,4 @@ function SaleAnalycisReport() {
   );
 }
 
-export default SaleAnalycisReport;
+export default PurchaseAnalytics;
