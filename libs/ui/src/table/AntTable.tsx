@@ -174,7 +174,7 @@ export function AntTable({
         <Col xxl={20} lg={16} md={16} xl={18} style={{}}>
           <Row>
             <Col>{criteriaForm}</Col>
-            <Col xxl={criteriaForm? 21:24} xs={24} md={17} lg={24} xl={18}>
+            <Col xxl={criteriaForm ? 21 : 24} xs={24} md={17} lg={24} xl={18}>
               {ReportCriteriaString}
             </Col>
           </Row>

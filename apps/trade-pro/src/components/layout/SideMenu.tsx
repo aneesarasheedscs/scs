@@ -32,9 +32,10 @@ function SideMenu({ collapsed, setCollapsed }: any) {
   useEffect(() => {
     if (isSuccess) {
       const filteredReports = data?.data?.Data?.Result?.filter(
-        (item: any) => item.ModuleTypeId === 1 || item.ModuleTypeId === 4 || item.ModuleTypeId === 3
+        (item: any) =>
+          item.ModuleTypeId === 1 || item.ModuleTypeId === 4 || item.ModuleTypeId === 3 || item.ModuleID === 31
       );
-      setList(menuList(data?.data?.Data?.Result));
+      setList(menuList(filteredReports));
     }
   }, [data, isSuccess]);
   console.log(list);
